@@ -1,0 +1,35 @@
+@import "../../../../mixins.scss";
+
+.logo {
+  @include size(100.03px, 121.97px);
+}
+
+.main-link-group {
+  @include display-column();
+  width: 100%;
+  gap: 15px;
+}
+
+.link-cont {
+  @include box-padding($p: 8px 56px);
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    background-color: #091931;
+  }
+}
+
+.legal-link-group {
+  @include box-padding($p: 0 0 0 52px);
+  @include display-column();
+  width: 100%;
+  gap: 4px;
+}
+
+.legal-link {
+  padding: 8px;
+  color: #a8a8a8;
+}
