@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { MainLinkSource } from '../interfaces/main-link-source';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LinkService {
-  mainLinks = [
+  mainLinks: MainLinkSource[] = [
     {
       fileName: 'summary_icon',
       text: 'Summary',

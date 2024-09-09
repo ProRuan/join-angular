@@ -10,6 +10,18 @@
   align-items: $ai;
 }
 
+@mixin display-flex($jc: center, $ai: center) {
+  display: flex;
+  justify-content: $jc;
+  align-items: $ai;
+}
+
+@mixin display-horiz($g) {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 @mixin font($fs: 16px, $fw: 400, $lh: 19.2px) {
   font-size: 16px;
   font-weight: 400;

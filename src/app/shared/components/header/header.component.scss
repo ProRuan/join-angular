@@ -1,0 +1,24 @@
+@import "../../../../mixins.scss";
+
+.title {
+  @include font(20px, 400, 24px);
+  color: #000000;
+}
+
+.button-group {
+  @include display-horiz($g: 16px);
+}
+
+.help-btn {
+  @include size($w: 32px, $h: 32px);
+  border: unset;
+  padding: 0;
+  background-color: transparent;
+}
+
+.profile-btn {
+  @include size($w: 56px, $h: 56px);
+  background-color: transparent;
+  border: 3px solid #2a3647;
+  border-radius: 50%;
+}

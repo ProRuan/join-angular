@@ -11,3 +11,14 @@
   background-color: #2a3647;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
 }
+
+.content {
+  width: calc(100% - 232px);
+}
+
+.header {
+  @include box-padding($p: 20px 40px);
+  @include display-flex($jc: space-between);
+  background-color: #ffffff;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
