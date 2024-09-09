@@ -1,8 +1,10 @@
-<img class="logo" src="../../../../assets/img/menu/menu_logo.svg" alt="menu-logo">
+<div class="menu-logo-cont">
+    <img class="logo" src="../../../../assets/img/menu/menu_logo.svg" alt="menu-logo">
 
-<div class="main-link-group">
-    <app-main-link *ngFor="let link of mainLinks" [link]="setMainLink(link)" class="link-cont"></app-main-link>
-    <!-- Edit svg path color! -->
+    <div class="main-link-group">
+        <app-main-link *ngFor="let link of mainLinks" [link]="setMainLink(link)" class="link-cont"></app-main-link>
+        <!-- Edit svg path color! -->
+    </div>
 </div>
 
 <div class="legal-link-group">

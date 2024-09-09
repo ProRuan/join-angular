@@ -15,7 +15,7 @@ import { MainLinkSource } from '../../interfaces/main-link-source';
 export class MenuComponent {
   public linkData: LinkService = inject(LinkService);
 
-  mainLinks: any;
+  mainLinks: MainLinkSource[];
 
   constructor() {
     this.mainLinks = this.linkData.mainLinks;

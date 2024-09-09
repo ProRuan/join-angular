@@ -1,5 +1,10 @@
 @import "../../../../mixins.scss";
 
+.menu-logo-cont {
+  @include display-column($ai: center);
+  gap: 120px;
+}
+
 .logo {
   @include size(100.03px, 121.97px);
 }
@@ -14,14 +19,17 @@
   @include box-padding($p: 8px 56px);
   @include size(100%, 46px);
   @include display-horiz($g: 8px);
+  color: #cdcdcd;
+  cursor: pointer;
 
   &:hover {
+    color: #ffffff;
     background-color: #091931;
   }
 }
 
 .legal-link-group {
-  @include box-padding($p: 0 0 0 52px);
+  @include box-padding($p: 0 52px);
   @include display-column();
   width: 100%;
   gap: 4px;
@@ -30,4 +38,5 @@
 .legal-link {
   padding: 8px;
   color: #a8a8a8;
+  cursor: pointer;
 }

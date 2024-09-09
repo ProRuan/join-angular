@@ -18,7 +18,20 @@
 
 .profile-btn {
   @include size($w: 56px, $h: 56px);
+  @include display-flex();
+  padding: 0;
   background-color: transparent;
   border: 3px solid #2a3647;
   border-radius: 50%;
+}
+
+.initials-cont {
+  @include min-size($w: 40px, $h: 40px);
+  @include display-flex();
+  padding: 8px;
+}
+
+.initials {
+  @include font($fs: 20px, $fw: 700, $lh: 24px);
+  color: #29abe2;
 }

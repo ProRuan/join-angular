@@ -23,9 +23,14 @@
 }
 
 @mixin font($fs: 16px, $fw: 400, $lh: 19.2px) {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 19.2px;
+  font-size: $fs;
+  font-weight: $fw;
+  line-height: $lh;
+}
+
+@mixin min-size($w, $h) {
+  min-width: $w;
+  min-height: $h;
 }
 
 @mixin size($w, $h) {
