@@ -17,7 +17,7 @@ export class MainLinkComponent {
     return id.includes(' ') ? id.replace(' ', '-') : id;
   }
 
-  setActive() {
-    return this.link.active ? 'active' : '';
+  disable() {
+    return this.link.active ? true : false;
   }
 }

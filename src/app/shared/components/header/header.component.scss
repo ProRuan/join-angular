@@ -9,11 +9,8 @@
   @include display-horiz($g: 16px);
 }
 
-.help-btn {
+.help-link {
   @include size($w: 32px, $h: 32px);
-  padding: 0;
-  background-color: transparent;
-  border: unset;
 
   &:hover {
     img {

@@ -3,6 +3,9 @@ import { SummaryComponent } from './components/summary/summary.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { BoardComponent } from './components/board/board.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { LegalNoticeComponent } from './components/legal-notice/legal-notice.component';
+import { HelpComponent } from './components/help/help.component';
 
 export const routes: Routes = [
   { path: '', component: SummaryComponent },
@@ -10,5 +13,8 @@ export const routes: Routes = [
   { path: 'add-task', component: AddTaskComponent },
   { path: 'board', component: BoardComponent },
   { path: 'contacts', component: ContactsComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'legal-notice', component: LegalNoticeComponent },
+  { path: 'help', component: HelpComponent },
   { path: '**', redirectTo: '' },
 ];
