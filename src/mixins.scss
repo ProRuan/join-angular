@@ -19,13 +19,18 @@
 @mixin display-horiz($g) {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: $g;
 }
 
 @mixin font($fs: 16px, $fw: 400, $lh: 19.2px) {
   font-size: $fs;
   font-weight: $fw;
   line-height: $lh;
+}
+
+@mixin max-size($w, $h) {
+  max-width: $w;
+  max-height: $h;
 }
 
 @mixin min-size($w, $h) {
@@ -38,4 +43,5 @@
   height: $h;
 }
 
+// added mixin color + bgc!
 // review mixins!!!
