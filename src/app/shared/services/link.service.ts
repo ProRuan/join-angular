@@ -1,26 +1,46 @@
 import { Injectable } from '@angular/core';
-import { MainLinkSource } from '../interfaces/main-link-source';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LinkService {
-  mainLinks: MainLinkSource[] = [
+  mainLinks = [
     {
-      fileName: 'summary_icon',
+      path: './assets/img/menu/summary_icon.png',
+      alt: 'summary_icon',
       text: 'Summary',
+      active: true,
     },
     {
-      fileName: 'task_icon',
+      path: './assets/img/menu/task_icon.png',
+      alt: 'task_icon',
       text: 'Add task',
+      active: false,
     },
     {
-      fileName: 'board_icon',
+      path: './assets/img/menu/board_icon.png',
+      alt: 'board_icon',
       text: 'Board',
+      active: false,
     },
     {
-      fileName: 'contacts_icon',
+      path: './assets/img/menu/contacts_icon.png',
+      alt: 'contacts_icon',
       text: 'Contacts',
+      active: false,
     },
   ];
+
+  set(i: number) {
+    this.reset();
+    this.mainLinks[i].active = true;
+  }
+
+  reset() {
+    this.mainLinks.forEach((link) => {
+      link.active = false;
+    });
+  }
+
+  // Create only mainLinkService?!?
 }

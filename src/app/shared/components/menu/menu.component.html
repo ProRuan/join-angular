@@ -1,9 +1,9 @@
 <div class="menu-logo-cont">
-    <img class="logo" src="../../../../assets/img/menu/menu_logo.svg" alt="menu-logo">
+    <img class="logo" src="../../../../assets/img/menu/menu_logo.png" alt="menu-logo">
 
     <div class="main-link-group">
-        <app-main-link *ngFor="let link of mainLinks" [link]="setMainLink(link)" class="link-cont"></app-main-link>
-        <!-- Edit svg path color! -->
+        <app-main-link *ngFor="let link of this.mainLinks, index as i" [link]="link" class="main-link"
+            (click)="linkData.set(i)"></app-main-link>
     </div>
 </div>
 

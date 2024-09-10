@@ -11,9 +11,15 @@
 
 .help-btn {
   @include size($w: 32px, $h: 32px);
-  border: unset;
   padding: 0;
   background-color: transparent;
+  border: unset;
+
+  &:hover {
+    img {
+      transform: scale(1.2);
+    }
+  }
 }
 
 .profile-btn {
@@ -23,6 +29,10 @@
   background-color: transparent;
   border: 3px solid #2a3647;
   border-radius: 50%;
+
+  &:hover {
+    background-color: rgba(#0c2e62, 0.12);
+  }
 }
 
 .initials-cont {

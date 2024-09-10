@@ -2,6 +2,7 @@
 
 .menu-logo-cont {
   @include display-column($ai: center);
+  width: 100%;
   gap: 120px;
 }
 
@@ -15,17 +16,8 @@
   gap: 15px;
 }
 
-.link-cont {
-  @include box-padding($p: 8px 56px);
-  @include size(100%, 46px);
-  @include display-horiz($g: 8px);
-  color: #cdcdcd;
-  cursor: pointer;
-
-  &:hover {
-    color: #ffffff;
-    background-color: #091931;
-  }
+.main-link {
+  width: 100%;
 }
 
 .legal-link-group {
@@ -39,4 +31,9 @@
   padding: 8px;
   color: #a8a8a8;
   cursor: pointer;
+
+  &:hover {
+    font-weight: 700;
+    color: #29abe2;
+  }
 }

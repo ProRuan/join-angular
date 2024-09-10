@@ -1,0 +1,33 @@
+@import "../../../../../mixins.scss";
+
+.link {
+  @include box-padding($p: 8px 56px);
+  @include size(100%, 46px);
+  @include display-horiz($g: 8px);
+  color: #ffffff;
+  cursor: pointer;
+
+  img,
+  span {
+    filter: brightness(0.8);
+  }
+
+  &:hover {
+    background-color: #2a3d59;
+  }
+}
+
+.active {
+  color: #ffffff;
+  background-color: #091931;
+
+  img,
+  span {
+    filter: brightness(1);
+  }
+
+  &:hover {
+    color: #ffffff;
+    background-color: #091931;
+  }
+}
