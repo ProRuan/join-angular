@@ -1,7 +1,14 @@
 import { Routes } from '@angular/router';
-import { ContentComponent } from './components/content/content.component';
+import { SummaryComponent } from './components/summary/summary.component';
+import { AddTaskComponent } from './components/add-task/add-task.component';
+import { BoardComponent } from './components/board/board.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 
 export const routes: Routes = [
-  { path: '', component: ContentComponent },
+  { path: '', component: SummaryComponent },
+  { path: 'summary', component: SummaryComponent },
+  { path: 'add-task', component: AddTaskComponent },
+  { path: 'board', component: BoardComponent },
+  { path: 'contacts', component: ContactsComponent },
   { path: '**', redirectTo: '' },
 ];

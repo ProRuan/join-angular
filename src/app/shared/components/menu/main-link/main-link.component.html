@@ -1,4 +1,4 @@
-<a [ngClass]="setActive()" class="link">
+<a [routerLink]="getId()" [ngClass]="setActive()" class="link">
     <img [src]="link.path" [alt]="link.alt">
     <span [innerHTML]="link.text"></span>
 </a>
