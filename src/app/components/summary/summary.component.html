@@ -10,32 +10,8 @@
     <div class="content">
         <div class="overview">
             <div class="task-cont">
-
-                <!-- create task-card-component -->
-                <div class="task-card-frame">
-                    <div class="task-card">
-                        <div class="task-icon-cont">
-                            <img class="task-icon" src="../../../assets/img/summary/to_do.png" alt="to_do">
-                        </div>
-                        <div class="task-counter-cont">
-                            <span class="task-counter">1</span>
-                            <span class="task-category">To-do</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="task-card-frame">
-                    <div class="task-card">
-                        <div class="task-icon-cont">
-                            <img class="task-icon" src="../../../assets/img/summary/to_do.png" alt="to_do">
-                        </div>
-                        <div class="task-counter-cont">
-                            <span class="task-counter">1</span>
-                            <span class="task-category">To-do</span>
-                        </div>
-                    </div>
-                </div>
-
+                <app-summary-task *ngFor="let task of summaryTasks" [summaryTask]="task"
+                    class="summary-task"></app-summary-task>
             </div>
             <div>2</div>
             <div class="task-cont">

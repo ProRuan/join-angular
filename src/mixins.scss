@@ -3,6 +3,11 @@
   padding: $p;
 }
 
+@mixin color-set($c, $bgc) {
+  color: $c;
+  background-color: $bgc;
+}
+
 @mixin display-column($jc: flex-start, $ai: flex-start) {
   display: flex;
   flex-direction: column;
@@ -43,5 +48,4 @@
   height: $h;
 }
 
-// added mixin color + bgc!
 // review mixins!!!

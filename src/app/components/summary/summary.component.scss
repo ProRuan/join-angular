@@ -35,59 +35,8 @@
   justify-content: center;
 }
 
-.task-card-frame {
+.summary-task {
   @include max-size($w: 264px, $h: 168px);
   @include display-flex();
   cursor: pointer;
-}
-
-.task-card {
-  @include box-padding($p: 38px 19px);
-  @include min-size($w: 264px, $h: 168px);
-  @include display-horiz($g: 18px);
-  color: #2a3647;
-  background-color: #ffffff;
-  border-radius: 30px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  transition: all 80ms ease-in-out;
-
-  // to edit + add mixin color + bgc
-  &:hover {
-    @include min-size($w: 284.5px, $h: 184px);
-    color: #ffffff;
-    background-color: #2a3647;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-
-    .task-icon {
-      content: url("../../../assets/img/summary/to_do_hover.png");
-    }
-
-    .task-counter {
-      color: #ffffff;
-    }
-  }
-}
-
-.task-icon-cont {
-  @include size($w: 69px, $h: 69px);
-}
-
-.task-icon {
-  @include size($w: 69px, $h: 69px);
-  object-fit: contain;
-}
-
-.task-counter-cont {
-  @include display-column($ai: center);
-}
-
-.task-counter {
-  @include font($fs: 64px, $fw: 600, $lh: 76.8px);
-  text-align: center;
-  color: #000000;
-}
-
-.task-category {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
 }

@@ -3,9 +3,8 @@
 .link-btn {
   @include box-padding($p: 8px 56px);
   @include size(100%, 46px);
+  @include color-set($c: #ffffff, $bgc: transparent);
   @include display-horiz($g: 8px);
-  color: #ffffff;
-  background-color: transparent;
   border: unset;
 
   img,
