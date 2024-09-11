@@ -1,9 +1,9 @@
-<div class="card" (mouseenter)="summaryTask.targeted = true" (mouseleave)="summaryTask.targeted = false">
+<div class="card" (mouseenter)="set(true)" (mouseleave)="set(false)" (mousedown)="set(false)" (mouseup)="set(true)">
     <div class="icon-frame">
-        <img class="icon" [src]="getPath()" [alt]="summaryTask.alt">
+        <img class="icon" [src]="currentPath" [alt]="task.alt">
     </div>
     <div class="task-info">
-        <span class="counter">{{ summaryTask.amount }}</span>
-        <span class="category">{{ summaryTask.category }}</span>
+        <span class="counter">{{ task.amount }}</span>
+        <span class="category">{{ task.category }}</span>
     </div>
 </div>

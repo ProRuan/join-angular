@@ -9,15 +9,14 @@
 
     <div class="content">
         <div class="overview">
-            <div class="task-cont">
-                <app-summary-task *ngFor="let task of summaryTasks" [summaryTask]="task"
+            <div class="task-row">
+                <app-summary-task *ngFor="let task of summaryTasks" [task]="task"
                     class="summary-task"></app-summary-task>
             </div>
             <div>2</div>
-            <div class="task-cont">
-                <div>3A</div>
-                <div>3B</div>
-                <div>3C</div>
+            <div class="task-row">
+                <app-summary-task-info *ngFor="let task of summaryTaskInfo" [task]="task"
+                    class="summary-task-info"></app-summary-task-info>
             </div>
         </div>
         <div class="greeting">right cont</div>

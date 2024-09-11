@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { SummaryTaskComponent } from './summary-task/summary-task.component';
 import { CommonModule } from '@angular/common';
+import { SummaryTaskComponent } from './summary-task/summary-task.component';
+import { SummaryTaskInfoComponent } from './summary-task-info/summary-task-info.component';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [SummaryTaskComponent, CommonModule],
+  imports: [CommonModule, SummaryTaskComponent, SummaryTaskInfoComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })
@@ -17,7 +18,6 @@ export class SummaryComponent {
       alt: 'to_do',
       amount: 1,
       category: 'To-do',
-      targeted: false,
     },
     {
       defaultPath: './assets/img/summary/done.png',
@@ -25,7 +25,21 @@ export class SummaryComponent {
       alt: 'done',
       amount: 1,
       category: 'Done',
-      targeted: false,
+    },
+  ];
+
+  summaryTaskInfo = [
+    {
+      amount: 5,
+      category: 'Tasks In Board',
+    },
+    {
+      amount: 2,
+      category: 'Tasks In Progress',
+    },
+    {
+      amount: 2,
+      category: 'Awaiting Feedback',
     },
   ];
 }

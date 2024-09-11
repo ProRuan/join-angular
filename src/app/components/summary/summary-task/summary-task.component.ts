@@ -8,17 +8,16 @@ import { Component, Input } from '@angular/core';
   styleUrl: './summary-task.component.scss',
 })
 export class SummaryTaskComponent {
-  @Input() summaryTask = {
+  @Input() task = {
     defaultPath: './assets/img/summary/to_do.png',
     hoverPath: './assets/img/summary/to_do_hover.png',
     alt: 'to_do',
     amount: 1,
     category: 'To-do',
-    targeted: false,
   };
+  currentPath: String = this.task.defaultPath;
 
-  getPath() {
-    let task = this.summaryTask;
-    return task.targeted ? task.hoverPath : task.defaultPath;
+  set(logical: boolean) {
+    this.currentPath = logical ? this.task.hoverPath : this.task.defaultPath;
   }
 }

@@ -27,16 +27,24 @@
 .overview {
   @include display-column();
   width: 560px;
-  gap: 32px;
+  gap: 28px;
 }
 
-.task-cont {
-  @include display-horiz($g: 32px);
-  justify-content: center;
+.task-row {
+  @include display-flex($jc: space-between);
+  width: 100%;
 }
 
+// mixin?
 .summary-task {
   @include max-size($w: 264px, $h: 168px);
+  @include display-flex();
+  cursor: pointer;
+}
+
+// mixin?
+.summary-task-info {
+  @include max-size($w: 168px, $h: 168px);
   @include display-flex();
   cursor: pointer;
 }
