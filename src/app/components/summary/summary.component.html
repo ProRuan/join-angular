@@ -2,7 +2,7 @@
     <div class="title-cont">
         <h2 class="headline-2">Join 360</h2>
         <div class="vector-cont">
-            <img class="vector" src="../../../assets/img/summary/title_vector.png" alt="vector">
+            <img class="vector" src="../../../assets/img/summary/title_vector.png" alt="title_vector">
         </div>
         <span class="subheadline-2">Key Metrics at a Glance</span>
     </div>
@@ -13,12 +13,34 @@
                 <app-summary-task *ngFor="let task of summaryTasks" [task]="task"
                     class="summary-task"></app-summary-task>
             </div>
-            <div>2</div>
+            <div class="urgent-task">
+                <div class="card">
+                    <div class="urgent-task-cont">
+                        <div class="icon-frame">
+                            <img class="icon" src="../../../assets/img/summary/urgent.png" alt="urgent">
+                        </div>
+                        <div class="task-info">
+                            <span class="counter">1</span>
+                            <span class="category">Urgent</span>
+                        </div>
+                    </div>
+                    <div class="urgent-vector-cont">
+                        <img class="urgent-vector" src="../../../assets/img/summary/task_vector.png" alt="task_vector">
+                    </div>
+                    <div class="date-deadline-cont">
+                        <span class="date">October 16, 2022</span>
+                        <span class="deadline">Upcomoing Deadline</span>
+                    </div>
+                </div>
+            </div>
             <div class="task-row">
                 <app-summary-task-info *ngFor="let task of summaryTaskInfo" [task]="task"
                     class="summary-task-info"></app-summary-task-info>
             </div>
         </div>
-        <div class="greeting">right cont</div>
+        <div class="greeting-cont">
+            <span class="greeting">Good morning,</span>
+            <span class="user">Sofia Müller</span>
+        </div>
     </div>
 </section>
