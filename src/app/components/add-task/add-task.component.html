@@ -1,1 +1,56 @@
-<p>add-task works!</p>
+<section class="add-task">
+    <h2 class="headline-2">Add Task</h2>
+
+    <div class="content">
+        <div class="left-subcontent">
+            <div class="label-input-cont">
+                <label class="label" for="title">
+                    <span>Title</span>
+                    <span class="star">*</span>
+                </label>
+                <div class="input-hint-cont">
+                    <input class="input" type="text" placeholder="Enter a title">
+                    <span class="hint">
+                        This field is required.
+                    </span>
+                </div>
+            </div>
+
+            <div class="label-input-cont">
+                <label class="label" for="description">
+                    <span>Description</span>
+                    <!-- <span class="star">*</span> -->
+                </label>
+                <div class="input-hint-cont">
+                    <textarea class="textarea" name="description" placeholder="Enter a description"></textarea>
+                    <div class="resizer-frame">
+                        <img class="resizer" src="../../../assets/img/add-task/resizer.png" alt="resizer">
+                    </div>
+                    <span class="hint">
+                        This field is required.
+                    </span>
+                </div>
+            </div>
+
+            <div class="label-input-cont">
+                <label class="label" for="assigned-to">
+                    <span>Assigned to</span>
+                    <!-- <span class="star">*</span> -->
+                </label>
+                <div class="input-hint-cont">
+                    <input class="selection" type="text" placeholder="Select contacts to assign">
+                    <!-- <div class="drop-down-arrow"></div> -->
+                    <img class="drop-down-arrow" src="../../../assets/img/add-task/drop_down_arrow_down.png"
+                        alt="drop_down_arrow">
+                    <span class="hint">
+                        This field is required.
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-subcontent">
+            right content
+        </div>
+    </div>
+</section>

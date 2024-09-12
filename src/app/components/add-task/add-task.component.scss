@@ -1,0 +1,142 @@
+@import "../../../mixins.scss";
+
+// mixin with summary?
+.add-task {
+  @include box-padding($p: 110px 96px);
+  @include size($w: 100%, $h: calc(100vh - 96px));
+  @include display-column();
+  gap: 28px;
+  //   overflow-y: scroll;
+}
+
+.left-subcontent {
+  @include display-column();
+  gap: 16px;
+}
+
+.label-input-cont {
+  @include display-column();
+  width: 440px;
+  gap: 8px;
+}
+
+.label {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+}
+
+.star {
+  color: #ff8190;
+}
+
+.input-hint-cont {
+  @include display-column();
+  width: 100%;
+  gap: 4px;
+  position: relative;
+}
+
+.input {
+  @include box-padding($p: 11px 21px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include display-horiz($g: 10px);
+  width: 100%;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  outline: none;
+
+  &:focus {
+    border: 1px solid #29abe2;
+  }
+
+  &::placeholder {
+    color: #d1d1d1;
+  }
+}
+
+.error {
+  border: 1px solid #ff8190;
+}
+
+.hint {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  color: #ff8190;
+  opacity: 0;
+}
+
+.textarea {
+  @include box-padding($p: 17px 16px);
+  @include size($w: 100%, $h: 120px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include display-horiz($g: 10px);
+
+  // mixins???
+  min-width: 440px;
+  max-width: 440px;
+  min-height: 60px;
+  max-height: 300px; // set value
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  outline: none;
+
+  &:focus {
+    border: 1px solid #29abe2;
+  }
+
+  &::placeholder {
+    color: #d1d1d1;
+  }
+
+  &::-webkit-resizer {
+    opacity: 0;
+  }
+}
+
+.resizer-frame {
+  @include size($w: 18.9px, $h: 18.9px);
+  position: absolute;
+  right: 5px;
+  bottom: 23.4px;
+}
+
+.resizer {
+  object-fit: contain;
+}
+
+.selection {
+  @include box-padding($p: 11px 16px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include display-horiz($g: 10px);
+  width: 100%;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  outline: none;
+
+  &:focus {
+    border: 1px solid #29abe2;
+  }
+
+  &::placeholder {
+    color: #000000;
+  }
+}
+
+// .drop-down-arrow {
+//   @include size(24px, 24px);
+//   background-image: url("../../../assets/img/add-task/drop_down_arrow_down.png");
+//   position: absolute;
+//   right: 16px;
+//   top: 12px;
+// }
+
+.drop-down-arrow {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+}

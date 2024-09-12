@@ -4,7 +4,7 @@
   @include box-padding($p: 110px 96px);
   @include size($w: 100%, $h: calc(100vh - 96px));
   @include display-column();
-  gap: 56px;
+  gap: 36px;
   overflow-y: scroll;
 }
 
