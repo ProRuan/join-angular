@@ -9,6 +9,11 @@
   //   overflow-y: scroll;
 }
 
+.content {
+  display: flex;
+  gap: 48.25px;
+}
+
 .left-subcontent {
   @include display-column();
   gap: 16px;
@@ -116,7 +121,12 @@
   background-color: #ffffff;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
+  z-index: 1;
   outline: none;
+
+  &:hover {
+    border: 1px solid #a8a8a8;
+  }
 
   &:focus {
     border: 1px solid #29abe2;
@@ -139,4 +149,95 @@
   position: absolute;
   right: 16px;
   top: 12px;
+}
+
+.assignable-contacts-list {
+  @include display-column();
+  padding-top: 48px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+  gap: 2px;
+  position: absolute;
+}
+
+.assignable-contact {
+  @include box-padding($p: 7px 16px);
+  @include display-flex($jc: space-between);
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+
+    // selected!!!
+    // background-color: #2a3647;
+
+    // .name {
+    //   color: #ffffff;
+    // }
+  }
+}
+
+.profile-name-cont {
+  @include display-horiz($g: 16px);
+}
+
+.profile {
+  @include size($w: 42px, $h: 42px);
+  @include display-flex();
+  background-color: #29abe2;
+  box-sizing: border-box;
+  text-align: center;
+  border: 2px solid #ffffff;
+  border-radius: 45px;
+}
+
+.initials {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  color: #ffffff;
+}
+
+.name {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: #000000;
+}
+
+.assigned-contacts {
+  display: flex;
+  gap: 8px;
+}
+
+// global style?
+.vector-frame {
+  @include size($w: 1px, $h: 424px);
+}
+
+// global style?
+.vector {
+  @include size($w: 100%, $h: 100%);
+  // object-fit: contain;
+}
+
+.prio-button-group {
+  @include display-horiz($g: 16px);
+  width: 100%;
+}
+
+.prio-button {
+  @include box-padding($p: 16px 10px);
+  @include display-flex();
+  gap: 8px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  flex: 1;
+
+  span {
+    @include font($fs: 20px, $fw: 400, $lh: 24px);
+    color: #000000;
+  }
 }
