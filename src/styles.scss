@@ -2,7 +2,7 @@
 
 body {
   @include font();
-  @include color-set($c: #ffffff, $bgc: #f0f0f0);
+  @include color-set($c: #ffffff, $bgc: #f6f7f8);
   margin: 0;
   font-family: "Inter", Arial, Helvetica, sans-serif;
 }
@@ -16,7 +16,8 @@ button {
 }
 
 app-summary,
-app-add-task {
+app-add-task,
+app-board {
   width: 100%;
 }
 
@@ -57,3 +58,4 @@ app-add-task {
 }
 
 // add font-families!!!
+// inter, poppins, open sans
