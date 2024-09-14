@@ -45,13 +45,13 @@
 
 .input-cont {
   @include display-column();
-  gap: 20px;
+  gap: 16px;
 }
 
 .input-remember-cont {
   // height: 152px;    // necessary?
   @include display-column();
-  gap: 32px;
+  gap: 24px;
 }
 
 .input-hint-cont {
@@ -73,6 +73,7 @@
   background-color: #ffffff;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
+  outline: none;
   // gap: 10px;
 }
 
@@ -87,31 +88,36 @@
   height: 12px;
 }
 
-.remember-me-cont {
+.privacy-policy-cont {
   @include box-padding($p: 0 39px);
   @include display-horiz($g: 8px);
   width: 100%;
+
+  span {
+    color: #ababab;
+  }
+
+  a {
+    text-decoration: none;
+    color: #29abe2;
+  }
 }
 
-.remember-me-text {
+.privacy-policy-text {
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
 }
 
-.button-cont {
-  @include display-horiz($g: 35px);
-}
-
 // mixin?
-.log-in-btn {
-  @include box-padding($p: 12px 24px);
+.sign-up-btn {
+  @include box-padding($p: 15px 24px);
   background-color: #2a3647;
   border: none;
   // border: 1px solid #2a3647;
-  border-radius: 10px;
+  border-radius: 8px;
 
   div {
     @include font($fs: 21px, $fw: 700, $lh: 25.2px);
-    height: 24px;
+    height: 25px;
     font-family: "Inter", Arial, Helvetica, sans-serif;
     color: #ffffff;
   }
@@ -123,48 +129,5 @@
 
   &:active {
     background: #091931;
-  }
-}
-
-// add hover + active!!!
-// mixin?
-.guest-log-in-btn {
-  @include box-padding($p: 11px 24px);
-  background-color: transparent;
-  border: 1px solid #2a3647;
-  border-radius: 10px;
-
-  div {
-    @include font($fs: 20px, $fw: 700, $lh: 24px);
-    height: 24px;
-    font-family: "Inter", Arial, Helvetica, sans-serif;
-    color: #2a3647;
-  }
-
-  &:hover {
-    // set 2px !?!
-    border: 1px solid #29abe2;
-    // border: 2px solid #29abe2;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-
-    div {
-      color: #29abe2;
-    }
-
-    img {
-      content: url("../../../assets/img/add-task/cancel_button_hover.png");
-    }
-  }
-
-  &:active {
-    border: 1px solid #091931;
-
-    div {
-      color: #091931;
-    }
-
-    img {
-      content: url("../../../assets/img/add-task/cancel_button_active.png");
-    }
   }
 }
