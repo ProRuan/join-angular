@@ -199,6 +199,7 @@
 
 .initials {
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  text-align: center;
   color: #ffffff;
 }
 

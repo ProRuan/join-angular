@@ -1,0 +1,256 @@
+@import "../../../mixins.scss";
+
+.contacts {
+  display: flex;
+}
+
+.contact-list {
+  @include box-padding($p: 0 28px);
+  @include size($w: 456px, $h: calc(100vh - 96px));
+  background-color: #ffffff;
+  box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
+  overflow-y: scroll;
+}
+
+.list-head {
+  @include box-padding($p: 22.5px 0 10px 24px);
+  @include display-flex();
+  width: 100%;
+}
+
+// mixin?
+.add-new-contact-btn {
+  @include display-horiz($g: 16px);
+  padding: 12px 0;
+  width: 352px;
+  background-color: #2a3647;
+  border: none;
+  // border: 1px solid #2a3647;
+  border-radius: 10px;
+  justify-content: center;
+
+  span {
+    @include font($fs: 21px, $fw: 700, $lh: 25.2px);
+    height: 24px;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    color: #ffffff;
+  }
+
+  img {
+    @include size($w: 32px, $h: 32px);
+  }
+
+  &:hover {
+    background-color: #29abe2;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    background: #091931;
+  }
+}
+
+.contact-collector {
+  padding: 0 0 0 24px;
+}
+
+.register-letter {
+  margin-bottom: 8px;
+  padding: 17px 36px 25px 36px;
+  box-shadow: 0 1px 0 0 #d1d1d1;
+}
+
+.letter {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: #000000;
+}
+
+.contact {
+  @include box-padding($p: 15px 24px);
+  @include display-horiz($g: 35px);
+  width: 100%;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 10px;
+
+  &:hover {
+    background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+  }
+
+  &:disabled {
+    background-color: #2a3647;
+
+    .contact-name {
+      color: #ffffff;
+    }
+  }
+}
+
+// mixin?
+.profile {
+  @include size($w: 42px, $h: 42px);
+  @include display-flex();
+  // padding-top?
+  background-color: #29abe2;
+  box-sizing: border-box;
+  text-align: center;
+  border: 2px solid #ffffff;
+  border-radius: 45px;
+}
+
+.initials {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  text-align: center;
+  color: #ffffff;
+}
+
+.contact-details {
+  @include display-column();
+  width: calc(100% - 77px);
+  gap: 5px;
+}
+
+.contact-name {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: #000000;
+}
+
+.contact-email {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  height: 19px;
+  color: #007cee;
+}
+
+.contact-viewer {
+  @include box-padding($p: 110px 55px);
+  @include display-column();
+  height: calc(100vh - 96px);
+  flex: 1;
+  gap: 32px;
+}
+
+.title-cont {
+  @include display-horiz($g: 30px);
+}
+
+.vector-cont {
+  @include size($w: 3px, $h: 59px);
+}
+
+.vector {
+  object-fit: contain;
+}
+
+.contact-card {
+  @include display-column();
+  gap: 21px;
+}
+
+.displayed-contact {
+  @include display-horiz($g: 54px);
+}
+
+// mixin?
+.displayed-profile {
+  @include size($w: 120px, $h: 120px);
+  @include display-flex();
+  // padding-top?
+  background-color: #29abe2;
+  box-sizing: border-box;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 3px solid #ffffff;
+  border-radius: 70px;
+}
+
+.displayed-initials {
+  @include font($fs: 47px, $fw: 500, $lh: 56.4px);
+  text-align: center;
+  color: #ffffff;
+}
+
+.name-button-group {
+  @include display-column();
+  gap: 8px;
+}
+
+.displayed-name {
+  @include font($fs: 47px, $fw: 500, $lh: 56.4px);
+  color: #000000;
+}
+
+.settings-button-group {
+  @include display-horiz($g: 16px);
+}
+
+.settings-btn {
+  @include display-horiz($g: 8px);
+  padding: 0;
+  min-width: 63px;
+  background-color: transparent;
+  border: none;
+
+  img {
+    @include size($w: 24px, $h: 24px);
+  }
+
+  span {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    color: #2a3647;
+  }
+
+  &:hover {
+    span {
+      font-weight: 700;
+      color: #29abe2;
+    }
+
+    .edit {
+      content: url("../../../assets/img/contacts/edit_blue.png");
+    }
+
+    .delete {
+      content: url("../../../assets/img/contacts/delete_blue.png");
+    }
+  }
+}
+
+.contact-info {
+  @include size($w: 207px, $h: 74px);
+  @include display-flex($jc: flex-start);
+
+  span {
+    @include font($fs: 20px, $fw: 400, $lh: 24px);
+    color: #000000;
+  }
+}
+
+.email-phone-cont {
+  @include display-column();
+  gap: 22px;
+}
+
+.contact-detail-cont {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  @include display-column();
+  gap: 15px;
+}
+
+.fw-700 {
+  font-weight: 700 !important;
+}
+
+.email-text {
+  color: #007cee;
+}
+
+.phone-text {
+  color: #000000;
+}
+
+::-webkit-scrollbar {
+  width: 24px;
+}
+
+// mixins.scss
+// advanced-mixins.scss
