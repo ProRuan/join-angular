@@ -6,23 +6,6 @@
   position: relative;
 }
 
-.logo-cont {
-  @include size($w: 100.03px, $h: 121.97px);
-  padding: 80px 77px;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.logo {
-  @include size($w: 100%, $h: 100%);
-  object-fit: cover;
-}
-
-// .large {
-//   @include size($w: 274px, $h: 334.07px);
-// }
-
 .sign-up-cont {
   @include display-horiz($g: 35px);
   position: absolute;
@@ -207,34 +190,4 @@
       content: url("../../../assets/img/add-task/cancel_button_active.png");
     }
   }
-}
-
-.legal-link-group {
-  @include box-padding($p: 40px 77px 40px 77px);
-  @include display-horiz($g: 16px);
-  width: 100%;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-
-.legal-link {
-  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-  padding: 8px;
-  text-decoration: none;
-  color: #ababab;
-
-  &:hover {
-    font-weight: 700;
-    color: #29abe2;
-  }
-}
-
-.w-123 {
-  width: 123px;
-}
-
-.w-111 {
-  width: 111px;
 }

@@ -1,0 +1,17 @@
+@import "../../../../mixins.scss";
+
+.logo-cont {
+  @include size($w: 100.03px, $h: 121.97px);
+  position: absolute;
+  left: 77px;
+  top: 80px;
+}
+
+.logo {
+  @include size($w: 100%, $h: 100%);
+  object-fit: cover;
+}
+
+// .large {
+//   @include size($w: 274px, $h: 334.07px);
+// }
