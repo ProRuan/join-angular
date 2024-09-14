@@ -1,0 +1,84 @@
+@import "../../../../mixins.scss";
+
+.add-contact {
+  // necessary?
+  //   @include size($w: 1212px, $h: 592px);
+  background-color: #ffffff;
+  border-radius: 30px;
+  display: flex;
+}
+
+.left-cont {
+  @include box-padding($p: 66px 48px);
+  @include display-column();
+  width: fit-content;
+  height: 594px;
+  background-color: #2a3647;
+  border-radius: 30px 0 0 30px;
+  gap: 12px;
+
+  h2,
+  span {
+    color: #ffffff;
+  }
+}
+
+.logo {
+  @include size($w: 55.6px, $h: 66.48px);
+  margin-top: 100px;
+}
+
+.title-border-cont {
+  @include display-column();
+  gap: 13px;
+}
+
+.title-subtitle-cont {
+  @include display-column();
+  gap: 8px;
+}
+
+.subtitle {
+  @include font($fs: 27px, $fw: 400, $lh: 32.4px);
+}
+
+.underline {
+  @include size($w: 90px, $h: 0);
+  border-bottom: 3px solid #29abe2;
+}
+
+.right-cont {
+  @include box-padding($p: 48px 48px 48px 84px);
+  @include display-flex($ai: center);
+  border-radius: 0 30px 30px 0;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 48px;
+  right: 48px;
+}
+
+.profile-form-cont {
+  @include display-horiz($g: 72px);
+}
+
+// mixin?
+.displayed-profile {
+  @include size($w: 120px, $h: 120px);
+  @include display-flex();
+  // padding-top?
+  background-color: #d1d1d1;
+  box-sizing: border-box;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 3px solid #ffffff;
+  border-radius: 70px;
+}
+
+.displayed-initials {
+  @include font($fs: 47px, $fw: 500, $lh: 56.4px);
+  text-align: center;
+  color: #ffffff;
+}
