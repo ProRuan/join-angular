@@ -1,0 +1,30 @@
+@import "../../../mixins.scss";
+
+.user-interface {
+  display: flex;
+}
+
+.menu {
+  @include box-padding($p: 64px 0);
+  @include size(232px, 100vh);
+  @include display-column(space-between, center);
+  background-color: #2a3647;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  width: calc(100% - 232px);
+}
+
+.header {
+  @include box-padding($p: 20px 40px 20px 96px);
+  @include display-flex($jc: space-between);
+  background-color: #ffffff;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.main {
+  height: calc(100vh - 96px);
+  color: #2a3647;
+  display: flex;
+}
