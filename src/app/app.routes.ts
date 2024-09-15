@@ -8,11 +8,10 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { LegalNoticeComponent } from './components/legal-notice/legal-notice.component';
 import { HelpComponent } from './components/help/help.component';
-import { AddContactComponent } from './components/contacts/add-contact/add-contact.component';
 
 export const routes: Routes = [
   // change to LoginComponent!!!
-  { path: '', component: AddContactComponent },
+  { path: '', component: BoardComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'add-task', component: AddTaskComponent },
