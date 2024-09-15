@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "join-angular-708af"
+  },
+  "targets": {
+    "join-angular-708af": {
+      "hosting": {
+        "join": [
+          "join-angular-708af"
+        ]
+      }
+    }
+  }
+}
