@@ -11,7 +11,7 @@ import { HelpComponent } from './components/help/help.component';
 
 export const routes: Routes = [
   // change to LoginComponent!!!
-  { path: '', component: BoardComponent },
+  { path: '', component: SummaryComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'summary', component: SummaryComponent },
   { path: 'add-task', component: AddTaskComponent },
