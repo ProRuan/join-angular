@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
+import { JoinService } from './shared/services/join.service';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,6 @@ import { MenuComponent } from './shared/components/menu/menu.component';
 })
 export class AppComponent {
   title = 'join';
+
+  join: JoinService = inject(JoinService);
 }
