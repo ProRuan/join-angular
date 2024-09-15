@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { AddTaskComponent } from './add-task/add-task.component';
+import { EditTaskComponent } from './edit-task/edit-task.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [AddTaskComponent],
+  imports: [EditTaskComponent],
   templateUrl: './board.component.html',
-  styleUrl: './board.component.scss'
+  styleUrl: './board.component.scss',
 })
-export class BoardComponent {
-
-}
+export class BoardComponent {}

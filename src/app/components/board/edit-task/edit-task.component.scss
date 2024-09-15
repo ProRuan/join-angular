@@ -1,0 +1,167 @@
+@import "../../../../mixins.scss";
+
+.edit-task {
+  @include box-padding($p: 48px 40px);
+  @include display-column();
+  width: 525px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
+  gap: 24px;
+}
+
+.category-button-cont {
+  @include display-flex($jc: space-between);
+  width: 100%;
+}
+
+.category {
+  padding: 4px 24px;
+  background-color: #0038ff;
+  border-radius: 8px;
+}
+
+.category-text {
+  @include font($fs: 23px, $fw: 400, $lh: 27.6px);
+  color: #ffffff;
+}
+
+.close-btn {
+  @include size($w: 32px, $h: 32px);
+}
+
+.description {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  width: 100%;
+  color: #000000;
+}
+
+.due-date-cont {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include display-horiz($g: 25px);
+  width: 100%;
+}
+
+.due-date-head {
+  color: #2a3647;
+}
+
+.due-date-data {
+  color: #000000;
+}
+
+.prio-img-cont {
+  @include display-horiz($g: 10px);
+  padding: 4px 18px;
+  border-radius: 10px;
+}
+
+.assigned-to-cont {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include display-column();
+  width: 100%;
+  gap: 8px;
+}
+
+.assigned-contact-group {
+  @include display-column();
+  width: 100%;
+  gap: 4px;
+}
+
+.assinged-contact-cont {
+  @include box-padding($p: 7px 16px);
+  @include display-horiz($g: 16px);
+  width: 100%;
+  border-radius: 10px;
+}
+
+// mixin?
+.profile {
+  @include size($w: 42px, $h: 42px);
+  @include display-flex();
+  // padding-top?
+  background-color: #29abe2;
+  box-sizing: border-box;
+  text-align: center;
+  border: 2px solid #ffffff;
+  border-radius: 45px;
+}
+
+.initials {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  text-align: center;
+  color: #ffffff;
+}
+
+.contact-name {
+  @include font($fs: 19px, $fw: 400, $lh: 22.8px);
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  color: #000000;
+}
+
+// double code?!
+.subtask-cont {
+  @include display-column();
+  width: 100%;
+  gap: 8px;
+}
+
+.subtasks-text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: #2a3647;
+}
+
+.subtask-group {
+  @include display-column();
+  gap: 4px;
+}
+
+.subtask-line {
+  @include box-padding($p: 6px 16px);
+  @include display-horiz($g: 16px);
+  height: 32px;
+}
+
+.subtask-line-text {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  color: #2a3647;
+}
+
+.settings-button-group {
+  @include display-flex($jc: flex-end);
+  width: 100%;
+  gap: 8px;
+}
+
+.settings-btn {
+  @include display-horiz($g: 8px);
+  padding: 0;
+  min-width: 63px;
+  background-color: transparent;
+  border: none;
+
+  img {
+    @include size($w: 24px, $h: 24px);
+  }
+
+  span {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    color: #2a3647;
+  }
+
+  &:hover {
+    span {
+      font-weight: 700;
+      color: #29abe2;
+    }
+
+    .edit {
+      content: url("../../../../assets/img/contacts/edit_blue.png");
+    }
+
+    .delete {
+      content: url("../../../../assets/img/contacts/delete_blue.png");
+    }
+  }
+}
