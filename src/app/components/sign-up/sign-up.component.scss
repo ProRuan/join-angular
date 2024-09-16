@@ -86,6 +86,7 @@
 .input-hint {
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
   height: 12px;
+  color: #ff8190;
 }
 
 .privacy-policy-cont {

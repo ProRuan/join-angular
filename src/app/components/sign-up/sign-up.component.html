@@ -1,7 +1,8 @@
 <section class="sign-up">
     <app-join-logo></app-join-logo>
 
-    <div class="content">
+    <!-- review style due to form tag!!! -->
+    <form #signUpForm="ngForm" class="content" (ngSubmit)="signUp(signUpForm)">
         <img class="left-arrow" src="../../../assets/img/sign-up/left_arrow.png" alt="left_arrow">
 
         <div class="title-border-cont">
@@ -12,26 +13,31 @@
         <div class="input-cont">
             <div class="input-remember-cont">
                 <div class="input-icon-cont">
-                    <input type="text" class="input" placeholder="Name">
+                    <input [(ngModel)]="user.name" name="name" type="text" class="input" minlength="5"
+                        placeholder="Name" required>
                     <img class="input-icon" src="../../../assets/img/sign-up/person.png" alt="person">
                 </div>
 
                 <div class="input-icon-cont">
-                    <input type="text" class="input" placeholder="Email">
+                    <input [(ngModel)]="user.email" name="email" type="text" class="input" [pattern]="emailPat"
+                        placeholder="Email" required>
                     <img class="input-icon" src="../../../assets/img/login/email.png" alt="email">
                 </div>
 
                 <div class="input-icon-cont">
-                    <input type="text" class="input" placeholder="Password">
+                    <input [(ngModel)]="user.password" name="password" type="text" class="input" [pattern]="passwordPat"
+                        placeholder="Password" required>
                     <img class="input-icon" src="../../../assets/img/login/lock.png" alt="lock">
                 </div>
 
                 <div class="input-hint-cont">
                     <div class="input-icon-cont">
-                        <input type="text" class="input" placeholder="Confirm Password">
+                        <input [(ngModel)]="confirmedPassord" name="confirmedPassword" type="text" class="input"
+                            [pattern]="getPassword()" placeholder="Confirm Password" required>
                         <img class="input-icon" src="../../../assets/img/login/lock.png" alt="lock">
                     </div>
-                    <span class="input-hint">Ups! your password don’t match</span>
+                    <span *ngIf="user.password != confirmedPassord" class="input-hint">Ups! your password don’t
+                        match</span>
                 </div>
             </div>
 
@@ -45,7 +51,7 @@
         <button class="sign-up-btn">
             <div>Sign up</div>
         </button>
-    </div>
+    </form>
 
     <app-legal-links></app-legal-links>
 </section>

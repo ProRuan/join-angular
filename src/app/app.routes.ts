@@ -15,7 +15,7 @@ export const routes: Routes = [
   // rename (double) components!!!
   // rename MainComponent to JoinComponent?!?
   // add PageNotFound component!!! (also for children)
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'sign-up', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   {
