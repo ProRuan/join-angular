@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <button class="sign-up-btn">
+        <button [disabled]="signUpForm.form.invalid" class="sign-up-btn">
             <div>Sign up</div>
         </button>
     </form>

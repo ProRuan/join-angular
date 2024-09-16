@@ -1,18 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { JoinLogoComponent } from '../../shared/components/join-logo/join-logo.component';
 import { LegalLinksComponent } from '../../shared/components/legal-links/legal-links.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
+import { JoinService } from '../../shared/services/join.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [JoinLogoComponent, LegalLinksComponent, CommonModule, FormsModule],
+  imports: [
+    JoinLogoComponent,
+    LegalLinksComponent,
+    CommonModule,
+    FormsModule,
+    RouterLink,
+  ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
+  joinData: JoinService = inject(JoinService);
+  route: Router = inject(Router);
   // think about namePat
   // think about emailPat
   // think about passwordPat
@@ -22,11 +32,15 @@ export class SignUpComponent {
   confirmedPassord: string = '';
 
   // form validation: https://v17.angular.io/guide/form-validation
+  // add checkbox to validation checklist!!!
 
-  signUp(ngForm: NgForm) {
+  async signUp(ngForm: NgForm) {
     if (ngForm.form.valid) {
       // add user
+      await this.joinData.addUser(this.user);
+      this.joinData.setItem('user', this.user);
       console.log('form valid');
+      this.route.navigateByUrl('login' + '/' + this.joinData.getSignUpToken());
     }
   }
 

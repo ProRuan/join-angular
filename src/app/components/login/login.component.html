@@ -8,7 +8,8 @@
         </button>
     </div>
 
-    <div class="content">
+    <!-- review style due to form tag!!! -->
+    <form #loginForm="ngForm" class="content" (ngSubmit)="onSubmit(loginForm)">
         <div class="title-border-cont">
             <h2 class="title headline-2">Log in</h2>
             <img src="../../../assets/img/login/underline.png" alt="login">
@@ -17,13 +18,14 @@
         <div class="input-cont">
             <div class="input-remember-cont">
                 <div class="input-icon-cont">
-                    <input type="text" class="input" placeholder="Email">
+                    <input [(ngModel)]="user.email" name="email" type="text" class="input" placeholder="Email">
                     <img class="input-icon" src="../../../assets/img/login/email.png" alt="email">
                 </div>
 
                 <div class="input-hint-cont">
                     <div class="input-icon-cont">
-                        <input type="text" class="input" placeholder="Password">
+                        <input [(ngModel)]="user.password" name="password" type="text" class="input"
+                            placeholder="Password">
                         <img class="input-icon" src="../../../assets/img/login/lock.png" alt="lock">
                     </div>
                     <span class="input-hint">This field is required</span>
@@ -44,7 +46,7 @@
                 <div>Guest Log in</div>
             </button>
         </div>
-    </div>
+    </form>
 
     <app-legal-links></app-legal-links>
 </section>
