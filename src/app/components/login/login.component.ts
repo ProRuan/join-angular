@@ -6,6 +6,7 @@ import { CommonModule, ɵparseCookieValue } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TaskSummary } from '../../models/task-summary';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,21 @@ export class LoginComponent {
   joinData: JoinService = inject(JoinService);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
+
+  emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
+  passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   user = new User();
 
   async ngOnInit() {
     const userToken = this.route.snapshot.paramMap.get('id');
     console.log('user token: ', userToken);
+    if (userToken) {
+      const newUser = await this.joinData.getUser(userToken);
+      console.log('new user: ', newUser);
+      this.user.email = newUser.email;
+      this.user.password = newUser.password;
+      // this.user.password = '*********';
+    }
 
     // let tempUser = await this.joinData.getUser();
     // this.user.email = tempUser.email;
@@ -30,5 +41,17 @@ export class LoginComponent {
     // console.log('init login: ', tempUser);
   }
 
-  onSubmit(ngForm: NgForm) {}
+  onSubmit(ngForm: NgForm) {
+    let verifiedUser = this.joinData.users.find(
+      (u) => u.email == this.user.email && u.password == this.user.password
+    );
+    if (ngForm.form.valid && verifiedUser) {
+      console.log('user successfully logged in');
+      console.log('user task summary: ', this.user.taskSummary);
+
+      this.joinData.currUser = this.user;
+
+      this.router.navigateByUrl('main');
+    }
+  }
 }

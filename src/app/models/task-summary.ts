@@ -7,13 +7,14 @@ export class TaskSummary {
   inProgress: number;
   awaitingFeedback: number;
 
+  // set default!!!
   constructor() {
-    this.toDo = 0;
-    this.done = 0;
-    this.urgent = 0;
-    this.deadline = 0;
-    this.inBoard = 0;
-    this.inProgress = 0;
-    this.awaitingFeedback = 0;
+    this.toDo = 1;
+    this.done = 1;
+    this.urgent = 1;
+    this.deadline = 'October 16, 2022';
+    this.inBoard = 5;
+    this.inProgress = 2;
+    this.awaitingFeedback = 2;
   }
 }

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SummaryTaskComponent } from './summary-task/summary-task.component';
 import { SummaryTaskInfoComponent } from './summary-task-info/summary-task-info.component';
+import { JoinService } from '../../shared/services/join.service';
+import { TaskSummary } from '../../models/task-summary';
 
 @Component({
   selector: 'app-summary',
@@ -11,6 +13,10 @@ import { SummaryTaskInfoComponent } from './summary-task-info/summary-task-info.
   styleUrl: './summary.component.scss',
 })
 export class SummaryComponent {
+  joinData: JoinService = inject(JoinService);
+
+  summary: any;
+
   summaryTasks = [
     {
       defaultPath: './assets/img/summary/to_do.png',
@@ -42,4 +48,12 @@ export class SummaryComponent {
       category: 'Awaiting Feedback',
     },
   ];
+
+  ngOnInit() {
+    // add SummaryService!!!
+    // this.summary = this.joinData.currUser.taskSummary;
+    // if (this.summary) {
+    //   console.log('task summary: ', this.summary);
+    // }
+  }
 }

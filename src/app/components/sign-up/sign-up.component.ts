@@ -35,6 +35,7 @@ export class SignUpComponent {
   // add checkbox to validation checklist!!!
 
   async signUp(ngForm: NgForm) {
+    // verify, if user already exists!!!
     if (ngForm.form.valid) {
       // add user
       await this.joinData.addUser(this.user);

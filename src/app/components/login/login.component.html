@@ -18,14 +18,15 @@
         <div class="input-cont">
             <div class="input-remember-cont">
                 <div class="input-icon-cont">
-                    <input [(ngModel)]="user.email" name="email" type="text" class="input" placeholder="Email">
+                    <input [(ngModel)]="user.email" name="email" type="text" class="input" [pattern]="emailPat"
+                        placeholder="Email">
                     <img class="input-icon" src="../../../assets/img/login/email.png" alt="email">
                 </div>
 
                 <div class="input-hint-cont">
                     <div class="input-icon-cont">
                         <input [(ngModel)]="user.password" name="password" type="text" class="input"
-                            placeholder="Password">
+                            [pattern]="passwordPat" placeholder="Password">
                         <img class="input-icon" src="../../../assets/img/login/lock.png" alt="lock">
                     </div>
                     <span class="input-hint">This field is required</span>

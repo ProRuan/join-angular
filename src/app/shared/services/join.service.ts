@@ -22,6 +22,7 @@ export class JoinService {
 
   users: any[] = [];
   signUpToken: string = '';
+  currUser: any;
 
   // Rename to UserService? --> add(), update(), get(), delete()!
   // snapshot: https://firebase.google.com/docs/firestore/query-data/listen?hl=de
@@ -80,8 +81,8 @@ export class JoinService {
     console.log('users: ', this.users);
   }
 
-  async getUser() {
-    const docRef = doc(this.firestore, 'users', 'newup0oOWIBnbl6OEROM');
+  async getUser(token: string) {
+    const docRef = doc(this.firestore, 'users', token);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -107,7 +108,6 @@ export class JoinService {
     await deleteDoc(doc(this.firestore, 'users', id));
     console.log('deleted user: ', id);
   }
-
 
   // to delete!!!
   // ------------
