@@ -23,16 +23,20 @@ export class LoginComponent {
   emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   user = new User();
+  token: string = '';
 
   async ngOnInit() {
     const userToken = this.route.snapshot.paramMap.get('id');
-    console.log('user token: ', userToken);
+    console.log('login user token: ', userToken);
     if (userToken) {
       const newUser = await this.joinData.getUser(userToken);
-      console.log('new user: ', newUser);
+      // console.log('new user: ', newUser);
+      this.user.id = userToken;
+      this.user.name = newUser.name;
       this.user.email = newUser.email;
       this.user.password = newUser.password;
       // this.user.password = '*********';
+      this.token = userToken;
     }
 
     // let tempUser = await this.joinData.getUser();
@@ -47,11 +51,12 @@ export class LoginComponent {
     );
     if (ngForm.form.valid && verifiedUser) {
       console.log('user successfully logged in');
-      console.log('user task summary: ', this.user.taskSummary);
+      // console.log('user task summary: ', this.user.taskSummary);
 
       this.joinData.currUser = this.user;
 
-      this.router.navigateByUrl('main');
+      // this.router.navigateByUrl('main/' + this.token);
+      this.router.navigate(['main', 'summary', this.token]);
     }
   }
 }

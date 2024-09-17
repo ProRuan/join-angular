@@ -40,7 +40,7 @@ export class SignUpComponent {
       // add user
       await this.joinData.addUser(this.user);
       this.joinData.setItem('user', this.user);
-      console.log('form valid');
+      // console.log('form valid');
       this.route.navigateByUrl('login' + '/' + this.joinData.getSignUpToken());
     }
   }

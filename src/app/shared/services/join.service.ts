@@ -45,6 +45,10 @@ export class JoinService {
     return this.signUpToken;
   }
 
+  setSignUpToken(token: string) {
+    this.signUpToken = token;
+  }
+
   async addUser(user?: any) {
     // add user object/json
     try {
@@ -56,7 +60,7 @@ export class JoinService {
       // console.log('Document written with ID: ', docRef.id);
 
       await this.updateUser(docRef.id);
-      console.log('token: ', this.signUpToken);
+      // console.log('token: ', this.signUpToken);
 
       this.getUsers();
     } catch (e) {
@@ -86,7 +90,7 @@ export class JoinService {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log('user data:', docSnap.data());
+      // console.log('user data:', docSnap.data());
       return docSnap.data();
     } else {
       // docSnap.data() will be undefined in this case
@@ -106,7 +110,7 @@ export class JoinService {
   async deleteUser() {
     let id = 'RLD41Asnjx0jBxqsED1l';
     await deleteDoc(doc(this.firestore, 'users', id));
-    console.log('deleted user: ', id);
+    // console.log('deleted user: ', id);
   }
 
   // to delete!!!

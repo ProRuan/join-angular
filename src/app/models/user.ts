@@ -20,4 +20,8 @@ export class User {
     this.tasks = [new Task()];
     this.contacts = [new Contact()];
   }
+
+  // get token of logged in user
+  // set user data of logged in user
+  // avoid blinking
 }

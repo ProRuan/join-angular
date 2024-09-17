@@ -20,7 +20,7 @@
                             <img class="icon" src="../../../assets/img/summary/urgent.png" alt="urgent">
                         </div>
                         <div class="task-info">
-                            <span class="counter">1</span>
+                            <span class="counter">{{ summary.urgent }}</span>
                             <span class="category">Urgent</span>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                         <img class="urgent-vector" src="../../../assets/img/summary/task_vector.png" alt="task_vector">
                     </div>
                     <div class="date-deadline-cont">
-                        <span class="date">October 16, 2022</span>
+                        <span class="date">{{ summary.deadline }}</span>
                         <span class="deadline">Upcomoing Deadline</span>
                     </div>
                 </div>
@@ -41,7 +41,8 @@
 
         <div class="greeting-cont">
             <span class="greeting">Good morning,</span>
-            <span class="user">Sofia Müller</span>
+            <span class="user">{{ user.name }}</span>
+            <!-- <span class="user">Sofia Müller</span> -->
         </div>
     </div>
 </section>
