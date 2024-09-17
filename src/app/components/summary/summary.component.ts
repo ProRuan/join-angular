@@ -97,7 +97,7 @@ export class SummaryComponent {
   }
 
   async getUserToken() {
-    const userToken = this.route.snapshot.paramMap.get('id2');
+    const userToken = this.route.snapshot.paramMap.get('id');
     console.log('summary router user token: ', userToken);
     return userToken;
   }

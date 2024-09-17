@@ -55,8 +55,10 @@ export class LoginComponent {
 
       this.joinData.currUser = this.user;
 
-      // this.router.navigateByUrl('main/' + this.token);
-      this.router.navigate(['main', 'summary', this.token]);
+      this.router.navigate(['main', this.token, 'summary']);
+      // this.router.navigate(['main', this.token, 'add-task']);
+      // this.router.navigate(['main', this.token, 'board']);
+      // this.router.navigate(['main', this.token, 'contacts']);
     }
   }
 }
