@@ -56,6 +56,7 @@ export class AddTaskComponent {
     }
     console.log('session token created: ', this.sessionToken);
     console.log('session token length: ', this.sessionToken.length);
+    // should include at least 1 digit?!?
   }
 
   // token sample: jHKN 8tfn W2yA Qbjk MiNy

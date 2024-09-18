@@ -45,16 +45,32 @@ export class LoginComponent {
     // console.log('init login: ', tempUser);
   }
 
+  // improve!!!
+  redirect() {
+    this.router.navigateByUrl('sign-up');
+  }
+
   onSubmit(ngForm: NgForm) {
     let verifiedUser = this.joinData.users.find(
       (u) => u.email == this.user.email && u.password == this.user.password
     );
-    if (ngForm.form.valid && verifiedUser) {
+    if (ngForm.form.valid && verifiedUser && this.token) {
       console.log('user successfully logged in');
       // console.log('user task summary: ', this.user.taskSummary);
 
       this.joinData.currUser = this.user;
 
+      this.router.navigate(['main', this.token, 'summary']);
+      // this.router.navigate(['main', this.token, 'add-task']);
+      // this.router.navigate(['main', this.token, 'board']);
+      // this.router.navigate(['main', this.token, 'contacts']);
+    } else if (ngForm.form.valid && verifiedUser) {
+      console.log('user successfully logged in');
+      // create session token!!!
+      // console.log('user task summary: ', this.user.taskSummary);
+
+      this.joinData.currUser = this.user;
+      this.token = verifiedUser.id;
       this.router.navigate(['main', this.token, 'summary']);
       // this.router.navigate(['main', this.token, 'add-task']);
       // this.router.navigate(['main', this.token, 'board']);
