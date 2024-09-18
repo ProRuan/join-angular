@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../models/user';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
+import { MainComponent } from '../main/main.component';
 
 @Component({
   selector: 'app-summary',
@@ -21,6 +22,7 @@ export class SummaryComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
+  mainComponent: MainComponent = inject(MainComponent);
 
   user = new User();
   summary = new TaskSummary();
@@ -58,11 +60,14 @@ export class SummaryComponent {
   ];
 
   async ngOnInit() {
-    const userToken = await this.getUserToken();
+    let summaryToken = await this.mainComponent.getUserToken();
+    console.log('summary token new: ', summaryToken);
+
+    // const userToken = await this.getUserToken();
     // const userToken = this.route.snapshot.paramMap.get('id2');
     // console.log('summary router user token: ', userToken);
 
-    await this.getUser(userToken);
+    await this.getUser(summaryToken);
     await this.logUser();
 
     if (this.user.id) {

@@ -20,11 +20,11 @@ export const routes: Routes = [
   { path: 'login/:id', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   {
-    path: 'main',
+    path: 'main/:id',
     component: MainComponent,
     children: [
-      { path: ':id/summary', component: SummaryComponent },
-      { path: ':id/add-task', component: AddTaskComponent },
+      { path: 'summary', component: SummaryComponent },
+      { path: 'add-task', component: AddTaskComponent },
       { path: ':id/board', component: BoardComponent },
       { path: ':id/contacts', component: ContactsComponent },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
