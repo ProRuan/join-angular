@@ -1,3 +1,6 @@
+$black: #000000;
+$white: #ffffff;
+
 @mixin box-padding($p) {
   box-sizing: border-box;
   padding: $p;

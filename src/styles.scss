@@ -2,7 +2,7 @@
 
 body {
   @include font();
-  @include color-set($c: #ffffff, $bgc: #f6f7f8);
+  @include color-set($c: $black, $bgc: #f6f7f8);
   margin: 0;
   font-family: "Inter", Arial, Helvetica, sans-serif;
 }
@@ -13,6 +13,10 @@ button {
   &:disabled {
     cursor: default;
   }
+}
+
+input {
+  outline: none;
 }
 
 app-login,

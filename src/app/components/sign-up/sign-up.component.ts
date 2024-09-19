@@ -53,4 +53,15 @@ export class SignUpComponent {
       return this.passwordPat;
     }
   }
+
+  // sign up
+  // -------
+  // check box button
+  // classes
+  // color variables
+  // input error
+  // password stars
+  // secure form logic
+
+  // input component
 }

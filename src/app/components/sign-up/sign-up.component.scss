@@ -3,14 +3,14 @@
 // mixin with login?
 .sign-up {
   @include display-flex();
-  height: calc(100vh - 96px);
+  height: 100vh;
   position: relative;
 }
 
 .content {
   @include display-column($ai: center);
   padding: 48px 88px;
-  background-color: #ffffff;
+  background-color: $white;
   border-radius: 30px;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
   gap: 32px;
@@ -32,10 +32,6 @@
 .title-border-cont {
   @include display-column($ai: center);
   gap: 13px;
-
-  img {
-    @include size($w: 150px, $h: 3px);
-  }
 }
 
 .title {
@@ -43,12 +39,20 @@
   text-align: center;
 }
 
+.underline {
+  width: 150px;
+  height: 0;
+  border-bottom: 3px solid #29abe2;
+  border-radius: 3px;
+}
+
+// rename!!!
 .input-cont {
   @include display-column();
   gap: 16px;
 }
 
-.input-remember-cont {
+.input-group {
   // height: 152px;    // necessary?
   @include display-column();
   gap: 24px;
@@ -63,18 +67,27 @@
   //   @include display-horiz($g: 8px);
   position: relative;
 }
-
 // input mixin?
 .input {
   @include box-padding($p: 11px 21px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   width: 422px;
-  color: #d1d1d1;
-  background-color: #ffffff;
+  color: $black;
+  background-color: $white;
   border: 1px solid #d1d1d1;
   border-radius: 10px;
-  outline: none;
-  // gap: 10px;
+
+  &::placeholder {
+    color: #d1d1d1;
+  }
+
+  &:focus {
+    border: 1px solid #29abe2;
+  }
+}
+
+.error {
+  border: 1px solid #FF001F;
 }
 
 .input-icon {
@@ -85,13 +98,12 @@
 
 .input-hint {
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
-  height: 12px;
+  height: 14px;
   color: #ff8190;
 }
 
 .privacy-policy-cont {
-  @include box-padding($p: 0 39px);
-  @include display-horiz($g: 8px);
+  @include display-flex();
   width: 100%;
 
   span {

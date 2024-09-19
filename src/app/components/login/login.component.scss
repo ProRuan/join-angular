@@ -55,15 +55,18 @@
 .title-border-cont {
   @include display-column($ai: center);
   gap: 13px;
-
-  img {
-    @include size($w: 150px, $h: 3px);
-  }
 }
 
 .title {
   @include size($w: 315px, $h: 73px);
   text-align: center;
+}
+
+.underline {
+  width: 150px;
+  height: 0;
+  border-bottom: 3px solid #29abe2;
+  border-radius: 3px;
 }
 
 .input-cont {
