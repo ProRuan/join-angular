@@ -13,29 +13,31 @@
 
         <div class="input-cont">
             <div class="input-group">
+                <app-input [(ngModel)]="myInputValue" [name]="'test'" [pattern]="'ChatGPT'" required></app-input>
+
                 <div class="input-icon-cont">
                     <input [(ngModel)]="user.name" name="name" type="text" class="input" minlength="5"
                         placeholder="Name" required>
-                    <img class="input-icon" src="../../../assets/img/sign-up/person.png" alt="person">
+                    <img class="input-icon" src="../../../assets/img/global/person.png" alt="person">
                 </div>
 
                 <div class="input-icon-cont">
                     <input [(ngModel)]="user.email" name="email" type="text" class="input" [pattern]="emailPat"
                         placeholder="Email" required>
-                    <img class="input-icon" src="../../../assets/img/login/email.png" alt="email">
+                    <img class="input-icon" src="../../../assets/img/global/email.png" alt="email">
                 </div>
 
                 <div class="input-icon-cont">
                     <input [(ngModel)]="user.password" name="password" type="text" class="input" [pattern]="passwordPat"
                         placeholder="Password" required>
-                    <img class="input-icon" src="../../../assets/img/login/lock.png" alt="lock">
+                    <img class="input-icon" src="../../../assets/img/global/lock.png" alt="lock">
                 </div>
 
                 <div class="input-hint-cont">
                     <div class="input-icon-cont">
                         <input [(ngModel)]="confirmedPassord" name="confirmedPassword" type="text" class="input"
                             [pattern]="getPassword()" placeholder="Confirm password" required>
-                        <img class="input-icon" src="../../../assets/img/login/lock.png" alt="lock">
+                        <img class="input-icon" src="../../../assets/img/global/lock.png" alt="lock">
                     </div>
                     <span *ngIf="user.password != confirmedPassord" class="input-hint">
                         Your passwords don't match. Please try again.

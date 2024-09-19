@@ -6,6 +6,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { JoinService } from '../../shared/services/join.service';
 import { Router, RouterLink } from '@angular/router';
+import { InputComponent } from '../../shared/components/input/input.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,6 +17,7 @@ import { Router, RouterLink } from '@angular/router';
     CommonModule,
     FormsModule,
     RouterLink,
+    InputComponent,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
@@ -30,6 +32,8 @@ export class SignUpComponent {
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   user = new User();
   confirmedPassord: string = '';
+
+  myInputValue = 'Thank you, ChatGPT!';
 
   // form validation: https://v17.angular.io/guide/form-validation
   // add checkbox to validation checklist!!!
