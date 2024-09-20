@@ -7,16 +7,25 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskSummary } from '../../models/task-summary';
+import { InputComponent } from '../../shared/components/input/input.component';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [JoinLogoComponent, LegalLinksComponent, CommonModule, FormsModule],
+  imports: [
+    JoinLogoComponent,
+    LegalLinksComponent,
+    CommonModule,
+    FormsModule,
+    InputComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   joinData: JoinService = inject(JoinService);
+  userData: UserService = inject(UserService);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
 
@@ -24,25 +33,23 @@ export class LoginComponent {
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   user = new User();
   token: string = '';
+  hintText = 'This field is required';
 
   async ngOnInit() {
+    await this.userData.getUsers();
+    let users = this.userData.users;
     const userToken = this.route.snapshot.paramMap.get('id');
     console.log('login user token: ', userToken);
     if (userToken) {
-      const newUser = await this.joinData.getUser(userToken);
-      // console.log('new user: ', newUser);
-      this.user.id = userToken;
-      this.user.name = newUser.name;
-      this.user.email = newUser.email;
-      this.user.password = newUser.password;
-      // this.user.password = '*********';
+      let user = users.find((u) => u.sid == userToken);
+      if (user) {
+        console.log('found user by sid: ', user);
+        this.user = new User(user);
+      }
+
+      // // this.user.password = '*********';
       this.token = userToken;
     }
-
-    // let tempUser = await this.joinData.getUser();
-    // this.user.email = tempUser.email;
-    // this.user.password = tempUser.password;
-    // console.log('init login: ', tempUser);
   }
 
   // improve!!!

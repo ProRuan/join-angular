@@ -35,6 +35,7 @@ export class SignUpComponent {
   user = new User();
   confirmedPassord: string = '';
   ppAccepted: boolean = false;
+  hintText = "Your passwords don't match. Please try again.";
 
   myInputValue = 'Thank you, ChatGPT!';
 

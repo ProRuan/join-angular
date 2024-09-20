@@ -21,6 +21,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
   @Input() img: string = '';
   @Input() condition: boolean = false;
+  @Input() hintText: string = '';
 
   getSrc() {
     return '../../../../assets/img/global/' + this.img;

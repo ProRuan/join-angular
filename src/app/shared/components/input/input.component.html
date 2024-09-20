@@ -4,7 +4,7 @@
         <img class="icon" [src]="getSrc()" [alt]="this.img">
     </div>
     <span *ngIf="condition" class="hint">
-        Your passwords don't match. Please try again.
+        {{ hintText }}
     </span>
 </div>
 
