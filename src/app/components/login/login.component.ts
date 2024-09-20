@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { JoinLogoComponent } from '../../shared/components/join-logo/join-logo.component';
 import { LegalLinksComponent } from '../../shared/components/legal-links/legal-links.component';
 import { JoinService } from '../../shared/services/join.service';
@@ -36,6 +36,7 @@ export class LoginComponent {
   token: string = '';
   sid: string = '';
   hintText = 'This field is required';
+  remembered: boolean = false;
 
   // add checkbox remember me
 
@@ -96,5 +97,26 @@ export class LoginComponent {
       console.log('user successfully logged in');
       this.router.navigate(['main', this.sid, 'summary']);
     }
+  }
+
+  // double code (4x)!!!
+  getCheckbox() {
+    return this.remembered ? 'checked' : 'check';
+  }
+
+  getSrc() {
+    if (this.remembered) {
+      return '../../../assets/img/sign-up/checked.png';
+    } else {
+      return '../../../assets/img/sign-up/check.png';
+    }
+  }
+
+  remember() {
+    this.remembered = !this.remembered ? true : false;
+  }
+
+  disable(ngForm: NgForm) {
+    return ngForm.form.invalid || !this.remembered;
   }
 }

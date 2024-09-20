@@ -102,7 +102,7 @@ export class UserService {
    */
   setCharCodes() {
     this.addCharCodeGroup(48, 10);
-    this.addCharCodeGroup(64, 26);
+    this.addCharCodeGroup(65, 26);
     this.addCharCodeGroup(97, 26);
   }
 
@@ -112,7 +112,7 @@ export class UserService {
    * @param n - The number of char codes.
    */
   addCharCodeGroup(a: number, n: number) {
-    for (let i = a; i < a + n - 1; i++) {
+    for (let i = a; i < a + n; i++) {
       this.charCodes.push(String.fromCharCode(i));
     }
   }

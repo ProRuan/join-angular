@@ -117,6 +117,27 @@
   @include box-padding($p: 0 39px);
   @include display-horiz($g: 8px);
   width: 100%;
+
+  img {
+    @include size($w: 24px, $h: 24px);
+    cursor: pointer;
+  }
+}
+
+.check {
+  content: url("../../../assets/img/sign-up/check.png");
+
+  &:hover {
+    content: url("../../../assets/img/sign-up/check_hover.png");
+  }
+}
+
+.checked {
+  content: url("../../../assets/img/sign-up/checked.png");
+
+  &:hover {
+    content: url("../../../assets/img/sign-up/checked_hover.png");
+  }
 }
 
 .remember-me-text {
@@ -149,6 +170,12 @@
 
   &:active {
     background: #091931;
+  }
+
+  &:disabled {
+    background-color: #2a3647;
+    box-shadow: unset;
+    opacity: 0.5;
   }
 }
 
@@ -191,6 +218,16 @@
 
     img {
       content: url("../../../assets/img/add-task/cancel_button_active.png");
+    }
+  }
+
+  &:disabled {
+    border: 1px solid #2a3647;
+    box-shadow: unset;
+    opacity: 0.5;
+
+    div {
+      color: #2a3647;
     }
   }
 }

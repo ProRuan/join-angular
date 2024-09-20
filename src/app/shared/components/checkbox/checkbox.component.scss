@@ -1,0 +1,22 @@
+@import "../../../../mixins.scss";
+
+img {
+  @include size($w: 24px, $h: 24px);
+  cursor: pointer;
+}
+
+.check {
+  content: url("../../../../assets/img/sign-up/check.png");
+
+  &:hover {
+    content: url("../../../../assets/img/sign-up/check_hover.png");
+  }
+}
+
+.checked {
+  content: url("../../../../assets/img/sign-up/checked.png");
+
+  &:hover {
+    content: url("../../../../assets/img/sign-up/checked_hover.png");
+  }
+}

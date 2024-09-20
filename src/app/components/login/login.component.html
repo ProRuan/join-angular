@@ -25,16 +25,16 @@
             </div>
 
             <div class="remember-me-cont">
-                <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox">
+                <img [ngClass]="getCheckbox()" [src]="getSrc()" alt="checkbox" (click)="remember()">
                 <span class="remember-me">Remember me</span>
             </div>
         </div>
 
         <div class="button-cont">
-            <button class="log-in-btn">
+            <button [disabled]="disable(loginForm)" class="log-in-btn">
                 <div>Log in</div>
             </button>
-            <button class="guest-log-in-btn">
+            <button [disabled]="disable(loginForm)" class="guest-log-in-btn">
                 <div>Guest Log in</div>
             </button>
         </div>
