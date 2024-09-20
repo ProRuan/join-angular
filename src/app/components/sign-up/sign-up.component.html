@@ -4,7 +4,7 @@
     <!-- review style due to form tag!!! -->
     <form #signUpForm="ngForm" class="content" (ngSubmit)="signUp(signUpForm)">
         <!-- log-in-btn!!! -->
-        <img class="left-arrow" src="../../../assets/img/sign-up/left_arrow.png" alt="left_arrow">
+        <img class="left-arrow" src="../../../assets/img/sign-up/left_arrow.png" alt="left_arrow" (click)="home()">
 
         <div class="title-border-cont">
             <h2 class="title headline-2">Sign up</h2>
@@ -13,46 +13,24 @@
 
         <div class="input-cont">
             <div class="input-group">
-                <app-input [(ngModel)]="myInputValue" [name]="'test'" [pattern]="'ChatGPT'" required></app-input>
-
-                <div class="input-icon-cont">
-                    <input [(ngModel)]="user.name" name="name" type="text" class="input" minlength="5"
-                        placeholder="Name" required>
-                    <img class="input-icon" src="../../../assets/img/global/person.png" alt="person">
-                </div>
-
-                <div class="input-icon-cont">
-                    <input [(ngModel)]="user.email" name="email" type="text" class="input" [pattern]="emailPat"
-                        placeholder="Email" required>
-                    <img class="input-icon" src="../../../assets/img/global/email.png" alt="email">
-                </div>
-
-                <div class="input-icon-cont">
-                    <input [(ngModel)]="user.password" name="password" type="text" class="input" [pattern]="passwordPat"
-                        placeholder="Password" required>
-                    <img class="input-icon" src="../../../assets/img/global/lock.png" alt="lock">
-                </div>
-
-                <div class="input-hint-cont">
-                    <div class="input-icon-cont">
-                        <input [(ngModel)]="confirmedPassord" name="confirmedPassword" type="text" class="input"
-                            [pattern]="getPassword()" placeholder="Confirm password" required>
-                        <img class="input-icon" src="../../../assets/img/global/lock.png" alt="lock">
-                    </div>
-                    <span *ngIf="user.password != confirmedPassord" class="input-hint">
-                        Your passwords don't match. Please try again.
-                    </span>
-                </div>
+                <app-input [(ngModel)]="user.name" name="name" placeholder="Name" minlength="2" required
+                    img="person.png"></app-input>
+                <app-input [(ngModel)]="user.email" name="email" placeholder="Email" [pattern]="emailPat" required
+                    img="email.png"></app-input>
+                <app-input [(ngModel)]="user.password" name="password" placeholder="Password" [pattern]="passwordPat"
+                    required img="lock.png"></app-input>
+                <app-input [(ngModel)]="confirmedPassord" name="confirmedPassord" placeholder="Confirm password"
+                    [pattern]="getPassword()" required img="lock.png" [condition]="verifyPassword()"></app-input>
             </div>
 
             <div class="privacy-policy-cont">
-                <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox">
+                <img [ngClass]="getCheckbox()" [src]="getSrc()" alt="checkbox" (click)="accept()">
                 <span class="privacy-policy-text">I accept the </span>
                 <a href="" class="privacy-policy-text">Privacy Policy</a>
             </div>
         </div>
 
-        <button [disabled]="signUpForm.form.invalid" class="sign-up-btn">
+        <button [disabled]="signUpForm.form.invalid || !this.checkboxChecked" class="sign-up-btn">
             <div>Sign up</div>
         </button>
     </form>

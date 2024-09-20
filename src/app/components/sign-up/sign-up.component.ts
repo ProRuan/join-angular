@@ -32,11 +32,16 @@ export class SignUpComponent {
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   user = new User();
   confirmedPassord: string = '';
+  checkboxChecked: boolean = false;
 
   myInputValue = 'Thank you, ChatGPT!';
 
   // form validation: https://v17.angular.io/guide/form-validation
   // add checkbox to validation checklist!!!
+
+  home() {
+    this.route.navigateByUrl('login');
+  }
 
   async signUp(ngForm: NgForm) {
     // verify, if user already exists!!!
@@ -56,6 +61,29 @@ export class SignUpComponent {
     } else {
       return this.passwordPat;
     }
+  }
+
+  verifyPassword() {
+    let password1 = this.user.password.match(this.passwordPat);
+    let password2 = this.confirmedPassord.match(this.passwordPat);
+    let matched = this.user.password != this.confirmedPassord;
+    return password1 && password2 && matched ? true : false;
+  }
+
+  getCheckbox() {
+    return this.checkboxChecked ? 'checked' : 'check';
+  }
+
+  getSrc() {
+    if (this.checkboxChecked) {
+      return '../../../assets/img/sign-up/checked.png';
+    } else {
+      return '../../../assets/img/sign-up/check.png';
+    }
+  }
+
+  accept() {
+    this.checkboxChecked = !this.checkboxChecked ? true : false;
   }
 
   // sign up

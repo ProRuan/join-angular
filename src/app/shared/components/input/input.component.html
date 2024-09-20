@@ -1,1 +1,11 @@
-<input [value]="value" (input)="onInputChange($event)">
+<div class="input-hint-cont">
+    <div class="input-icon-cont">
+        <input class="input" [value]="value" (input)="onInputChange($event)" type="text" [placeholder]="placeholder">
+        <img class="icon" [src]="getSrc()" [alt]="this.img">
+    </div>
+    <span *ngIf="condition" class="hint">
+        Your passwords don't match. Please try again.
+    </span>
+</div>
+
+<!-- <input [value]="value" (input)="onInputChange($event)"> -->

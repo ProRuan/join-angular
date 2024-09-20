@@ -1,10 +1,11 @@
-import { Component, forwardRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
   providers: [
@@ -17,6 +18,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputComponent implements ControlValueAccessor {
   value: string = '';
+  @Input() placeholder: string = '';
+  @Input() img: string = '';
+  @Input() condition: boolean = false;
+
+  getSrc() {
+    return '../../../../assets/img/global/' + this.img;
+  }
 
   onChange = (value: string) => {};
   onTouched = () => {};

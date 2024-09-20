@@ -1,0 +1,46 @@
+@import "../../../../mixins.scss";
+
+.input-hint-cont {
+  @include display-column();
+  gap: 8px;
+}
+
+.input-icon-cont {
+  //   @include display-horiz($g: 8px);
+  position: relative;
+}
+
+// input mixin?
+.input {
+  @include box-padding($p: 11px 21px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  width: 422px;
+  color: $black;
+  background-color: $white;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+
+  &::placeholder {
+    color: #d1d1d1;
+  }
+
+  &:focus {
+    border: 1px solid #29abe2;
+  }
+}
+
+.error {
+  border: 1px solid #ff001f;
+}
+
+.icon {
+  position: absolute;
+  top: 12px;
+  right: 21px;
+}
+
+.hint {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  height: 14px;
+  color: #ff8190;
+}

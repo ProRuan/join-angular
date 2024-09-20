@@ -87,7 +87,7 @@
 }
 
 .error {
-  border: 1px solid #FF001F;
+  border: 1px solid #ff001f;
 }
 
 .input-icon {
@@ -104,7 +104,12 @@
 
 .privacy-policy-cont {
   @include display-flex();
+  gap: 8px;
   width: 100%;
+
+  img {
+    cursor: pointer;
+  }
 
   span {
     color: #ababab;
@@ -113,6 +118,22 @@
   a {
     text-decoration: none;
     color: #29abe2;
+  }
+}
+
+.check {
+  content: url("../../../assets/img/sign-up/check.png");
+
+  &:hover {
+    content: url("../../../assets/img/sign-up/check_hover.png");
+  }
+}
+
+.checked {
+  content: url("../../../assets/img/sign-up/checked.png");
+
+  &:hover {
+    content: url("../../../assets/img/sign-up/checked_hover.png");
   }
 }
 
@@ -141,6 +162,11 @@
   }
 
   &:active {
-    background: #091931;
+    background-color: #091931;
+  }
+
+  &:disabled {
+    background-color: rgba(42, 54, 71, 0.5);
+    box-shadow: unset;
   }
 }
