@@ -112,7 +112,7 @@ export class UserService {
    * @param n - The number of char codes.
    */
   addCharCodeGroup(a: number, n: number) {
-    for (let i = a; i < a + n; i++) {
+    for (let i = a; i < a + n - 1; i++) {
       this.charCodes.push(String.fromCharCode(i));
     }
   }

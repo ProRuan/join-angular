@@ -32,23 +32,33 @@ export class LoginComponent {
   emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   user = new User();
+  users: User[] = [];
   token: string = '';
+  sid: string = '';
   hintText = 'This field is required';
 
-  async ngOnInit() {
-    await this.userData.getUsers();
-    let users = this.userData.users;
-    const userToken = this.route.snapshot.paramMap.get('id');
-    console.log('login user token: ', userToken);
-    if (userToken) {
-      let user = users.find((u) => u.sid == userToken);
-      if (user) {
-        console.log('found user by sid: ', user);
-        this.user = new User(user);
-      }
+  // add checkbox remember me
 
-      // // this.user.password = '*********';
+  constructor() {}
+
+  async ngOnInit() {
+    // redefine getUsers() for return value!!!
+    await this.userData.getUsers();
+    this.users = this.userData.users;
+    console.log('this users: ', this.users);
+
+    const userToken = this.route.snapshot.paramMap.get('id');
+    if (userToken) {
+      let temp = this.users.find((u) => u.sid == userToken);
+      if (temp) {
+        this.user = new User(temp);
+        this.user.password = '';
+        console.log('found registered user: ', this.user);
+      }
       this.token = userToken;
+      console.log('user token: ', this.token);
+    } else {
+      console.log('no token');
     }
   }
 
@@ -57,31 +67,34 @@ export class LoginComponent {
     this.router.navigateByUrl('sign-up');
   }
 
-  onSubmit(ngForm: NgForm) {
-    let verifiedUser = this.joinData.users.find(
-      (u) => u.email == this.user.email && u.password == this.user.password
-    );
-    if (ngForm.form.valid && verifiedUser && this.token) {
+  async onSubmit(ngForm: NgForm) {
+    // create session id
+    this.userData.setSessionId();
+    this.sid = this.userData.sid;
+    console.log('sid: ', this.sid);
+
+    if (ngForm.form.valid && this.token != '') {
+      if (this.user.id) {
+        this.user.sid = this.sid;
+        await this.userData.updateUser(this.user.id, 'sid', this.user.sid);
+        console.log('secondary sid: ', this.user);
+
+        console.log('new user successfully logged in');
+        this.router.navigate(['main', this.sid, 'summary']);
+      }
+
+      // this.router.navigate(['main', this.token, 'summary']);
+    } else if (ngForm.form.valid) {
+      let temp = this.users.find((u) => u.email == this.user.email);
+      this.user = new User(temp);
+      this.user.sid = this.sid;
+      if (this.user.id) {
+        await this.userData.updateUser(this.user.id, 'sid', this.sid);
+        console.log('found user to login: ', this.user);
+      }
+
       console.log('user successfully logged in');
-      // console.log('user task summary: ', this.user.taskSummary);
-
-      this.joinData.currUser = this.user;
-
-      this.router.navigate(['main', this.token, 'summary']);
-      // this.router.navigate(['main', this.token, 'add-task']);
-      // this.router.navigate(['main', this.token, 'board']);
-      // this.router.navigate(['main', this.token, 'contacts']);
-    } else if (ngForm.form.valid && verifiedUser) {
-      console.log('user successfully logged in');
-      // create session token!!!
-      // console.log('user task summary: ', this.user.taskSummary);
-
-      this.joinData.currUser = this.user;
-      this.token = verifiedUser.id;
-      this.router.navigate(['main', this.token, 'summary']);
-      // this.router.navigate(['main', this.token, 'add-task']);
-      // this.router.navigate(['main', this.token, 'board']);
-      // this.router.navigate(['main', this.token, 'contacts']);
+      this.router.navigate(['main', this.sid, 'summary']);
     }
   }
 }
