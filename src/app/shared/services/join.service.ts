@@ -82,7 +82,7 @@ export class JoinService {
       let taskSummary = this.users[0].taskSummary;
       // console.log('task summary: ', taskSummary);
     });
-    console.log('users: ', this.users);
+    // console.log('users: ', this.users);
   }
 
   async getUser(token: string) {

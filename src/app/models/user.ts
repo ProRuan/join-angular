@@ -4,6 +4,7 @@ import { TaskSummary } from './task-summary';
 
 export class User {
   id?: string;
+  sid?: string;
   name: string;
   email: string;
   password: string;
@@ -13,6 +14,7 @@ export class User {
 
   constructor(user?: any) {
     this.id = user ? user.id : '0';
+    this.sid = user ? user.sid : '0';
     this.name = user ? user.name : 'name';
     this.email = user ? user.email : 'email';
     this.password = user ? user.password : 'password';

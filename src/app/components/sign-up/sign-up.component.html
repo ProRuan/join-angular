@@ -30,7 +30,8 @@
             </div>
         </div>
 
-        <button [disabled]="signUpForm.form.invalid || !this.checkboxChecked" class="sign-up-btn">
+        <!-- prepare a function -->
+        <button [disabled]="disable(signUpForm)" class="sign-up-btn">
             <div>Sign up</div>
         </button>
     </form>

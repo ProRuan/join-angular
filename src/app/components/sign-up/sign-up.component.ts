@@ -7,6 +7,7 @@ import { User } from '../../models/user';
 import { JoinService } from '../../shared/services/join.service';
 import { Router, RouterLink } from '@angular/router';
 import { InputComponent } from '../../shared/components/input/input.component';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -25,6 +26,7 @@ import { InputComponent } from '../../shared/components/input/input.component';
 export class SignUpComponent {
   joinData: JoinService = inject(JoinService);
   route: Router = inject(Router);
+  userData: UserService = inject(UserService);
   // think about namePat
   // think about emailPat
   // think about passwordPat
@@ -32,12 +34,11 @@ export class SignUpComponent {
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   user = new User();
   confirmedPassord: string = '';
-  checkboxChecked: boolean = false;
+  ppAccepted: boolean = false;
 
   myInputValue = 'Thank you, ChatGPT!';
 
   // form validation: https://v17.angular.io/guide/form-validation
-  // add checkbox to validation checklist!!!
 
   home() {
     this.route.navigateByUrl('login');
@@ -47,10 +48,9 @@ export class SignUpComponent {
     // verify, if user already exists!!!
     if (ngForm.form.valid) {
       // add user
-      await this.joinData.addUser(this.user);
-      this.joinData.setItem('user', this.user);
-      // console.log('form valid');
-      this.route.navigateByUrl('login' + '/' + this.joinData.getSignUpToken());
+      await this.userData.setUp(this.user);
+      this.userData.getUser(this.userData.id);
+      this.route.navigateByUrl('login/' + this.userData.sid);
     }
   }
 
@@ -71,11 +71,11 @@ export class SignUpComponent {
   }
 
   getCheckbox() {
-    return this.checkboxChecked ? 'checked' : 'check';
+    return this.ppAccepted ? 'checked' : 'check';
   }
 
   getSrc() {
-    if (this.checkboxChecked) {
+    if (this.ppAccepted) {
       return '../../../assets/img/sign-up/checked.png';
     } else {
       return '../../../assets/img/sign-up/check.png';
@@ -83,12 +83,15 @@ export class SignUpComponent {
   }
 
   accept() {
-    this.checkboxChecked = !this.checkboxChecked ? true : false;
+    this.ppAccepted = !this.ppAccepted ? true : false;
+  }
+
+  disable(ngForm: NgForm) {
+    return ngForm.form.invalid || !this.ppAccepted;
   }
 
   // sign up
   // -------
-  // check box button
   // classes
   // color variables
   // input error
