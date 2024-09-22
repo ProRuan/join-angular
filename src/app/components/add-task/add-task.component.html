@@ -1,7 +1,7 @@
 <section class="add-task">
     <h2 class="headline-2">Add Task</h2>
 
-    <div class="content">
+    <form #addTaskForm="ngForm" class="content" (submit)="addTask(addTaskForm)">
         <div class="left-subcontent">
             <div class="label-input-cont">
                 <label class="label" for="title">
@@ -9,7 +9,8 @@
                     <span class="star">*</span>
                 </label>
                 <div class="input-hint-cont">
-                    <input class="input" type="text" placeholder="Enter a title">
+                    <input [(ngModel)]="task.title" name="title" class="input" type="text" placeholder="Enter a title"
+                        minlength="2" required>
                     <span class="hint">
                         This field is required.
                     </span>
@@ -22,7 +23,8 @@
                     <!-- <span class="star">*</span> -->
                 </label>
                 <div class="input-hint-cont">
-                    <textarea class="textarea" name="description" placeholder="Enter a description"></textarea>
+                    <textarea [(ngModel)]="task.description" name="description" class="textarea"
+                        placeholder="Enter a description"></textarea>
                     <div class="resizer-frame">
                         <img class="resizer" src="../../../assets/img/add-task/resizer.png" alt="resizer">
                     </div>
@@ -38,7 +40,8 @@
                     <!-- <span class="star">*</span> -->
                 </label>
                 <div class="input-hint-cont">
-                    <input class="selection" type="text" placeholder="Select contacts to assign">
+                    <input [(ngModel)]="task.assignedTo" name="assignedTo" class="selection" type="text"
+                        placeholder="Select contacts to assign">
                     <!-- <div class="drop-down-arrow"></div> -->
                     <img class="drop-down-arrow" src="../../../assets/img/add-task/drop_down_arrow_down.png"
                         alt="drop_down_arrow">
@@ -94,7 +97,8 @@
                     <span class="star">*</span>
                 </label>
                 <div class="input-hint-cont">
-                    <input class="input" type="date" placeholder="Enter a title">
+                    <input [(ngModel)]="task.dueDate" name="dueDate" class="input" type="date"
+                        placeholder="Enter a title" required>
                     <span class="hint">
                         This field is required.
                     </span>
@@ -104,15 +108,16 @@
             <div class="label-input-cont">
                 <span class="label">Prio</span>
                 <div class="prio-button-group">
-                    <button class="prio-button">
+                    <button #urgent id="urgent" class="prio-button" [disabled]="prio.urgent" (click)="setPrio(urgent)">
                         <span>Urgent</span>
                         <img src="../../../assets/img/add-task/prio_urgent.png" alt="prio_urgent">
                     </button>
-                    <button class="prio-button medium" disabled>
+                    <button #medium id="medium" class="prio-button medium" [disabled]="prio.medium"
+                        (click)="setPrio(medium)">
                         <span>Medium</span>
                         <img src="../../../assets/img/add-task/prio_medium.png" alt="prio_medium">
                     </button>
-                    <button class="prio-button">
+                    <button #low id="low" class="prio-button" [disabled]="prio.low" (click)="setPrio(low)">
                         <span>Low</span>
                         <img src="../../../assets/img/add-task/prio_low.png" alt="prio_low">
                     </button>
@@ -126,7 +131,8 @@
                     <span class="star">*</span>
                 </label>
                 <div class="input-hint-cont">
-                    <input class="selection" type="text" placeholder="Select task category">
+                    <input [(ngModel)]="task.category" name="category" class="selection" type="text"
+                        placeholder="Select task category" required>
                     <!-- <div class="drop-down-arrow"></div> -->
                     <img class="drop-down-arrow" src="../../../assets/img/add-task/drop_down_arrow_down.png"
                         alt="drop_down_arrow">
@@ -152,7 +158,8 @@
                     <!-- <span class="star">*</span> -->
                 </label>
                 <div class="input-hint-cont">
-                    <input class="input" type="text" placeholder="Add new subtask">
+                    <input [(ngModel)]="task.subtasks" name="subtask" class="input" type="text"
+                        placeholder="Add new subtask">
                     <!-- <div class="drop-down-arrow"></div> -->
                     <img class="drop-down-arrow" src="../../../assets/img/add-task/add_subtask.png"
                         alt="drop_down_arrow">
@@ -172,11 +179,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
     <div class="hint-button-group">
         <div class="button-group">
-            <button class="clear-task-btn">
+            <button class="clear-task-btn" (click)="resetForm(addTaskForm)">
                 <span>Clear</span>
                 <img src="../../../assets/img/add-task/cancel_button.png" alt="cancel_button">
             </button>

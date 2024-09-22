@@ -1,10 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { MainComponent } from '../main/main.component';
+import { User } from '../../models/user';
+import { CommonModule } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })
@@ -13,51 +17,52 @@ export class AddTaskComponent {
   sessionToken: string = '';
   codes: string[] = [];
 
+  user: User = new User();
+  task = new Task();
+  prio = {
+    urgent: false,
+    medium: true,
+    low: false,
+  };
+  // Please review!!!
+
+  // title - check
+  // description - check
+  // assignedTo ...
+  // dueDate - semiCheck
+  // prio - semiCheck
+  // category ...
+  // subtasks ...
+
   async ngOnInit() {
-    let summaryToken = await this.mainComponent.getUserToken();
-    console.log('add-task token new: ', summaryToken);
-    this.showChar();
-    console.log('character: ', this.sessionToken);
-    console.log('codes: ', this.codes);
-    this.createSessionToken();
+    await this.mainComponent.ngOnInit();
+    this.user = this.mainComponent.user;
+    console.log('from main user: ', this.mainComponent.user);
   }
 
-  showChar() {
-    // digits
-    for (let i = 48; i < 48 + 10; i++) {
-      this.sessionToken += String.fromCharCode(i);
-      this.codes.push(String.fromCharCode(i));
-    }
+  setPrio(prio: any) {
+    this.prio.urgent = prio.id == 'urgent' ? true : false;
+    this.prio.medium = prio.id == 'medium' ? true : false;
+    this.prio.low = prio.id == 'low' ? true : false;
 
-    // upper case verified
-    for (let i = 65; i < 65 + 26; i++) {
-      this.sessionToken += String.fromCharCode(i);
-      this.codes.push(String.fromCharCode(i));
+    this.task.prio = prio.id;
+    console.log('task prio: ', this.task.prio);
+    if (this.user.tasks) {
+      this.user.tasks[0].prio = prio.id;
     }
-
-    // lower case verified
-    for (let i = 97; i < 97 + 26; i++) {
-      this.sessionToken += String.fromCharCode(i);
-      this.codes.push(String.fromCharCode(i));
-    }
+    console.log('add task user: ', this.user.tasks);
   }
 
-  createSessionToken() {
-    this.sessionToken = '';
-    for (let i = 0; i < 20; i++) {
-      let index;
-      if (i == 0) {
-        index = Math.round(1 + Math.random() * 60);
-      } else {
-        index = Math.round(Math.random() * 61);
-        // console.log('code: ', code);
-      }
-      this.sessionToken += this.codes[index];
-    }
-    console.log('session token created: ', this.sessionToken);
-    console.log('session token length: ', this.sessionToken.length);
-    // should include at least 1 digit?!?
+  resetForm(ngForm: NgForm) {
+    ngForm.reset();
   }
 
-  // token sample: jHKN 8tfn W2yA Qbjk MiNy
+  // add task to user!!!
+  addTask(ngForm: NgForm) {
+    if (ngForm.form.valid) {
+      console.log('add task: ', this.task);
+    } else {
+      console.log('not valid');
+    }
+  }
 }
