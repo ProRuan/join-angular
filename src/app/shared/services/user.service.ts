@@ -18,6 +18,7 @@ export class UserService {
   charCodes: string[] = [];
 
   // necessary?
+  user: User = new User();
   users: User[] = [];
 
   constructor() {}
@@ -28,6 +29,12 @@ export class UserService {
     await this.updateUser(id, 'id', id);
     this.setSessionId();
     await this.updateUser(id, 'sid', this.sid);
+  }
+
+  // to delete or improve!
+  setUser(user: User) {
+    this.user = user;
+    console.log('set user data user: ', this.user);
   }
 
   async addUser(user?: any) {
