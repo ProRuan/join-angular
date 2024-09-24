@@ -4,33 +4,31 @@ import { User } from '../../models/user';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Task } from '../../models/task';
+import { PrioButtonComponent } from '../../shared/components/prio-button/prio-button.component';
+import { PrioService } from '../../shared/services/prio.service';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PrioButtonComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent {
   mainComponent: MainComponent = inject(MainComponent);
+  prioData: PrioService = inject(PrioService);
   sessionToken: string = '';
   codes: string[] = [];
 
   user: User = new User();
   task = new Task();
-  prio = {
-    urgent: false,
-    medium: true,
-    low: false,
-  };
   // Please review!!!
 
   // title - check
   // description - check
   // assignedTo ...
   // dueDate - semiCheck
-  // prio - semiCheck
+  // prio - check
   // category ...
   // subtasks ...
 
@@ -40,26 +38,15 @@ export class AddTaskComponent {
     console.log('from main user: ', this.mainComponent.user);
   }
 
-  setPrio(prio: any) {
-    this.prio.urgent = prio.id == 'urgent' ? true : false;
-    this.prio.medium = prio.id == 'medium' ? true : false;
-    this.prio.low = prio.id == 'low' ? true : false;
-
-    this.task.prio = prio.id;
-    console.log('task prio: ', this.task.prio);
-    if (this.user.tasks) {
-      this.user.tasks[0].prio = prio.id;
-    }
-    console.log('add task user: ', this.user.tasks);
-  }
-
   resetForm(ngForm: NgForm) {
     ngForm.reset();
+    this.prioData.reset();
   }
 
   // add task to user!!!
   addTask(ngForm: NgForm) {
     if (ngForm.form.valid) {
+      this.task.prio = this.prioData.prio;
       console.log('add task: ', this.task);
     } else {
       console.log('not valid');

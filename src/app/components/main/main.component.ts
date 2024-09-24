@@ -26,6 +26,7 @@ export class MainComponent {
   user = new User();
   users: User[] = [];
 
+  // create own function!!!
   async ngOnInit() {
     await this.setMainToken();
     this.sid = this.mainToken;

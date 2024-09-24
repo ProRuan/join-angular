@@ -1,5 +1,11 @@
 $black: #000000;
 $white: #ffffff;
+$urgent: #ff3d00;
+$medium: #ffa800;
+$low: #7ae229;
+$urgent_white: "/assets/img/add-task/prio_urgent_white.png";
+$medium_white: "/assets/img/add-task/prio_medium_white.png";
+$low_white: "/assets/img/add-task/prio_low_white.png";
 
 @mixin box-padding($p) {
   box-sizing: border-box;
@@ -44,6 +50,16 @@ $white: #ffffff;
 @mixin min-size($w, $h) {
   min-width: $w;
   min-height: $h;
+}
+
+@mixin prio-disabled($bgc, $path) {
+  &:disabled {
+    background-color: $bgc;
+
+    img {
+      content: url($path);
+    }
+  }
 }
 
 @mixin size($w, $h) {

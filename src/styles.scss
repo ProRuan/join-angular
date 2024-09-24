@@ -28,6 +28,11 @@ app-contacts {
   width: 100%;
 }
 
+app-prio-button {
+  display: flex;
+  flex: 1;
+}
+
 .headline-2 {
   @include font($fs: 61px, $fw: 700, $lh: 73.2px);
   margin: 0;
