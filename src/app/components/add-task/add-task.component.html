@@ -98,10 +98,11 @@
                 </label>
                 <div class="input-hint-cont">
                     <input [(ngModel)]="task.dueDate" name="dueDate" class="input-overlay" placeholder="dd/mm/yyyy"
-                        required (keyup)="updateCalender()">
+                        [pattern]="dueDatePat" required (keyup)="updateCalender()">
+                    <img class="calender" src="../../../assets/img/add-task/calender.png" alt="calender">
                     <input [(ngModel)]="dueDate" name="calender" class="input due-date" type="date" required
                         (change)="formatDueDate()">
-                    <span class="hint">
+                    <span class="hint" [ngClass]="showHint()">
                         This field is required.
                     </span>
                 </div>

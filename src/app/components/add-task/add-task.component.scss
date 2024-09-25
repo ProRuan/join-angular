@@ -57,6 +57,16 @@
   &::placeholder {
     color: #d1d1d1;
   }
+
+  // focus border is missing!!!
+}
+
+.calender {
+  background-color: $white;
+  position: absolute;
+  top: 12px;
+  right: 22px;
+  pointer-events: none;
 }
 
 .input {
@@ -88,6 +98,10 @@
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   color: #ff8190;
   opacity: 0;
+}
+
+.o-1 {
+  opacity: 1;
 }
 
 .textarea {
@@ -252,6 +266,10 @@
   display: unset;
   align-items: unset;
   gap: unset;
+
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
 }
 
 .prio-button-group {
