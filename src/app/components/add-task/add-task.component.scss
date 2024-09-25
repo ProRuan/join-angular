@@ -40,6 +40,25 @@
   position: relative;
 }
 
+.input-overlay {
+  @include box-padding($p: 12px 20px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  width: calc(100% - 2px - 54px);
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  // color: $black;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  // outline: none;
+  position: absolute;
+  left: 1px;
+  top: 1px;
+
+  &::placeholder {
+    color: #d1d1d1;
+  }
+}
+
 .input {
   @include box-padding($p: 11px 21px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);

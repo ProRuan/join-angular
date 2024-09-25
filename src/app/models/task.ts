@@ -11,7 +11,7 @@ export class Task {
     this.title = 'title';
     this.description = 'description';
     this.assignedTo = [];
-    this.dueDate = 0;
+    this.dueDate = '';
     this.prio = 'prio';
     this.category = 'default';
     this.subtasks = [];
