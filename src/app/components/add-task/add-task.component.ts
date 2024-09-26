@@ -53,18 +53,15 @@ export class AddTaskComponent {
       filtered: true,
     },
   ];
-  filteredContacts: any;
+  assignedContacts: any;
 
   // Please review!!!
 
   // title - check
   // description - check
-  // assignedTo ...
-  //   - array assignedContacts ...
-  //   - subId ...
-  //   - filter - semiCheck (native array or datatpye issue?!)
-  //   - logged in user 'You' ...
-  //   - ac list does not open immediately ...
+  // assignedTo - check
+  //   - logged in user 'You' ... (!)
+  //   - subId ... ?
   // dueDate - check
   // prio - check
   // category ...
@@ -108,12 +105,6 @@ export class AddTaskComponent {
         // console.log('hidden ac: ', contact);
       }
     });
-    this.filteredContacts = this.assignableContacts.filter(
-      (contact) => contact.filtered
-    );
-    if (this.filteredContacts) {
-      console.log('filtered contacts: ', this.filteredContacts);
-    }
   }
 
   getCheckbox(i: number) {
@@ -133,6 +124,14 @@ export class AddTaskComponent {
       ? true
       : false;
     console.log('assignable contacts: ', this.assignableContacts);
+
+    let contacts = this.assignableContacts.filter(
+      (contact) => contact.assigned
+    );
+    if (contacts) {
+      this.assignedContacts = contacts;
+    }
+    console.log('assigned contacts: ', this.assignedContacts);
   }
 
   formatCurrDate() {
@@ -203,6 +202,7 @@ export class AddTaskComponent {
   // add task to user!!!
   addTask(ngForm: NgForm) {
     if (ngForm.form.valid) {
+      this.task.assignedTo = this.assignedContacts;
       this.task.prio = this.prioData.prio;
       console.log('add task: ', this.task);
     } else {

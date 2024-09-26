@@ -49,16 +49,20 @@
                     </span> -->
 
                     <div class="assignable-contacts-list" [ngClass]="asToData.opened ? 'show' : ''">
-                        <div *ngFor="let contact of filteredContacts; index as i" class="assignable-contact"
-                            [ngClass]="contact.assigned ? 'assigned' : ''" (click)="assign(i)">
-                            <div class="profile-name-cont">
-                                <div class="profile">
-                                    <span class="initials">{{ contact.initials }}</span>
+                        <!-- Create an own component for assignable contact!!! -->
+                        <!-- add class for ngFor container!!! -->
+                        <div *ngFor="let contact of assignableContacts; index as i" style="width: 100%;">
+                            <div *ngIf="contact.name.includes(filter)" class="assignable-contact"
+                                [ngClass]="contact.assigned ? 'assigned' : ''" (click)="assign(i)">
+                                <div class="profile-name-cont">
+                                    <div class="profile">
+                                        <span class="initials">{{ contact.initials }}</span>
+                                    </div>
+                                    <span class="name">{{ contact.name }} &#40;You&#41;</span>
                                 </div>
-                                <span class="name">{{ contact.name }} &#40;You&#41;</span>
+                                <img [ngClass]="getCheckbox(i)" [src]="getSrc(i)" alt="checkbox">
+                                <!-- <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox"> -->
                             </div>
-                            <img [ngClass]="getCheckbox(i)" [src]="getSrc(i)" alt="checkbox">
-                            <!-- <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox"> -->
                         </div>
 
                         <!-- <div class="assignable-contact">
