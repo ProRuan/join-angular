@@ -43,7 +43,7 @@
                     <input [(ngModel)]="filter" name="assignedTo" class="selection" type="text"
                         placeholder="Select contacts to assign" (focus)="logFocus()" (keyup)="filterAC()">
                     <!-- <div class="drop-down-arrow"></div> -->
-                    <img class="drop-down-arrow" [src]="updateArrow()" alt="drop_down_arrow">
+                    <img class="drop-down-arrow" [src]="updateArrow()" alt="drop_down_arrow" (click)="switch()">
                     <!-- <span class="hint">
                         This field is required.
                     </span> -->
@@ -64,49 +64,14 @@
                                 <!-- <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox"> -->
                             </div>
                         </div>
-
-                        <!-- <div class="assignable-contact">
-                            <div class="profile-name-cont">
-                                <div class="profile">
-                                    <span class="initials">SM</span>
-                                </div>
-                                <span class="name">Sofia Müller &#40;You&#41;</span>
-                            </div>
-                            <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox">
-                        </div>
-
-                        <div class="assignable-contact">
-                            <div class="profile-name-cont">
-                                <div class="profile">
-                                    <span class="initials">AS</span>
-                                </div>
-                                <span class="name">Anja Schulz</span>
-                            </div>
-                            <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox">
-                        </div>
-
-                        <div class="assignable-contact">
-                            <div class="profile-name-cont">
-                                <div class="profile">
-                                    <span class="initials">EF</span>
-                                </div>
-                                <span class="name">Eva Fischer</span>
-                            </div>
-                            <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox">
-                        </div> -->
                     </div>
 
-                    <!-- <div class="assigned-contacts">
-                        <div style="background-color: #9327ff" class="profile">
-                            <span class="initials">AS</span>
+                    <div class="assigned-contacts">
+                        <!-- Create an own component for assigned contacts!!! -->
+                        <div *ngFor="let contact of assignedContacts" style="background-color: #9327ff" class="profile">
+                            <span class="initials">{{ contact.initials }}</span>
                         </div>
-                        <div style="background-color: #fc71ff" class="profile">
-                            <span class="initials">DE</span>
-                        </div>
-                        <div style="background-color: #ffbb2b" class="profile">
-                            <span class="initials">EF</span>
-                        </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>

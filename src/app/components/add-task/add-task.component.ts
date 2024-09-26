@@ -74,6 +74,14 @@ export class AddTaskComponent {
     this.formatCurrDate();
   }
 
+  switch() {
+    if (!this.asToData.opened) {
+      this.asToData.set(true);
+    } else {
+      this.asToData.set(false);
+    }
+  }
+
   closeAssignedTo() {
     this.asToData.set(false);
   }
