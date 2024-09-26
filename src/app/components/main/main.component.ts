@@ -6,6 +6,7 @@ import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../models/user';
+import { AssignedToService } from '../../shared/services/assigned-to.service';
 
 @Component({
   selector: 'app-main',
@@ -20,6 +21,7 @@ export class MainComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
+  asToData: AssignedToService = inject(AssignedToService);
 
   mainToken: any;
   sid: any;

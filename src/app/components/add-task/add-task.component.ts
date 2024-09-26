@@ -7,6 +7,7 @@ import { Task } from '../../models/task';
 import { PrioButtonComponent } from '../../shared/components/prio-button/prio-button.component';
 import { PrioService } from '../../shared/services/prio.service';
 import { last } from 'rxjs';
+import { AssignedToService } from '../../shared/services/assigned-to.service';
 
 @Component({
   selector: 'app-add-task',
@@ -18,12 +19,13 @@ import { last } from 'rxjs';
 export class AddTaskComponent {
   mainComponent: MainComponent = inject(MainComponent);
   prioData: PrioService = inject(PrioService);
+  // Please rename!!!
+  asToData: AssignedToService = inject(AssignedToService);
   sessionToken: string = '';
   codes: string[] = [];
 
   user: User = new User();
   task = new Task();
-  contactsFocused: boolean = true;
   ACListViewed: boolean = true;
   filter: string = '';
   dueDate: any;
@@ -61,9 +63,8 @@ export class AddTaskComponent {
   //   - array assignedContacts ...
   //   - subId ...
   //   - filter - semiCheck (native array or datatpye issue?!)
-  //   - fix input icon ...
-  //   - fix click/focus function ... (close service?!)
   //   - logged in user 'You' ...
+  //   - ac list does not open immediately ...
   // dueDate - check
   // prio - check
   // category ...
@@ -77,7 +78,7 @@ export class AddTaskComponent {
   }
 
   closeAssignedTo() {
-    this.contactsFocused = false;
+    this.asToData.set(false);
   }
 
   stop(event: Event) {
@@ -85,8 +86,15 @@ export class AddTaskComponent {
   }
 
   logFocus() {
-    this.contactsFocused = true;
-    console.log('focus ac');
+    this.asToData.set(true);
+  }
+
+  updateArrow() {
+    if (this.asToData.opened) {
+      return '../../../assets/img/add-task/drop_down_arrow_up.png';
+    } else {
+      return '../../../assets/img/add-task/drop_down_arrow_down.png';
+    }
   }
 
   // possible on keydown?!

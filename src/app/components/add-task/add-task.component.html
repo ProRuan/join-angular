@@ -43,13 +43,12 @@
                     <input [(ngModel)]="filter" name="assignedTo" class="selection" type="text"
                         placeholder="Select contacts to assign" (focus)="logFocus()" (keyup)="filterAC()">
                     <!-- <div class="drop-down-arrow"></div> -->
-                    <img class="drop-down-arrow" src="../../../assets/img/add-task/drop_down_arrow_down.png"
-                        alt="drop_down_arrow">
+                    <img class="drop-down-arrow" [src]="updateArrow()" alt="drop_down_arrow">
                     <!-- <span class="hint">
                         This field is required.
                     </span> -->
 
-                    <div class="assignable-contacts-list" [ngClass]="contactsFocused ? 'show' : ''">
+                    <div class="assignable-contacts-list" [ngClass]="asToData.opened ? 'show' : ''">
                         <div *ngFor="let contact of filteredContacts; index as i" class="assignable-contact"
                             [ngClass]="contact.assigned ? 'assigned' : ''" (click)="assign(i)">
                             <div class="profile-name-cont">
