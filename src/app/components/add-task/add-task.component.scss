@@ -194,7 +194,28 @@
   border-radius: 10px;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
   gap: 2px;
+  display: none;
   position: absolute;
+}
+
+.show {
+  display: flex;
+}
+
+.check {
+  content: url("../../../assets/img/sign-up/check.png");
+
+  &:hover {
+    content: url("../../../assets/img/sign-up/check_hover.png");
+  }
+}
+
+.checked {
+  content: url("../../../assets/img/add-task/checked_white.png");
+
+  &:hover {
+    content: url("../../../assets/img/add-task/checked_white.png");
+  }
 }
 
 .assignable-contact {
@@ -205,7 +226,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #eeeeee;
 
     // selected!!!
     // background-color: #2a3647;
@@ -213,6 +234,18 @@
     // .name {
     //   color: #ffffff;
     // }
+  }
+}
+
+.assigned {
+  background-color: #2a3647;
+
+  .name {
+    color: $white;
+  }
+
+  &:hover {
+    background-color: #091931;
   }
 }
 

@@ -23,18 +23,38 @@ export class AddTaskComponent {
 
   user: User = new User();
   task = new Task();
+  contactsFocused: boolean = true;
   dueDate: any;
   currDate: string = new Date().toLocaleDateString();
   dateInvalid: boolean = false;
   dueDatePat = /([0-3]?[0-9])[\.\/]([0-1]?[0-9])[\.\/]([0-9]{4})/;
+
+  assignableContacts = [
+    {
+      initials: 'SM',
+      name: 'Sofia Müller',
+      assigned: false,
+    },
+    {
+      initials: 'AS',
+      name: 'Anja Schulz',
+      assigned: false,
+    },
+    {
+      initials: 'EF',
+      name: 'Eva Fischer',
+      assigned: false,
+    },
+  ];
 
   // Please review!!!
 
   // title - check
   // description - check
   // assignedTo ...
-  // dueDate - semiCheck
-  // icon, single digit (day, month), replace dot, hint ... (4/4)
+  //   - array assignedContacts ...
+  //   - subId ...
+  // dueDate - check
   // prio - check
   // category ...
   // subtasks ...
@@ -44,6 +64,25 @@ export class AddTaskComponent {
     this.user = this.mainComponent.user;
     console.log('from main user: ', this.mainComponent.user);
     this.formatCurrDate();
+  }
+
+  getCheckbox(i: number) {
+    return this.assignableContacts[i].assigned ? 'checked' : 'check';
+  }
+
+  getSrc(i: number) {
+    if (this.assignableContacts[i].assigned) {
+      return '../../../assets/img/sign-up/checked.png';
+    } else {
+      return '../../../assets/img/sign-up/check.png';
+    }
+  }
+
+  assign(i: number) {
+    this.assignableContacts[i].assigned = !this.assignableContacts[i].assigned
+      ? true
+      : false;
+    console.log('assignable contacts: ', this.assignableContacts);
   }
 
   formatCurrDate() {
