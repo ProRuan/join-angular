@@ -39,9 +39,9 @@
                     <span>Assigned to</span>
                     <!-- <span class="star">*</span> -->
                 </label>
-                <div class="input-hint-cont">
-                    <input [(ngModel)]="task.assignedTo" name="assignedTo" class="selection" type="text"
-                        placeholder="Select contacts to assign" (blur)="contactsFocused = false">
+                <div class="input-hint-cont" (click)="stop($event)">
+                    <input [(ngModel)]="filter" name="assignedTo" class="selection" type="text"
+                        placeholder="Select contacts to assign" (focus)="logFocus()" (keyup)="filterAC()">
                     <!-- <div class="drop-down-arrow"></div> -->
                     <img class="drop-down-arrow" src="../../../assets/img/add-task/drop_down_arrow_down.png"
                         alt="drop_down_arrow">
@@ -50,7 +50,7 @@
                     </span> -->
 
                     <div class="assignable-contacts-list" [ngClass]="contactsFocused ? 'show' : ''">
-                        <div *ngFor="let contact of assignableContacts; index as i" class="assignable-contact"
+                        <div *ngFor="let contact of filteredContacts; index as i" class="assignable-contact"
                             [ngClass]="contact.assigned ? 'assigned' : ''" (click)="assign(i)">
                             <div class="profile-name-cont">
                                 <div class="profile">

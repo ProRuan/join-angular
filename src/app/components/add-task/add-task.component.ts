@@ -24,6 +24,8 @@ export class AddTaskComponent {
   user: User = new User();
   task = new Task();
   contactsFocused: boolean = true;
+  ACListViewed: boolean = true;
+  filter: string = '';
   dueDate: any;
   currDate: string = new Date().toLocaleDateString();
   dateInvalid: boolean = false;
@@ -34,18 +36,22 @@ export class AddTaskComponent {
       initials: 'SM',
       name: 'Sofia Müller',
       assigned: false,
+      filtered: true,
     },
     {
       initials: 'AS',
       name: 'Anja Schulz',
       assigned: false,
+      filtered: true,
     },
     {
       initials: 'EF',
       name: 'Eva Fischer',
       assigned: false,
+      filtered: true,
     },
   ];
+  filteredContacts: any;
 
   // Please review!!!
 
@@ -54,6 +60,10 @@ export class AddTaskComponent {
   // assignedTo ...
   //   - array assignedContacts ...
   //   - subId ...
+  //   - filter - semiCheck (native array or datatpye issue?!)
+  //   - fix input icon ...
+  //   - fix click/focus function ... (close service?!)
+  //   - logged in user 'You' ...
   // dueDate - check
   // prio - check
   // category ...
@@ -64,6 +74,38 @@ export class AddTaskComponent {
     this.user = this.mainComponent.user;
     console.log('from main user: ', this.mainComponent.user);
     this.formatCurrDate();
+  }
+
+  closeAssignedTo() {
+    this.contactsFocused = false;
+  }
+
+  stop(event: Event) {
+    event.stopPropagation();
+  }
+
+  logFocus() {
+    this.contactsFocused = true;
+    console.log('focus ac');
+  }
+
+  // possible on keydown?!
+  filterAC() {
+    this.assignableContacts.forEach((contact) => {
+      if (contact.name.includes(this.filter)) {
+        contact.filtered = true;
+        // console.log('filtered ac: ', contact);
+      } else {
+        contact.filtered = false;
+        // console.log('hidden ac: ', contact);
+      }
+    });
+    this.filteredContacts = this.assignableContacts.filter(
+      (contact) => contact.filtered
+    );
+    if (this.filteredContacts) {
+      console.log('filtered contacts: ', this.filteredContacts);
+    }
   }
 
   getCheckbox(i: number) {
