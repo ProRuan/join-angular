@@ -23,10 +23,20 @@
                     <span>To do</span>
                     <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed">
                 </div>
-                <div class="body">
+                <div class="body" (drop)="moveTo('to-do')" (dragover)="drop($event)">
                     <div class="default-task">
                         <span class="default-task-text">No tasks to do</span>
                     </div>
+                    <!-- drag drop test!!! -->
+                    @for(task of tasks; track task.id; let i = $index) {
+                    <div *ngIf="task.category == 'to-do'"
+                        style="box-sizing: border-box; padding: 16px; width: 100%; height: 32px; font-weight: 700; background-color: lightcyan; display: flex; justify-content: center; align-items: center; gap: 16px;"
+                        draggable="true" (dragstart)="currIndex = i">
+                        <div [innerText]="task.id"></div>
+                        <div [innerText]="task.title"></div>
+                        <div [innerText]="task.category"></div>
+                    </div>
+                    }
                 </div>
             </div>
 
@@ -35,7 +45,7 @@
                     <span>In progress</span>
                     <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed">
                 </div>
-                <div class="body">
+                <div class="body" (drop)="moveTo('in-progress')" (dragover)="drop($event)">
                     <div class="card-frame">
                         <div class="card">
                             <div class="card-category user-story">
@@ -77,6 +87,16 @@
                             </div>
                         </div>
                     </div>
+                    <!-- drag drop test!!! -->
+                    @for(task of tasks; track task.id; let i = $index) {
+                    <div *ngIf="task.category == 'in-progress'"
+                        style="box-sizing: border-box; padding: 16px; width: 100%; height: 32px; font-weight: 700; background-color: lightcyan; display: flex; justify-content: center; align-items: center; gap: 16px;"
+                        draggable="true" (dragstart)="currIndex = i">
+                        <div [innerText]="task.id"></div>
+                        <div [innerText]="task.title"></div>
+                        <div [innerText]="task.category"></div>
+                    </div>
+                    }
                 </div>
             </div>
 

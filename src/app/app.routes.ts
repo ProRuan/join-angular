@@ -25,7 +25,7 @@ export const routes: Routes = [
     children: [
       { path: 'summary', component: SummaryComponent },
       { path: 'add-task', component: AddTaskComponent },
-      { path: ':id/board', component: BoardComponent },
+      { path: 'board', component: BoardComponent },
       { path: ':id/contacts', component: ContactsComponent },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
       { path: 'legal-notice', component: LegalNoticeComponent },
