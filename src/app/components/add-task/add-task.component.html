@@ -53,19 +53,19 @@
                     <div class="assignable-contacts-list" [ngClass]="asToData.opened ? 'show' : ''">
                         <!-- Create an own component for assignable contact!!! -->
                         <!-- add class for ngFor container!!! -->
-                        <div *ngFor="let contact of assignableContacts; index as i" style="width: 100%;">
-                            <div *ngIf="contact.name.includes(filter)" class="assignable-contact"
-                                [ngClass]="contact.assigned ? 'assigned' : ''" (click)="assign(i)">
-                                <div class="profile-name-cont">
-                                    <div class="profile">
-                                        <span class="initials">{{ contact.initials }}</span>
-                                    </div>
-                                    <span class="name">{{ contact.name }} &#40;You&#41;</span>
+                        @for (contact of assignableContacts; track contact; let i = $index) {
+                        <div *ngIf="contact.name.includes(filter)" class="assignable-contact"
+                            [ngClass]="contact.assigned ? 'assigned' : ''" (click)="assign(i)">
+                            <div class="profile-name-cont">
+                                <div class="profile">
+                                    <span class="initials">{{ contact.initials }}</span>
                                 </div>
-                                <img [ngClass]="getCheckbox(i)" [src]="getSrc(i)" alt="checkbox">
-                                <!-- <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox"> -->
+                                <span class="name">{{ contact.name }} &#40;You&#41;</span>
                             </div>
+                            <img [ngClass]="getCheckbox(i)" [src]="getSrc(i)" alt="checkbox">
+                            <!-- <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox"> -->
                         </div>
+                        }
                     </div>
 
                     <div class="assigned-contacts">
@@ -144,7 +144,7 @@
                     <!-- <span class="star">*</span> -->
                 </label>
                 <div class="input-hint-cont">
-                    <input [(ngModel)]="task.subtasks" name="subtask" class="input p-16" type="text"
+                    <input [(ngModel)]="subtask" name="subtasks" class="input p-16" type="text"
                         placeholder="Add new subtask">
                     <!-- <div class="sub-icon-cont">
                         <img src="../../../assets/img/add-task/cancel.png" alt="cancel">
@@ -160,7 +160,23 @@
                 <div class="subtasks-cont">
                     <ul>
                         <!-- subtask-cont for margin-bottom:8px!!! -->
-                        <div *ngIf="!subtaskFocused" class="li-cont">
+                        <div *ngFor="let subtask of subTData.subtasks; index as i" class="subtask-cont"
+                            (click)="stop($event)">
+                            <div *ngIf="!subtask.focused" class="li-cont" (click)="editSubtask(i)">
+                                <li>{{ subtask.text }}</li>
+                            </div>
+                            <div *ngIf="subtask.focused" class="subinput-icon-cont">
+                                <input [(ngModel)]="subTData.currValue" name="subtask" class="subtask" type="text"
+                                    [value]="subtask.text">
+                                <div class="subtask-icon-cont">
+                                    <img src="../../../assets/img/add-task/delete.png" alt="delete">
+                                    <div class="sub-icon-border"></div>
+                                    <img src="../../../assets/img/add-task/check.png" alt="check"
+                                        (click)="subTData.save(i)">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div *ngIf="!subtaskFocused" class="li-cont">
                             <li>Contact Form</li>
                         </div>
                         <div *ngIf="subtaskFocused" class="subinput-icon-cont">
@@ -173,7 +189,7 @@
                         </div>
                         <div class="li-cont">
                             <li>Write Legal Imprint</li>
-                        </div>
+                        </div> -->
                         <!-- <input class="subtask" type="text" value="Write Legal Imprint"> -->
                     </ul>
                 </div>

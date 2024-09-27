@@ -7,6 +7,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../models/user';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
+import { SubtaskService } from '../../shared/services/subtask.service';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +23,7 @@ export class MainComponent {
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   asToData: AssignedToService = inject(AssignedToService);
+  subTData: SubtaskService = inject(SubtaskService);
 
   mainToken: any;
   sid: any;

@@ -399,14 +399,19 @@ ul {
 }
 
 .subinput-icon-cont {
+  // review margin-bottom!!!
+  margin-bottom: 8px;
   position: relative;
+
+  img {
+    cursor: pointer;
+  }
 }
 
 .subtask {
   @include box-padding($p: 6px 16px);
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   @include color-set($c: $black, $bgc: $white);
-  margin-bottom: 8px;
   width: 100%;
   font-family: "Inter", Arial, Helvetica, sans-serif;
   border-left: none;

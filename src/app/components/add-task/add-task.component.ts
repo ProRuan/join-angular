@@ -9,6 +9,7 @@ import { PrioService } from '../../shared/services/prio.service';
 import { last } from 'rxjs';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
 import { CategoryService } from '../../shared/services/category.service';
+import { SubtaskService } from '../../shared/services/subtask.service';
 
 @Component({
   selector: 'app-add-task',
@@ -23,6 +24,7 @@ export class AddTaskComponent {
   // Please rename!!!
   asToData: AssignedToService = inject(AssignedToService);
   catData: CategoryService = inject(CategoryService);
+  subTData: SubtaskService = inject(SubtaskService);
   sessionToken: string = '';
   codes: string[] = [];
 
@@ -34,7 +36,11 @@ export class AddTaskComponent {
   currDate: string = new Date().toLocaleDateString();
   dateInvalid: boolean = false;
   dueDatePat = /([0-3]?[0-9])[\.\/]([0-1]?[0-9])[\.\/]([0-9]{4})/;
-  subtaskFocused: boolean = true;
+  subtask: string = '';
+  subtaskFocused: boolean = false;
+  singleClick: boolean = false;
+  lastClick: any;
+  lastTimeout: any;
 
   assignableContacts = [
     {
@@ -57,6 +63,19 @@ export class AddTaskComponent {
     },
   ];
   assignedContacts: any;
+
+  // subtasks = [
+  //   {
+  //     text: 'Contact Form',
+  //     done: false,
+  //     focused: false,
+  //   },
+  //   {
+  //     text: 'Write Legal Imprint',
+  //     done: false,
+  //     focused: false,
+  //   },
+  // ];
 
   // Please review!!!
 
@@ -228,6 +247,29 @@ export class AddTaskComponent {
     this.catData.set(false);
   }
 
+  editSubtask(i: number) {
+    this.subTData.resetFocus();
+    if (this.singleClick) {
+      this.singleClick = false;
+      this.subTData.set(i, true);
+      clearTimeout(this.lastTimeout);
+      if (window.getSelection()) {
+        window.getSelection()?.removeAllRanges();
+      }
+    }
+    if (!this.singleClick) {
+      this.singleClick = true;
+      this.lastClick = new Date().getTime();
+      this.lastTimeout = setTimeout(() => {
+        this.singleClick = false;
+      }, 250);
+    }
+  }
+
+  // saveSubtask(i: number) {
+  //   this.subTData.set(i, false);
+  // }
+
   resetForm(ngForm: NgForm) {
     ngForm.reset();
     this.prioData.reset();
@@ -238,7 +280,9 @@ export class AddTaskComponent {
     if (ngForm.form.valid) {
       this.task.assignedTo = this.assignedContacts;
       this.task.prio = this.prioData.prio;
-      console.log('add task: ', this.task);
+      // console.log('add task: ', this.task);
+      this.task.subtasks = this.subTData.subtasks;
+      console.log('this task subtasks: ', this.task);
     } else {
       console.log('not valid');
     }
