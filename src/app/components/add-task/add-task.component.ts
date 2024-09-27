@@ -10,6 +10,7 @@ import { last } from 'rxjs';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
 import { CategoryService } from '../../shared/services/category.service';
 import { SubtaskService } from '../../shared/services/subtask.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-add-task',
@@ -25,6 +26,7 @@ export class AddTaskComponent {
   asToData: AssignedToService = inject(AssignedToService);
   catData: CategoryService = inject(CategoryService);
   subTData: SubtaskService = inject(SubtaskService);
+  userData: UserService = inject(UserService);
   sessionToken: string = '';
   codes: string[] = [];
 
@@ -38,9 +40,6 @@ export class AddTaskComponent {
   dueDatePat = /([0-3]?[0-9])[\.\/]([0-1]?[0-9])[\.\/]([0-9]{4})/;
   subtask: string = '';
   subtaskFocused: boolean = false;
-  singleClick: boolean = false;
-  lastClick: any;
-  lastTimeout: any;
 
   assignableContacts = [
     {
@@ -86,7 +85,7 @@ export class AddTaskComponent {
   //   - subId ... ?
   // dueDate - check
   // prio - check
-  // category ...
+  // category - check
   // subtasks ...
 
   async ngOnInit() {
@@ -247,42 +246,29 @@ export class AddTaskComponent {
     this.catData.set(false);
   }
 
-  editSubtask(i: number) {
-    this.subTData.resetFocus();
-    if (this.singleClick) {
-      this.singleClick = false;
-      this.subTData.set(i, true);
-      clearTimeout(this.lastTimeout);
-      if (window.getSelection()) {
-        window.getSelection()?.removeAllRanges();
-      }
-    }
-    if (!this.singleClick) {
-      this.singleClick = true;
-      this.lastClick = new Date().getTime();
-      this.lastTimeout = setTimeout(() => {
-        this.singleClick = false;
-      }, 250);
-    }
-  }
-
-  // saveSubtask(i: number) {
-  //   this.subTData.set(i, false);
-  // }
-
   resetForm(ngForm: NgForm) {
     ngForm.reset();
     this.prioData.reset();
   }
 
   // add task to user!!!
-  addTask(ngForm: NgForm) {
+  async addTask(ngForm: NgForm) {
     if (ngForm.form.valid) {
       this.task.assignedTo = this.assignedContacts;
       this.task.prio = this.prioData.prio;
-      // console.log('add task: ', this.task);
       this.task.subtasks = this.subTData.subtasks;
-      console.log('this task subtasks: ', this.task);
+      if (this.user.id) {
+        await this.userData.updateUser(
+          this.user.id,
+          'tasks',
+          JSON.stringify(this.task)
+        );
+        console.log('task created: ', this.task);
+      }
+      if (this.user.id) {
+        let temp = await this.userData.getUser(this.user.id);
+        console.log('tasks updated: ', JSON.parse(temp.tasks));
+      }
     } else {
       console.log('not valid');
     }

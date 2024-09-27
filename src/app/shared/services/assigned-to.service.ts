@@ -10,6 +10,6 @@ export class AssignedToService {
 
   set(value: boolean) {
     this.opened = value;
-    console.log('asToData opened: ', this.opened);
+    // console.log('asToData opened: ', this.opened);
   }
 }

@@ -364,6 +364,7 @@
 
   img {
     @include size($w: 24px, $h: 24px);
+    cursor: pointer;
   }
 }
 
@@ -403,6 +404,7 @@ ul {
   margin-bottom: 8px;
   position: relative;
 
+  // review!!!
   img {
     cursor: pointer;
   }
