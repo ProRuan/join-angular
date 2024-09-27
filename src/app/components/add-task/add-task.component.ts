@@ -8,6 +8,7 @@ import { PrioButtonComponent } from '../../shared/components/prio-button/prio-bu
 import { PrioService } from '../../shared/services/prio.service';
 import { last } from 'rxjs';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
+import { CategoryService } from '../../shared/services/category.service';
 
 @Component({
   selector: 'app-add-task',
@@ -21,6 +22,7 @@ export class AddTaskComponent {
   prioData: PrioService = inject(PrioService);
   // Please rename!!!
   asToData: AssignedToService = inject(AssignedToService);
+  catData: CategoryService = inject(CategoryService);
   sessionToken: string = '';
   codes: string[] = [];
 
@@ -74,7 +76,7 @@ export class AddTaskComponent {
     this.formatCurrDate();
   }
 
-  switch() {
+  switchAssignedTo() {
     if (!this.asToData.opened) {
       this.asToData.set(true);
     } else {
@@ -94,7 +96,7 @@ export class AddTaskComponent {
     this.asToData.set(true);
   }
 
-  updateArrow() {
+  updateArrowAssignedTo() {
     if (this.asToData.opened) {
       return '../../../assets/img/add-task/drop_down_arrow_up.png';
     } else {
@@ -200,6 +202,29 @@ export class AddTaskComponent {
     let [year, month, day] = this.dueDate.split('-');
     this.task.dueDate = day + '/' + month + '/' + year;
     // console.log('new due date: ', this.task.dueDate);
+  }
+
+  // double code!!!
+  switchCategory() {
+    if (!this.catData.opened) {
+      this.catData.set(true);
+    } else {
+      this.catData.set(false);
+    }
+  }
+
+  // double code!!!
+  updateArrowCategory() {
+    if (this.catData.opened) {
+      return '../../../assets/img/add-task/drop_down_arrow_up.png';
+    } else {
+      return '../../../assets/img/add-task/drop_down_arrow_down.png';
+    }
+  }
+
+  setCategory(element: HTMLDivElement) {
+    this.task.category = element.innerText;
+    this.catData.set(false);
   }
 
   resetForm(ngForm: NgForm) {

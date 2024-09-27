@@ -200,7 +200,7 @@
 }
 
 .show {
-  display: flex;
+  display: flex !important;
 }
 
 .hide {
@@ -315,13 +315,35 @@
   width: 100%;
 }
 
+.read-only {
+  cursor: pointer;
+}
+
+// double code with assignable-contacts-list
+.category-list {
+  @include display-column();
+  padding-top: 48px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+  gap: 2px;
+  display: none;
+  position: absolute;
+}
+
 .category-item {
   @include box-padding($p: 12px 16px);
   width: 100%;
   border-radius: 10px;
+  cursor: pointer;
 
   span {
     @include font($fs: 20px, $fw: 400, $lh: 24px);
+  }
+
+  &:hover {
+    background-color: #eeeeee;
   }
 }
 

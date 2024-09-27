@@ -13,7 +13,7 @@ export class Task {
     this.assignedTo = [];
     this.dueDate = '';
     this.prio = 'prio';
-    this.category = 'default';
+    this.category = '';
     this.subtasks = [];
   }
 }
