@@ -144,24 +144,38 @@
                     <!-- <span class="star">*</span> -->
                 </label>
                 <div class="input-hint-cont">
-                    <input [(ngModel)]="task.subtasks" name="subtask" class="input" type="text"
+                    <input [(ngModel)]="task.subtasks" name="subtask" class="input p-16" type="text"
                         placeholder="Add new subtask">
-                    <!-- <div class="drop-down-arrow"></div> -->
+                    <!-- <div class="sub-icon-cont">
+                        <img src="../../../assets/img/add-task/cancel.png" alt="cancel">
+                        <div class="sub-icon-border"></div>
+                        <img src="../../../assets/img/add-task/check.png" alt="check">
+                    </div> -->
                     <img class="drop-down-arrow" src="../../../assets/img/add-task/add_subtask.png"
                         alt="drop_down_arrow">
                     <!-- <span class="hint">
                         This field is required.
                     </span> -->
-
-                    <!-- <div class="assignable-contacts-list">
-                        <div class="category-item">
-                           <span>Technical Task</span>
+                </div>
+                <div class="subtasks-cont">
+                    <ul>
+                        <!-- subtask-cont for margin-bottom:8px!!! -->
+                        <div *ngIf="!subtaskFocused" class="li-cont">
+                            <li>Contact Form</li>
                         </div>
-
-                        <div class="category-item">
-                            <span>User Story</span>
-                         </div>
-                    </div> -->
+                        <div *ngIf="subtaskFocused" class="subinput-icon-cont">
+                            <input class="subtask" type="text" value="Contact Form">
+                            <div class="subtask-icon-cont">
+                                <img src="../../../assets/img/add-task/delete.png" alt="delete">
+                                <div class="sub-icon-border"></div>
+                                <img src="../../../assets/img/add-task/check.png" alt="check">
+                            </div>
+                        </div>
+                        <div class="li-cont">
+                            <li>Write Legal Imprint</li>
+                        </div>
+                        <!-- <input class="subtask" type="text" value="Write Legal Imprint"> -->
+                    </ul>
                 </div>
             </div>
         </div>

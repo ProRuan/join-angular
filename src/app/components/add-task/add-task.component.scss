@@ -351,6 +351,85 @@
   width: 100%;
 }
 
+.p-16 {
+  padding: 11px 15px;
+}
+
+.sub-icon-cont {
+  @include display-horiz($g: 4px);
+  max-width: 56px;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+
+  img {
+    @include size($w: 24px, $h: 24px);
+  }
+}
+
+.sub-icon-border {
+  @include size($w: 0, $h: 24px);
+  border-right: 1px solid #d1d1d1;
+}
+
+.subtasks-cont {
+  width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding-inline-start: 0;
+
+  li {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    color: $black;
+  }
+}
+
+.li-cont {
+  @include display-flex($jc: flex-start);
+  padding-left: 40px;
+  margin-bottom: 8px;
+  height: 32px;
+  position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.subinput-icon-cont {
+  position: relative;
+}
+
+.subtask {
+  @include box-padding($p: 6px 16px);
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  @include color-set($c: $black, $bgc: $white);
+  margin-bottom: 8px;
+  width: 100%;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #29abe2;
+  border-right: none;
+  // position: absolute;
+  // left: 0;
+  // top: 0;
+}
+
+.subtask-icon-cont {
+  @include display-horiz($g: 4px);
+  max-width: 56px;
+  position: absolute;
+  top: 4px;
+  right: 16px;
+
+  img {
+    @include size($w: 24px, $h: 24px);
+  }
+}
+
 .button-group {
   @include display-flex($jc: flex-end);
   gap: 16px;

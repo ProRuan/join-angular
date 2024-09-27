@@ -34,6 +34,7 @@ export class AddTaskComponent {
   currDate: string = new Date().toLocaleDateString();
   dateInvalid: boolean = false;
   dueDatePat = /([0-3]?[0-9])[\.\/]([0-1]?[0-9])[\.\/]([0-9]{4})/;
+  subtaskFocused: boolean = true;
 
   assignableContacts = [
     {
