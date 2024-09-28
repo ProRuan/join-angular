@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-draggable-task',
@@ -22,6 +22,15 @@ export class DraggableTaskComponent {
     ],
     prio: 'medium',
   };
+  rotated: boolean = false;
+
+  @Output() dragMove = new EventEmitter<any>();
+
+  onDragMove() {
+    this.rotated = true;
+    this.dragMove.emit(this.task);
+    console.log('on drag move: ', this.task);
+  }
 
   color() {
     let color = this.task.category.toLowerCase();

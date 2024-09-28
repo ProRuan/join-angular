@@ -24,18 +24,12 @@
                     <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed">
                 </div>
                 <div class="body" (drop)="moveTo('to-do')" (dragover)="drop($event)">
-                    <div class="default-task">
+                    <div *ngIf="printPlaceholder('to-do')" class="default-task">
                         <span class="default-task-text">No tasks to do</span>
                     </div>
-                    <!-- drag drop test!!! -->
-                    @for(task of tasks; track task.id; let i = $index) {
-                    <div *ngIf="task.category == 'to-do'"
-                        style="box-sizing: border-box; padding: 16px; width: 100%; height: 32px; font-weight: 700; background-color: lightcyan; display: flex; justify-content: center; align-items: center; gap: 16px;"
-                        draggable="true" (dragstart)="currIndex = i">
-                        <div [innerText]="task.id"></div>
-                        <div [innerText]="task.title"></div>
-                        <div [innerText]="task.category"></div>
-                    </div>
+                    @for(task of draggableTasks; track task) {
+                    <app-draggable-task *ngIf="task.column == 'to-do'" [task]="task"
+                        (dragMove)="logDrag($event)"></app-draggable-task>
                     }
                 </div>
             </div>
@@ -46,16 +40,12 @@
                     <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed">
                 </div>
                 <div class="body" (drop)="moveTo('in-progress')" (dragover)="drop($event)">
-                    <app-draggable-task [task]="draggableTasks[0]"></app-draggable-task>
-                    <!-- drag drop test!!! -->
-                    @for(task of tasks; track task.id; let i = $index) {
-                    <div *ngIf="task.category == 'in-progress'"
-                        style="box-sizing: border-box; padding: 16px; width: 100%; height: 32px; font-weight: 700; background-color: lightcyan; display: flex; justify-content: center; align-items: center; gap: 16px;"
-                        draggable="true" (dragstart)="currIndex = i">
-                        <div [innerText]="task.id"></div>
-                        <div [innerText]="task.title"></div>
-                        <div [innerText]="task.category"></div>
+                    <div *ngIf="printPlaceholder('in-progress')" class="default-task">
+                        <span class="default-task-text">No tasks in progress</span>
                     </div>
+                    @for(task of draggableTasks; track task) {
+                    <app-draggable-task *ngIf="task.column == 'in-progress'" [task]="task"
+                        (dragMove)="logDrag($event)"></app-draggable-task>
                     }
                 </div>
             </div>
@@ -65,10 +55,17 @@
                     <span>Await feedback</span>
                     <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed">
                 </div>
-                <div class="body">
+                <div class="body" (drop)="moveTo('await-feedback')" (dragover)="drop($event)">
                     board-task gap 20px
                     board-task with subtasks gap 24px
                     create 2-4 components!!!
+                    <div *ngIf="printPlaceholder('await-feedback')" class="default-task">
+                        <span class="default-task-text">No tasks await feedback</span>
+                    </div>
+                    @for(task of draggableTasks; track task) {
+                    <app-draggable-task *ngIf="task.column == 'await-feedback'" [task]="task"
+                        (dragMove)="logDrag($event)"></app-draggable-task>
+                    }
                 </div>
             </div>
 
@@ -77,8 +74,14 @@
                     <span>Done</span>
                     <!-- <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed"> -->
                 </div>
-                <div class="body">
-                    <app-draggable-task [task]="draggableTasks[1]"></app-draggable-task>
+                <div class="body" (drop)="moveTo('done')" (dragover)="drop($event)">
+                    <div *ngIf="printPlaceholder('done')" class="default-task">
+                        <span class="default-task-text">No tasks done</span>
+                    </div>
+                    @for(task of draggableTasks; track task) {
+                    <app-draggable-task *ngIf="task.column == 'done'" [task]="task"
+                        (dragMove)="logDrag($event)"></app-draggable-task>
+                    }
                 </div>
             </div>
         </div>

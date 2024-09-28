@@ -1,4 +1,4 @@
-<div class="draggable-task" draggable="true">
+<div class="draggable-task" draggable="true" (dragstart)="onDragMove()">
     <div class="card">
         <div class="card-category" [ngClass]="color()">
             <span class="category-text">{{ task.category }}</span>

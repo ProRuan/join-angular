@@ -15,11 +15,12 @@ import { DraggableTaskComponent } from './draggable-task/draggable-task.componen
 export class BoardComponent {
   mainComponent: MainComponent = inject(MainComponent);
 
-  currIndex: number = 0;
+  currTask: any;
   user: User = new User();
 
   draggableTasks = [
     {
+      column: 'in-progress',
       category: 'User Story',
       title: 'Kochwelt Page & Recipe Recommender',
       description: 'Build start page with recipe recommendation...',
@@ -33,6 +34,7 @@ export class BoardComponent {
       prio: 'medium',
     },
     {
+      column: 'done',
       category: 'Technical Task',
       title: 'Kochwelt Page & Recipe Recommender',
       description: 'Build start page with recipe recommendation...',
@@ -47,23 +49,21 @@ export class BoardComponent {
     },
   ];
 
-  tasks = [
-    {
-      id: 0,
-      title: 'Frontend',
-      category: 'to-do',
-    },
-    {
-      id: 1,
-      title: 'Backend',
-      category: 'in-progress',
-    },
-  ];
-
   async ngOnInit() {
     await this.mainComponent.ngOnInit();
     this.user = this.mainComponent.user;
     console.log('from main user: ', this.mainComponent.user);
+  }
+
+  printPlaceholder(column: string) {
+    let tasks = this.draggableTasks.some((t) => t.column == column);
+    return !tasks ? true : false;
+  }
+
+  logDrag(event: any) {
+    this.currTask = event;
+    console.log('log drag: ', this.currTask);
+    // console.log('log draggable tasks: ', this.draggableTasks);
   }
 
   // startDrag(i: number) {
@@ -72,9 +72,7 @@ export class BoardComponent {
   // }
 
   moveTo(category: string) {
-    // this.currDragElem.category = category;
-    this.tasks[this.currIndex].category = category;
-    console.log('tasks: ', this.tasks);
+    this.currTask.column = category;
   }
 
   drop(event: Event) {
