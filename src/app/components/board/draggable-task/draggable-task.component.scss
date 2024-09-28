@@ -1,0 +1,117 @@
+@import "../../../../mixins.scss";
+
+.draggable-task {
+  @include box-padding($p: 16px);
+  width: 252px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
+  display: block;
+}
+
+.card {
+  @include display-column();
+  gap: 24px;
+}
+
+.card-category {
+  padding: 4px 16px;
+  border-radius: 8px;
+}
+
+.user-story {
+  background-color: #0038ff;
+}
+
+.technical-task {
+  background-color: #1fd7c1;
+}
+
+.category-text {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  color: #ffffff;
+}
+
+.title-description-cont {
+  @include display-column();
+  gap: 8px;
+}
+
+.card-title {
+  @include font($fs: 16px, $fw: 700, $lh: 19.2px);
+  color: #293647;
+}
+
+.card-description {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  color: #ababab;
+}
+
+.card-subtasks {
+  @include display-horiz($g: 16px);
+  width: 100%;
+}
+
+.max-bar {
+  @include box-padding($p: 0 64px 0 0);
+  width: 128px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+
+.progress-bar {
+  @include size($w: 64px, $h: 8px);
+  background-color: #4589ff;
+  border-radius: 16px;
+}
+
+.subtask-counter {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  color: #000000;
+}
+
+.contacts-prio-cont {
+  @include display-flex($jc: space-between);
+  width: 100%;
+}
+
+.assigned-contacts {
+  @include display-horiz($g: 0);
+  // set minus to left
+
+  .profile:first-child {
+    margin-left: 0;
+  }
+
+  .profile {
+    margin-left: -8px;
+  }
+}
+
+// copy from add-task
+.profile {
+  @include size($w: 32px, $h: 32px);
+  @include display-flex();
+  background-color: #29abe2;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #ffffff;
+  border-radius: 45px;
+}
+
+// copy from add-task
+.initials {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  margin-top: 1px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.prio-cont {
+  @include size($w: 32px, $h: 32px);
+  @include display-flex();
+}
+
+.prio-img {
+  @include size($w: 17px, $h: 6.33px);
+}

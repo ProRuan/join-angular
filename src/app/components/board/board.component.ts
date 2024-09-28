@@ -3,11 +3,12 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
 import { MainComponent } from '../main/main.component';
 import { User } from '../../models/user';
 import { CommonModule } from '@angular/common';
+import { DraggableTaskComponent } from './draggable-task/draggable-task.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [EditTaskComponent, CommonModule],
+  imports: [EditTaskComponent, CommonModule, DraggableTaskComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
@@ -16,6 +17,36 @@ export class BoardComponent {
 
   currIndex: number = 0;
   user: User = new User();
+
+  draggableTasks = [
+    {
+      category: 'User Story',
+      title: 'Kochwelt Page & Recipe Recommender',
+      description: 'Build start page with recipe recommendation...',
+      subtaskCounter: 1,
+      subtasks: 2,
+      assignedContacts: [
+        { bgc: '#9327ff', initials: 'AS' },
+        { bgc: '#fc71ff', initials: 'DE' },
+        { bgc: '#ffbb2b', initials: 'EF' },
+      ],
+      prio: 'medium',
+    },
+    {
+      category: 'Technical Task',
+      title: 'Kochwelt Page & Recipe Recommender',
+      description: 'Build start page with recipe recommendation...',
+      subtaskCounter: 1,
+      subtasks: 2,
+      assignedContacts: [
+        { bgc: '#9327ff', initials: 'AS' },
+        { bgc: '#fc71ff', initials: 'DE' },
+        { bgc: '#ffbb2b', initials: 'EF' },
+      ],
+      prio: 'medium',
+    },
+  ];
+
   tasks = [
     {
       id: 0,

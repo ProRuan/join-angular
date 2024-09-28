@@ -1,0 +1,34 @@
+<div class="draggable-task" draggable="true">
+    <div class="card">
+        <div class="card-category" [ngClass]="color()">
+            <span class="category-text">{{ task.category }}</span>
+        </div>
+
+        <div class="title-description-cont">
+            <h4 class="card-title">{{ task.title }}</h4>
+            <p class="card-description">{{ task.description }}</p>
+        </div>
+
+        <div class="card-subtasks">
+            <div class="max-bar">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="subtask-counter">
+                <span>{{ task.subtaskCounter }}/{{ task.subtasks}} Subtasks</span>
+            </div>
+        </div>
+
+        <div class="contacts-prio-cont">
+            <div class="assigned-contacts">
+                <!-- create an own component!!! -->
+                <div *ngFor="let contact of task.assignedContacts" [ngStyle]="{'background-color': contact.bgc}"
+                    class="profile">
+                    <span class="initials">{{ contact.initials }}</span>
+                </div>
+            </div>
+            <div class="prio-cont">
+                <img class="prio-img" src="../../../assets/img/add-task/prio_{{ task.prio }}.png" alt="prio_medium">
+            </div>
+        </div>
+    </div>
+</div>
