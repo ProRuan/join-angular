@@ -64,7 +64,7 @@ export class MainComponent {
     if (user) {
       this.user = user;
       console.log('summary user: ', this.user);
-      console.log('user task summary: ', this.user.taskSummary);
+      console.log('user task summary: ', this.user.summary);
     }
     this.userData.setUser(this.user);
   }

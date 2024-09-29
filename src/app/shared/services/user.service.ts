@@ -84,7 +84,7 @@ export class UserService {
       let user = new User(doc.data());
       this.users.push(user);
 
-      let taskSummary = this.users[0].taskSummary;
+      let taskSummary = this.users[0].summary;
       // console.log('task summary: ', taskSummary);
     });
     console.log('users: ', this.users);

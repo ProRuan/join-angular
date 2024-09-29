@@ -15,6 +15,18 @@ export class ContactsComponent {
   decData: DialogEditContactService = inject(DialogEditContactService);
   dacData: DialogAddContactService = inject(DialogAddContactService);
 
+  // main object
+  user = {
+    id: '',
+    sid: '',
+    name: 'Rudolf Sachslehner',
+    email: 'rudolf.sachslehner@join.com',
+    password: 'test123!',
+    summary: {},
+    tasks: [],
+    contacts: [],
+  };
+
   currContact = {
     initials: 'AM',
     name: 'Anton Mayer',
