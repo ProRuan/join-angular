@@ -15,6 +15,7 @@ export class ContactsComponent {
     name: 'Anton Mayer',
     email: 'antonm@gmail.com',
   };
+  currColor: string = '';
 
   contacts = [
     {
@@ -64,9 +65,23 @@ export class ContactsComponent {
     },
   ];
 
+  // work with modulo operator!!!
+  colorSet = [
+    'orange',
+    'purple',
+    'blue',
+    'magenta',
+    'yellow',
+    'green',
+    'dark-blue',
+    'red',
+    'cyan',
+  ];
+
   viewContact(event: any) {
     // add phone numbers!!!
-    this.currContact = event;
+    this.currContact = event.contact;
+    this.currColor = event.color;
     console.log('view contact: ', this.currContact);
   }
 }

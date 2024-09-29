@@ -11,7 +11,7 @@
             <div class="register-letter">
                 <span class="letter">A</span>
             </div>
-            <app-viewable-contact *ngFor="let contact of contacts" [contact]="contact"
+            <app-viewable-contact *ngFor="let contact of contacts; index as i" [contact]="contact" [color]="colorSet[i]"
                 (viewableContact)="viewContact($event)"></app-viewable-contact>
         </div>
     </div>
@@ -27,7 +27,7 @@
 
         <div class="contact-card">
             <div class="displayed-contact">
-                <div style="background-color: #ff7a00" class="displayed-profile">
+                <div class="displayed-profile {{ currColor }}">
                     <span class="displayed-initials">{{ currContact.initials }}</span>
                 </div>
                 <div class="name-button-cont">
