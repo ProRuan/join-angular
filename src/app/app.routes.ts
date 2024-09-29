@@ -26,7 +26,7 @@ export const routes: Routes = [
       { path: 'summary', component: SummaryComponent },
       { path: 'add-task', component: AddTaskComponent },
       { path: 'board', component: BoardComponent },
-      { path: ':id/contacts', component: ContactsComponent },
+      { path: 'contacts', component: ContactsComponent },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
       { path: 'legal-notice', component: LegalNoticeComponent },
       { path: 'help', component: HelpComponent },

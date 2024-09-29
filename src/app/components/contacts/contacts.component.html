@@ -6,17 +6,18 @@
                 <img src="../../../assets/img/contacts/add_new_contact.png" alt="add_new_contact">
             </button>
         </div>
+        <!-- only contact-collecter scrollable!!! -->
         <div class="contact-collector">
             <div class="register-letter">
                 <span class="letter">A</span>
             </div>
-            <button class="contact">
+            <button *ngFor="let contact of contacts" class="contact" (click)="viewContact()">
                 <div style="background-color: #9327ff" class="profile">
-                    <span class="initials">AS</span>
+                    <span class="initials">{{ contact.initials }}</span>
                 </div>
                 <div class="contact-details">
-                    <span class="contact-name">Anton Müller</span>
-                    <span class="contact-email">antonm&#64;gmail.com</span>
+                    <span class="contact-name">{{ contact.name }}</span>
+                    <span class="contact-email">{{ contact.email }}</span>
                 </div>
             </button>
         </div>
@@ -34,10 +35,10 @@
         <div class="contact-card">
             <div class="displayed-contact">
                 <div style="background-color: #ff7a00" class="displayed-profile">
-                    <span class="displayed-initials">AS</span>
+                    <span class="displayed-initials">{{ currContact.initials }}</span>
                 </div>
                 <div class="name-button-cont">
-                    <span class="displayed-name">Anton Mayer</span>
+                    <span class="displayed-name">{{ currContact.name }}</span>
                     <div class="settings-button-group">
                         <button class="settings-btn">
                             <img class="edit" src="../../../assets/img/contacts/edit.png" alt="edit">
@@ -58,7 +59,7 @@
             <div class="email-phone-cont">
                 <div class="contact-detail-cont">
                     <span class="fw-700">Email</span>
-                    <span class="email-text">antonm&#64;gmail.com</span>
+                    <span class="email-text">{{ currContact.email }}</span>
                 </div>
                 <div class="contact-detail-cont">
                     <span class="fw-700">Phone</span>
