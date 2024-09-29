@@ -1,0 +1,49 @@
+<section class="add-contact" (click)="stop($event)">
+    <div class="left-cont">
+        <img class="logo" src="../../../../assets/img/menu/menu_logo.png" alt="menu-logo">
+
+        <div class="title-border-cont">
+            <h2 class="headline-2">Edit contact</h2>
+            <div class="underline"></div>
+        </div>
+    </div>
+
+    <div class="right-cont">
+        <img class="close-btn" src="../../../../assets/img/contacts/close.png" alt="close" (click)="decData.close()">
+
+        <div class="profile-form-cont">
+            <div class="displayed-profile {{ decData.color }}">
+                <span class="displayed-initials">{{ decData.contact.initials }}</span>
+            </div>
+            <form class="add-contact-form">
+                <div class="input-group">
+                    <div class="input-icon-cont">
+                        <input type="text" class="input" placeholder="Name" [value]="decData.contact.name">
+                        <img class="input-icon" src="../../../assets/img/global/person.png" alt="person">
+                    </div>
+
+                    <div class="input-icon-cont">
+                        <input type="text" class="input" placeholder="Email" [value]="decData.contact.email">
+                        <img class="input-icon" src="../../../../assets/img/global/email.png" alt="email">
+                    </div>
+
+                    <div class="input-icon-cont">
+                        <input type="text" class="input" placeholder="Phone" value="+49 2222 222 22 2">
+                        <img class="input-icon" src="../../../../assets/img/contacts/phone.png" alt="phone">
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="clear-task-btn">
+                        <span>Clear</span>
+                        <img src="../../../assets/img/add-task/cancel_button.png" alt="cancel_button">
+                    </button>
+                    <button class="create-task-btn">
+                        <span>Create contact</span>
+                        <img src="../../../assets/img/add-task/create_button.png" alt="create_button">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

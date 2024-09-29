@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ViewableContactComponent } from './viewable-contact/viewable-contact.component';
+import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
 
 @Component({
   selector: 'app-contacts',
@@ -10,6 +11,8 @@ import { ViewableContactComponent } from './viewable-contact/viewable-contact.co
   styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent {
+  decData: DialogEditContactService = inject(DialogEditContactService);
+
   currContact = {
     initials: 'AM',
     name: 'Anton Mayer',
@@ -83,5 +86,11 @@ export class ContactsComponent {
     this.currContact = event.contact;
     this.currColor = event.color;
     console.log('view contact: ', this.currContact);
+  }
+
+  editContact() {
+    this.decData.setContact(this.currContact);
+    this.decData.setColor(this.currColor);
+    this.decData.open();
   }
 }

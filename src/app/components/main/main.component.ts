@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
 import { DialogViewTaskComponent } from './dialog-view-task/dialog-view-task.component';
 import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
+import { DialogEditContactComponent } from './dialog-edit-contact/dialog-edit-contact.component';
+import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
 
 @Component({
   selector: 'app-main',
@@ -24,6 +26,7 @@ import { DialogViewTaskService } from '../../shared/services/dialog-view-task.se
     DialogAddTaskComponent,
     CommonModule,
     DialogViewTaskComponent,
+    DialogEditContactComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -38,6 +41,7 @@ export class MainComponent {
   subTData: SubtaskService = inject(SubtaskService);
   datData: DialogAddTaskService = inject(DialogAddTaskService);
   dvtData: DialogViewTaskService = inject(DialogViewTaskService);
+  decData: DialogEditContactService = inject(DialogEditContactService);
 
   mainToken: any;
   sid: any;
