@@ -15,6 +15,8 @@ import { DialogViewTaskComponent } from './dialog-view-task/dialog-view-task.com
 import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
 import { DialogEditContactComponent } from './dialog-edit-contact/dialog-edit-contact.component';
 import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
+import { DialogAddContactComponent } from './dialog-add-contact/dialog-add-contact.component';
+import { DialogAddContactService } from '../../shared/services/dialog-add-contact.service';
 
 @Component({
   selector: 'app-main',
@@ -27,6 +29,7 @@ import { DialogEditContactService } from '../../shared/services/dialog-edit-cont
     CommonModule,
     DialogViewTaskComponent,
     DialogEditContactComponent,
+    DialogAddContactComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -42,6 +45,7 @@ export class MainComponent {
   datData: DialogAddTaskService = inject(DialogAddTaskService);
   dvtData: DialogViewTaskService = inject(DialogViewTaskService);
   decData: DialogEditContactService = inject(DialogEditContactService);
+  dacData: DialogAddContactService = inject(DialogAddContactService);
 
   mainToken: any;
   sid: any;

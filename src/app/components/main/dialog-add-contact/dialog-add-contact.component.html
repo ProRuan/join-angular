@@ -1,34 +1,37 @@
-<section class="add-contact">
+<section class="add-contact" (click)="stop($event)">
     <div class="left-cont">
         <img class="logo" src="../../../../assets/img/menu/menu_logo.png" alt="menu-logo">
 
         <div class="title-border-cont">
-            <h2 class="headline-2">Edit contact</h2>
+            <div class="title-subtitle-cont">
+                <h2 class="headline-2">Add contact</h2>
+                <span class="subtitle">Tasks are better with a team!</span>
+            </div>
             <div class="underline"></div>
         </div>
     </div>
 
     <div class="right-cont">
-        <img class="close-btn" src="../../../../assets/img/contacts/close.png" alt="close">
+        <img class="close-btn" src="../../../../assets/img/contacts/close.png" alt="close" (click)="dacData.close()">
 
         <div class="profile-form-cont">
-            <div style="background-color: #ffc700" class="displayed-profile">
-                <span class="displayed-initials">TW</span>
+            <div class="displayed-profile">
+                <img src="../../../../assets/img/contacts/person.png" alt="person">
             </div>
             <form class="add-contact-form">
                 <div class="input-group">
                     <div class="input-icon-cont">
-                        <input type="text" class="input" placeholder="Name" value="Tatjana Wolf">
-                        <img class="input-icon" src="../../../assets/img/sign-up/person.png" alt="person">
+                        <input type="text" class="input" placeholder="Name">
+                        <img class="input-icon" src="../../../assets/img/global/person.png" alt="person">
                     </div>
 
                     <div class="input-icon-cont">
-                        <input type="text" class="input" placeholder="Email" value="wolf@gmail.com">
-                        <img class="input-icon" src="../../../../assets/img/login/email.png" alt="email">
+                        <input type="text" class="input" placeholder="Email">
+                        <img class="input-icon" src="../../../../assets/img/global/email.png" alt="email">
                     </div>
 
                     <div class="input-icon-cont">
-                        <input type="text" class="input" placeholder="Phone" value="+49 2222 222 22 2">
+                        <input type="text" class="input" placeholder="Phone">
                         <img class="input-icon" src="../../../../assets/img/contacts/phone.png" alt="phone">
                     </div>
                 </div>

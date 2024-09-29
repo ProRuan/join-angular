@@ -4,6 +4,8 @@
     (click)="dvtData.close()"></app-dialog-view-task>
 <app-dialog-edit-contact class="dialog-edit-contact" [ngClass]="decData.closed ? 'edit-closed' : ''"
     (click)="decData.close()"></app-dialog-edit-contact>
+<app-dialog-add-contact class="dialog-add-contact" [ngClass]="dacData.closed ? 'add-closed' : ''"
+    (click)="dacData.close()"></app-dialog-add-contact>
 
 <div class="user-interface" (click)="asToData.set(false); subTData.resetFocus(); subTData.save(subTData.currIndex)">
     <app-menu class=" menu"></app-menu>

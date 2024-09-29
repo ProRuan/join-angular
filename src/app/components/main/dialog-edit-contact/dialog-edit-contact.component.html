@@ -15,26 +15,30 @@
             <div class="displayed-profile {{ decData.color }}">
                 <span class="displayed-initials">{{ decData.contact.initials }}</span>
             </div>
-            <form class="add-contact-form">
+            <form #editContactForm="ngForm" class="add-contact-form" (submit)="onSave(editContactForm)">
                 <div class="input-group">
+                    <!-- replace with app-input!!! -->
                     <div class="input-icon-cont">
-                        <input type="text" class="input" placeholder="Name" [value]="decData.contact.name">
+                        <input [(ngModel)]="decData.contact.name" name="name" type="text" class="input"
+                            placeholder="Name" minlength="2" required [value]="decData.contact.name">
                         <img class="input-icon" src="../../../assets/img/global/person.png" alt="person">
                     </div>
 
+                    <!-- add email pattern! -->
                     <div class="input-icon-cont">
-                        <input type="text" class="input" placeholder="Email" [value]="decData.contact.email">
+                        <input [(ngModel)]="decData.contact.email" name="email" type="text" class="input"
+                            placeholder="Email" required [value]="decData.contact.email">
                         <img class="input-icon" src="../../../../assets/img/global/email.png" alt="email">
                     </div>
 
                     <div class="input-icon-cont">
-                        <input type="text" class="input" placeholder="Phone" value="+49 2222 222 22 2">
+                        <input name="phone" type="text" class="input" placeholder="Phone" value="+49 2222 222 22 2">
                         <img class="input-icon" src="../../../../assets/img/contacts/phone.png" alt="phone">
                     </div>
                 </div>
 
                 <div class="button-group">
-                    <button class="clear-task-btn">
+                    <button class="clear-task-btn" (click)="cancel(editContactForm)">
                         <span>Clear</span>
                         <img src="../../../assets/img/add-task/cancel_button.png" alt="cancel_button">
                     </button>

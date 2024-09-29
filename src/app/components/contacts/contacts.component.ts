@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ViewableContactComponent } from './viewable-contact/viewable-contact.component';
 import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
+import { DialogAddContactService } from '../../shared/services/dialog-add-contact.service';
 
 @Component({
   selector: 'app-contacts',
@@ -12,6 +13,7 @@ import { DialogEditContactService } from '../../shared/services/dialog-edit-cont
 })
 export class ContactsComponent {
   decData: DialogEditContactService = inject(DialogEditContactService);
+  dacData: DialogAddContactService = inject(DialogAddContactService);
 
   currContact = {
     initials: 'AM',
@@ -20,6 +22,8 @@ export class ContactsComponent {
   };
   currColor: string = '';
 
+  // create contact service!!!
+  // save contacts function!!!
   contacts = [
     {
       initials: 'AM',
