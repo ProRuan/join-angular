@@ -1,3 +1,6 @@
+<app-dialog-add-task class="dialog-add-task" [ngClass]="datData.closed ? 'closed': ''"
+    (click)="datData.close()"></app-dialog-add-task>
+
 <div class="user-interface" (click)="asToData.set(false); subTData.resetFocus(); subTData.save(subTData.currIndex)">
     <app-menu class=" menu"></app-menu>
     <div class="content">

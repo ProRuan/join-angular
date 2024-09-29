@@ -4,6 +4,7 @@ import { MainComponent } from '../main/main.component';
 import { User } from '../../models/user';
 import { CommonModule } from '@angular/common';
 import { DraggableTaskComponent } from './draggable-task/draggable-task.component';
+import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
 
 @Component({
   selector: 'app-board',
@@ -14,7 +15,9 @@ import { DraggableTaskComponent } from './draggable-task/draggable-task.componen
 })
 export class BoardComponent {
   mainComponent: MainComponent = inject(MainComponent);
+  datData: DialogAddTaskService = inject(DialogAddTaskService);
 
+  filter: string = '';
   currTask: any;
   user: User = new User();
 
@@ -53,6 +56,18 @@ export class BoardComponent {
     await this.mainComponent.ngOnInit();
     this.user = this.mainComponent.user;
     console.log('from main user: ', this.mainComponent.user);
+  }
+
+  filterTasks(input: HTMLInputElement) {
+    this.filter = input.value;
+  }
+
+  // consider case of column placeholder!!!
+  verifyTasks(task: any, column: string) {
+    let columnMatched = task.column == column;
+    let titleMatched = task.title.includes(this.filter);
+    let descriptionMatched = task.description.includes(this.filter);
+    return columnMatched && (titleMatched || descriptionMatched);
   }
 
   printPlaceholder(column: string) {

@@ -8,11 +8,20 @@ import { UserService } from '../../shared/services/user.service';
 import { User } from '../../models/user';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
 import { SubtaskService } from '../../shared/services/subtask.service';
+import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
+import { CommonModule } from '@angular/common';
+import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, MenuComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    MenuComponent,
+    DialogAddTaskComponent,
+    CommonModule,
+  ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
@@ -24,6 +33,7 @@ export class MainComponent {
   firestore: Firestore = inject(Firestore);
   asToData: AssignedToService = inject(AssignedToService);
   subTData: SubtaskService = inject(SubtaskService);
+  datData: DialogAddTaskService = inject(DialogAddTaskService);
 
   mainToken: any;
   sid: any;
