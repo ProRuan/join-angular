@@ -28,12 +28,13 @@ export class BoardComponent {
       category: 'User Story',
       title: 'Kochwelt Page & Recipe Recommender',
       description: 'Build start page with recipe recommendation...',
+      dueDate: '10/05/2023',
       subtaskCounter: 1,
       subtasks: 2,
       assignedContacts: [
-        { bgc: '#9327ff', initials: 'AS' },
-        { bgc: '#fc71ff', initials: 'DE' },
-        { bgc: '#ffbb2b', initials: 'EF' },
+        { bgc: '#9327ff', initials: 'AS', name: 'Anja Schulz' },
+        { bgc: '#fc71ff', initials: 'DE', name: 'David Eisenberg' },
+        { bgc: '#ffbb2b', initials: 'EF', name: 'Eva Fischer' },
       ],
       prio: 'medium',
     },
@@ -42,12 +43,13 @@ export class BoardComponent {
       category: 'Technical Task',
       title: 'Kochwelt Page & Recipe Recommender',
       description: 'Build start page with recipe recommendation...',
+      dueDate: '10/05/2023',
       subtaskCounter: 1,
       subtasks: 2,
       assignedContacts: [
-        { bgc: '#9327ff', initials: 'AS' },
-        { bgc: '#fc71ff', initials: 'DE' },
-        { bgc: '#ffbb2b', initials: 'EF' },
+        { bgc: '#9327ff', initials: 'AS', name: 'Anja Schulz' },
+        { bgc: '#fc71ff', initials: 'DE', name: 'David Eisenberg' },
+        { bgc: '#ffbb2b', initials: 'EF', name: 'Eva Fischer' },
       ],
       prio: 'medium',
     },
@@ -93,5 +95,14 @@ export class BoardComponent {
 
   drop(event: Event) {
     event.preventDefault();
+  }
+
+  viewTask(event: any) {
+    let task = event;
+    console.log('view Task: ', task);
+
+    this.dvtData.set(task);
+    console.log('set task to view: ', this.dvtData.task);
+    this.dvtData.open();
   }
 }

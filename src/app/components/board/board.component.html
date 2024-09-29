@@ -47,7 +47,7 @@
                     </div>
                     @for(task of draggableTasks; track task) {
                     <app-draggable-task *ngIf="verifyTasks(task, 'in-progress')" [task]="task"
-                        (dragMove)="logDrag($event)" (click)="dvtData.open()"></app-draggable-task>
+                        (dragMove)="logDrag($event)" (viewStart)="viewTask($event)"></app-draggable-task>
                     }
                 </div>
             </div>
@@ -82,8 +82,8 @@
                         <span class="default-task-text">No tasks done</span>
                     </div>
                     @for(task of draggableTasks; track task) {
-                    <app-draggable-task *ngIf="verifyTasks(task, 'done')" [task]="task"
-                        (dragMove)="logDrag($event)"></app-draggable-task>
+                    <app-draggable-task *ngIf="verifyTasks(task, 'done')" [task]="task" (dragMove)="logDrag($event)"
+                        (viewStart)="viewTask($event)"></app-draggable-task>
                     }
                 </div>
             </div>

@@ -25,6 +25,7 @@ export class DraggableTaskComponent {
   rotated: boolean = false;
 
   @Output() dragMove = new EventEmitter<any>();
+  @Output() viewStart = new EventEmitter<any>();
 
   onDragMove() {
     this.rotated = true;
@@ -35,5 +36,11 @@ export class DraggableTaskComponent {
   color() {
     let color = this.task.category.toLowerCase();
     return color.replace(' ', '-');
+  }
+
+  onViewStart() {
+    this.rotated = true;
+    this.viewStart.emit(this.task);
+    console.log('on view start: ', this.task);
   }
 }

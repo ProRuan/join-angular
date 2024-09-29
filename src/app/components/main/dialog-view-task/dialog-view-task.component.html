@@ -1,25 +1,25 @@
 <section class="edit-task" (click)="stop($event)">
     <div class="category-button-cont">
-        <div class="category">
-            <span class="category-text">User Story</span>
+        <div class="category" [ngClass]="color()">
+            <span class="category-text">{{ dvtData.task.category }}</span>
         </div>
 
         <img class="close-btn" src="../../../../assets/img/contacts/close.png" alt="close" (click)="dvtData.close()">
     </div>
 
-    <h2 class="headline-2">Kochwelt Page & Recipe Recommender</h2>
+    <h2 class="headline-2">{{ dvtData.task.title }}</h2>
 
-    <span class="description">Build start page with recipe recommendation.</span>
+    <span class="description">{{ dvtData.task.description }}</span>
 
     <div class="due-date-cont">
         <span class="due-date-head">Due date</span>
-        <span class="due-date-data">10/05/2023</span>
+        <span class="due-date-data">{{ dvtData.task.dueDate }}</span>
     </div>
 
     <div class="due-date-cont">
         <span class="due-date-head">Priority</span>
         <div class="prio-img-cont">
-            <span class="due-date-data">Medium</span>
+            <span class="due-date-data">{{ dvtData.task.prio }}</span>
             <img src="../../../../assets/img/add-task/prio_medium.png" alt="prio_medium">
         </div>
     </div>
@@ -28,25 +28,11 @@
         <span class="due-date-head">Assinged To:</span>
 
         <div class="assigned-contact-group">
-            <div class="assinged-contact-cont">
-                <div style="background-color: #1fd7c1" class="profile">
-                    <span class="initials">EM</span>
+            <div *ngFor="let contact of dvtData.task.assignedContacts" class="assinged-contact-cont">
+                <div [ngStyle]="{ 'background-color': contact.bgc}" class="profile">
+                    <span class="initials">{{ contact.initials }}</span>
                 </div>
-                <span class="contact-name">Emmanuel Mauer</span>
-            </div>
-
-            <div class="assinged-contact-cont">
-                <div style="background-color: #462f8a" class="profile">
-                    <span class="initials">EB</span>
-                </div>
-                <span class="contact-name">Manuel Bauer</span>
-            </div>
-
-            <div class="assinged-contact-cont">
-                <div style="background-color: #0038ff" class="profile">
-                    <span class="initials">AM</span>
-                </div>
-                <span class="contact-name">Anton Mayer</span>
+                <span class="contact-name">{{ contact.name }}</span>
             </div>
         </div>
     </div>
