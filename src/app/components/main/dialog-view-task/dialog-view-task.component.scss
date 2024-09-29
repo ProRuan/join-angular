@@ -26,8 +26,10 @@
   color: #ffffff;
 }
 
+// add hover img!!!
 .close-btn {
   @include size($w: 32px, $h: 32px);
+  cursor: pointer;
 }
 
 .description {

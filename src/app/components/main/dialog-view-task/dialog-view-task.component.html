@@ -1,10 +1,10 @@
-<section class="edit-task">
+<section class="edit-task" (click)="stop($event)">
     <div class="category-button-cont">
         <div class="category">
             <span class="category-text">User Story</span>
         </div>
 
-        <img class="close-btn" src="../../../../assets/img/contacts/close.png" alt="close">
+        <img class="close-btn" src="../../../../assets/img/contacts/close.png" alt="close" (click)="dvtData.close()">
     </div>
 
     <h2 class="headline-2">Kochwelt Page & Recipe Recommender</h2>

@@ -1,21 +1,22 @@
 import { Component, inject, Input } from '@angular/core';
-import { EditTaskComponent } from './edit-task/edit-task.component';
 import { MainComponent } from '../main/main.component';
 import { User } from '../../models/user';
 import { CommonModule } from '@angular/common';
 import { DraggableTaskComponent } from './draggable-task/draggable-task.component';
 import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
+import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [EditTaskComponent, CommonModule, DraggableTaskComponent],
+  imports: [CommonModule, DraggableTaskComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
   mainComponent: MainComponent = inject(MainComponent);
   datData: DialogAddTaskService = inject(DialogAddTaskService);
+  dvtData: DialogViewTaskService = inject(DialogViewTaskService);
 
   filter: string = '';
   currTask: any;

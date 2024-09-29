@@ -47,7 +47,7 @@
                     </div>
                     @for(task of draggableTasks; track task) {
                     <app-draggable-task *ngIf="verifyTasks(task, 'in-progress')" [task]="task"
-                        (dragMove)="logDrag($event)"></app-draggable-task>
+                        (dragMove)="logDrag($event)" (click)="dvtData.open()"></app-draggable-task>
                     }
                 </div>
             </div>

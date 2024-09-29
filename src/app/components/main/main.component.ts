@@ -11,6 +11,8 @@ import { SubtaskService } from '../../shared/services/subtask.service';
 import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
 import { CommonModule } from '@angular/common';
 import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
+import { DialogViewTaskComponent } from './dialog-view-task/dialog-view-task.component';
+import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
 
 @Component({
   selector: 'app-main',
@@ -21,6 +23,7 @@ import { DialogAddTaskService } from '../../shared/services/dialog-add-task.serv
     MenuComponent,
     DialogAddTaskComponent,
     CommonModule,
+    DialogViewTaskComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -34,6 +37,7 @@ export class MainComponent {
   asToData: AssignedToService = inject(AssignedToService);
   subTData: SubtaskService = inject(SubtaskService);
   datData: DialogAddTaskService = inject(DialogAddTaskService);
+  dvtData: DialogViewTaskService = inject(DialogViewTaskService);
 
   mainToken: any;
   sid: any;
