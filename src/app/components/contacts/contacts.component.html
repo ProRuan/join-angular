@@ -11,15 +11,8 @@
             <div class="register-letter">
                 <span class="letter">A</span>
             </div>
-            <button *ngFor="let contact of contacts" class="contact" (click)="viewContact()">
-                <div style="background-color: #9327ff" class="profile">
-                    <span class="initials">{{ contact.initials }}</span>
-                </div>
-                <div class="contact-details">
-                    <span class="contact-name">{{ contact.name }}</span>
-                    <span class="contact-email">{{ contact.email }}</span>
-                </div>
-            </button>
+            <app-viewable-contact *ngFor="let contact of contacts" [contact]="contact"
+                (viewableContact)="viewContact($event)"></app-viewable-contact>
         </div>
     </div>
 

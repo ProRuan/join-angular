@@ -65,62 +65,6 @@
   color: #000000;
 }
 
-.contact {
-  @include box-padding($p: 15px 24px);
-  @include display-horiz($g: 35px);
-  width: 100%;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 10px;
-
-  &:hover {
-    background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
-  }
-
-  &:disabled {
-    background-color: #2a3647;
-
-    .contact-name {
-      color: #ffffff;
-    }
-  }
-}
-
-// mixin?
-.profile {
-  @include size($w: 42px, $h: 42px);
-  @include display-flex();
-  // padding-top?
-  background-color: #29abe2;
-  box-sizing: border-box;
-  text-align: center;
-  border: 2px solid #ffffff;
-  border-radius: 45px;
-}
-
-.initials {
-  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
-  text-align: center;
-  color: #ffffff;
-}
-
-.contact-details {
-  @include display-column();
-  width: calc(100% - 77px);
-  gap: 5px;
-}
-
-.contact-name {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  color: #000000;
-}
-
-.contact-email {
-  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-  height: 19px;
-  color: #007cee;
-}
-
 .contact-viewer {
   @include box-padding($p: 110px 55px);
   @include display-column();

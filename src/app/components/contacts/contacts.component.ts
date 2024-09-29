@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ViewableContactComponent } from './viewable-contact/viewable-contact.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ViewableContactComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
 })
@@ -63,10 +64,9 @@ export class ContactsComponent {
     },
   ];
 
-  viewContact() {
-    // set index or component!!!
+  viewContact(event: any) {
     // add phone numbers!!!
-    this.currContact = this.contacts[8];
+    this.currContact = event;
     console.log('view contact: ', this.currContact);
   }
 }
