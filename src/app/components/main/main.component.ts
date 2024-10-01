@@ -4,8 +4,6 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
-import { UserService } from '../../shared/services/user.service';
-import { User } from '../../models/user';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
 import { SubtaskService } from '../../shared/services/subtask.service';
 import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
@@ -17,6 +15,7 @@ import { DialogEditContactComponent } from './dialog-edit-contact/dialog-edit-co
 import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
 import { DialogAddContactComponent } from './dialog-add-contact/dialog-add-contact.component';
 import { DialogAddContactService } from '../../shared/services/dialog-add-contact.service';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-main',
@@ -35,8 +34,7 @@ import { DialogAddContactService } from '../../shared/services/dialog-add-contac
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
-  joinData: JoinService = inject(JoinService);
-  userData: UserService = inject(UserService);
+  join: JoinService = inject(JoinService);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
@@ -58,15 +56,15 @@ export class MainComponent {
     this.sid = this.mainToken;
     console.log('summary sid: ', this.sid);
 
-    await this.userData.getUsers();
-    this.users = this.userData.users;
+    await this.join.getUsers();
+    this.users = this.join.users;
     let user = this.users.find((u) => u.sid == this.sid);
     if (user) {
       this.user = user;
       console.log('summary user: ', this.user);
       console.log('user task summary: ', this.user.summary);
     }
-    this.userData.setUser(this.user);
+    this.join.user = this.user;
   }
 
   async setMainToken() {

@@ -1,150 +1,51 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
-import { deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
-import { User } from '../../models/user';
+import { JoinService } from './join.service';
 
 @Injectable({
   providedIn: 'root',
 })
-
-/**
- * Represents a user service.
- */
 export class UserService {
-  firestore: Firestore = inject(Firestore);
-
-  id: string = '';
-  sid: string = '';
-  charCodes: string[] = [];
-
-  // necessary?
-  user: User = new User();
-  users: User[] = [];
+  join: JoinService = inject(JoinService);
 
   constructor() {}
 
-  async setUp(user: User) {
-    const id = await this.addUser(user);
-    this.id = id;
-    await this.updateUser(id, 'id', id);
-    this.setSessionId();
-    await this.updateUser(id, 'sid', this.sid);
+  get id(): string | undefined {
+    return this.join.user.id;
   }
 
-  // to delete or improve!
-  setUser(user: User) {
-    this.user = user;
-    console.log('set user data user: ', this.user);
+  get sid(): string | undefined {
+    return this.join.user.sid;
   }
 
-  async addUser(user?: any) {
-    try {
-      const userRef = await addDoc(collection(this.firestore, 'users'), {
-        name: user.name,
-        email: user.email,
-        password: user.password,
-      });
-      return userRef.id;
-    } catch (e) {
-      console.error('Error adding document: ', e);
-      return '0';
-    }
+  get name(): string {
+    return this.join.user.name;
   }
 
-  async updateUser(id: string, key: string, sid: string) {
-    if (id != '0') {
-      const userRef = doc(this.firestore, 'users', id);
-      await updateDoc(userRef, {
-        [key]: sid,
-      });
-    }
+  get email(): string {
+    return this.join.user.email;
   }
 
-  async getUser(id: string) {
-    const userRef = doc(this.firestore, 'users', id);
-    const user = await getDoc(userRef);
-    if (user.exists()) {
-      console.log('new user: ', user.data());
-
-      return user.data();
-    } else {
-      console.log('user not existing!');
-      return new User();
-    }
+  get password(): string {
+    return this.join.user.password;
   }
 
-  async getUsers() {
-    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
-    querySnapshot.forEach((doc) => {
-      // console.log(`${doc.id} => ${doc.data()}`);
-
-      // console.log('doc id: ', doc.id);
-      // console.log('doc data: ', doc.data());
-
-      let user = new User(doc.data());
-      this.users.push(user);
-
-      let taskSummary = this.users[0].summary;
-      // console.log('task summary: ', taskSummary);
-    });
-    console.log('users: ', this.users);
+  set id(id: string) {
+    this.join.user.id = id;
   }
 
-  async deleteUser() {
-    let id = 'RLD41Asnjx0jBxqsED1l';
-    await deleteDoc(doc(this.firestore, 'users', id));
-    // console.log('deleted user: ', id);
+  set sid(sid: string) {
+    this.join.user.sid = sid;
   }
 
-  /**
-   * Sets the session id.
-   */
-  setSessionId() {
-    this.setCharCodes();
-    this.createSessionId();
+  set name(name: string) {
+    this.join.user.name = name;
   }
 
-  /**
-   * Sets the value of 'charCodes'.
-   */
-  setCharCodes() {
-    this.addCharCodeGroup(48, 10);
-    this.addCharCodeGroup(65, 26);
-    this.addCharCodeGroup(97, 26);
+  set email(email: string) {
+    this.join.user.email = email;
   }
 
-  /**
-   * Adds a group of char codes.
-   * @param a - The first code of this group.
-   * @param n - The number of char codes.
-   */
-  addCharCodeGroup(a: number, n: number) {
-    for (let i = a; i < a + n; i++) {
-      this.charCodes.push(String.fromCharCode(i));
-    }
-  }
-
-  /**
-   * Creates the session id.
-   */
-  createSessionId() {
-    this.sid = '';
-    for (let i = 0; i < 20; i++) {
-      let index = this.getRandomIndex(i);
-      this.sid += this.charCodes[index];
-    }
-  }
-
-  /**
-   * Provides a random index.
-   * @param i - The id of the current loop.
-   * @returns - A random index.
-   */
-  getRandomIndex(i: number) {
-    if (i != 0) {
-      return Math.round(Math.random() * 61);
-    } else {
-      return Math.round(1 + Math.random() * 60);
-    }
+  set password(password: string) {
+    this.join.user.password = password;
   }
 }

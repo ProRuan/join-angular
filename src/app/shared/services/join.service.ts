@@ -2,140 +2,180 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
-  collectionData,
   deleteDoc,
   doc,
+  DocumentReference,
+  DocumentSnapshot,
   Firestore,
+  FirestoreError,
   getDoc,
   getDocs,
+  onSnapshot,
+  QuerySnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { User } from '../../models/user';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JoinService {
-  item$: Observable<any[]>;
   firestore: Firestore = inject(Firestore);
 
-  users: any[] = [];
-  signUpToken: string = '';
-  currUser: any;
+  id: string;
+  sid: string;
+  user: User;
+  users: User[];
+  charCodes: string[];
 
-  // Rename to UserService? --> add(), update(), get(), delete()!
-  // snapshot: https://firebase.google.com/docs/firestore/query-data/listen?hl=de
-  // converter: https://firebase.google.com/docs/firestore/query-data/get-data?hl=de
-
+  // edit!!!
   constructor() {
-    const itemCollection = collection(this.firestore, 'items');
-    this.item$ = collectionData<any>(itemCollection);
-    // console.log('item collection: ', itemCollection);
-    // console.log('item: ', this.item$);
-
+    this.id = '';
+    this.sid = '';
+    this.user = new User();
     this.users = [];
-    // this.addUser();
-    this.getUsers();
-    // this.getUser();
-    this.deleteUser();
+    this.charCodes = [];
   }
 
-  getSignUpToken() {
-    return this.signUpToken;
+  get signer() {
+    return {
+      name: this.user.name,
+      email: this.user.email,
+      password: this.user.password,
+    };
   }
 
-  setSignUpToken(token: string) {
-    this.signUpToken = token;
+  // getProp()?
+  get(key: string) {
+    return this.user[key];
   }
 
-  async addUser(user?: any) {
-    // add user object/json
+  // jsdoc
+  async addUser() {
     try {
-      const docRef = await addDoc(collection(this.firestore, 'users'), {
-        name: user ? user.name : 'test name',
-        email: user ? user.email : 'test@mail.com',
-        password: user ? user.password : 'test1234',
-      });
-      // console.log('Document written with ID: ', docRef.id);
-
-      await this.updateUser(docRef.id);
-      // console.log('token: ', this.signUpToken);
-
-      this.getUsers();
-    } catch (e) {
-      console.error('Error adding document: ', e);
+      await this.setUser().then(async (userRef) => this.setUserId(userRef));
+    } catch (error) {
+      console.error('Error - Could not add user: ', error);
     }
   }
 
+  // jsdoc
+  async setUser() {
+    return await addDoc(collection(this.firestore, 'users'), this.signer);
+  }
+
+  // jsdoc
+  async setUserId(userRef: DocumentReference) {
+    this.id = userRef.id;
+    await this.updateUserProperty('id', this.id);
+  }
+
+  // jsdoc
+  async updateUserProperty(key: string, value: string) {
+    try {
+      await this.setUserProperty(key, value);
+    } catch (error) {
+      console.log('Error - Could not update user property: ', error);
+    }
+  }
+
+  // jsdoc
+  async setUserProperty(key: string, value: string) {
+    const userRef = doc(this.firestore, 'users', this.id);
+    await updateDoc(userRef, { [key]: value });
+  }
+
+  // jsdoc
+  subscribeUser() {
+    const unsubscribe = onSnapshot(
+      doc(this.firestore, 'users', this.id),
+      (user) => this.updateUser(user),
+      (error) => this.logError(error)
+    );
+  }
+
+  // jsdoc
+  updateUser(user: DocumentSnapshot) {
+    this.user = new User(user.data());
+  }
+
+  // jsdoc
+  logError(error: FirestoreError) {
+    console.log('Error - Could not subscribe user: ', error);
+  }
+
+  // jsdoc
+  async getUser() {
+    const userRef = doc(this.firestore, 'users', this.id);
+    const user = await getDoc(userRef);
+    this.verifyUser(user);
+  }
+
+  // jsdoc
+  verifyUser(user: DocumentSnapshot) {
+    if (user.exists()) {
+      this.updateUser(user);
+    } else {
+      console.log('User not existing!');
+    }
+  }
+
+  // jsdoc
+  async deleteUser() {
+    await deleteDoc(doc(this.firestore, 'users', this.id));
+  }
+
+  // jsdoc
   async getUsers() {
     const querySnapshot = await getDocs(collection(this.firestore, 'users'));
+    this.pushUsers(querySnapshot);
+  }
+
+  // jsdoc
+  pushUsers(querySnapshot: QuerySnapshot) {
     querySnapshot.forEach((doc) => {
-      // console.log(`${doc.id} => ${doc.data()}`);
-
-      // console.log('doc id: ', doc.id);
-      // console.log('doc data: ', doc.data());
-
       let user = new User(doc.data());
       this.users.push(user);
-
-      let taskSummary = this.users[0].taskSummary;
-      // console.log('task summary: ', taskSummary);
     });
-    // console.log('users: ', this.users);
   }
 
-  async getUser(token: string) {
-    const docRef = doc(this.firestore, 'users', token);
-    const docSnap = await getDoc(docRef);
+  // jsdoc
+  async setSecurityId() {
+    this.setCharCodes();
+    this.createSecurityId();
+    this.user.sid = this.sid;
+    await this.updateUserProperty('sid', this.user.sid);
+  }
 
-    if (docSnap.exists()) {
-      // console.log('user data:', docSnap.data());
-      return docSnap.data();
+  // jsdoc
+  setCharCodes() {
+    this.addCharCodeGroup(48, 10);
+    this.addCharCodeGroup(65, 26);
+    this.addCharCodeGroup(97, 26);
+  }
+
+  // jsdoc
+  addCharCodeGroup(a: number, n: number) {
+    for (let i = a; i < a + n; i++) {
+      this.charCodes.push(String.fromCharCode(i));
+    }
+  }
+
+  // jsdoc
+  createSecurityId() {
+    this.sid = '';
+    for (let i = 0; i < 20; i++) {
+      let index = this.getRandomIndex(i);
+      this.sid += this.charCodes[index];
+    }
+  }
+
+  // jsdoc
+  getRandomIndex(i: number) {
+    if (i != 0) {
+      return Math.round(Math.random() * 61);
     } else {
-      // docSnap.data() will be undefined in this case
-      console.log('user not existing!');
-      return new User();
+      return Math.round(1 + Math.random() * 60);
     }
-  }
-
-  async updateUser(id: string) {
-    const userRef = doc(this.firestore, 'users', id);
-    await updateDoc(userRef, {
-      id: id,
-    });
-    this.signUpToken = id;
-  }
-
-  async deleteUser() {
-    let id = 'RLD41Asnjx0jBxqsED1l';
-    await deleteDoc(doc(this.firestore, 'users', id));
-    // console.log('deleted user: ', id);
-  }
-
-  // to delete!!!
-  // ------------
-  setItem(key: string, value: any) {
-    let valueAsText = JSON.stringify(value);
-    localStorage.setItem(key, valueAsText);
-    sessionStorage.setItem(key, valueAsText);
-  }
-
-  getItem(key: string) {
-    // let valueAsText = localStorage.getItem('user');
-    let valueAsText = sessionStorage.getItem('user');
-    if (valueAsText) {
-      return JSON.parse(valueAsText);
-    }
-  }
-
-  removeItem(key: string) {
-    localStorage.removeItem(key);
-    sessionStorage.removeItem(key);
-  }
-
-  clearStorage() {
-    localStorage.clear();
-    sessionStorage.clear();
   }
 }

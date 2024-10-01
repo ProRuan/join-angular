@@ -4,10 +4,9 @@ Join
 --> Review Templates and Styles ... (0/2)
 --> Review components, classes, interfces, services ... (0/4)
 
-Review Models (5/5 prepared + 0/5)
+Review Models (1/? prepared)
 -------------
   - user ... prepared
-  - summary ... prepared | class or interface?!
-  - task ... prepared | class or interface?!
-  - subtask ... prepared | class or interface?!
-  - contacts ... prepared | class or interface?!
+
+Review Services (1/? prepared)
+  - join ... prepared

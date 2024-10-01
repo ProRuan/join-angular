@@ -1,10 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
 import { MainComponent } from '../main/main.component';
-import { User } from '../../models/user';
 import { CommonModule } from '@angular/common';
 import { DraggableTaskComponent } from './draggable-task/draggable-task.component';
 import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
 import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-board',

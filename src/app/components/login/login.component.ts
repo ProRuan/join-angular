@@ -4,11 +4,9 @@ import { LegalLinksComponent } from '../../shared/components/legal-links/legal-l
 import { JoinService } from '../../shared/services/join.service';
 import { CommonModule, ɵparseCookieValue } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { User } from '../../models/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TaskSummary } from '../../models/task-summary';
 import { InputComponent } from '../../shared/components/input/input.component';
-import { UserService } from '../../shared/services/user.service';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-login',
@@ -24,8 +22,7 @@ import { UserService } from '../../shared/services/user.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  joinData: JoinService = inject(JoinService);
-  userData: UserService = inject(UserService);
+  join: JoinService = inject(JoinService);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
 
@@ -44,8 +41,8 @@ export class LoginComponent {
 
   async ngOnInit() {
     // redefine getUsers() for return value!!!
-    await this.userData.getUsers();
-    this.users = this.userData.users;
+    await this.join.getUsers();
+    this.users = this.join.users;
     console.log('this users: ', this.users);
 
     const userToken = this.route.snapshot.paramMap.get('id');
@@ -70,14 +67,14 @@ export class LoginComponent {
 
   async onSubmit(ngForm: NgForm) {
     // create session id
-    this.userData.setSessionId();
-    this.sid = this.userData.sid;
+    this.join.setSecurityId();
+    this.sid = this.join.sid;
     console.log('sid: ', this.sid);
 
     if (ngForm.form.valid && this.token != '') {
       if (this.user.id) {
         this.user.sid = this.sid;
-        await this.userData.updateUser(this.user.id, 'sid', this.user.sid);
+        await this.join.updateUserProperty('sid', this.user.sid);
         console.log('secondary sid: ', this.user);
 
         console.log('new user successfully logged in');
@@ -90,7 +87,7 @@ export class LoginComponent {
       this.user = new User(temp);
       this.user.sid = this.sid;
       if (this.user.id) {
-        await this.userData.updateUser(this.user.id, 'sid', this.sid);
+        await this.join.updateUserProperty('sid', this.sid);
         console.log('found user to login: ', this.user);
       }
 

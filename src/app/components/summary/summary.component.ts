@@ -2,14 +2,12 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SummaryTaskComponent } from './summary-task/summary-task.component';
 import { SummaryTaskInfoComponent } from './summary-task-info/summary-task-info.component';
-import { JoinService } from '../../shared/services/join.service';
-import { TaskSummary } from '../../models/task-summary';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../models/user';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { MainComponent } from '../main/main.component';
-import { UserService } from '../../shared/services/user.service';
+import { User } from '../../shared/models/user';
+import { JoinService } from '../../shared/services/join.service';
 
 @Component({
   selector: 'app-summary',
@@ -19,8 +17,7 @@ import { UserService } from '../../shared/services/user.service';
   styleUrl: './summary.component.scss',
 })
 export class SummaryComponent {
-  joinData: JoinService = inject(JoinService);
-  userData: UserService = inject(UserService);
+  join: JoinService = inject(JoinService);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
@@ -29,7 +26,8 @@ export class SummaryComponent {
   sid: any;
   user = new User();
   users: User[] = [];
-  summary = new TaskSummary();
+  summary: any;
+  // summary = new Task();
 
   summaryTasks = [
     {
@@ -70,5 +68,6 @@ export class SummaryComponent {
     await this.mainComponent.ngOnInit();
     this.user = this.mainComponent.user;
     console.log('from main user: ', this.mainComponent.user);
+    this.summary = this.user.summary;
   }
 }
