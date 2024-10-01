@@ -37,17 +37,13 @@ export class JoinService {
     this.charCodes = [];
   }
 
-  get signer() {
+  // jsdoc
+  get signee() {
     return {
       name: this.user.name,
       email: this.user.email,
       password: this.user.password,
     };
-  }
-
-  // getProp()?
-  get(key: string) {
-    return this.user[key];
   }
 
   // jsdoc
@@ -61,7 +57,7 @@ export class JoinService {
 
   // jsdoc
   async setUser() {
-    return await addDoc(collection(this.firestore, 'users'), this.signer);
+    return await addDoc(collection(this.firestore, 'users'), this.signee);
   }
 
   // jsdoc

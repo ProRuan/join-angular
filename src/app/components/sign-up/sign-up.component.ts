@@ -29,8 +29,9 @@ import { InputComponent } from '../../shared/components/input/input.component';
 export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
-  // user already includes join!!!
-  userData: UserService = inject(UserService);
+  user: UserService = inject(UserService);
+
+  signedUp = false;
 
   // think about namePat + review emailPat + review passwordPat!!! (0/3)
   emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
@@ -51,14 +52,16 @@ export class SignUpComponent {
   async signUp(ngForm: NgForm) {
     // verify, if user already exists!!!
     if (ngForm.form.valid) {
+      this.signedUp = true;
       await this.createUser();
 
       // myRouterService???
-      console.log('new user logged in successfully: ', this.join.user.sid);
-      this.router.navigateByUrl('login/' + this.join.user.sid);
+      console.log('signed up successfully: ', this.user.sid);
+      this.router.navigateByUrl('login/' + this.user.sid);
     }
   }
 
+  // jsdoc
   async createUser() {
     await this.join.addUser().then(() => this.join.subscribeUser());
     await this.join.setSecurityId();
@@ -66,7 +69,7 @@ export class SignUpComponent {
 
   // password match not completely working!!!
   getPassword() {
-    let password = this.join.user.password;
+    let password = this.user.password;
     if (password.match(this.passwordPat)) {
       return new RegExp(password);
     } else {
@@ -75,17 +78,19 @@ export class SignUpComponent {
   }
 
   verifyPassword() {
-    let password = this.join.user.password;
+    let password = this.user.password;
     let password1 = password.match(this.passwordPat);
     let password2 = this.confirmedPassord.match(this.passwordPat);
     let matched = password != this.confirmedPassord;
     return password1 && password2 && matched ? true : false;
   }
 
+  // jsdoc
   getCheckbox() {
     return this.ppAccepted ? 'checked' : 'check';
   }
 
+  // jsdoc
   getSrc() {
     if (this.ppAccepted) {
       return '../../../assets/img/sign-up/checked.png';
@@ -94,13 +99,14 @@ export class SignUpComponent {
     }
   }
 
+  // jsdoc
   accept() {
     this.ppAccepted = !this.ppAccepted ? true : false;
   }
 
   // disable button after sign-up!!!
   disable(ngForm: NgForm) {
-    return ngForm.form.invalid || !this.ppAccepted;
+    return ngForm.form.invalid || !this.ppAccepted || this.signedUp;
   }
 
   // sign up

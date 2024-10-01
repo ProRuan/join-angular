@@ -8,5 +8,6 @@ Review Models (1/? prepared)
 -------------
   - user ... prepared
 
-Review Services (1/? prepared)
-  - join ... prepared
+Review Services (2/? prepared - 2/? good)
+  - join ... prepared - good
+  - user ... prepared - good

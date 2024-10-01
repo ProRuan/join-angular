@@ -13,12 +13,12 @@
 
         <div class="input-cont">
             <div class="input-group">
-                <app-input [(ngModel)]="userData.name" name="name" placeholder="Name" minlength="2" required
+                <app-input [(ngModel)]="user.name" name="name" placeholder="Name" minlength="2" required
                     img="person.png"></app-input>
-                <app-input [(ngModel)]="userData.email" name="email" placeholder="Email" [pattern]="emailPat" required
+                <app-input [(ngModel)]="user.email" name="email" placeholder="Email" [pattern]="emailPat" required
                     img="email.png"></app-input>
-                <app-input [(ngModel)]="userData.password" name="password" placeholder="Password"
-                    [pattern]="passwordPat" required img="lock.png"></app-input>
+                <app-input [(ngModel)]="user.password" name="password" placeholder="Password" [pattern]="passwordPat"
+                    required img="lock.png"></app-input>
                 <app-input [(ngModel)]="confirmedPassord" name="confirmedPassord" placeholder="Confirm password"
                     [pattern]="getPassword()" required img="lock.png" [condition]="verifyPassword()"
                     [hintText]="hintText"></app-input>

@@ -9,7 +9,7 @@
     </div>
 
     <!-- review style due to form tag!!! -->
-    <form #loginForm="ngForm" class="content" (ngSubmit)="onSubmit(loginForm)">
+    <form #loginForm="ngForm" class="content" (ngSubmit)="logIn(loginForm)">
         <div class="title-border-cont">
             <h2 class="title headline-2">Log in</h2>
             <div class="underline"></div>
@@ -17,10 +17,10 @@
 
         <div class="input-cont">
             <div class="input-remember-cont">
-                <app-input [(ngModel)]="user.email" name="email" placeholder="Email" [pattern]="emailPat" required
+                <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
                     img="email.png"></app-input>
                 <!-- set condition!!! -->
-                <app-input [(ngModel)]="user.password" name="password" placeholder="Password" [pattern]="passwordPat"
+                <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
                     required img="lock.png" [condition]="true" [hintText]="hintText"></app-input>
             </div>
 
