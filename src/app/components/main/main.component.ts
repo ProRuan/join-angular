@@ -56,6 +56,7 @@ export class MainComponent {
     console.log('main user sid: ', sid);
 
     if (sid) {
+      this.join.sid = sid;
       // set user via UserService --> get/set user from join!!!
       this.sid = sid;
       let user = this.join.users.find((u) => u.sid == sid);

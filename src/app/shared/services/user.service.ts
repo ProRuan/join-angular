@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { JoinService } from './join.service';
+import { Summary } from '../models/summary';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +30,10 @@ export class UserService {
     return this.join.user.password;
   }
 
+  get summary(): Summary | undefined {
+    return this.join.user.summary;
+  }
+
   set id(id: string) {
     this.join.user.id = id;
   }
@@ -47,5 +52,9 @@ export class UserService {
 
   set password(password: string) {
     this.join.user.password = password;
+  }
+
+  set summary(summary: Summary) {
+    this.join.user.summary = summary;
   }
 }

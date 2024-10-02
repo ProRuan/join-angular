@@ -6,10 +6,10 @@ import { Firestore } from '@angular/fire/firestore';
 // verify!!!
 import { SummaryTaskComponent } from './summary-task/summary-task.component';
 import { SummaryTaskInfoComponent } from './summary-task-info/summary-task-info.component';
-import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { MainComponent } from '../main/main.component';
 import { User } from '../../shared/models/user';
 import { JoinService } from '../../shared/services/join.service';
+import { UserService } from '../../shared/services/user.service';
+import { Summary } from '../../shared/models/summary';
 
 @Component({
   selector: 'app-summary',
@@ -24,12 +24,10 @@ export class SummaryComponent {
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   join: JoinService = inject(JoinService);
+  user: UserService = inject(UserService);
 
   // verify!!!
-  mainComponent: MainComponent = inject(MainComponent);
-
   sid: any;
-  user = new User();
   users: User[] = [];
   summary: any;
   // summary = new Task();
@@ -83,21 +81,16 @@ export class SummaryComponent {
   }
 
   async ngOnInit() {
-    await this.mainComponent.ngOnInit();
-    this.user = this.mainComponent.join.user;
-    console.log('from main user: ', this.mainComponent.join.user);
+    console.log('got sid via main: ', this.join.sid);
+    console.log('got user via main', this.join.user);
+    console.log('got user via service: ', this.user);
 
-    if (!this.mainComponent.join.user.summary) {
-      this.mainComponent.join.user.summary = {
-        toDo: 0,
-        done: 0,
-        urgent: 0,
-        deadline: 'October 12, 2024',
-        inBoard: 0,
-        inProgress: 0,
-        awaitFeedback: 0,
-      };
+    // add summary service: user.summary.done --> summary.done
+    if (!this.user.summary) {
+      this.user.summary = new Summary();
+      await this.join.updateUserProperty('summary', this.user.summary);
+      console.log('added user summary: ', this.user.summary);
     }
-    this.summary = this.mainComponent.join.user.summary;
+    this.summary = this.user.summary;
   }
 }

@@ -15,6 +15,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { User } from '../models/user';
+import { Summary } from '../models/summary';
 
 @Injectable({
   providedIn: 'root',
@@ -67,7 +68,7 @@ export class JoinService {
   }
 
   // jsdoc
-  async updateUserProperty(key: string, value: string) {
+  async updateUserProperty(key: string, value: string | Summary) {
     try {
       await this.setUserProperty(key, value);
     } catch (error) {
@@ -76,7 +77,7 @@ export class JoinService {
   }
 
   // jsdoc
-  async setUserProperty(key: string, value: string) {
+  async setUserProperty(key: string, value: string | Summary) {
     const userRef = doc(this.firestore, 'users', this.id);
     await updateDoc(userRef, { [key]: value });
   }

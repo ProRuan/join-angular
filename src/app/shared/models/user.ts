@@ -1,6 +1,6 @@
 import { DocumentData } from 'firebase/firestore';
 import { Contact } from '../interfaces/contact';
-import { Summary } from '../interfaces/summary';
+import { Summary } from './summary';
 import { Task } from '../interfaces/task';
 
 // jsdoc
