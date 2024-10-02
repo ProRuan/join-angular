@@ -10,32 +10,13 @@
     <div class="content">
         <div class="overview">
             <div class="task-row">
-                <app-summary-task *ngFor="let task of summaryTasks" [task]="task"
-                    class="summary-task"></app-summary-task>
+                <app-sum-task-a *ngFor="let task of summaryTasks" [task]="task" class="sum-task-a"></app-sum-task-a>
             </div>
             <div class="urgent-task">
-                <div class="card">
-                    <div class="urgent-task-cont">
-                        <div class="icon-frame">
-                            <img class="icon" src="../../../assets/img/summary/urgent.png" alt="urgent">
-                        </div>
-                        <div class="task-info">
-                            <span class="counter">{{ summary.urgent }}</span>
-                            <span class="category">Urgent</span>
-                        </div>
-                    </div>
-                    <div class="urgent-vector-cont">
-                        <img class="urgent-vector" src="../../../assets/img/summary/task_vector.png" alt="task_vector">
-                    </div>
-                    <div class="date-deadline-cont">
-                        <span class="date">{{ summary.deadline }}</span>
-                        <span class="deadline">Upcomoing Deadline</span>
-                    </div>
-                </div>
+                <app-sum-task-b></app-sum-task-b>
             </div>
             <div class="task-row">
-                <app-summary-task-info *ngFor="let task of summaryTaskInfo" [task]="task"
-                    class="summary-task-info"></app-summary-task-info>
+                <app-sum-task-c *ngFor="let task of summaryTaskInfo" [task]="task" class="sum-task-c"></app-sum-task-c>
             </div>
         </div>
 

@@ -37,7 +37,7 @@
 }
 
 // mixin?
-.summary-task {
+.sum-task-a {
   @include max-size($w: 264px, $h: 168px);
   @include display-flex();
   cursor: pointer;
@@ -51,86 +51,8 @@
   cursor: pointer;
 }
 
-.card {
-  @include box-padding($p: 28px 48px);
-  @include min-size($w: 560px, $h: 168px);
-  @include color-set($c: #2a3647, $bgc: #ffffff);
-  @include display-horiz($g: 61px);
-  border-radius: 30px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  transition: all 80ms ease-in-out;
-
-  &:hover {
-    @include min-size($w: 576px, $h: 184px);
-    @include color-set($c: #ffffff, $bgc: #2a3647);
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-
-    .counter {
-      color: #ffffff;
-    }
-  }
-
-  &:active {
-    @include color-set($c: #2a3647, $bgc: #f9f9f9);
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-
-    .counter {
-      color: #000000;
-    }
-  }
-}
-
-.urgent-task-cont {
-  @include display-horiz($g: 18px);
-}
-
-.icon-frame {
-  @include size($w: 69px, $h: 69px);
-}
-
-.icon {
-  @include size($w: 60px, $h: 60px);
-  object-fit: contain;
-}
-
-.task-info {
-  @include display-column($ai: center);
-  text-align: center;
-}
-
-.counter {
-  @include font($fs: 64px, $fw: 600, $lh: 76.8px);
-  color: #000000;
-}
-
-.category {
-  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-}
-
-.urgent-vector-cont {
-  @include size($w: 2px, $h: 102.02px);
-}
-
-.urgent-vector {
-  object-fit: contain;
-}
-
-.date-deadline-cont {
-  @include display-column();
-  gap: 13px;
-}
-
-.date {
-  @include font($fs: 21px, $fw: 700, $lh: 25.2px);
-}
-
-.deadline {
-  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-}
-
 // mixin?
-.summary-task-info {
+.sum-task-c {
   @include max-size($w: 168px, $h: 168px);
   @include display-flex();
   cursor: pointer;

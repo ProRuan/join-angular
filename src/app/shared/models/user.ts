@@ -1,11 +1,11 @@
 import { DocumentData } from 'firebase/firestore';
 import { Contact } from '../interfaces/contact';
 import { Summary } from './summary';
-import { Task } from '../interfaces/task';
+import { Task } from './task';
 
 // jsdoc
 export class User {
-  [key: string]: any;
+  [key: string]: any; // to update!!!
   id?: string;
   sid?: string;
   inititals?: string;

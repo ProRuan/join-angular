@@ -4,15 +4,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Firestore } from '@angular/fire/firestore';
 import { JoinService } from '../../shared/services/join.service';
 import { Summary } from '../../shared/models/summary';
-
-// verify + rename!!!
-import { SummaryTaskComponent } from './summary-task/summary-task.component';
-import { SummaryTaskInfoComponent } from './summary-task-info/summary-task-info.component';
+import { SumTaskAComponent } from './sum-task-a/sum-task-a.component';
+import { SumTaskBComponent } from './sum-task-b/sum-task-b.component';
+import { SumTaskCComponent } from './sum-task-c/sum-task-c.component';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [CommonModule, SummaryTaskComponent, SummaryTaskInfoComponent],
+  imports: [
+    CommonModule,
+    SumTaskAComponent,
+    SumTaskBComponent,
+    SumTaskCComponent,
+  ],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
 })

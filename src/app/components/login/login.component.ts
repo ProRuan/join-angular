@@ -49,6 +49,7 @@ export class LoginComponent {
     this.sid = '';
     this.email = '';
     this.password = '';
+    // password = '********';
   }
 
   // set email after getting user!!!
@@ -61,6 +62,9 @@ export class LoginComponent {
       // set user via UserService --> get/set user from join!!!
       this.sid = sid;
       let user = this.join.users.find((u) => u.sid == sid);
+      if (user) {
+        this.email = user.email;
+      }
       console.log('new user login: ', user);
     } else {
       console.log('user login');

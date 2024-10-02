@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { MainComponent } from '../main/main.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { JoinService } from '../../shared/services/join.service';
+
+// verify!!!
 import { PrioButtonComponent } from '../../shared/components/prio-button/prio-button.component';
 import { PrioService } from '../../shared/services/prio.service';
 import { last } from 'rxjs';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
 import { CategoryService } from '../../shared/services/category.service';
 import { SubtaskService } from '../../shared/services/subtask.service';
-import { JoinService } from '../../shared/services/join.service';
 import { User } from '../../shared/models/user';
 
 @Component({
@@ -19,17 +20,17 @@ import { User } from '../../shared/models/user';
   styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent {
-  mainComponent: MainComponent = inject(MainComponent);
+  join: JoinService = inject(JoinService);
   prioData: PrioService = inject(PrioService);
-  // Please rename!!!
+
+  // verify + rename!!!
   asToData: AssignedToService = inject(AssignedToService);
   catData: CategoryService = inject(CategoryService);
   subTData: SubtaskService = inject(SubtaskService);
-  join: JoinService = inject(JoinService);
   sessionToken: string = '';
   codes: string[] = [];
 
-  user: User = new User();
+  // verify + rename
   task: any;
   ACListViewed: boolean = true;
   filter: string = '';
@@ -87,10 +88,28 @@ export class AddTaskComponent {
   // category - check
   // subtasks ...
 
+  constructor() {
+    this.task = {
+      title: '',
+      description: '',
+      assignedTo: [],
+      dueDate: '',
+      prio: 'medium',
+      category: '',
+      subtasks: [],
+      column: 'to-do',
+    };
+  }
+
+  get user() {
+    return this.join.user;
+  }
+
   async ngOnInit() {
-    await this.mainComponent.ngOnInit();
-    this.user = this.mainComponent.user;
-    console.log('from main user: ', this.mainComponent.user);
+    console.log('got user via join service: ', this.join.user);
+    if (!this.user.tasks) {
+      this.user.tasks = [];
+    }
     this.formatCurrDate();
   }
 
