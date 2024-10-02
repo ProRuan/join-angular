@@ -51,6 +51,7 @@ export class LoginComponent {
     this.password = '';
   }
 
+  // set email after getting user!!!
   async ngOnInit() {
     await this.join.getUsers();
     console.log('all join users: ', this.join.users);
