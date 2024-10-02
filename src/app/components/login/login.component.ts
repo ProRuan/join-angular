@@ -77,10 +77,16 @@ export class LoginComponent {
       if (user) {
         this.join.user = new User(user);
         await this.join.setSecurityId();
-        console.log('secondary sid: ', this.user.sid);
+        console.log('secondary sid: ', this.user);
       }
 
+      if (this.user.id) {
+        this.join.id = this.user.id;
+        // set id in join service!!!
+      }
       console.log('logged in successfully: ', this.join.user);
+      this.join.subscribeUser();
+      // subscribe all users as well!!!
       this.router.navigate(['main', this.user.sid, 'summary']);
     }
   }

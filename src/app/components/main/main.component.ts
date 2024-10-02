@@ -52,29 +52,23 @@ export class MainComponent {
 
   // create own function!!!
   async ngOnInit() {
-    await this.setMainToken();
-    this.sid = this.mainToken;
-    console.log('summary sid: ', this.sid);
+    const sid = this.route.snapshot.paramMap.get('id');
+    console.log('main user sid: ', sid);
 
-    await this.join.getUsers();
-    this.users = this.join.users;
-    let user = this.users.find((u) => u.sid == this.sid);
-    if (user) {
-      this.user = user;
-      console.log('summary user: ', this.user);
-      console.log('user task summary: ', this.user.summary);
+    if (sid) {
+      // set user via UserService --> get/set user from join!!!
+      this.sid = sid;
+      let user = this.join.users.find((u) => u.sid == sid);
+      if (user) {
+        this.join.user = new User(user);
+        if (this.join.user.id) {
+          this.join.id = this.join.user.id;
+          this.join.subscribeUser();
+        }
+        console.log('main user: ', this.join.user);
+      }
+    } else {
+      console.log('no main user');
     }
-    this.join.user = this.user;
-  }
-
-  async setMainToken() {
-    this.mainToken = await this.getUserToken();
-    console.log('main token: ', this.mainToken);
-  }
-
-  async getUserToken() {
-    const userToken = this.route.snapshot.paramMap.get('id');
-    console.log('main router user token: ', userToken);
-    return userToken;
   }
 }

@@ -1,10 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Firestore } from '@angular/fire/firestore';
+
+// verify!!!
 import { SummaryTaskComponent } from './summary-task/summary-task.component';
 import { SummaryTaskInfoComponent } from './summary-task-info/summary-task-info.component';
-import { ActivatedRoute, Router } from '@angular/router';
 import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { Firestore } from '@angular/fire/firestore';
 import { MainComponent } from '../main/main.component';
 import { User } from '../../shared/models/user';
 import { JoinService } from '../../shared/services/join.service';
@@ -17,10 +19,13 @@ import { JoinService } from '../../shared/services/join.service';
   styleUrl: './summary.component.scss',
 })
 export class SummaryComponent {
-  join: JoinService = inject(JoinService);
+  // rename summary components!!!
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
+  join: JoinService = inject(JoinService);
+
+  // verify!!!
   mainComponent: MainComponent = inject(MainComponent);
 
   sid: any;
@@ -29,6 +34,7 @@ export class SummaryComponent {
   summary: any;
   // summary = new Task();
 
+  // create one task component with optional parameters!?
   summaryTasks = [
     {
       defaultPath: './assets/img/summary/to_do.png',
@@ -64,10 +70,34 @@ export class SummaryComponent {
   // user localStorage or sessionStorage to avoid reload blinking!?!
   // https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
 
+  constructor() {
+    this.summary = {
+      toDo: 0,
+      done: 0,
+      urgent: 0,
+      deadline: 'October 12, 2024',
+      inBoard: 0,
+      inProgress: 0,
+      awaitFeedback: 0,
+    };
+  }
+
   async ngOnInit() {
     await this.mainComponent.ngOnInit();
-    this.user = this.mainComponent.user;
-    console.log('from main user: ', this.mainComponent.user);
-    this.summary = this.user.summary;
+    this.user = this.mainComponent.join.user;
+    console.log('from main user: ', this.mainComponent.join.user);
+
+    if (!this.mainComponent.join.user.summary) {
+      this.mainComponent.join.user.summary = {
+        toDo: 0,
+        done: 0,
+        urgent: 0,
+        deadline: 'October 12, 2024',
+        inBoard: 0,
+        inProgress: 0,
+        awaitFeedback: 0,
+      };
+    }
+    this.summary = this.mainComponent.join.user.summary;
   }
 }
