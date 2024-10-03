@@ -43,7 +43,7 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
 }
 
 @mixin intro-animation($n) {
-  animation: $n 500ms ease-in-out 200ms;
+  animation: $n 300ms ease-in-out 700ms;
 }
 
 @mixin max-size($w, $h) {
@@ -80,3 +80,4 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
 }
 
 // review mixins!!!
+// check global and local mixins!!!

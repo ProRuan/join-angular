@@ -11,16 +11,18 @@ $top: calc(calc(100vh - 335px) / 2);
 .logo-cont {
   @include size($w: 100%, $h: 100vh);
   @include position($pos: absolute, $l: 0, $t: 0);
-  // by logic?!
-  @include intro-animation($n: revelation);
   background-color: transparent;
-  z-index: 1;
-  // set on animatino end!!! (by logic)
   pointer-events: none;
+  z-index: 1;
 }
 
 .bg-color {
   background-color: #f6f7f8;
+  pointer-events: auto;
+}
+
+.logo-cont-animation {
+  @include intro-animation($n: revelation);
 }
 
 @keyframes revelation {
@@ -34,12 +36,14 @@ $top: calc(calc(100vh - 335px) / 2);
 
 .logo {
   @include logo-location($l: 77px, $t: 80px, $w: 100px);
-  // by logic?!
-  @include intro-animation($n: relocation);
 }
 
-.p-center {
+.pos-center {
   @include logo-location($l: $left, $t: $top, $w: 274px);
+}
+
+.logo-animation {
+  @include intro-animation($n: relocation);
 }
 
 @keyframes relocation {

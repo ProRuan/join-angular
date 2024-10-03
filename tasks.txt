@@ -1,6 +1,13 @@
 Join
 ----
 
+
+Complete (1/?)
+--------
+  - JoinLogoComponent - check
+
+
+
 --> Review Templates and Styles ... (0/2)
 --> Review components, classes, interfces, services ... (0/4)
 

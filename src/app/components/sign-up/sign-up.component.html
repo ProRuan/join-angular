@@ -1,5 +1,5 @@
 <section class="sign-up">
-    <app-join-logo></app-join-logo>
+    <app-join-logo [revealed]="true"></app-join-logo>
 
     <!-- review style due to form tag!!! -->
     <form #signUpForm="ngForm" class="content" (ngSubmit)="signUp(signUpForm)">
