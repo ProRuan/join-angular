@@ -42,6 +42,10 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   line-height: $lh;
 }
 
+@mixin intro-animation($n) {
+  animation: $n 500ms ease-in-out 200ms;
+}
+
 @mixin max-size($w, $h) {
   max-width: $w;
   max-height: $h;
@@ -50,6 +54,14 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
 @mixin min-size($w, $h) {
   min-width: $w;
   min-height: $h;
+}
+
+@mixin position($pos: relative, $l: auto, $t: auto, $r: auto, $b: auto) {
+  position: $pos;
+  left: $l;
+  top: $t;
+  right: $r;
+  bottom: $b;
 }
 
 @mixin prio-disabled($bgc, $path) {

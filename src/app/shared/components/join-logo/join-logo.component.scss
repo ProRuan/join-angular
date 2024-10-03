@@ -1,16 +1,52 @@
 @import "../../../../mixins.scss";
 
+$left: calc(calc(100% - 274px) / 2);
+$top: calc(calc(100vh - 335px) / 2);
+
+@mixin logo-location($l, $t, $w) {
+  @include position($pos: relative, $l: $l, $t: $t);
+  width: $w;
+}
+
 .logo-cont {
-  @include size($w: 100.03px, $h: 121.97px);
-  position: absolute;
-  left: 77px;
-  top: 80px;
+  @include size($w: 100%, $h: 100vh);
+  @include position($pos: absolute, $l: 0, $t: 0);
+  // by logic?!
+  @include intro-animation($n: revelation);
+  background-color: transparent;
+  z-index: 1;
+  // set on animatino end!!! (by logic)
+  pointer-events: none;
+}
+
+.bg-color {
+  background-color: #f6f7f8;
+}
+
+@keyframes revelation {
+  from {
+    background-color: #f6f7f8;
+  }
+  to {
+    background-color: transparent;
+  }
 }
 
 .logo {
-  @include size($w: 100%, $h: 100%);
+  @include logo-location($l: 77px, $t: 80px, $w: 100px);
+  // by logic?!
+  @include intro-animation($n: relocation);
 }
 
-// .large {
-//   @include size($w: 274px, $h: 334.07px);
-// }
+.p-center {
+  @include logo-location($l: $left, $t: $top, $w: 274px);
+}
+
+@keyframes relocation {
+  from {
+    @include logo-location($l: $left, $t: $top, $w: 274px);
+  }
+  to {
+    @include logo-location($l: 77px, $t: 80px, $w: 100px);
+  }
+}
