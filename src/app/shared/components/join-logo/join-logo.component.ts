@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { JoinService } from '../../services/join.service';
 
 @Component({
   selector: 'app-join-logo',
@@ -13,7 +14,9 @@ import { Component, Input } from '@angular/core';
  * Represents a join logo component.
  */
 export class JoinLogoComponent {
-  @Input() revealed: boolean;
+  join: JoinService = inject(JoinService);
+
+  @Input() enabled: boolean = true;
   logo: string;
   bgColor: string;
   posCenter: string;
@@ -22,33 +25,34 @@ export class JoinLogoComponent {
    * Creates a join logo component.
    */
   constructor() {
-    this.revealed = false;
     this.logo = '../../../assets/img/login/logo.png';
-    this.bgColor = 'bg-color';
-    this.posCenter = 'pos-center';
+    this.bgColor = '';
+    this.posCenter = '';
   }
 
   /**
    * Initializes the join logo component.
    */
   ngOnInit() {
-    this.setClasses();
-    this.reveal();
+    if (this.enabled) {
+      this.setClasses();
+      this.reveal();
+    }
   }
 
   /**
    * Sets the intro classes.
    */
   setClasses() {
-    this.bgColor = !this.revealed ? 'bg-color' : '';
-    this.posCenter = !this.revealed ? 'pos-center' : '';
+    this.bgColor = !this.join.revealed ? 'bg-color' : '';
+    this.posCenter = !this.join.revealed ? 'pos-center' : '';
   }
 
   /**
    * Reveals the login component.
    */
   reveal() {
-    if (!this.revealed) {
+    if (!this.join.revealed) {
       this.clearClasses();
       this.setRevealed();
     }
@@ -69,7 +73,7 @@ export class JoinLogoComponent {
    */
   setRevealed() {
     setTimeout(() => {
-      this.revealed = true;
+      this.join.revealed = true;
     }, 1000);
   }
 
@@ -79,6 +83,10 @@ export class JoinLogoComponent {
    * @returns - The animation class.
    */
   animate(className: string) {
-    return !this.revealed ? className : '';
+    if (this.enabled) {
+      return !this.join.revealed ? className : '';
+    } else {
+      return '';
+    }
   }
 }

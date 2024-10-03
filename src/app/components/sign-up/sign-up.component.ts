@@ -47,6 +47,9 @@ export class SignUpComponent {
   // for small menu!!!
   home() {
     this.router.navigateByUrl('login');
+    if (!this.join.revealed) {
+      this.join.revealed = true;
+    }
   }
 
   async signUp(ngForm: NgForm) {
