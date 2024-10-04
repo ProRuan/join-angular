@@ -42,10 +42,6 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   line-height: $lh;
 }
 
-@mixin intro-animation($n) {
-  animation: $n 300ms ease-in-out 700ms;
-}
-
 @mixin max-size($w, $h) {
   max-width: $w;
   max-height: $h;

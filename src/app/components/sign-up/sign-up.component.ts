@@ -49,6 +49,7 @@ export class SignUpComponent {
     this.router.navigateByUrl('login');
     if (!this.join.revealed) {
       this.join.revealed = true;
+      this.join.relocated = true;
     }
   }
 

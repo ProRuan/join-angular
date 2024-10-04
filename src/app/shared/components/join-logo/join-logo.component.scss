@@ -12,26 +12,11 @@ $top: calc(calc(100vh - 335px) / 2);
   @include size($w: 100%, $h: 100vh);
   @include position($pos: absolute, $l: 0, $t: 0);
   background-color: transparent;
-  pointer-events: none;
   z-index: 1;
 }
 
 .bg-color {
   background-color: #f6f7f8;
-  pointer-events: auto;
-}
-
-.logo-cont-animation {
-  @include intro-animation($n: revelation);
-}
-
-@keyframes revelation {
-  from {
-    background-color: #f6f7f8;
-  }
-  to {
-    background-color: transparent;
-  }
 }
 
 .logo {
@@ -40,17 +25,4 @@ $top: calc(calc(100vh - 335px) / 2);
 
 .pos-center {
   @include logo-location($l: $left, $t: $top, $w: 274px);
-}
-
-.logo-animation {
-  @include intro-animation($n: relocation);
-}
-
-@keyframes relocation {
-  from {
-    @include logo-location($l: $left, $t: $top, $w: 274px);
-  }
-  to {
-    @include logo-location($l: 77px, $t: 80px, $w: 100px);
-  }
 }

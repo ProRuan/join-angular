@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { JoinService } from '../../services/join.service';
+import { revelation } from './animations/revelation.animation';
+import { relocation } from './animations/relocation.animation';
 
 @Component({
   selector: 'app-join-logo',
   standalone: true,
   imports: [CommonModule],
+  animations: [revelation, relocation],
   templateUrl: './join-logo.component.html',
   styleUrl: './join-logo.component.scss',
 })
@@ -17,76 +20,65 @@ export class JoinLogoComponent {
   join: JoinService = inject(JoinService);
 
   @Input() enabled: boolean = true;
-  logo: string;
-  bgColor: string;
-  posCenter: string;
+  logo: string = '../../../assets/img/login/logo.png';
 
   /**
-   * Creates a join logo component.
-   */
-  constructor() {
-    this.logo = '../../../assets/img/login/logo.png';
-    this.bgColor = '';
-    this.posCenter = '';
-  }
-
-  /**
-   * Initializes the join logo component.
+   * Initializes a join logo component.
    */
   ngOnInit() {
     if (this.enabled) {
-      this.setClasses();
-      this.reveal();
+      this.setTrue('revealed');
+      this.setTrue('relocated');
     }
   }
 
   /**
-   * Sets the intro classes.
+   * Sets a value to true.
+   * @param key - The key of the value.
    */
-  setClasses() {
-    this.bgColor = !this.join.revealed ? 'bg-color' : '';
-    this.posCenter = !this.join.revealed ? 'pos-center' : '';
-  }
-
-  /**
-   * Reveals the login component.
-   */
-  reveal() {
-    if (!this.join.revealed) {
-      this.clearClasses();
-      this.setRevealed();
-    }
-  }
-
-  /**
-   * Clears the initial classes.
-   */
-  clearClasses() {
+  setTrue(key: string) {
     setTimeout(() => {
-      this.bgColor = '';
-      this.posCenter = '';
-    }, 900);
+      this.join[key] = true;
+    }, 0);
   }
 
   /**
-   * Denotes the intro as done.
+   * Colors the background.
+   * @returns - A class name.
    */
-  setRevealed() {
-    setTimeout(() => {
-      this.join.revealed = true;
-    }, 1000);
+  colorBg() {
+    return !this.join.revealed ? 'bg-color' : '';
   }
 
   /**
-   * Provides an animation class.
-   * @param className - The animation class.
-   * @returns - The animation class.
+   * Centers the logo.
+   * @returns - A class name.
    */
-  animate(className: string) {
+  centerLogo() {
+    return !this.join.relocated ? 'pos-center' : '';
+  }
+
+  /**
+   * Reveals the app.
+   * @returns - The state of the revelation.
+   */
+  revealApp() {
     if (this.enabled) {
-      return !this.join.revealed ? className : '';
+      return !this.join.revealed ? 'revelation-start' : 'revelation-end';
     } else {
-      return '';
+      return 'revelation-end';
+    }
+  }
+
+  /**
+   * Relocates the logo.
+   * @returns - The state of the relocation.
+   */
+  relocateLogo() {
+    if (this.enabled) {
+      return !this.join.relocated ? 'relocation-start' : 'relocation-end';
+    } else {
+      return 'relocation-end';
     }
   }
 }

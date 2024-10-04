@@ -23,7 +23,9 @@ import { Summary } from '../models/summary';
 export class JoinService {
   firestore: Firestore = inject(Firestore);
 
+  [key: string]: any;
   revealed: boolean;
+  relocated: boolean;
   id: string;
   sid: string;
   user: User;
@@ -33,6 +35,7 @@ export class JoinService {
   // edit!!!
   constructor() {
     this.revealed = false;
+    this.relocated = false;
     this.id = '';
     this.sid = '';
     this.user = new User();
