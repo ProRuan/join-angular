@@ -6,9 +6,9 @@ import { JoinService } from '../../shared/services/join.service';
 import { UserService } from '../../shared/services/user.service';
 
 // verify!!!
-import { JoinLogoComponent } from '../../shared/components/join-logo/join-logo.component';
 import { LegalLinksComponent } from '../../shared/components/legal-links/legal-links.component';
 import { InputComponent } from '../../shared/components/input/input.component';
+import { LogoComponent } from '../../shared/components/logo/logo.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,9 +17,9 @@ import { InputComponent } from '../../shared/components/input/input.component';
     CommonModule,
     FormsModule,
     RouterLink,
+    LogoComponent,
 
     // to verify!!!
-    JoinLogoComponent,
     LegalLinksComponent,
     InputComponent,
   ],

@@ -6,10 +6,10 @@ import { JoinService } from '../../shared/services/join.service';
 import { User } from '../../shared/models/user';
 
 // verify!!!
-import { JoinLogoComponent } from '../../shared/components/join-logo/join-logo.component';
 import { LegalLinksComponent } from '../../shared/components/legal-links/legal-links.component';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { UserService } from '../../shared/services/user.service';
+import { LogoComponent } from '../../shared/components/logo/logo.component';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +17,9 @@ import { UserService } from '../../shared/services/user.service';
   imports: [
     CommonModule,
     FormsModule,
+    LogoComponent,
 
     // verify!!!
-    JoinLogoComponent,
     LegalLinksComponent,
     InputComponent,
   ],
