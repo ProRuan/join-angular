@@ -1,44 +1,47 @@
+<app-logo></app-logo>
+
 <section class="login">
-    <app-logo></app-logo>
+    <header class="header">
+        <div class="sign-up-cont">
+            <span class="sign-up-text">Not a Join user?</span>
+            <button class="sign-up-btn" (click)="redirect()">Sign up</button>
+        </div>
+    </header>
 
-    <div class="sign-up-cont">
-        <span class="sign-up-text">Not a Join user?</span>
-        <button class="sign-up-btn" (click)="redirect()">
-            <div>Sign up</div>
-        </button>
+    <!-- verify --- verify --- verify -->
+    <div class="form-cont">
+        <!-- review style due to form tag!!! -->
+        <form #loginForm="ngForm" class="content" (ngSubmit)="logIn(loginForm)">
+            <div class="title-border-cont">
+                <h2 class="title headline-2">Log in</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="input-cont">
+                <div class="input-remember-cont">
+                    <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
+                        img="email.png"></app-input>
+                    <!-- set condition!!! -->
+                    <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
+                        required img="lock.png" [condition]="true" [hintText]="hintText"></app-input>
+                </div>
+
+                <div class="remember-me-cont">
+                    <img [ngClass]="getCheckbox()" [src]="getSrc()" alt="checkbox" (click)="remember()">
+                    <span class="remember-me">Remember me</span>
+                </div>
+            </div>
+
+            <div class="button-cont">
+                <button [disabled]="disable(loginForm)" class="log-in-btn">
+                    <div>Log in</div>
+                </button>
+                <button [disabled]="disable(loginForm)" class="guest-log-in-btn">
+                    <div>Guest Log in</div>
+                </button>
+            </div>
+        </form>
     </div>
-
-    <!-- review style due to form tag!!! -->
-    <form #loginForm="ngForm" class="content" (ngSubmit)="logIn(loginForm)">
-        <div class="title-border-cont">
-            <h2 class="title headline-2">Log in</h2>
-            <div class="underline"></div>
-        </div>
-
-        <div class="input-cont">
-            <div class="input-remember-cont">
-                <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
-                    img="email.png"></app-input>
-                <!-- set condition!!! -->
-                <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
-                    required img="lock.png" [condition]="true" [hintText]="hintText"></app-input>
-            </div>
-
-            <div class="remember-me-cont">
-                <img [ngClass]="getCheckbox()" [src]="getSrc()" alt="checkbox" (click)="remember()">
-                <span class="remember-me">Remember me</span>
-            </div>
-        </div>
-
-        <div class="button-cont">
-            <button [disabled]="disable(loginForm)" class="log-in-btn">
-                <div>Log in</div>
-            </button>
-            <button [disabled]="disable(loginForm)" class="guest-log-in-btn">
-                <div>Guest Log in</div>
-            </button>
-        </div>
-    </form>
 
     <app-legal-links></app-legal-links>
 </section>

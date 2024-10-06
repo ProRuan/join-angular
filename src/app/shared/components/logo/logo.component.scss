@@ -3,11 +3,6 @@
 $left: calc(calc(100% - 274px) / 2);
 $top: calc(calc(100vh - 335px) / 2);
 
-@mixin logo-location($l, $t, $w) {
-  @include position($pos: relative, $l: $l, $t: $t);
-  width: $w;
-}
-
 .logo-cont {
   @include size($w: 100%, $h: 100vh);
   @include position($pos: absolute, $l: 0, $t: 0);
@@ -20,9 +15,11 @@ $top: calc(calc(100vh - 335px) / 2);
 }
 
 .logo {
-  @include logo-location($l: 77px, $t: 80px, $w: 100px);
+  @include position($pos: relative, $l: 77px, $t: 80px);
+  width: 100px;
 }
 
 .pos-center {
-  @include logo-location($l: $left, $t: $top, $w: 274px);
+  @include position($pos: relative, $l: $left, $t: $top);
+  width: 274px;
 }

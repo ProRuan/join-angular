@@ -1,4 +1,7 @@
 $black: #000000;
+$dark: #2a3647;
+$darker: #091931;
+$lightblue: #29abe2;
 $white: #ffffff;
 $urgent: #ff3d00;
 $medium: #ffa800;
@@ -17,11 +20,13 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   background-color: $bgc;
 }
 
-@mixin display-column($jc: flex-start, $ai: flex-start) {
+// move gap to mixin (in files)!!!
+@mixin display-column($jc: flex-start, $ai: normal, $g: normal normal) {
   display: flex;
   flex-direction: column;
   justify-content: $jc;
   align-items: $ai;
+  gap: 0;
 }
 
 @mixin display-flex($jc: center, $ai: center) {
@@ -33,6 +38,14 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
 @mixin display-horiz($g) {
   display: flex;
   align-items: center;
+  gap: $g;
+}
+
+@mixin display-row($jc: flex-start, $ai: normal, $g: normal normal) {
+  display: flex;
+  flex-direction: row;
+  justify-content: $jc;
+  align-items: $ai;
   gap: $g;
 }
 

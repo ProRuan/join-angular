@@ -8,6 +8,7 @@ body {
 }
 
 button {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
   cursor: pointer;
 
   &:disabled {
@@ -24,7 +25,8 @@ app-sign-up,
 app-summary,
 app-add-task,
 app-board,
-app-contacts {
+app-contacts,
+app-legal-links {
   width: 100%;
 }
 
