@@ -8,13 +8,11 @@
         </div>
     </header>
 
-    <!-- verify --- verify --- verify -->
     <div class="form-cont">
-        <!-- review style due to form tag!!! -->
         <form #loginForm="ngForm" class="form" (ngSubmit)="logIn(loginForm)">
             <div class="title-border-cont">
                 <h2 class="title headline-2">Log in</h2>
-                <div class="underline"></div>
+                <div class="border"></div>
             </div>
 
             <div class="input-checkbox-cont">
@@ -28,17 +26,13 @@
 
                 <div class="remember-me-cont">
                     <img [ngClass]="getCheckbox()" [src]="getSrc()" alt="checkbox" (click)="remember()">
-                    <span class="remember-me">Remember me</span>
+                    <span>Remember me</span>
                 </div>
             </div>
 
-            <div class="button-cont">
-                <button [disabled]="disable(loginForm)" class="log-in-btn">
-                    <div>Log in</div>
-                </button>
-                <button [disabled]="disable(loginForm)" class="guest-log-in-btn">
-                    <div>Guest Log in</div>
-                </button>
+            <div class="button-group">
+                <button [disabled]="disable(loginForm)" class="log-in-btn">Log in</button>
+                <button [disabled]="disable(loginForm)" class="guest-log-in-btn">Guest Log in</button>
             </div>
         </form>
     </div>

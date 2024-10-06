@@ -12,12 +12,11 @@
   @include box-padding($p: 11px 20px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: 1px solid $gray, $br: 10px);
   width: 422px;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
 
   &::placeholder {
-    color: #d1d1d1;
+    color: $gray;
   }
 
   &:focus {

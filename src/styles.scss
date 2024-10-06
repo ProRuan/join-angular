@@ -41,6 +41,14 @@ app-prio-button {
   color: $black;
 }
 
+.check {
+  @include img-content($src1: $check, $src2: $checkHover);
+}
+
+.checked {
+  @include img-content($src1: $checked, $src2: $checkedHover);
+}
+
 .subheadline-2 {
   @include font($fs: 27px, $fw: 400, $lh: 32.4px);
   color: #2a3647;
@@ -82,6 +90,9 @@ app-checkbox {
 
 // add font-families!!!
 // inter, poppins, open sans
+
+// prim-btn, sec-btn, ...
+// testing!!!
 
 // create color scss?!
 .lightblue {

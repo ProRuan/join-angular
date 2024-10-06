@@ -1,6 +1,8 @@
 $black: #000000;
 $dark: #2a3647;
 $darker: #091931;
+$gray: #d1d1d1;
+$lightgray: #f6f7f8;
 $lightblue: #29abe2;
 $error: #ff001f;
 $hint: #ff8190;
@@ -8,9 +10,16 @@ $white: #ffffff;
 $urgent: #ff3d00;
 $medium: #ffa800;
 $low: #7ae229;
+$check: "/assets/img/sign-up/check.png";
+$checkHover: "/assets/img/sign-up/check_hover.png";
+$checked: "/assets/img/sign-up/checked.png";
+$checkedHover: "/assets/img/sign-up/checked_hover.png";
+
+// rename to camelCase!!!
 $urgent_white: "/assets/img/add-task/prio_urgent_white.png";
 $medium_white: "/assets/img/add-task/prio_medium_white.png";
 $low_white: "/assets/img/add-task/prio_low_white.png";
+// move variabels!!!
 
 @mixin box-padding($p) {
   box-sizing: border-box;
@@ -57,6 +66,14 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   line-height: $lh;
 }
 
+@mixin img-content($src1, $src2) {
+  content: url($src1);
+
+  &:hover {
+    content: url($src2);
+  }
+}
+
 @mixin max-size($w, $h) {
   max-width: $w;
   max-height: $h;
@@ -83,6 +100,11 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
       content: url($path);
     }
   }
+}
+
+@mixin round-border($b: none, $br: 0) {
+  border: $b;
+  border-radius: $br;
 }
 
 @mixin size($w, $h) {
