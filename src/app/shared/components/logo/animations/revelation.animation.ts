@@ -1,13 +1,15 @@
+import { Properties } from '../../../interfaces/properties';
 import { Transform } from '../../../models/transform';
 
 let name = 'revelation';
 
-let propertiesA: { [key: string]: string | number } = {
-  backgroundColor: '#f6f7f8',
+let properties: Properties = {
+  start: {
+    backgroundColor: '#f6f7f8',
+  },
+  end: {
+    backgroundColor: 'transparent',
+  },
 };
 
-let propertiesB: { [key: string]: string | number } = {
-  backgroundColor: 'transparent',
-};
-
-export const revelation = new Transform(name, propertiesA, propertiesB);
+export const revelation = new Transform(name, properties);

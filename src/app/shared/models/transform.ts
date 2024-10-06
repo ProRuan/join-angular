@@ -1,8 +1,6 @@
 import {
   animate,
   AnimationMetadata,
-  AnimationStateMetadata,
-  AnimationStyleMetadata,
   AnimationTransitionMetadata,
   AnimationTriggerMetadata,
   state,
@@ -10,125 +8,112 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { Properties } from '../interfaces/properties';
+import { Styles } from '../interfaces/styles';
+import { States } from '../interfaces/states';
 
 /**
- * Represents a transform.
+ * Represents a transform (animation).
  */
 export class Transform {
   name: string;
-  propertiesA: { [key: string]: string | number };
-  propertiesB: { [key: string]: string | number };
-  styleA?: AnimationStyleMetadata;
-  styleB?: AnimationStyleMetadata;
-  stateA?: AnimationStateMetadata;
-  stateB?: AnimationStateMetadata;
-  stateToState?: string;
-  timings?: string | number;
-  transition?: AnimationTransitionMetadata;
-  animation?: AnimationMetadata[];
+  properties: Properties;
+  styles: Styles;
+  states: States;
+  stateChangeExpr: string;
+  timings: string | number;
+  transition: AnimationTransitionMetadata;
+  animation: AnimationMetadata[];
 
   /**
-   * Creates a transform.
+   * Creates a transform (animation).
    * @param name - The transform name.
-   * @param propertiesA - The property a.
-   * @param propertiesB - The property b.
+   * @param properties - The css properties.
    */
-  constructor(
-    name: string,
-    propertiesA: { [key: string]: string | number },
-    propertiesB: { [key: string]: string | number }
-  ) {
+  constructor(name: string, properties: Properties) {
     this.name = name;
-    this.propertiesA = propertiesA;
-    this.propertiesB = propertiesB;
-    this.set();
+    this.properties = properties;
+    this.styles = this.getStyles();
+    this.states = this.getStates();
+    this.stateChangeExpr = this.getStateChangeExpr();
+    this.timings = this.getTimings();
+    this.transition = this.getTransition();
+    this.animation = this.getAnimation();
   }
 
   /**
-   * Provides the transform start.
+   * The animation start.
    */
   get start(): string {
     return this.name + '-start';
   }
 
   /**
-   * Provides the transform end.
+   * The animation end.
    */
   get end(): string {
     return this.name + '-end';
   }
 
   /**
-   * Sets the transform properties.
+   * Provides the animation styles.
+   * @returns - The animation styles.
    */
-  set() {
-    this.setStyles();
-    this.setStates();
-    this.setStateToState();
-    this.setTimings();
-    this.setTransition();
-    this.setAnimation();
+  getStyles() {
+    return {
+      start: style(this.properties.start),
+      end: style(this.properties.end),
+    };
   }
 
   /**
-   * Sets the styles.
+   * Provides the animation states.
+   * @returns - The animation states.
    */
-  setStyles() {
-    this.styleA = style(this.propertiesA);
-    this.styleB = style(this.propertiesB);
+  getStates() {
+    return {
+      start: state(this.start, this.styles.start),
+      end: state(this.end, this.styles.end),
+    };
   }
 
   /**
-   * Sets the states.
+   * Provides the state change expression.
+   * @returns - The state change expression.
    */
-  setStates() {
-    if (this.styleA && this.styleB) {
-      this.stateA = state(this.start, this.styleA);
-      this.stateB = state(this.end, this.styleB);
-    }
+  getStateChangeExpr() {
+    return `${this.start} => ${this.end}`;
   }
 
   /**
-   * Sets the state change expression.
+   * Provides the animation timings.
+   * @returns - The animation timings.
    */
-  setStateToState() {
-    this.stateToState = `${this.start} => ${this.end}`;
+  getTimings() {
+    return '300ms 700ms ease-in-out';
   }
 
   /**
-   * Sets the timings.
+   * Provides the transition.
+   * @returns - The transition.
    */
-  setTimings() {
-    this.timings = '300ms 700ms ease-in-out';
+  getTransition() {
+    return transition(this.stateChangeExpr, [animate(this.timings)]);
   }
 
   /**
-   * Sets the transition.
+   * Provides the animation.
+   * @returns - The animation.
    */
-  setTransition() {
-    if (this.stateToState && this.timings) {
-      this.transition = transition(this.stateToState, [animate(this.timings)]);
-    }
-  }
-
-  /**
-   * Sets the animation.
-   */
-  setAnimation() {
-    if (this.stateA && this.stateB && this.transition) {
-      this.animation = [this.stateA, this.stateB, this.transition];
-    }
+  getAnimation() {
+    return [this.states.start, this.states.end, this.transition];
   }
 
   /**
    * Triggers the animation.
-   * @returns - The animation trigger meta data of false.
+   * @returns - The animation trigger meta data.
    */
-  trigger(): AnimationTriggerMetadata | false {
-    if (this.animation) {
-      return trigger(this.name, this.animation);
-    } else {
-      return false;
-    }
+  trigger(): AnimationTriggerMetadata {
+    return trigger(this.name, this.animation);
   }
 }

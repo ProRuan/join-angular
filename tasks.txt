@@ -4,7 +4,14 @@ Join
 
 Complete (1/?)
 --------
+
+shared/components (1/?)
+-----------------
   - JoinLogoComponent - check
+
+shared/models (1/?)
+-------------
+  - Transform
 
 
 
