@@ -2,14 +2,14 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LogoComponent } from '../../shared/components/logo/logo.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
 import { User } from '../../shared/models/user';
 
 // verify!!!
-import { LegalLinksComponent } from '../../shared/components/legal-links/legal-links.component';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { UserService } from '../../shared/services/user.service';
-import { LogoComponent } from '../../shared/components/logo/logo.component';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +18,9 @@ import { LogoComponent } from '../../shared/components/logo/logo.component';
     CommonModule,
     FormsModule,
     LogoComponent,
+    FooterComponent,
 
     // verify!!!
-    LegalLinksComponent,
     InputComponent,
   ],
   templateUrl: './login.component.html',
