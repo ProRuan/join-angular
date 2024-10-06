@@ -11,17 +11,17 @@
     <!-- verify --- verify --- verify -->
     <div class="form-cont">
         <!-- review style due to form tag!!! -->
-        <form #loginForm="ngForm" class="content" (ngSubmit)="logIn(loginForm)">
+        <form #loginForm="ngForm" class="form" (ngSubmit)="logIn(loginForm)">
             <div class="title-border-cont">
                 <h2 class="title headline-2">Log in</h2>
                 <div class="underline"></div>
             </div>
 
-            <div class="input-cont">
-                <div class="input-remember-cont">
+            <div class="input-checkbox-cont">
+                <div class="input-group">
                     <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
                         img="email.png"></app-input>
-                    <!-- set condition!!! -->
+                    <!-- set condition and hint text!!! -->
                     <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
                         required img="lock.png" [condition]="true" [hintText]="hintText"></app-input>
                 </div>

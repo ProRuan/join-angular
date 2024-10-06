@@ -2,6 +2,8 @@ $black: #000000;
 $dark: #2a3647;
 $darker: #091931;
 $lightblue: #29abe2;
+$error: #ff001f;
+$hint: #ff8190;
 $white: #ffffff;
 $urgent: #ff3d00;
 $medium: #ffa800;
@@ -26,7 +28,7 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   flex-direction: column;
   justify-content: $jc;
   align-items: $ai;
-  gap: 0;
+  gap: $g;
 }
 
 @mixin display-flex($jc: center, $ai: center) {

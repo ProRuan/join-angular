@@ -5,13 +5,23 @@ Join
 Complete (1/?)
 --------
 
-shared/components (1/?)
+shared/components (2/?)
 -----------------
-  - JoinLogoComponent - check
+  - InputComponent - check
+  - LogoComponent - check
+
+shared/interfaces (3/?)
+-----------------
+  - Properties - check
+  - Styles - check
+  - States - check
 
 shared/models (1/?)
 -------------
   - Transform
+
+
+  --> input   // width: 422px / 440px / 456px!!!
 
 
 

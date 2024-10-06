@@ -37,82 +37,47 @@
   }
 }
 
-// verify --- verify --- verify
 .form-cont {
   @include display-row($jc: center);
   width: 100%;
 }
 
-.content {
-  @include display-column($ai: center);
+.form {
+  @include display-column($g: 32px);
   padding: 48px 115px;
   width: fit-content;
-  background-color: #ffffff;
+  background-color: $white;
   border-radius: 30px;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-  gap: 32px;
 }
 
 .title-border-cont {
-  @include display-column($ai: center);
-  gap: 13px;
+  @include display-column($ai: center, $g: 13px);
 }
 
 .title {
-  @include size($w: 315px, $h: 73px);
   text-align: center;
 }
 
 .underline {
-  width: 150px;
-  height: 0;
+  @include size($w: 150px, $h: 0);
   border-bottom: 3px solid #29abe2;
   border-radius: 3px;
 }
 
-.input-cont {
-  @include display-column();
-  gap: 20px;
+.input-checkbox-cont {
+  @include display-column($g: 20px);
 }
 
-.input-remember-cont {
+// input-group!!!
+
+// verify --- verify --- verify
+.input-group {
   // height: 152px;    // necessary?
-  @include display-column();
-  gap: 32px;
+  @include display-column($g: 32px);
 }
 
-.input-hint-cont {
-  @include display-column();
-  gap: 8px;
-}
-
-.input-icon-cont {
-  //   @include display-horiz($g: 8px);
-  position: relative;
-}
-
-// input mixin?
-.input {
-  @include box-padding($p: 11px 21px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  width: 422px;
-  color: #d1d1d1;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  // gap: 10px;
-}
-
-.input-icon {
-  position: absolute;
-  top: 12px;
-  right: 21px;
-}
-
-.input-hint {
-  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
-  height: 12px;
-}
+// verify input component!!!
 
 .remember-me-cont {
   @include box-padding($p: 0 39px);

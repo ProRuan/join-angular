@@ -42,14 +42,16 @@ export class Transform {
   }
 
   /**
-   * The animation start.
+   * Provides the animation start.
+   * @returns - The animation start.
    */
   get start(): string {
     return this.name + '-start';
   }
 
   /**
-   * The animation end.
+   * Provides the animation end.
+   * @returns the animation end.
    */
   get end(): string {
     return this.name + '-end';

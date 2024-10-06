@@ -16,6 +16,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
+
+/**
+ * Represents an input component.
+ * @implements - The ControlValueAccessor.
+ */
 export class InputComponent implements ControlValueAccessor {
   value: string = '';
   @Input() placeholder: string = '';
@@ -23,35 +28,57 @@ export class InputComponent implements ControlValueAccessor {
   @Input() condition: boolean = false;
   @Input() hintText: string = '';
 
-  getSrc() {
-    return '../../../../assets/img/global/' + this.img;
-  }
-
-  onChange = (value: string) => {};
-  onTouched = () => {};
-
-  writeValue(value: string): void {
-    this.value = value;
-  }
-
+  /**
+   * Registers the function to be called on change.
+   * @param fn - The function to register.
+   */
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
+  /**
+   * Updates the model on change.
+   * @param value - The value to update.
+   */
+  onChange(value: string) {}
+
+  /**
+   * Registers the function to be called on touched.
+   * @param fn - The function to register.
+   */
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    // Optional, handle disable state
+  /**
+   * Marks the model as touched.
+   */
+  onTouched() {}
+
+  /**
+   * Writes the input value.
+   * @param value - The value to write.
+   */
+  writeValue(value: string): void {
+    this.value = value;
   }
 
+  /**
+   * Provides the source path.
+   * @returns - The source path.
+   */
+  getSrc() {
+    return '../../../../assets/img/global/' + this.img;
+  }
+
+  /**
+   * Updates the input value on change.
+   * @param event - The event which occurs on change.
+   */
   onInputChange(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement) {
-      this.value = inputElement.value;
-      this.onChange(this.value); // Update the model
-      this.onTouched(); // Mark as touched
-    }
+    const input = event.target as HTMLInputElement;
+    this.value = input.value;
+    this.onChange(this.value);
+    this.onTouched();
   }
 }
