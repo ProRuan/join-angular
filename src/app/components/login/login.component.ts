@@ -106,14 +106,6 @@ export class LoginComponent {
     return this.remembered ? 'checked' : 'check';
   }
 
-  getSrc() {
-    if (this.remembered) {
-      return '../../../assets/img/sign-up/checked.png';
-    } else {
-      return '../../../assets/img/sign-up/check.png';
-    }
-  }
-
   remember() {
     this.remembered = !this.remembered ? true : false;
   }

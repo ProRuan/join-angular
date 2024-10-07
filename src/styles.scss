@@ -26,7 +26,7 @@ app-summary,
 app-add-task,
 app-board,
 app-contacts,
-app-legal-links {
+app-footer {
   width: 100%;
 }
 
@@ -41,12 +41,67 @@ app-prio-button {
   color: $black;
 }
 
+.checkbox {
+  @include size($w: 24px, $h: 24px);
+  @include round-border($b: none, $br: 3px);
+  padding: 0;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 .check {
-  @include img-content($src1: $check, $src2: $checkHover);
+  @include background-images($d: $check, $h: $checkHover);
 }
 
 .checked {
-  @include img-content($src1: $checked, $src2: $checkedHover);
+  @include background-images($d: $checked, $h: $checkedHover);
+}
+
+.prim-btn {
+  @include color-set($c: $white, $bgc: $dark);
+  @include round-border($b: none, $br: 8px);
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    background-color: $lightblue;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    background-color: $darker;
+  }
+
+  &:disabled {
+    background-color: $dark;
+    box-shadow: unset;
+    opacity: 0.5;
+  }
+}
+
+.sec-btn {
+  @include color-set($c: $dark, $bgc: transparent);
+  @include round-border($b: 1px solid $dark, $br: 8px);
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    color: $lightblue;
+    border: 1px solid $lightblue;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    color: $darker;
+    border: 1px solid $darker;
+  }
+
+  &:disabled {
+    color: $dark;
+    border: 1px solid $dark;
+    box-shadow: unset;
+    opacity: 0.5;
+  }
 }
 
 .subheadline-2 {

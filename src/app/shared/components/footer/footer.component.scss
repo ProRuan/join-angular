@@ -1,9 +1,13 @@
 @import "../../../../mixins.scss";
 
-.legal-link-group {
-  @include box-padding($p: 40px 77px 40px 77px);
-  @include display-flex($ai: flex-start);
+.footer {
+  @include box-padding($p: 40px 77px);
+  @include display-row($jc: center);
   width: 100%;
+}
+
+.legal-link-group {
+  @include display-flex($ai: flex-start);
   gap: 16px;
   // position: absolute;
   // left: 0;
@@ -13,6 +17,7 @@
 .legal-link {
   @include box-padding($p: 8px);
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  min-height: 36px;
   text-align: center;
   text-decoration: none;
   color: #ababab;

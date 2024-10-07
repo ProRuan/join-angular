@@ -1,6 +1,7 @@
 $black: #000000;
 $dark: #2a3647;
 $darker: #091931;
+$darkgray: #ababab;
 $gray: #d1d1d1;
 $lightgray: #f6f7f8;
 $lightblue: #29abe2;
@@ -24,6 +25,14 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
 @mixin box-padding($p) {
   box-sizing: border-box;
   padding: $p;
+}
+
+@mixin background-images($d, $h) {
+  background-image: url($d);
+
+  &:hover {
+    background-image: url($h);
+  }
 }
 
 @mixin color-set($c, $bgc) {
@@ -66,6 +75,7 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   line-height: $lh;
 }
 
+// background-images instead?!
 @mixin img-content($src1, $src2) {
   content: url($src1);
 

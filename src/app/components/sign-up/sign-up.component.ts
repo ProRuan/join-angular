@@ -95,15 +95,6 @@ export class SignUpComponent {
   }
 
   // jsdoc
-  getSrc() {
-    if (this.ppAccepted) {
-      return '../../../assets/img/sign-up/checked.png';
-    } else {
-      return '../../../assets/img/sign-up/check.png';
-    }
-  }
-
-  // jsdoc
   accept() {
     this.ppAccepted = !this.ppAccepted ? true : false;
   }
