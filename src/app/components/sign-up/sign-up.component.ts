@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
+import { InputComponent } from '../../shared/components/input/input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
-import { UserService } from '../../shared/services/user.service';
 
 // verify!!!
-import { InputComponent } from '../../shared/components/input/input.component';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,10 +18,8 @@ import { InputComponent } from '../../shared/components/input/input.component';
     FormsModule,
     RouterLink,
     LogoComponent,
-    FooterComponent,
-
-    // to verify!!!
     InputComponent,
+    FooterComponent,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
@@ -29,23 +27,21 @@ import { InputComponent } from '../../shared/components/input/input.component';
 export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+
+  // verify!!!
   user: UserService = inject(UserService);
 
-  signedUp = false;
+  ppAccepted: boolean = false;
+  signedUp: boolean = false;
 
   // think about namePat + review emailPat + review passwordPat!!! (0/3)
   emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   confirmedPassord: string = '';
-  ppAccepted: boolean = false;
   hintText = "Your passwords don't match. Please try again.";
 
-  myInputValue = 'Thank you, ChatGPT!';
-
-  // form validation: https://v17.angular.io/guide/form-validation
-
-  // for small menu!!!
-  home() {
+  // jsdoc
+  backToLogin() {
     this.router.navigateByUrl('login');
     if (!this.join.revealed) {
       this.join.revealed = true;

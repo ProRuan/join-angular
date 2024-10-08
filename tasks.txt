@@ -16,8 +16,9 @@ shared/interfaces (3/?)
   - Styles - check
   - States - check
 
-shared/models (1/?)
+shared/models (2/?)
 -------------
+  - SessionId
   - Transform
 
 
