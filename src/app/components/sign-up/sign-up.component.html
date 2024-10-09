@@ -15,20 +15,20 @@
             <!-- set input-group min-height?! -->
             <div class="input-checkbox-cont">
                 <div class="input-group">
-                    <app-input [(ngModel)]="user.name" name="name" placeholder="Name" minlength="2" required
+                    <app-input [(ngModel)]="name" name="name" placeholder="Name" minlength="2" required
                         img="person.png"></app-input>
-                    <app-input [(ngModel)]="user.email" name="email" placeholder="Email" [pattern]="emailPat" required
+                    <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
                         img="email.png"></app-input>
-                    <app-input [(ngModel)]="user.password" name="password" placeholder="Password"
-                        [pattern]="passwordPat" required img="lock.png"></app-input>
-                    <app-input [(ngModel)]="confirmedPassord" name="confirmedPassord" placeholder="Confirm password"
-                        [pattern]="getPassword()" required img="lock.png" [condition]="verifyPassword()"
+                    <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
+                        required img="lock.png"></app-input>
+                    <app-input [(ngModel)]="confirmedPassword" name="confirmedPassword" placeholder="Confirm password"
+                        [pattern]="getPasswordPat()" required img="lock.png" [condition]="!isPasswordMatch()"
                         [hintText]="hintText"></app-input>
                 </div>
 
                 <div class="privacy-policy-row">
                     <div class="privacy-policy-cont">
-                        <button class="checkbox" type="button" [ngClass]="getCheckbox()" (click)="accept()"></button>
+                        <button class="checkbox" type="button" [ngClass]="getCheck()" (click)="accept()"></button>
                         <div class="privacy-policy-text">
                             <span>I accept the </span>
                             <a href="">Privacy Policy</a>
@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <button [disabled]="disable(signUpForm)" class="prim-btn sign-up-btn">Sign up</button>
+            <button [disabled]="isDisabled(signUpForm)" class="prim-btn sign-up-btn">Sign up</button>
         </form>
     </div>
 

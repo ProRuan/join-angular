@@ -149,6 +149,7 @@ export class JoinService {
 
   // jsdoc
   pushUsers(querySnapshot: QuerySnapshot) {
+    this.users = [];
     querySnapshot.forEach((doc) => {
       let user = new User(doc.data());
       this.users.push(user);

@@ -6,16 +6,16 @@ import { CheckItem } from '../interfaces/check-item';
 export class PasswordVal {
   checklist: CheckItem[] = [
     {
+      item: 'digit',
+      pattern: /[0-9]/,
+    },
+    {
       item: 'lower-case character',
       pattern: /[a-z]/,
     },
     {
       item: 'upper-case character',
       pattern: /[A-Z]/,
-    },
-    {
-      item: 'digit',
-      pattern: /[0-9]/,
     },
     {
       item: 'special character',

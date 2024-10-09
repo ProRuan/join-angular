@@ -26,38 +26,19 @@ export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
-  passwordCheck = [
-    {
-      name: 'lower case',
-      pattern: /[a-z]/,
-      valid: false,
-    },
-    {
-      name: 'upper case',
-      pattern: /[A-Z]/,
-      valid: false,
-    },
-    {
-      name: 'digit',
-      pattern: /[0-9]/,
-      valid: false,
-    },
-    {
-      name: 'special character',
-      pattern: /[!@#$%^&*]/,
-      valid: false,
-    },
-  ];
+  name: string = '';
+  email: string = '';
+  password: string = '';
+  passwordPat: RegExp =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/;
 
   // verify!!!
   ppAccepted: boolean = false;
   signedUp: boolean = false;
 
   // think about namePat + review emailPat + review passwordPat!!! (0/3)
-  emailPatNew = /^[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
-  passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-  confirmedPassord: string = '';
+  confirmedPassword: string = '';
   hintText = "Your passwords don't match. Please try again.";
 
   get user() {
@@ -79,33 +60,23 @@ export class SignUpComponent {
   }
 
   async signUp(ngForm: NgForm) {
-    // verify, if user already exists!!!
     if (ngForm.form.valid) {
+      // I. Verify if user (email) exists!
+      // ---------------------------------
       // let signee = this.users.find((u) => (u.email = this.user.email));
       // if (signee) {
       //   console.log('User already exists!');
       // }
-
-      if (this.emailPatNew.test(this.user.password)) {
-        this.passwordCheck.forEach((group) => {
-          if (group.pattern.test(this.user.password)) {
-            group.valid = true;
-            console.log('includes at least one ', group.name);
-          }
-        });
-
-        let test = new PasswordVal(this.user.password).getResult();
-        console.log('got pw validation: ', test);
-
-        // activate!!!
-        // -----------
-        // this.signedUp = true;
-        // await this.createUser();
-
-        // // myRouterService???
-        // console.log('signed up successfully: ', this.user.sid);
-        // this.router.navigateByUrl('login/' + this.user.sid);
-      }
+      // II. Verify passwords!
+      // let test = new PasswordVal(this.user.password).getResult();
+      // console.log('got pw validation: ', test);
+      // III: Sign up!!!
+      // ---------------
+      // this.signedUp = true;
+      // await this.createUser();
+      // // myRouterService???
+      // console.log('signed up successfully: ', this.user.sid);
+      // this.router.navigateByUrl('login/' + this.user.sid);
     }
   }
 
@@ -115,26 +86,36 @@ export class SignUpComponent {
     await this.join.setSecurityId();
   }
 
-  // password match not completely working!!!
-  getPassword() {
-    let password = this.user.password;
-    if (password.match(this.passwordPat)) {
-      return new RegExp(password);
+  // jsdoc
+  getPasswordPat() {
+    if (this.password.match(this.passwordPat)) {
+      return new RegExp(this.password);
     } else {
       return this.passwordPat;
     }
   }
 
-  verifyPassword() {
-    let password = this.user.password;
-    let password1 = password.match(this.passwordPat);
-    let password2 = this.confirmedPassord.match(this.passwordPat);
-    let matched = password != this.confirmedPassord;
-    return password1 && password2 && matched ? true : false;
+  // rename + udpate user values with local values!!!
+  isPasswordMatch() {
+    let password1 = this.password.match(this.passwordPat);
+    let password2 = this.confirmedPassword.match(this.passwordPat);
+    let matched = this.password == this.confirmedPassword;
+    if (!password1 || !password2 || matched) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
+  // verifyPassword() {
+  //   let password1 = this.password.match(this.passwordPat);
+  //   let password2 = this.confirmedPassword.match(this.passwordPat);
+  //   let matched = this.password != this.confirmedPassword;
+  //   return password1 && password2 && matched ? true : false;
+  // }
+
   // jsdoc
-  getCheckbox() {
+  getCheck() {
     return this.ppAccepted ? 'checked' : 'check';
   }
 
@@ -143,8 +124,8 @@ export class SignUpComponent {
     this.ppAccepted = !this.ppAccepted ? true : false;
   }
 
-  // disable button after sign-up!!!
-  disable(ngForm: NgForm) {
+  // jsdoc
+  isDisabled(ngForm: NgForm) {
     return ngForm.form.invalid || !this.ppAccepted || this.signedUp;
   }
 
