@@ -10,16 +10,18 @@ shared/components (2/?)
   - InputComponent - check
   - LogoComponent - check
 
-shared/interfaces (3/?)
+shared/interfaces (4/?)
 -----------------
+  - checkItem - check
   - Properties - check
   - Styles - check
   - States - check
 
-shared/models (2/?)
+shared/models (3/?)
 -------------
-  - SessionId
-  - Transform
+  - PasswordVal - check
+  - SessionId - check
+  - Transform - check
 
 
   --> input   // width: 422px / 440px / 456px!!!

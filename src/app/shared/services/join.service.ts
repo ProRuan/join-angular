@@ -14,8 +14,11 @@ import {
   QuerySnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
+
+// verify!!!
 import { User } from '../models/user';
 import { Summary } from '../models/summary';
+import { SessionId } from '../models/session-id';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +29,8 @@ export class JoinService {
   [key: string]: any;
   revealed: boolean;
   relocated: boolean;
+
+  // verify!!!
   id: string;
   sid: string;
   user: User;
@@ -43,7 +48,10 @@ export class JoinService {
     this.charCodes = [];
   }
 
-  // jsdoc
+  /**
+   * Provides the signee.
+   * @returns - The signee.
+   */
   get signee() {
     return {
       name: this.user.name,
@@ -52,27 +60,33 @@ export class JoinService {
     };
   }
 
-  // jsdoc
+  // jsdoc + then as async fn?!
   async addUser() {
     try {
-      await this.setUser().then(async (userRef) => this.setUserId(userRef));
+      await this.setUser().then((userRef) => this.setUserId(userRef));
     } catch (error) {
       console.error('Error - Could not add user: ', error);
     }
   }
 
-  // jsdoc
+  /**
+   * Sets a user.
+   * @returns - The user reference.
+   */
   async setUser() {
     return await addDoc(collection(this.firestore, 'users'), this.signee);
   }
 
-  // jsdoc
+  /**
+   * Set the user id.
+   * @param userRef - The user Reference.
+   */
   async setUserId(userRef: DocumentReference) {
     this.id = userRef.id;
     await this.updateUserProperty('id', this.id);
   }
 
-  // jsdoc
+  // jsdoc + data types
   async updateUserProperty(key: string, value: string | Summary) {
     try {
       await this.setUserProperty(key, value);
@@ -81,7 +95,7 @@ export class JoinService {
     }
   }
 
-  // jsdoc
+  // jsdoc + data types
   async setUserProperty(key: string, value: string | Summary) {
     const userRef = doc(this.firestore, 'users', this.id);
     await updateDoc(userRef, { [key]: value });
@@ -141,43 +155,9 @@ export class JoinService {
     });
   }
 
-  // jsdoc
+  // rename!!!
   async setSecurityId() {
-    this.setCharCodes();
-    this.createSecurityId();
-    this.user.sid = this.sid;
+    this.user.sid = new SessionId().get();
     await this.updateUserProperty('sid', this.user.sid);
-  }
-
-  // jsdoc
-  setCharCodes() {
-    this.addCharCodeGroup(48, 10);
-    this.addCharCodeGroup(65, 26);
-    this.addCharCodeGroup(97, 26);
-  }
-
-  // jsdoc
-  addCharCodeGroup(a: number, n: number) {
-    for (let i = a; i < a + n; i++) {
-      this.charCodes.push(String.fromCharCode(i));
-    }
-  }
-
-  // jsdoc
-  createSecurityId() {
-    this.sid = '';
-    for (let i = 0; i < 20; i++) {
-      let index = this.getRandomIndex(i);
-      this.sid += this.charCodes[index];
-    }
-  }
-
-  // jsdoc
-  getRandomIndex(i: number) {
-    if (i != 0) {
-      return Math.round(Math.random() * 61);
-    } else {
-      return Math.round(1 + Math.random() * 60);
-    }
   }
 }

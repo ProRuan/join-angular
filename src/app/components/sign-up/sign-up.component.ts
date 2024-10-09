@@ -6,9 +6,7 @@ import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
-
-// verify!!!
-import { UserService } from '../../shared/services/user.service';
+import { PasswordVal } from '../../shared/models/password-val';
 
 @Component({
   selector: 'app-sign-up',
@@ -28,17 +26,48 @@ export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
-  // verify!!!
-  user: UserService = inject(UserService);
+  passwordCheck = [
+    {
+      name: 'lower case',
+      pattern: /[a-z]/,
+      valid: false,
+    },
+    {
+      name: 'upper case',
+      pattern: /[A-Z]/,
+      valid: false,
+    },
+    {
+      name: 'digit',
+      pattern: /[0-9]/,
+      valid: false,
+    },
+    {
+      name: 'special character',
+      pattern: /[!@#$%^&*]/,
+      valid: false,
+    },
+  ];
 
+  // verify!!!
   ppAccepted: boolean = false;
   signedUp: boolean = false;
 
   // think about namePat + review emailPat + review passwordPat!!! (0/3)
+  emailPatNew = /^[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   confirmedPassord: string = '';
   hintText = "Your passwords don't match. Please try again.";
+
+  get user() {
+    return this.join.user;
+  }
+
+  get users() {
+    this.join.getUsers();
+    return this.join.users;
+  }
 
   // jsdoc
   backToLogin() {
@@ -52,12 +81,31 @@ export class SignUpComponent {
   async signUp(ngForm: NgForm) {
     // verify, if user already exists!!!
     if (ngForm.form.valid) {
-      this.signedUp = true;
-      await this.createUser();
+      // let signee = this.users.find((u) => (u.email = this.user.email));
+      // if (signee) {
+      //   console.log('User already exists!');
+      // }
 
-      // myRouterService???
-      console.log('signed up successfully: ', this.user.sid);
-      this.router.navigateByUrl('login/' + this.user.sid);
+      if (this.emailPatNew.test(this.user.password)) {
+        this.passwordCheck.forEach((group) => {
+          if (group.pattern.test(this.user.password)) {
+            group.valid = true;
+            console.log('includes at least one ', group.name);
+          }
+        });
+
+        let test = new PasswordVal(this.user.password).getResult();
+        console.log('got pw validation: ', test);
+
+        // activate!!!
+        // -----------
+        // this.signedUp = true;
+        // await this.createUser();
+
+        // // myRouterService???
+        // console.log('signed up successfully: ', this.user.sid);
+        // this.router.navigateByUrl('login/' + this.user.sid);
+      }
     }
   }
 

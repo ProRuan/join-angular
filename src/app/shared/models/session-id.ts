@@ -11,13 +11,21 @@ export class SessionId {
   constructor() {
     this.sessionId = '';
     this.charCodes = [];
-    this.setSessionId();
+    this.set();
+  }
+
+  /**
+   * Provides the session id.
+   * @returns - The session id.
+   */
+  get() {
+    return this.sessionId;
   }
 
   /**
    * Sets the session id.
    */
-  setSessionId() {
+  set() {
     this.setCharCodes();
     this.createSessionId();
   }
