@@ -17,8 +17,9 @@ shared/interfaces (4/?)
   - Styles - check
   - States - check
 
-shared/models (3/?)
+shared/models (4/?)
 -------------
+  - DashVal - check
   - PasswordVal - check
   - SessionId - check
   - Transform - check

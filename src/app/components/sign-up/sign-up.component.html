@@ -15,10 +15,10 @@
             <!-- set input-group min-height?! -->
             <div class="input-checkbox-cont">
                 <div class="input-group">
-                    <app-input [(ngModel)]="name" name="name" placeholder="Name" minlength="2" required
-                        img="person.png"></app-input>
+                    <app-input [(ngModel)]="name" name="name" placeholder="Name" [pattern]="namePat" required
+                        img="person.png" [condition]="!isNameValid()" [hintText]="getNameHint()"></app-input>
                     <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
-                        img="email.png"></app-input>
+                        img="email.png" [condition]="!isValidEmail()" [hintText]="emailHint"></app-input>
                     <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
                         required img="lock.png"></app-input>
                     <app-input [(ngModel)]="confirmedPassword" name="confirmedPassword" placeholder="Confirm password"

@@ -6,7 +6,7 @@ import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
-import { PasswordVal } from '../../shared/models/password-val';
+import { NameVal } from '../../shared/models/name-val';
 
 @Component({
   selector: 'app-sign-up',
@@ -33,10 +33,18 @@ export class SignUpComponent {
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/;
 
   // verify!!!
+  emailHint = 'Please use a valid email.';
   ppAccepted: boolean = false;
   signedUp: boolean = false;
 
   // think about namePat + review emailPat + review passwordPat!!! (0/3)
+  // upper-case to lower case, lower-case to lower-case
+  // remove center white space
+  // remove minus at start or end
+  firstNamePat = '(([A-ZÀ-ÖØ-Ža-zà-öø-ž])[A-ZÀ-ÖØ-Ža-zà-öø-ž\\-]*)';
+  lastNamePat =
+    '(?:(?:[\\s+]|[\\s|\\-]*)(([A-ZÀ-ÖØ-Ža-zà-öø-ž])[A-ZÀ-ÖØ-Ža-zà-öø-ž\\-]*))*';
+  namePat = new RegExp(`${this.firstNamePat}${this.lastNamePat}`);
   emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
   confirmedPassword: string = '';
   hintText = "Your passwords don't match. Please try again.";
@@ -56,6 +64,34 @@ export class SignUpComponent {
     if (!this.join.revealed) {
       this.join.revealed = true;
       this.join.relocated = true;
+    }
+  }
+
+  // improve class name to get the result!!!
+  // rename class name to class NameVal!!!
+  isNameValid() {
+    let name = this.name.match(this.namePat);
+    return name ? true : false;
+  }
+
+  getNameHint() {
+    let name = this.name.match(this.namePat);
+    console.log('namePat: ', name);
+    console.log('name val: ', new NameVal(this.name));
+
+    if (!name) {
+      return 'Enter your name, e. g. Max Mustermann.';
+    } else {
+      return '';
+    }
+  }
+
+  // rename + improve!!!
+  isValidEmail() {
+    if (this.email.match(this.emailPat)) {
+      return true;
+    } else {
+      return false;
     }
   }
 

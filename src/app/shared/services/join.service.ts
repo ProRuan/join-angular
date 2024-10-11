@@ -19,6 +19,7 @@ import {
 import { User } from '../models/user';
 import { Summary } from '../models/summary';
 import { SessionId } from '../models/session-id';
+import { NameVal } from '../models/name-val';
 
 @Injectable({
   providedIn: 'root',
@@ -53,8 +54,10 @@ export class JoinService {
    * @returns - The signee.
    */
   get signee() {
+    let user = new NameVal(this.user.name);
     return {
-      name: this.user.name,
+      initials: user.get('initials'),
+      name: user.get('name'),
       email: this.user.email,
       password: this.user.password,
     };
