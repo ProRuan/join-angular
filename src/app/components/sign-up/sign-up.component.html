@@ -18,9 +18,10 @@
                     <app-input [(ngModel)]="name" name="name" placeholder="Name" [pattern]="namePat" required
                         img="person.png" [condition]="!isNameValid()" [hintText]="getNameHint()"></app-input>
                     <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
-                        img="email.png" [condition]="!isValidEmail()" [hintText]="emailHint"></app-input>
+                        img="email.png" [condition]="!isValidEmail()" [hintText]="getEmailHint()"></app-input>
                     <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
-                        required img="lock.png"></app-input>
+                        required img="lock.png" [condition]="!isPasswordValid()"
+                        [hintText]="getPasswordHint()"></app-input>
                     <app-input [(ngModel)]="confirmedPassword" name="confirmedPassword" placeholder="Confirm password"
                         [pattern]="getPasswordPat()" required img="lock.png" [condition]="!isPasswordMatch()"
                         [hintText]="hintText"></app-input>

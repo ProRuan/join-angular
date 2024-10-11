@@ -7,6 +7,8 @@ import { InputComponent } from '../../shared/components/input/input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
 import { NameVal } from '../../shared/models/name-val';
+import { EmailVal } from '../../shared/models/email-val';
+import { PasswordVal } from '../../shared/models/password-val';
 
 @Component({
   selector: 'app-sign-up',
@@ -29,11 +31,9 @@ export class SignUpComponent {
   name: string = '';
   email: string = '';
   password: string = '';
-  passwordPat: RegExp =
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/;
-
-  // verify!!!
-  emailHint = 'Please use a valid email.';
+  namePat: RegExp = new NameVal().namePat;
+  emailPat: RegExp = new EmailVal().emailPat;
+  passwordPat: RegExp = new PasswordVal().passwordPat;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
 
@@ -41,14 +41,10 @@ export class SignUpComponent {
   // upper-case to lower case, lower-case to lower-case
   // remove center white space
   // remove minus at start or end
-  firstNamePat = '(([A-ZÀ-ÖØ-Ža-zà-öø-ž])[A-ZÀ-ÖØ-Ža-zà-öø-ž\\-]*)';
-  lastNamePat =
-    '(?:(?:[\\s+]|[\\s|\\-]*)(([A-ZÀ-ÖØ-Ža-zà-öø-ž])[A-ZÀ-ÖØ-Ža-zà-öø-ž\\-]*))*';
-  namePat = new RegExp(`${this.firstNamePat}${this.lastNamePat}`);
-  emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
   confirmedPassword: string = '';
   hintText = "Your passwords don't match. Please try again.";
 
+  // jsdoc
   get user() {
     return this.join.user;
   }
@@ -67,31 +63,52 @@ export class SignUpComponent {
     }
   }
 
-  // improve class name to get the result!!!
-  // rename class name to class NameVal!!!
+  // name.ok
   isNameValid() {
-    let name = this.name.match(this.namePat);
+    let name = new NameVal(this.name).name;
     return name ? true : false;
   }
 
   getNameHint() {
-    let name = this.name.match(this.namePat);
-    console.log('namePat: ', name);
-    console.log('name val: ', new NameVal(this.name));
-
-    if (!name) {
-      return 'Enter your name, e. g. Max Mustermann.';
+    let name = new NameVal(this.name).name;
+    if (this.name.length > 0 && !name) {
+      return 'Enter a valid name, e. g. "Max Mustermann".';
     } else {
-      return '';
+      return 'Enter your name.';
     }
   }
 
-  // rename + improve!!!
+  // email.ok
   isValidEmail() {
-    if (this.email.match(this.emailPat)) {
-      return true;
+    let email = new EmailVal(this.email).result;
+    return email ? true : false;
+  }
+
+  getEmailHint() {
+    let email = new EmailVal(this.email).result;
+    if (this.email.length > 0 && !email) {
+      return 'Enter a valid email, e. g. "max.mustermann@gmail.com".';
     } else {
+      return 'Enter your email.';
+    }
+  }
+
+  // password.ok
+  isPasswordValid() {
+    let password = new PasswordVal(this.password).result;
+    if (this.password.length < 8 || !password) {
       return false;
+    } else {
+      return true;
+    }
+  }
+
+  getPasswordHint() {
+    let password = new PasswordVal(this.password).result;
+    if (this.password.length < 8 || !password) {
+      return 'Enter a valid password.';
+    } else {
+      return 'Enter your password.';
     }
   }
 

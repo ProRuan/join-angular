@@ -4,6 +4,8 @@ import { CheckItem } from '../interfaces/check-item';
  * Represents a password validation.
  */
 export class PasswordVal {
+  passwordPat: RegExp =
+    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/;
   checklist: CheckItem[] = [
     {
       item: 'digit',
@@ -28,7 +30,17 @@ export class PasswordVal {
    * Creates a password validation.
    * @param password - The password to validate.
    */
-  constructor(password: string) {
+  constructor(password?: string) {
+    if (password) {
+      this.validatePassword(password);
+    }
+  }
+
+  /**
+   * Validates the password.
+   * @param password - The password.
+   */
+  validatePassword(password: string) {
     for (let i = 0; i < this.checklist.length; i++) {
       let item = this.checklist[i];
       if (!item.pattern.test(password)) {
@@ -36,13 +48,5 @@ export class PasswordVal {
         break;
       }
     }
-  }
-
-  /**
-   * Provides the result of the password validation.
-   * @returns - A boolean value.
-   */
-  getResult() {
-    return this.result;
   }
 }

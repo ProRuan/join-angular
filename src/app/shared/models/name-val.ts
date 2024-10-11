@@ -19,8 +19,8 @@ export class NameVal {
    * Creates a name validation.
    * @param name - The name to validate.
    */
-  constructor(name: string) {
-    let result = name.match(this.namePat);
+  constructor(name?: string) {
+    let result = name?.match(this.namePat);
     if (result) {
       this.setFullName(result);
       this.setName(result);
@@ -29,12 +29,12 @@ export class NameVal {
   }
 
   /**
-   * Provides a value.
-   * @param key - The key of the value.
-   * @returns - The value.
+   * Provides the result of the match.
+   * @param name - The name to match.
+   * @returns - The result of the match.
    */
-  get(key: string) {
-    return this[key];
+  getResult(name: string | undefined) {
+    return name ? name.match(this.namePat) : null;
   }
 
   /**
@@ -92,7 +92,7 @@ export class NameVal {
    * @returns - The dash-validated name.
    */
   getDashValidatedName(name: string) {
-    return new DashVal(name).getResult();
+    return new DashVal(name).result;
   }
 
   /**
@@ -167,11 +167,10 @@ export class NameVal {
    */
   setName(result: RegExpMatchArray) {
     let firstName = this.getName(result[1]);
+    this.name = firstName;
     if (result[3]) {
       let lastName = this.getName(result[3]);
-      this.name = `${firstName} ${lastName}`;
-    } else {
-      this.name = firstName;
+      this.name += ` ${lastName}`;
     }
   }
 
@@ -181,11 +180,10 @@ export class NameVal {
    */
   setInitials(result: RegExpMatchArray) {
     let firstInitial = this.getFormattedName(result[2]);
+    this.initials = firstInitial;
     if (result[4]) {
       let lastInitial = this.getFormattedName(result[4]);
-      this.initials = firstInitial + lastInitial;
-    } else {
-      this.initials = firstInitial;
+      this.initials += lastInitial;
     }
   }
 }

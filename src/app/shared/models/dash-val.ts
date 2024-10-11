@@ -22,7 +22,7 @@ export class DashVal {
    * Provides the result of the dash validation.
    * @returns - The dash-validated name.
    */
-  getResult() {
+  get result() {
     return this.name;
   }
 

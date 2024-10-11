@@ -56,8 +56,8 @@ export class JoinService {
   get signee() {
     let user = new NameVal(this.user.name);
     return {
-      initials: user.get('initials'),
-      name: user.get('name'),
+      initials: user.initials,
+      name: user.name,
       email: this.user.email,
       password: this.user.password,
     };
