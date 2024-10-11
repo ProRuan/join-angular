@@ -26,11 +26,6 @@ export class NameVal {
       this.setName(result);
       this.setInitials(result);
     }
-
-    // remove!!!
-    console.log('this full name: ', this.fullName);
-    console.log('this name: ', this.name);
-    console.log('this initials: ', this.initials);
   }
 
   /**
