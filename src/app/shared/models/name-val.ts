@@ -1,5 +1,3 @@
-import { DashVal } from './dash-val';
-
 /**
  * Represents a name validation.
  */
@@ -8,12 +6,8 @@ export class NameVal {
   fullName: string = '';
   name: string = '';
   initials: string = '';
-  firstNameRegExp: string = '(([A-ZÀ-ÖØ-Ža-zà-öø-ž])[A-ZÀ-ÖØ-Ža-zà-öø-ž\\-]*)';
-  spaceRegExp: string = '(?:[\\s+]|[\\s|\\-]*)';
-  lastNameRegExp: string = `(?:${this.spaceRegExp}${this.firstNameRegExp})*`;
-  namePat: RegExp = new RegExp(`${this.firstNameRegExp}${this.lastNameRegExp}`);
-  superSpacePat: RegExp = /\s{2,}/g;
-  superDashPat: RegExp = /\s+[\s|\-]*/g;
+  nameRegExp: string = '(([A-Za-z])[A-Za-z]+(?:\\-[A-Za-z]{2,})?)';
+  namePat: RegExp = new RegExp(`${this.nameRegExp}(?:\\s${this.nameRegExp})*`);
 
   /**
    * Creates a name validation.
@@ -29,31 +23,12 @@ export class NameVal {
   }
 
   /**
-   * Provides the result of the match.
-   * @param name - The name to match.
-   * @returns - The result of the match.
-   */
-  getResult(name: string | undefined) {
-    return name ? name.match(this.namePat) : null;
-  }
-
-  /**
    * Sets the full name.
    * @param result - The RegExpMatchArray.
    */
   setFullName(result: RegExpMatchArray) {
-    let fullName = this.getFullName(result);
+    let fullName = result[0];
     this.formatFullName(fullName);
-  }
-
-  /**
-   * Provides the full name.
-   * @param result - The RegExpMatchArray.
-   * @returns - The full name.
-   */
-  getFullName(result: RegExpMatchArray) {
-    let fullName = result[0].replaceAll(this.superSpacePat, ' ');
-    return fullName.replaceAll(this.superDashPat, ' ');
   }
 
   /**
@@ -82,25 +57,6 @@ export class NameVal {
    * @returns - The name.
    */
   getName(name: string) {
-    name = this.getDashValidatedName(name);
-    return this.getSplitName(name);
-  }
-
-  /**
-   * Provides the dash-validated name.
-   * @param name - The name.
-   * @returns - The dash-validated name.
-   */
-  getDashValidatedName(name: string) {
-    return new DashVal(name).result;
-  }
-
-  /**
-   * Provides the split name.
-   * @param name - The name.
-   * @returns - The split name.
-   */
-  getSplitName(name: string) {
     if (name.includes('-')) {
       return this.getFormattedDoubleName(name);
     } else {
@@ -136,7 +92,8 @@ export class NameVal {
    */
   getFormattedName(name: string) {
     name = name.toLowerCase();
-    return name.replace(name[0], name[0].toUpperCase());
+    let initial = name[0];
+    return name.replace(initial, initial.toUpperCase());
   }
 
   /**
@@ -185,5 +142,17 @@ export class NameVal {
       let lastInitial = this.getFormattedName(result[4]);
       this.initials += lastInitial;
     }
+  }
+
+  /**
+   * Provides the result of the name validation.
+   * @returns - The result of the name validation.
+   */
+  getResult() {
+    return {
+      fullName: this.fullName,
+      name: this.name,
+      initials: this.initials,
+    };
   }
 }

@@ -2,6 +2,10 @@ Join
 ----
 
 
+Completed (0/?)
+---------
+
+
 Complete (1/?)
 --------
 
@@ -17,12 +21,12 @@ shared/interfaces (4/?)
   - Styles - check
   - States - check
 
-shared/models (6/?)
+shared/models (4/?)
 -------------
-  - DashVal - check
-  - EmailVal - check
+  - DashVal - check (necessary???)
+  - EmailVal - ...
   - NameVal - check
-  - PasswordVal - check
+  - PasswordVal - ...
   - SessionId - check
   - Transform - check
 

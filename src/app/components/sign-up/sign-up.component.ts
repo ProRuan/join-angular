@@ -63,36 +63,6 @@ export class SignUpComponent {
     }
   }
 
-  // name.ok
-  isNameValid() {
-    let name = new NameVal(this.name).name;
-    return name ? true : false;
-  }
-
-  getNameHint() {
-    let name = new NameVal(this.name).name;
-    if (this.name.length > 0 && !name) {
-      return 'Enter a valid name, e. g. "Max Mustermann".';
-    } else {
-      return 'Enter your name.';
-    }
-  }
-
-  // email.ok
-  isValidEmail() {
-    let email = new EmailVal(this.email).result;
-    return email ? true : false;
-  }
-
-  getEmailHint() {
-    let email = new EmailVal(this.email).result;
-    if (this.email.length > 0 && !email) {
-      return 'Enter a valid email, e. g. "max.mustermann@gmail.com".';
-    } else {
-      return 'Enter your email.';
-    }
-  }
-
   // password.ok
   isPasswordValid() {
     let password = new PasswordVal(this.password).result;
@@ -112,8 +82,35 @@ export class SignUpComponent {
     }
   }
 
+  cleanUpName(name: string) {
+    name = name.replaceAll(/\-{2,}/g, '-');
+    name = name.replaceAll(/[\s|\-]{2,}/g, ' ');
+    return name;
+  }
+
   async signUp(ngForm: NgForm) {
     if (ngForm.form.valid) {
+      this.name = this.cleanUpName(this.name);
+      let result = new NameVal(this.name).getResult();
+      console.log('log full name: ', result.fullName);
+      console.log('log name: ', result.name);
+      console.log('log initials: ', result.initials);
+      this.name = new NameVal(this.name).name;
+
+      // working!!!
+      this.email = new EmailVal(this.email).email;
+
+      // working!!!
+      console.log('log password: ', new PasswordVal(this.password).password);
+      this.password = new PasswordVal(this.password).password;
+
+      // working!!!
+      console.log(
+        'log password: ',
+        new PasswordVal(this.confirmedPassword).password
+      );
+      this.confirmedPassword = new PasswordVal(this.confirmedPassword).password;
+
       // I. Verify if user (email) exists!
       // ---------------------------------
       // let signee = this.users.find((u) => (u.email = this.user.email));

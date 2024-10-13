@@ -16,9 +16,9 @@
             <div class="input-checkbox-cont">
                 <div class="input-group">
                     <app-input [(ngModel)]="name" name="name" placeholder="Name" [pattern]="namePat" required
-                        img="person.png" [condition]="!isNameValid()" [hintText]="getNameHint()"></app-input>
+                        img="person.png"></app-input>
                     <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
-                        img="email.png" [condition]="!isValidEmail()" [hintText]="getEmailHint()"></app-input>
+                        img="email.png"></app-input>
                     <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
                         required img="lock.png" [condition]="!isPasswordValid()"
                         [hintText]="getPasswordHint()"></app-input>
