@@ -6,6 +6,7 @@ import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { InputComponent } from '../../shared/components/input/input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { ValidationService } from '../../shared/services/validation.service';
 import { NameVal } from '../../shared/models/name-val';
 import { EmailVal } from '../../shared/models/email-val';
 import { PasswordVal } from '../../shared/models/password-val';
@@ -27,6 +28,7 @@ import { PasswordVal } from '../../shared/models/password-val';
 export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  val: ValidationService = inject(ValidationService);
 
   name: string = '';
   email: string = '';
@@ -63,25 +65,6 @@ export class SignUpComponent {
     }
   }
 
-  // password.ok
-  isPasswordValid() {
-    let password = new PasswordVal(this.password).result;
-    if (this.password.length < 8 || !password) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  getPasswordHint() {
-    let password = new PasswordVal(this.password).result;
-    if (this.password.length < 8 || !password) {
-      return 'Enter a valid password.';
-    } else {
-      return 'Enter your password.';
-    }
-  }
-
   cleanUpName(name: string) {
     name = name.replaceAll(/\-{2,}/g, '-');
     name = name.replaceAll(/[\s|\-]{2,}/g, ' ');
@@ -95,21 +78,21 @@ export class SignUpComponent {
       console.log('log full name: ', result.fullName);
       console.log('log name: ', result.name);
       console.log('log initials: ', result.initials);
-      this.name = new NameVal(this.name).name;
+      this.name = result.name;
 
       // working!!!
-      this.email = new EmailVal(this.email).email;
+      this.email = this.val.getEmail(this.email);
 
       // working!!!
       console.log('log password: ', new PasswordVal(this.password).password);
-      this.password = new PasswordVal(this.password).password;
+      this.password = this.val.getPassword(this.password);
 
       // working!!!
       console.log(
         'log password: ',
         new PasswordVal(this.confirmedPassword).password
       );
-      this.confirmedPassword = new PasswordVal(this.confirmedPassword).password;
+      this.confirmedPassword = this.val.getPassword(this.confirmedPassword);
 
       // I. Verify if user (email) exists!
       // ---------------------------------

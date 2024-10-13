@@ -6,8 +6,8 @@ export class NameVal {
   fullName: string = '';
   name: string = '';
   initials: string = '';
-  nameRegExp: string = '(([A-Za-z])[A-Za-z]+(?:\\-[A-Za-z]{2,})?)';
-  namePat: RegExp = new RegExp(`${this.nameRegExp}(?:\\s${this.nameRegExp})*`);
+  nameRawPat: string = '(([A-Za-z])[A-Za-z]+(?:\\-[A-Za-z]{2,})?)';
+  namePat: RegExp = new RegExp(`${this.nameRawPat}(?:\\s${this.nameRawPat})*`);
 
   /**
    * Creates a name validation.

@@ -14,19 +14,19 @@ shared/components (2/?)
   - InputComponent - check
   - LogoComponent - check
 
-shared/interfaces (4/?)
+shared/interfaces (4/?) -1?
 -----------------
-  - checkItem - check
+  - checkItem - check (necessary???)
   - Properties - check
   - Styles - check
   - States - check
 
-shared/models (4/?)
+shared/models (6/?) -1?
 -------------
   - DashVal - check (necessary???)
-  - EmailVal - ...
+  - EmailVal - check
   - NameVal - check
-  - PasswordVal - ...
+  - PasswordVal - check
   - SessionId - check
   - Transform - check
 
