@@ -16,14 +16,17 @@
             <div class="input-checkbox-cont">
                 <div class="input-group">
                     <app-input [(ngModel)]="name" name="name" placeholder="Name" [pattern]="namePat" required
-                        img="person.png"></app-input>
+                        img="person.png" (keydown)="validateNameChar($event)" [condition]="isNameInvalid()"
+                        [hintText]="getNameHint()"></app-input>
                     <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
-                        img="email.png"></app-input>
+                        img="email.png" (keydown)="validateEmailChar($event)" [condition]="isEmailInvalid()"
+                        [hintText]="getEmailHint()"></app-input>
                     <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
-                        required img="lock.png"></app-input>
+                        required img="lock.png" (keydown)="validatePasswordChar($event)"
+                        [condition]="isInvalidPassword()" [hintText]="getPasswordHint()"></app-input>
                     <app-input [(ngModel)]="confirmedPassword" name="confirmedPassword" placeholder="Confirm password"
-                        [pattern]="getPasswordPat()" required img="lock.png" [condition]="!isPasswordMatch()"
-                        [hintText]="hintText"></app-input>
+                        [pattern]="getPasswordPat()" required img="lock.png" (keydown)="validatePasswordChar($event)"
+                        [condition]="isPwMismatch()" [hintText]="getConfirmedPasswordHint()"></app-input>
                 </div>
 
                 <div class="privacy-policy-row">

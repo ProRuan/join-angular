@@ -2,6 +2,7 @@
  * Represents a password validation.
  */
 export class PasswordVal {
+  ok: boolean = false;
   password: string = '';
   lockAhead: string = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])';
   passwordRawPat: string = '[\\dA-Za-z!@#$%^&*]{8,20}$';
@@ -14,6 +15,7 @@ export class PasswordVal {
   constructor(password?: string) {
     let result = password?.match(this.passwordPat);
     if (result) {
+      this.ok = true;
       this.password = result[0];
     }
   }

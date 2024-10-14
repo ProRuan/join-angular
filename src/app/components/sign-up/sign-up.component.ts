@@ -25,6 +25,10 @@ import { PasswordVal } from '../../shared/models/password-val';
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
+
+/**
+ * Represents a sign-up component.
+ */
 export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
@@ -33,24 +37,20 @@ export class SignUpComponent {
   name: string = '';
   email: string = '';
   password: string = '';
+  confirmedPassword: string = '';
   namePat: RegExp = new NameVal().namePat;
   emailPat: RegExp = new EmailVal().emailPat;
   passwordPat: RegExp = new PasswordVal().passwordPat;
+  passwordHint: string = "Your passwords don't match. Please try again.";
   ppAccepted: boolean = false;
   signedUp: boolean = false;
-
-  // think about namePat + review emailPat + review passwordPat!!! (0/3)
-  // upper-case to lower case, lower-case to lower-case
-  // remove center white space
-  // remove minus at start or end
-  confirmedPassword: string = '';
-  hintText = "Your passwords don't match. Please try again.";
 
   // jsdoc
   get user() {
     return this.join.user;
   }
 
+  // jsdoc
   get users() {
     this.join.getUsers();
     return this.join.users;
@@ -59,39 +59,201 @@ export class SignUpComponent {
   // jsdoc
   backToLogin() {
     this.router.navigateByUrl('login');
+    this.setIntroDone();
+  }
+
+  // jsdoc
+  setIntroDone() {
     if (!this.join.revealed) {
       this.join.revealed = true;
       this.join.relocated = true;
     }
   }
 
-  cleanUpName(name: string) {
-    name = name.replaceAll(/\-{2,}/g, '-');
-    name = name.replaceAll(/[\s|\-]{2,}/g, ' ');
-    return name;
+  // jsdoc
+  getPasswordPat() {
+    if (this.password.match(this.passwordPat)) {
+      return new RegExp(this.password);
+    } else {
+      return this.passwordPat;
+    }
+  }
+
+  validateNameChar(event: KeyboardEvent) {
+    let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
+    const allowedChars = chars + ' ' + '-';
+    const charSet = new Set(allowedChars);
+    let keyboard = event;
+    let key = keyboard.key.toLowerCase();
+    console.log('key: ', key);
+
+    if (
+      !charSet.has(key) &&
+      key != 'backspace' &&
+      key != 'delete' &&
+      key != 'arrowleft' &&
+      key != 'arrowright' &&
+      key != 'tab'
+    ) {
+      event.preventDefault();
+    }
+  }
+
+  // very interesting!!!
+  // validateNameChar(event: KeyboardEvent) {
+  //   let upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ';
+  //   let lowerCase = 'abcdefghijklmnopqrstuvwxyzäöüß';
+  //   let digits = '0123456789';
+  //   let specialChar = '!@#$%^&*'; // for password!
+
+  //   const nameChars = upperCase + lowerCase + digits + specialChar;
+  //   const nameCharSet = new Set(nameChars);
+  //   // const specialCharactersSet = new Set('!@#$%^&*()-_=+[]{}|;:,.<>?/`~');
+  //   // const isSpecialCharacter = specialCharactersSet.has(char);
+
+  //   let keyboard = event;
+  //   if (keyboard) {
+  //     let key = keyboard.key;
+  //     const isNameChar = nameCharSet.has(key);
+  //     if (isNameChar) {
+  //       console.log('is name char: ', key);
+  //     }
+  //   }
+  // }
+
+  isNameInvalid() {
+    let name = this.val.getName(this.name);
+    if (name.length < 2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getNameHint() {
+    return 'Enter at least 2 letters.';
+  }
+
+  validateEmailChar(event: KeyboardEvent) {
+    let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
+    let digits = '0123456789';
+    let special = '_%+-@.';
+    const allowedChars = chars + digits + special;
+    const charSet = new Set(allowedChars);
+    let keyboard = event;
+    let key = keyboard.key.toLowerCase();
+    console.log('key: ', key);
+
+    if (
+      !charSet.has(key) &&
+      key != 'backspace' &&
+      key != 'delete' &&
+      key != 'arrowleft' &&
+      key != 'arrowright' &&
+      key != 'tab'
+    ) {
+      event.preventDefault();
+    }
+  }
+
+  isEmailInvalid() {
+    let email = this.val.getEmail(this.email);
+    if (email == '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getEmailHint() {
+    return 'Enter a valid email.';
+  }
+
+  validatePasswordChar(event: KeyboardEvent) {
+    let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
+    let digits = '0123456789';
+    let special = '!@#$%^&*';
+    const allowedChars = chars + digits + special;
+    const charSet = new Set(allowedChars);
+    let keyboard = event;
+    let key = keyboard.key.toLowerCase();
+    console.log('key: ', key);
+
+    if (
+      !charSet.has(key) &&
+      key != 'backspace' &&
+      key != 'delete' &&
+      key != 'arrowleft' &&
+      key != 'arrowright' &&
+      key != 'tab'
+    ) {
+      event.preventDefault();
+    }
+  }
+
+  isInvalidPassword() {
+    let password = this.val.getPassword(this.password);
+    let passwordValid = new PasswordVal(this.password).ok;
+    if (password.length < 8 || !passwordValid) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getPasswordHint() {
+    // let blackCircle: string = '\u25CF';
+    // console.log(blackCircle); // Output: ●
+    // this.password =
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle;
+
+    if (this.password.length > 7) {
+      if (!/[A-Z]/.test(this.password)) {
+        return 'Use at least 1 capital letter.';
+      } else if (!/[a-z]/.test(this.password)) {
+        return 'Use at least 1 small letter';
+      } else if (!/\d/.test(this.password)) {
+        return 'Use at least 1 digit.';
+      } else {
+        return 'Use at least 1 special character.';
+      }
+    } else {
+      return 'Enter at least 8 characters';
+    }
+  }
+
+  isPwMismatch() {
+    let password = new PasswordVal(this.password).ok;
+    if (password && this.password != this.confirmedPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getConfirmedPasswordHint() {
+    let password = new PasswordVal(this.password).ok;
+    let lengthMatch = this.password.length == this.confirmedPassword.length;
+    let valueMatch = this.password == this.confirmedPassword;
+    if (password && lengthMatch && !valueMatch) {
+      return this.passwordHint;
+    } else {
+      return 'Confirm your password.';
+    }
   }
 
   async signUp(ngForm: NgForm) {
     if (ngForm.form.valid) {
-      this.name = this.cleanUpName(this.name);
-      let result = new NameVal(this.name).getResult();
-      console.log('log full name: ', result.fullName);
-      console.log('log name: ', result.name);
-      console.log('log initials: ', result.initials);
-      this.name = result.name;
-
-      // working!!!
+      this.name = this.val.getName(this.name);
       this.email = this.val.getEmail(this.email);
-
-      // working!!!
-      console.log('log password: ', new PasswordVal(this.password).password);
       this.password = this.val.getPassword(this.password);
-
-      // working!!!
-      console.log(
-        'log password: ',
-        new PasswordVal(this.confirmedPassword).password
-      );
       this.confirmedPassword = this.val.getPassword(this.confirmedPassword);
 
       // I. Verify if user (email) exists!
@@ -119,26 +281,10 @@ export class SignUpComponent {
     await this.join.setSecurityId();
   }
 
-  // jsdoc
-  getPasswordPat() {
-    if (this.password.match(this.passwordPat)) {
-      return new RegExp(this.password);
-    } else {
-      return this.passwordPat;
-    }
-  }
-
-  // rename + udpate user values with local values!!!
-  isPasswordMatch() {
-    let password1 = this.password.match(this.passwordPat);
-    let password2 = this.confirmedPassword.match(this.passwordPat);
-    let matched = this.password == this.confirmedPassword;
-    if (!password1 || !password2 || matched) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // // rename + udpate user values with local values!!!
+  // isPwMismatch() {
+  //   return this.val.getPwMismatch(this.password, this.confirmedPassword);
+  // }
 
   // verifyPassword() {
   //   let password1 = this.password.match(this.passwordPat);
