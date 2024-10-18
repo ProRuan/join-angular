@@ -1,7 +1,9 @@
 <div class="input-hint-cont">
     <div class="input-icon-cont">
-        <input class="input" [value]="value" (input)="onInputChange($event)" type="text" [placeholder]="placeholder">
-        <img class="icon" [src]="getSrc()" [alt]="this.img">
+        <input class="input" [value]="value" [ngClass]="getClass()" (input)="onInputChange($event)" type="text"
+            [placeholder]="placeholder">
+        <!-- set cursor pointer plus if-else for img or img-button!!! -->
+        <img class="icon" [src]="getSrc()" [alt]="this.img" (click)="toggleVisibility(visible)">
     </div>
     <span *ngIf="condition" class="hint">
         {{ hintText }}

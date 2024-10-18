@@ -24,6 +24,22 @@
   }
 }
 
+.password {
+  font-family: monospace;
+  letter-spacing: 1px;
+  color: $white;
+  caret-color: $black;
+
+  &::placeholder {
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+  }
+
+  &::selection {
+    color: #3367d1;
+    background-color: #3367d1;
+  }
+}
+
 .error {
   border: 1px solid $error;
 }

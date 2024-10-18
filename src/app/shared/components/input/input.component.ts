@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  Output,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -23,10 +29,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
  */
 export class InputComponent implements ControlValueAccessor {
   value: string = '';
+  visible: boolean = false;
+  @Input() type: string = '';
   @Input() placeholder: string = '';
   @Input() img: string = '';
   @Input() condition: boolean = false;
   @Input() hintText: string = '';
+  @Output() onVisibility = new EventEmitter<any>();
 
   /**
    * Registers the function to be called on change.
@@ -64,11 +73,36 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   /**
+   * Provides the css class.
+   * @returns - The css class name.
+   */
+  getClass() {
+    return this.type && !this.visible ? this.type : '';
+  }
+
+  /**
    * Provides the source path.
    * @returns - The source path.
    */
   getSrc() {
-    return '../../../../assets/img/global/' + this.img;
+    if (this.type == 'password' && this.value.length > 0) {
+      if (this.visible) {
+        return '../../../../assets/img/login/visibility.png';
+      } else {
+        return '../../../../assets/img/login/visibility_off.png';
+      }
+    } else {
+      return '../../../../assets/img/global/' + this.img;
+    }
+  }
+
+  /**
+   * Toggles the visibility of the password.
+   * @param event - The click event.
+   */
+  toggleVisibility(value: boolean) {
+    this.visible = !this.visible ? true : false;
+    this.onVisibility.emit(!value);
   }
 
   /**

@@ -37,13 +37,26 @@ export class SignUpComponent {
   name: string = '';
   email: string = '';
   password: string = '';
+  passwordAgent: string = '';
+  // rename!!!
+  agentTimeout: any;
+  passwordCache: string = '';
   confirmedPassword: string = '';
+  passwordAgent2: string = '';
+  agentTimeout2: any;
+  passwordCache2: string = '';
   namePat: RegExp = new NameVal().namePat;
   emailPat: RegExp = new EmailVal().emailPat;
   passwordPat: RegExp = new PasswordVal().passwordPat;
   passwordHint: string = "Your passwords don't match. Please try again.";
   ppAccepted: boolean = false;
   signedUp: boolean = false;
+
+  // testing!!!
+  visibility: boolean = false;
+  visibility2: boolean = false;
+  selectionStart: number = 0;
+  selectionEnd: number = 0;
 
   // jsdoc
   get user() {
@@ -169,6 +182,156 @@ export class SignUpComponent {
     return 'Enter a valid email.';
   }
 
+  updatePassword(event: KeyboardEvent) {
+    let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
+    let digits = '0123456789';
+    let special = '!@#$%^&*';
+    const allowedChars = chars + digits + special;
+    const charSet = new Set(allowedChars);
+    let keyboard = event;
+    let key = keyboard.key;
+    let tempKey = key.toLowerCase();
+    console.log('key: ', key);
+    console.log('temp key: ', tempKey);
+    let allowedKeys = [
+      'home',
+      'end',
+      'insert',
+      'delete',
+      'backspace',
+      'tab',
+      'capslock',
+      'shift',
+      'control',
+      'meta',
+      'alt',
+      'altgraph',
+      'arrowleft',
+      'arrowright',
+    ];
+
+    let input = event.target as HTMLInputElement;
+
+    clearTimeout(this.agentTimeout);
+
+    if (!charSet.has(tempKey) && !allowedKeys.includes(tempKey)) {
+      keyboard.preventDefault();
+    }
+
+    setTimeout(() => {
+      // this.passwordAgent = this.password;
+      this.passwordAgent = '';
+      for (let i = 0; i < this.password.length; i++) {
+        if (i != this.password.length - 1) {
+          this.passwordAgent += `\u25CF`;
+        } else if (
+          charSet.has(tempKey) &&
+          input.selectionStart == this.password.length
+        ) {
+          this.passwordAgent += this.password[i];
+          this.agentTimeout = setTimeout(() => {
+            this.passwordAgent = this.passwordAgent.replace(/.$/, '\u25CF');
+          }, 250);
+        } else {
+          this.passwordAgent += '\u25CF';
+        }
+      }
+      console.log('password: ', this.password);
+      console.log('password agent: ', this.passwordAgent);
+    }, 0);
+  }
+
+  logVisibility(event: Event) {
+    console.log('visibility: ', event);
+    if (event) {
+      this.visibility = true;
+      // this.passwordCache = this.passwordAgent;
+      // this.passwordAgent = this.password;
+    } else {
+      this.visibility = false;
+      // this.passwordAgent = this.passwordCache;
+    }
+  }
+
+  hidePasswortAgent() {
+    return this.visibility ? 'password-agent-plus' : '';
+  }
+
+  updatePassword2(event: KeyboardEvent) {
+    let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
+    let digits = '0123456789';
+    let special = '!@#$%^&*';
+    const allowedChars = chars + digits + special;
+    const charSet = new Set(allowedChars);
+    let keyboard = event;
+    let key = keyboard.key;
+    let tempKey = key.toLowerCase();
+    console.log('key: ', key);
+    console.log('temp key: ', tempKey);
+    let allowedKeys = [
+      'home',
+      'end',
+      'insert',
+      'delete',
+      'backspace',
+      'tab',
+      'capslock',
+      'shift',
+      'control',
+      'meta',
+      'alt',
+      'altgraph',
+      'arrowleft',
+      'arrowright',
+    ];
+
+    let input = event.target as HTMLInputElement;
+
+    clearTimeout(this.agentTimeout2);
+
+    if (!charSet.has(tempKey) && !allowedKeys.includes(tempKey)) {
+      keyboard.preventDefault();
+    }
+
+    setTimeout(() => {
+      // this.passwordAgent2 = this.confirmedPassword;
+      this.passwordAgent2 = '';
+      for (let i = 0; i < this.confirmedPassword.length; i++) {
+        if (i != this.confirmedPassword.length - 1) {
+          this.passwordAgent2 += `\u25CF`;
+        } else if (
+          charSet.has(tempKey) &&
+          input.selectionStart == this.confirmedPassword.length
+        ) {
+          this.passwordAgent2 += this.confirmedPassword[i];
+          this.agentTimeout2 = setTimeout(() => {
+            this.passwordAgent2 = this.passwordAgent2.replace(/.$/, '\u25CF');
+          }, 250);
+        } else {
+          this.passwordAgent2 += '\u25CF';
+        }
+      }
+      console.log('confirmed password: ', this.confirmedPassword);
+      console.log('password agent 2: ', this.passwordAgent2);
+    }, 0);
+  }
+
+  logVisibility2(event: Event) {
+    console.log('visibility: ', event);
+    if (event) {
+      this.visibility2 = true;
+      // this.passwordCache = this.passwordAgent;
+      // this.passwordAgent = this.password;
+    } else {
+      this.visibility2 = false;
+      // this.passwordAgent = this.passwordCache;
+    }
+  }
+
+  hidePasswortAgent2() {
+    return this.visibility2 ? 'password-agent-plus' : '';
+  }
+
   validatePasswordChar(event: KeyboardEvent) {
     let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
     let digits = '0123456789';
@@ -176,17 +339,335 @@ export class SignUpComponent {
     const allowedChars = chars + digits + special;
     const charSet = new Set(allowedChars);
     let keyboard = event;
-    let key = keyboard.key.toLowerCase();
+    let key = keyboard.key;
+    let tempKey = key.toLowerCase();
     console.log('key: ', key);
+    console.log('temp key: ', tempKey);
+
+    // // Check if "Control + A" is pressed to allow select all
+    if (event.ctrlKey && tempKey === 'a') {
+      return; // Do not prevent default for "Control + A"
+    }
+    if (event.ctrlKey && tempKey === 'c') {
+      return;
+    }
+    if (event.ctrlKey && tempKey === 'v') {
+      return;
+    }
+
+    if (event.shiftKey) {
+      let input = event.target as HTMLInputElement;
+      console.log('input cursor start: ', input.selectionStart);
+      console.log('input cursor end: ', input.selectionEnd);
+      if (input.selectionStart) {
+        this.selectionStart = input.selectionStart;
+      }
+      if (input.selectionEnd) {
+        this.selectionEnd = input.selectionEnd;
+      }
+      keyboard.preventDefault();
+    }
+
+    if (tempKey == 'arrowleft') {
+      let input = event.target as HTMLInputElement;
+      console.log('input cursor start: ', input.selectionStart);
+      console.log('input cursor end: ', input.selectionEnd);
+      if (input.selectionStart) {
+        this.selectionStart = input.selectionStart;
+      }
+      if (input.selectionEnd) {
+        this.selectionEnd = input.selectionEnd;
+      }
+      // keyboard.preventDefault();
+    }
+
+    if (charSet.has(tempKey)) {
+      clearTimeout(this.agentTimeout);
+      this.passwordAgent = this.passwordAgent.replace(/.$/, '\u25CF');
+
+      let input = event.target as HTMLInputElement;
+      console.log('input cursor start: ', input.selectionStart);
+      console.log('input cursor end: ', input.selectionEnd);
+      if (input.selectionStart) {
+        this.selectionStart = input.selectionStart;
+      }
+      if (input.selectionEnd) {
+        this.selectionEnd = input.selectionEnd;
+      }
+
+      let temp = this.passwordCache;
+      this.passwordCache = '';
+      let temp1 = '';
+      let temp2 = '';
+
+      console.log('used selection start: ', input.selectionStart);
+      if (input.selectionStart == 0) {
+        temp1 = '';
+        temp2 = temp;
+      } else if (input.selectionStart == temp.length) {
+        temp1 = temp;
+        temp2 = '';
+      } else {
+        for (let i = 0; i < this.selectionStart; i++) {
+          temp1 += temp[i];
+        }
+        for (let i = this.selectionStart; i < temp.length; i++) {
+          temp2 += temp[i];
+        }
+      }
+      console.log('TEMP: ', temp);
+      console.log('TEMP1: ', temp1);
+      console.log('TEMP2: ', temp2);
+      this.passwordCache = temp1 + key + temp2;
+      this.passwordAgent = '';
+      for (let i = 0; i < this.passwordCache.length; i++) {
+        this.passwordAgent += '\u25CF';
+      }
+
+      // this.passwordAgent += key;
+      // this.passwordCache += key;
+      this.password = this.passwordCache;
+
+      this.agentTimeout = setTimeout(() => {
+        this.passwordAgent = this.passwordAgent.replace(/.$/, '\u25CF');
+        console.log('updated password agent: ', this.passwordAgent);
+      }, 500);
+
+      keyboard.preventDefault();
+    }
+
+    if (tempKey != 'arrowleft' && tempKey != 'shift') {
+      let input = event.target as HTMLInputElement;
+      console.log('cursor 0: ', this.selectionStart, input.selectionStart);
+      if (input.selectionStart != null) {
+        this.selectionStart = input.selectionStart + 1;
+      }
+      setTimeout(() => {
+        input.setSelectionRange(this.selectionStart, this.selectionStart);
+      }, 0);
+    }
+    // console.log('input cursor start: ', input.selectionStart);
+    // console.log('input cursor end: ', input.selectionEnd);
+    // if (input.selectionStart) {
+    //   this.selectionStart = input.selectionStart;
+    // }
+    // if (input.selectionEnd) {
+    //   this.selectionEnd = input.selectionEnd;
+    // }
+
+    console.log('password agent: ', this.passwordAgent);
+    console.log('password cache: ', this.passwordCache);
+    console.log('password: ', this.password);
+
+    // // Check if "Control + A" is pressed to allow select all
+    // if (event.ctrlKey && tempKey === 'a') {
+    //   return; // Do not prevent default for "Control + A"
+    // }
+    // if (event.ctrlKey && tempKey === 'c') {
+    //   return;
+    // }
+    // if (event.ctrlKey && tempKey === 'v') {
+    //   return;
+    // }
+
+    // if (
+    //   !charSet.has(tempKey) &&
+    //   tempKey != 'backspace' &&
+    //   tempKey != 'delete' &&
+    //   tempKey != 'arrowleft' &&
+    //   tempKey != 'arrowright' &&
+    //   tempKey != 'tab'
+    // ) {
+    //   event.preventDefault();
+    // } else {
+    //   clearTimeout(this.agentTimeout);
+    //   if (tempKey == 'backspace' || tempKey == 'delete') {
+    //     if (this.passwordAgent.length > 0) {
+    //       this.passwordAgent = this.passwordAgent.replace(/.$/, '');
+    //     }
+    //     if (this.passwordCache.length > 0) {
+    //       this.passwordCache = this.passwordCache.replace(/.$/, '');
+    //     }
+    //   }
+    //   this.passwordAgent = this.passwordAgent.replace(/.$/, '\u25CF');
+    //   if (charSet.has(tempKey)) {
+    //     this.passwordCache += key;
+    //     this.passwordAgent += key;
+    //     this.agentTimeout = setTimeout(() => {
+    //       this.passwordAgent = this.passwordAgent.replace(/.$/, '\u25CF');
+    //       console.log('updated password agent: ', this.passwordAgent);
+    //     }, 500);
+    //     // this.passwordAgent += '\u25CF';
+    //   }
+    //   console.log('password agent: ', this.passwordAgent);
+    //   console.log('password cache: ', this.passwordCache);
+    //   if (tempKey == 'arrowleft') {
+    //     let input = event.target as HTMLInputElement;
+    //     if (input.selectionStart) {
+    //       this.selectionStart = input.selectionStart - 1;
+    //       console.log('curspor pos: ', this.selectionStart);
+    //     }
+    //   }
+    //   if (tempKey == 'arrowright') {
+    //     let input = event.target as HTMLInputElement;
+    //     if (input.selectionStart) {
+    //       this.selectionStart = input.selectionStart + 1;
+    //       console.log('curspor pos: ', this.selectionStart);
+    //     }
+    //   }
+    //   if (
+    //     tempKey != 'tab' &&
+    //     tempKey != 'arrowleft' &&
+    //     tempKey != 'arrowright'
+    //   ) {
+    //     event.preventDefault();
+    //   }
+    //   this.password = this.passwordCache;
+  }
+
+  preventCopyPaste(event: Event): void {
+    let clipboard = event as ClipboardEvent;
+    clipboard.clipboardData?.setData('text', '');
+    event.preventDefault();
+  }
+
+  updatePasswordCache(event: KeyboardEvent) {
+    let keyboard = event as KeyboardEvent;
+    let key = keyboard.key;
+    let tempKey = key.toLowerCase();
+    if (
+      this.passwordCache.length > this.passwordAgent.length &&
+      (tempKey == 'backspace' || tempKey == 'delete')
+    ) {
+      if (this.selectionStart == this.selectionEnd) {
+        this.passwordCache = this.passwordCache.replace(
+          this.passwordCache[this.selectionStart - 1],
+          ''
+        );
+        this.password = this.passwordCache;
+      } else {
+        let temp = this.passwordCache;
+        this.passwordCache = '';
+        for (let i = 0; i < this.selectionStart; i++) {
+          this.passwordCache += temp[i];
+        }
+        for (let i = this.selectionEnd; i < temp.length; i++) {
+          this.passwordCache += temp[i];
+        }
+        this.password = this.passwordCache;
+      }
+    }
+
+    if (event && this.passwordCache.length > this.passwordAgent.length) {
+      let temp = this.passwordCache;
+      this.passwordCache = '';
+      for (let i = 0; i < this.passwordAgent.length; i++) {
+        this.passwordCache += temp[i];
+      }
+      this.password = this.passwordCache;
+    }
+
+    // get cursor position of keydown!
+    let input = event.target as HTMLInputElement;
+    console.log('input cursor start: ', input.selectionStart);
+    console.log('input cursor end: ', input.selectionEnd);
+
+    console.log('updated password agent: ', this.passwordAgent);
+    console.log('updated password cache: ', this.passwordCache);
+    console.log('updated password: ', this.password);
+  }
+
+  onPaste(event: ClipboardEvent) {
+    if (event.clipboardData) {
+      // add or replace!?!
+      this.password = event.clipboardData.getData('text');
+      this.passwordCache = event.clipboardData.getData('text');
+
+      this.passwordAgent = '';
+      for (let i = 0; i < this.passwordCache.length; i++) {
+        this.passwordAgent += '\u25CF';
+      }
+      // this.passwordAgent = event.clipboardData.getData('text');
+      event.preventDefault();
+    }
+  }
+
+  validatePasswordChar2(event: KeyboardEvent) {
+    let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
+    let digits = '0123456789';
+    let special = '!@#$%^&*';
+    const allowedChars = chars + digits + special;
+    const charSet = new Set(allowedChars);
+    let keyboard = event;
+    let key = keyboard.key;
+    let tempKey = key.toLowerCase();
+    console.log('key: ', key);
+    console.log('temp key: ', tempKey);
+
+    // Check if "Control + A" is pressed to allow select all
+    if (event.ctrlKey && tempKey === 'a') {
+      return; // Do not prevent default for "Control + A"
+    }
+    if (event.ctrlKey && tempKey === 'c') {
+      return;
+    }
+    if (event.ctrlKey && tempKey === 'v') {
+      return;
+    }
 
     if (
-      !charSet.has(key) &&
-      key != 'backspace' &&
-      key != 'delete' &&
-      key != 'arrowleft' &&
-      key != 'arrowright' &&
-      key != 'tab'
+      !charSet.has(tempKey) &&
+      tempKey != 'backspace' &&
+      tempKey != 'delete' &&
+      tempKey != 'arrowleft' &&
+      tempKey != 'arrowright' &&
+      tempKey != 'tab'
     ) {
+      event.preventDefault();
+    } else {
+      clearTimeout(this.agentTimeout);
+      if (tempKey == 'backspace' || tempKey == 'delete') {
+        if (this.passwordAgent2.length > 0) {
+          this.passwordAgent2 = this.passwordAgent2.replace(/.$/, '');
+        }
+        if (this.passwordCache2.length > 0) {
+          this.passwordCache2 = this.passwordCache2.replace(/.$/, '');
+        }
+      }
+      this.passwordAgent2 = this.passwordAgent2.replace(/.$/, '\u25CF');
+      if (charSet.has(tempKey)) {
+        this.passwordCache2 += key;
+        this.passwordAgent2 += key;
+        this.agentTimeout = setTimeout(() => {
+          this.passwordAgent2 = this.passwordAgent2.replace(/.$/, '\u25CF');
+          console.log('updated password agent: ', this.passwordAgent2);
+        }, 500);
+        // this.passwordAgent2 += '\u25CF';
+      }
+      console.log('password agent: ', this.passwordAgent2);
+      console.log('password cache: ', this.passwordCache2);
+      if (
+        tempKey != 'tab' &&
+        tempKey != 'arrowleft' &&
+        tempKey != 'arrowright'
+      ) {
+        event.preventDefault();
+      }
+      this.confirmedPassword = this.passwordCache2;
+    }
+  }
+
+  onPaste2(event: ClipboardEvent) {
+    if (event.clipboardData) {
+      // add or replace!?!
+      this.confirmedPassword = event.clipboardData.getData('text');
+      this.passwordCache2 = event.clipboardData.getData('text');
+
+      this.passwordAgent2 = '';
+      for (let i = 0; i < this.passwordCache.length; i++) {
+        this.passwordAgent2 += '\u25CF';
+      }
+      // this.passwordAgent2 = event.clipboardData.getData('text');
       event.preventDefault();
     }
   }

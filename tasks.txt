@@ -45,3 +45,22 @@ Review Models (1/? prepared)
 Review Services (2/? prepared - 2/? good)
   - join ... prepared - good
   - user ... prepared - good
+
+
+
+html
+----
+<input
+  type="password"
+  (contextmenu)="preventCopyPaste($event)"
+  (copy)="preventCopyPaste($event)"
+  (cut)="preventCopyPaste($event)"
+  (paste)="preventCopyPaste($event)"
+  placeholder="Enter your password"
+/>
+
+ts
+--
+preventCopyPaste(event: Event): void {
+  event.preventDefault();
+}
