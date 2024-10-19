@@ -17,15 +17,15 @@
                 <div class="input-group">
                     <app-input [(ngModel)]="name" name="name" placeholder="Name" [pattern]="namePat" required
                         img="person.png" (keydown)="validateNameChar($event)" [condition]="isNameInvalid()"
-                        [hintText]="getNameHint()"></app-input>
+                        [hint]="getNameHint()"></app-input>
                     <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
                         img="email.png" (keydown)="validateEmailChar($event)" [condition]="isEmailInvalid()"
-                        [hintText]="getEmailHint()"></app-input>
+                        [hint]="getEmailHint()"></app-input>
                     <!-- set border on focus!!! -->
                     <div style="position: relative;">
                         <app-input [(ngModel)]="password" name="password" type="password" placeholder="Password"
                             [pattern]="passwordPat" required img="lock.png" (keydown)="updatePassword($event)"
-                            [condition]="isInvalidPassword()" [hintText]="getPasswordHint()"
+                            [condition]="isInvalidPassword()" [hint]="getPasswordHint()"
                             (copy)="preventCopyPaste($event)" (cut)="preventCopyPaste($event)"
                             (onVisibility)="logVisibility($event)"></app-input>
                         <input class="password-agent" [ngClass]="hidePasswortAgent()" [(ngModel)]="passwordAgent"
@@ -36,7 +36,7 @@
                         <app-input [(ngModel)]="confirmedPassword" name="confirmedPassword" type="password"
                             placeholder="Confirm password" [pattern]="getPasswordPat()" required img="lock.png"
                             (keydown)="updatePassword2($event)" [condition]="isPwMismatch()"
-                            [hintText]="getConfirmedPasswordHint()" (copy)="preventCopyPaste($event)"
+                            [hint]="getConfirmedPasswordHint()" (copy)="preventCopyPaste($event)"
                             (cut)="preventCopyPaste($event)" (onVisibility)="logVisibility2($event)"></app-input>
                         <input class="password-agent" [ngClass]="hidePasswortAgent2()" [(ngModel)]="passwordAgent2"
                             name="password-agent-2" img="lock.png" disabled="true">

@@ -2,10 +2,13 @@
     <div class="input-icon-cont">
         <input class="input" [value]="value" [ngClass]="getClass()" (input)="onInputChange($event)" type="text"
             [placeholder]="placeholder">
-        <!-- set cursor pointer plus if-else for img or img-button!!! -->
-        <img class="icon" [src]="getSrc()" [alt]="this.img" (click)="toggleVisibility(visible)">
+        @if (type == 'password') {
+        <button class="vis-btn" [ngClass]="getVis()" [disabled]="isDisabled()" (click)="toggleVis(visible)"></button>
+        } @else {
+        <img class="icon" [src]="getSrc()" [alt]="this.img">
+        }
     </div>
     <span *ngIf="condition" class="hint">
-        {{ hintText }}
+        {{ hint }}
     </span>
 </div>

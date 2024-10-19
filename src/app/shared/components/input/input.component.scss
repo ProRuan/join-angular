@@ -9,10 +9,11 @@
 }
 
 .input {
-  @include box-padding($p: 11px 20px);
+  @include box-padding($p: 11px 54px 11px 20px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include color-set($c: $black, $bgc: $white);
   @include round-border($b: 1px solid $gray, $br: 10px);
+  font-family: $inter;
   width: 422px;
 
   &::placeholder {
@@ -31,12 +32,11 @@
   caret-color: $black;
 
   &::placeholder {
-    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-family: $inter;
   }
 
   &::selection {
-    color: #3367d1;
-    background-color: #3367d1;
+    @include color-set($c: #3367d1, $bgc: #3367d1);
   }
 }
 
@@ -47,6 +47,25 @@
 .icon {
   @include size($w: 24px, $h: 24px);
   @include position($pos: absolute, $t: 12px, $r: 21px);
+}
+
+.vis-btn {
+  @include size($w: 24px, $h: 24px);
+  @include position($pos: absolute, $t: 12px, $r: 21px);
+  background-color: transparent;
+  background-image: url("../../../../assets/img/global/lock.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  border: none;
+}
+
+.conceal {
+  background-image: url("../../../../assets/img/login/visibility_off.png");
+}
+
+.reveal {
+  background-image: url("../../../../assets/img/login/visibility.png");
 }
 
 .hint {

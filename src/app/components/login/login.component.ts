@@ -40,7 +40,7 @@ export class LoginComponent {
   emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
   passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
   token: string = '';
-  hintText = 'Check your email and password. Please try again.';
+  hint = 'Check your email and password. Please try again.';
   remembered: boolean = false;
 
   // add checkbox remember me

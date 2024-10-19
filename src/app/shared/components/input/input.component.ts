@@ -34,7 +34,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
   @Input() img: string = '';
   @Input() condition: boolean = false;
-  @Input() hintText: string = '';
+  @Input() hint: string = '';
   @Output() onVisibility = new EventEmitter<any>();
 
   /**
@@ -85,22 +85,34 @@ export class InputComponent implements ControlValueAccessor {
    * @returns - The source path.
    */
   getSrc() {
-    if (this.type == 'password' && this.value.length > 0) {
-      if (this.visible) {
-        return '../../../../assets/img/login/visibility.png';
-      } else {
-        return '../../../../assets/img/login/visibility_off.png';
-      }
+    return '../../../../assets/img/global/' + this.img;
+  }
+
+  /**
+   * Provides the css class of the password visibility.
+   * @returns - A css class.
+   */
+  getVis() {
+    if (this.value.length > 0) {
+      return this.visible ? 'reveal' : 'conceal';
     } else {
-      return '../../../../assets/img/global/' + this.img;
+      return '';
     }
+  }
+
+  /**
+   * Verifies, if the button is to disable.
+   * @returns - A boolean value.
+   */
+  isDisabled() {
+    return this.value.length < 1;
   }
 
   /**
    * Toggles the visibility of the password.
    * @param event - The click event.
    */
-  toggleVisibility(value: boolean) {
+  toggleVis(value: boolean) {
     this.visible = !this.visible ? true : false;
     this.onVisibility.emit(!value);
   }
