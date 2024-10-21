@@ -1,5 +1,36 @@
 @import "../../../../mixins.scss";
 
+.input-agent-cont {
+  position: relative;
+}
+
+.agent {
+  @include box-padding($p: 11px 54px 11px 20px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: transparent);
+  @include round-border($b: 1px solid transparent, $br: 10px);
+  width: 422px;
+  font-family: monospace;
+  letter-spacing: 1px;
+
+  &::placeholder {
+    color: $gray;
+  }
+
+  &:focus {
+    border: 1px solid $lightblue;
+  }
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+// rename!!!
+.agent-plus {
+  display: none;
+}
+
 .input-hint-cont {
   @include display-column($g: 8px);
 }

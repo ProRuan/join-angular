@@ -93,33 +93,3 @@
   @include font($fs: 21px, $fw: 700, $lh: 25.2px);
   max-height: 55px;
 }
-
-.password-agent {
-  @include box-padding($p: 11px 20px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include color-set($c: $black, $bgc: transparent);
-  @include round-border($b: 1px solid $gray, $br: 10px);
-  width: 422px;
-  font-family: monospace;
-  letter-spacing: 1px;
-
-  &::placeholder {
-    color: $gray;
-  }
-
-  &:focus {
-    border: 1px solid $lightblue;
-  }
-  position: absolute;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-}
-
-.hide-pw-agent {
-  display: none;
-}
-
-.password-agent-plus {
-  display: none;
-}
