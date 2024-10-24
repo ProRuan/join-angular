@@ -13,7 +13,6 @@
             </div>
 
             <div class="input-checkbox-cont">
-                <!-- set input min-height!!! -->
                 <div class="input-group">
                     <app-input [(ngModel)]="name" name="name" placeholder="Name" [pattern]="namePat" required
                         img="person.png" (keydown)="validateNameChar($event)" [condition]="isNameInvalid()"
@@ -22,9 +21,12 @@
                         img="email.png" (keydown)="validateEmailChar($event)" [condition]="isEmailInvalid()"
                         [hint]="getEmailHint()"></app-input>
                     <app-input [(ngModel)]="password" name="password" type="password" placeholder="Password"
-                        [pattern]="passwordPat" required img="lock.png"></app-input>
+                        [pattern]="passwordPat" required img="lock.png" [condition]="isInvalidPassword()"
+                        [hint]="getPasswordHint()"></app-input>
                     <app-input [(ngModel)]="confirmedPassword" name="confirmedPassword" type="password"
-                        placeholder="Confirm password" [pattern]="getPasswordPat()" required img="lock.png"></app-input>
+                        placeholder="Confirm password" [pattern]="getPasswordPat()" required img="lock.png"
+                        [condition]="isPwMismatch()" [hint]="getConfirmedPasswordHint()"
+                        [disabled]="isWaiting()"></app-input>
                 </div>
 
                 <div class="privacy-policy-row">
@@ -32,8 +34,7 @@
                         <button class="checkbox" type="button" [ngClass]="getCheck()" (click)="accept()"></button>
                         <div class="privacy-policy-text">
                             <span>I accept the </span>
-                            <!-- set router link!!! -->
-                            <a href="">Privacy Policy</a>
+                            <a routerLink="../main/privacy-policy">Privacy Policy</a>
                         </div>
                     </div>
                 </div>

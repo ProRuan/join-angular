@@ -22,7 +22,8 @@
   text-decoration: none;
   color: #ababab;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     font-weight: 700;
     color: #29abe2;
   }

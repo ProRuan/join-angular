@@ -20,6 +20,14 @@ export const routes: Routes = [
   { path: 'login/:id', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   {
+    path: 'main',
+    component: MainComponent,
+    children: [
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+      { path: 'legal-notice', component: LegalNoticeComponent },
+    ],
+  },
+  {
     path: 'main/:id',
     component: MainComponent,
     children: [
@@ -27,8 +35,6 @@ export const routes: Routes = [
       { path: 'add-task', component: AddTaskComponent },
       { path: 'board', component: BoardComponent },
       { path: 'contacts', component: ContactsComponent },
-      { path: 'privacy-policy', component: PrivacyPolicyComponent },
-      { path: 'legal-notice', component: LegalNoticeComponent },
       { path: 'help', component: HelpComponent },
       { path: '', redirectTo: ':id/summary', pathMatch: 'full' },
       { path: '**', redirectTo: 'summary' },

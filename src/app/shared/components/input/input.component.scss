@@ -1,34 +1,17 @@
 @import "../../../../mixins.scss";
 
-.input-agent-cont {
+.input-mask-cont {
   position: relative;
+  height: 48px;
+  transition: all 100ms ease-out;
 }
 
-.agent {
-  @include box-padding($p: 11px 54px 11px 20px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include color-set($c: $black, $bgc: transparent);
-  @include round-border($b: 1px solid transparent, $br: 10px);
-  width: 422px;
-  font-family: monospace;
-  letter-spacing: 1px;
-
-  &::placeholder {
-    color: $gray;
-  }
-
-  &:focus {
-    border: 1px solid $lightblue;
-  }
-  position: absolute;
-  left: 0;
-  top: 0;
-  pointer-events: none;
+.semi-opacity {
+  opacity: 0.5;
 }
 
-// rename!!!
-.agent-plus {
-  display: none;
+.height-plus {
+  height: 70px;
 }
 
 .input-hint-cont {
@@ -56,11 +39,21 @@
   }
 }
 
+.error {
+  border: 1px solid $error !important;
+}
+
+.icon {
+  @include size($w: 24px, $h: 24px);
+  @include position($pos: absolute, $t: 12px, $r: 21px);
+}
+
 .password {
   font-family: monospace;
   letter-spacing: 1px;
   color: $white;
   caret-color: $black;
+  transition: opacity 100ms ease-out;
 
   &::placeholder {
     font-family: $inter;
@@ -71,13 +64,8 @@
   }
 }
 
-.error {
-  border: 1px solid $error;
-}
-
-.icon {
-  @include size($w: 24px, $h: 24px);
-  @include position($pos: absolute, $t: 12px, $r: 21px);
+.visible {
+  color: $black;
 }
 
 .vis-btn {
@@ -93,13 +81,50 @@
 
 .conceal {
   background-image: url("../../../../assets/img/login/visibility_off.png");
+
+  &:hover,
+  &:focus-visible {
+    background-color: #edf2fa;
+    border-radius: 10px;
+  }
 }
 
 .reveal {
   background-image: url("../../../../assets/img/login/visibility.png");
+
+  &:hover,
+  &:focus-visible {
+    background-color: #edf2fa;
+    border-radius: 10px;
+  }
 }
 
 .hint {
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  height: 14px;
   color: $hint;
+}
+
+.mask {
+  @include box-padding($p: 11px 54px 11px 20px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: transparent);
+  @include round-border($b: 1px solid transparent, $br: 10px);
+  @include position($pos: absolute, $l: 0, $t: 0);
+  width: 422px;
+  font-family: monospace;
+  letter-spacing: 1px;
+  pointer-events: none;
+
+  &::placeholder {
+    color: $gray;
+  }
+
+  &:focus {
+    border: 1px solid $lightblue;
+  }
+}
+
+.hide-mask {
+  display: none;
 }

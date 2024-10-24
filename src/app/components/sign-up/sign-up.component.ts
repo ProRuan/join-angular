@@ -182,6 +182,44 @@ export class SignUpComponent {
     return 'Enter a valid email.';
   }
 
+  isInvalidPassword() {
+    let password = this.val.getPassword(this.password);
+    let passwordValid = new PasswordVal(this.password).ok;
+    if (password.length < 8 || !passwordValid) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getPasswordHint() {
+    // let blackCircle: string = '\u25CF';
+    // console.log(blackCircle); // Output: ●
+    // this.password =
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle +
+    //   blackCircle;
+
+    if (this.password.length > 7) {
+      if (!/[A-Z]/.test(this.password)) {
+        return 'Use at least 1 capital letter.';
+      } else if (!/[a-z]/.test(this.password)) {
+        return 'Use at least 1 small letter';
+      } else if (!/\d/.test(this.password)) {
+        return 'Use at least 1 digit.';
+      } else {
+        return 'Use at least 1 special character.';
+      }
+    } else {
+      return 'Enter at least 8 characters';
+    }
+  }
+
   // update input component!!!
   isPwMismatch() {
     let password = new PasswordVal(this.password).ok;
@@ -191,6 +229,10 @@ export class SignUpComponent {
       return false;
     }
   }
+
+  // fix control, shift, alt etc.!!!
+  // fix confirmedPassword hint!!!
+  // review service masker!!!
 
   // update input component!!!
   getConfirmedPasswordHint() {
@@ -202,6 +244,11 @@ export class SignUpComponent {
     } else {
       return 'Confirm your password.';
     }
+  }
+
+  isWaiting() {
+    let passwordOk = new PasswordVal(this.password).ok;
+    return !passwordOk ? true : false;
   }
 
   async signUp(ngForm: NgForm) {

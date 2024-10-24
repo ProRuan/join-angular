@@ -32,7 +32,8 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
 @mixin background-images($d, $h) {
   background-image: url($d);
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-image: url($h);
   }
 }

@@ -2,6 +2,12 @@ Join
 ----
 
 
+Final Tasks
+-----------
+  - Set onFunction() ...
+  - ValClass as ValServices ... ?
+
+
 Completed (0/?)
 ---------
 
@@ -29,6 +35,10 @@ shared/models (6/?) -1?
   - PasswordVal - check
   - SessionId - check
   - Transform - check
+
+shared/services (1/?)
+---------------
+  - PasswordMaskService - check
 
 
   --> input   // width: 422px / 440px / 456px!!!

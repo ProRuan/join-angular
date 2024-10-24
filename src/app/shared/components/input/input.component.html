@@ -1,32 +1,21 @@
-<div class="input-agent-cont">
+<div class="input-mask-cont" [ngClass]="getContClass()">
     <div class="input-hint-cont">
         <div class="input-icon-cont">
-            @if (type == 'password') {
-            <input class="input" [value]="value" [ngClass]="getClass()" (input)="onInputChange($event)" type="text"
-                [placeholder]="placeholder" (keydown)="updatePassword($event)" (copy)="preventCopyPaste($event)"
-                (cut)="preventCopyPaste($event)">
-            } @else {
-            <input class="input" [value]="value" [ngClass]="getClass()" (input)="onInputChange($event)" type="text"
-                [placeholder]="placeholder">
-            }
-            @if (type == 'password') {
-            <button class="vis-btn" [ngClass]="getVis()" [disabled]="isDisabled()" (click)="toggleVis(visible)"
+            @if (isPasswordType()) {
+            <input class="input" [value]="value" [ngClass]="getPasswordClass()" (input)="onInputChange($event)"
+                type="text" [placeholder]="placeholder" [disabled]="disabled" (focus)="onFocusChange($event, true)"
+                (blur)="onFocusChange($event, false)" (keydown)="onPasswordChange($event)" (copy)="onCopyCut($event)"
+                (cut)="onCopyCut($event)">
+            <button class="vis-btn" [ngClass]="getVis()" [disabled]="!isFilled()" (click)="onVisChange()"
                 type="button"></button>
             } @else {
+            <input class="input" [value]="value" [ngClass]="getErrorClass()" (input)="onInputChange($event)" type="text"
+                [placeholder]="placeholder" (focus)="onFocusChange($event, true)" (blur)="onFocusChange($event, false)">
             <img class="icon" [src]="getSrc()" [alt]="this.img">
             }
         </div>
-        <!--  verify condition and hint!!! -->
-        @if (type == 'password') {
-        <span *ngIf="isInvalidPassword()" class="hint">
-            {{ getPasswordHint() }}
-        </span>
-        } @else {
-        <span *ngIf="condition" class="hint">
-            {{ hint }}
-        </span>
-        }
+        <span *ngIf="isHintDisplayed()" class="hint">{{ hint }}</span>
     </div>
-    <input *ngIf="type == 'password'" class="agent" [value]="agent" [ngClass]="getAgent()" name="agent" img="lock.png"
+    <input *ngIf="isPasswordType()" class="mask" [value]="mask" [ngClass]="getMaskClass()" name="mask" img="lock.png"
         disabled="true">
 </div>
