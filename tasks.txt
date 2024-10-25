@@ -5,6 +5,7 @@ Join
 Final Tasks
 -----------
   - Set onFunction() ...
+  - delete not used events ... !
   - ValClass as ValServices ... ?
 
 

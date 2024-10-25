@@ -63,6 +63,16 @@ export class JoinService {
     };
   }
 
+  /**
+   * Sets the intro to done.
+   */
+  setIntroDone() {
+    if (!this.revealed) {
+      this.revealed = true;
+      this.relocated = true;
+    }
+  }
+
   // jsdoc + then as async fn?!
   async addUser() {
     try {

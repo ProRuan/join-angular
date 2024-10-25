@@ -69,18 +69,76 @@ export class SignUpComponent {
     return this.join.users;
   }
 
-  // jsdoc
-  backToLogin() {
+  /**
+   * Redirects to the login.
+   */
+  onBackToLogin() {
     this.router.navigateByUrl('login');
-    this.setIntroDone();
+    this.join.setIntroDone();
   }
 
-  // jsdoc
-  setIntroDone() {
-    if (!this.join.revealed) {
-      this.join.revealed = true;
-      this.join.relocated = true;
-    }
+  /**
+   * Validates the name on keydown.
+   * @param event - The keyboard event.
+   */
+  onValidateName(event: KeyboardEvent) {
+    this.val.validateInput(event, 'name');
+  }
+
+  /**
+   * Verifies the invalidity of the name.
+   * @returns - A boolean value.
+   */
+  isNameInvalid() {
+    return this.val.isInvalidName(this.name);
+  }
+
+  /**
+   * Provides the name hint.
+   * @returns - The name hint.
+   */
+  getNameHint() {
+    return this.val.nameHint;
+  }
+
+  /**
+   * Validates the email on keydown.
+   * @param event - The keyboard event.
+   */
+  onValidateEmail(event: KeyboardEvent) {
+    this.val.validateInput(event, 'email');
+  }
+
+  /**
+   * Verifies the invalidity of the email.
+   * @returns - A boolean value.
+   */
+  isEmailInvalid() {
+    return this.val.isEmailInvalid(this.email);
+  }
+
+  /**
+   * Provides the email hint.
+   * @returns - The email hint.
+   */
+  getEmailHint() {
+    return this.val.emailHint;
+  }
+
+  /**
+   * Verifies the invalidity of the password.
+   * @returns - A boolean value.
+   */
+  isInvalidPassword() {
+    return this.val.isInvalidPassword(this.password);
+  }
+
+  /**
+   * Provides the password hint.
+   * @returns - The password hint.
+   */
+  getPasswordHint() {
+    return this.val.getPasswordHint(this.password);
   }
 
   // jsdoc
@@ -89,134 +147,6 @@ export class SignUpComponent {
       return new RegExp(this.password);
     } else {
       return this.passwordPat;
-    }
-  }
-
-  validateNameChar(event: KeyboardEvent) {
-    let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
-    const allowedChars = chars + ' ' + '-';
-    const charSet = new Set(allowedChars);
-    let keyboard = event;
-    let key = keyboard.key.toLowerCase();
-    console.log('key: ', key);
-
-    if (
-      !charSet.has(key) &&
-      key != 'backspace' &&
-      key != 'delete' &&
-      key != 'arrowleft' &&
-      key != 'arrowright' &&
-      key != 'tab'
-    ) {
-      event.preventDefault();
-    }
-  }
-
-  // very interesting!!!
-  // validateNameChar(event: KeyboardEvent) {
-  //   let upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ';
-  //   let lowerCase = 'abcdefghijklmnopqrstuvwxyzäöüß';
-  //   let digits = '0123456789';
-  //   let specialChar = '!@#$%^&*'; // for password!
-
-  //   const nameChars = upperCase + lowerCase + digits + specialChar;
-  //   const nameCharSet = new Set(nameChars);
-  //   // const specialCharactersSet = new Set('!@#$%^&*()-_=+[]{}|;:,.<>?/`~');
-  //   // const isSpecialCharacter = specialCharactersSet.has(char);
-
-  //   let keyboard = event;
-  //   if (keyboard) {
-  //     let key = keyboard.key;
-  //     const isNameChar = nameCharSet.has(key);
-  //     if (isNameChar) {
-  //       console.log('is name char: ', key);
-  //     }
-  //   }
-  // }
-
-  isNameInvalid() {
-    let name = this.val.getName(this.name);
-    if (name.length < 2) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  getNameHint() {
-    return 'Enter at least 2 letters.';
-  }
-
-  validateEmailChar(event: KeyboardEvent) {
-    let chars = 'abcdefghijklmnopqrstuvwxyzäöüß';
-    let digits = '0123456789';
-    let special = '_%+-@.';
-    const allowedChars = chars + digits + special;
-    const charSet = new Set(allowedChars);
-    let keyboard = event;
-    let key = keyboard.key.toLowerCase();
-    console.log('key: ', key);
-
-    if (
-      !charSet.has(key) &&
-      key != 'backspace' &&
-      key != 'delete' &&
-      key != 'arrowleft' &&
-      key != 'arrowright' &&
-      key != 'tab'
-    ) {
-      event.preventDefault();
-    }
-  }
-
-  isEmailInvalid() {
-    let email = this.val.getEmail(this.email);
-    if (email == '') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  getEmailHint() {
-    return 'Enter a valid email.';
-  }
-
-  isInvalidPassword() {
-    let password = this.val.getPassword(this.password);
-    let passwordValid = new PasswordVal(this.password).ok;
-    if (password.length < 8 || !passwordValid) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  getPasswordHint() {
-    // let blackCircle: string = '\u25CF';
-    // console.log(blackCircle); // Output: ●
-    // this.password =
-    //   blackCircle +
-    //   blackCircle +
-    //   blackCircle +
-    //   blackCircle +
-    //   blackCircle +
-    //   blackCircle +
-    //   blackCircle +
-    //   blackCircle;
-
-    if (this.password.length > 7) {
-      if (!/[A-Z]/.test(this.password)) {
-        return 'Use at least 1 capital letter.';
-      } else if (!/[a-z]/.test(this.password)) {
-        return 'Use at least 1 small letter';
-      } else if (!/\d/.test(this.password)) {
-        return 'Use at least 1 digit.';
-      } else {
-        return 'Use at least 1 special character.';
-      }
-    } else {
-      return 'Enter at least 8 characters';
     }
   }
 
@@ -251,12 +181,14 @@ export class SignUpComponent {
     return !passwordOk ? true : false;
   }
 
-  async signUp(ngForm: NgForm) {
+  // move to the top!!!
+  async onSignUp(ngForm: NgForm) {
     if (ngForm.form.valid) {
       this.name = this.val.getName(this.name);
       this.email = this.val.getEmail(this.email);
       this.password = this.val.getPassword(this.password);
       this.confirmedPassword = this.val.getPassword(this.confirmedPassword);
+      console.log('signee: ', this.name, this.email, this.password);
 
       // I. Verify if user (email) exists!
       // ---------------------------------
@@ -295,17 +227,26 @@ export class SignUpComponent {
   //   return password1 && password2 && matched ? true : false;
   // }
 
-  // jsdoc
+  /**
+   * Provides the check.
+   * @returns - The css class to apply.
+   */
   getCheck() {
     return this.ppAccepted ? 'checked' : 'check';
   }
 
-  // jsdoc
-  accept() {
+  /**
+   * Checks the checkbox on accept.
+   */
+  onAccept() {
     this.ppAccepted = !this.ppAccepted ? true : false;
   }
 
-  // jsdoc
+  /**
+   * Verifies the disabled state of the sign-up-btn.
+   * @param ngForm - The ngForm.
+   * @returns - A boolean value.
+   */
   isDisabled(ngForm: NgForm) {
     return ngForm.form.invalid || !this.ppAccepted || this.signedUp;
   }
