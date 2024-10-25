@@ -7,9 +7,9 @@ import { InputComponent } from '../../shared/components/input/input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
 import { ValidationService } from '../../shared/services/validation.service';
+// (re)move!!!
 import { NameVal } from '../../shared/models/name-val';
 import { EmailVal } from '../../shared/models/email-val';
-import { PasswordVal } from '../../shared/models/password-val';
 
 @Component({
   selector: 'app-sign-up',
@@ -37,26 +37,13 @@ export class SignUpComponent {
   name: string = '';
   email: string = '';
   password: string = '';
-  passwordAgent: string = '';
-  // rename!!!
-  agentTimeout: any;
-  passwordCache: string = '';
   confirmedPassword: string = '';
-  passwordAgent2: string = '';
-  agentTimeout2: any;
-  passwordCache2: string = '';
+  // update (2x)!!!
   namePat: RegExp = new NameVal().namePat;
   emailPat: RegExp = new EmailVal().emailPat;
-  passwordPat: RegExp = new PasswordVal().passwordPat;
-  passwordHint: string = "Your passwords don't match. Please try again.";
+  passwordPat: RegExp = this.val.getPattern('password');
   ppAccepted: boolean = false;
   signedUp: boolean = false;
-
-  // testing!!!
-  visibility: boolean = false;
-  visibility2: boolean = false;
-  selectionStart: number = 0;
-  selectionEnd: number = 0;
 
   // jsdoc
   get user() {
@@ -141,44 +128,63 @@ export class SignUpComponent {
     return this.val.getPasswordHint(this.password);
   }
 
-  // jsdoc
+  /**
+   * Provides the password pattern.
+   * @returns - The password pattern.
+   */
   getPasswordPat() {
-    if (this.password.match(this.passwordPat)) {
+    if (this.val.isPasswordValid(this.password)) {
       return new RegExp(this.password);
     } else {
       return this.passwordPat;
     }
   }
 
-  // update input component!!!
-  isPwMismatch() {
-    let password = new PasswordVal(this.password).ok;
-    if (password && this.password != this.confirmedPassword) {
-      return true;
-    } else {
-      return false;
-    }
+  /**
+   * Verifies the password mismatch.
+   * @returns - A boolean value.
+   */
+  isPasswordMismatch() {
+    let passwordValid = this.val.getValidPassword(this.password);
+    return passwordValid && this.password != this.confirmedPassword;
   }
 
-  // fix control, shift, alt etc.!!!
-  // fix confirmedPassword hint!!!
-  // review service masker!!!
-
-  // update input component!!!
-  getConfirmedPasswordHint() {
-    let password = new PasswordVal(this.password).ok;
-    let lengthMatch = this.password.length == this.confirmedPassword.length;
-    let valueMatch = this.password == this.confirmedPassword;
-    if (password && lengthMatch && !valueMatch) {
-      return this.passwordHint;
+  /**
+   * Provides the password match hint.
+   * @returns - The hint to display.
+   */
+  getMatchHint() {
+    if (this.isPasswordLonger()) {
+      return 'This password is longer.';
+    } else if (this.isPasswordWrong()) {
+      return "Your passwords don't match. Please try again.";
     } else {
       return 'Confirm your password.';
     }
   }
 
-  isWaiting() {
-    let passwordOk = new PasswordVal(this.password).ok;
-    return !passwordOk ? true : false;
+  /**
+   * Verifies the length of the confirmed password.
+   * @returns - A boolean value.
+   */
+  isPasswordLonger() {
+    return this.val.isPasswordLonger(this.password, this.confirmedPassword);
+  }
+
+  /**
+   * Verifies the value of the confirmed password.
+   * @returns - A boolean value.
+   */
+  isPasswordWrong() {
+    return this.val.isPasswordWrong(this.password, this.confirmedPassword);
+  }
+
+  /**
+   * Verifies the locked state of the confirm password input.
+   * @returns - A boolean value.
+   */
+  isLocked() {
+    return this.val.isPasswordValid(this.password);
   }
 
   // move to the top!!!
@@ -215,18 +221,6 @@ export class SignUpComponent {
     await this.join.setSecurityId();
   }
 
-  // // rename + udpate user values with local values!!!
-  // isPwMismatch() {
-  //   return this.val.getPwMismatch(this.password, this.confirmedPassword);
-  // }
-
-  // verifyPassword() {
-  //   let password1 = this.password.match(this.passwordPat);
-  //   let password2 = this.confirmedPassword.match(this.passwordPat);
-  //   let matched = this.password != this.confirmedPassword;
-  //   return password1 && password2 && matched ? true : false;
-  // }
-
   /**
    * Provides the check.
    * @returns - The css class to apply.
@@ -251,16 +245,10 @@ export class SignUpComponent {
     return ngForm.form.invalid || !this.ppAccepted || this.signedUp;
   }
 
+  // fix control, shift, alt etc.!!!
+
   // sign up
   // -------
-  // classes
-  // color variables
-  // input error
-  // password stars
-  // secure form logic
-
-  // input component
-
   // get token of logged in user
   // set user data of logged in user
   // avoid blinking
