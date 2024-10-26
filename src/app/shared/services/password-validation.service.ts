@@ -3,20 +3,25 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Represents a password validation service.
+ */
 export class PasswordValidationService {
   [key: string]: any;
   lockAhead: string = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])';
   passwordRawPat: string = '[\\dA-Za-z!@#$%^&*]{8,20}$';
-  passwordPat: RegExp = new RegExp('');
+  passwordPat: RegExp;
 
-  // rename to password service?!?
-
+  /**
+   * Creates a password validation service.
+   */
   constructor() {
-    this.setPasswordPat();
+    this.passwordPat = this.getPasswordPat();
   }
 
-  setPasswordPat() {
-    this.passwordPat = new RegExp(this.lockAhead + this.passwordRawPat);
+  getPasswordPat() {
+    return new RegExp(this.lockAhead + this.passwordRawPat);
   }
 
   getPassword(password: string) {

@@ -7,6 +7,8 @@ Final Tasks
   - Set onFunction() ...
   - delete not used events ... !
   - ValClass as ValServices ... ?
+  - other classes as services ... ?
+  - value != null --> null (false) ... !
 
 
 Completed (0/?)
@@ -28,17 +30,15 @@ shared/interfaces (4/?) -1?
   - Styles - check
   - States - check
 
-shared/models (6/?) -1?
+shared/models (2/?)
 -------------
-  - DashVal - check (necessary???)
-  - EmailVal - check
-  - NameVal - check
-  - PasswordVal - check
   - SessionId - check
   - Transform - check
 
-shared/services (1/?)
+shared/services (3/?)
 ---------------
+  - NameValidationService - check
+  - EmailValidationService - check
   - PasswordMaskService - check
 
 

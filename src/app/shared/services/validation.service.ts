@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { NameVal } from '../models/name-val';
-import { EmailVal } from '../models/email-val';
-import { PasswordVal } from '../models/password-val';
+import { NameValidationService } from './name-validation.service';
+import { EmailValidationService } from './email-validation.service';
 import { PasswordValidationService } from './password-validation.service';
 
 @Injectable({
@@ -12,6 +11,8 @@ import { PasswordValidationService } from './password-validation.service';
  * Represents a validation service.
  */
 export class ValidationService {
+  nameVal: NameValidationService = inject(NameValidationService);
+  emailVal: EmailValidationService = inject(EmailValidationService);
   passwordVal: PasswordValidationService = inject(PasswordValidationService);
 
   [key: string]: any;
@@ -101,7 +102,7 @@ export class ValidationService {
   }
 
   isEmailInvalid(value: string) {
-    let email = this.getEmail(value);
+    let email = this.emailVal.getEmail(value);
     return email.length < 1 ? true : false;
   }
 
@@ -138,16 +139,12 @@ export class ValidationService {
     }
   }
 
-  /**
-   * Provides the result of the name validation.
-   * @param name - The name to validate.
-   * @returns - The result of the name validation.
-   */
+  getInitials(name: string) {
+    return this.nameVal.getInitials(name);
+  }
+
   getName(name: string) {
-    name = this.getCleanedUpName(name);
-    let result = new NameVal(name).getResult();
-    return result.name;
-    // return new NameVal(name).getResult();
+    return this.nameVal.getUserName(name);
   }
 
   /**
@@ -161,13 +158,9 @@ export class ValidationService {
     return name;
   }
 
-  /**
-   * Provides the validated email.
-   * @param email - The email to validate.
-   * @returns - The validated email.
-   */
+  // double code?!?
   getEmail(email: string) {
-    return new EmailVal(email).email;
+    return this.emailVal.getEmail(email);
   }
 
   getPattern(type: string) {

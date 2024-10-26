@@ -7,9 +7,6 @@ import { InputComponent } from '../../shared/components/input/input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
 import { ValidationService } from '../../shared/services/validation.service';
-// (re)move!!!
-import { NameVal } from '../../shared/models/name-val';
-import { EmailVal } from '../../shared/models/email-val';
 
 @Component({
   selector: 'app-sign-up',
@@ -38,9 +35,8 @@ export class SignUpComponent {
   email: string = '';
   password: string = '';
   confirmedPassword: string = '';
-  // update (2x)!!!
-  namePat: RegExp = new NameVal().namePat;
-  emailPat: RegExp = new EmailVal().emailPat;
+  namePat: RegExp = this.val.getPattern('name');
+  emailPat: RegExp = this.val.getPattern('email');
   passwordPat: RegExp = this.val.getPattern('password');
   ppAccepted: boolean = false;
   signedUp: boolean = false;
@@ -187,6 +183,7 @@ export class SignUpComponent {
     return this.val.isPasswordValid(this.password);
   }
 
+  // fix validation letter + control/alt/altshift
   // move to the top!!!
   async onSignUp(ngForm: NgForm) {
     if (ngForm.form.valid) {
