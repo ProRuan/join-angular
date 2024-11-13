@@ -41,21 +41,6 @@
   }
 }
 
-.title-border-cont {
-  @include display-column($ai: center, $g: 13px);
-}
-
-.title {
-  @include size($w: 315px, $h: 73px);
-  text-align: center;
-}
-
-.border {
-  @include size($w: 150px, $h: 0);
-  border-bottom: 3px solid $lightblue;
-  border-radius: 3px;
-}
-
 .input-checkbox-cont {
   @include display-column($g: 16px);
 }
@@ -64,7 +49,7 @@
   @include display-column($g: 24px);
 }
 
-.privacy-policy-row {
+.privacy-policy-line {
   @include display-row($jc: center);
   width: 100%;
 }

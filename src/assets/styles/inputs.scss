@@ -1,8 +1,7 @@
-@import "../../../../mixins.scss";
+@import "../../mixins.scss";
 
-.input-mask-cont {
-  position: relative;
-  height: 48px;
+.input-hint-cont {
+  @include display-column($g: 8px);
   transition: all 100ms ease-out;
 }
 
@@ -10,12 +9,12 @@
   opacity: 0.5;
 }
 
-.height-plus {
+.h-70 {
   height: 70px;
 }
 
-.input-hint-cont {
-  @include display-column($g: 8px);
+.h-48 {
+  height: 48px;
 }
 
 .input-icon-cont {
@@ -64,15 +63,11 @@
   }
 }
 
-.visible {
-  color: $black;
-}
-
 .vis-btn {
   @include size($w: 24px, $h: 24px);
   @include position($pos: absolute, $t: 12px, $r: 21px);
   background-color: transparent;
-  background-image: url("../../../../assets/img/global/lock.png");
+  background-image: url("../../assets/img/global/lock.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 24px 24px;
@@ -80,7 +75,7 @@
 }
 
 .conceal {
-  background-image: url("../../../../assets/img/login/visibility_off.png");
+  background-image: url("../../assets/img/login/visibility_off.png");
 
   &:hover,
   &:focus-visible {
@@ -90,7 +85,7 @@
 }
 
 .reveal {
-  background-image: url("../../../../assets/img/login/visibility.png");
+  background-image: url("../../assets/img/login/visibility.png");
 
   &:hover,
   &:focus-visible {

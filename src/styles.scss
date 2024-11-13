@@ -1,4 +1,6 @@
 @import "./mixins.scss";
+// think about folder structure!!!
+@import "./assets/styles/inputs.scss";
 
 body {
   @include font();
@@ -41,24 +43,6 @@ app-prio-button {
   @include font($fs: 61px, $fw: 700, $lh: 73.2px);
   margin: 0;
   color: $black;
-}
-
-.checkbox {
-  @include size($w: 24px, $h: 24px);
-  @include round-border($b: none, $br: 3px);
-  padding: 0;
-  background-color: transparent;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.check {
-  @include background-images($d: $check, $h: $checkHover);
-}
-
-.checked {
-  @include background-images($d: $checked, $h: $checkedHover);
 }
 
 .prim-btn {

@@ -1,22 +1,24 @@
 @import "../../../../mixins.scss";
 
-img {
+$check: "/assets/img/sign-up/check.png";
+$checkHover: "/assets/img/sign-up/check_hover.png";
+$checked: "/assets/img/sign-up/checked.png";
+$checkedHover: "/assets/img/sign-up/checked_hover.png";
+
+.checkbox {
   @include size($w: 24px, $h: 24px);
-  cursor: pointer;
+  @include round-border($b: none, $br: 3px);
+  padding: 0;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .check {
-  content: url("../../../../assets/img/sign-up/check.png");
-
-  &:hover {
-    content: url("../../../../assets/img/sign-up/check_hover.png");
-  }
+  @include background-images($d: $check, $h: $checkHover);
 }
 
 .checked {
-  content: url("../../../../assets/img/sign-up/checked.png");
-
-  &:hover {
-    content: url("../../../../assets/img/sign-up/checked_hover.png");
-  }
+  @include background-images($d: $checked, $h: $checkedHover);
 }

@@ -8,8 +8,9 @@ import { JoinService } from '../../shared/services/join.service';
 import { User } from '../../shared/models/user';
 
 // verify!!!
-import { InputComponent } from '../../shared/components/input/input.component';
 import { UserService } from '../../shared/services/user.service';
+import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
+import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ import { UserService } from '../../shared/services/user.service';
     FooterComponent,
 
     // verify!!!
-    InputComponent,
+    TextInputComponent,
+    PasswordInputComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

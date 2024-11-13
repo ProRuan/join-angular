@@ -12,6 +12,9 @@ export class NameValidationService {
   superSpacePat: RegExp = /[\s|\-]{2,}/g;
   nameRawPat: string = '(([A-Za-z])[A-Za-z]+(?:\\-[A-Za-z]{2,})?)';
   namePat: RegExp;
+  chars: string = 'abcdefghijklmnopqrstuvwxyzäöüß';
+  dash: string = '-';
+  space: string = ' ';
 
   /**
    * Creates a name validation service.
@@ -143,9 +146,9 @@ export class NameValidationService {
    * @returns - The formatted name or initial.
    */
   getFormatted(name: string) {
-    let initial = name.toLowerCase()[0];
-    if (initial) {
-      return name.replace(initial, initial.toUpperCase());
+    if (name) {
+      let initial = name[0].toUpperCase();
+      return initial + name.slice(1).toLowerCase();
     } else {
       return name;
     }
@@ -244,5 +247,31 @@ export class NameValidationService {
   getInitial(name: string, index: number) {
     let firstInitial = this.getNameGroup(name, index);
     return this.getFormatted(firstInitial);
+  }
+
+  /**
+   * Provides the hint of the name input.
+   * @returns - The hint of the name input.
+   */
+  getHint() {
+    return 'Enter at least 2 letters.';
+  }
+
+  /**
+   * Provides the raw set.
+   * @returns - The raw set.
+   */
+  getRawSet() {
+    return this.chars + this.dash + this.space;
+  }
+
+  /**
+   * Verifies the invalidity of the name.
+   * @param value - The value to verify.
+   * @returns - A boolean value.
+   */
+  isInvalid(value: string) {
+    let name = this.getUserName(value);
+    return name.length < 2 ? true : false;
   }
 }

@@ -7,30 +7,20 @@
         <form #signUpForm="ngForm" class="form" (ngSubmit)="onSignUp(signUpForm)">
             <button class="login-arrow" type="button" (click)="onBackToLogin()"></button>
 
-            <div class="title-border-cont">
-                <h2 class="title headline-2">Sign up</h2>
-                <div class="border"></div>
-            </div>
+            <app-title title="Sign up"></app-title>
 
             <div class="input-checkbox-cont">
                 <div class="input-group">
-                    <app-input [(ngModel)]="name" name="name" placeholder="Name" [pattern]="namePat" required
-                        img="person.png" (keydown)="onValidateName($event)" [condition]="isNameInvalid()"
-                        [hint]="getNameHint()"></app-input>
-                    <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
-                        img="email.png" (keydown)="onValidateEmail($event)" [condition]="isEmailInvalid()"
-                        [hint]="getEmailHint()"></app-input>
-                    <app-input [(ngModel)]="password" name="password" type="password" placeholder="Password"
-                        [pattern]="passwordPat" required img="lock.png" [condition]="isInvalidPassword()"
-                        [hint]="getPasswordHint()"></app-input>
-                    <app-input [(ngModel)]="confirmedPassword" name="confirmedPassword" type="password"
-                        placeholder="Confirm password" [pattern]="getPasswordPat()" required img="lock.png"
-                        [condition]="isPasswordMismatch()" [hint]="getMatchHint()" [disabled]="isLocked()"></app-input>
+                    <app-text-input [(ngModel)]="name" name="name"></app-text-input>
+                    <app-text-input [(ngModel)]="email" name="email"></app-text-input>
+                    <app-password-input [(ngModel)]="password" name="password"></app-password-input>
+                    <app-password-input [(ngModel)]="matchword" name="matchword"
+                        [pattern]="password"></app-password-input>
                 </div>
 
-                <div class="privacy-policy-row">
+                <div class="privacy-policy-line">
                     <div class="privacy-policy-cont">
-                        <button class="checkbox" type="button" [ngClass]="getCheck()" (click)="onAccept()"></button>
+                        <app-checkbox (check)="onAccept($event)"></app-checkbox>
                         <div class="privacy-policy-text">
                             <span>I accept the </span>
                             <a routerLink="../main/privacy-policy">Privacy Policy</a>

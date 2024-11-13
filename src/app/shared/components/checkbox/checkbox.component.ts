@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-checkbox',
@@ -9,28 +8,27 @@ import { NgForm } from '@angular/forms';
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',
 })
+
+/**
+ * Represents a checkbox.
+ */
 export class CheckboxComponent {
   checked: boolean = false;
+  @Output() check = new EventEmitter<boolean>();
 
+  /**
+   * Provides the css class of the checkbox.
+   * @returns - The css class to apply.
+   */
   getClass() {
     return this.checked ? 'checked' : 'check';
   }
 
-  // change src folder?!
-  getSrc() {
-    if (this.checked) {
-      return '../../../assets/img/sign-up/checked.png';
-    } else {
-      return '../../../assets/img/sign-up/check.png';
-    }
-  }
-
-  check() {
+  /**
+   * Checks the checkbox on click.
+   */
+  onCheck() {
     this.checked = !this.checked ? true : false;
-  }
-
-  // is that working?
-  disable(ngForm: NgForm) {
-    return ngForm.form.invalid || !this.checked;
+    this.check.emit(this.checked);
   }
 }

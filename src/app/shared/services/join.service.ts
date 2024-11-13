@@ -14,19 +14,18 @@ import {
   QuerySnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
-import { ValidationService } from './validation.service';
 
 // verify!!!
 import { User } from '../models/user';
 import { Summary } from '../models/summary';
 import { SessionId } from '../models/session-id';
+import { nameVal } from './input-validation.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JoinService {
   firestore: Firestore = inject(Firestore);
-  val: ValidationService = inject(ValidationService);
 
   [key: string]: any;
   revealed: boolean;
@@ -56,8 +55,8 @@ export class JoinService {
    */
   get signee() {
     return {
-      initials: this.val.getInitials(this.user.name),
-      name: this.val.getName(this.user.name),
+      initials: nameVal.getInitials(this.user.name),
+      name: nameVal.getUserName(this.user.name),
       email: this.user.email,
       password: this.user.password,
     };
@@ -87,7 +86,9 @@ export class JoinService {
    * @returns - The user reference.
    */
   async setUser() {
-    return await addDoc(collection(this.firestore, 'users'), this.signee);
+    return await addDoc(collection(this.firestore, 'users'), {
+      data: this.signee,
+    });
   }
 
   /**

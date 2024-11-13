@@ -1,0 +1,31 @@
+<div>
+    <ng-container *ngTemplateOutlet="templateToShow"></ng-container>
+
+    <ng-template #textTemplate>
+        <div class="input-hint-cont" [ngClass]="getHeightClass()">
+            <div class="input-icon-cont">
+                <input [value]="value" class="input" [ngClass]="getErrorClass()" [placeholder]="placeholder" type="text"
+                    (input)="onInputChange($event)" (focus)="onFocusChange($event, true)"
+                    (blur)="onFocusChange($event, false)" (keydown)="onValueChange($event)">
+                <img class="icon" [src]="getSrc(img)" [alt]="img">
+            </div>
+            <span *ngIf="isHintDisplayed()" class="hint">{{ hint() }}</span>
+        </div>
+    </ng-template>
+
+    <ng-template #passwordTemplate>
+        <div class="input-hint-cont" [ngClass]="getContClass()">
+            <div class="input-icon-cont">
+                <input [value]="value" class="input" [ngClass]="getPasswordClass()" [placeholder]="placeholder"
+                    type="text" [disabled]="isLocked()" (input)="onInputChange($event)" (focus)="onFocusChange($event, true)"
+                    (blur)="onFocusChange($event, false)" (keydown)="onPasswordChange($event)"
+                    (copy)="onCopyCut($event)" (cut)="onCopyCut($event)">
+                <button class="vis-btn" [ngClass]="getVis()" [disabled]="!isFilled()" (click)="onVisChange()"
+                    type="button"></button>
+                <input class="mask" [value]="mask" [ngClass]="getMaskClass()" name="mask" img="lock.png"
+                    disabled="true">
+            </div>
+            <span *ngIf="isHintDisplayed()" class="hint">{{ hint() }}</span>
+        </div>
+    </ng-template>
+</div>

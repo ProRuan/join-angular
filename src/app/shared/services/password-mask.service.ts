@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { InputConfigurationService } from './input-configuration.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,63 +9,36 @@ import { Injectable } from '@angular/core';
  * Represents a password mask service.
  */
 export class PasswordMaskService {
-  chars: string = 'abcdefghijklmnopqrstuvwxyzäöüß';
-  digits: string = '0123456789';
-  special: string = '!@#$%^&*';
-  charSet: Set<string> = new Set();
-  allowedKeys: string[] = [
-    'home',
-    'end',
-    'insert',
-    'delete',
-    'backspace',
-    'tab',
-    'capslock',
-    'shift',
-    'control',
-    'meta',
-    'alt',
-    'altgraph',
-    'arrowleft',
-    'arrowright',
-  ];
+  configurator: InputConfigurationService = inject(InputConfigurationService);
+
+  charSet: Set<string> = this.configurator.input['password'].charSet;
+  allowedKeys: string[] = this.configurator.allowedKeys;
   circle: string = '\u25CF';
 
   /**
-   * Creates a password mask service.
-   */
-  constructor() {
-    this.setCharSet();
-  }
-
-  /**
-   * Sets the char set to apply.
-   */
-  setCharSet() {
-    let allowedChars = this.getAllowedChars();
-    this.charSet = new Set(allowedChars);
-  }
-
-  /**
-   * Provides the allowed chars.
-   * @returns - The allowed chars.
-   */
-  getAllowedChars() {
-    return this.chars + this.digits + this.special;
-  }
-
-  /**
-   * Provides the key.
-   * @param event - The occurring event.
-   * @returns - The key.
+   * Provides the pressed key.
+   * @param event - The KeyboardEvent.
+   * @returns - The pressed key.
    */
   getKey(event: KeyboardEvent) {
     return event.key.toLowerCase();
   }
 
   /**
-   * Verifies the disallowed key.
-   * @param key - The key to verify.
+   * Verifies the keyboard event to disallow.
+   * @param event - The KeyboardEvent.
+   * @param key - The pressed key.
+   * @returns - A boolean value.
+   */
+  isDisallowedKeyboardEvent(event: KeyboardEvent, key: string) {
+    let keyDisallowed = this.isDisallowedKey(key);
+    let keyCombDisallowed = this.isDisallowedKeyComb(event, key);
+    return keyDisallowed || keyCombDisallowed;
+  }
+
+  /**
+   * Verifies the key to disallow.
+   * @param key - The pressed key.
    * @returns - A boolean value.
    */
   isDisallowedKey(key: string) {
@@ -74,18 +48,81 @@ export class PasswordMaskService {
   }
 
   /**
-   * Verifies the changing key.
-   * @param key - The key to verify.
+   * Verifies the key combination to disallow.
+   * @param event - The KeyboardEvent.
+   * @param key - The pressed key.
    * @returns - A boolean value.
    */
-  isChangingKey(key: string) {
-    let allowedKey = this.charSet.has(key);
-    return allowedKey || this.isDeletingKey(key);
+  isDisallowedKeyComb(event: KeyboardEvent, key: string) {
+    let ctrlF = this.isModifiedKey(event, key, 'f');
+    let ctrlG = this.isModifiedKey(event, key, 'g');
+    return ctrlF || ctrlG;
+  }
+
+  /**
+   * Verifies the modified key.
+   * @param event - The KeyboardEvent.
+   * @param key - The pressed key.
+   * @param matchKey - The key to match.
+   * @returns - A boolean value.
+   */
+  isModifiedKey(event: KeyboardEvent, key: string, matchKey: string) {
+    return event.ctrlKey && key == matchKey;
+  }
+
+  /**
+   * Verifies the changing key.
+   * @param event - The KeyboardEvent.
+   * @param key - The pressed key.
+   * @returns - A boolean value.
+   */
+  isChangingKey(event: KeyboardEvent, key: string) {
+    let keyAllowed = this.isAllowedKey(event, key);
+    let atPressed = this.isAtPressed(event, key);
+    let textEdited = this.isEditingKey(event, key);
+    let deletingKey = this.isDeletingKey(key);
+    return keyAllowed || atPressed || textEdited || deletingKey;
+  }
+
+  /**
+   * Verifies the key to allow.
+   * @param event - The KeyboardEvent.
+   * @param key - The pressed key.
+   * @returns - A boolean value.
+   */
+  isAllowedKey(event: KeyboardEvent, key: string) {
+    let keyAllowed = this.charSet.has(key);
+    let ctrlState = event.ctrlKey;
+    let altState = event.altKey;
+    let altGraphState = event.getModifierState('AltGraph');
+    return keyAllowed && !ctrlState && !altState && !altGraphState;
+  }
+
+  /**
+   * Verifies the at key.
+   * @param event - The KeyboardEvent.
+   * @param key - The pressed key.
+   * @returns - A boolean value.
+   */
+  isAtPressed(event: KeyboardEvent, key: string) {
+    let ctrlAltAt = event.ctrlKey && event.altKey && key == '@';
+    let altGraphAt = event.getModifierState('AltGraph') && key == '@';
+    return ctrlAltAt || altGraphAt;
+  }
+
+  /**
+   * Verifies the editing key.
+   * @param event - The KeyboardEvent.
+   * @param key - The pressed key.
+   * @returns - A boolean value.
+   */
+  isEditingKey(event: KeyboardEvent, key: string) {
+    return event.ctrlKey && (key == 'v' || key == 'y' || key == 'z');
   }
 
   /**
    * Verifies the deleting key.
-   * @param key - The key to verify.
+   * @param key - The pressed key.
    * @returns - A boolean value.
    */
   isDeletingKey(key: string) {
@@ -104,8 +141,20 @@ export class PasswordMaskService {
   }
 
   /**
+   * Verifies the doing key.
+   * @param event - The KeyboardEvent.
+   * @param key - The pressed key.
+   * @returns - A boolean value.
+   */
+  isDoingKeyComb(event: KeyboardEvent, key: string) {
+    let ctrlY = this.isModifiedKey(event, key, 'y');
+    let ctrlZ = this.isModifiedKey(event, key, 'z');
+    return ctrlY || ctrlZ;
+  }
+
+  /**
    * Provides the mask.
-   * @param key - The key to process.
+   * @param key - The pressed key.
    * @param value  - The password value.
    * @param cursorPos - The cursor position.
    * @returns - The mask.
@@ -121,7 +170,7 @@ export class PasswordMaskService {
 
   /**
    * Verifies the char to mask.
-   * @param key - The key to process.
+   * @param key - The pressed key.
    * @param i - The index of the char.
    * @param cursorPos - The cursor position.
    * @returns - A boolean value.
@@ -131,12 +180,12 @@ export class PasswordMaskService {
   }
 
   /**
-   * Provides the final mask.
+   * Provides the complete mask.
    * @param mask - The mask to complete.
    * @param cursorPos - The cursor position.
-   * @returns - The final mask.
+   * @returns - The complete mask.
    */
-  getFinalMask(mask: string, cursorPos: number) {
+  getCompleteMask(mask: string, cursorPos: number) {
     return mask.replace(mask[cursorPos], this.circle);
   }
 }

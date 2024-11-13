@@ -17,11 +17,10 @@
 
             <div class="input-checkbox-cont">
                 <div class="input-group">
-                    <app-input [(ngModel)]="email" name="email" placeholder="Email" [pattern]="emailPat" required
-                        img="email.png"></app-input>
-                    <!-- set condition and hint text!!! -->
-                    <app-input [(ngModel)]="password" name="password" placeholder="Password" [pattern]="passwordPat"
-                        required img="lock.png" [condition]="true" [hint]="hint"></app-input>
+                    <!-- check email hint!!! -->
+                    <app-text-input [(ngModel)]="email" name="email"></app-text-input>
+                    <!-- check password hint!!! -->
+                    <app-password-input [(ngModel)]="password" name="password"></app-password-input>
                 </div>
 
                 <div class="remember-me-cont">

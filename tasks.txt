@@ -4,11 +4,19 @@ Join
 
 Final Tasks
 -----------
+  - prepare a GlobalFunctionService ... !!!
   - Set onFunction() ...
   - delete not used events ... !
   - ValClass as ValServices ... ?
   - other classes as services ... ?
   - value != null --> null (false) ... !
+
+  - delete InputComponent ... !
+  - keep or delete SuperInputComponent + rename to InputComponent ... ?
+  - remove ValidationService ... !
+
+  - think about isValueVerified() or getVerifiedValue()!!!
+  - think about any type (input classes and input services)!!!
 
 
 Completed (0/?)
@@ -18,10 +26,14 @@ Completed (0/?)
 Complete (1/?)
 --------
 
-shared/components (2/?)
+shared/components (5/?)
 -----------------
-  - InputComponent - check
+  - CheckboxComponent - check
+  - InputComponent - ... (necessary???)
   - LogoComponent - check
+  - PasswordComponent - check
+  - TextInputComponent - check
+  - TitleComponent - check
 
 shared/interfaces (4/?) -1?
 -----------------
@@ -30,16 +42,21 @@ shared/interfaces (4/?) -1?
   - Styles - check
   - States - check
 
-shared/models (2/?)
+shared/models (4/?)
 -------------
+  - BasicInput - check
+  - PasswordInput - check
   - SessionId - check
   - Transform - check
 
-shared/services (3/?)
+shared/services (5/?)
 ---------------
-  - NameValidationService - check
   - EmailValidationService - check
+  - InputConfigurationService - check
+  - InputValidationService - check
+  - NameValidationService - check
   - PasswordMaskService - check
+  - PasswordValidationService - check
 
 
   --> input   // width: 422px / 440px / 456px!!!
