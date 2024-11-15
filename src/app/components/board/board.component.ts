@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DraggableTaskComponent } from './draggable-task/draggable-task.component';
 import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
 import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
-import { User } from '../../shared/models/user';
+// import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-board',
@@ -20,7 +20,7 @@ export class BoardComponent {
 
   filter: string = '';
   currTask: any;
-  user: User = new User();
+  // user: User = new User();
 
   draggableTasks = [
     {
@@ -56,9 +56,9 @@ export class BoardComponent {
   ];
 
   async ngOnInit() {
-    await this.mainComponent.ngOnInit();
-    this.user = this.mainComponent.user;
-    console.log('from main user: ', this.mainComponent.user);
+    // await this.mainComponent.ngOnInit();
+    // this.user = this.mainComponent.user;
+    // console.log('from main user: ', this.mainComponent.user);
   }
 
   filterTasks(input: HTMLInputElement) {

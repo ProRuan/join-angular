@@ -32,14 +32,11 @@ import {
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
-
-/**
- * Represents a sign-up component.
- */
 export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
+  [key: string]: any;
   name: string = '';
   email: string = '';
   password: string = '';
@@ -50,16 +47,16 @@ export class SignUpComponent {
   ppAccepted: boolean = false;
   signedUp: boolean = false;
 
-  // jsdoc
-  get user() {
-    return this.join.user;
-  }
+  // // jsdoc
+  // get user() {
+  //   return this.join.user;
+  // }
 
-  // jsdoc
-  get users() {
-    this.join.getUsers();
-    return this.join.users;
-  }
+  // // jsdoc
+  // get users() {
+  //   this.join.getUsers();
+  //   return this.join.users;
+  // }
 
   /**
    * Redirects to the login.
@@ -69,58 +66,59 @@ export class SignUpComponent {
     this.join.setIntroDone();
   }
 
-  // fix validation letter + control/alt/altshift
   // move to the top!!!
   async onSignUp(ngForm: NgForm) {
-    if (ngForm.form.valid) {
-      this.name = nameVal.getUserName(this.name);
-      this.email = emailVal.getEmail(this.email);
-      this.password = passwordVal.getPassword(this.password);
-      console.log('signee: ', this.name, this.email, this.password);
-
-      this.user.name = this.name;
-      this.user.email = this.email;
-      this.user.password = this.password;
-
-      let userData = {
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.password,
-      };
-      console.log('user data: ', userData);
-
-      let userDoc = {
-        id: '',
-        data: userData,
-      };
-      console.log('user doc: ', userDoc);
-
-      // await this.createUser();
-
-      // I. Verify if user (email) exists!
-      // ---------------------------------
-      // let signee = this.users.find((u) => (u.email = this.user.email));
-      // if (signee) {
-      //   console.log('User already exists!');
-      // }
-      // II. Verify passwords!
-      // let test = new PasswordVal(this.user.password).getResult();
-      // console.log('got pw validation: ', test);
-      // III: Sign up!!!
-      // ---------------
-      // this.signedUp = true;
-      // await this.createUser();
-      // // myRouterService???
-      // console.log('signed up successfully: ', this.user.sid);
-      // this.router.navigateByUrl('login/' + this.user.sid);
-    }
+    // if (ngForm.form.valid) {
+    //   this.setSignUpData();
+    //   console.log('signee: ', this.name, this.email, this.password);
+    //   this.setSigneeData();
+    //   let userData = {
+    //     name: this.user.name,
+    //     email: this.user.email,
+    //     password: this.user.password,
+    //   };
+    //   console.log('user data: ', userData);
+    //   let userDoc = {
+    //     id: '',
+    //     data: userData,
+    //   };
+    //   console.log('user doc: ', userDoc);
+    //   // I. Verify if user (email) exists!
+    //   // ---------------------------------
+    //   // let signee = this.users.find((u) => (u.email = this.user.email));
+    //   // if (signee) {
+    //   //   console.log('User already exists!');
+    //   // }
+    //   // III: Sign up!!!
+    //   // ---------------
+    //   this.signedUp = true;
+    //   await this.createUser();
+    //   console.log('signed up successfully: ', this.user.sid);
+    //   this.router.navigateByUrl('login/' + this.user.sid);
+    // }
   }
 
-  // jsdoc
-  async createUser() {
-    await this.join.addUser().then(() => this.join.subscribeUser());
-    await this.join.setSecurityId();
-  }
+  // setSignUpData() {
+  //   this.name = nameVal.getUserName(this.name);
+  //   this.email = emailVal.getEmail(this.email);
+  //   this.password = passwordVal.getPassword(this.password);
+  // }
+
+  // setSigneeData() {
+  //   this.setSigneeProperty('name');
+  //   this.setSigneeProperty('email');
+  //   this.setSigneeProperty('password');
+  // }
+
+  // setSigneeProperty(key: string) {
+  //   this.user[key] = this[key];
+  // }
+
+  // // jsdoc
+  // async createUser() {
+  //   await this.join.addUser().then(() => this.join.subscribeUser());
+  //   await this.join.setSecurityId();
+  // }
 
   /**
    * Accepts the privacy policy on click.
@@ -138,10 +136,4 @@ export class SignUpComponent {
   isDisabled(ngForm: NgForm) {
     return ngForm.form.invalid || !this.ppAccepted || this.signedUp;
   }
-
-  // sign up
-  // -------
-  // get token of logged in user
-  // set user data of logged in user
-  // avoid blinking
 }

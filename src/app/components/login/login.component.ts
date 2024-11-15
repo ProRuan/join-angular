@@ -5,10 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
-import { User } from '../../shared/models/user';
 
 // verify!!!
-import { UserService } from '../../shared/services/user.service';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
 
@@ -32,7 +30,7 @@ export class LoginComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
-  user: UserService = inject(UserService);
+  // user: UserService = inject(UserService);
 
   sid: string;
   email: string;
@@ -56,21 +54,20 @@ export class LoginComponent {
 
   // set email after getting user!!!
   async ngOnInit() {
-    await this.join.getUsers();
-    console.log('all join users: ', this.join.users);
-
-    const sid = this.route.snapshot.paramMap.get('id');
-    if (sid) {
-      // set user via UserService --> get/set user from join!!!
-      this.sid = sid;
-      let user = this.join.users.find((u) => u.sid == sid);
-      if (user) {
-        this.email = user.email;
-      }
-      console.log('new user login: ', user);
-    } else {
-      console.log('user login');
-    }
+    // await this.join.getUsers();
+    // console.log('all join users: ', this.join.users);
+    // const sid = this.route.snapshot.paramMap.get('id');
+    // if (sid) {
+    //   // set user via UserService --> get/set user from join!!!
+    //   this.sid = sid;
+    //   let user = this.join.users.find((u) => u.sid == sid);
+    //   if (user) {
+    //     this.email = user.email;
+    //   }
+    //   console.log('new user login: ', user);
+    // } else {
+    //   console.log('user login');
+    // }
   }
 
   // improve!!!
@@ -79,29 +76,28 @@ export class LoginComponent {
   }
 
   async logIn(ngForm: NgForm) {
-    if (ngForm.form.valid) {
-      let user = this.join.users.find((u) => this.exists(u));
-      if (user) {
-        this.join.user = new User(user);
-        await this.join.setSecurityId();
-        console.log('secondary sid: ', this.user);
-      }
-
-      if (this.user.id) {
-        this.join.id = this.user.id;
-        // set id in join service!!!
-      }
-      console.log('logged in successfully: ', this.join.user);
-      this.join.subscribeUser();
-      // subscribe all users as well!!!
-      this.router.navigate(['main', this.user.sid, 'summary']);
-    }
+    // if (ngForm.form.valid) {
+    //   let user = this.join.users.find((u) => this.exists(u));
+    //   if (user) {
+    //     this.join.user = new User(user);
+    //     await this.join.setSecurityId();
+    //     console.log('secondary sid: ', this.user);
+    //   }
+    //   if (this.user.id) {
+    //     this.join.id = this.user.id;
+    //     // set id in join service!!!
+    //   }
+    //   console.log('logged in successfully: ', this.join.user);
+    //   this.join.subscribeUser();
+    //   // subscribe all users as well!!!
+    //   this.router.navigate(['main', this.user.sid, 'summary']);
+    // }
   }
 
-  // jsdoc
-  exists(user: User) {
-    return user.email === this.email && user.password === this.password;
-  }
+  // // jsdoc
+  // exists(user: User) {
+  //   return user.email === this.email && user.password === this.password;
+  // }
 
   // double code (4x)!!!
   getCheckbox() {

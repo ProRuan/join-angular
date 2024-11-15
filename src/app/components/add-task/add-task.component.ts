@@ -10,7 +10,7 @@ import { last } from 'rxjs';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
 import { CategoryService } from '../../shared/services/category.service';
 import { SubtaskService } from '../../shared/services/subtask.service';
-import { User } from '../../shared/models/user';
+// import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-add-task',
@@ -101,17 +101,17 @@ export class AddTaskComponent {
     };
   }
 
-  get user() {
-    return this.join.user;
-  }
+  // get user() {
+  //   return this.join.user;
+  // }
 
-  async ngOnInit() {
-    console.log('got user via join service: ', this.join.user);
-    if (!this.user.tasks) {
-      this.user.tasks = [];
-    }
-    this.formatCurrDate();
-  }
+  // async ngOnInit() {
+  //   console.log('got user via join service: ', this.join.user);
+  //   if (!this.user.tasks) {
+  //     this.user.tasks = [];
+  //   }
+  //   this.formatCurrDate();
+  // }
 
   switchAssignedTo() {
     if (!this.asToData.opened) {
@@ -271,21 +271,21 @@ export class AddTaskComponent {
 
   // add task to user!!!
   async addTask(ngForm: NgForm) {
-    if (ngForm.form.valid) {
-      this.task.assignedTo = this.assignedContacts;
-      this.task.prio = this.prioData.prio;
-      this.task.subtasks = this.subTData.subtasks;
-      if (this.user.id) {
-        await this.join.updateUserProperty('tasks', JSON.stringify(this.task));
-        console.log('task created: ', this.task);
-      }
-      // check error!!!
-      // if (this.user.id) {
-      //   let temp = await this.userData.getUser(this.user.id);
-      //   console.log('tasks updated: ', JSON.parse(temp.tasks));
-      // }
-    } else {
-      console.log('not valid');
-    }
+    // if (ngForm.form.valid) {
+    //   this.task.assignedTo = this.assignedContacts;
+    //   this.task.prio = this.prioData.prio;
+    //   this.task.subtasks = this.subTData.subtasks;
+    //   if (this.user.id) {
+    //     await this.join.updateUserProperty('tasks', JSON.stringify(this.task));
+    //     console.log('task created: ', this.task);
+    //   }
+    //   // check error!!!
+    //   // if (this.user.id) {
+    //   //   let temp = await this.userData.getUser(this.user.id);
+    //   //   console.log('tasks updated: ', JSON.parse(temp.tasks));
+    //   // }
+    // } else {
+    //   console.log('not valid');
+    // }
   }
 }

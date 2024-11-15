@@ -15,7 +15,6 @@ import { DialogEditContactComponent } from './dialog-edit-contact/dialog-edit-co
 import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
 import { DialogAddContactComponent } from './dialog-add-contact/dialog-add-contact.component';
 import { DialogAddContactService } from '../../shared/services/dialog-add-contact.service';
-import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-main',
@@ -47,29 +46,28 @@ export class MainComponent {
 
   mainToken: any;
   sid: any;
-  user = new User();
-  users: User[] = [];
+  // user = new User();
+  // users: User[] = [];
 
   // create own function!!!
   async ngOnInit() {
-    const sid = this.route.snapshot.paramMap.get('id');
-    console.log('main user sid: ', sid);
-
-    if (sid) {
-      this.join.sid = sid;
-      // set user via UserService --> get/set user from join!!!
-      this.sid = sid;
-      let user = this.join.users.find((u) => u.sid == sid);
-      if (user) {
-        this.join.user = new User(user);
-        if (this.join.user.id) {
-          this.join.id = this.join.user.id;
-          this.join.subscribeUser();
-        }
-        console.log('main user: ', this.join.user);
-      }
-    } else {
-      console.log('no main user');
-    }
+    // const sid = this.route.snapshot.paramMap.get('id');
+    // console.log('main user sid: ', sid);
+    // if (sid) {
+    //   this.join.sid = sid;
+    //   // set user via UserService --> get/set user from join!!!
+    //   this.sid = sid;
+    //   let user = this.join.users.find((u) => u.sid == sid);
+    //   if (user) {
+    //     this.join.user = new User(user);
+    //     if (this.join.user.id) {
+    //       this.join.id = this.join.user.id;
+    //       this.join.subscribeUser();
+    //     }
+    //     console.log('main user: ', this.join.user);
+    //   }
+    // } else {
+    //   console.log('no main user');
+    // }
   }
 }

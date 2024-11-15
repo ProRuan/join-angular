@@ -64,30 +64,32 @@ export class SummaryComponent {
 
   constructor() {}
 
-  // jsdoc
-  get user() {
-    return this.join.user;
-  }
+  // remove or reactivate!!!
+  // -----------------------
+  // // jsdoc
+  // get user() {
+  //   return this.join.user;
+  // }
 
-  // jsdoc
-  get summary() {
-    if (this.user.summary) {
-      return this.user.summary;
-    } else {
-      return new Summary();
-    }
-  }
+  // // jsdoc
+  // get summary() {
+  //   if (this.user.summary) {
+  //     return this.user.summary;
+  //   } else {
+  //     return new Summary();
+  //   }
+  // }
 
-  // jsdoc
-  async ngOnInit() {
-    await this.addSummary();
-  }
+  // // jsdoc
+  // async ngOnInit() {
+  //   await this.addSummary();
+  // }
 
-  // jsdoc + necessary?
-  async addSummary() {
-    if (!this.user.summary) {
-      this.user.summary = new Summary();
-      await this.join.updateUserProperty('summary', this.user.summary);
-    }
-  }
+  // // jsdoc + necessary?
+  // async addSummary() {
+  //   if (!this.user.summary) {
+  //     this.user.summary = new Summary();
+  //     await this.join.updateUserProperty('summary', this.user.summary);
+  //   }
+  // }
 }
