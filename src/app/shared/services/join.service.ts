@@ -2,62 +2,42 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
-  deleteDoc,
   doc,
   DocumentReference,
-  DocumentSnapshot,
   Firestore,
-  FirestoreError,
-  getDoc,
   getDocs,
   onSnapshot,
   QuerySnapshot,
   updateDoc,
 } from '@angular/fire/firestore';
-
-// verify!!!
-import { SessionId } from '../models/session-id';
+import { SessionIdService } from './session-id.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Represents a join service.
+ */
 export class JoinService {
   firestore: Firestore = inject(Firestore);
+  sid: SessionIdService = inject(SessionIdService);
 
   [key: string]: any;
   revealed: boolean;
   relocated: boolean;
+  users: User[] = [];
 
-  // // verify!!!
-  // id: string;
-  // sid: string;
-  // user: User;
-  // userDoc: UserDoc;
-  // userDocs: UserDoc[];
-  // users: User[];
-  // charCodes: string[];
+  // work with opacity and visibility!!!
+  // work with opacity and visibility for other things like
+  // logo animation, password mask etc.
 
   // edit!!!
   constructor() {
     this.revealed = false;
     this.relocated = false;
-    // this.id = '';
-    // this.sid = '';
-    // this.user = new User();
-    // this.userDoc = new UserDoc();
-    // this.userDocs = [];
-    // this.users = [];
-    // this.charCodes = [];
   }
-
-  // get signee() {
-  //   return {
-  //     initials: nameVal.getInitials(this.user.name),
-  //     name: nameVal.getUserName(this.user.name),
-  //     email: this.user.email,
-  //     password: this.user.password,
-  //   };
-  // }
 
   /**
    * Sets the intro to done.
@@ -69,48 +49,82 @@ export class JoinService {
     }
   }
 
-  // // jsdoc + then as async fn?!
-  // async addUser() {
-  //   try {
-  //     await this.setUser().then((userRef) => this.setUserId(userRef));
-  //   } catch (error) {
-  //     console.error('Error - Could not add user: ', error);
-  //   }
-  // }
+  /**
+   * Adds the user.
+   * @param data - The signee data.
+   * @returns - The user id or void.
+   */
+  async addUser(data: any): Promise<string | void> {
+    try {
+      return await this.addUserDoc(data);
+    } catch (error) {
+      console.error('Error - Could not add user: ', error);
+    }
+  }
 
-  // /**
-  //  * Sets a user.
-  //  * @returns - The user reference.
-  //  */
-  // async setUser() {
-  //   return await addDoc(collection(this.firestore, 'users'), {
-  //     data: this.signee,
-  //   });
-  // }
+  /**
+   * Adds the user document.
+   * @param data - The signee data.
+   * @returns - The user id.
+   */
+  async addUserDoc(data: any) {
+    const userRef = await this.addUserData(data);
+    return await this.addUserId(userRef);
+  }
 
-  // /**
-  //  * Set the user id.
-  //  * @param userRef - The user Reference.
-  //  */
-  // async setUserId(userRef: DocumentReference) {
-  //   this.id = userRef.id;
-  //   await this.updateUserProperty('id', this.id);
-  // }
+  /**
+   * Adds the user data.
+   * @param data - The signee data.
+   * @returns - The user reference.
+   */
+  async addUserData(data: any) {
+    return await addDoc(collection(this.firestore, 'users'), data);
+  }
 
-  // // jsdoc + data types
-  // async updateUserProperty(key: string, value: string | Summary) {
-  //   try {
-  //     await this.setUserProperty(key, value);
-  //   } catch (error) {
-  //     console.log('Error - Could not update user property: ', error);
-  //   }
-  // }
+  /**
+   * Adds the user id.
+   * @param userRef - The user reference.
+   * @returns - The user id.
+   */
+  async addUserId(userRef: DocumentReference) {
+    const id = userRef.id;
+    await this.updateUser(id, 'id', id);
+    return id;
+  }
 
-  // // jsdoc + data types
-  // async setUserProperty(key: string, value: string | Summary) {
-  //   const userRef = doc(this.firestore, 'users', this.id);
-  //   await updateDoc(userRef, { [key]: value });
-  // }
+  /**
+   * Updates the user.
+   * @param id - The user id.
+   * @param key - The property key.
+   * @param value - the property value.
+   */
+  async updateUser(id: string, key: string, value: string) {
+    try {
+      await this.updateUserDoc(id, key, value);
+    } catch (error) {
+      console.log('Error - Could not update user: ', error);
+    }
+  }
+
+  /**
+   * Updates the user document.
+   * @param id - The user id.
+   * @param key - The property key.
+   * @param value - The property value.
+   */
+  async updateUserDoc(id: string, key: string, value: string) {
+    const userRef = doc(this.firestore, 'users', id);
+    await updateDoc(userRef, { [key]: value });
+  }
+
+  subscribeUser(id: string) {
+    // update values user and userDoc!!!
+    const unsubscribe = onSnapshot(
+      doc(this.firestore, 'users', id),
+      (userDoc) => console.log('subscribed user: ', userDoc.data()),
+      (error) => console.log('Error - Could not subscribe user: ', error)
+    );
+  }
 
   // // jsdoc
   // subscribeUser() {
@@ -130,6 +144,17 @@ export class JoinService {
   // logError(error: FirestoreError) {
   //   console.log('Error - Could not subscribe user: ', error);
   // }
+
+  /**
+   * Adds the session id.
+   * @param id - The user id.
+   * @returns - The session id.
+   */
+  async addSessionId(id: string) {
+    let sid = this.sid.get();
+    await this.updateUser(id, 'sid', sid);
+    return sid;
+  }
 
   // // jsdoc
   // async getUser() {
@@ -152,34 +177,23 @@ export class JoinService {
   //   await deleteDoc(doc(this.firestore, 'users', this.id));
   // }
 
-  // // jsdoc
-  // async getUsers() {
-  //   const querySnapshot = await getDocs(collection(this.firestore, 'users'));
-  //   this.pushUsers(querySnapshot);
-  // }
+  async getUsers() {
+    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
+    this.pushUsers(querySnapshot);
+    return this.users;
+  }
 
-  // pushUsers(querySnapshot: QuerySnapshot) {
-  //   this.users = [];
-  //   querySnapshot.forEach((doc) => {
-  //     let docData = doc.data();
-  //     let user = new User(doc.data());
-  //     console.log('user data - test: ', doc.data());
-  //     let userDoc = new UserDoc(doc);
-  //     // new object and new object array!!!
-  //     user.name = docData['data'].name;
-  //     user.email = docData['data'].email;
-  //     user.password = docData['data'].password;
-  //     this.users.push(user);
-  //     console.log('user doc - test: ', userDoc);
-  //     this.userDocs.push(userDoc);
-  //   });
-  // }
-
-  // // rename!!!
-  // async setSecurityId() {
-  //   this.user.sid = new SessionId().get();
-  //   await this.updateUserProperty('sid', this.user.sid);
-  // }
+  pushUsers(querySnapshot: QuerySnapshot) {
+    this.users = [];
+    querySnapshot.forEach((doc) => {
+      let user = doc.data();
+      let userData = user['data'];
+      console.log('user data: ', userData);
+      let tempUser = new User(userData);
+      this.users.push(tempUser);
+      console.log('users: ', this.users);
+    });
+  }
 
   // add class UserDoc - check
   // add class UserId ...

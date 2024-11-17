@@ -1,0 +1,39 @@
+@import "../../../../mixins.scss";
+
+.log-layer {
+  @include size($w: 100%, $h: 100vh);
+  @include display-flex();
+  @include position($pos: fixed, $l: 0, $t: 0);
+  z-index: 10;
+  transition: all 200ms ease-in-out;
+}
+
+.vis-hidden {
+  background-color: rgba(0, 0, 0, 0);
+  visibility: hidden;
+}
+
+.vis-visible {
+  background-color: rgba(0, 0, 0, 0.25);
+  visibility: visible;
+}
+
+.log {
+  @include box-padding($p: 25px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $white, $bgc: $dark);
+  @include display-flex();
+  @include position($pos: relative, $l: 0);
+  width: fit-content;
+  border-radius: 20px;
+  box-shadow: 0 0 4px 0 $black;
+  transition: all 200ms ease-in-out;
+}
+
+.pos-hidden {
+  top: calc(50vh + 57px);
+}
+
+.pos-visible {
+  top: 0vh;
+}

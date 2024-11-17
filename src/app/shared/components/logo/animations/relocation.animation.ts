@@ -1,9 +1,9 @@
 import { Properties } from '../../../interfaces/properties';
 import { Transform } from '../../../models/transform';
 
-let name = 'relocation';
+const name: string = 'relocation';
 
-let properties: Properties = {
+const properties: Properties = {
   start: {
     left: 'calc(calc(100% - 274px) / 2)',
     top: 'calc(calc(100vh - 335px) / 2)',
@@ -16,4 +16,6 @@ let properties: Properties = {
   },
 };
 
-export const relocation = new Transform(name, properties);
+const timings: string = '500ms 300ms ease-in-out';
+
+export const relocation = new Transform(name, properties, timings);

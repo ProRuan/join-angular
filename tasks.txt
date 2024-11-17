@@ -42,14 +42,14 @@ shared/interfaces (4/?) -1?
   - Styles - check
   - States - check
 
-shared/models (4/?)
+shared/models (3/?)
 -------------
   - BasicInput - check
   - PasswordInput - check
-  - SessionId - check
+  - SessionId - ... --> delete!!!
   - Transform - check
 
-shared/services (5/?)
+shared/services (7/?)
 ---------------
   - EmailValidationService - check
   - InputConfigurationService - check
@@ -57,6 +57,7 @@ shared/services (5/?)
   - NameValidationService - check
   - PasswordMaskService - check
   - PasswordValidationService - check
+  - SessionIdService - check
 
 
   --> input   // width: 422px / 440px / 456px!!!

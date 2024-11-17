@@ -1,9 +1,9 @@
 import { Properties } from '../../../interfaces/properties';
 import { Transform } from '../../../models/transform';
 
-let name = 'revelation';
+const name: string = 'revelation';
 
-let properties: Properties = {
+const properties: Properties = {
   start: {
     backgroundColor: '#f6f7f8',
   },
@@ -12,4 +12,6 @@ let properties: Properties = {
   },
 };
 
-export const revelation = new Transform(name, properties);
+const timings: string = '500ms 300ms ease-in-out';
+
+export const revelation = new Transform(name, properties, timings);

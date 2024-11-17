@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { LogComponent } from '../../shared/components/log/log.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
@@ -22,6 +23,7 @@ import {
     CommonModule,
     FormsModule,
     RouterLink,
+    LogComponent,
     LogoComponent,
     TitleComponent,
     TextInputComponent,
@@ -32,11 +34,16 @@ import {
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
 })
+
+/**
+ * Represents a sign-up component.
+ */
 export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
   [key: string]: any;
+  initials: string = '';
   name: string = '';
   email: string = '';
   password: string = '';
@@ -46,17 +53,85 @@ export class SignUpComponent {
   passwordPat: RegExp = passwordVal.passwordPat;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
+  logKey: string = '';
+  logged: boolean = false;
+  sid: string = '';
 
-  // // jsdoc
-  // get user() {
-  //   return this.join.user;
-  // }
+  // move to the top!!!
+  async onSignUp(ngForm: NgForm) {
+    if (ngForm.form.valid) {
+      this.signedUp = true;
+      this.updateSignUpData();
+      let data = this.getSigneeData();
 
-  // // jsdoc
-  // get users() {
-  //   this.join.getUsers();
-  //   return this.join.users;
-  // }
+      let users = await this.join.getUsers();
+      let user = users.find((u) => u.email === this.email);
+      if (user) {
+        this.setLog(true, 'email');
+        setTimeout(() => {
+          this.setLog(false);
+          this.signedUp = false;
+        }, 1200);
+      } else {
+        this.setLog(true, 'signUp');
+
+        await this.registerUser(data);
+        console.log('signed up successfully: ', this.sid); // remove!!!
+
+        setTimeout(() => {
+          // double code!!!
+          this.router.navigateByUrl('login/' + this.sid);
+          this.join.setIntroDone();
+        }, 1000);
+      }
+    }
+  }
+
+  /**
+   * Sets the log.
+   * @param value - A boolean value.
+   * @param key - The key of the log text.
+   */
+  setLog(value: boolean, key?: string) {
+    this.logKey = key ? key : this.logKey;
+    this.logged = value;
+  }
+
+  // think about function sequence!!!
+  // jsdoc + rename name --> subname and username --> name!!!
+  updateSignUpData() {
+    this.initials = nameVal.getInitials(this.name);
+    this.name = nameVal.getUserName(this.name);
+    this.email = emailVal.getEmail(this.email);
+    this.password = passwordVal.getPassword(this.password);
+  }
+
+  /**
+   * Provides the signee data.
+   * @returns - The signee data.
+   */
+  getSigneeData() {
+    return {
+      data: {
+        initials: this.initials,
+        name: this.name,
+        email: this.email,
+        password: this.password,
+      },
+    };
+  }
+
+  /**
+   * Registers the user.
+   * @param data - The signee data.
+   */
+  async registerUser(data: any) {
+    let id = await this.join.addUser(data);
+    if (id) {
+      this.join.subscribeUser(id);
+      this.sid = await this.join.addSessionId(id);
+    }
+  }
 
   /**
    * Redirects to the login.
@@ -65,60 +140,6 @@ export class SignUpComponent {
     this.router.navigateByUrl('login');
     this.join.setIntroDone();
   }
-
-  // move to the top!!!
-  async onSignUp(ngForm: NgForm) {
-    // if (ngForm.form.valid) {
-    //   this.setSignUpData();
-    //   console.log('signee: ', this.name, this.email, this.password);
-    //   this.setSigneeData();
-    //   let userData = {
-    //     name: this.user.name,
-    //     email: this.user.email,
-    //     password: this.user.password,
-    //   };
-    //   console.log('user data: ', userData);
-    //   let userDoc = {
-    //     id: '',
-    //     data: userData,
-    //   };
-    //   console.log('user doc: ', userDoc);
-    //   // I. Verify if user (email) exists!
-    //   // ---------------------------------
-    //   // let signee = this.users.find((u) => (u.email = this.user.email));
-    //   // if (signee) {
-    //   //   console.log('User already exists!');
-    //   // }
-    //   // III: Sign up!!!
-    //   // ---------------
-    //   this.signedUp = true;
-    //   await this.createUser();
-    //   console.log('signed up successfully: ', this.user.sid);
-    //   this.router.navigateByUrl('login/' + this.user.sid);
-    // }
-  }
-
-  // setSignUpData() {
-  //   this.name = nameVal.getUserName(this.name);
-  //   this.email = emailVal.getEmail(this.email);
-  //   this.password = passwordVal.getPassword(this.password);
-  // }
-
-  // setSigneeData() {
-  //   this.setSigneeProperty('name');
-  //   this.setSigneeProperty('email');
-  //   this.setSigneeProperty('password');
-  // }
-
-  // setSigneeProperty(key: string) {
-  //   this.user[key] = this[key];
-  // }
-
-  // // jsdoc
-  // async createUser() {
-  //   await this.join.addUser().then(() => this.join.subscribeUser());
-  //   await this.join.setSecurityId();
-  // }
 
   /**
    * Accepts the privacy policy on click.

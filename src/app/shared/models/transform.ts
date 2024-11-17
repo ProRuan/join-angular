@@ -29,14 +29,15 @@ export class Transform {
    * Creates a transform (animation).
    * @param name - The transform name.
    * @param properties - The css properties.
+   * @param timings - The transform timings.
    */
-  constructor(name: string, properties: Properties) {
+  constructor(name: string, properties: Properties, timings: string) {
     this.name = name;
     this.properties = properties;
     this.styles = this.getStyles();
     this.states = this.getStates();
     this.stateChangeExpr = this.getStateChangeExpr();
-    this.timings = this.getTimings();
+    this.timings = this.getTimings(timings);
     this.transition = this.getTransition();
     this.animation = this.getAnimation();
   }
@@ -89,10 +90,11 @@ export class Transform {
 
   /**
    * Provides the animation timings.
+   * @param timings - The animation timings.
    * @returns - The animation timings.
    */
-  getTimings() {
-    return '300ms 700ms ease-in-out';
+  getTimings(timings: string) {
+    return timings;
   }
 
   /**
