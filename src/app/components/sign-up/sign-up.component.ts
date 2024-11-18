@@ -57,53 +57,76 @@ export class SignUpComponent {
   logged: boolean = false;
   sid: string = '';
 
-  // move to the top!!!
+  /**
+   * Executes the sign-up on submit.
+   * @param ngForm - The sign-up form.
+   */
   async onSignUp(ngForm: NgForm) {
     if (ngForm.form.valid) {
       this.signedUp = true;
       this.updateSignUpData();
-      let data = this.getSigneeData();
-
-      let users = await this.join.getUsers();
-      let user = users.find((u) => u.email === this.email);
-      if (user) {
-        this.setLog(true, 'email');
-        setTimeout(() => {
-          this.setLog(false);
-          this.signedUp = false;
-        }, 1200);
-      } else {
-        this.setLog(true, 'signUp');
-
-        await this.registerUser(data);
-        console.log('signed up successfully: ', this.sid); // remove!!!
-
-        setTimeout(() => {
-          // double code!!!
-          this.router.navigateByUrl('login/' + this.sid);
-          this.join.setIntroDone();
-        }, 1000);
-      }
+      await this.processSignUpData();
     }
   }
 
   /**
-   * Sets the log.
-   * @param value - A boolean value.
-   * @param key - The key of the log text.
+   * Updates the sign-up data.
    */
-  setLog(value: boolean, key?: string) {
-    this.logKey = key ? key : this.logKey;
-    this.logged = value;
-  }
-
-  // think about function sequence!!!
-  // jsdoc + rename name --> subname and username --> name!!!
   updateSignUpData() {
     this.initials = nameVal.getInitials(this.name);
     this.name = nameVal.getUserName(this.name);
     this.email = emailVal.getEmail(this.email);
     this.password = passwordVal.getPassword(this.password);
+  }
+
+  /**
+   * Processes the sign-up data.
+   */
+  async processSignUpData() {
+    let userExistend = await this.join.isUserExistent(this.email);
+    if (userExistend) {
+      this.executeFeedback();
+    } else {
+      this.executeRegistration();
+    }
+  }
+
+  /**
+   * Executes the user feedback.
+   */
+  executeFeedback() {
+    this.setLog(true, 'email');
+    this.returnForm();
+  }
+
+  /**
+   * Sets the log.
+   * @param displayed - A boolean value.
+   * @param key - The key of the log text.
+   */
+  setLog(displayed: boolean, key?: string) {
+    this.logKey = key ? key : this.logKey;
+    this.logged = displayed;
+  }
+
+  /**
+   * Returns the sign-up form.
+   */
+  returnForm() {
+    setTimeout(() => {
+      this.setLog(false);
+      this.signedUp = false;
+    }, 2000);
+  }
+
+  /**
+   * Executes the user registration.
+   */
+  async executeRegistration() {
+    let data = this.getSigneeData();
+    await this.registerUser(data);
+    this.setLog(true, 'signUp');
+    this.selectCustomLogin();
   }
 
   /**
@@ -134,23 +157,41 @@ export class SignUpComponent {
   }
 
   /**
-   * Redirects to the login.
+   * Selects the custom login.
    */
-  onBackToLogin() {
-    this.router.navigateByUrl('login');
+  selectCustomLogin() {
+    setTimeout(() => {
+      let url = `login/${this.sid}`;
+      this.backToLogin(url);
+    }, 1000);
+  }
+
+  /**
+   * Redirects to the login.
+   * @param url - The url of the component.
+   */
+  backToLogin(url: string) {
+    this.router.navigateByUrl(url);
     this.join.setIntroDone();
   }
 
   /**
+   * Redirects to the login on click.
+   */
+  onBack() {
+    this.backToLogin('login');
+  }
+
+  /**
    * Accepts the privacy policy on click.
-   * @param checked - True or false.
+   * @param checked - A boolean value.
    */
   onAccept(checked: boolean) {
     this.ppAccepted = checked;
   }
 
   /**
-   * Verifies the disabled state of the sign-up-btn.
+   * Verifies the disabled state of the sign-up button.
    * @param ngForm - The ngForm.
    * @returns - A boolean value.
    */

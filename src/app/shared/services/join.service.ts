@@ -29,6 +29,11 @@ export class JoinService {
   relocated: boolean;
   users: User[] = [];
 
+  // jsdoc + rename name --> subname and username --> name!!!
+  // --> related to getUserName() and so on ...
+
+  // add loading screen (animation)?!?
+
   // work with opacity and visibility!!!
   // work with opacity and visibility for other things like
   // logo animation, password mask etc.
@@ -124,6 +129,17 @@ export class JoinService {
       (userDoc) => console.log('subscribed user: ', userDoc.data()),
       (error) => console.log('Error - Could not subscribe user: ', error)
     );
+  }
+
+  /**
+   * Verifies the existence of the user.
+   * @param email - The input email.
+   * @returns - A boolean value.
+   */
+  async isUserExistent(email: string) {
+    let users = await this.getUsers();
+    let user = users.find((u) => u.email === email);
+    return user ? true : false;
   }
 
   // // jsdoc
