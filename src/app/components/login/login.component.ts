@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
-import { FooterComponent } from '../../shared/components/footer/footer.component';
-import { JoinService } from '../../shared/services/join.service';
-
-// verify!!!
+import { IntroHeaderComponent } from '../../shared/components/intro-header/intro-header.component';
+import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
+import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { JoinService } from '../../shared/services/join.service';
 
 @Component({
   selector: 'app-login',
@@ -17,20 +18,33 @@ import { PasswordInputComponent } from '../../shared/components/password-input/p
     CommonModule,
     FormsModule,
     LogoComponent,
+    IntroHeaderComponent,
+    TitleComponent,
+    CheckboxComponent,
     FooterComponent,
 
     // verify!!!
+    // routerlink?!
     TextInputComponent,
     PasswordInputComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
+
+/**
+ * Represents a login component.
+ */
 export class LoginComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   // user: UserService = inject(UserService);
+
+  // rename functions (see: sign-up)!
+  // check email hint!
+  // check password hint!
+  // app-login-header?
 
   sid: string;
   email: string;
@@ -42,6 +56,7 @@ export class LoginComponent {
   token: string = '';
   hint = 'Check your email and password. Please try again.';
   remembered: boolean = false;
+  loggedIn: boolean = false;
 
   // add checkbox remember me
 
@@ -70,11 +85,6 @@ export class LoginComponent {
     // }
   }
 
-  // improve!!!
-  redirect() {
-    this.router.navigateByUrl('sign-up');
-  }
-
   async logIn(ngForm: NgForm) {
     // if (ngForm.form.valid) {
     //   let user = this.join.users.find((u) => this.exists(u));
@@ -99,19 +109,20 @@ export class LoginComponent {
   //   return user.email === this.email && user.password === this.password;
   // }
 
-  // double code (4x)!!!
-  getCheckbox() {
-    return this.remembered ? 'checked' : 'check';
+  /**
+   * Remembers the user on check.
+   * @param checked - A boolean value.
+   */
+  onRemember(checked: boolean) {
+    this.remembered = checked;
   }
 
-  remember() {
-    this.remembered = !this.remembered ? true : false;
+  /**
+   * Verifies the disabled state of the login button.
+   * @param ngForm - The login form.
+   * @returns - A boolean value.
+   */
+  isDisabled(ngForm: NgForm) {
+    return ngForm.form.invalid || !this.remembered || this.loggedIn;
   }
-
-  disable(ngForm: NgForm) {
-    return ngForm.form.invalid || !this.remembered;
-  }
-
-  // review html!!!
-  // review ts!!!
 }

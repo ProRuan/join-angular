@@ -5,11 +5,6 @@
   height: 100vh;
 }
 
-.header {
-  @include box-padding($p: 116px 0 0 0);
-  width: 100%;
-}
-
 .form-cont {
   @include display-row($jc: center);
   width: 100%;
@@ -56,11 +51,6 @@
 
 .privacy-policy-cont {
   @include display-row($ai: center, $g: 8px);
-
-  img {
-    @include size($w: 24px, $h: 24px);
-    cursor: pointer;
-  }
 }
 
 .privacy-policy-text {

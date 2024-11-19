@@ -2,7 +2,7 @@
 <app-logo [enabled]="false"></app-logo>
 
 <section class="sign-up">
-    <header class="header"></header>
+    <app-intro-header type="sign-up"></app-intro-header>
 
     <div class="form-cont">
         <form #signUpForm="ngForm" class="form" (ngSubmit)="onSignUp(signUpForm)">

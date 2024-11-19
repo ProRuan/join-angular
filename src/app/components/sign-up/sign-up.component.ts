@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LogComponent } from '../../shared/components/log/log.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
+import { IntroHeaderComponent } from '../../shared/components/intro-header/intro-header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
@@ -25,6 +26,7 @@ import {
     RouterLink,
     LogComponent,
     LogoComponent,
+    IntroHeaderComponent,
     TitleComponent,
     TextInputComponent,
     PasswordInputComponent,
@@ -183,7 +185,7 @@ export class SignUpComponent {
   }
 
   /**
-   * Accepts the privacy policy on click.
+   * Accepts the privacy policy on check.
    * @param checked - A boolean value.
    */
   onAccept(checked: boolean) {
@@ -192,7 +194,7 @@ export class SignUpComponent {
 
   /**
    * Verifies the disabled state of the sign-up button.
-   * @param ngForm - The ngForm.
+   * @param ngForm - The sign-up form.
    * @returns - A boolean value.
    */
   isDisabled(ngForm: NgForm) {

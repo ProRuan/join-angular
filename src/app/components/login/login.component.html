@@ -1,37 +1,27 @@
 <app-logo></app-logo>
 
 <section class="login">
-    <header class="header">
-        <div class="sign-up-cont">
-            <span class="sign-up-text">Not a Join user?</span>
-            <button class="prim-btn sign-up-btn" (click)="redirect()">Sign up</button>
-        </div>
-    </header>
+    <app-intro-header type="login"></app-intro-header>
 
     <div class="form-cont">
         <form #loginForm="ngForm" class="form" (ngSubmit)="logIn(loginForm)">
-            <div class="title-border-cont">
-                <h2 class="title headline-2">Log in</h2>
-                <div class="border"></div>
-            </div>
+            <app-title title="Log in"></app-title>
 
             <div class="input-checkbox-cont">
                 <div class="input-group">
-                    <!-- check email hint!!! -->
                     <app-text-input [(ngModel)]="email" name="email"></app-text-input>
-                    <!-- check password hint!!! -->
                     <app-password-input [(ngModel)]="password" name="password"></app-password-input>
                 </div>
 
                 <div class="remember-me-cont">
-                    <button class="checkbox" type="button" [ngClass]="getCheckbox()" (click)="remember()"></button>
+                    <app-checkbox (check)="onRemember($event)"></app-checkbox>
                     <span>Remember me</span>
                 </div>
             </div>
 
             <div class="button-group">
-                <button [disabled]="disable(loginForm)" class="prim-btn log-in-btn">Log in</button>
-                <button [disabled]="disable(loginForm)" class="sec-btn guest-log-in-btn">Guest Log in</button>
+                <button [disabled]="isDisabled(loginForm)" class="prim-btn login-btn">Log in</button>
+                <button [disabled]="isDisabled(loginForm)" class="sec-btn guest-login-btn">Guest Log in</button>
             </div>
         </form>
     </div>
