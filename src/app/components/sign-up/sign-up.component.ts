@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LogComponent } from '../../shared/components/log/log.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
-import { IntroHeaderComponent } from '../../shared/components/intro-header/intro-header.component';
+import { HeaderComponent } from '../../shared/components/header/header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
@@ -26,7 +26,7 @@ import {
     RouterLink,
     LogComponent,
     LogoComponent,
-    IntroHeaderComponent,
+    HeaderComponent,
     TitleComponent,
     TextInputComponent,
     PasswordInputComponent,

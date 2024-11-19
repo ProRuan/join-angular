@@ -1,44 +1,29 @@
 @import "../../../../mixins.scss";
 
-.title {
-  @include font(20px, 400, 24px);
-  color: #000000;
+.header {
+  width: 100%;
 }
 
-.button-group {
-  @include display-horiz($g: 16px);
+.login {
+  @include box-padding($p: 67px 77px 0 77px);
+  @include display-row($jc: flex-end);
 }
 
-.help-link {
-  @include size($w: 32px, $h: 32px);
-
-  &:hover {
-    img {
-      transform: scale(1.2);
-    }
-  }
+.sign-up {
+  @include box-padding($p: 116px 0 0 0);
 }
 
-.profile-btn {
-  @include size($w: 56px, $h: 56px);
-  @include display-flex();
-  padding: 0;
-  background-color: transparent;
-  border: 3px solid #2a3647;
-  border-radius: 50%;
-
-  &:hover {
-    background-color: rgba(#0c2e62, 0.12);
-  }
+.sign-up-cont {
+  @include display-row($jc: flex-end, $ai: center, $g: 35px);
 }
 
-.initials-cont {
-  @include min-size($w: 40px, $h: 40px);
-  @include display-flex();
-  padding: 8px;
+.sign-up-text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $black;
 }
 
-.initials {
-  @include font($fs: 20px, $fw: 700, $lh: 24px);
-  color: #29abe2;
+.sign-up-btn {
+  @include box-padding($p: 15px 16px);
+  @include font($fs: 16px, $fw: 700, $lh: 19.2px);
+  max-height: 49px;
 }

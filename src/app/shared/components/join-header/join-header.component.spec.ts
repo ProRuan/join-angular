@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IntroHeaderComponent } from './intro-header.component';
+import { JoinHeaderComponent } from './join-header.component';
 
-describe('IntroHeaderComponent', () => {
-  let component: IntroHeaderComponent;
-  let fixture: ComponentFixture<IntroHeaderComponent>;
+describe('JoinHeaderComponent', () => {
+  let component: JoinHeaderComponent;
+  let fixture: ComponentFixture<JoinHeaderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IntroHeaderComponent]
+      imports: [JoinHeaderComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(IntroHeaderComponent);
+    fixture = TestBed.createComponent(JoinHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

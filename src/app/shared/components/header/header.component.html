@@ -1,12 +1,6 @@
-<span class="title">Kanban Project Management Tool</span>
-
-<div class="button-group">
-    <a routerLink="help" target="_blank" class="help-link">
-        <img src="../../../../assets/img/header/help.png" alt="help">
-    </a>
-    <button class="profile-btn" (click)="logOut()">
-        <div class="initials-cont">
-            <span class="initials">RS</span>
-        </div>
-    </button>
-</div>
+<header class="header" [ngClass]="getClass()">
+    <div *ngIf="isType('login')" class="sign-up-cont">
+        <span class="sign-up-text">Not a Join user?</span>
+        <button class="prim-btn sign-up-btn" (click)="onClick()">Sign up</button>
+    </div>
+</header>

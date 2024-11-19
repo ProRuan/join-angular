@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from '../../shared/components/header/header.component';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
@@ -15,14 +14,15 @@ import { DialogEditContactComponent } from './dialog-edit-contact/dialog-edit-co
 import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
 import { DialogAddContactComponent } from './dialog-add-contact/dialog-add-contact.component';
 import { DialogAddContactService } from '../../shared/services/dialog-add-contact.service';
+import { JoinHeaderComponent } from '../../shared/components/join-header/join-header.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
   imports: [
     RouterOutlet,
-    HeaderComponent,
     MenuComponent,
+    JoinHeaderComponent,
     DialogAddTaskComponent,
     CommonModule,
     DialogViewTaskComponent,

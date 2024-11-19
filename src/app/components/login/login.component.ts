@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
-import { IntroHeaderComponent } from '../../shared/components/intro-header/intro-header.component';
+import { HeaderComponent } from '../../shared/components/header/header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
@@ -18,7 +18,7 @@ import { JoinService } from '../../shared/services/join.service';
     CommonModule,
     FormsModule,
     LogoComponent,
-    IntroHeaderComponent,
+    HeaderComponent,
     TitleComponent,
     CheckboxComponent,
     FooterComponent,
