@@ -19,30 +19,18 @@ export class UserDoc {
 
   // block 1
   // -------
-  // rename variables and functions!!!
-  // set user + user.sid + updateUserData!!!
-  // userExistend --> user due to user.sid!!!
   // fix email input error!
-  // improve subscribeUser() and addSessionId()!!!
-  // work with rxjs?!?
+
+  // adapt text input hint!
+  // adapt password input hint!
+  // verify hint (login)!!!
 
   // block 2
   // -------
-  // rename functions (see: sign-up)!
-  // check email hint!
-  // check password hint!
-  // verify hint!!!
-
-  // remember me is not required!!!
   // provided remember me functions!!!
+  // give user feedback if no user to login (backlog)!!!
 
-  // no subscribeUser() for sign-up comp!?!
-  // fix email error!!!
-
-  // adapt text input!
-  // adapt password input!
-
-  // SignUpComponent
-  // ---------------
-  // replace getUser() with getUserDocs()!!!
+  // LoginComponent and SignUpComponent
+  // ----------------------------------
+  // Verifies errors of empty userDocs!!!
 }

@@ -93,9 +93,9 @@ export class LoginComponent {
    * Processes the login data.
    */
   async processLoginData() {
-    let id = await this.join.isUserKnown(this.email, this.password);
-    if (id) {
-      await this.executeLogin(id);
+    let userDoc = await this.join.getUserDoc(this.email, this.password);
+    if (userDoc) {
+      await this.executeLogin(userDoc.id);
     }
   }
 
@@ -104,7 +104,7 @@ export class LoginComponent {
    * @param id - The user id.
    */
   async executeLogin(id: string) {
-    let sid = await this.join.addSessionId(id);
+    let sid = await this.join.getSessionId(id);
     this.router.navigate(['main', sid, 'summary']);
   }
 
@@ -122,6 +122,6 @@ export class LoginComponent {
    * @returns - A boolean value.
    */
   isDisabled(ngForm: NgForm) {
-    return ngForm.form.invalid || !this.remembered || this.loggedIn;
+    return ngForm.form.invalid || this.loggedIn;
   }
 }

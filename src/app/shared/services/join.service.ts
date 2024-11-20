@@ -125,6 +125,42 @@ export class JoinService {
     await updateDoc(userRef, { [key]: value });
   }
 
+  /**
+   * Provides the user document.
+   * @param email - The input email.
+   * @param password - The input password.
+   * @returns - The user document or undefined.
+   */
+  async getUserDoc(email: string, password?: string) {
+    let userDocs = await this.getUserDocs();
+    return userDocs.find((u) => this.isUserDoc(u.data, email, password));
+  }
+
+  /**
+   * Verifies the user document.
+   * @param user - The user object.
+   * @param email - The email to match.
+   * @param password - The password to match.
+   * @returns - A boolean value.
+   */
+  isUserDoc(user: User, email: string, password?: string) {
+    let emailExistent = user.email === email;
+    let passwordExistent = user.password === password;
+    return password ? emailExistent && passwordExistent : emailExistent;
+  }
+
+  /**
+   * Provides the session id.
+   * @param id - The user id.
+   * @returns - The session id.
+   */
+  async getSessionId(id: string) {
+    let sid = this.sid.get();
+    await this.updateUser(id, 'sid', sid);
+    return sid;
+  }
+
+  // improve!!!
   subscribeUser(id: string) {
     // update values user and userDoc!!!
     const unsubscribe = onSnapshot(
@@ -132,32 +168,6 @@ export class JoinService {
       (userDoc) => console.log('subscribed user: ', userDoc.data()),
       (error) => console.log('Error - Could not subscribe user: ', error)
     );
-  }
-
-  /**
-   * Verifies the existence of the user.
-   * @param email - The input email.
-   * @returns - A boolean value.
-   */
-  async isUserExistent(email: string) {
-    let users = await this.getUsers();
-    let user = users.find((u) => u.email === email);
-    return user ? true : false;
-  }
-
-  // rename this and upper function!!!
-  async isUserLogin(email: string, password: string) {
-    let users = await this.getUsers();
-    let user = users.find((u) => u.email === email && u.password === password);
-    return user ? true : false;
-  }
-
-  async isUserKnown(email: string, password: string) {
-    let userDocs = await this.getUserDocs();
-    let userDoc = userDocs.find(
-      (u) => u.data.email === email && u.data.password === password
-    );
-    return userDoc ? userDoc.id : undefined;
   }
 
   // // jsdoc
@@ -178,17 +188,6 @@ export class JoinService {
   // logError(error: FirestoreError) {
   //   console.log('Error - Could not subscribe user: ', error);
   // }
-
-  /**
-   * Adds the session id.
-   * @param id - The user id.
-   * @returns - The session id.
-   */
-  async addSessionId(id: string) {
-    let sid = this.sid.get();
-    await this.updateUser(id, 'sid', sid);
-    return sid;
-  } // rename to updateSessionId!!!
 
   // jsdoc
   async getUser(id: string) {

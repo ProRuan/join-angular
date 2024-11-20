@@ -57,7 +57,6 @@ export class SignUpComponent {
   signedUp: boolean = false;
   logKey: string = '';
   logged: boolean = false;
-  sid: string = '';
 
   /**
    * Processes the sign-up data on submit.
@@ -85,8 +84,8 @@ export class SignUpComponent {
    * Processes the sign-up data.
    */
   async processSignUpData() {
-    let userExistend = await this.join.isUserExistent(this.email);
-    if (userExistend) {
+    let userDoc = await this.join.getUserDoc(this.email);
+    if (userDoc) {
       this.executeFeedback();
     } else {
       this.executeRegistration();
@@ -126,9 +125,11 @@ export class SignUpComponent {
    */
   async executeRegistration() {
     let data = this.getSigneeData();
-    await this.registerUser(data);
-    this.setLog(true, 'signUp');
-    this.selectCustomLogin();
+    let sid = await this.registerUser(data);
+    if (sid) {
+      this.setLog(true, 'signUp');
+      this.selectCustomLogin(sid);
+    }
   }
 
   /**
@@ -149,21 +150,22 @@ export class SignUpComponent {
   /**
    * Registers the user.
    * @param data - The signee data.
+   * @returns - The session id.
    */
-  async registerUser(data: any) {
+  async registerUser(data: any): Promise<string | void> {
     let id = await this.join.addUser(data);
     if (id) {
-      this.join.subscribeUser(id);
-      this.sid = await this.join.addSessionId(id);
+      return await this.join.getSessionId(id);
     }
   }
 
   /**
    * Selects the custom login.
+   * @param sid - The session id.
    */
-  selectCustomLogin() {
+  selectCustomLogin(sid: string) {
     setTimeout(() => {
-      let url = `login/${this.sid}`;
+      let url = `login/${sid}`;
       this.backToLogin(url);
     }, 1000);
   }
