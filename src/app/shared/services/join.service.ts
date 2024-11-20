@@ -12,6 +12,8 @@ import {
 } from '@angular/fire/firestore';
 import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
+import { UserDoc } from '../models/user-doc';
+import { DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +30,7 @@ export class JoinService {
   revealed: boolean;
   relocated: boolean;
   users: User[] = [];
+  userDocs: UserDoc[] = [];
 
   // jsdoc + rename name --> subname and username --> name!!!
   // --> related to getUserName() and so on ...
@@ -142,6 +145,21 @@ export class JoinService {
     return user ? true : false;
   }
 
+  // rename this and upper function!!!
+  async isUserLogin(email: string, password: string) {
+    let users = await this.getUsers();
+    let user = users.find((u) => u.email === email && u.password === password);
+    return user ? true : false;
+  }
+
+  async isUserToLogin(email: string, password: string) {
+    let userDocs = await this.getUserDocs();
+    let userDoc = userDocs.find(
+      (u) => u.data.email === email && u.data.password === password
+    );
+    return userDoc;
+  }
+
   // // jsdoc
   // subscribeUser() {
   //   const unsubscribe = onSnapshot(
@@ -170,23 +188,24 @@ export class JoinService {
     let sid = this.sid.get();
     await this.updateUser(id, 'sid', sid);
     return sid;
+  } // rename to updateSessionId!!!
+
+  // jsdoc
+  async getUser(id: string) {
+    const userRef = doc(this.firestore, 'users', id);
+    const user = await getDoc(userRef);
+    return user.exists() ? new UserDoc(user.data()) : undefined;
+    // this.verifyUser(user);
   }
 
-  // // jsdoc
-  // async getUser() {
-  //   const userRef = doc(this.firestore, 'users', this.id);
-  //   const user = await getDoc(userRef);
-  //   this.verifyUser(user);
-  // }
-
-  // // jsdoc
-  // verifyUser(user: DocumentSnapshot) {
-  //   if (user.exists()) {
-  //     this.updateUser(user);
-  //   } else {
-  //     console.log('User not existing!');
-  //   }
-  // }
+  // jsdoc
+  verifyUser(user: DocumentSnapshot): DocumentData | void {
+    if (user.exists()) {
+      return new UserDoc(user.data());
+    } else {
+      console.log('User not existing!');
+    }
+  }
 
   // // jsdoc
   // async deleteUser() {
@@ -209,6 +228,26 @@ export class JoinService {
       this.users.push(tempUser);
       console.log('users: ', this.users);
     });
+  }
+
+  async getUserDocs() {
+    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
+    this.pushUserDocs(querySnapshot);
+    return this.userDocs;
+  }
+
+  pushUserDocs(querySnapshot: QuerySnapshot) {
+    this.userDocs = [];
+    querySnapshot.forEach((doc) => {
+      let userDoc = new UserDoc(doc.data());
+      this.userDocs.push(userDoc);
+    });
+  }
+
+  async getUserBySid(sid: string) {
+    let userDocs = await this.getUserDocs();
+    let userDoc = userDocs.find((u) => u.sid == sid);
+    return userDoc ? new User(userDoc.data) : undefined;
   }
 
   // add class UserDoc - check

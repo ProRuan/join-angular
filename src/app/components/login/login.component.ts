@@ -10,6 +10,10 @@ import { PasswordInputComponent } from '../../shared/components/password-input/p
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import {
+  emailVal,
+  passwordVal,
+} from '../../shared/services/input-validation.service';
 
 @Component({
   selector: 'app-login',
@@ -20,13 +24,10 @@ import { JoinService } from '../../shared/services/join.service';
     LogoComponent,
     HeaderComponent,
     TitleComponent,
-    CheckboxComponent,
-    FooterComponent,
-
-    // verify!!!
-    // routerlink?!
     TextInputComponent,
     PasswordInputComponent,
+    CheckboxComponent,
+    FooterComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -39,75 +40,81 @@ export class LoginComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
-  // user: UserService = inject(UserService);
 
   // rename functions (see: sign-up)!
   // check email hint!
   // check password hint!
-  // app-login-header?
 
-  sid: string;
-  email: string;
-  password: string;
+  // remember me is not required!!!
+  // provided remember me functions!!!
 
-  // verify!!!
-  emailPat = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
-  passwordPat = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/;
-  token: string = '';
-  hint = 'Check your email and password. Please try again.';
+  // no subscribeUser() for sign-up comp!?!
+  // fix email error!!!
+
+  // add routerlink!?
+  // adapt text input!
+  // adapt password input!
+
+  [key: string]: any;
+  email: string = '';
+  password: string = '';
+  emailPat: RegExp = emailVal.emailPat;
+  passwordPat: RegExp = passwordVal.passwordPat;
   remembered: boolean = false;
   loggedIn: boolean = false;
+  // verify!!!
+  hint = 'Check your email and password. Please try again.';
 
-  // add checkbox remember me
-
-  constructor() {
-    this.sid = '';
-    this.email = '';
-    this.password = '';
-    // password = '********';
+  /**
+   * Initializes the login component.
+   */
+  async ngOnInit() {
+    await this.setEmailOfSignees();
   }
 
-  // set email after getting user!!!
-  async ngOnInit() {
-    // await this.join.getUsers();
-    // console.log('all join users: ', this.join.users);
-    // const sid = this.route.snapshot.paramMap.get('id');
-    // if (sid) {
-    //   // set user via UserService --> get/set user from join!!!
-    //   this.sid = sid;
-    //   let user = this.join.users.find((u) => u.sid == sid);
-    //   if (user) {
-    //     this.email = user.email;
-    //   }
-    //   console.log('new user login: ', user);
-    // } else {
-    //   console.log('user login');
-    // }
+  /**
+   * Sets the email of signees.
+   */
+  async setEmailOfSignees() {
+    let sid = this.route.snapshot.paramMap.get('id');
+    if (sid) {
+      await this.setEmail(sid);
+    }
+  }
+
+  /**
+   * Sets the email.
+   * @param sid - The session id.
+   */
+  async setEmail(sid: string) {
+    let user = await this.join.getUserBySid(sid);
+    if (user) {
+      this.email = user.email;
+    }
   }
 
   async logIn(ngForm: NgForm) {
-    // if (ngForm.form.valid) {
-    //   let user = this.join.users.find((u) => this.exists(u));
-    //   if (user) {
-    //     this.join.user = new User(user);
-    //     await this.join.setSecurityId();
-    //     console.log('secondary sid: ', this.user);
-    //   }
-    //   if (this.user.id) {
-    //     this.join.id = this.user.id;
-    //     // set id in join service!!!
-    //   }
-    //   console.log('logged in successfully: ', this.join.user);
-    //   this.join.subscribeUser();
-    //   // subscribe all users as well!!!
-    //   this.router.navigate(['main', this.user.sid, 'summary']);
-    // }
-  }
+    if (ngForm.form.valid) {
+      // rename variables and functions!!!
+      let userDoc = await this.join.isUserToLogin(this.email, this.password);
+      if (userDoc) {
+        // set user + user.sid + updateUserData!!!
+        // userExistend --> user due to user.sid!!!
 
-  // // jsdoc
-  // exists(user: User) {
-  //   return user.email === this.email && user.password === this.password;
-  // }
+        // fix email input error!
+        // improve subscribeUser() and addSessionId()!!!
+        // work with rxjs?!?
+
+        let id = userDoc.id;
+        let sid = await this.join.addSessionId(id);
+
+        console.log('user login successfully: ', userDoc);
+        this.router.navigate(['main', sid, 'summary']);
+      } else {
+        console.log('user unknown');
+      }
+    }
+  }
 
   /**
    * Remembers the user on check.

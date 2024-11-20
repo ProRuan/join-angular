@@ -23,6 +23,7 @@ export class SessionIdService {
    * @returns - The session id.
    */
   get() {
+    this.sessionId = '';
     this.createSessionId();
     return this.sessionId;
   }
