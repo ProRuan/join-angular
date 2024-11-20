@@ -60,7 +60,7 @@ export class SignUpComponent {
   sid: string = '';
 
   /**
-   * Executes the sign-up on submit.
+   * Processes the sign-up data on submit.
    * @param ngForm - The sign-up form.
    */
   async onSignUp(ngForm: NgForm) {

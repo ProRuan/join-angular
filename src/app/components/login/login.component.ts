@@ -41,20 +41,6 @@ export class LoginComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
-  // rename functions (see: sign-up)!
-  // check email hint!
-  // check password hint!
-
-  // remember me is not required!!!
-  // provided remember me functions!!!
-
-  // no subscribeUser() for sign-up comp!?!
-  // fix email error!!!
-
-  // add routerlink!?
-  // adapt text input!
-  // adapt password input!
-
   [key: string]: any;
   email: string = '';
   password: string = '';
@@ -62,20 +48,19 @@ export class LoginComponent {
   passwordPat: RegExp = passwordVal.passwordPat;
   remembered: boolean = false;
   loggedIn: boolean = false;
-  // verify!!!
   hint = 'Check your email and password. Please try again.';
 
   /**
    * Initializes the login component.
    */
   async ngOnInit() {
-    await this.setEmailOfSignees();
+    await this.setEmailOfSignee();
   }
 
   /**
-   * Sets the email of signees.
+   * Sets the email of the signee.
    */
-  async setEmailOfSignees() {
+  async setEmailOfSignee() {
     let sid = this.route.snapshot.paramMap.get('id');
     if (sid) {
       await this.setEmail(sid);
@@ -93,27 +78,34 @@ export class LoginComponent {
     }
   }
 
-  async logIn(ngForm: NgForm) {
+  /**
+   * Processes the login data on submit.
+   * @param ngForm - The login form.
+   */
+  async onLogIn(ngForm: NgForm) {
     if (ngForm.form.valid) {
-      // rename variables and functions!!!
-      let userDoc = await this.join.isUserToLogin(this.email, this.password);
-      if (userDoc) {
-        // set user + user.sid + updateUserData!!!
-        // userExistend --> user due to user.sid!!!
-
-        // fix email input error!
-        // improve subscribeUser() and addSessionId()!!!
-        // work with rxjs?!?
-
-        let id = userDoc.id;
-        let sid = await this.join.addSessionId(id);
-
-        console.log('user login successfully: ', userDoc);
-        this.router.navigate(['main', sid, 'summary']);
-      } else {
-        console.log('user unknown');
-      }
+      this.loggedIn = true;
+      await this.processLoginData();
     }
+  }
+
+  /**
+   * Processes the login data.
+   */
+  async processLoginData() {
+    let id = await this.join.isUserKnown(this.email, this.password);
+    if (id) {
+      await this.executeLogin(id);
+    }
+  }
+
+  /**
+   * Executes the user login.
+   * @param id - The user id.
+   */
+  async executeLogin(id: string) {
+    let sid = await this.join.addSessionId(id);
+    this.router.navigate(['main', sid, 'summary']);
   }
 
   /**

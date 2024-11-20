@@ -152,12 +152,12 @@ export class JoinService {
     return user ? true : false;
   }
 
-  async isUserToLogin(email: string, password: string) {
+  async isUserKnown(email: string, password: string) {
     let userDocs = await this.getUserDocs();
     let userDoc = userDocs.find(
       (u) => u.data.email === email && u.data.password === password
     );
-    return userDoc;
+    return userDoc ? userDoc.id : undefined;
   }
 
   // // jsdoc
