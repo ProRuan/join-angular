@@ -48,6 +48,7 @@ export class LoginComponent {
   passwordPat: RegExp = passwordVal.passwordPat;
   remembered: boolean = false;
   loggedIn: boolean = false;
+  rejected: boolean = false;
   hint = 'Check your email and password. Please try again.';
 
   /**
@@ -96,6 +97,8 @@ export class LoginComponent {
     let userDoc = await this.join.getUserDoc(this.email, this.password);
     if (userDoc) {
       await this.executeLogin(userDoc.id);
+    } else {
+      this.executeFeedback();
     }
   }
 
@@ -104,8 +107,17 @@ export class LoginComponent {
    * @param id - The user id.
    */
   async executeLogin(id: string) {
+    this.rejected = !this.rejected ? this.rejected : false;
     let sid = await this.join.getSessionId(id);
     this.router.navigate(['main', sid, 'summary']);
+  }
+
+  /**
+   * Executes the user feedback.
+   */
+  executeFeedback() {
+    this.rejected = true;
+    this.loggedIn = false;
   }
 
   /**

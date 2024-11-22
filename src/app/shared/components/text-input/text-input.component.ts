@@ -21,6 +21,8 @@ import { BasicInput, getProvider } from '../../models/basic-input';
  */
 export class TextInputComponent extends BasicInput {
   @Input('name') type: string = 'name';
+  @Input('hintOff') override hintOff: boolean = false;
+  @Input('errorForced') override errorForced: boolean = false;
 
   /**
    * Initializes the text input component.

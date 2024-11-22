@@ -19,18 +19,18 @@ export class UserDoc {
 
   // block 1
   // -------
-  // fix email input error!
-
-  // adapt text input hint!
-  // adapt password input hint!
-  // verify hint (login)!!!
+  // adapt text input hint?!
+  // adapt password input hint?!
+  //   --> if input valid then error off?
+  // apply submit error for sign-up?
 
   // block 2
   // -------
   // provided remember me functions!!!
-  // give user feedback if no user to login (backlog)!!!
 
-  // LoginComponent and SignUpComponent
-  // ----------------------------------
-  // Verifies errors of empty userDocs!!!
+  // block 3
+  // -------
+  // BasicInputComponent?
+  // is ß missing?
+  // input border color transition?!
 }

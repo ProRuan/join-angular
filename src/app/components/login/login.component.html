@@ -8,9 +8,14 @@
             <app-title title="Log in"></app-title>
 
             <div class="input-checkbox-cont">
-                <div class="input-group">
-                    <app-text-input [(ngModel)]="email" name="email"></app-text-input>
-                    <app-password-input [(ngModel)]="password" name="password"></app-password-input>
+                <div class="input-group-hint-cont">
+                    <div class="input-group">
+                        <app-text-input [(ngModel)]="email" name="email" [hintOff]="true"
+                            [errorForced]="rejected"></app-text-input>
+                        <app-password-input [(ngModel)]="password" name="password" [hintOff]="true"
+                            [errorForced]="rejected"></app-password-input>
+                    </div>
+                    <span *ngIf="rejected" class="hint">{{ hint }}</span>
                 </div>
 
                 <div class="remember-me-cont">

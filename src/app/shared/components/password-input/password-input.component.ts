@@ -23,6 +23,8 @@ import { PasswordInput } from '../../models/password-input';
 export class PasswordInputComponent extends PasswordInput {
   @Input('name') type: string = 'name';
   @Input('pattern') override pattern: string = '';
+  @Input('hintOff') override hintOff: boolean = false;
+  @Input('errorForced') override errorForced: boolean = false;
 
   /**
    * Initializes the password input component.

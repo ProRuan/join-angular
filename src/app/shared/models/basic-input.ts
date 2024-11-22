@@ -19,7 +19,9 @@ export class BasicInput implements ControlValueAccessor {
   required: boolean = false;
   img: string = '';
   hint: Function = () => {};
+  hintOff: boolean = false;
   focussed: boolean = false;
+  errorForced: boolean = false;
   isInvalid: Function = () => {};
   charSet: Set<string> = new Set();
   allowedKeys: string[] = this.configurator.allowedKeys;
@@ -101,7 +103,9 @@ export class BasicInput implements ControlValueAccessor {
    * @returns - A boolean value.
    */
   isError() {
-    return this.isHintDisplayed() || this.isInputInvalid();
+    let hintDisplayed = this.isHintDisplayed();
+    let inputInvalid = this.isInputInvalid();
+    return this.errorForced || hintDisplayed || inputInvalid;
   }
 
   /**
@@ -109,14 +113,14 @@ export class BasicInput implements ControlValueAccessor {
    * @returns - A boolean value.
    */
   isHintDisplayed() {
-    return this.focussed && this.isInvalid();
+    return !this.hintOff && this.focussed && this.isInvalid();
   }
 
   /**
    * Verifies the invalid state of the input.
    */
   isInputInvalid() {
-    return this.isFilled() && this.isInvalid();
+    return !this.hintOff && this.isFilled() && this.isInvalid();
   }
 
   /**
@@ -144,7 +148,7 @@ export class BasicInput implements ControlValueAccessor {
    * @returns - The pressed key.
    */
   getKey(event: KeyboardEvent) {
-    return event.key.toLowerCase();
+    return event.key ? event.key.toLowerCase() : '';
   }
 
   /**

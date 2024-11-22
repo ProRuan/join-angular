@@ -26,6 +26,11 @@ Completed (0/?)
 Complete (1/?)
 --------
 
+components (2/?)
+----------
+  - LoginComponent - check
+  - SignUpComponent - check
+
 shared/components (8/?)
 -----------------
   - CheckboxComponent - check
@@ -34,7 +39,6 @@ shared/components (8/?)
   - LogComponent - check
   - LogoComponent - check
   - PasswordInputComponent - check
-  - SignUpComponent - check
   - TextInputComponent - check
   - TitleComponent - check
 

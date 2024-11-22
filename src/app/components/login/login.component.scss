@@ -23,9 +23,13 @@
   @include display-column($g: 20px);
 }
 
+.input-group-hint-cont {
+  @include display-column($g: 8px);
+  height: 152px;
+}
+
 .input-group {
   @include display-column($g: 32px);
-  height: 152px;
 }
 
 .remember-me-cont {
