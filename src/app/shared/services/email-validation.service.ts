@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+const c = 'A-ZÄÖÜa-zäöüß';
+const d = '0-9';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -8,7 +11,7 @@ import { Injectable } from '@angular/core';
  * Represents an email validation service.
  */
 export class EmailValidationService {
-  emailRawPat: string = '[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}';
+  emailRawPat: string = `[${c}${d}._%+\\-]+@[${c}${d}.\\-]+\\.[${c}]{2,}`;
   emailPat: RegExp = new RegExp(this.emailRawPat);
   chars: string = 'abcdefghijklmnopqrstuvwxyzäöüß';
   digits: string = '0123456789';

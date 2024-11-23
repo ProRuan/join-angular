@@ -30,7 +30,5 @@ export class UserDoc {
 
   // block 3
   // -------
-  // BasicInputComponent?
-  // is ß missing?
   // input border color transition?!
 }

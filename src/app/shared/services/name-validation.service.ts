@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+const c = 'A-ZÄÖÜa-zäöüß';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,7 +12,7 @@ import { Injectable } from '@angular/core';
 export class NameValidationService {
   superDashPat: RegExp = /\-{2,}/g;
   superSpacePat: RegExp = /[\s|\-]{2,}/g;
-  nameRawPat: string = '(([A-Za-z])[A-Za-z]+(?:\\-[A-Za-z]{2,})?)';
+  nameRawPat: string = `(([${c}])[${c}]+(?:\\-[${c}]{2,})?)`;
   namePat: RegExp;
   chars: string = 'abcdefghijklmnopqrstuvwxyzäöüß';
   dash: string = '-';

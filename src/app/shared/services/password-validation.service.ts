@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+const uC = 'A-ZÄÖÜ';
+const lC = 'a-zäöüß';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -9,11 +12,11 @@ import { Injectable } from '@angular/core';
  */
 export class PasswordValidationService {
   [key: string]: any;
-  lockAhead: string = '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])';
-  passwordRawPat: string = '[\\dA-Za-z!@#$%^&*]{8,20}$';
+  lockAhead: string = `^(?=.*\\d)(?=.*[${lC}])(?=.*[${uC}])(?=.*[!@#$%^&*])`;
+  passwordRawPat: string = `[\\d${uC}${lC}!@#$%^&*]{8,20}$`;
   passwordPat: RegExp;
-  upperCase: RegExp = /[A-Z]/;
-  lowerCase: RegExp = /[a-z]/;
+  upperCase: RegExp = /[A-ZÄÖÜ]/;
+  lowerCase: RegExp = /[a-zäöüß]/;
   digit: RegExp = /\d/;
   chars: string = 'abcdefghijklmnopqrstuvwxyzäöüß';
   digits: string = '0123456789';
