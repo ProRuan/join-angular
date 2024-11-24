@@ -14,21 +14,7 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
-  // LoginComponent
-  // --------------
-
-  // block 1
-  // -------
-  // adapt text input hint?!
-  // adapt password input hint?!
-  //   --> if input valid then error off?
-  // apply submit error for sign-up?
-
-  // block 2
-  // -------
+  // NewPasswordComponent
+  // --------------------
   // provided remember me functions!!!
-
-  // block 3
-  // -------
-  // input border color transition?!
 }

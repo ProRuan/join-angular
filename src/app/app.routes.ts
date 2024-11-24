@@ -10,6 +10,9 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { LegalNoticeComponent } from './components/legal-notice/legal-notice.component';
 import { HelpComponent } from './components/help/help.component';
 
+// verify all!!!
+import { NewPasswordComponent } from './components/new-password/new-password.component';
+
 export const routes: Routes = [
   // redirect to login!!!
   // rename (double) components!!!
@@ -18,7 +21,8 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'login/:id', component: LoginComponent },
-  { path: 'sign-up', component: SignUpComponent },
+  // { path: 'sign-up', component: SignUpComponent },
+  { path: 'sign-up', component: NewPasswordComponent },
   {
     path: 'main',
     component: MainComponent,

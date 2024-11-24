@@ -18,6 +18,10 @@ Final Tasks
   - think about isValueVerified() or getVerifiedValue()!!!
   - think about any type (input classes and input services)!!!
 
+  - app log (global log) instead of component log?!
+  
+  - optional: input border color transition?
+
 
 Completed (0/?)
 ---------

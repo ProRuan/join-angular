@@ -13,7 +13,7 @@ const lC = 'a-zäöüß';
 export class PasswordValidationService {
   [key: string]: any;
   lockAhead: string = `^(?=.*\\d)(?=.*[${lC}])(?=.*[${uC}])(?=.*[!@#$%^&*])`;
-  passwordRawPat: string = `[\\d${uC}${lC}!@#$%^&*]{8,20}$`;
+  passwordRawPat: string = `[\\d${uC}${lC}!@#$%^&*]{8,}$`;
   passwordPat: RegExp;
   upperCase: RegExp = /[A-ZÄÖÜ]/;
   lowerCase: RegExp = /[a-zäöüß]/;
