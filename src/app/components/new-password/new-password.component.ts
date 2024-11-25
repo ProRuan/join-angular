@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LogComponent } from '../../shared/components/log/log.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -11,6 +10,7 @@ import { TextInputComponent } from '../../shared/components/text-input/text-inpu
 import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { LogService } from '../../shared/services/log.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { passwordVal } from '../../shared/services/input-validation.service';
 import { UserDoc } from '../../shared/models/user-doc';
@@ -21,7 +21,6 @@ import { UserDoc } from '../../shared/models/user-doc';
   imports: [
     CommonModule,
     FormsModule,
-    LogComponent,
     LogoComponent,
     HeaderComponent,
     LoginArrowComponent,
@@ -33,12 +32,18 @@ import { UserDoc } from '../../shared/models/user-doc';
   templateUrl: './new-password.component.html',
   styleUrl: './new-password.component.scss',
 })
+
+/**
+ * Represents a new password component.
+ */
 export class NewPasswordComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
   [key: string]: any;
+  title: string = 'Join user';
   id: string = '';
   email: string = '';
   submitted: boolean = false;
@@ -47,8 +52,6 @@ export class NewPasswordComponent {
   password: string = '';
   matchword: string = '';
   passwordPat: RegExp = passwordVal.passwordPat;
-  logKey: string = 'newPassword';
-  logged: boolean = false;
 
   /**
    * Provides the entered state of the email.
@@ -77,6 +80,7 @@ export class NewPasswordComponent {
    */
   verifyUser(userDoc?: UserDoc) {
     if (userDoc) {
+      this.title = 'Password';
       this.id = userDoc.id;
     } else {
       this.rejected = true;
@@ -100,18 +104,7 @@ export class NewPasswordComponent {
     if (ngForm.form.valid) {
       this.submitted = true;
       await this.join.updateUser(this.id, 'data.password', this.password);
-      await this.openLoginSession();
-    }
-  }
-
-  /**
-   * Opens a login session.
-   */
-  async openLoginSession() {
-    let sid = await this.join.getSessionId(this.id);
-    if (sid) {
-      this.logged = true;
-      this.nav.selectCustomLogin(sid);
+      await this.nav.openLoginSession(this.id);
     }
   }
 }

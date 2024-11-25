@@ -30,9 +30,10 @@ Completed (0/?)
 Complete (1/?)
 --------
 
-components (2/?)
+components (3/?)
 ----------
   - LoginComponent - check
+  - NewPasswordComponent - check
   - SignUpComponent - check
 
 shared/components (8/?)
@@ -60,12 +61,14 @@ shared/models (3/?)
   - SessionId - ... --> delete!!!
   - Transform - check
 
-shared/services (7/?)
+shared/services (9/?)
 ---------------
   - EmailValidationService - check
   - InputConfigurationService - check
   - InputValidationService - check
+  - LogService - check
   - NameValidationService - check
+  - NavigationService - check
   - PasswordMaskService - check
   - PasswordValidationService - check
   - SessionIdService - check

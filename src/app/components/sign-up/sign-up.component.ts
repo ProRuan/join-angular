@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { LogComponent } from '../../shared/components/log/log.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -12,6 +11,7 @@ import { PasswordInputComponent } from '../../shared/components/password-input/p
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { LogService } from '../../shared/services/log.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import {
   nameVal,
@@ -26,7 +26,6 @@ import {
     CommonModule,
     FormsModule,
     RouterLink,
-    LogComponent,
     LogoComponent,
     HeaderComponent,
     LoginArrowComponent,
@@ -46,6 +45,7 @@ import {
 export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
   [key: string]: any;
@@ -59,8 +59,6 @@ export class SignUpComponent {
   passwordPat: RegExp = passwordVal.passwordPat;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
-  logKey: string = '';
-  logged: boolean = false;
 
   /**
    * Processes the sign-up data on submit.
@@ -100,18 +98,8 @@ export class SignUpComponent {
    * Executes the user feedback.
    */
   executeFeedback() {
-    this.setLog(true, 'email');
+    this.log.setLog(true, 'email');
     this.returnForm();
-  }
-
-  /**
-   * Sets the log.
-   * @param displayed - A boolean value.
-   * @param key - The key of the log text.
-   */
-  setLog(displayed: boolean, key?: string) {
-    this.logKey = key ? key : this.logKey;
-    this.logged = displayed;
   }
 
   /**
@@ -119,7 +107,7 @@ export class SignUpComponent {
    */
   returnForm() {
     setTimeout(() => {
-      this.setLog(false);
+      this.log.setLog(false);
       this.signedUp = false;
     }, 2000);
   }
@@ -129,11 +117,7 @@ export class SignUpComponent {
    */
   async executeRegistration() {
     let data = this.getSigneeData();
-    let sid = await this.registerUser(data);
-    if (sid) {
-      this.setLog(true, 'signUp');
-      this.nav.selectCustomLogin(sid);
-    }
+    await this.registerUser(data);
   }
 
   /**
@@ -154,12 +138,11 @@ export class SignUpComponent {
   /**
    * Registers the user.
    * @param data - The signee data.
-   * @returns - The session id.
    */
   async registerUser(data: any): Promise<string | void> {
     let id = await this.join.addUser(data);
     if (id) {
-      return await this.join.getSessionId(id);
+      this.nav.openLoginSession(id);
     }
   }
 

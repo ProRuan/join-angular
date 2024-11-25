@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { LogService } from '../../services/log.service';
 
 @Component({
   selector: 'app-log',
@@ -13,32 +14,21 @@ import { Component, Input } from '@angular/core';
  * Represents a log component.
  */
 export class LogComponent {
-  @Input() key: string = '';
-  @Input() displayed: boolean = false;
-
-  // app log ... ?
-  // think about new password ... !
+  log: LogService = inject(LogService);
 
   texts: { [key: string]: any } = {
     signUp: 'You signed up successfully',
     email: 'Email already associated with account',
-    newPassword: 'You renewed your password successfully',
+    newPassword: 'Password updated successfully',
   };
 
   /**
-   * Provides the css class of the log layer visibility.
+   * Provides the css class.
+   * @param prop - The property name.
    * @returns - The css class to apply.
    */
-  getVisClass() {
-    return !this.displayed ? 'vis-hidden' : 'vis-visible';
-  }
-
-  /**
-   * Provides the css class of the log position.
-   * @returns - The css class to apply.
-   */
-  getPosClass() {
-    return !this.displayed ? 'pos-hidden' : 'pos-visible';
+  getClass(prop: string) {
+    return !this.log.logged ? `${prop}-hidden` : `${prop}-visible`;
   }
 
   /**
@@ -46,6 +36,6 @@ export class LogComponent {
    * @returns - The log text to print.
    */
   printText() {
-    return this.texts[this.key];
+    return this.texts[this.log.key];
   }
 }

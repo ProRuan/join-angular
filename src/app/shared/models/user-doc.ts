@@ -16,20 +16,14 @@ export class UserDoc {
 
   // NewPasswordComponent - Block 0
   // --------------------
-  // also for setLog()?!
-  // double code function?!
-  // global service!?!
-  // add new password link to login!!!F
-  // fix title!!!
+  // move log texts from comp to service!!!
+  // add new password link to login!!!
 
-  // NewPasswordComponent
+  // NewPasswordComponent - Block 1
   // --------------------
   // provide remember me functions ...
-
-  // renew password via email link (php) ... ?
-  // fix error on portfolio ("Here ist ...") ...
-
   // renew rejected (blinking) ... ?
-
   // change page animation (gray, 100-200ms) ... ?
+
+  // fix error on portfolio ("Here ist ...") ...
 }
