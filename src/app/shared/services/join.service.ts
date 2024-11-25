@@ -41,6 +41,8 @@ export class JoinService {
   // work with opacity and visibility for other things like
   // logo animation, password mask etc.
 
+  // verify {} of update() ...
+
   // edit!!!
   constructor() {
     this.revealed = false;
@@ -106,7 +108,7 @@ export class JoinService {
    * @param key - The property key.
    * @param value - the property value.
    */
-  async updateUser(id: string, key: string, value: string) {
+  async updateUser(id: string, key: string, value: string | {}) {
     try {
       await this.updateUserDoc(id, key, value);
     } catch (error) {
@@ -120,7 +122,7 @@ export class JoinService {
    * @param key - The property key.
    * @param value - The property value.
    */
-  async updateUserDoc(id: string, key: string, value: string) {
+  async updateUserDoc(id: string, key: string, value: string | {}) {
     const userRef = doc(this.firestore, 'users', id);
     await updateDoc(userRef, { [key]: value });
   }

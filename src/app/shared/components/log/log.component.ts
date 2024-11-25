@@ -16,9 +16,13 @@ export class LogComponent {
   @Input() key: string = '';
   @Input() displayed: boolean = false;
 
+  // app log ... ?
+  // think about new password ... !
+
   texts: { [key: string]: any } = {
     signUp: 'You signed up successfully',
     email: 'Email already associated with account',
+    newPassword: 'You renewed your password successfully',
   };
 
   /**

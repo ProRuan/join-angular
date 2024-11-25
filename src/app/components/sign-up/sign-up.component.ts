@@ -5,12 +5,14 @@ import { Router, RouterLink } from '@angular/router';
 import { LogComponent } from '../../shared/components/log/log.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { NavigationService } from '../../shared/services/navigation.service';
 import {
   nameVal,
   emailVal,
@@ -27,6 +29,7 @@ import {
     LogComponent,
     LogoComponent,
     HeaderComponent,
+    LoginArrowComponent,
     TitleComponent,
     TextInputComponent,
     PasswordInputComponent,
@@ -43,6 +46,7 @@ import {
 export class SignUpComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  nav: NavigationService = inject(NavigationService);
 
   [key: string]: any;
   initials: string = '';
@@ -128,7 +132,7 @@ export class SignUpComponent {
     let sid = await this.registerUser(data);
     if (sid) {
       this.setLog(true, 'signUp');
-      this.selectCustomLogin(sid);
+      this.nav.selectCustomLogin(sid);
     }
   }
 
@@ -157,33 +161,6 @@ export class SignUpComponent {
     if (id) {
       return await this.join.getSessionId(id);
     }
-  }
-
-  /**
-   * Selects the custom login.
-   * @param sid - The session id.
-   */
-  selectCustomLogin(sid: string) {
-    setTimeout(() => {
-      let url = `login/${sid}`;
-      this.backToLogin(url);
-    }, 1000);
-  }
-
-  /**
-   * Redirects to the login.
-   * @param url - The url of the component.
-   */
-  backToLogin(url: string) {
-    this.router.navigateByUrl(url);
-    this.join.setIntroDone();
-  }
-
-  /**
-   * Redirects to the login on click.
-   */
-  onBack() {
-    this.backToLogin('login');
   }
 
   /**

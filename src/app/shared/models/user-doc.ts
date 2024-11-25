@@ -14,7 +14,22 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
+  // NewPasswordComponent - Block 0
+  // --------------------
+  // also for setLog()?!
+  // double code function?!
+  // global service!?!
+  // add new password link to login!!!F
+  // fix title!!!
+
   // NewPasswordComponent
   // --------------------
-  // provided remember me functions!!!
+  // provide remember me functions ...
+
+  // renew password via email link (php) ... ?
+  // fix error on portfolio ("Here ist ...") ...
+
+  // renew rejected (blinking) ... ?
+
+  // change page animation (gray, 100-200ms) ... ?
 }

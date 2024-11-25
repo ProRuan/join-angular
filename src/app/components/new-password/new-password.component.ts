@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { LogComponent } from '../../shared/components/log/log.component';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
 import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { NavigationService } from '../../shared/services/navigation.service';
 import { passwordVal } from '../../shared/services/input-validation.service';
+import { UserDoc } from '../../shared/models/user-doc';
 
 @Component({
   selector: 'app-new-password',
@@ -18,10 +21,10 @@ import { passwordVal } from '../../shared/services/input-validation.service';
   imports: [
     CommonModule,
     FormsModule,
-    // RouterLink, // verify!!!
     LogComponent,
     LogoComponent,
     HeaderComponent,
+    LoginArrowComponent,
     TitleComponent,
     TextInputComponent,
     PasswordInputComponent,
@@ -33,49 +36,82 @@ import { passwordVal } from '../../shared/services/input-validation.service';
 export class NewPasswordComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
-
-  // set functions!!!
-  // ask for email first!!!
-  // add new password link to login!!!
+  nav: NavigationService = inject(NavigationService);
 
   [key: string]: any;
-  email: string = 'rudolf.sachslehner@mail.com'; // reset!!!
-  emailKnown: boolean = false;
+  id: string = '';
+  email: string = '';
+  submitted: boolean = false;
+  rejected: boolean = false;
+  hint: string = 'Email unknown.';
   password: string = '';
   matchword: string = '';
   passwordPat: RegExp = passwordVal.passwordPat;
-  newPasswordSet: boolean = false;
-  logKey: string = '';
+  logKey: string = 'newPassword';
   logged: boolean = false;
 
-  async onSignUp(ngForm: NgForm) {
-    // ony for testing - move!!!
-    let userDoc = await this.join.getUserDoc(this.email);
-    if (userDoc) {
-      this.emailKnown = true;
-      console.log('user found: ', this.email);
-    } else {
-      console.log('user not found: ', this.email);
-    }
-
-    if (ngForm.form.valid) {
-    }
-  }
-
-  onBack() {
-    // set sid by email!!!
-    let url = 'login';
-    // let url =  let url = `login/${sid}`;
-    this.router.navigateByUrl(url);
-    this.join.setIntroDone();
+  /**
+   * Provides the entered state of the email.
+   * @returns - A boolean value.
+   */
+  get emailEntered() {
+    return this.id.length != 0;
   }
 
   /**
-   * Verifies the disabled state of the new password button.
-   * @param ngForm - The new password form.
+   * Verifies the user on submit.
+   * @param ngForm - The enter email form.
+   */
+  async onVerifyUser(ngForm: NgForm) {
+    if (ngForm.form.valid) {
+      this.submitted = true;
+      let userDoc = await this.join.getUserDoc(this.email);
+      this.verifyUser(userDoc);
+      this.submitted = false;
+    }
+  }
+
+  /**
+   * Verifies the user.
+   * @param userDoc - The user document.
+   */
+  verifyUser(userDoc?: UserDoc) {
+    if (userDoc) {
+      this.id = userDoc.id;
+    } else {
+      this.rejected = true;
+    }
+  }
+
+  /**
+   * Verifies the disabled state of the submit button.
+   * @param ngForm - The submitted form.
    * @returns - A boolean value.
    */
   isDisabled(ngForm: NgForm) {
-    return ngForm.form.invalid || this.newPasswordSet;
+    return ngForm.form.invalid || this.submitted;
+  }
+
+  /**
+   * Updates the user password on submit.
+   * @param ngForm - The new password form.
+   */
+  async onUpdatePassword(ngForm: NgForm) {
+    if (ngForm.form.valid) {
+      this.submitted = true;
+      await this.join.updateUser(this.id, 'data.password', this.password);
+      await this.openLoginSession();
+    }
+  }
+
+  /**
+   * Opens a login session.
+   */
+  async openLoginSession() {
+    let sid = await this.join.getSessionId(this.id);
+    if (sid) {
+      this.logged = true;
+      this.nav.selectCustomLogin(sid);
+    }
   }
 }

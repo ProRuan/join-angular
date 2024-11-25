@@ -19,23 +19,6 @@
   position: relative;
 }
 
-.login-arrow {
-  @include size($w: 32px, $h: 32px);
-  @include round-border($b: none, $br: 3px);
-  @include position($pos: absolute, $l: 48px, $t: 64px);
-  padding: 0;
-  background-color: transparent;
-  background-image: url("../../../assets/img/sign-up/left_arrow.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-
-  &:hover,
-  &:focus-visible {
-    background-image: url("../../../assets/img/sign-up/left_arrow_hover.png");
-  }
-}
-
 .input-checkbox-cont {
   @include display-column($g: 16px);
 }
