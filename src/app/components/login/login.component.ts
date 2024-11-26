@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
@@ -21,6 +21,7 @@ import {
   imports: [
     CommonModule,
     FormsModule,
+    RouterLink,
     LogoComponent,
     HeaderComponent,
     TitleComponent,

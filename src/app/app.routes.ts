@@ -22,7 +22,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/:id', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
-  // { path: 'sign-up', component: NewPasswordComponent },
+  { path: 'new-password', component: NewPasswordComponent },
   {
     path: 'main',
     component: MainComponent,

@@ -16,6 +16,19 @@ export class UserDoc {
 
   // NewPasswordComponent - Block 0
   // --------------------
+
+  // --------------------------------------
+  // I. Fix issues ...
+  // -------------
+  // avoid blinking of submit buttons!!!
+  // sign-up with overflow-x issue!!!
+
+  // III. Add remember me functions ...
+  // IV. Add privady policy and imprint ...
+  // V. Make it public ...
+  // VI. Make a placeholder component ...
+  // --------------------------------------
+
   // move log texts from comp to service!!!
   // add new password link to login!!!
 

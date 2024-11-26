@@ -18,9 +18,12 @@
                     <span *ngIf="rejected" class="hint">{{ hint }}</span>
                 </div>
 
-                <div class="remember-me-cont">
-                    <app-checkbox (check)="onRemember($event)"></app-checkbox>
-                    <span>Remember me</span>
+                <div class="checkbox-link-cont">
+                    <div class="remember-me-cont">
+                        <app-checkbox (check)="onRemember($event)"></app-checkbox>
+                        <span>Remember me</span>
+                    </div>
+                    <a routerLink="/new-password" class="new-password-link">I forgot my password</a>
                 </div>
             </div>
 
