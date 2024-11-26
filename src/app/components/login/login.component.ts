@@ -48,7 +48,7 @@ export class LoginComponent {
   emailPat: RegExp = emailVal.emailPat;
   passwordPat: RegExp = passwordVal.passwordPat;
   remembered: boolean = false;
-  loggedIn: boolean = false;
+  loggedIn: boolean = true;
   rejected: boolean = false;
   hint = 'Check your email and password. Please try again.';
 
@@ -57,6 +57,7 @@ export class LoginComponent {
    */
   async ngOnInit() {
     await this.setEmailOfSignee();
+    setTimeout(() => (this.loggedIn = false), 0);
   }
 
   /**

@@ -46,7 +46,7 @@ export class NewPasswordComponent {
   title: string = 'Join user';
   id: string = '';
   email: string = '';
-  submitted: boolean = false;
+  submitted: boolean = true;
   rejected: boolean = false;
   hint: string = 'Email unknown.';
   password: string = '';
@@ -59,6 +59,13 @@ export class NewPasswordComponent {
    */
   get emailEntered() {
     return this.id.length != 0;
+  }
+
+  /**
+   * Initializes the new password component.
+   */
+  ngOnInit() {
+    setTimeout(() => (this.submitted = false), 0);
   }
 
   /**
