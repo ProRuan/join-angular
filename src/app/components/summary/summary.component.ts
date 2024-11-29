@@ -4,18 +4,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Firestore } from '@angular/fire/firestore';
 import { JoinService } from '../../shared/services/join.service';
 import { Summary } from '../../shared/models/summary';
-import { SumTaskAComponent } from './sum-task-a/sum-task-a.component';
-import { SumTaskBComponent } from './sum-task-b/sum-task-b.component';
-import { SumTaskCComponent } from './sum-task-c/sum-task-c.component';
+import { User } from '../../shared/models/user';
+
+// verify (above)!!!
+import { SumATaskComponent } from './sum-a-task/sum-a-task.component';
+import { SumBTaskComponent } from './sum-b-task/sum-b-task.component';
+import { SumCTaskComponent } from './sum-c-task/sum-c-task.component';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
   imports: [
     CommonModule,
-    SumTaskAComponent,
-    SumTaskBComponent,
-    SumTaskCComponent,
+    SumATaskComponent,
+    SumBTaskComponent,
+    SumCTaskComponent,
   ],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
@@ -26,8 +29,7 @@ export class SummaryComponent {
   firestore: Firestore = inject(Firestore);
   join: JoinService = inject(JoinService);
 
-  // create one task component with optional parameters!?
-  summaryTasks = [
+  aTasks = [
     {
       defaultPath: './assets/img/summary/to_do.png',
       hoverPath: './assets/img/summary/to_do_hover.png',
@@ -44,7 +46,12 @@ export class SummaryComponent {
     },
   ];
 
-  summaryTaskInfo = [
+  bTask = {
+    urgent: 1,
+    deadline: 'October 16, 2024',
+  };
+
+  cTasks = [
     {
       amount: 5,
       category: 'Tasks In Board',
@@ -59,10 +66,22 @@ export class SummaryComponent {
     },
   ];
 
+  // create one task component with optional parameters!?
+
   // user localStorage or sessionStorage to avoid reload blinking!?!
   // https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
 
   constructor() {}
+
+  get user() {
+    return this.join.user;
+  }
+
+  ngOnInit() {
+    if (this.join.user.email !== undefined) {
+      console.log('summary user: ', this.join.user);
+    }
+  }
 
   // remove or reactivate!!!
   // -----------------------

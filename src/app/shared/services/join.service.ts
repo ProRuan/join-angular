@@ -29,8 +29,17 @@ export class JoinService {
   [key: string]: any;
   revealed: boolean;
   relocated: boolean;
+  temp: any;
+  user: User = new User('');
   users: User[] = [];
   userDocs: UserDoc[] = [];
+
+  async subscribe(id: string) {
+    const unsub = onSnapshot(doc(this.firestore, 'users', id), (doc) => {
+      this.temp = doc.data();
+      console.log('Current data: ', this.temp);
+    });
+  }
 
   // jsdoc + rename name --> subname and username --> name!!!
   // --> related to getUserName() and so on ...

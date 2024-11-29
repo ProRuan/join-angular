@@ -2,13 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-sum-task-a',
+  selector: 'app-sum-a-task',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './sum-task-a.component.html',
-  styleUrl: './sum-task-a.component.scss',
+  templateUrl: './sum-a-task.component.html',
+  styleUrl: './sum-a-task.component.scss',
 })
-export class SumTaskAComponent {
+
+/**
+ * Represents a sum a-task component.
+ */
+export class SumATaskComponent {
   @Input() task = {
     defaultPath: './assets/img/summary/to_do.png',
     hoverPath: './assets/img/summary/to_do_hover.png',
@@ -18,6 +22,10 @@ export class SumTaskAComponent {
   };
   currentPath: String = this.task.defaultPath;
 
+  /**
+   * Sets the current path of the icon.
+   * @param logical - A boolean value.
+   */
   set(logical: boolean) {
     this.currentPath = logical ? this.task.hoverPath : this.task.defaultPath;
   }

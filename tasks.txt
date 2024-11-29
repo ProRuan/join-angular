@@ -35,6 +35,10 @@ components (3/?)
   - LoginComponent - check
   - NewPasswordComponent - check
   - SignUpComponent - check
+  - Summary - ... (3/?)
+      - SumATaskComponent - check
+      - SumBTaskComponent - check
+      - SumCTaskComponent - check
 
 shared/components (8/?)
 -----------------

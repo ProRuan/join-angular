@@ -101,6 +101,12 @@ export class AddTaskComponent {
     };
   }
 
+  ngOnInit() {
+    if (this.join.user.email !== undefined) {
+      console.log('add task user: ', this.join.user);
+    }
+  }
+
   // get user() {
   //   return this.join.user;
   // }

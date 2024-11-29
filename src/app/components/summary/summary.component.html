@@ -1,30 +1,30 @@
 <section class="summary">
     <div class="title-cont">
         <h2 class="headline-2">Join 360</h2>
-        <div class="vector-cont">
-            <img class="vector" src="../../../assets/img/summary/title_vector.png" alt="title_vector">
-        </div>
+        <div class="border"></div>
         <span class="subheadline-2">Key Metrics at a Glance</span>
     </div>
 
     <div class="content">
         <div class="overview">
             <div class="task-row">
-                <app-sum-task-a *ngFor="let task of summaryTasks" [task]="task" class="sum-task-a"></app-sum-task-a>
+                <app-sum-a-task *ngFor="let task of aTasks" [task]="task" class="sum-a-task"></app-sum-a-task>
             </div>
             <div class="urgent-task">
-                <app-sum-task-b></app-sum-task-b>
+                <!-- super sum task comp?! -->
+                <!-- task object instead of task array?! -->
+                <!-- local input styles (collision)!!! -->
+                <!-- local sum task styles!!! -->
+                <app-sum-b-task [task]="bTask" class="sum-b-task"></app-sum-b-task>
             </div>
             <div class="task-row">
-                <app-sum-task-c *ngFor="let task of summaryTaskInfo" [task]="task" class="sum-task-c"></app-sum-task-c>
+                <app-sum-c-task *ngFor="let task of cTasks" [task]="task" class="sum-c-task"></app-sum-c-task>
             </div>
         </div>
 
         <div class="greeting-cont">
             <span class="greeting">Good morning,</span>
-            <!-- this.user.name -->
-            <span class="user">{{ "this.user.name" }}</span>
-            <!-- <span class="user">Sofia Müller</span> -->
+            <span class="user">{{ user.name }}</span>
         </div>
     </div>
 </section>

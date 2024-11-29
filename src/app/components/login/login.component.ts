@@ -143,6 +143,8 @@ export class LoginComponent {
     this.rejected = !this.rejected ? this.rejected : false;
     let sid = await this.join.getSessionId(userDoc.id);
     this.rememberUser(userDoc.data);
+    this.join.subscribe(userDoc.id);
+    this.join.user = new User(userDoc.data);
     this.router.navigate(['main', sid, 'summary']);
   }
 

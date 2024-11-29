@@ -94,7 +94,7 @@ app-prio-button {
 
 .subheadline-2 {
   @include font($fs: 27px, $fw: 400, $lh: 32.4px);
-  color: #2a3647;
+  color: $dark;
 }
 
 h4,

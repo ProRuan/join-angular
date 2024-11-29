@@ -14,6 +14,11 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
+  // SummaryComponent and CO
+  // -----------------------
+  // fix main dialogs (only if match with component)!!!
+  // user lost on reload!!! (local storage?!)
+
   // NewPasswordComponent - Block 0
   // --------------------
   // avoid user any type!!!

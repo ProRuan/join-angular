@@ -1,6 +1,6 @@
 <div class="card" (mouseenter)="set(true)" (mouseleave)="set(false)" (mousedown)="set(false)" (mouseup)="set(true)">
-    <div class="icon-frame">
-        <img class="icon" [src]="currentPath" [alt]="task.alt">
+    <div class="card-icon-cont">
+        <img class="card-icon" [src]="currentPath" [alt]="task.alt">
     </div>
     <div class="task-info">
         <span class="counter">{{ task.amount }}</span>

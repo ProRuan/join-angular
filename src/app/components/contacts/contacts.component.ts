@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ViewableContactComponent } from './viewable-contact/viewable-contact.component';
 import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
 import { DialogAddContactService } from '../../shared/services/dialog-add-contact.service';
+import { JoinService } from '../../shared/services/join.service';
 
 @Component({
   selector: 'app-contacts',
@@ -12,6 +13,7 @@ import { DialogAddContactService } from '../../shared/services/dialog-add-contac
   styleUrl: './contacts.component.scss',
 })
 export class ContactsComponent {
+  join: JoinService = inject(JoinService);
   decData: DialogEditContactService = inject(DialogEditContactService);
   dacData: DialogAddContactService = inject(DialogAddContactService);
 
@@ -96,6 +98,12 @@ export class ContactsComponent {
     'red',
     'cyan',
   ];
+
+  ngOnInit() {
+    if (this.join.user.email !== undefined) {
+      console.log('contacts user: ', this.join.user);
+    }
+  }
 
   viewContact(event: any) {
     // add phone numbers!!!

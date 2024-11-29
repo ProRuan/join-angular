@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DraggableTaskComponent } from './draggable-task/draggable-task.component';
 import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
 import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
+import { JoinService } from '../../shared/services/join.service';
 // import { User } from '../../shared/models/user';
 
 @Component({
@@ -14,6 +15,7 @@ import { DialogViewTaskService } from '../../shared/services/dialog-view-task.se
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
+  join: JoinService = inject(JoinService);
   mainComponent: MainComponent = inject(MainComponent);
   datData: DialogAddTaskService = inject(DialogAddTaskService);
   dvtData: DialogViewTaskService = inject(DialogViewTaskService);
@@ -56,6 +58,9 @@ export class BoardComponent {
   ];
 
   async ngOnInit() {
+    if (this.join.user.email !== undefined) {
+      console.log('board user: ', this.join.user);
+    }
     // await this.mainComponent.ngOnInit();
     // this.user = this.mainComponent.user;
     // console.log('from main user: ', this.mainComponent.user);

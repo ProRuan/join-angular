@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SumTaskAComponent } from './sum-task-a.component';
+import { SumATaskComponent } from './sum-a-task.component';
 
-describe('SumTaskAComponent', () => {
-  let component: SumTaskAComponent;
-  let fixture: ComponentFixture<SumTaskAComponent>;
+describe('SumATaskComponent', () => {
+  let component: SumATaskComponent;
+  let fixture: ComponentFixture<SumATaskComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SumTaskAComponent]
+      imports: [SumATaskComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SumTaskAComponent);
+    fixture = TestBed.createComponent(SumATaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
