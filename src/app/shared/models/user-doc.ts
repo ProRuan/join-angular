@@ -16,18 +16,13 @@ export class UserDoc {
 
   // NewPasswordComponent - Block 0
   // --------------------
+  // avoid user any type!!!
+  // subscribe user for board!!!
 
   // --------------------------------------
-  // I. Fix issues ...
-  // -------------
-  // a. fix input length login/sign-up/new password!!!
-  // b. sign-up with overflow-y
-  //      --> think about height ... !
-
-  // II. Add remember me functions ...
-  // III. Add privady policy and imprint ...
-  // IV. Make it public ...
-  // V. Make a placeholder component ...
+  // I. Add privady policy and imprint ...
+  // II. Make it public ...
+  // III. Make a placeholder component ...
   // --------------------------------------
 
   // move log texts from comp to service!!!
@@ -40,6 +35,10 @@ export class UserDoc {
 
   // Task for later
   // --------------
+  // fix input length login/sign-up/new password!!!
+  // sign-up with overflow-y
+  //      --> think about height ... !
+
   // fix guest login ...
   // create guest user (database) ...
 

@@ -14,6 +14,8 @@ import {
   emailVal,
   passwordVal,
 } from '../../shared/services/input-validation.service';
+import { User } from '../../shared/models/user';
+import { UserDoc } from '../../shared/models/user-doc';
 
 @Component({
   selector: 'app-login',
@@ -56,14 +58,15 @@ export class LoginComponent {
    * Initializes the login component.
    */
   async ngOnInit() {
-    await this.setEmailOfSignee();
+    await this.setSigneeEmail();
+    await this.setRememberedData();
     setTimeout(() => (this.loggedIn = false), 0);
   }
 
   /**
-   * Sets the email of the signee.
+   * Sets the signee email.
    */
-  async setEmailOfSignee() {
+  async setSigneeEmail() {
     let sid = this.route.snapshot.paramMap.get('id');
     if (sid) {
       await this.setEmail(sid);
@@ -78,6 +81,34 @@ export class LoginComponent {
     let user = await this.join.getUserBySid(sid);
     if (user) {
       this.email = user.email;
+    }
+  }
+
+  /**
+   * Sets the remembered user data.
+   */
+  async setRememberedData() {
+    if (this.email == '') {
+      let userAsText = localStorage.getItem('user');
+      if (userAsText) {
+        let user = JSON.parse(userAsText);
+        await this.verifyLoadedUser(user);
+      }
+    }
+  }
+
+  /**
+   * Verifies the loaded user.
+   * @param user - The loaded user.
+   */
+  async verifyLoadedUser(user: User) {
+    let userExistent = await this.join.getUserDoc(user.email, user.password);
+    if (userExistent) {
+      this.email = user.email;
+      this.password = user.password;
+      this.remembered = true;
+    } else {
+      localStorage.removeItem('user');
     }
   }
 
@@ -98,7 +129,7 @@ export class LoginComponent {
   async processLoginData() {
     let userDoc = await this.join.getUserDoc(this.email, this.password);
     if (userDoc) {
-      await this.executeLogin(userDoc.id);
+      await this.executeLogin(userDoc);
     } else {
       this.executeFeedback();
     }
@@ -108,10 +139,33 @@ export class LoginComponent {
    * Executes the user login.
    * @param id - The user id.
    */
-  async executeLogin(id: string) {
+  async executeLogin(userDoc: UserDoc) {
     this.rejected = !this.rejected ? this.rejected : false;
-    let sid = await this.join.getSessionId(id);
+    let sid = await this.join.getSessionId(userDoc.id);
+    this.rememberUser(userDoc.data);
     this.router.navigate(['main', sid, 'summary']);
+  }
+
+  /**
+   * Remembers the user.
+   * @param data - The user data.
+   */
+  rememberUser(data: User) {
+    if (this.remembered) {
+      this.saveUser(data);
+    } else {
+      localStorage.removeItem('user');
+    }
+  }
+
+  /**
+   * Saves the user.
+   * @param data - The user data.
+   */
+  saveUser(data: User) {
+    let user = new User(data);
+    let userAsText = JSON.stringify(user);
+    localStorage.setItem('user', userAsText);
   }
 
   /**

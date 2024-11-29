@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-checkbox',
@@ -13,7 +13,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
  * Represents a checkbox.
  */
 export class CheckboxComponent {
-  checked: boolean = false;
+  @Input() checked: boolean = false;
   @Output() check = new EventEmitter<boolean>();
 
   /**

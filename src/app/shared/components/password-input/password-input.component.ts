@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getProvider } from '../../models/basic-input';
 import { PasswordInput } from '../../models/password-input';
@@ -25,6 +25,35 @@ export class PasswordInputComponent extends PasswordInput {
   @Input('pattern') override pattern: string = '';
   @Input('hintOff') override hintOff: boolean = false;
   @Input('errorForced') override errorForced: boolean = false;
+  @Input('ngModel') set password(value: string) {
+    this.value = value;
+    this.setMask();
+  }
+  @Output('ngModelChange') modelChange = new EventEmitter<string>();
+
+  /**
+   * Provides the password.
+   * @returns - The password.
+   */
+  get password() {
+    return this.value;
+  }
+
+  /**
+   * Sets the password mask.
+   */
+  setMask() {
+    this.mask = this.value.replaceAll(/./g, '\u25CF');
+  }
+
+  /**
+   * Updates the model on change.
+   * @param value - The input value.
+   */
+  onModelChange(value: string) {
+    this.value = value;
+    this.modelChange.emit(this.value);
+  }
 
   /**
    * Initializes the password input component.
