@@ -15,19 +15,20 @@
         <!-- double styles!!! -->
         <div class="overview">
             <div class="task-row">
-                <app-sum-a-task [task]="tasks.toDo"></app-sum-a-task>
-                <app-sum-a-task [task]="tasks.done"></app-sum-a-task>
+                <app-sum-card-medium [task]="tasks.toDo"></app-sum-card-medium>
+                <app-sum-card-medium [task]="tasks.done"></app-sum-card-medium>
             </div>
             <div class="urgent-task">
                 <!-- super sum task comp?! -->
+                <!-- OR: SumTaskService + type="toDo"?! -->
                 <!-- local input styles (collision)!!! -->
                 <!-- local sum task styles!!! -->
-                <app-sum-b-task [task]="tasks.urgent" class="sum-b-task"></app-sum-b-task>
+                <app-sum-card-large [task]="tasks.urgent"></app-sum-card-large>
             </div>
             <div class="task-row">
-                <app-sum-c-task [task]="tasks.inBoard"></app-sum-c-task>
-                <app-sum-c-task [task]="tasks.inProgress"></app-sum-c-task>
-                <app-sum-c-task [task]="tasks.awaitingFeedback"></app-sum-c-task>
+                <app-sum-card-small [task]="tasks.inBoard"></app-sum-card-small>
+                <app-sum-card-small [task]="tasks.inProgress"></app-sum-card-small>
+                <app-sum-card-small [task]="tasks.awaitingFeedback"></app-sum-card-small>
             </div>
         </div>
 

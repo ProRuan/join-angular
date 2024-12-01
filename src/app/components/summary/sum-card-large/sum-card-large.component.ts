@@ -2,17 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-sum-b-task',
+  selector: 'app-sum-card-large',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './sum-b-task.component.html',
-  styleUrl: './sum-b-task.component.scss',
+  templateUrl: './sum-card-large.component.html',
+  styleUrl: './sum-card-large.component.scss',
 })
 
 /**
- * Represents a sum b-task component.
+ * Represents a sum-card-large component.
  */
-export class SumBTaskComponent {
+export class SumCardLargeComponent {
   @Input() task = {
     urgent: 1,
     deadline: 'October 16, 2024',

@@ -1,7 +1,7 @@
 @if (type == 'a') {
-<app-sum-a-task [task]="task"></app-sum-a-task>
+<app-sum-card-medium [task]="task"></app-sum-card-medium>
 } @else if (type == 'b') {
-<app-sum-b-task [task]="task"></app-sum-b-task>
+<app-sum-card-large [task]="task"></app-sum-card-large>
 } @else if(type == 'c') {
-<app-sum-c-task [task]="task"></app-sum-c-task>
+<app-sum-card-small [task]="task"></app-sum-card-small>
 }

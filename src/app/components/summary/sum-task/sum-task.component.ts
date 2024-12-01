@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { SumATaskComponent } from '../sum-a-task/sum-a-task.component';
-import { SumBTaskComponent } from '../sum-b-task/sum-b-task.component';
-import { SumCTaskComponent } from '../sum-c-task/sum-c-task.component';
+import { SumCardMediumComponent } from '../sum-card-medium/sum-card-medium.component';
+import { SumCardLargeComponent } from '../sum-card-large/sum-card-large.component';
+import { SumCardSmallComponent } from '../sum-card-small/sum-card-small.component';
 
 @Component({
   selector: 'app-sum-task',
   standalone: true,
   imports: [
     CommonModule,
-    SumATaskComponent,
-    SumBTaskComponent,
-    SumCTaskComponent,
+    SumCardMediumComponent,
+    SumCardLargeComponent,
+    SumCardSmallComponent,
   ],
   templateUrl: './sum-task.component.html',
   styleUrl: './sum-task.component.scss',

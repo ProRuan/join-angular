@@ -7,18 +7,18 @@ import { Summary } from '../../shared/models/summary';
 import { User } from '../../shared/models/user';
 
 // verify (above)!!!
-import { SumATaskComponent } from './sum-a-task/sum-a-task.component';
-import { SumBTaskComponent } from './sum-b-task/sum-b-task.component';
-import { SumCTaskComponent } from './sum-c-task/sum-c-task.component';
+import { SumCardMediumComponent } from './sum-card-medium/sum-card-medium.component';
+import { SumCardLargeComponent } from './sum-card-large/sum-card-large.component';
+import { SumCardSmallComponent } from './sum-card-small/sum-card-small.component';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
   imports: [
     CommonModule,
-    SumATaskComponent,
-    SumBTaskComponent,
-    SumCTaskComponent,
+    SumCardMediumComponent,
+    SumCardLargeComponent,
+    SumCardSmallComponent,
   ],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',

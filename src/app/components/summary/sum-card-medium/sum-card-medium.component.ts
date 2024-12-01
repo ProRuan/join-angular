@@ -2,17 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-sum-a-task',
+  selector: 'app-sum-card-medium',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './sum-a-task.component.html',
-  styleUrl: './sum-a-task.component.scss',
+  templateUrl: './sum-card-medium.component.html',
+  styleUrl: './sum-card-medium.component.scss',
 })
 
 /**
- * Represents a sum a-task component.
+ * Represents a sum-card-medium component.
  */
-export class SumATaskComponent {
+export class SumCardMediumComponent {
   @Input() task = {
     defaultPath: './assets/img/summary/to_do.png',
     hoverPath: './assets/img/summary/to_do_hover.png',
