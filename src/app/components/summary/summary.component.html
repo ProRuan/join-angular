@@ -5,20 +5,29 @@
         <span class="subheadline-2">Key Metrics at a Glance</span>
     </div>
 
+    <!-- app-sum-card?! -->
+    <!-- improve subscribe user!!! -->
+    <!-- use global subscription?! -->
+    <!-- touch event for soft keyboard? -->
     <div class="content">
+        <!-- app-sum-card-medium/large/small -->
+        <!-- app-sum-card type="done" -->
+        <!-- double styles!!! -->
         <div class="overview">
             <div class="task-row">
-                <app-sum-a-task *ngFor="let task of aTasks" [task]="task" class="sum-a-task"></app-sum-a-task>
+                <app-sum-a-task [task]="tasks.toDo"></app-sum-a-task>
+                <app-sum-a-task [task]="tasks.done"></app-sum-a-task>
             </div>
             <div class="urgent-task">
                 <!-- super sum task comp?! -->
-                <!-- task object instead of task array?! -->
                 <!-- local input styles (collision)!!! -->
                 <!-- local sum task styles!!! -->
-                <app-sum-b-task [task]="bTask" class="sum-b-task"></app-sum-b-task>
+                <app-sum-b-task [task]="tasks.urgent" class="sum-b-task"></app-sum-b-task>
             </div>
             <div class="task-row">
-                <app-sum-c-task *ngFor="let task of cTasks" [task]="task" class="sum-c-task"></app-sum-c-task>
+                <app-sum-c-task [task]="tasks.inBoard"></app-sum-c-task>
+                <app-sum-c-task [task]="tasks.inProgress"></app-sum-c-task>
+                <app-sum-c-task [task]="tasks.awaitingFeedback"></app-sum-c-task>
             </div>
         </div>
 

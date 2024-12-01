@@ -1,9 +1,11 @@
-<div class="card" (mouseenter)="set(true)" (mouseleave)="set(false)" (mousedown)="set(false)" (mouseup)="set(true)">
-    <div class="card-icon-cont">
-        <img class="card-icon" [src]="currentPath" [alt]="task.alt">
-    </div>
-    <div class="task-info">
-        <span class="counter">{{ task.amount }}</span>
-        <span class="category">{{ task.category }}</span>
+<div class="card-cont medium">
+    <div class="card" (mouseenter)="set(true)" (mouseleave)="set(false)" (mousedown)="set(false)" (mouseup)="set(true)">
+        <div class="card-icon-cont">
+            <img class="card-icon" [src]="currentPath" [alt]="task.alt">
+        </div>
+        <div class="task-info">
+            <span class="counter">{{ task.amount }}</span>
+            <span class="category">{{ task.category }}</span>
+        </div>
     </div>
 </div>

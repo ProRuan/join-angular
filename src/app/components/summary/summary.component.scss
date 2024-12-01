@@ -33,28 +33,6 @@
   width: 100%;
 }
 
-// mixin?
-.sum-a-task {
-  @include max-size($w: 264px, $h: 168px);
-  @include display-flex();
-  cursor: pointer;
-}
-
-// urgent task component?
-// mixin?
-.sum-b-task {
-  @include max-size($w: 560px, $h: 168px);
-  @include display-flex();
-  cursor: pointer;
-}
-
-// mixin?
-.sum-c-task {
-  @include max-size($w: 168px, $h: 168px);
-  @include display-flex();
-  cursor: pointer;
-}
-
 .greeting-cont {
   @include display-column($g: 3px);
 }

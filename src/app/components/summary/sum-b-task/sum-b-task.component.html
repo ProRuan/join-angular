@@ -1,16 +1,18 @@
-<div class="card">
-    <div class="urgent-task-cont">
-        <div class="card-icon-cont">
-            <img class="card-icon" src="../../../assets/img/summary/urgent.png" alt="urgent">
+<div class="card-cont large">
+    <div class="card">
+        <div class="urgent-task-cont">
+            <div class="card-icon-cont">
+                <img class="card-icon" src="../../../assets/img/summary/urgent.png" alt="urgent">
+            </div>
+            <div class="task-info">
+                <span class="counter">{{ task.urgent }}</span>
+                <span class="category">Urgent</span>
+            </div>
         </div>
-        <div class="task-info">
-            <span class="counter">{{ task.urgent }}</span>
-            <span class="category">Urgent</span>
+        <div class="border"></div>
+        <div class="date-deadline-cont">
+            <span class="date">{{ task.deadline }}</span>
+            <span class="deadline">Upcomoing Deadline</span>
         </div>
-    </div>
-    <div class="border"></div>
-    <div class="date-deadline-cont">
-        <span class="date">{{ task.deadline }}</span>
-        <span class="deadline">Upcomoing Deadline</span>
     </div>
 </div>

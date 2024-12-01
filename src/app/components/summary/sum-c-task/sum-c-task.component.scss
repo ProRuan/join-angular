@@ -1,5 +1,14 @@
 @import "../../../../mixins.scss";
 
+.card-cont {
+  @include display-flex();
+  cursor: pointer;
+}
+
+.small {
+  @include max-size($w: 168px, $h: 168px);
+}
+
 .card {
   @include box-padding($p: 25px 0);
   @include min-size($w: 168px, $h: 168px);

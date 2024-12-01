@@ -29,42 +29,38 @@ export class SummaryComponent {
   firestore: Firestore = inject(Firestore);
   join: JoinService = inject(JoinService);
 
-  aTasks = [
-    {
+  tasks = {
+    toDo: {
       defaultPath: './assets/img/summary/to_do.png',
       hoverPath: './assets/img/summary/to_do_hover.png',
       alt: 'to_do',
       amount: 1,
       category: 'To-do',
     },
-    {
+    done: {
       defaultPath: './assets/img/summary/done.png',
       hoverPath: './assets/img/summary/done_hover.png',
       alt: 'done',
       amount: 1,
       category: 'Done',
     },
-  ];
-
-  bTask = {
-    urgent: 1,
-    deadline: 'October 16, 2024',
-  };
-
-  cTasks = [
-    {
+    urgent: {
+      urgent: 1,
+      deadline: 'October 16, 2024',
+    },
+    inBoard: {
       amount: 5,
       category: 'Tasks In Board',
     },
-    {
+    inProgress: {
       amount: 2,
       category: 'Tasks In Progress',
     },
-    {
+    awaitingFeedback: {
       amount: 2,
       category: 'Awaiting Feedback',
     },
-  ];
+  };
 
   // create one task component with optional parameters!?
 
