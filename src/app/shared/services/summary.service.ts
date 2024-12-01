@@ -11,37 +11,42 @@ export class SummaryService {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
-  tasks: any = [
-    {
-      type: 'a',
+  // one central task service?!
+
+  tasks: {[key: string]: any} = {
+    toDo: {
       defaultPath: './assets/img/summary/to_do.png',
       hoverPath: './assets/img/summary/to_do_hover.png',
       alt: 'to_do',
       amount: 1,
       category: 'To-do',
     },
-    {
-      type: 'a',
+    done: {
       defaultPath: './assets/img/summary/done.png',
       hoverPath: './assets/img/summary/done_hover.png',
       alt: 'done',
       amount: 1,
       category: 'Done',
     },
-    {
-      type: 'c',
+    urgent: {
+      urgent: 1,
+      deadline: 'October 16, 2024',
+    },
+    inBoard: {
       amount: 5,
       category: 'Tasks In Board',
     },
-    {
-      type: 'c',
+    inProgress: {
       amount: 2,
       category: 'Tasks In Progress',
     },
-    {
-      type: 'c',
+    awaitingFeedback: {
       amount: 2,
       category: 'Awaiting Feedback',
     },
-  ];
+  };
+
+  getTask(key: string){
+    return this.tasks[key];
+  }
 }

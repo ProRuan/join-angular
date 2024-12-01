@@ -15,20 +15,20 @@
         <!-- double styles!!! -->
         <div class="overview">
             <div class="task-row">
-                <app-sum-card-medium [task]="tasks.toDo"></app-sum-card-medium>
-                <app-sum-card-medium [task]="tasks.done"></app-sum-card-medium>
+                <app-sum-card-medium [task]="summary.getTask('toDo')"></app-sum-card-medium>
+                <app-sum-card-medium [task]="summary.getTask('done')"></app-sum-card-medium>
             </div>
             <div class="urgent-task">
                 <!-- super sum task comp?! -->
                 <!-- OR: SumTaskService + type="toDo"?! -->
                 <!-- local input styles (collision)!!! -->
                 <!-- local sum task styles!!! -->
-                <app-sum-card-large [task]="tasks.urgent"></app-sum-card-large>
+                <app-sum-card-large [task]="summary.getTask('urgent')"></app-sum-card-large>
             </div>
             <div class="task-row">
-                <app-sum-card-small [task]="tasks.inBoard"></app-sum-card-small>
-                <app-sum-card-small [task]="tasks.inProgress"></app-sum-card-small>
-                <app-sum-card-small [task]="tasks.awaitingFeedback"></app-sum-card-small>
+                <app-sum-card-small [task]="summary.getTask('inBoard')"></app-sum-card-small>
+                <app-sum-card-small [task]="summary.getTask('inProgress')"></app-sum-card-small>
+                <app-sum-card-small [task]="summary.getTask('awaitingFeedback')"></app-sum-card-small>
             </div>
         </div>
 

@@ -10,6 +10,7 @@ import { User } from '../../shared/models/user';
 import { SumCardMediumComponent } from './sum-card-medium/sum-card-medium.component';
 import { SumCardLargeComponent } from './sum-card-large/sum-card-large.component';
 import { SumCardSmallComponent } from './sum-card-small/sum-card-small.component';
+import { SummaryService } from '../../shared/services/summary.service';
 
 @Component({
   selector: 'app-summary',
@@ -28,42 +29,9 @@ export class SummaryComponent {
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   join: JoinService = inject(JoinService);
+  summary: SummaryService = inject(SummaryService);
 
-  tasks = {
-    toDo: {
-      defaultPath: './assets/img/summary/to_do.png',
-      hoverPath: './assets/img/summary/to_do_hover.png',
-      alt: 'to_do',
-      amount: 1,
-      category: 'To-do',
-    },
-    done: {
-      defaultPath: './assets/img/summary/done.png',
-      hoverPath: './assets/img/summary/done_hover.png',
-      alt: 'done',
-      amount: 1,
-      category: 'Done',
-    },
-    urgent: {
-      urgent: 1,
-      deadline: 'October 16, 2024',
-    },
-    inBoard: {
-      amount: 5,
-      category: 'Tasks In Board',
-    },
-    inProgress: {
-      amount: 2,
-      category: 'Tasks In Progress',
-    },
-    awaitingFeedback: {
-      amount: 2,
-      category: 'Awaiting Feedback',
-    },
-  };
-
-  // create one task component with optional parameters!?
-
+  
   // user localStorage or sessionStorage to avoid reload blinking!?!
   // https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
 
