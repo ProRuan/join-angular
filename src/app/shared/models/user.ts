@@ -1,3 +1,5 @@
+import { Summary } from './summary';
+
 /**
  * Represents a user.
  */
@@ -6,15 +8,14 @@ export class User {
   name: string;
   email: string;
   password: string;
+  summary: Summary;
 
-  /**
-   * Creates a user.
-   * @param data - The user data.
-   */
+  // replace any!!!
   constructor(data: any) {
     this.initials = data.initials;
     this.name = data.name;
     this.email = data.email;
     this.password = data.password;
+    this.summary = new Summary(); // or from data?!?
   }
 }

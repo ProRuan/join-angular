@@ -14,6 +14,18 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
+  // UI Components
+  // -------------
+  // Clean Join Menu!!!
+  // Clean Join Header!!!
+
+  // Summary Component
+  // -----------------
+  // local input styles (collision)!!!
+  // improve subscribe user!!!
+  // use global subscription?!
+  // touch event for soft keyboard?
+
   // SummaryComponent and CO
   // -----------------------
   // fix main dialogs (only if match with component)!!!

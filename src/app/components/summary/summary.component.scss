@@ -7,17 +7,6 @@
   overflow-y: scroll;
 }
 
-// mixin???
-.title-cont {
-  @include display-row($ai: center, $g: 30px);
-}
-
-.border {
-  height: 59px;
-  border-right: 3px solid $lightblue;
-  border-radius: 3px;
-}
-
 .content {
   @include display-row($ai: center, $g: 80px);
   width: 100%;

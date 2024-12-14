@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SumCardLargeComponent } from './sum-card-large.component';
+import { JoinTitleComponent } from './join-title.component';
 
-describe('SumCardLargeComponent', () => {
-  let component: SumCardLargeComponent;
-  let fixture: ComponentFixture<SumCardLargeComponent>;
+describe('JoinTitleComponent', () => {
+  let component: JoinTitleComponent;
+  let fixture: ComponentFixture<JoinTitleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SumCardLargeComponent]
+      imports: [JoinTitleComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SumCardLargeComponent);
+    fixture = TestBed.createComponent(JoinTitleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

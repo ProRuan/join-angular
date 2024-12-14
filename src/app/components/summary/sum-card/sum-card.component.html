@@ -1,0 +1,19 @@
+<div class="card-cont" [ngClass]="getCardClass('card-cont')">
+    <div class="card" [ngClass]="getCardClass('card')" (mouseenter)="setPath(true)" (mouseleave)="setPath(false)"
+        (mousedown)="setPath(false)" (mouseup)="setPath(true)">
+        <div class="urgent-task-cont">
+            <div *ngIf="!isIconlessCategory()" [ngClass]="getIconClass('card-icon-cont')">
+                <img [ngClass]="getIconClass('card-icon')" [src]="currentPath" [alt]="icon">
+            </div>
+            <div class="task-info" [ngClass]="getMaxWidthClass()">
+                <span class="counter">{{ task.amount }}</span>
+                <span [ngClass]="getCategoryClass()">{{ task.category }}</span>
+            </div>
+        </div>
+        <div *ngIf="isCategory('Urgent')" class="border"></div>
+        <div *ngIf="isCategory('Urgent')" class="date-deadline-cont">
+            <span class="date">{{ task.deadline }}</span>
+            <span class="deadline">Upcoming Deadline</span>
+        </div>
+    </div>
+</div>

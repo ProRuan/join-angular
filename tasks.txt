@@ -40,16 +40,18 @@ components (3/?)
       - SumBTaskComponent - check
       - SumCTaskComponent - check
 
-shared/components (8/?)
+shared/components (10/?)
 -----------------
   - CheckboxComponent - check
   - HeaderComponent - check
   - InputComponent - ... (necessary???)
+  - JoinTitleComponent - check
   - LogComponent - check
   - LogoComponent - check
   - PasswordInputComponent - check
   - TextInputComponent - check
   - TitleComponent - check
+  - SumCardComponent - check
 
 shared/interfaces (4/?) -1?
 -----------------
@@ -58,11 +60,13 @@ shared/interfaces (4/?) -1?
   - Styles - check
   - States - check
 
-shared/models (3/?)
+shared/models (5/?)
 -------------
   - BasicInput - check
   - PasswordInput - check
   - SessionId - ... --> delete!!!
+  - Summary - check
+  - SummaryTask - check
   - Transform - check
 
 shared/services (9/?)
