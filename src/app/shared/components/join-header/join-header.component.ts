@@ -8,12 +8,19 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './join-header.component.html',
   styleUrl: './join-header.component.scss',
 })
+
+/**
+ * Represents a join header component.
+ */
 export class JoinHeaderComponent {
-  route: Router = inject(Router);
+  router: Router = inject(Router);
 
-  logOut() {
-    this.route.navigateByUrl('login');
+  src: string = '../../../../assets/img/header/help.png';
+
+  /**
+   * Logs the user out.
+   */
+  onLogOut() {
+    this.router.navigateByUrl('login');
   }
-
-  // add log out dialog!!!
 }

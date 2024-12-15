@@ -14,11 +14,6 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
-  // UI Components
-  // -------------
-  // Clean Join Menu!!!
-  // Clean Join Header!!!
-
   // Summary Component
   // -----------------
   // local input styles (collision)!!!

@@ -3,8 +3,8 @@
 .link-btn {
   @include box-padding($p: 8px 56px);
   @include size(100%, 46px);
-  @include color-set($c: #ffffff, $bgc: transparent);
-  @include display-horiz($g: 8px);
+  @include color-set($c: $white, $bgc: transparent);
+  @include display-row($ai: center, $g: 8px);
   border: unset;
 
   img,
@@ -17,7 +17,7 @@
   }
 
   &:disabled {
-    background-color: #091931;
+    background-color: $darker;
 
     img,
     span {
@@ -25,7 +25,7 @@
     }
 
     &:hover {
-      background-color: #091931;
+      background-color: $darker;
     }
   }
 }

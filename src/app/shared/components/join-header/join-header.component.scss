@@ -2,11 +2,11 @@
 
 .title {
   @include font(20px, 400, 24px);
-  color: #000000;
+  color: $black;
 }
 
 .button-group {
-  @include display-horiz($g: 16px);
+  @include display-row($jc: center, $ai: center, $g: 16px);
 }
 
 .help-link {
@@ -21,11 +21,10 @@
 
 .profile-btn {
   @include size($w: 56px, $h: 56px);
+  @include round-border($b: 3px solid $dark, $br: 50%);
   @include display-flex();
   padding: 0;
   background-color: transparent;
-  border: 3px solid #2a3647;
-  border-radius: 50%;
 
   &:hover {
     background-color: rgba(#0c2e62, 0.12);
@@ -40,5 +39,5 @@
 
 .initials {
   @include font($fs: 20px, $fw: 700, $lh: 24px);
-  color: #29abe2;
+  color: $lightblue;
 }

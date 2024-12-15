@@ -62,7 +62,7 @@
   @include box-padding($p: 64px 0);
   @include size(232px, 100vh);
   @include display-column(space-between, center);
-  background-color: #2a3647;
+  background-color: $dark;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -73,7 +73,7 @@
 .header {
   @include box-padding($p: 20px 40px 20px 96px);
   @include display-flex($jc: space-between);
-  background-color: #ffffff;
+  background-color: $white;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 }
 

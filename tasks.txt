@@ -40,22 +40,26 @@ components (3/?)
       - SumBTaskComponent - check
       - SumCTaskComponent - check
 
-shared/components (10/?)
+shared/components (13/?)
 -----------------
   - CheckboxComponent - check
   - HeaderComponent - check
   - InputComponent - ... (necessary???)
+  - JoinHeaderComponent - check
   - JoinTitleComponent - check
   - LogComponent - check
   - LogoComponent - check
+  - MainLinkComponent - check
+  - MenuComponent - check
   - PasswordInputComponent - check
   - TextInputComponent - check
   - TitleComponent - check
   - SumCardComponent - check
 
-shared/interfaces (4/?) -1?
+shared/interfaces (4/?)
 -----------------
-  - checkItem - check (necessary???)
+  - checkItem - ... (necessary???)
+  - MainLink - check
   - Properties - check
   - Styles - check
   - States - check
@@ -80,6 +84,10 @@ shared/services (9/?)
   - PasswordMaskService - check
   - PasswordValidationService - check
   - SessionIdService - check
+
+shared/ts (1/?)
+---------
+  - global.ts - check
 
 
   --> input   // width: 422px / 440px / 456px!!!

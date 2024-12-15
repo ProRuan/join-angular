@@ -6,6 +6,7 @@ import { JoinTitleComponent } from '../../shared/components/join-title/join-titl
 import { SumCardComponent } from './sum-card/sum-card.component';
 import { Firestore } from '@angular/fire/firestore';
 import { JoinService } from '../../shared/services/join.service';
+import { loadUser } from '../../shared/ts/global';
 import { Summary } from '../../shared/models/summary';
 import { User } from '../../shared/models/user';
 
@@ -30,50 +31,27 @@ export class SummaryComponent {
   title: string = 'Join 360';
   subtitle: string = 'Key Metrics at a Glance';
 
+  // logo animation time
+  // MainComponent
+  // LogoutComponent --> Logout via JoinHeaderComponent!!!
+  // SummaryComponent (ThisComponent)
+
   // improve user!!!
   user: User = new User('');
   tasks: Summary = new Summary();
 
-  // user localStorage or sessionStorage to avoid reload blinking!?!
   // https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
 
   // save user summary at local storage (until log out)!!!
   ngOnInit() {
-    this.user = this.join.user;
-    if (this.user.email !== undefined) {
-      console.log('summary user: ', this.user);
+    this.loadUserSummary();
+  }
 
-      // add default summary to user (at the login or the summary?)
+  loadUserSummary() {
+    let user = loadUser();
+    if (user) {
+      this.user = user;
       this.tasks = this.user.summary;
     }
   }
-
-  // remove or reactivate!!!
-  // -----------------------
-  // // jsdoc
-  // get user() {
-  //   return this.join.user;
-  // }
-
-  // // jsdoc
-  // get summary() {
-  //   if (this.user.summary) {
-  //     return this.user.summary;
-  //   } else {
-  //     return new Summary();
-  //   }
-  // }
-
-  // // jsdoc
-  // async ngOnInit() {
-  //   await this.addSummary();
-  // }
-
-  // // jsdoc + necessary?
-  // async addSummary() {
-  //   if (!this.user.summary) {
-  //     this.user.summary = new Summary();
-  //     await this.join.updateUserProperty('summary', this.user.summary);
-  //   }
-  // }
 }

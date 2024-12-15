@@ -1,5 +1,4 @@
-<button [routerLink]="getId()" [disabled]="disable()" class="link-btn">
-    <img [src]="link.path" [alt]="link.alt">
-    <span [innerHTML]="link.text"></span>
+<button [routerLink]="getLink()" [disabled]="isDisabled()" class="link-btn">
+    <img [src]="getPath()" [alt]="link.img">
+    <span>{{ link.text }}</span>
 </button>
-<!-- routerLink: yKODxHruCgtxVjqpn6VW/add-task -->

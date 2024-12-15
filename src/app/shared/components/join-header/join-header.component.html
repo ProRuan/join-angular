@@ -2,9 +2,9 @@
 
 <div class="button-group">
     <a routerLink="help" target="_blank" class="help-link">
-        <img src="../../../../assets/img/header/help.png" alt="help">
+        <img [src]="src" alt="help">
     </a>
-    <button class="profile-btn" (click)="logOut()">
+    <button class="profile-btn" (click)="onLogOut()">
         <div class="initials-cont">
             <span class="initials">RS</span>
         </div>

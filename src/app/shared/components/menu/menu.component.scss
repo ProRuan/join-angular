@@ -1,9 +1,8 @@
 @import "../../../../mixins.scss";
 
-.menu-logo-cont {
-  @include display-column($ai: center);
+.logo-main-link-cont {
+  @include display-column($ai: center, $g: 120px);
   width: 100%;
-  gap: 120px;
 }
 
 .logo {
@@ -11,20 +10,14 @@
 }
 
 .main-link-group {
-  @include display-column();
-  width: 100%;
-  gap: 15px;
-}
-
-.main-link {
+  @include display-column($g: 15px);
   width: 100%;
 }
 
 .legal-link-group {
   @include box-padding($p: 0 52px);
-  @include display-column();
+  @include display-column($g: 4px);
   width: 100%;
-  gap: 4px;
 }
 
 .legal-link {
@@ -35,6 +28,6 @@
 
   &:hover {
     font-weight: 700;
-    color: #29abe2;
+    color: $lightblue;
   }
 }

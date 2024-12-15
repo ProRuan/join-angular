@@ -1,9 +1,9 @@
-<div class="menu-logo-cont">
-    <img class="logo" src="../../../../assets/img/menu/menu_logo.png" alt="menu-logo">
+<div class="logo-main-link-cont">
+    <img class="logo" src="../../../../assets/img/menu/menu_logo.png" alt="menu_logo">
 
     <div class="main-link-group">
-        <app-main-link *ngFor="let link of this.mainLinks, index as i" [link]="link" class="main-link"
-            (click)="linkData.set(i)"></app-main-link>
+        <app-main-link *ngFor="let link of mainLinks, index as i" [link]="link" class="main-link"
+            (click)="setLink(i)"></app-main-link>
     </div>
 </div>
 

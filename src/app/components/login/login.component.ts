@@ -14,6 +14,8 @@ import {
   emailVal,
   passwordVal,
 } from '../../shared/services/input-validation.service';
+// global.ts! (5x)
+import { saveUser } from '../../shared/ts/global';
 import { User } from '../../shared/models/user';
 import { UserDoc } from '../../shared/models/user-doc';
 
@@ -89,8 +91,10 @@ export class LoginComponent {
    */
   async setRememberedData() {
     if (this.email == '') {
+      // global.ts!
+      let trueAsText = localStorage.getItem('remembered');
       let userAsText = localStorage.getItem('user');
-      if (userAsText) {
+      if (trueAsText && userAsText) {
         let user = JSON.parse(userAsText);
         await this.verifyLoadedUser(user);
       }
@@ -108,6 +112,8 @@ export class LoginComponent {
       this.password = user.password;
       this.remembered = true;
     } else {
+      // global.ts!
+      localStorage.removeItem('remembered');
       localStorage.removeItem('user');
     }
   }
@@ -143,6 +149,8 @@ export class LoginComponent {
     this.rejected = !this.rejected ? this.rejected : false;
     let sid = await this.join.getSessionId(userDoc.id);
     this.rememberUser(userDoc.data);
+    // global.ts!
+    saveUser(userDoc.data);
     this.join.subscribe(userDoc.id);
     this.join.user = new User(userDoc.data);
     this.router.navigate(['main', sid, 'summary']);
@@ -154,20 +162,13 @@ export class LoginComponent {
    */
   rememberUser(data: User) {
     if (this.remembered) {
-      this.saveUser(data);
+      localStorage.setItem('remembered', JSON.stringify(true));
+      // global.ts!
+      saveUser(data);
     } else {
+      localStorage.removeItem('remembered');
       localStorage.removeItem('user');
     }
-  }
-
-  /**
-   * Saves the user.
-   * @param data - The user data.
-   */
-  saveUser(data: User) {
-    let user = new User(data);
-    let userAsText = JSON.stringify(user);
-    localStorage.setItem('user', userAsText);
   }
 
   /**
