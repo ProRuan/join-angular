@@ -1,3 +1,4 @@
+import { DocumentData } from 'firebase/firestore';
 import { Summary } from './summary';
 
 /**
@@ -11,11 +12,24 @@ export class User {
   summary: Summary;
 
   // replace any and update files!!!
-  constructor(data: any) {
-    this.initials = data.initials;
-    this.name = data.name;
-    this.email = data.email;
-    this.password = data.password;
-    this.summary = new Summary(); // or from data?!?
+  // DocumentData | User | undefined
+  // Use this way also for other models!!!
+  // global getString()?!
+  constructor(data?: DocumentData | User) {
+    this.initials = this.getString(data?.initials);
+    this.name = this.getString(data?.name);
+    this.email = this.getString(data?.email);
+    this.password = this.getString(data?.password);
+    this.summary = this.getSummary(data?.summary);
+  }
+
+  // double coude + rename?!
+  getString(value: string) {
+    return value ? value : '';
+  }
+
+  // new Summary(value)?!
+  getSummary(value: Summary) {
+    return value ? value : new Summary();
   }
 }

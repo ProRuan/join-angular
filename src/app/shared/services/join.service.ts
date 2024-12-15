@@ -30,7 +30,7 @@ export class JoinService {
   revealed: boolean;
   relocated: boolean;
   temp: any;
-  user: User = new User('');
+  user: User = new User();
   users: User[] = [];
   userDocs: UserDoc[] = [];
 

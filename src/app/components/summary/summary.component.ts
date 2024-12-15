@@ -20,7 +20,7 @@ import { Summary } from '../../shared/models/summary';
 export class SummaryComponent {
   title: string = 'Join 360';
   subtitle: string = 'Key Metrics at a Glance';
-  user: User = new User('');
+  user: User = new User();
   tasks: Summary = new Summary();
 
   /**
