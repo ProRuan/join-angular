@@ -10,7 +10,7 @@ export class User {
   password: string;
   summary: Summary;
 
-  // replace any!!!
+  // replace any and update files!!!
   constructor(data: any) {
     this.initials = data.initials;
     this.name = data.name;

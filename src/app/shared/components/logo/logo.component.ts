@@ -37,7 +37,7 @@ export class LogoComponent {
   playIntro() {
     setTimeout(() => (this.join.revealed = true), 0);
     setTimeout(() => (this.join.relocated = true), 0);
-    setTimeout(() => (this.pointless = true), 1000);
+    setTimeout(() => (this.pointless = true), 800);
   }
 
   /**

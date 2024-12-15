@@ -14,6 +14,15 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
+  // Routing
+  // -------
+  // https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
+
+  // Logout
+  // ------
+  // LogoutComponent --> Logout via JoinHeaderComponent!!!
+  // save user summary at local storage (until log out)!!!
+
   // Summary Component
   // -----------------
   // local input styles (collision)!!!

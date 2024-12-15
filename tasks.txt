@@ -30,15 +30,13 @@ Completed (0/?)
 Complete (1/?)
 --------
 
-components (3/?)
+components (4/?)
 ----------
   - LoginComponent - check
   - NewPasswordComponent - check
   - SignUpComponent - check
-  - Summary - ... (3/?)
-      - SumATaskComponent - check
-      - SumBTaskComponent - check
-      - SumCTaskComponent - check
+  - SummaryComponent - check
+      - SumCardComponent - check
 
 shared/components (13/?)
 -----------------

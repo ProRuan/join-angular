@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SummaryTask } from '../../../shared/models/summary-task';
 
 @Component({
   selector: 'app-sum-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './sum-card.component.html',
   styleUrl: './sum-card.component.scss',
 })

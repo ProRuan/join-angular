@@ -1,4 +1,4 @@
-<div class="card-cont" [ngClass]="getCardClass('card-cont')">
+<div routerLink="../board" class="card-cont" [ngClass]="getCardClass('card-cont')">
     <div class="card" [ngClass]="getCardClass('card')" (mouseenter)="setPath(true)" (mouseleave)="setPath(false)"
         (mousedown)="setPath(false)" (mouseup)="setPath(true)">
         <div class="urgent-task-cont">
