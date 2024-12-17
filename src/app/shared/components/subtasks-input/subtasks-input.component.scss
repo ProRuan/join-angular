@@ -1,0 +1,145 @@
+@import "../../../../mixins.scss";
+
+.label-input-cont {
+  @include display-column($g: 8px);
+  width: 440px;
+}
+
+.label {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $dark;
+}
+
+.star {
+  color: #ff8190;
+}
+
+.input-hint-cont {
+  @include display-column($g: 4px);
+  width: 100%;
+}
+
+.input {
+  @include box-padding($p: 11px 20px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: white);
+  @include round-border($b: 1px solid $gray, $br: 10px);
+  width: 100%;
+  font-family: $inter;
+
+  &:focus {
+    border: 1px solid $lightblue;
+  }
+
+  &::placeholder {
+    color: $gray;
+  }
+}
+
+.error {
+  border: 1px solid #ff8190;
+}
+
+.hint {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  height: 12px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  color: #ff8190;
+  opacity: 0;
+}
+
+// subtasks
+// from assigned-to
+.drop-down-arrow {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.p-16 {
+  padding: 11px 15px;
+}
+
+.sub-icon-cont {
+  @include display-horiz($g: 4px);
+  max-width: 56px;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+
+  img {
+    @include size($w: 24px, $h: 24px);
+    cursor: pointer;
+  }
+}
+
+.sub-icon-border {
+  @include size($w: 0, $h: 24px);
+  border-right: 1px solid #d1d1d1;
+}
+
+.subtasks-cont {
+  width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding-inline-start: 0;
+
+  li {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    color: $black;
+  }
+}
+
+.li-cont {
+  @include display-flex($jc: flex-start);
+  padding-left: 40px;
+  margin-bottom: 8px;
+  height: 32px;
+  position: relative;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.subinput-icon-cont {
+  // review margin-bottom!!!
+  margin-bottom: 8px;
+  position: relative;
+
+  // review!!!
+  img {
+    cursor: pointer;
+  }
+}
+
+.subtask {
+  @include box-padding($p: 6px 16px);
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  @include color-set($c: $black, $bgc: $white);
+  width: 100%;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #29abe2;
+  border-right: none;
+  // position: absolute;
+  // left: 0;
+  // top: 0;
+}
+
+.subtask-icon-cont {
+  @include display-horiz($g: 4px);
+  max-width: 56px;
+  position: absolute;
+  top: 4px;
+  right: 16px;
+
+  img {
+    @include size($w: 24px, $h: 24px);
+  }
+}

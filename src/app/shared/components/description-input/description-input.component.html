@@ -1,0 +1,12 @@
+<div class="label-input-cont">
+    <label class="label" for="description">
+        <span>Description</span>
+    </label>
+    <div class="input-hint-cont">
+        <textarea [value]="value" class="textarea" placeholder="Enter a description"
+            (input)="onInputChange($event)"></textarea>
+        <div class="resizer-cont">
+            <img class="resizer" src="../../../assets/img/add-task/resizer.png" alt="resizer">
+        </div>
+    </div>
+</div>

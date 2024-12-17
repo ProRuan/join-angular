@@ -1,0 +1,26 @@
+<div class="label-input-cont">
+    <label class="label" for="category">
+        <span>Category</span>
+        <span class="star">*</span>
+    </label>
+    <div class="input-hint-cont">
+        <input [value]="value" class="selection read-only" type="text" placeholder="Select task category" required
+            (click)="switchCategory()" readonly>
+        <!-- <div class="drop-down-arrow"></div> -->
+        <img class="drop-down-arrow" [src]="updateArrowCategory()" alt="drop_down_arrow" (click)="switchCategory()">
+        <!-- <span class="hint">
+            This field is required.
+        </span> -->
+
+        <!-- fix z-index!!! -->
+        <div class="category-list" [ngClass]="catData.opened ? 'show' : ''">
+            <div #technicalTask class="category-item" (click)="setCategory(technicalTask)">
+                <span>Technical Task</span>
+            </div>
+
+            <div #userStory class="category-item" (click)="setCategory(userStory)">
+                <span>User Story</span>
+            </div>
+        </div>
+    </div>
+</div>

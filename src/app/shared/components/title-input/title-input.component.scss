@@ -1,0 +1,48 @@
+@import "../../../../mixins.scss";
+
+.label-input-cont {
+  @include display-column($g: 8px);
+  width: 440px;
+}
+
+.label {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $dark;
+}
+
+.star {
+  color: #ff8190;
+}
+
+.input-hint-cont {
+  @include display-column($g: 4px);
+}
+
+.input {
+  @include box-padding($p: 11px 20px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: 1px solid $gray, $br: 10px);
+  width: 100%;
+  font-family: $inter;
+
+  &:focus {
+    border: 1px solid $lightblue;
+  }
+
+  &::placeholder {
+    color: $gray;
+  }
+}
+
+.error {
+  border: 1px solid #ff8190;
+}
+
+.hint {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  height: 12px;
+  font-family: $poppins;
+  color: #ff8190;
+  opacity: 0;
+}

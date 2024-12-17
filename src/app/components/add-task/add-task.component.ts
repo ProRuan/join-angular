@@ -1,5 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
+
+// verify!!!
 import { FormsModule, NgForm } from '@angular/forms';
 import { JoinService } from '../../shared/services/join.service';
 
@@ -10,16 +13,45 @@ import { last } from 'rxjs';
 import { AssignedToService } from '../../shared/services/assigned-to.service';
 import { CategoryService } from '../../shared/services/category.service';
 import { SubtaskService } from '../../shared/services/subtask.service';
+import { TitleInputComponent } from '../../shared/components/title-input/title-input.component';
+import { DescriptionInputComponent } from '../../shared/components/description-input/description-input.component';
+import { AssignedToInputComponent } from '../../shared/components/assigned-to-input/assigned-to-input.component';
+import { DueDateInputComponent } from '../../shared/components/due-date-input/due-date-input.component';
+import { PrioInputComponent } from '../../shared/components/prio-input/prio-input.component';
+import { CategoryInputComponent } from '../../shared/components/category-input/category-input.component';
+import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
 // import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, FormsModule, PrioButtonComponent],
+  imports: [
+    CommonModule,
+    JoinTitleComponent,
+    TitleInputComponent,
+    DescriptionInputComponent,
+    AssignedToInputComponent,
+    // DueDateInputComponent,
+    PrioInputComponent,
+    CategoryInputComponent,
+    SubtasksInputComponent,
+    FormsModule,
+    // PrioButtonComponent,
+  ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent {
+  title: string = 'Add Task';
+
+  // add (input)="onInputChange($event)"!!!
+  // clean all add-task inputs ...
+  // combine add-task inputs ... ?
+  // combine add-task input styles ... ?
+  // move add-task input to add-task ... !
+  // clean add-task component ...
+
+  // verify!!!
   join: JoinService = inject(JoinService);
   prioData: PrioService = inject(PrioService);
 
@@ -105,6 +137,13 @@ export class AddTaskComponent {
     if (this.join.user.email !== undefined) {
       console.log('add task user: ', this.join.user);
     }
+
+    // only for testing!!!
+    // -------------------
+    // setInterval(() => {
+    //   console.log('task title: ', this.task.title);
+    //   console.log('task description: ', this.task.description);
+    // }, 2000);
   }
 
   // get user() {

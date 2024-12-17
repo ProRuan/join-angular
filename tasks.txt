@@ -37,6 +37,9 @@ components (4/?)
   - SignUpComponent - check
   - SummaryComponent - check
       - SumCardComponent - check
+  - AddTaskComponent ... (2/?)
+      - TitleInputComponent - check
+      - DescriptionInputComponent - check
 
 shared/components (13/?)
 -----------------

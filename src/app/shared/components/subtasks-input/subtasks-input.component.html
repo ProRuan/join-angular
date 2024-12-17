@@ -1,0 +1,53 @@
+<div class="label-input-cont">
+    <label class="label" for="subtasks">
+        <span>Subtasks</span>
+        <!-- <span class="star">*</span> -->
+    </label>
+    <div class="input-hint-cont">
+        <input [value]="subtask" name="subtasks" class="input p-16" type="text" placeholder="Add new subtask">
+        <div *ngIf="subtask != ''" class="sub-icon-cont">
+            <img src="../../../assets/img/add-task/cancel.png" alt="cancel" (click)="subtask = ''">
+            <div class="sub-icon-border"></div>
+            <img src="../../../assets/img/add-task/check.png" alt="check" (click)="subTData.add(subtask); subtask = ''">
+        </div>
+        <img *ngIf="subtask == ''" class="drop-down-arrow" src="../../../assets/img/add-task/add_subtask.png"
+            alt="drop_down_arrow">
+        <!-- <span class="hint">
+            This field is required.
+        </span> -->
+    </div>
+    <div class="subtasks-cont">
+        <ul>
+            <!-- subtask-cont for margin-bottom:8px!!! -->
+            <div *ngFor="let subtask of subTData.subtasks; index as i" class="subtask-cont" (click)="stop($event)">
+                <div *ngIf="!subtask.focused" class="li-cont" (click)="subTData.edit(i)">
+                    <li>{{ subtask.text }}</li>
+                </div>
+                <div *ngIf="subtask.focused" class="subinput-icon-cont">
+                    <input [value]="subTData.currValue" name="subtask" class="subtask" type="text"
+                        [value]="subtask.text">
+                    <div class="subtask-icon-cont">
+                        <img src="../../../assets/img/add-task/delete.png" alt="delete" (click)="subTData.delete()">
+                        <div class="sub-icon-border"></div>
+                        <img src="../../../assets/img/add-task/check.png" alt="check" (click)="subTData.save(i)">
+                    </div>
+                </div>
+            </div>
+            <!-- <div *ngIf="!subtaskFocused" class="li-cont">
+                <li>Contact Form</li>
+            </div>
+            <div *ngIf="subtaskFocused" class="subinput-icon-cont">
+                <input class="subtask" type="text" value="Contact Form">
+                <div class="subtask-icon-cont">
+                    <img src="../../../assets/img/add-task/delete.png" alt="delete">
+                    <div class="sub-icon-border"></div>
+                    <img src="../../../assets/img/add-task/check.png" alt="check">
+                </div>
+            </div>
+            <div class="li-cont">
+                <li>Write Legal Imprint</li>
+            </div> -->
+            <!-- <input class="subtask" type="text" value="Write Legal Imprint"> -->
+        </ul>
+    </div>
+</div>

@@ -284,15 +284,10 @@
   gap: 8px;
 }
 
-// global style?
-.vector-frame {
-  @include size($w: 1px, $h: 424px);
-}
-
-// global style?
-.vector {
-  @include size($w: 100%, $h: 100%);
-  // object-fit: contain;
+.border {
+  width: 0px;
+  height: 424px;
+  border-right: 1px solid $gray;
 }
 
 .right-subcontent {

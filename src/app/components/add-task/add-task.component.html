@@ -1,88 +1,21 @@
 <section class="add-task">
-    <h2 class="headline-2">Add Task</h2>
+    <app-join-title [title]="title"></app-join-title>
 
     <form #addTaskForm="ngForm" class="content" (submit)="addTask(addTaskForm)">
         <div class="left-subcontent">
-            <div class="label-input-cont">
-                <label class="label" for="title">
-                    <span>Title</span>
-                    <span class="star">*</span>
-                </label>
-                <div class="input-hint-cont">
-                    <input [(ngModel)]="task.title" name="title" class="input" type="text" placeholder="Enter a title"
-                        minlength="2" required>
-                    <span class="hint">
-                        This field is required.
-                    </span>
-                </div>
-            </div>
+            <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
+            <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
 
-            <div class="label-input-cont">
-                <label class="label" for="description">
-                    <span>Description</span>
-                    <!-- <span class="star">*</span> -->
-                </label>
-                <div class="input-hint-cont">
-                    <textarea [(ngModel)]="task.description" name="description" class="textarea"
-                        placeholder="Enter a description"></textarea>
-                    <div class="resizer-frame">
-                        <img class="resizer" src="../../../assets/img/add-task/resizer.png" alt="resizer">
-                    </div>
-                    <span class="hint">
-                        This field is required.
-                    </span>
-                </div>
-            </div>
-
-            <div class="label-input-cont">
-                <label class="label" for="assigned-to">
-                    <span>Assigned to</span>
-                    <!-- <span class="star">*</span> -->
-                </label>
-                <div class="input-hint-cont" (click)="stop($event)">
-                    <input [(ngModel)]="filter" name="assignedTo" class="selection" type="text"
-                        placeholder="Select contacts to assign" (focus)="logFocus(); catData.set(false)"
-                        (keyup)="filterAC()">
-                    <!-- <div class="drop-down-arrow"></div> -->
-                    <img class="drop-down-arrow" [src]="updateArrowAssignedTo()" alt="drop_down_arrow"
-                        (click)="switchAssignedTo()">
-                    <!-- <span class="hint">
-                        This field is required.
-                    </span> -->
-
-                    <div class="assignable-contacts-list" [ngClass]="asToData.opened ? 'show' : ''">
-                        <!-- Create an own component for assignable contact!!! -->
-                        <!-- add class for ngFor container!!! -->
-                        @for (contact of assignableContacts; track contact; let i = $index) {
-                        <div *ngIf="contact.name.includes(filter)" class="assignable-contact"
-                            [ngClass]="contact.assigned ? 'assigned' : ''" (click)="assign(i)">
-                            <div class="profile-name-cont">
-                                <div class="profile">
-                                    <span class="initials">{{ contact.initials }}</span>
-                                </div>
-                                <span class="name">{{ contact.name }} &#40;You&#41;</span>
-                            </div>
-                            <img [ngClass]="getCheckbox(i)" [src]="getSrc(i)" alt="checkbox">
-                            <!-- <img src="../../../assets/img/add-task/checkbox.png" alt="checkbox"> -->
-                        </div>
-                        }
-                    </div>
-
-                    <div class="assigned-contacts">
-                        <!-- Create an own component for assigned contacts!!! -->
-                        <div *ngFor="let contact of assignedContacts" style="background-color: #9327ff" class="profile">
-                            <span class="initials">{{ contact.initials }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- clean assigned to input + rename "name"!!! -->
+            <app-assigned-to-input [(ngModel)]="filter" name="assignedTo"></app-assigned-to-input>
         </div>
 
-        <div class="vector-frame">
-            <img class="vector" src="../../../assets/img/add-task/add_task_vector.png" alt="add_task_vector">
-        </div>
+        <div class="border"></div>
 
         <div class="right-subcontent">
+            <!-- clean due date input + rename "name" -->
+            <!-- <app-due-date-input [(ngModel)]="task.dueDate" name="dueDate"></app-due-date-input> -->
+
             <div class="label-input-cont">
                 <label class="label" for="due-date">
                     <span>Due date</span>
@@ -100,16 +33,11 @@
                 </div>
             </div>
 
-            <div class="label-input-cont">
-                <span class="label">Prio</span>
-                <div class="prio-button-group">
-                    <app-prio-button id="urgent" img="prio_urgent"></app-prio-button>
-                    <app-prio-button id="medium" img="prio_medium"></app-prio-button>
-                    <app-prio-button id="low" img="prio_low"></app-prio-button>
-                </div>
-                <!-- add more space here! -->
-            </div>
+            <!-- clean prio input + prio button!!! -->
+            <app-prio-input></app-prio-input>
 
+            <!-- clean category input!!! -->
+            <!-- <app-category-input [(ngModel)]="task.category" name="category"></app-category-input> -->
             <div class="label-input-cont">
                 <label class="label" for="category">
                     <span>Category</span>
@@ -118,14 +46,9 @@
                 <div class="input-hint-cont">
                     <input [(ngModel)]="task.category" name="category" class="selection read-only" type="text"
                         placeholder="Select task category" required (click)="switchCategory()" readonly>
-                    <!-- <div class="drop-down-arrow"></div> -->
                     <img class="drop-down-arrow" [src]="updateArrowCategory()" alt="drop_down_arrow"
                         (click)="switchCategory()">
-                    <!-- <span class="hint">
-                        This field is required.
-                    </span> -->
 
-                    <!-- fix z-index!!! -->
                     <div class="category-list" [ngClass]="catData.opened ? 'show' : ''">
                         <div #technicalTask class="category-item" (click)="setCategory(technicalTask)">
                             <span>Technical Task</span>
@@ -138,10 +61,10 @@
                 </div>
             </div>
 
+            <!-- <app-subtasks-input [(ngModel)]="subtask" name="subtasks"></app-subtasks-input> -->
             <div class="label-input-cont">
                 <label class="label" for="subtasks">
                     <span>Subtasks</span>
-                    <!-- <span class="star">*</span> -->
                 </label>
                 <div class="input-hint-cont">
                     <input [(ngModel)]="subtask" name="subtasks" class="input p-16" type="text"
@@ -154,13 +77,9 @@
                     </div>
                     <img *ngIf="subtask == ''" class="drop-down-arrow"
                         src="../../../assets/img/add-task/add_subtask.png" alt="drop_down_arrow">
-                    <!-- <span class="hint">
-                        This field is required.
-                    </span> -->
                 </div>
                 <div class="subtasks-cont">
                     <ul>
-                        <!-- subtask-cont for margin-bottom:8px!!! -->
                         <div *ngFor="let subtask of subTData.subtasks; index as i" class="subtask-cont"
                             (click)="stop($event)">
                             <div *ngIf="!subtask.focused" class="li-cont" (click)="subTData.edit(i)">
@@ -178,21 +97,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div *ngIf="!subtaskFocused" class="li-cont">
-                            <li>Contact Form</li>
-                        </div>
-                        <div *ngIf="subtaskFocused" class="subinput-icon-cont">
-                            <input class="subtask" type="text" value="Contact Form">
-                            <div class="subtask-icon-cont">
-                                <img src="../../../assets/img/add-task/delete.png" alt="delete">
-                                <div class="sub-icon-border"></div>
-                                <img src="../../../assets/img/add-task/check.png" alt="check">
-                            </div>
-                        </div>
-                        <div class="li-cont">
-                            <li>Write Legal Imprint</li>
-                        </div> -->
-                        <!-- <input class="subtask" type="text" value="Write Legal Imprint"> -->
                     </ul>
                 </div>
             </div>

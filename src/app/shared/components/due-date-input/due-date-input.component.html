@@ -1,0 +1,15 @@
+<div class="label-input-cont">
+    <label class="label" for="due-date">
+        <span>Due date</span>
+        <span class="star">*</span>
+    </label>
+    <div class="input-hint-cont">
+        <input [value]="value" name="dueDate" class="input-overlay" placeholder="dd/mm/yyyy" [pattern]="dueDatePat"
+            required (keyup)="updateCalender()">
+        <img class="calender" src="../../../assets/img/add-task/calender.png" alt="calender">
+        <input [value]="dueDate" name="calender" class="input due-date" type="date" required (change)="formatDueDate()">
+        <span class="hint" [ngClass]="showHint()">
+            This field is required.
+        </span>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+@import "../../../../mixins.scss";
+
+.label-input-cont {
+  @include display-column($g: 8px);
+  width: 440px;
+}
+
+.label {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $dark;
+}
+
+.input-hint-cont {
+  @include display-column($g: 4px);
+  width: 100%;
+  position: relative;
+}
+
+.textarea {
+  @include box-padding($p: 17px 15px);
+  @include size($w: 100%, $h: 120px);
+  @include min-size($w: 440px, $h: 60px);
+  @include max-size($w: 440px, $h: 240px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: 1px solid $gray, $br: 10px);
+  font-family: $inter;
+
+  &:focus {
+    border: 1px solid $lightblue;
+  }
+
+  &::placeholder {
+    color: $gray;
+  }
+
+  &::-webkit-resizer {
+    opacity: 0;
+  }
+}
+
+.resizer-cont {
+  @include size($w: 18.9px, $h: 18.9px);
+  @include position($pos: absolute, $r: 6px, $b: 6px);
+  pointer-events: none;
+}
+
+.resizer {
+  object-fit: contain;
+}

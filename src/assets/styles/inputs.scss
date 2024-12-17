@@ -26,8 +26,8 @@
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include color-set($c: $black, $bgc: $white);
   @include round-border($b: 1px solid $gray, $br: 10px);
-  font-family: $inter;
   width: 422px;
+  font-family: $inter;
 
   &::placeholder {
     color: $gray;

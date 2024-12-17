@@ -1,6 +1,6 @@
 @import "./mixins.scss";
 // think about folder structure!!!
-@import "./assets/styles/inputs.scss";
+// @import "./assets/styles/inputs.scss";
 
 body {
   @include font();
@@ -20,6 +20,7 @@ button {
 
 button,
 input,
+textarea,
 a {
   outline: none;
 }

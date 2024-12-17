@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-join-title',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './join-title.component.html',
   styleUrl: './join-title.component.scss',
 })
@@ -13,5 +14,5 @@ import { Component, Input } from '@angular/core';
  */
 export class JoinTitleComponent {
   @Input() title: string = '';
-  @Input() subtitle: string = '';
+  @Input() subtitle?: string = '';
 }
