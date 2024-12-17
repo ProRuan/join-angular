@@ -10,7 +10,5 @@ export class CategoryService {
 
   set(value: boolean) {
     this.opened = value;
-    console.log('catData: ', this.opened);
-    
   }
 }

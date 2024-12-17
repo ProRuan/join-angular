@@ -4,11 +4,14 @@ import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AssignedToService } from '../../services/assigned-to.service';
 import { CategoryService } from '../../services/category.service';
 import { CommonModule } from '@angular/common';
+import { AssignableContactComponent } from '../../../components/add-task/assignable-contact/assignable-contact.component';
+import { LabelComponent } from '../label/label.component';
+import { stop } from '../../ts/global';
 
 @Component({
   selector: 'app-assigned-to-input',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LabelComponent, AssignableContactComponent],
   templateUrl: './assigned-to-input.component.html',
   styleUrl: './assigned-to-input.component.scss',
   providers: [
@@ -17,6 +20,7 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class AssignedToInputComponent extends BasicInput {
+  // verify!
   asToData: AssignedToService = inject(AssignedToService);
   catData: CategoryService = inject(CategoryService);
 
@@ -42,6 +46,36 @@ export class AssignedToInputComponent extends BasicInput {
     },
   ];
 
+  /**
+   * Stops the event on click.
+   * @param event - The event.
+   */
+  onStop(event: Event) {
+    stop(event);
+  }
+
+  // verify!
+  logFocus() {
+    this.asToData.set(true);
+  }
+
+  /**
+   * Filters the assignable contacts on keyup.
+   */
+  onFilter() {
+    let value = this.value.toLowerCase();
+    this.assignableContacts.forEach((contact) => {
+      let name = contact.name.toLowerCase();
+      contact.filtered = name.includes(value) ? true : false;
+    });
+  }
+
+  // verify!!!
+  // jsdoc
+  getAssignedClass(assigned: boolean) {
+    return assigned ? 'assigned' : '';
+  }
+
   switchAssignedTo() {
     if (!this.asToData.opened) {
       this.asToData.set(true);
@@ -54,33 +88,12 @@ export class AssignedToInputComponent extends BasicInput {
     this.asToData.set(false);
   }
 
-  stop(event: Event) {
-    event.stopPropagation();
-  }
-
-  logFocus() {
-    this.asToData.set(true);
-  }
-
   updateArrowAssignedTo() {
     if (this.asToData.opened) {
       return '../../../assets/img/add-task/drop_down_arrow_up.png';
     } else {
       return '../../../assets/img/add-task/drop_down_arrow_down.png';
     }
-  }
-
-  // possible on keydown?!
-  filterAC() {
-    this.assignableContacts.forEach((contact) => {
-      if (contact.name.includes(this.value)) {
-        contact.filtered = true;
-        // console.log('filtered ac: ', contact);
-      } else {
-        contact.filtered = false;
-        // console.log('hidden ac: ', contact);
-      }
-    });
   }
 
   getCheckbox(i: number) {

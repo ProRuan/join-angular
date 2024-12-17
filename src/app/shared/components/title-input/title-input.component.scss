@@ -5,15 +5,6 @@
   width: 440px;
 }
 
-.label {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  color: $dark;
-}
-
-.star {
-  color: #ff8190;
-}
-
 .input-hint-cont {
   @include display-column($g: 4px);
 }

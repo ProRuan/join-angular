@@ -1,0 +1,9 @@
+<div class="assignable-contact" [ngClass]="getClass()">
+    <div class="profile-name-cont">
+        <div class="profile">
+            <span class="initials">{{ contact.initials }}</span>
+        </div>
+        <span class="name">{{ contact.name }}</span>
+    </div>
+    <app-checkbox [checked]="contact.assigned" [bright]="true"></app-checkbox>
+</div>

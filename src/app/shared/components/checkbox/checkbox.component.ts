@@ -14,6 +14,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
  */
 export class CheckboxComponent {
   @Input() checked: boolean = false;
+  @Input() bright: boolean = false;
   @Output() check = new EventEmitter<boolean>();
 
   /**
@@ -21,7 +22,13 @@ export class CheckboxComponent {
    * @returns - The css class to apply.
    */
   getClass() {
-    return this.checked ? 'checked' : 'check';
+    if (this.checked && this.bright) {
+      return 'checked-white';
+    } else if (this.checked) {
+      return 'checked';
+    } else {
+      return 'check';
+    }
   }
 
   /**

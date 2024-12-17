@@ -1,0 +1,10 @@
+@import "../../../../mixins.scss";
+
+.label {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $dark;
+}
+
+.star {
+  color: #ff8190;
+}

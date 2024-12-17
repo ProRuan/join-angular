@@ -1,0 +1,49 @@
+@import "../../../../mixins.scss";
+
+.assignable-contact {
+  @include box-padding($p: 7px 16px);
+  @include display-flex($jc: space-between);
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #eeeeee;
+  }
+}
+
+.assigned {
+  background-color: $dark;
+
+  span {
+    color: $white;
+  }
+
+  &:hover {
+    background-color: $darker;
+  }
+}
+
+.profile-name-cont {
+  @include display-row($ai: center, $g: 16px);
+}
+
+.profile {
+  @include size($w: 42px, $h: 42px);
+  @include round-border($b: 2px solid $white, $br: 45px);
+  @include display-flex();
+  box-sizing: border-box;
+  background-color: $lightblue;
+  text-align: center;
+}
+
+.initials {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  text-align: center;
+  color: $white;
+}
+
+.name {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $black;
+}

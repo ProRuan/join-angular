@@ -44,6 +44,9 @@ import { SubtasksInputComponent } from '../../shared/components/subtasks-input/s
 export class AddTaskComponent {
   title: string = 'Add Task';
 
+  // parent input focus!!!
+  // add (You)!!!
+  // folder for checkbox images!
   // add (input)="onInputChange($event)"!!!
   // clean all add-task inputs ...
   // combine add-task inputs ... ?

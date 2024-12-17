@@ -37,17 +37,19 @@ components (4/?)
   - SignUpComponent - check
   - SummaryComponent - check
       - SumCardComponent - check
-  - AddTaskComponent ... (2/?)
-      - TitleInputComponent - check
-      - DescriptionInputComponent - check
+  - AddTaskComponent ... (3/?)
+      - AssignableContactComponent - check
+      - TitleInputComponent - check*
+      - DescriptionInputComponent - check*
 
-shared/components (13/?)
+shared/components (14/?)
 -----------------
   - CheckboxComponent - check
   - HeaderComponent - check
   - InputComponent - ... (necessary???)
   - JoinHeaderComponent - check
   - JoinTitleComponent - check
+  - LabelComponent - check
   - LogComponent - check
   - LogoComponent - check
   - MainLinkComponent - check

@@ -5,11 +5,6 @@
   width: 440px;
 }
 
-.label {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  color: $dark;
-}
-
 .input-hint-cont {
   @include display-column($g: 4px);
   width: 100%;

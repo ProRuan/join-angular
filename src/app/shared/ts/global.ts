@@ -23,3 +23,11 @@ export function saveUser(data: User) {
   let userAsText = JSON.stringify(user);
   localStorage.setItem('user', userAsText);
 }
+
+/**
+ * Stops the event.
+ * @param event - The event.
+ */
+export function stop(event: Event) {
+  event.stopPropagation();
+}

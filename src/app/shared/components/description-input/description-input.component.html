@@ -1,7 +1,5 @@
 <div class="label-input-cont">
-    <label class="label" for="description">
-        <span>Description</span>
-    </label>
+    <app-label text="Description"></app-label>
     <div class="input-hint-cont">
         <textarea [value]="value" class="textarea" placeholder="Enter a description"
             (input)="onInputChange($event)"></textarea>
