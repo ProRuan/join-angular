@@ -13,7 +13,7 @@
         </span> -->
 
         <!-- fix z-index!!! -->
-        <div class="category-list" [ngClass]="catData.opened ? 'show' : ''">
+        <div class="category-list" [ngClass]="dialog.isOpened(id) ? 'show' : ''">
             <div #technicalTask class="category-item" (click)="setCategory(technicalTask)">
                 <span>Technical Task</span>
             </div>

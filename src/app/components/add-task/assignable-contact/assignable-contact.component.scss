@@ -33,7 +33,6 @@
   @include round-border($b: 2px solid $white, $br: 45px);
   @include display-flex();
   box-sizing: border-box;
-  background-color: $lightblue;
   text-align: center;
 }
 

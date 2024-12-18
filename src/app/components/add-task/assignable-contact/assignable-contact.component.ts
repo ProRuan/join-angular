@@ -16,6 +16,7 @@ import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.
 export class AssignableContactComponent {
   @Input() contact = {
     initials: 'SM',
+    bgc: 'cyan',
     name: 'Sofia Müller',
     assigned: false,
     filtered: true,

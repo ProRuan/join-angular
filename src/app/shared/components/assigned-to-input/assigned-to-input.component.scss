@@ -5,175 +5,69 @@
   width: 440px;
 }
 
-.input-hint-cont {
+.input-list-cont {
   @include display-column($g: 4px);
-  width: 100%;
+  position: relative;
 }
 
 .input {
-  @include box-padding($p: 11px 20px);
+  @include box-padding($p: 11px 49px 11px 15px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include color-set($c: $black, $bgc: white);
+  @include color-set($c: $black, $bgc: $white);
   @include round-border($b: 1px solid $gray, $br: 10px);
-  width: 100%;
+  @include display-row($g: 10px);
   font-family: $inter;
-
-  &:focus {
-    border: 1px solid $lightblue;
-  }
-
-  &::placeholder {
-    color: $gray;
-  }
-}
-
-.error {
-  border: 1px solid #ff8190;
-}
-
-.hint {
-  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
-  height: 12px;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
-  color: #ff8190;
-  opacity: 0;
-}
-
-// assigned to
-
-.selection {
-  @include box-padding($p: 11px 16px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include display-horiz($g: 10px);
-  width: 100%;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
   z-index: 1;
-  outline: none;
 
   &:hover {
     border: 1px solid #a8a8a8;
   }
 
   &:focus {
-    border: 1px solid #29abe2;
+    border: 1px solid $lightblue;
   }
 
   &::placeholder {
-    color: #000000;
+    color: $black;
   }
 }
 
-// .drop-down-arrow {
-//   @include size(24px, 24px);
-//   background-image: url("../../../assets/img/add-task/drop_down_arrow_down.png");
-//   position: absolute;
-//   right: 16px;
-//   top: 12px;
-// }
-
 .drop-down-arrow {
-  position: absolute;
-  right: 16px;
-  top: 12px;
+  @include position($pos: absolute, $t: 12px, $r: 16px);
   z-index: 1;
   cursor: pointer;
 }
 
-// possible without position:absoulte?
 .assignable-contacts-list {
-  @include display-column();
+  @include display-column($g: 2px);
   padding-top: 48px;
   width: 100%;
-  // width settings!!!
   max-width: 440px;
-  background-color: #ffffff;
+  background-color: $white;
   border-radius: 10px;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-  gap: 2px;
   display: none;
   position: absolute;
 }
 
 .show {
-  display: flex !important;
+  display: flex;
 }
 
-.hide {
-  display: none;
-}
-
-.check {
-  content: url("../../../../assets/img/sign-up/check.png");
-
-  &:hover {
-    content: url("../../../../assets/img/sign-up/check_hover.png");
-  }
-}
-
-.checked {
-  content: url("../../../../assets/img/add-task/checked_white.png");
-
-  &:hover {
-    content: url("../../../../assets/img/add-task/checked_white.png");
-  }
-}
-
-.assignable-contact {
-  @include box-padding($p: 7px 16px);
-  @include display-flex($jc: space-between);
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #eeeeee;
-
-    // selected!!!
-    // background-color: #2a3647;
-
-    // .name {
-    //   color: #ffffff;
-    // }
-  }
-}
-
-.assigned {
-  background-color: #2a3647;
-
-  &:hover {
-    background-color: #091931;
-  }
-}
-
-.profile-name-cont {
-  @include display-horiz($g: 16px);
+.assigned-contacts {
+  @include display-row($g: 8px);
 }
 
 .profile {
   @include size($w: 42px, $h: 42px);
+  @include round-border($b: 2px solid $white, $br: 45px);
   @include display-flex();
-  background-color: #29abe2;
   box-sizing: border-box;
   text-align: center;
-  border: 2px solid #ffffff;
-  border-radius: 45px;
 }
 
 .initials {
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
   text-align: center;
-  color: #ffffff;
-}
-
-.name {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  color: #000000;
-}
-
-.assigned-contacts {
-  display: flex;
-  gap: 8px;
+  color: $white;
 }

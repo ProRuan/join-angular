@@ -5,9 +5,7 @@
         <div class="left-subcontent">
             <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
             <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
-
-            <!-- clean assigned to input + rename "name"!!! -->
-            <app-assigned-to-input [(ngModel)]="filter" name="assignedTo"></app-assigned-to-input>
+            <app-assigned-to-input [(ngModel)]="filter" name="assigned-to"></app-assigned-to-input>
         </div>
 
         <div class="border"></div>
@@ -49,7 +47,7 @@
                     <img class="drop-down-arrow" [src]="updateArrowCategory()" alt="drop_down_arrow"
                         (click)="switchCategory()">
 
-                    <div class="category-list" [ngClass]="catData.opened ? 'show' : ''">
+                    <div class="category-list" [ngClass]="dialog.isOpened(id) ? 'show' : ''">
                         <div #technicalTask class="category-item" (click)="setCategory(technicalTask)">
                             <span>Technical Task</span>
                         </div>

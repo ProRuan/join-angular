@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CategoryService } from '../../services/category.service';
 import { BasicInput, getProvider } from '../../models/basic-input';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-category-input',
@@ -16,23 +16,25 @@ import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class CategoryInputComponent extends BasicInput {
-  catData: CategoryService = inject(CategoryService);
+  dialog: DialogService = inject(DialogService);
+
+  id: string = 'category';
 
   // input value?!
   task: any;
 
   // double code!!!
   switchCategory() {
-    if (!this.catData.opened) {
-      this.catData.set(true);
+    if (!this.dialog.isOpened(this.id)) {
+      this.dialog.open(this.id);
     } else {
-      this.catData.set(false);
+      this.dialog.close(this.id);
     }
   }
 
   // double code!!!
   updateArrowCategory() {
-    if (this.catData.opened) {
+    if (this.dialog.isOpened(this.id)) {
       return '../../../assets/img/add-task/drop_down_arrow_up.png';
     } else {
       return '../../../assets/img/add-task/drop_down_arrow_down.png';
@@ -41,6 +43,6 @@ export class CategoryInputComponent extends BasicInput {
 
   setCategory(element: HTMLDivElement) {
     this.task.category = element.innerText;
-    this.catData.set(false);
+    this.dialog.close(this.id);
   }
 }

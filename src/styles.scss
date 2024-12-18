@@ -1,6 +1,7 @@
 @import "./mixins.scss";
 // think about folder structure!!!
 // @import "./assets/styles/inputs.scss";
+// mixinds width-set with params w, min, max?!
 
 body {
   @include font();

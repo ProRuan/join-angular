@@ -10,8 +10,6 @@ import { JoinService } from '../../shared/services/join.service';
 import { PrioButtonComponent } from '../../shared/components/prio-button/prio-button.component';
 import { PrioService } from '../../shared/services/prio.service';
 import { last } from 'rxjs';
-import { AssignedToService } from '../../shared/services/assigned-to.service';
-import { CategoryService } from '../../shared/services/category.service';
 import { SubtaskService } from '../../shared/services/subtask.service';
 import { TitleInputComponent } from '../../shared/components/title-input/title-input.component';
 import { DescriptionInputComponent } from '../../shared/components/description-input/description-input.component';
@@ -20,6 +18,7 @@ import { DueDateInputComponent } from '../../shared/components/due-date-input/du
 import { PrioInputComponent } from '../../shared/components/prio-input/prio-input.component';
 import { CategoryInputComponent } from '../../shared/components/category-input/category-input.component';
 import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
+import { DialogService } from '../../shared/services/dialog.service';
 // import { User } from '../../shared/models/user';
 
 @Component({
@@ -42,7 +41,16 @@ import { SubtasksInputComponent } from '../../shared/components/subtasks-input/s
   styleUrl: './add-task.component.scss',
 })
 export class AddTaskComponent {
+  dialog: DialogService = inject(DialogService);
+
   title: string = 'Add Task';
+  id: string = 'category';
+
+  // assigned-to input component
+  // ---------------------------
+  // 1. Update category dialog ...
+  // 2. Implement user contacts ...
+  // 3. Replace filter witch assignable contacts ...
 
   // parent input focus!!!
   // add (You)!!!
@@ -59,8 +67,6 @@ export class AddTaskComponent {
   prioData: PrioService = inject(PrioService);
 
   // verify + rename!!!
-  asToData: AssignedToService = inject(AssignedToService);
-  catData: CategoryService = inject(CategoryService);
   subTData: SubtaskService = inject(SubtaskService);
   sessionToken: string = '';
   codes: string[] = [];
@@ -161,32 +167,8 @@ export class AddTaskComponent {
   //   this.formatCurrDate();
   // }
 
-  switchAssignedTo() {
-    if (!this.asToData.opened) {
-      this.asToData.set(true);
-    } else {
-      this.asToData.set(false);
-    }
-  }
-
-  closeAssignedTo() {
-    this.asToData.set(false);
-  }
-
   stop(event: Event) {
     event.stopPropagation();
-  }
-
-  logFocus() {
-    this.asToData.set(true);
-  }
-
-  updateArrowAssignedTo() {
-    if (this.asToData.opened) {
-      return '../../../assets/img/add-task/drop_down_arrow_up.png';
-    } else {
-      return '../../../assets/img/add-task/drop_down_arrow_down.png';
-    }
   }
 
   // possible on keydown?!
@@ -291,16 +273,16 @@ export class AddTaskComponent {
 
   // double code!!!
   switchCategory() {
-    if (!this.catData.opened) {
-      this.catData.set(true);
+    if (!this.dialog.isOpened(this.id)) {
+      this.dialog.open(this.id);
     } else {
-      this.catData.set(false);
+      this.dialog.close(this.id);
     }
   }
 
   // double code!!!
   updateArrowCategory() {
-    if (this.catData.opened) {
+    if (this.dialog.isOpened(this.id)) {
       return '../../../assets/img/add-task/drop_down_arrow_up.png';
     } else {
       return '../../../assets/img/add-task/drop_down_arrow_down.png';
@@ -309,7 +291,7 @@ export class AddTaskComponent {
 
   setCategory(element: HTMLDivElement) {
     this.task.category = element.innerText;
-    this.catData.set(false);
+    this.dialog.close(this.id);
   }
 
   resetForm(ngForm: NgForm) {

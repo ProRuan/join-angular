@@ -1,6 +1,6 @@
 <div class="assignable-contact" [ngClass]="getClass()">
     <div class="profile-name-cont">
-        <div class="profile">
+        <div class="profile" [ngClass]="contact.bgc">
             <span class="initials">{{ contact.initials }}</span>
         </div>
         <span class="name">{{ contact.name }}</span>

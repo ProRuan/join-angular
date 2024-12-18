@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
-import { AssignedToService } from '../../shared/services/assigned-to.service';
 import { SubtaskService } from '../../shared/services/subtask.service';
 import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
 import { CommonModule } from '@angular/common';
@@ -15,6 +14,7 @@ import { DialogEditContactService } from '../../shared/services/dialog-edit-cont
 import { DialogAddContactComponent } from './dialog-add-contact/dialog-add-contact.component';
 import { DialogAddContactService } from '../../shared/services/dialog-add-contact.service';
 import { JoinHeaderComponent } from '../../shared/components/join-header/join-header.component';
+import { DialogService } from '../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-main',
@@ -37,7 +37,7 @@ export class MainComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
-  asToData: AssignedToService = inject(AssignedToService);
+  dialog: DialogService = inject(DialogService);
   subTData: SubtaskService = inject(SubtaskService);
   datData: DialogAddTaskService = inject(DialogAddTaskService);
   dvtData: DialogViewTaskService = inject(DialogViewTaskService);
