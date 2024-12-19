@@ -3,11 +3,13 @@ import { Component, inject } from '@angular/core';
 import { BasicInput, getProvider } from '../../models/basic-input';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DialogService } from '../../services/dialog.service';
+import { stop } from '../../ts/global';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
   selector: 'app-category-input',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LabelComponent],
   templateUrl: './category-input.component.html',
   styleUrl: './category-input.component.scss',
   providers: [
@@ -19,9 +21,6 @@ export class CategoryInputComponent extends BasicInput {
   dialog: DialogService = inject(DialogService);
 
   id: string = 'category';
-
-  // input value?!
-  task: any;
 
   // double code!!!
   switchCategory() {
@@ -42,7 +41,7 @@ export class CategoryInputComponent extends BasicInput {
   }
 
   setCategory(element: HTMLDivElement) {
-    this.task.category = element.innerText;
+    this.value = element.innerText;
     this.dialog.close(this.id);
   }
 }

@@ -6,7 +6,13 @@ import { User } from '../models/user';
  * @returns - The capitalized word.
  */
 export function getCapitalized(word: string) {
-  return word[0].toUpperCase() + word.slice(1);
+  if (word.length > 1) {
+    return word[0].toUpperCase() + word.slice(1);
+  } else if (word.length > 0) {
+    return word.toUpperCase();
+  } else {
+    return word;
+  }
 }
 
 /**

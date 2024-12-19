@@ -1,16 +1,10 @@
 <div class="label-input-cont">
-    <label class="label" for="category">
-        <span>Category</span>
-        <span class="star">*</span>
-    </label>
+    <app-label text="Category" [req]="true"></app-label>
     <div class="input-hint-cont">
         <input [value]="value" class="selection read-only" type="text" placeholder="Select task category" required
-            (click)="switchCategory()" readonly>
-        <!-- <div class="drop-down-arrow"></div> -->
+            (input)="onInputChange($event)" (click)="switchCategory()" readonly>
         <img class="drop-down-arrow" [src]="updateArrowCategory()" alt="drop_down_arrow" (click)="switchCategory()">
-        <!-- <span class="hint">
-            This field is required.
-        </span> -->
+        <!-- add hint!!! -->
 
         <!-- fix z-index!!! -->
         <div class="category-list" [ngClass]="dialog.isOpened(id) ? 'show' : ''">

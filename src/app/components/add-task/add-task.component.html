@@ -12,34 +12,10 @@
 
         <div class="right-subcontent">
             <app-due-date-input [(ngModel)]="task.dueDate" name="due-date"></app-due-date-input>
-
-            <!-- clean prio input + prio button!!! -->
             <app-prio-input></app-prio-input>
 
             <!-- clean category input!!! -->
-            <!-- <app-category-input [(ngModel)]="task.category" name="category"></app-category-input> -->
-            <div class="label-input-cont">
-                <label class="label" for="category">
-                    <span>Category</span>
-                    <span class="star">*</span>
-                </label>
-                <div class="input-hint-cont">
-                    <input [(ngModel)]="task.category" name="category" class="selection read-only" type="text"
-                        placeholder="Select task category" required (click)="switchCategory()" readonly>
-                    <img class="drop-down-arrow" [src]="updateArrowCategory()" alt="drop_down_arrow"
-                        (click)="switchCategory()">
-
-                    <div class="category-list" [ngClass]="dialog.isOpened(id) ? 'show' : ''">
-                        <div #technicalTask class="category-item" (click)="setCategory(technicalTask)">
-                            <span>Technical Task</span>
-                        </div>
-
-                        <div #userStory class="category-item" (click)="setCategory(userStory)">
-                            <span>User Story</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <app-category-input [(ngModel)]="task.category" name="category"></app-category-input>
 
             <!-- <app-subtasks-input [(ngModel)]="subtask" name="subtasks"></app-subtasks-input> -->
             <div class="label-input-cont">
