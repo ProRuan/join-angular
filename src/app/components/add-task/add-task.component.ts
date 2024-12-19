@@ -46,6 +46,10 @@ export class AddTaskComponent {
   title: string = 'Add Task';
   id: string = 'category';
 
+  // global
+  // ------
+  // getCapitalized() ...
+
   // assigned-to input component
   // ---------------------------
   // 1. Update category dialog ...
@@ -64,7 +68,6 @@ export class AddTaskComponent {
   // PrioInputComponent
   // ------------------
   // add more space (not visible hint) ...
-  // move service to prio input component ... ?
   // move prio button to piro input ...
 
   // parent input focus!!!

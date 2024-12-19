@@ -45,7 +45,7 @@ components (4/?)
       - DueDateInputComponent - check*
       - PrioInputComponent - check
 
-shared/components (14/?)
+shared/components (15/?)
 -----------------
   - CheckboxComponent - check
   - HeaderComponent - check
@@ -58,6 +58,7 @@ shared/components (14/?)
   - MainLinkComponent - check
   - MenuComponent - check
   - PasswordInputComponent - check
+  - PrioButtonComponent - check
   - TextInputComponent - check
   - TitleComponent - check
   - SumCardComponent - check
@@ -80,7 +81,7 @@ shared/models (5/?)
   - SummaryTask - check
   - Transform - check
 
-shared/services (9/?)
+shared/services (10/?)
 ---------------
   - EmailValidationService - check
   - InputConfigurationService - check
@@ -90,6 +91,7 @@ shared/services (9/?)
   - NavigationService - check
   - PasswordMaskService - check
   - PasswordValidationService - check
+  - PrioService - check
   - SessionIdService - check
 
 shared/ts (1/?)

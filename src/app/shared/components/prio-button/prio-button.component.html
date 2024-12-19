@@ -1,4 +1,4 @@
-<button [id]="id" class="prio-button {{ id }}" [disabled]="prioData.get(id)" (click)="select()">
-    <span>{{ name() }}</span>
-    <img [src]="source()" [alt]="source()">
+<button class="prio-button" [ngClass]="id" [disabled]="isDisabled()" (click)="onSelect()">
+    <span>{{ name }}</span>
+    <img [src]="src" [alt]="img">
 </button>

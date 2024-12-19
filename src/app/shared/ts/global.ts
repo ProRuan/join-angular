@@ -1,6 +1,15 @@
 import { User } from '../models/user';
 
 /**
+ * Provides the capitalized word.
+ * @param word - The word to capitalize.
+ * @returns - The capitalized word.
+ */
+export function getCapitalized(word: string) {
+  return word[0].toUpperCase() + word.slice(1);
+}
+
+/**
  * Loads the user.
  * @returns - The user or undefined.
  */

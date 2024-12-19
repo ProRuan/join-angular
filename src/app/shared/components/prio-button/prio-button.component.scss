@@ -3,16 +3,16 @@
 .prio-button {
   @include box-padding($p: 16px 10px);
   @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: none, $br: 10px);
   @include display-flex();
-  gap: 8px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   flex: 1;
+  gap: 8px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  transition: all 100ms ease-in-out;
 
   span {
     @include font($fs: 20px, $fw: 400, $lh: 24px);
-    color: #000000;
+    color: $black;
   }
 
   &:hover {
@@ -24,7 +24,8 @@
 
     span {
       @include font($fs: 21px, $fw: 700, $lh: 25.2px);
-      color: #ffffff;
+      height: 24px;
+      color: $white;
     }
   }
 }
