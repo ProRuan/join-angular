@@ -11,25 +11,7 @@
         <div class="border"></div>
 
         <div class="right-subcontent">
-            <!-- clean due date input + rename "name" -->
-            <!-- <app-due-date-input [(ngModel)]="task.dueDate" name="dueDate"></app-due-date-input> -->
-
-            <div class="label-input-cont">
-                <label class="label" for="due-date">
-                    <span>Due date</span>
-                    <span class="star">*</span>
-                </label>
-                <div class="input-hint-cont">
-                    <input [(ngModel)]="task.dueDate" name="dueDate" class="input-overlay" placeholder="dd/mm/yyyy"
-                        [pattern]="dueDatePat" required (keyup)="updateCalender()">
-                    <img class="calender" src="../../../assets/img/add-task/calender.png" alt="calender">
-                    <input [(ngModel)]="dueDate" name="calender" class="input due-date" type="date" required
-                        (change)="formatDueDate()">
-                    <span class="hint" [ngClass]="showHint()">
-                        This field is required.
-                    </span>
-                </div>
-            </div>
+            <app-due-date-input [(ngModel)]="task.dueDate" name="due-date"></app-due-date-input>
 
             <!-- clean prio input + prio button!!! -->
             <app-prio-input></app-prio-input>

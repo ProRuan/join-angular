@@ -41,6 +41,8 @@ components (4/?)
       - AssignableContactComponent - check
       - TitleInputComponent - check*
       - DescriptionInputComponent - check*
+      - AssignedToInputComponent ...
+      - DueDateInputComponent - check*
 
 shared/components (14/?)
 -----------------
@@ -59,9 +61,10 @@ shared/components (14/?)
   - TitleComponent - check
   - SumCardComponent - check
 
-shared/interfaces (4/?)
+shared/interfaces (5/?)
 -----------------
   - checkItem - ... (necessary???)
+  - DateData - check
   - MainLink - check
   - Properties - check
   - Styles - check

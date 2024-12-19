@@ -64,6 +64,15 @@ export class AssignedToInputComponent extends BasicInput {
   }
 
   /**
+   * Provides the placeholder.
+   * @returns - The placeholder.
+   */
+  getPlaceholder() {
+    let opened = this.dialog.isOpened('assignedTo');
+    return !opened ? 'Select contacts to assign' : '';
+  }
+
+  /**
    * Opens the drop-down menu.
    */
   onOpenMenu() {

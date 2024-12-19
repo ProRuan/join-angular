@@ -1,38 +1,50 @@
 @import "../../../../mixins.scss";
 
+::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
 .label-input-cont {
   @include display-column($g: 8px);
   width: 440px;
 }
 
-.label {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  color: $dark;
-}
-
-.star {
-  color: #ff8190;
-}
-
 .input-hint-cont {
   @include display-column($g: 4px);
-  width: 100%;
+  position: relative;
 }
 
 .input {
-  @include box-padding($p: 11px 20px);
+  @include box-padding($p: 11px 15px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include color-set($c: $black, $bgc: white);
-  @include round-border($b: 1px solid $gray, $br: 10px);
-  width: 100%;
+  @include color-set($c: $black, $bgc: $white);
   font-family: $inter;
-
-  &:focus {
-    border: 1px solid $lightblue;
-  }
 
   &::placeholder {
     color: $gray;
+  }
+}
+
+.text-input {
+  @include round-border($b: none, $br: 10px);
+  @include position($pos: absolute, $l: 0, $t: 0);
+  margin: 1px;
+  width: calc(100% - 49px);
+}
+
+.calender {
+  @include size($w: 24px, $h: 24px);
+  @include position($pos: absolute, $t: 12px, $r: 16px);
+  background-color: $white;
+  pointer-events: none;
+}
+
+.date-input {
+  @include round-border($b: 1px solid $gray, $br: 10px);
+  max-height: 48px;
+
+  &:focus {
+    border: 1px solid $lightblue;
   }
 }
 
@@ -43,48 +55,11 @@
 .hint {
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
   height: 12px;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-family: $poppins;
   color: #ff8190;
   opacity: 0;
 }
 
-// due date
-
-.input-overlay {
-  @include box-padding($p: 12px 20px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  width: calc(100% - 2px - 54px);
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  // color: $black;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  // outline: none;
-  position: absolute;
-  left: 1px;
-  top: 1px;
-
-  &::placeholder {
-    color: #d1d1d1;
-  }
-
-  // focus border is missing!!!
-}
-
-.calender {
-  background-color: $white;
-  position: absolute;
-  top: 12px;
-  right: 22px;
-  pointer-events: none;
-}
-
-.due-date {
-  display: unset;
-  align-items: unset;
-  gap: unset;
-
-  &::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-  }
+.o-1 {
+  opacity: 1;
 }
