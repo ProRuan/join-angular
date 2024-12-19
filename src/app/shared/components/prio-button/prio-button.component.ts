@@ -11,8 +11,12 @@ import { PrioService } from '../../services/prio.service';
 export class PrioButtonComponent {
   prioData: PrioService = inject(PrioService);
 
+  img: string = 'prio_urgent';
   @Input() id: string = 'urgent';
-  @Input() img: string = 'prio_urgent';
+
+  ngOnInit() {
+    this.img = `prio_${this.id}`;
+  }
 
   select() {
     this.prioData.clear();

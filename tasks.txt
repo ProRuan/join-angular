@@ -37,12 +37,13 @@ components (4/?)
   - SignUpComponent - check
   - SummaryComponent - check
       - SumCardComponent - check
-  - AddTaskComponent ... (3/?)
+  - AddTaskComponent ... (5/?)
       - AssignableContactComponent - check
       - TitleInputComponent - check*
       - DescriptionInputComponent - check*
       - AssignedToInputComponent ...
       - DueDateInputComponent - check*
+      - PrioInputComponent - check
 
 shared/components (14/?)
 -----------------

@@ -61,6 +61,12 @@ export class AddTaskComponent {
   // HintInputComponent ... ?
   // implement validateDate() ...
 
+  // PrioInputComponent
+  // ------------------
+  // add more space (not visible hint) ...
+  // move service to prio input component ... ?
+  // move prio button to piro input ...
+
   // parent input focus!!!
   // add (You)!!!
   // folder for checkbox images!
