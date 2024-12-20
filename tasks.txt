@@ -37,13 +37,14 @@ components (4/?)
   - SignUpComponent - check
   - SummaryComponent - check
       - SumCardComponent - check
-  - AddTaskComponent ... (5/?)
+  - AddTaskComponent ... (6/?)
       - AssignableContactComponent - check
       - TitleInputComponent - check*
       - DescriptionInputComponent - check*
       - AssignedToInputComponent ...
       - DueDateInputComponent - check*
       - PrioInputComponent - check
+      - CategoryInputComponent - check*
 
 shared/components (15/?)
 -----------------
@@ -81,8 +82,9 @@ shared/models (5/?)
   - SummaryTask - check
   - Transform - check
 
-shared/services (10/?)
+shared/services (11/?)
 ---------------
+  - DialogService - check* --> more dialogs?!
   - EmailValidationService - check
   - InputConfigurationService - check
   - InputValidationService - check

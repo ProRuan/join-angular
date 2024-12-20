@@ -3,23 +3,38 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Represents a dialog service.
+ */
 export class DialogService {
   opened: { [key: string]: boolean } = {
     assignedTo: false,
     category: false,
   };
 
-  // close category selection on main!!!
-
-  open(key: string) {
-    this.opened[key] = true;
+  /**
+   * Opens the dialog.
+   * @param id - The dialog id.
+   */
+  open(id: string) {
+    this.opened[id] = true;
   }
 
-  close(key: string) {
-    this.opened[key] = false;
+  /**
+   * Closes the dialog.
+   * @param id - The dialog id.
+   */
+  close(id: string) {
+    this.opened[id] = false;
   }
 
-  isOpened(key: string) {
-    return this.opened[key];
+  /**
+   * Verifies the opened state of the dialog.
+   * @param id - The dialog id.
+   * @returns - A boolean value.
+   */
+  isOpened(id: string) {
+    return this.opened[id];
   }
 }

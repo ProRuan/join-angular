@@ -1,7 +1,7 @@
 <div class="label-input-cont">
     <app-label text="Assigned to"></app-label>
 
-    <div class="input-list-cont" (click)="onStop($event)">
+    <div class="input-list-cont" (click)="onHandleDialog($event)">
         <input [value]="value" name="assigned-to" class="input" type="text" [placeholder]="getPlaceholder()"
             (input)="onInputChange($event)" (focus)="onOpenMenu()" (keyup)="onFilter()">
         <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitchMenu()">

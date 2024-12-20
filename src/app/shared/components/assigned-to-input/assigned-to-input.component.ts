@@ -56,10 +56,11 @@ export class AssignedToInputComponent extends BasicInput {
   ];
 
   /**
-   * Stops the event on click.
+   * Handles the dialog on click.
    * @param event - The event.
    */
-  onStop(event: Event) {
+  onHandleDialog(event: Event) {
+    this.dialog.close('category');
     stop(event);
   }
 

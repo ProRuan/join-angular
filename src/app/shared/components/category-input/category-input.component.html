@@ -1,18 +1,15 @@
 <div class="label-input-cont">
     <app-label text="Category" [req]="true"></app-label>
-    <div class="input-hint-cont">
-        <input [value]="value" class="selection read-only" type="text" placeholder="Select task category" required
-            (input)="onInputChange($event)" (click)="switchCategory()" readonly>
-        <img class="drop-down-arrow" [src]="updateArrowCategory()" alt="drop_down_arrow" (click)="switchCategory()">
-        <!-- add hint!!! -->
+    <div class="input-hint-cont" (click)="onHandleDialog($event)">
+        <input [value]="value" class="input read-only" type="text" placeholder="Select task category" readonly required
+            (input)="onInputChange($event)" (click)="onSwitchMenu($event)">
+        <img class="drop-down-arrow" [src]="getSrc()" alt="drop_down_arrow" (click)="onSwitchMenu($event)">
 
-        <!-- fix z-index!!! -->
-        <div class="category-list" [ngClass]="dialog.isOpened(id) ? 'show' : ''">
-            <div #technicalTask class="category-item" (click)="setCategory(technicalTask)">
+        <div *ngIf="dialog.isOpened(id)" class="category-list">
+            <div #technicalTask class="category-item" (click)="onSelect(technicalTask)">
                 <span>Technical Task</span>
             </div>
-
-            <div #userStory class="category-item" (click)="setCategory(userStory)">
+            <div #userStory class="category-item" (click)="onSelect(userStory)">
                 <span>User Story</span>
             </div>
         </div>

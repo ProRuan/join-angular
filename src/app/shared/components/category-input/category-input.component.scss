@@ -5,86 +5,30 @@
   width: 440px;
 }
 
-.label {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  color: $dark;
-}
-
-.star {
-  color: #ff8190;
-}
-
 .input-hint-cont {
   @include display-column($g: 4px);
-  width: 100%;
   position: relative;
 }
 
 .input {
-  @include box-padding($p: 11px 20px);
+  @include box-padding($p: 11px 49px 11px 15px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include color-set($c: $black, $bgc: white);
+  @include color-set($c: $black, $bgc: $white);
   @include round-border($b: 1px solid $gray, $br: 10px);
-  width: 100%;
+  @include display-row($g: 10px);
   font-family: $inter;
-
-  &:focus {
-    border: 1px solid $lightblue;
-  }
-
-  &::placeholder {
-    color: $gray;
-  }
-}
-
-.error {
-  border: 1px solid #ff8190;
-}
-
-.hint {
-  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
-  height: 12px;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
-  color: #ff8190;
-  opacity: 0;
-}
-
-// category
-// from assigned-to
-.show {
-  display: flex !important;
-}
-
-.drop-down-arrow {
-  position: absolute;
-  right: 16px;
-  top: 12px;
   z-index: 20;
-  cursor: pointer;
-}
-
-.selection {
-  @include box-padding($p: 11px 16px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include display-horiz($g: 10px);
-  width: 100%;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  z-index: 20;
-  outline: none;
 
   &:hover {
     border: 1px solid #a8a8a8;
   }
 
   &:focus {
-    border: 1px solid #29abe2;
+    border: 1px solid $lightblue;
   }
 
   &::placeholder {
-    color: #000000;
+    color: $black;
   }
 }
 
@@ -92,23 +36,37 @@
   cursor: pointer;
 }
 
-// double code with assignable-contacts-list
+// .error {
+//   border: 1px solid #ff8190;
+// }
+
+.drop-down-arrow {
+  @include position($pos: absolute, $t: 12px, $r: 16px);
+  z-index: 20;
+  cursor: pointer;
+}
+
+// .hint {
+//   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+//   height: 12px;
+//   font-family: $poppins;
+//   color: #ff8190;
+//   opacity: 0;
+// }
+
 .category-list {
   @include display-column();
   padding-top: 48px;
   width: 100%;
-  background-color: #ffffff;
+  background-color: $white;
   border-radius: 10px;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-  gap: 2px;
-  display: none;
   position: absolute;
   z-index: 10;
 }
 
 .category-item {
   @include box-padding($p: 12px 16px);
-  width: 100%;
   border-radius: 10px;
   cursor: pointer;
 

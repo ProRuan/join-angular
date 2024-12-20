@@ -70,6 +70,15 @@ export class AddTaskComponent {
   // add more space (not visible hint) ...
   // move prio button to piro input ...
 
+  // CategoryInputComponent
+  // ----------------------
+  // set transition of all inputs (especially drop-down menu)!!!
+  // use ngIf for drop down menus!!!
+  // add error state and hints to inputs (even empty hints)!!!
+  // complete category style!
+  // override source functions!
+  // improve getSrc() with this.directory ...
+
   // parent input focus!!!
   // add (You)!!!
   // folder for checkbox images!
