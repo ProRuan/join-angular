@@ -5,6 +5,7 @@
         <div class="left-subcontent">
             <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
             <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
+            <!-- verfiy filter -> task.assignableContacts -> c.assigned == true!!! -->
             <app-assigned-to-input [(ngModel)]="filter" name="assigned-to"></app-assigned-to-input>
         </div>
 
@@ -12,48 +13,11 @@
 
         <div class="right-subcontent">
             <app-due-date-input [(ngModel)]="task.dueDate" name="due-date"></app-due-date-input>
+            <!-- place code still here? -->
             <app-prio-input></app-prio-input>
             <app-category-input [(ngModel)]="task.category" name="category"></app-category-input>
-
-            <!-- <app-subtasks-input [(ngModel)]="subtask" name="subtasks"></app-subtasks-input> -->
-            <div class="label-input-cont">
-                <label class="label" for="subtasks">
-                    <span>Subtasks</span>
-                </label>
-                <div class="input-hint-cont">
-                    <input [(ngModel)]="subtask" name="subtasks" class="input p-16" type="text"
-                        placeholder="Add new subtask">
-                    <div *ngIf="subtask != ''" class="sub-icon-cont">
-                        <img src="../../../assets/img/add-task/cancel.png" alt="cancel" (click)="subtask = ''">
-                        <div class="sub-icon-border"></div>
-                        <img src="../../../assets/img/add-task/check.png" alt="check"
-                            (click)="subTData.add(subtask); subtask = ''">
-                    </div>
-                    <img *ngIf="subtask == ''" class="drop-down-arrow"
-                        src="../../../assets/img/add-task/add_subtask.png" alt="drop_down_arrow">
-                </div>
-                <div class="subtasks-cont">
-                    <ul>
-                        <div *ngFor="let subtask of subTData.subtasks; index as i" class="subtask-cont"
-                            (click)="stop($event)">
-                            <div *ngIf="!subtask.focused" class="li-cont" (click)="subTData.edit(i)">
-                                <li>{{ subtask.text }}</li>
-                            </div>
-                            <div *ngIf="subtask.focused" class="subinput-icon-cont">
-                                <input [(ngModel)]="subTData.currValue" name="subtask" class="subtask" type="text"
-                                    [value]="subtask.text">
-                                <div class="subtask-icon-cont">
-                                    <img src="../../../assets/img/add-task/delete.png" alt="delete"
-                                        (click)="subTData.delete()">
-                                    <div class="sub-icon-border"></div>
-                                    <img src="../../../assets/img/add-task/check.png" alt="check"
-                                        (click)="subTData.save(i)">
-                                </div>
-                            </div>
-                        </div>
-                    </ul>
-                </div>
-            </div>
+            <!-- task.subtasks!!! -->
+            <app-subtasks-input [(ngModel)]="subtask" name="subtasks"></app-subtasks-input>
         </div>
     </form>
 
