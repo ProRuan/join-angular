@@ -3,13 +3,12 @@
 
     <div class="input-list-cont" (click)="onHandleDialog($event)">
         <input [value]="value" name="assigned-to" class="input" [ngClass]="getFocusClass()" type="text"
-            [placeholder]="getPlaceholder()" (input)="onInputChange($event)" (focus)="onOpenMenu()"
-            (keyup)="onFilter()">
+            [placeholder]="getPlaceholder()" (input)="onInputChange($event)" (focus)="onOpenMenu()">
         <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitchMenu()">
 
         <div class="assignable-contacts-list" [ngClass]="getListClass()">
             @for (contact of assignableContacts; track contact; let i = $index) {
-            <app-assignable-contact *ngIf="contact.filtered" [contact]="contact"
+            <app-assignable-contact *ngIf="isFiltered(contact.name)" [contact]="contact"
                 (click)="onAssign(i)"></app-assignable-contact>
             }
         </div>

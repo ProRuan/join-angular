@@ -35,21 +35,18 @@ export class AssignedToInputComponent extends BasicInput {
       bgc: 'cyan',
       name: 'Sofia Müller',
       assigned: false,
-      filtered: true,
     },
     {
       initials: 'AS',
       bgc: 'purple',
       name: 'Anja Schulz',
       assigned: false,
-      filtered: true,
     },
     {
       initials: 'EF',
       bgc: 'yellow',
       name: 'Eva Fischer',
       assigned: false,
-      filtered: true,
     },
   ];
 
@@ -93,17 +90,6 @@ export class AssignedToInputComponent extends BasicInput {
   }
 
   /**
-   * Filters the assignable contacts on keyup.
-   */
-  onFilter() {
-    let value = this.value.toLowerCase();
-    this.assignableContacts.forEach((contact) => {
-      let name = contact.name.toLowerCase();
-      contact.filtered = name.includes(value) ? true : false;
-    });
-  }
-
-  /**
    * Provides the source path of the arrow.
    * @returns - The source path of the arrow.
    */
@@ -128,6 +114,17 @@ export class AssignedToInputComponent extends BasicInput {
    */
   getListClass() {
     return this.dialog.isOpened(this.id) ? 'show' : '';
+  }
+
+  /**
+   * Verifies the filtered contact.
+   * @param name - The contact name.
+   * @returns - A boolean value.
+   */
+  isFiltered(name: string) {
+    name = name.toLowerCase();
+    let value = this.value.toLowerCase();
+    return name.includes(value) ? true : false;
   }
 
   /**

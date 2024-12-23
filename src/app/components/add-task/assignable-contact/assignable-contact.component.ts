@@ -19,7 +19,6 @@ export class AssignableContactComponent {
     bgc: 'cyan',
     name: 'Sofia Müller',
     assigned: false,
-    filtered: true,
   };
 
   /**

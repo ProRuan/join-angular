@@ -46,6 +46,14 @@ export function getString(value?: string, defaultValue: string = '') {
 }
 
 /**
+ * Provides the current time.
+ * @returns - The current time.
+ */
+export function getTime() {
+  return new Date().getTime();
+}
+
+/**
  * Loads the user.
  * @returns - The user or undefined.
  */

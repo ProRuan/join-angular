@@ -1,4 +1,4 @@
-import { getArray, getString } from '../ts/global';
+import { getArray, getString, getTime } from '../ts/global';
 import { Contact } from './contact';
 import { Subtask } from './subtask';
 
@@ -6,6 +6,7 @@ import { Subtask } from './subtask';
  * Represents a task.
  */
 export class Task {
+  id: number;
   title: string;
   description: string;
   assignedTo: Contact[];
@@ -20,6 +21,7 @@ export class Task {
    * @param task - The providing task.
    */
   constructor(task?: Task) {
+    this.id = getTime();
     this.title = getString(task?.title);
     this.description = getString(task?.description);
     this.assignedTo = getArray<Contact>(task?.assignedTo);

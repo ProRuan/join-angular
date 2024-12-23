@@ -59,10 +59,9 @@ export class AddTaskComponent {
   // 2. Implement user contacts ...
   // 3. Replace filter witch assignable contacts ...
   //      - double style with category input ... ?
-  //      - fix input, type and filter ... (0/3)
+  //      - fix task @Input() value + task type ... (0/2)
   //      - one task can have more than one contacts!
   //      - one contact can have more than one tasks!
-  //      - add task id!
 
   // DueDateInputComponent
   // ---------------------
@@ -132,21 +131,18 @@ export class AddTaskComponent {
       bgc: 'cyan',
       name: 'Peter Müller',
       assigned: false,
-      filtered: true,
     },
     {
       initials: 'AS',
       bgc: 'purple',
       name: 'Anja Schulz',
       assigned: false,
-      filtered: true,
     },
     {
       initials: 'EF',
       bgc: 'yellow',
       name: 'Eva Fischer',
       assigned: false,
-      filtered: true,
     },
   ];
   assignedContacts: any;
@@ -215,6 +211,9 @@ export class AddTaskComponent {
 
     // loadUser or getUser!
     // update user tasks!
+
+    let dateId = new Date().getTime();
+    console.log('date id: ', dateId);
 
     // only for testing!!!
     // -------------------
