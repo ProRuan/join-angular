@@ -8,12 +8,12 @@ export class SubtaskService {
     {
       text: 'Contact Form',
       done: false,
-      focused: false,
+      focussed: false,
     },
     {
       text: 'Write Legal Imprint',
       done: false,
-      focused: false,
+      focussed: false,
     },
   ];
   currIndex: number = 0;
@@ -25,7 +25,7 @@ export class SubtaskService {
   constructor() {}
 
   set(i: number, value: boolean) {
-    this.subtasks[i].focused = value;
+    this.subtasks[i].focussed = value;
     this.currIndex = i;
     this.currValue = this.subtasks[i].text;
     console.log('curr value: ', this.currValue);
@@ -35,7 +35,7 @@ export class SubtaskService {
     let subtask = {
       text: text,
       done: false,
-      focused: false,
+      focussed: false,
     };
     this.subtasks.push(subtask);
     console.log('all subtasks: ', this.subtasks);
@@ -60,7 +60,9 @@ export class SubtaskService {
     }
   }
 
-  delete() {
+  // input delete works - div input delete not!!!
+  delete(i: number) {
+    this.currIndex = i;
     console.log('currIndex of subtasks: ', this.currIndex);
     if (this.currIndex > -1) {
       this.subtasks.splice(this.currIndex, 1);
@@ -68,9 +70,10 @@ export class SubtaskService {
     }
   }
 
+  // not working!!!
   save(i: number) {
     if (this.subtasks[i]) {
-      this.subtasks[i].focused = false;
+      this.subtasks[i].focussed = false;
       this.subtasks[i].text = this.currValue;
       // console.log('curr value: ', this.subtasks[i].text);
     }
@@ -78,7 +81,7 @@ export class SubtaskService {
 
   resetFocus() {
     this.subtasks.forEach((subtask) => {
-      subtask.focused = false;
+      subtask.focussed = false;
     });
   }
 }

@@ -104,8 +104,13 @@ p {
   margin: 0;
 }
 
+// necessary?!
 app-checkbox {
   @include size($w: 24px, $h: 24px);
+}
+
+.pos-relative {
+  position: relative;
 }
 
 // ::-webkit-scrollbar {

@@ -1,9 +1,4 @@
-@import "../../../../mixins.scss";
-
-.label-input-cont {
-  @include display-column($g: 8px);
-  width: 440px;
-}
+@import "../../../../assets/styles/add-task-inputs.scss";
 
 .input-list-cont {
   @include display-column($g: 4px);
@@ -29,6 +24,14 @@
 
   &::placeholder {
     color: $black;
+  }
+}
+
+.focus {
+  border: 1px solid $lightblue;
+
+  &:hover {
+    border: 1px solid $lightblue;
   }
 }
 

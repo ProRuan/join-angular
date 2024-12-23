@@ -51,86 +51,74 @@
   background-image: url("../../../../assets/img/add-task/cancel_subtask.png");
 }
 
-.check {
-  background-image: url("../../../../assets/img/add-task/check_subtask.png");
-}
-
 .icon-border {
   @include size($w: 0, $h: 24px);
   border-right: 1px solid $darkgray;
 }
 
+.check {
+  background-image: url("../../../../assets/img/add-task/check_subtask.png");
+}
+
 .add {
   @include size($w: 24px, $h: 24px);
-  background-image: url("../../../../assets/img/add-task/add_subtask.png");
 }
 
-// continue here!
-.subtasks-cont {
-  width: 100%;
-}
-
-ul {
+.subtasks-list {
+  @include display-column($g: 8px);
   margin: 0;
   padding-inline-start: 0;
-
-  // clean style!
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-
-  li {
-    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-    color: $black;
-  }
 }
 
-.li-cont {
+.subtask-item {
+  @include box-padding($p: 6px 16px 6px 40px);
   @include display-flex($jc: flex-start);
-  padding-left: 40px;
-  margin-bottom: 8px;
   height: 32px;
   position: relative;
+  cursor: pointer;
 
-  &:last-child {
-    margin-bottom: 0;
+  &:hover {
+    background-color: #eeeeee;
+
+    .subtask-icon-cont {
+      display: flex;
+    }
   }
 }
 
-.subinput-icon-cont {
-  // review margin-bottom!!!
-  margin-bottom: 8px;
-  position: relative;
-
-  // review!!!
-  img {
-    cursor: pointer;
-  }
-}
-
-.subtask {
-  @include box-padding($p: 6px 16px);
+.li {
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-  @include color-set($c: $black, $bgc: $white);
-  width: 100%;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  border-left: none;
-  border-top: none;
-  border-bottom: 1px solid #29abe2;
-  border-right: none;
-  // position: absolute;
-  // left: 0;
-  // top: 0;
+  color: $black;
 }
 
 .subtask-icon-cont {
-  @include display-horiz($g: 4px);
+  @include position($pos: absolute, $t: 4px, $r: 16px);
   max-width: 56px;
-  position: absolute;
-  top: 4px;
-  right: 16px;
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
 
-  img {
-    @include size($w: 24px, $h: 24px);
-  }
+.d-flex {
+  display: flex;
+}
+
+.edit {
+  background-image: url("../../../../assets/img/add-task/edit_subtask.png");
+}
+
+.delete {
+  background-image: url("../../../../assets/img/add-task/delete_subtask.png");
+}
+
+.subtask-input {
+  @include box-padding($p: 6px 16px 5px 16px);
+  @include size($w: 100%, $h: 32px);
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  @include color-set($c: $black, $bgc: $white);
+  font-family: $inter;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #005dff;
+  border-right: none;
 }

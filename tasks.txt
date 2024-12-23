@@ -46,10 +46,11 @@ components (4/?)
       - PrioInputComponent - check
       - CategoryInputComponent - check*
 
-shared/components (15/?)
+shared/components (16/?)
 -----------------
   - CheckboxComponent - check
   - HeaderComponent - check
+  - HintComponent - check
   - InputComponent - ... (necessary???)
   - JoinHeaderComponent - check
   - JoinTitleComponent - check
@@ -73,14 +74,18 @@ shared/interfaces (5/?)
   - Styles - check
   - States - check
 
-shared/models (5/?)
+shared/models (9/?)
 -------------
   - BasicInput - check
+  - Contact - check
   - PasswordInput - check
   - SessionId - ... --> delete!!!
+  - Subtask - check
   - Summary - check
   - SummaryTask - check
+  - Task - check
   - Transform - check
+  - User - check
 
 shared/services (11/?)
 ---------------

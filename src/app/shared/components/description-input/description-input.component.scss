@@ -1,15 +1,4 @@
-@import "../../../../mixins.scss";
-
-.label-input-cont {
-  @include display-column($g: 8px);
-  width: 440px;
-}
-
-.input-hint-cont {
-  @include display-column($g: 4px);
-  width: 100%;
-  position: relative;
-}
+@import "../../../../assets/styles/add-task-inputs.scss";
 
 .textarea {
   @include box-padding($p: 17px 15px);
@@ -36,7 +25,7 @@
 
 .resizer-cont {
   @include size($w: 18.9px, $h: 18.9px);
-  @include position($pos: absolute, $r: 6px, $b: 6px);
+  @include position($pos: absolute, $r: 6px, $b: 22px);
   pointer-events: none;
 }
 

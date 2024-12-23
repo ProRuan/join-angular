@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { BasicInput, getProvider } from '../../models/basic-input';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
@@ -26,6 +26,10 @@ export class CategoryInputComponent extends BasicInput {
   dialog: DialogService = inject(DialogService);
 
   id: string = 'category';
+
+  @Output('cat') selectChange = new EventEmitter<string>();
+
+  override required: boolean = true;
 
   /**
    * Handles the dialog on click.
@@ -67,5 +71,6 @@ export class CategoryInputComponent extends BasicInput {
   onSelect(element: HTMLDivElement) {
     this.value = element.innerText;
     this.dialog.close(this.id);
+    this.selectChange.emit(this.value);
   }
 }

@@ -37,4 +37,13 @@ export class DialogService {
   isOpened(id: string) {
     return this.opened[id];
   }
+
+  /**
+   * Switches the dialog.
+   * @param id - The dialog id.
+   * @returns - A boolean value.
+   */
+  switch(id: string) {
+    !this.isOpened(id) ? this.open(id) : this.close(id);
+  }
 }

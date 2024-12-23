@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { BasicInput, getProvider } from '../../models/basic-input';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
@@ -29,6 +29,10 @@ export class DueDateInputComponent extends BasicInput {
   arrowKeys: Set<string> = new Set(['ArrowLeft', 'ArrowRight']);
   modifiedKeys: Set<string> = new Set(['a', 'c', 'x']);
   slashNumbers: Set<number> = new Set([2, 5]);
+
+  @Output('date') dateChange = new EventEmitter<string>();
+
+  override required: boolean = true;
 
   /**
    * Verifies the key on keydown.
@@ -177,6 +181,7 @@ export class DueDateInputComponent extends BasicInput {
     if (dateMatched) {
       let date = this.getDate(dateMatched);
       this.value = this.getFormattedDate(date, '/', true);
+      this.dateChange.emit(this.value);
     }
   }
 

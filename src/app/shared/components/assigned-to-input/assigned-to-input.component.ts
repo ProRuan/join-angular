@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { BasicInput, getProvider } from '../../models/basic-input';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
@@ -28,10 +28,8 @@ export class AssignedToInputComponent extends BasicInput {
 
   id: string = 'assignedTo';
 
-  // update category dialog!
-  // verify --> use user contacts!!!
-  assignedContacts: any;
-  assignableContacts = [
+  // empty array + add type!!!
+  @Input('contacts') assignableContacts = [
     {
       initials: 'SM',
       bgc: 'cyan',
@@ -55,6 +53,11 @@ export class AssignedToInputComponent extends BasicInput {
     },
   ];
 
+  @Output('assign') contactsChange: any = new EventEmitter<any>();
+
+  // verify --> use user contacts!!!
+  assignedContacts: any = [];
+
   /**
    * Handles the dialog on click.
    * @param event - The event.
@@ -62,6 +65,14 @@ export class AssignedToInputComponent extends BasicInput {
   onHandleDialog(event: Event) {
     this.dialog.close('category');
     stop(event);
+  }
+
+  /**
+   * Provides the css class of the input focus.
+   * @returns - The css class to apply.
+   */
+  getFocusClass() {
+    return this.dialog.isOpened('assignedTo') ? 'focus' : '';
   }
 
   /**
@@ -108,11 +119,7 @@ export class AssignedToInputComponent extends BasicInput {
    * Switches the drop-down menu on click.
    */
   onSwitchMenu() {
-    if (!this.dialog.isOpened(this.id)) {
-      this.dialog.open(this.id);
-    } else {
-      this.dialog.close(this.id);
-    }
+    this.dialog.switch(this.id);
   }
 
   /**
@@ -145,9 +152,14 @@ export class AssignedToInputComponent extends BasicInput {
    * Updates the assigned contacts.
    */
   updateAssignedContacts() {
-    let contacts = this.assignableContacts.filter((c) => c.assigned);
-    if (contacts) {
-      this.assignedContacts = contacts;
-    }
+    this.contactsChange.emit(this.assignableContacts);
+  }
+
+  /**
+   * Verifies the display state of the contacts.
+   * @returns - A boolean value.
+   */
+  areContactsDisplayed() {
+    return this.assignedContacts.length > 0 ? true : false;
   }
 }

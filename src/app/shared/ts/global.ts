@@ -1,6 +1,26 @@
 import { User } from '../models/user';
 
 /**
+ * Provides an array.
+ * @param value - The input array.
+ * @param defaultValue - The default array.
+ * @returns - An array.
+ */
+export function getArray<type>(value?: type[], defaultValue: type[] = []) {
+  return value ?? defaultValue;
+}
+
+/**
+ * Provides a boolean.
+ * @param value - The input boolean.
+ * @param defaultValue - The default boolean.
+ * @returns - A boolean.
+ */
+export function getBoolean(value?: boolean, defaultValue: boolean = false) {
+  return value ?? defaultValue;
+}
+
+/**
  * Provides the capitalized word.
  * @param word - The word to capitalize.
  * @returns - The capitalized word.
@@ -13,6 +33,16 @@ export function getCapitalized(word: string) {
   } else {
     return word;
   }
+}
+
+/**
+ * Provides a string.
+ * @param value - The input string.
+ * @param defaultValue - The default string.
+ * @returns - A string.
+ */
+export function getString(value?: string, defaultValue: string = '') {
+  return value ?? defaultValue;
 }
 
 /**

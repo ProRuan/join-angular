@@ -13,40 +13,27 @@
         </div>
     </div>
 
-    <!-- continue here!!! -->
-    <!-- own component?! -->
-    <div *ngIf="subTData.subtasks.length > 0" class="subtasks-cont">
-        <ul>
-            <!-- subtask-cont for margin-bottom:8px!!! -->
-            <div *ngFor="let subtask of subTData.subtasks; index as i" class="subtask-cont" (click)="stop($event)">
-                <div *ngIf="!subtask.focused" class="li-cont" (click)="subTData.edit(i)">
-                    <li>{{ subtask.text }}</li>
-                </div>
-                <div *ngIf="subtask.focused" class="subinput-icon-cont">
-                    <input [value]="subTData.currValue" name="subtask" class="subtask" type="text"
-                        [value]="subtask.text">
-                    <div class="subtask-icon-cont">
-                        <img src="../../../assets/img/add-task/delete.png" alt="delete" (click)="subTData.delete()">
-                        <div class="sub-icon-border"></div>
-                        <img src="../../../assets/img/add-task/check.png" alt="check" (click)="subTData.save(i)">
-                    </div>
-                </div>
-            </div>
-            <!-- <div *ngIf="!subtaskFocused" class="li-cont">
-                <li>Contact Form</li>
-            </div>
-            <div *ngIf="subtaskFocused" class="subinput-icon-cont">
-                <input class="subtask" type="text" value="Contact Form">
+    <ul *ngIf="subTData.subtasks.length > 0" class="subtasks-list">
+        <div *ngFor="let subtask of subTData.subtasks; index as i" (click)="stop($event)">
+            @if (!subtask.focussed) {
+            <div class="subtask-item" (click)="subTData.edit(i)">
+                <li class="li">{{ subtask.text }}</li>
                 <div class="subtask-icon-cont">
-                    <img src="../../../assets/img/add-task/delete.png" alt="delete">
-                    <div class="sub-icon-border"></div>
-                    <img src="../../../assets/img/add-task/check.png" alt="check">
+                    <button class="icon-btn edit" (click)="subTData.edit(i)"></button>
+                    <div class="icon-border"></div>
+                    <button class="icon-btn delete" (click)="subTData.delete(i)"></button>
                 </div>
             </div>
-            <div class="li-cont">
-                <li>Write Legal Imprint</li>
-            </div> -->
-            <!-- <input class="subtask" type="text" value="Write Legal Imprint"> -->
-        </ul>
-    </div>
+            } @else {
+            <form class="pos-relative" (submit)="subTData.save(i)">
+                <input [(ngModel)]="subTData.currValue" name="subtask" class="subtask-input" type="text">
+                <div class="subtask-icon-cont d-flex">
+                    <button class="icon-btn delete" type="button" (click)="subTData.delete(i)"></button>
+                    <div class="icon-border"></div>
+                    <button class="icon-btn check" type="button" (click)="subTData.save(i)"></button>
+                </div>
+            </form>
+            }
+        </div>
+    </ul>
 </div>

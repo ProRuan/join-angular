@@ -1,0 +1,14 @@
+@import "../../mixins.scss";
+
+.label-input-cont {
+  @include display-column($g: 8px);
+  width: 440px;
+}
+
+.input-hint-cont {
+  @include display-column($g: 4px);
+}
+
+.error {
+  border: 1px solid #ff8190;
+}

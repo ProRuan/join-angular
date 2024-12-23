@@ -1,5 +1,8 @@
-import { DocumentData } from 'firebase/firestore';
 import { Summary } from './summary';
+import { Task } from './task';
+import { Contact } from './contact';
+import { DocumentData } from 'firebase/firestore';
+import { getArray, getString } from '../ts/global';
 
 /**
  * Represents a user.
@@ -10,26 +13,27 @@ export class User {
   email: string;
   password: string;
   summary: Summary;
+  tasks: Task[];
+  contacts: Contact[];
 
-  // replace any and update files!!!
-  // DocumentData | User | undefined
-  // Use this way also for other models!!!
-  // global getString()?!
+  /**
+   * Creates a user.
+   * @param data - The user data.
+   */
   constructor(data?: DocumentData | User) {
-    this.initials = this.getString(data?.initials);
-    this.name = this.getString(data?.name);
-    this.email = this.getString(data?.email);
-    this.password = this.getString(data?.password);
+    this.initials = getString(data?.initials);
+    this.name = getString(data?.name);
+    this.email = getString(data?.email);
+    this.password = getString(data?.password);
     this.summary = this.getSummary(data?.summary);
+    this.tasks = getArray<Task>(data?.tasks);
+    this.contacts = getArray<Contact>(data?.contacts);
   }
 
-  // double coude + rename?!
-  getString(value: string) {
-    return value ? value : '';
-  }
-
-  // new Summary(value)?!
+  /**
+   * Provides the user summary.
+   */
   getSummary(value: Summary) {
-    return value ? value : new Summary();
+    return value ?? new Summary();
   }
 }
