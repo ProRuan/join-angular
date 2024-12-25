@@ -54,6 +54,15 @@ export function getTime() {
 }
 
 /**
+ * Verifies the existence of the value.
+ * @param value - The value.
+ * @returns - A boolean value.
+ */
+export function isExistent(value: any) {
+  return value !== undefined;
+}
+
+/**
  * Loads the user.
  * @returns - The user or undefined.
  */

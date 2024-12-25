@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
+import { Contact } from '../../../shared/models/contact';
+import { Task } from '../../../shared/models/task';
+import { isExistent } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-assignable-contact',
@@ -14,11 +17,13 @@ import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.
  * Represents an assignable contact component.
  */
 export class AssignableContactComponent {
-  @Input() contact = {
+  @Input() contact: Contact = {
     initials: 'SM',
     bgc: 'cyan',
     name: 'Sofia Müller',
-    assigned: false,
+    email: 'mueller@mail.com',
+    phone: '+49 7777 777 77 7',
+    tasks: [],
   };
 
   /**
@@ -26,6 +31,25 @@ export class AssignableContactComponent {
    * @returns - The css class to apply.
    */
   getClass() {
-    return this.contact.assigned ? 'assigned' : '';
+    let task = this.isAssigned();
+    return task ? 'assigned' : '';
+  }
+
+  /**
+   * Verifies the assigned state of the contact.
+   * @returns - A boolean value.
+   */
+  isAssigned() {
+    let task = this.contact.tasks.find((t) => this.isIncluded(t));
+    return isExistent(task);
+  }
+
+  /**
+   * Verifies the assigned state of of the contact.
+   * @param task - The task to assign.
+   * @returns - A boolean value.
+   */
+  isIncluded(task: Task) {
+    return task.assignedTo.includes(this.contact);
   }
 }

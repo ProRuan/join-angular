@@ -6,6 +6,8 @@ import { LabelComponent } from '../label/label.component';
 import { AssignableContactComponent } from '../../../components/add-task/assignable-contact/assignable-contact.component';
 import { DialogService } from '../../services/dialog.service';
 import { stop } from '../../ts/global';
+import { Contact } from '../../models/contact';
+import { Task } from '../../models/task';
 
 @Component({
   selector: 'app-assigned-to-input',
@@ -27,33 +29,10 @@ export class AssignedToInputComponent extends BasicInput {
   dialog: DialogService = inject(DialogService);
 
   id: string = 'assignedTo';
-
-  // empty array + add type!!!
-  @Input('contacts') assignableContacts = [
-    {
-      initials: 'SM',
-      bgc: 'cyan',
-      name: 'Sofia Müller',
-      assigned: false,
-    },
-    {
-      initials: 'AS',
-      bgc: 'purple',
-      name: 'Anja Schulz',
-      assigned: false,
-    },
-    {
-      initials: 'EF',
-      bgc: 'yellow',
-      name: 'Eva Fischer',
-      assigned: false,
-    },
-  ];
-
-  @Output('assign') contactsChange: any = new EventEmitter<any>();
-
-  // verify --> use user contacts!!!
-  assignedContacts: any = [];
+  assignedContacts: Contact[] = [];
+  @Input() task: Task = new Task();
+  @Input('contacts') assignableContacts: Contact[] = [];
+  @Output('assign') contactsChange = new EventEmitter<Contact[]>();
 
   /**
    * Handles the dialog on click.
@@ -142,7 +121,27 @@ export class AssignedToInputComponent extends BasicInput {
    */
   setContactAssigned(i: number) {
     let contact = this.assignableContacts[i];
-    contact.assigned = !contact.assigned ? true : false;
+    let contactAssigned = contact.tasks.includes(this.task);
+    !contactAssigned ? this.addTask(contact) : this.removeTask(contact);
+  }
+
+  /**
+   * Adds the task to the assignable contact.
+   * @param contact - The assignable contact.
+   */
+  addTask(contact: Contact) {
+    contact.tasks.push(this.task);
+  }
+
+  /**
+   * Removes the task from the assignable contact.
+   * @param contact - The assignable contact.
+   */
+  removeTask(contact: Contact) {
+    let index = contact.tasks.indexOf(this.task);
+    if (index > -1) {
+      contact.tasks.splice(index, 1);
+    }
   }
 
   /**
@@ -150,6 +149,9 @@ export class AssignedToInputComponent extends BasicInput {
    */
   updateAssignedContacts() {
     this.contactsChange.emit(this.assignableContacts);
+    this.assignedContacts = this.assignableContacts.filter((c) =>
+      c.tasks.includes(this.task)
+    );
   }
 
   /**

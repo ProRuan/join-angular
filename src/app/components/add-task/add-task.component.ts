@@ -22,6 +22,7 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { loadUser } from '../../shared/ts/global';
 import { User } from '../../shared/models/user';
 import { Task } from '../../shared/models/task';
+import { Contact } from '../../shared/models/contact';
 // import { User } from '../../shared/models/user';
 
 @Component({
@@ -46,6 +47,8 @@ import { Task } from '../../shared/models/task';
 export class AddTaskComponent {
   dialog: DialogService = inject(DialogService);
 
+  // add AddTaskService?!
+
   title: string = 'Add Task';
   id: string = 'category';
 
@@ -60,8 +63,8 @@ export class AddTaskComponent {
   // 3. Replace filter witch assignable contacts ...
   //      - double style with category input ... ?
   //      - fix task @Input() value + task type ... (0/2)
-  //      - one task can have more than one contacts!
-  //      - one contact can have more than one tasks!
+  //      - reset assign-to form ... !
+  //      - board task: (contact.assigned &&) contact.tasks.includes(this.task)
 
   // DueDateInputComponent
   // ---------------------
@@ -114,7 +117,7 @@ export class AddTaskComponent {
   codes: string[] = [];
 
   // verify + rename
-  task: any;
+  task: Task;
   ACListViewed: boolean = true;
   filter: string = '';
   dueDate: any;
@@ -125,27 +128,33 @@ export class AddTaskComponent {
   subtaskFocused: boolean = false;
 
   // only for testing!!!
-  assignableContacts = [
+  assignableContacts: Contact[] = [
     {
       initials: 'PM',
       bgc: 'cyan',
       name: 'Peter Müller',
-      assigned: false,
+      email: 'mueller@mail.com',
+      phone: '+49 1111 111 11 1',
+      tasks: [],
     },
     {
       initials: 'AS',
       bgc: 'purple',
       name: 'Anja Schulz',
-      assigned: false,
+      email: 'schulz@mail.com',
+      phone: '+49 2222 222 22 2',
+      tasks: [],
     },
     {
       initials: 'EF',
       bgc: 'yellow',
       name: 'Eva Fischer',
-      assigned: false,
+      email: 'fischer@mail.com',
+      phone: '+49 3333 333 33 3',
+      tasks: [],
     },
   ];
-  assignedContacts: any;
+  assignedContacts: Contact[];
 
   // subtasks = [
   //   {
@@ -173,21 +182,19 @@ export class AddTaskComponent {
   // subtasks ...
 
   constructor() {
-    this.task = {
-      title: '',
-      description: '',
-      assignedTo: this.assignableContacts,
-      // assignedTo: [],
-      dueDate: '',
-      prio: 'medium',
-      category: '',
-      subtasks: [],
-      column: 'to-do',
-    };
+    this.task = new Task();
+    this.assignedContacts = [];
+
+    // replace assignedTo with isAssignedTo() => {c.assignedTo.lenght > 0}!!!
+    // assignedContacts necessary?!
   }
 
-  onAssign(contacts: any[]) {
-    this.task.assignedTo = contacts;
+  // add AddTaskService?!
+  onAssign(contacts: Contact[]) {
+    this.task.assignedTo = contacts.filter((c) => c.tasks.includes(this.task));
+    // this.task.assignedTo = contacts.filter((c) => c.assigned);
+    console.log('updated task: ', this.task);
+    // subtask as form?!
   }
 
   // rename to onDateChange()

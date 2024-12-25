@@ -1,4 +1,5 @@
-import { getString } from '../ts/global';
+import { getArray, getString } from '../ts/global';
+import { Task } from './task';
 
 /**
  * Represents a contact.
@@ -9,6 +10,7 @@ export class Contact {
   name: string;
   email: string;
   phone: string;
+  tasks: Task[];
 
   /**
    * Creates a contact.
@@ -20,5 +22,6 @@ export class Contact {
     this.name = getString(contact?.name);
     this.email = getString(contact?.email);
     this.phone = getString(contact?.phone);
+    this.tasks = getArray<Task>(contact?.tasks);
   }
 }
