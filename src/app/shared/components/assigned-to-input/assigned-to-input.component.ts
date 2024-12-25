@@ -30,7 +30,7 @@ export class AssignedToInputComponent extends BasicInput {
 
   id: string = 'assignedTo';
   assignedContacts: Contact[] = [];
-  @Input() task: Task = new Task();
+  @Input('task') task: Task = new Task();
   @Input('contacts') assignableContacts: Contact[] = [];
   @Output('assign') contactsChange = new EventEmitter<Contact[]>();
 
@@ -48,7 +48,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - The css class to apply.
    */
   getFocusClass() {
-    return this.dialog.isOpened('assignedTo') ? 'focus' : '';
+    return this.dialog.isOpened(this.id) ? 'focus' : '';
   }
 
   /**
@@ -56,7 +56,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - The placeholder.
    */
   getPlaceholder() {
-    let opened = this.dialog.isOpened('assignedTo');
+    let opened = this.dialog.isOpened(this.id);
     return !opened ? 'Select contacts to assign' : '';
   }
 
@@ -65,7 +65,7 @@ export class AssignedToInputComponent extends BasicInput {
    */
   onOpenMenu() {
     this.dialog.close('category');
-    this.dialog.open('assignedTo');
+    this.dialog.open(this.id);
   }
 
   /**
@@ -73,11 +73,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - The source path of the arrow.
    */
   getArrowSrc() {
-    if (this.dialog.isOpened(this.id)) {
-      return '/assets/img/add-task/drop_down_arrow_up.png';
-    } else {
-      return '/assets/img/add-task/drop_down_arrow_down.png';
-    }
+    return this.dialog.getArrowSrc(this.id);
   }
 
   /**
@@ -103,16 +99,16 @@ export class AssignedToInputComponent extends BasicInput {
   isFiltered(name: string) {
     name = name.toLowerCase();
     let value = this.value.toLowerCase();
-    return name.includes(value) ? true : false;
+    return name.includes(value);
   }
 
   /**
    * Assigns the contact on click.
    * @param i - The index of the assignable contact.
    */
-  onAssign(i: number) {
+  onAssignContact(i: number) {
     this.setContactAssigned(i);
-    this.updateAssignedContacts();
+    this.updateAssignedCocntacts();
   }
 
   /**
@@ -147,18 +143,24 @@ export class AssignedToInputComponent extends BasicInput {
   /**
    * Updates the assigned contacts.
    */
-  updateAssignedContacts() {
-    this.contactsChange.emit(this.assignableContacts);
-    this.assignedContacts = this.assignableContacts.filter((c) =>
-      c.tasks.includes(this.task)
-    );
+  updateAssignedCocntacts() {
+    this.assignedContacts = this.getAssignedContacts();
+    this.contactsChange.emit(this.assignedContacts);
   }
 
   /**
-   * Verifies the display state of the contacts.
+   * Provides the assigned contacts.
+   * @returns - The assigned contacts.
+   */
+  getAssignedContacts() {
+    return this.assignableContacts.filter((c) => c.tasks.includes(this.task));
+  }
+
+  /**
+   * Verifies assigned contacts.
    * @returns - A boolean value.
    */
-  areContactsDisplayed() {
+  isAnyContactAssigned() {
     return this.assignedContacts.length > 0 ? true : false;
   }
 }

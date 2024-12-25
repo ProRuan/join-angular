@@ -103,8 +103,6 @@ export class AddTaskComponent {
   join: JoinService = inject(JoinService);
   prioData: PrioService = inject(PrioService);
 
-  user: User = new User();
-
   // add-task-inputs (1/7)* input component?
   // ---------------
   // 1. TitleInputComponent - check*
@@ -190,11 +188,8 @@ export class AddTaskComponent {
   }
 
   // add AddTaskService?!
-  onAssign(contacts: Contact[]) {
-    this.task.assignedTo = contacts.filter((c) => c.tasks.includes(this.task));
-    // this.task.assignedTo = contacts.filter((c) => c.assigned);
-    console.log('updated task: ', this.task);
-    // subtask as form?!
+  onAssignTask(contacts: Contact[]) {
+    this.task.assignedTo = contacts;
   }
 
   // rename to onDateChange()
@@ -214,7 +209,7 @@ export class AddTaskComponent {
 
   ngOnInit() {
     this.loadUser();
-    console.log('add task user: ', this.user);
+    console.log('add task user: ', this.join.user);
 
     // loadUser or getUser!
     // update user tasks!
@@ -237,7 +232,7 @@ export class AddTaskComponent {
   loadUser() {
     let user = loadUser();
     if (user) {
-      this.user = user;
+      this.join.user = user;
     }
   }
 
@@ -264,8 +259,8 @@ export class AddTaskComponent {
       console.log('title: ', this.task.title);
       console.log('due date: ', this.task.dueDate);
       console.log('catecory: ', this.task.category);
-      this.user.tasks.push(this.task);
-      console.log('user tasks: ', this.user.tasks);
+      this.join.user.tasks.push(this.task);
+      console.log('user tasks: ', this.join.user.tasks);
       console.log('submitted task: ', this.task);
 
       this.task = new Task();

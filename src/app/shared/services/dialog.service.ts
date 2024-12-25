@@ -46,4 +46,17 @@ export class DialogService {
   switch(id: string) {
     !this.isOpened(id) ? this.open(id) : this.close(id);
   }
+
+  /**
+   * Provides the source path of the arrow.
+   * @param id - The dialog id.
+   * @returns - The source path of the arrow.
+   */
+  getArrowSrc(id: string) {
+    if (this.isOpened(id)) {
+      return '/assets/img/add-task/drop_down_arrow_up.png';
+    } else {
+      return '/assets/img/add-task/drop_down_arrow_down.png';
+    }
+  }
 }

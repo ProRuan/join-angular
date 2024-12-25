@@ -5,9 +5,8 @@
         <div class="left-subcontent">
             <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
             <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
-            <!-- set input [contacts]="assignableContacts"!!! -->
             <app-assigned-to-input [task]="task" [contacts]="assignableContacts" name="assigned-to"
-                (assign)="onAssign($event)"></app-assigned-to-input>
+                (assign)="onAssignTask($event)"></app-assigned-to-input>
         </div>
 
         <div class="border"></div>

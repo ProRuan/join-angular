@@ -9,12 +9,12 @@
         <div class="assignable-contacts-list" [ngClass]="getListClass()">
             @for (contact of assignableContacts; track contact; let i = $index) {
             <app-assignable-contact *ngIf="isFiltered(contact.name)" [contact]="contact"
-                (click)="onAssign(i)"></app-assignable-contact>
+                (click)="onAssignContact(i)"></app-assignable-contact>
             }
         </div>
     </div>
 
-    <div *ngIf="areContactsDisplayed()" class="assigned-contacts">
+    <div *ngIf="isAnyContactAssigned()" class="assigned-contacts">
         <div *ngFor="let contact of assignedContacts" class="profile" [ngClass]="contact.bgc">
             <span class="initials">{{ contact.initials }}</span>
         </div>
