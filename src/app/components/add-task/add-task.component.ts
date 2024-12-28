@@ -92,7 +92,7 @@ export class AddTaskComponent {
 
   // verify!!!
   join: JoinService = inject(JoinService);
-  prioData: PrioService = inject(PrioService);
+  prio: PrioService = inject(PrioService);
 
   // add-task-inputs (1/7)* input component?
   // ---------------
@@ -241,12 +241,14 @@ export class AddTaskComponent {
 
   resetForm(ngForm: NgForm) {
     ngForm.reset();
-    this.prioData.reset();
+    this.prio.reset();
   }
 
   // add task to user!!!
   async addTask(ngForm: NgForm) {
     if (ngForm.form.valid) {
+      this.task.prio = this.prio.value;
+
       console.log('title: ', this.task.title);
       console.log('due date: ', this.task.dueDate);
       console.log('catecory: ', this.task.category);

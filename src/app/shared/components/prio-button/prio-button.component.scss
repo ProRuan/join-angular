@@ -4,9 +4,8 @@
   @include box-padding($p: 16px 10px);
   @include color-set($c: $black, $bgc: $white);
   @include round-border($b: none, $br: 10px);
-  @include display-flex();
+  @include display-row($jc: center, $ai: center, $g: 8px);
   flex: 1;
-  gap: 8px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   transition: all 100ms ease-in-out;
 
@@ -16,7 +15,7 @@
   }
 
   &:hover {
-    box-shadow: 0px 4px 4px 0px #00000040;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
   &:disabled {

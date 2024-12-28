@@ -12,7 +12,7 @@ export class PrioService {
   urgent: boolean = false;
   medium: boolean = true;
   low: boolean = false;
-  prio: string = 'medium';
+  value: string = 'medium';
 
   /**
    * Provides the prio button.
@@ -29,7 +29,7 @@ export class PrioService {
    */
   set(id: string) {
     this[id] = true;
-    this.prio = id;
+    this.value = id;
   }
 
   /**
