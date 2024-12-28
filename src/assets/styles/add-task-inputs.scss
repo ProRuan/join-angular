@@ -9,6 +9,8 @@
   @include display-column($g: 4px);
 }
 
+// remove to add-task inputs!!!
+// review title, description, assigned-to!!!
 .error {
   border: 1px solid #ff8190;
 }

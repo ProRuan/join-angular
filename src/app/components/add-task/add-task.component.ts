@@ -66,15 +66,6 @@ export class AddTaskComponent {
   //      - reset assign-to form ... !
   //      - board task: (contact.assigned &&) contact.tasks.includes(this.task)
 
-  // DueDateInputComponent
-  // ---------------------
-  // fix input focus ...
-  // fix input focus (assigned to) ...
-  // fix input error border ...
-  // fix input hint ...
-  // HintInputComponent ... ?
-  // implement validateDate() ...
-
   // PrioInputComponent
   // ------------------
   // add more space (not visible hint) ...
@@ -193,12 +184,12 @@ export class AddTaskComponent {
   }
 
   // rename to onDateChange()
-  onDate(date: string) {
+  onDateChange(date: string) {
     this.task.dueDate = date;
   }
 
   // rename to onCategoryChange()
-  onCat(category: string) {
+  onCategoryChange(category: string) {
     this.task.category = category;
     console.log('this task category: ', this.task.category);
   }

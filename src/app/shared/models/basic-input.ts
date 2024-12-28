@@ -229,11 +229,31 @@ export class BasicInput implements ControlValueAccessor {
    * @returns - A boolean value or an emtpy string.
    */
   isAttributeInvalid(key: string) {
-    if (key == 'required') {
-      return this.required && !this.control.value;
-    } else {
-      return this.pattern && !new RegExp(this.pattern).test(this.control.value);
-    }
+    return key == 'required' ? this.isRequired() : this.isMismatch();
+  }
+
+  /**
+   * Verifies the requirement of the input value.
+   * @returns - A boolean value.
+   */
+  isRequired() {
+    return this.required && !this.control.value;
+  }
+
+  /**
+   * Verifies the mismatch between input value und input pattern.
+   * @returns - A boolean value.
+   */
+  isMismatch() {
+    return this.isNotPattern();
+  }
+
+  /**
+   * Verifies the negative pattern test.
+   * @returns - A boolean value.
+   */
+  isNotPattern() {
+    return this.pattern && !new RegExp(this.pattern).test(this.control.value);
   }
 
   /**

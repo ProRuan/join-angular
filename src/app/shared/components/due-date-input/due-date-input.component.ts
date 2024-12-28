@@ -3,12 +3,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { BasicInput, getProvider } from '../../models/basic-input';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
+import { HintComponent } from '../hint/hint.component';
 import { DateData } from '../../interfaces/date-data';
+import { getDayStartTime, getISODateString } from '../../ts/global';
 
 @Component({
   selector: 'app-due-date-input',
   standalone: true,
-  imports: [CommonModule, LabelComponent],
+  imports: [CommonModule, LabelComponent, HintComponent],
   templateUrl: './due-date-input.component.html',
   styleUrl: './due-date-input.component.scss',
   providers: [
@@ -23,16 +25,40 @@ import { DateData } from '../../interfaces/date-data';
  */
 export class DueDateInputComponent extends BasicInput {
   date: string = '';
-  dateInvalid: boolean = false;
-  datePat: RegExp = /([0-3]?[0-9])[\.\/]([0-1]?[0-9])[\.\/]([0-9]{4})/;
+  minDate: string = '';
+  minTime: number = 0;
   calenderPat: RegExp = /([0-9]{4})[\-]([0-1]?[0-9])[\-]([0-3]?[0-9])/;
   arrowKeys: Set<string> = new Set(['ArrowLeft', 'ArrowRight']);
   modifiedKeys: Set<string> = new Set(['a', 'c', 'x']);
-  slashNumbers: Set<number> = new Set([2, 5]);
+  dateInvalid: boolean = false;
+  dateHint: string = 'Enter a valid date.';
 
   @Output('date') dateChange = new EventEmitter<string>();
 
+  override pattern: string = '([\\d]{2})\\/([\\d]{2})\\/([\\d]{4})';
   override required: boolean = true;
+
+  /**
+   * Initializes the due date input component.
+   */
+  ngOnInit() {
+    this.minDate = getISODateString();
+    this.minTime = getDayStartTime(this.minDate);
+  }
+
+  /**
+   * Provides the css class of the input border.
+   * @returns - The css class to apply.
+   */
+  getBorderClass() {
+    if (this.dateInvalid) {
+      return 'error';
+    } else if (this.focussed) {
+      return 'focus';
+    } else {
+      return '';
+    }
+  }
 
   /**
    * Verifies the key on keydown.
@@ -41,10 +67,6 @@ export class DueDateInputComponent extends BasicInput {
   onVerifyKey(event: KeyboardEvent) {
     if (this.isPreventDefault(event)) {
       event.preventDefault();
-    } else if (!this.isBackspace(event)) {
-      this.addSlash();
-    } else if (this.isBackspace(event)) {
-      this.clearInputValue(event);
     }
   }
 
@@ -84,7 +106,7 @@ export class DueDateInputComponent extends BasicInput {
    * @returns - A boolean value.
    */
   isKeyAllowed(event: KeyboardEvent) {
-    return event.key.match(/[0-9]/) || this.isBackspace(event);
+    return event.key.match(/[\d\/]/) || this.isBackspace(event);
   }
 
   /**
@@ -97,51 +119,24 @@ export class DueDateInputComponent extends BasicInput {
   }
 
   /**
-   * Adds a slash.
-   */
-  addSlash() {
-    setTimeout(() => {
-      let number = this.value.length;
-      let slashTimed = this.slashNumbers.has(number);
-      this.value += slashTimed ? '/' : '';
-    }, 0);
-  }
-
-  /**
-   * Clears the input value.
-   * @param event - The KeyboardEvent.
-   */
-  clearInputValue(event: KeyboardEvent) {
-    let input = event.target as HTMLInputElement;
-    let selectionStart = input.selectionStart;
-    if (selectionStart && selectionStart < this.value.length) {
-      this.value = '';
-      event.preventDefault();
-    }
-  }
-
-  /**
    * Updates the date on keyup.
    */
   onUpdateDate() {
-    let dateMatched = this.value.match(this.datePat);
-    if (dateMatched) {
-      let date = this.getDate(dateMatched);
+    let matchedDate = this.value.match(this.pattern);
+    if (matchedDate) {
+      let date = this.getDate(matchedDate);
       this.date = this.getFormattedDate(date, '-', true);
+      this.validate(this.control);
     }
   }
 
   /**
    * Provides the date.
    * @param result - The RegExpMatchArray.
-   * @returns The date.
+   * @returns - The date.
    */
   getDate(result: RegExpMatchArray) {
-    return {
-      day: result[1],
-      month: result[2],
-      year: result[3],
-    };
+    return { day: result[1], month: result[2], year: result[3] };
   }
 
   /**
@@ -159,37 +154,97 @@ export class DueDateInputComponent extends BasicInput {
     }
   }
 
-  // implement!!!
-  validateDate(date: DateData) {
-    let dateInput = this.getFormattedDate(date, '.');
-    let validDate = new Date(this.getFormattedDate(date, '/', true));
-    let dateMatch = dateInput == validDate.toLocaleDateString();
-    if (validDate) {
-      console.log('date input: ', dateInput);
-      console.log('date validation: ', validDate.toLocaleDateString());
-      console.log('date match: ', dateMatch);
-    }
-  }
-
   /**
    * Updates the value on change.
    * @param event - The event.
    */
   onUpdateValue(event: Event) {
     let input = event.target as HTMLInputElement;
-    let dateMatched = input.value.match(this.calenderPat);
-    if (dateMatched) {
-      let date = this.getDate(dateMatched);
+    let matchedDate = input.value.match(this.calenderPat);
+    if (matchedDate) {
+      let date = this.getDate(matchedDate);
       this.value = this.getFormattedDate(date, '/', true);
       this.dateChange.emit(this.value);
+      this.focussed = false;
     }
   }
 
   /**
-   * Provides the css class of the hint.
-   * @returns - The css class to apply.
+   * Verifies the mismatch between input value and input pattern.
+   * @returns - A boolean value.
    */
-  getHintClass() {
-    return this.dateInvalid ? 'o-1' : '';
+  override isMismatch() {
+    this.validateDate();
+    return this.isNotPattern();
+  }
+
+  /**
+   * Validates the date.
+   * @returns - A boolean value or void.
+   */
+  validateDate(): boolean | void {
+    let dateMatched = new RegExp(this.pattern).test(this.control.value);
+    if (dateMatched) {
+      let matchedDate = this.control.value.match(this.pattern);
+      if (matchedDate) {
+        this.updateDateInvalidity(matchedDate);
+        return this.dateInvalid;
+      }
+    }
+  }
+
+  /**
+   * Updates the invalidity state of the date.
+   * @param matchedDate - The matched date.
+   */
+  updateDateInvalidity(matchedDate: RegExpMatchArray) {
+    let date = this.getAdjustedDate(matchedDate);
+    let dateMatch = this.isDateMatch(date);
+    let time = this.getTime(date);
+    this.dateInvalid = !(dateMatch && time >= this.minTime);
+  }
+
+  /**
+   * Provides the adjusted date.
+   * @param matchedDate - The matched date.
+   * @returns The adjusted date.
+   */
+  getAdjustedDate(matchedDate: RegExpMatchArray) {
+    let date = this.getDate(matchedDate);
+    this.formatDatePart(date, 'day');
+    this.formatDatePart(date, 'month');
+    return date;
+  }
+
+  /**
+   * Formates the date part.
+   * @param date - The date.
+   * @param key - The key of the date part.
+   */
+  formatDatePart(date: DateData, key: string) {
+    let datePart = parseInt(date[key]);
+    date[key] = datePart.toString();
+  }
+
+  /**
+   * Verifies the date match.
+   * @param date - The date.
+   * @returns - A boolean value.
+   */
+  isDateMatch(date: DateData) {
+    let dateInput = this.getFormattedDate(date, '.');
+    let formattedDate = new Date(this.getFormattedDate(date, '/', true));
+    let dateOutput = formattedDate.toLocaleDateString();
+    return dateInput == dateOutput;
+  }
+
+  /**
+   * Provides the time.
+   * @param date - The date.
+   * @returns - The time.
+   */
+  getTime(date: DateData) {
+    let formattedDate = this.getFormattedDate(date, '/', true);
+    return new Date(formattedDate).getTime();
   }
 }

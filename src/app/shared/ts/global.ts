@@ -36,6 +36,24 @@ export function getCapitalized(word: string) {
 }
 
 /**
+ * Provides the day start time as number.
+ * @param date - The date as string.
+ * @returns - The day start time as number.
+ */
+export function getDayStartTime(date: string) {
+  let dayStartTime = new Date(date).setHours(0, 0, 0, 0);
+  return new Date(dayStartTime).getTime();
+}
+
+/**
+ * Provides the ISO date string.
+ * @returns - The ISO date string.
+ */
+export function getISODateString() {
+  return new Date().toISOString().split('T')[0];
+}
+
+/**
  * Provides a string.
  * @param value - The input string.
  * @param defaultValue - The default string.

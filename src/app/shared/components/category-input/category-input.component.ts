@@ -27,7 +27,7 @@ export class CategoryInputComponent extends BasicInput {
 
   id: string = 'category';
 
-  @Output('cat') selectChange = new EventEmitter<string>();
+  @Output('category') selectChange = new EventEmitter<string>();
 
   override required: boolean = true;
 
