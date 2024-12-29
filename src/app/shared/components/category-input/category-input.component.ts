@@ -27,7 +27,7 @@ export class CategoryInputComponent extends BasicInput {
 
   id: string = 'category';
 
-  @Output('category') selectChange = new EventEmitter<string>();
+  @Output('category') categoryChange = new EventEmitter<string>();
 
   override required: boolean = true;
 
@@ -43,25 +43,16 @@ export class CategoryInputComponent extends BasicInput {
   /**
    * Switches the category menu on click.
    */
-  onSwitchMenu(event: Event) {
-    if (!this.dialog.isOpened(this.id)) {
-      this.dialog.open(this.id);
-    } else {
-      this.dialog.close(this.id);
-    }
+  onSwitchMenu() {
+    this.dialog.switch(this.id);
   }
 
   /**
-   * Provides the source path.
-   * @returns - The source path.
+   * Provides the source path of the arrow.
+   * @returns - The source path of the arrow.
    */
-  override getSrc() {
-    let directory = '../../../assets/img/add-task/';
-    if (this.dialog.isOpened(this.id)) {
-      return directory + 'drop_down_arrow_up.png';
-    } else {
-      return directory + 'drop_down_arrow_down.png';
-    }
+  getArrowSrc() {
+    return this.dialog.getArrowSrc(this.id);
   }
 
   /**
@@ -71,6 +62,6 @@ export class CategoryInputComponent extends BasicInput {
   onSelect(element: HTMLDivElement) {
     this.value = element.innerText;
     this.dialog.close(this.id);
-    this.selectChange.emit(this.value);
+    this.categoryChange.emit(this.value);
   }
 }

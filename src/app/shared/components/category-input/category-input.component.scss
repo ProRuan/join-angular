@@ -1,14 +1,4 @@
-@import "../../../../mixins.scss";
-
-.label-input-cont {
-  @include display-column($g: 8px);
-  width: 440px;
-}
-
-.input-hint-cont {
-  @include display-column($g: 4px);
-  position: relative;
-}
+@import "../../../../assets/styles/add-task-inputs.scss";
 
 .input {
   @include box-padding($p: 11px 49px 11px 15px);
@@ -36,23 +26,11 @@
   cursor: pointer;
 }
 
-// .error {
-//   border: 1px solid #ff8190;
-// }
-
 .drop-down-arrow {
   @include position($pos: absolute, $t: 12px, $r: 16px);
   z-index: 20;
   cursor: pointer;
 }
-
-// .hint {
-//   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
-//   height: 12px;
-//   font-family: $poppins;
-//   color: #ff8190;
-//   opacity: 0;
-// }
 
 .category-list {
   @include display-column();

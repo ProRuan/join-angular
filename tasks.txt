@@ -19,6 +19,9 @@ Final Tasks
   - think about any type (input classes and input services)!!!
 
   - app log (global log) instead of component log?!
+
+  - remove event parameters which are not read ...
+  - remove dash after returns ...
   
   - optional: input border color transition?
 
@@ -37,14 +40,14 @@ components (4/?)
   - SignUpComponent - check
   - SummaryComponent - check
       - SumCardComponent - check
-  - AddTaskComponent ... (6/?)
+  - AddTaskComponent ... (7/?)
       - AssignableContactComponent - check
-      - TitleInputComponent - check*
-      - DescriptionInputComponent - check*
-      - AssignedToInputComponent ...
-      - DueDateInputComponent - check*
+      - TitleInputComponent - check
+      - DescriptionInputComponent - check
+      - AssignedToInputComponent - check
+      - DueDateInputComponent - check
       - PrioInputComponent - check
-      - CategoryInputComponent - check*
+      - CategoryInputComponent - check
 
 shared/components (16/?)
 -----------------
