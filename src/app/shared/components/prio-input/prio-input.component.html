@@ -1,8 +1,8 @@
 <div class="label-input-cont">
     <app-label text="Prio"></app-label>
     <div class="prio-button-group">
-        <app-prio-button id="urgent"></app-prio-button>
-        <app-prio-button id="medium"></app-prio-button>
-        <app-prio-button id="low"></app-prio-button>
+        <app-prio-button id="urgent" (click)="onSetPrio()"></app-prio-button>
+        <app-prio-button id="medium" (click)="onSetPrio()"></app-prio-button>
+        <app-prio-button id="low" (click)="onSetPrio()"></app-prio-button>
     </div>
 </div>
