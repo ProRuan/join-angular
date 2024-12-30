@@ -1,0 +1,53 @@
+@import "../subtasks-input/subtasks-input.component.scss";
+
+.subtask-item {
+  @include box-padding($p: 6px 16px 6px 40px);
+  @include display-flex($jc: flex-start);
+  height: 32px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #eeeeee;
+
+    .subtask-icon-cont {
+      display: flex;
+    }
+  }
+}
+
+.li {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  color: $black;
+}
+
+.subtask-icon-cont {
+  @include position($pos: absolute, $t: 4px, $r: 16px);
+  max-width: 56px;
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.edit {
+  background-image: url("../../../../assets/img/add-task/edit_subtask.png");
+}
+
+.delete {
+  background-image: url("../../../../assets/img/add-task/delete_subtask.png");
+}
+
+.subtask-input {
+  @include box-padding($p: 6px 16px 5px 16px);
+  @include size($w: 100%, $h: 32px);
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  @include color-set($c: $black, $bgc: $white);
+  font-family: $inter;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #005dff;
+  border-right: none;
+}

@@ -14,26 +14,8 @@
     </form>
 
     <ul *ngIf="isSubtasksFilled()" class="subtasks-list">
-        <div *ngFor="let subtask of subtasks; index as i" (click)="onStop($event)">
-            @if (!subtask.focussed) {
-            <div class="subtask-item pos-relative" (click)="onOpen(i)">
-                <li class="li">{{ subtask.text }}</li>
-                <div class="subtask-icon-cont">
-                    <button class="icon-btn edit" type="button" (click)="onEdit(i)"></button>
-                    <div class="icon-border"></div>
-                    <button class="icon-btn delete" type="button" (click)="onDelete(i)"></button>
-                </div>
-            </div>
-            } @else {
-            <form class="pos-relative" (submit)="onSave(i)">
-                <input [(ngModel)]="subtasks[i].text" name="subtask" class="subtask-input" type="text">
-                <div class="subtask-icon-cont d-flex">
-                    <button class="icon-btn delete" type="button" (click)="onDelete(i)"></button>
-                    <div class="icon-border"></div>
-                    <button class="icon-btn check" type="button" (click)="onSave(i)"></button>
-                </div>
-            </form>
-            }
+        <div *ngFor="let subtask of subtasks" (click)="onStop($event)">
+            <app-subtask [subtask]="subtask" (edit)="onResetFocus()" (delete)="onDelete($event)"></app-subtask>
         </div>
     </ul>
 </div>

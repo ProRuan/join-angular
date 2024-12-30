@@ -98,7 +98,7 @@ export class AddTaskComponent {
   // create default subtasks
   // plus Style
   // ----------
-  // position:absolute, because height is changing!!!
+  // position:absolute, because height is changing + stop(event)!!!
   // button hover animation!!!
   // add task on submit (form) ... ?!
   // all form buttons of type="button" ... !!!
