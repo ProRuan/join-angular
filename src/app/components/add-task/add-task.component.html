@@ -17,9 +17,7 @@
             <app-prio-input (prio)="onPrioChange($event)"></app-prio-input>
             <app-category-input [(ngModel)]="task.category" name="category"
                 (category)="onCategoryChange($event)"></app-category-input>
-            <!-- onFocus and onBlur OR onFocusChange: verfiy event type?! -->
-            <!-- task.subtasks!!! -->
-            <app-subtasks-input [(ngModel)]="subtask" name="subtasks"></app-subtasks-input>
+            <app-subtasks-input (update)="onSubtasksUpdate($event)"></app-subtasks-input>
         </div>
     </form>
 

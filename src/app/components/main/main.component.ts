@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
-import { SubtaskService } from '../../shared/services/subtask.service';
 import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
 import { CommonModule } from '@angular/common';
 import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
@@ -38,7 +37,6 @@ export class MainComponent {
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   dialog: DialogService = inject(DialogService);
-  subTData: SubtaskService = inject(SubtaskService);
   datData: DialogAddTaskService = inject(DialogAddTaskService);
   dvtData: DialogViewTaskService = inject(DialogViewTaskService);
   decData: DialogEditContactService = inject(DialogEditContactService);

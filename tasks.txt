@@ -23,6 +23,8 @@ Final Tasks
   - remove event parameters which are not read ...
   - remove dash after returns ...
   
+  - remove PrioButtonComponent ... ? (to less code)
+  - add SubtaskComponent ... ? (to much code)
   - optional: input border color transition?
 
 

@@ -10,7 +10,6 @@ import { JoinService } from '../../shared/services/join.service';
 import { PrioButtonComponent } from '../../shared/components/prio-button/prio-button.component';
 import { PrioService } from '../../shared/services/prio.service';
 import { last } from 'rxjs';
-import { SubtaskService } from '../../shared/services/subtask.service';
 import { TitleInputComponent } from '../../shared/components/title-input/title-input.component';
 import { DescriptionInputComponent } from '../../shared/components/description-input/description-input.component';
 import { AssignedToInputComponent } from '../../shared/components/assigned-to-input/assigned-to-input.component';
@@ -23,6 +22,7 @@ import { loadUser } from '../../shared/ts/global';
 import { User } from '../../shared/models/user';
 import { Task } from '../../shared/models/task';
 import { Contact } from '../../shared/models/contact';
+import { Subtask } from '../../shared/models/subtask';
 // import { User } from '../../shared/models/user';
 
 @Component({
@@ -91,6 +91,22 @@ export class AddTaskComponent {
   // move add-task input to add-task ... !
   // clean add-task component ...
 
+  // SubtasksInputComponent
+  // ----------------------
+  // create default tasks
+  // create default contacts
+  // create default subtasks
+  // plus Style
+  // ----------
+  // position:absolute, because height is changing!!!
+  // button hover animation!!!
+  // add task on submit (form) ... ?!
+  // all form buttons of type="button" ... !!!
+  // set subtask cont height limit?!
+  // SubtaskComponent ... ?
+
+  // onFocus and onBlur OR onFocusChange: verfiy event type?!
+
   // verify!!!
   join: JoinService = inject(JoinService);
   // prio: PrioService = inject(PrioService);
@@ -102,7 +118,6 @@ export class AddTaskComponent {
   // 3. AssignedToInputComponent ...
 
   // verify + rename!!!
-  subTData: SubtaskService = inject(SubtaskService);
   sessionToken: string = '';
   codes: string[] = [];
 
@@ -196,7 +211,10 @@ export class AddTaskComponent {
   // rename to onCategoryChange()
   onCategoryChange(category: string) {
     this.task.category = category;
-    console.log('this task category: ', this.task.category);
+  }
+
+  onSubtasksUpdate(subtasks: Subtask[]) {
+    this.task.subtasks = subtasks;
   }
 
   // load saved user!

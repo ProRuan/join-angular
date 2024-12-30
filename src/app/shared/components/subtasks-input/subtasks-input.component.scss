@@ -1,14 +1,4 @@
-@import "../../../../mixins.scss";
-
-.label-input-cont {
-  @include display-column($g: 8px);
-  width: 440px;
-}
-
-.input-hint-cont {
-  @include display-column($g: 4px);
-  position: relative;
-}
+@import "../../../../assets/styles/add-task-inputs.scss";
 
 .input {
   @include box-padding($p: 11px 49px 11px 15px);
@@ -24,10 +14,6 @@
   &::placeholder {
     color: $gray;
   }
-}
-
-.error {
-  border: 1px solid #ff8190;
 }
 
 .icon-cont {
@@ -74,7 +60,6 @@
   @include box-padding($p: 6px 16px 6px 40px);
   @include display-flex($jc: flex-start);
   height: 32px;
-  position: relative;
   cursor: pointer;
 
   &:hover {

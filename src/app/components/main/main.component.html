@@ -7,8 +7,7 @@
 <app-dialog-add-contact class="dialog-add-contact" [ngClass]="dacData.closed ? 'add-closed' : ''"
     (click)="dacData.close()"></app-dialog-add-contact>
 
-<div class="user-interface"
-    (click)="dialog.close('assignedTo'); dialog.close('category'); subTData.resetFocus(); subTData.save(subTData.currIndex)">
+<div class="user-interface" (click)="dialog.close('assignedTo'); dialog.close('category')">
     <app-menu class=" menu"></app-menu>
     <div class="content">
         <app-join-header class="header"></app-join-header>
