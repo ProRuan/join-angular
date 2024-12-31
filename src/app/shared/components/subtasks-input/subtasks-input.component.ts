@@ -5,7 +5,6 @@ import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 import { SubtaskComponent } from '../subtask/subtask.component';
 import { Subtask } from '../../models/subtask';
-import { stop } from '../../ts/global';
 
 @Component({
   selector: 'app-subtasks-input',
@@ -71,17 +70,16 @@ export class SubtasksInputComponent extends BasicInput {
   }
 
   /**
-   * Stops the event on click.
-   * @param event - The event.
+   * Opens the subtask editor on edit.
    */
-  onStop(event: Event) {
-    stop(event);
+  onEdit() {
+    this.resetFocus();
   }
 
   /**
-   * Resets the focus of all subtasks on edit.
+   * Resets the focus of the subtasks.
    */
-  onResetFocus() {
+  resetFocus() {
     this.subtasks.forEach((subtask) => {
       subtask.focussed = false;
     });
@@ -89,12 +87,9 @@ export class SubtasksInputComponent extends BasicInput {
 
   /**
    * Deletes the subtask on delete.
-   * @param subtask - The subtask.
+   * @param index - The index of the subtask.
    */
-  onDelete(subtask: Subtask) {
-    let index = this.subtasks.indexOf(subtask);
-    if (index > -1) {
-      this.subtasks.splice(index, 1);
-    }
+  onDelete(index: number) {
+    this.subtasks.splice(index, 1);
   }
 }

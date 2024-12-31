@@ -14,8 +14,8 @@
     </form>
 
     <ul *ngIf="isSubtasksFilled()" class="subtasks-list">
-        <div *ngFor="let subtask of subtasks" (click)="onStop($event)">
-            <app-subtask [subtask]="subtask" (edit)="onResetFocus()" (delete)="onDelete($event)"></app-subtask>
+        <div *ngFor="let subtask of subtasks, index as i">
+            <app-subtask [subtask]="subtask" [index]="i" (edit)="onEdit()" (delete)="onDelete($event)"></app-subtask>
         </div>
     </ul>
 </div>

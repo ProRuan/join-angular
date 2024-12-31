@@ -54,6 +54,16 @@ export function getISODateString() {
 }
 
 /**
+ * Provides a number.
+ * @param value - The input number.
+ * @param defaultValue - The default number.
+ * @returns - A number.
+ */
+export function getNumber(value?: number, defaultValue: number = 0) {
+  return value ?? defaultValue;
+}
+
+/**
  * Provides a string.
  * @param value - The input string.
  * @param defaultValue - The default string.

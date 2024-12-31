@@ -78,15 +78,10 @@ export class AddTaskComponent {
   // use ngIf for drop down menus!!!
   // add error state and hints to inputs (even empty hints)!!!
   // complete category style!
-  // override source functions!
   // improve getSrc() with this.directory ...
 
-  // parent input focus!!!
   // add (You)!!!
   // folder for checkbox images!
-  // add (input)="onInputChange($event)"!!!
-  // clean all add-task inputs ...
-  // combine add-task inputs ... ?
   // combine add-task input styles ... ?
   // move add-task input to add-task ... !
   // clean add-task component ...
@@ -103,7 +98,8 @@ export class AddTaskComponent {
   // add task on submit (form) ... ?!
   // all form buttons of type="button" ... !!!
   // set subtask cont height limit?!
-  // SubtaskComponent ... ?
+  // close subtask global ... !
+  // onChanges was working on subtasks ... ! (1/7)
 
   // onFocus and onBlur OR onFocusChange: verfiy event type?!
 
