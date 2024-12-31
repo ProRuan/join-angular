@@ -1,8 +1,8 @@
 <section class="add-task">
     <app-join-title [title]="title"></app-join-title>
 
-    <form #addTaskForm="ngForm" class="content" (submit)="addTask(addTaskForm)">
-        <div class="left-subcontent">
+    <form #addTaskForm="ngForm" class="form" (submit)="onAddTask(addTaskForm)">
+        <div class="left-input-group">
             <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
             <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
             <app-assigned-to-input [task]="task" [contacts]="assignableContacts" name="assigned-to"
@@ -11,7 +11,7 @@
 
         <div class="border"></div>
 
-        <div class="right-subcontent">
+        <div class="right-input-group">
             <app-due-date-input [(ngModel)]="task.dueDate" name="due-date"
                 (date)="onDateChange($event)"></app-due-date-input>
             <app-prio-input (prio)="onPrioChange($event)"></app-prio-input>
@@ -21,18 +21,20 @@
         </div>
     </form>
 
-    <div class="hint-button-group">
+    <div>
         <div class="button-group">
-            <button class="clear-task-btn" (click)="resetForm(addTaskForm)">
-                <span>Clear</span>
+            <button class="clear-task-btn" type="button" [disabled]="!addTaskForm.dirty"
+                (click)="onResetForm(addTaskForm)">
+                <div class="h-24"><span>Clear</span></div>
                 <img src="../../../assets/img/add-task/cancel_button.png" alt="cancel_button">
             </button>
-            <!-- button for form or section tag to form tag!!! -->
-            <button class="create-task-btn" (click)="addTask(addTaskForm)">
-                <span>Create Task</span>
+            <button class="create-task-btn" type="submit" [disabled]="addTaskForm.invalid"
+                (click)="onAddTask(addTaskForm)">
+                <div class="h-24"><span>Create Task</span></div>
                 <img src="../../../assets/img/add-task/create_button.png" alt="create_button">
             </button>
         </div>
+
         <div class="hint-cont">
             <span class="star">*</span>
             <span>This field is required</span>

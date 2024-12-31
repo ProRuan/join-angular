@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { PrioService } from '../../services/prio.service';
-import { getCapitalized } from '../../ts/global';
+import { PrioService } from '../../../services/prio.service';
+import { getCapitalized } from '../../../ts/global';
 
 @Component({
   selector: 'app-prio-button',

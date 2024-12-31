@@ -1,287 +1,19 @@
 @import "../../../mixins.scss";
 
-// mixin with summary?
 .add-task {
   @include box-padding($p: 110px 96px);
   @include size($w: 100%, $h: calc(100vh - 96px));
-  @include display-column();
-  gap: 28px;
-  //   overflow-y: scroll;
+  @include display-column($g: 28px);
 }
 
-.content {
+.form {
   display: flex;
   gap: 48.25px;
 }
 
-.left-subcontent {
-  @include display-column();
-  gap: 16px;
-}
-
-.label-input-cont {
-  @include display-column();
-  width: 440px;
-  gap: 8px;
-}
-
-.label {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-}
-
-.star {
-  color: #ff8190;
-}
-
-.input-hint-cont {
-  @include display-column();
-  width: 100%;
-  gap: 4px;
-  position: relative;
-}
-
-.input-overlay {
-  @include box-padding($p: 12px 20px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  width: calc(100% - 2px - 54px);
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  // color: $black;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 10px;
-  // outline: none;
-  position: absolute;
-  left: 1px;
-  top: 1px;
-
-  &::placeholder {
-    color: #d1d1d1;
-  }
-
-  // focus border is missing!!!
-}
-
-.calender {
-  background-color: $white;
-  position: absolute;
-  top: 12px;
-  right: 22px;
-  pointer-events: none;
-}
-
-.input {
-  @include box-padding($p: 11px 21px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include display-horiz($g: 10px);
-  width: 100%;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  outline: none;
-
-  &:focus {
-    border: 1px solid #29abe2;
-  }
-
-  &::placeholder {
-    color: #d1d1d1;
-  }
-}
-
-.error {
-  border: 1px solid #ff8190;
-}
-
-.hint {
-  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
-  color: #ff8190;
-  opacity: 0;
-}
-
-.o-1 {
-  opacity: 1;
-}
-
-.textarea {
-  @include box-padding($p: 17px 16px);
-  @include size($w: 100%, $h: 120px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include display-horiz($g: 10px);
-
-  // mixins???
-  min-width: 440px;
-  max-width: 440px;
-  min-height: 60px;
-  max-height: 300px; // set value
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  outline: none;
-
-  &:focus {
-    border: 1px solid #29abe2;
-  }
-
-  &::placeholder {
-    color: #d1d1d1;
-  }
-
-  &::-webkit-resizer {
-    opacity: 0;
-  }
-}
-
-.resizer-frame {
-  @include size($w: 18.9px, $h: 18.9px);
-  position: absolute;
-  right: 5px;
-  bottom: 23.4px;
-}
-
-.resizer {
-  object-fit: contain;
-}
-
-.selection {
-  @include box-padding($p: 11px 16px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include display-horiz($g: 10px);
-  width: 100%;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  z-index: 1;
-  outline: none;
-
-  &:hover {
-    border: 1px solid #a8a8a8;
-  }
-
-  &:focus {
-    border: 1px solid #29abe2;
-  }
-
-  &::placeholder {
-    color: #000000;
-  }
-}
-
-// .drop-down-arrow {
-//   @include size(24px, 24px);
-//   background-image: url("../../../assets/img/add-task/drop_down_arrow_down.png");
-//   position: absolute;
-//   right: 16px;
-//   top: 12px;
-// }
-
-.drop-down-arrow {
-  position: absolute;
-  right: 16px;
-  top: 12px;
-  z-index: 1;
-  cursor: pointer;
-}
-
-// possible without position:absoulte?
-.assignable-contacts-list {
-  @include display-column();
-  padding-top: 48px;
-  width: 100%;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-  gap: 2px;
-  display: none;
-  position: absolute;
-}
-
-.show {
-  display: flex !important;
-}
-
-.hide {
-  display: none;
-}
-
-.check {
-  content: url("../../../assets/img/sign-up/check.png");
-
-  &:hover {
-    content: url("../../../assets/img/sign-up/check_hover.png");
-  }
-}
-
-.checked {
-  content: url("../../../assets/img/add-task/checked_white.png");
-
-  &:hover {
-    content: url("../../../assets/img/add-task/checked_white.png");
-  }
-}
-
-.assignable-contact {
-  @include box-padding($p: 7px 16px);
-  @include display-flex($jc: space-between);
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #eeeeee;
-
-    // selected!!!
-    // background-color: #2a3647;
-
-    // .name {
-    //   color: #ffffff;
-    // }
-  }
-}
-
-.assigned {
-  background-color: #2a3647;
-
-  .name {
-    color: $white;
-  }
-
-  &:hover {
-    background-color: #091931;
-  }
-}
-
-.profile-name-cont {
-  @include display-horiz($g: 16px);
-}
-
-.profile {
-  @include size($w: 42px, $h: 42px);
-  @include display-flex();
-  background-color: #29abe2;
-  box-sizing: border-box;
-  text-align: center;
-  border: 2px solid #ffffff;
-  border-radius: 45px;
-}
-
-.initials {
-  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
-  text-align: center;
-  color: #ffffff;
-}
-
-.name {
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  color: #000000;
-}
-
-.assigned-contacts {
-  display: flex;
-  gap: 8px;
+.left-input-group {
+  @include display-column($g: 16px);
+  height: fit-content;
 }
 
 .border {
@@ -290,178 +22,34 @@
   border-right: 1px solid $gray;
 }
 
-.right-subcontent {
-  @include display-column();
-  gap: 16px;
-}
-
-.due-date {
-  display: unset;
-  align-items: unset;
-  gap: unset;
-
-  &::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-  }
-}
-
-.prio-button-group {
-  @include display-horiz($g: 16px);
-  width: 100%;
-}
-
-.read-only {
-  cursor: pointer;
-}
-
-// double code with assignable-contacts-list
-.category-list {
-  @include display-column();
-  padding-top: 48px;
-  width: 100%;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-  gap: 2px;
-  display: none;
-  position: absolute;
-}
-
-.category-item {
-  @include box-padding($p: 12px 16px);
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-
-  span {
-    @include font($fs: 20px, $fw: 400, $lh: 24px);
-  }
-
-  &:hover {
-    background-color: #eeeeee;
-  }
-}
-
-.hint-button-group {
-  width: 100%;
-}
-
-.p-16 {
-  padding: 11px 15px;
-}
-
-.sub-icon-cont {
-  @include display-horiz($g: 4px);
-  max-width: 56px;
-  position: absolute;
-  top: 12px;
-  right: 16px;
-
-  img {
-    @include size($w: 24px, $h: 24px);
-    cursor: pointer;
-  }
-}
-
-.sub-icon-border {
-  @include size($w: 0, $h: 24px);
-  border-right: 1px solid #d1d1d1;
-}
-
-.subtasks-cont {
-  width: 100%;
-}
-
-ul {
-  margin: 0;
-  padding-inline-start: 0;
-
-  li {
-    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-    color: $black;
-  }
-}
-
-.li-cont {
-  @include display-flex($jc: flex-start);
-  padding-left: 40px;
-  margin-bottom: 8px;
-  height: 32px;
-  position: relative;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-}
-
-.subinput-icon-cont {
-  // review margin-bottom!!!
-  margin-bottom: 8px;
-  position: relative;
-
-  // review!!!
-  img {
-    cursor: pointer;
-  }
-}
-
-.subtask {
-  @include box-padding($p: 6px 16px);
-  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-  @include color-set($c: $black, $bgc: $white);
-  width: 100%;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  border-left: none;
-  border-top: none;
-  border-bottom: 1px solid #29abe2;
-  border-right: none;
-  // position: absolute;
-  // left: 0;
-  // top: 0;
-}
-
-.subtask-icon-cont {
-  @include display-horiz($g: 4px);
-  max-width: 56px;
-  position: absolute;
-  top: 4px;
-  right: 16px;
-
-  img {
-    @include size($w: 24px, $h: 24px);
-  }
+.right-input-group {
+  @include display-column($g: 24px);
+  height: fit-content;
 }
 
 .button-group {
-  @include display-flex($jc: flex-end);
-  gap: 16px;
-  width: 100%;
+  @include display-row($jc: flex-end, $ai: center, $g: 16px);
 }
 
-// add hover + active!!!
-// mixin?
 .clear-task-btn {
-  @include display-horiz($g: 4px);
+  @include round-border($b: 1px solid $dark, $br: 10px);
+  @include display-row($ai: center, $g: 4px);
   padding: 15px;
   background-color: transparent;
-  border: 1px solid #2a3647;
-  border-radius: 10px;
+  transition: all 100ms ease-in-out;
 
   span {
     @include font($fs: 20px, $fw: 400, $lh: 24px);
-    height: 24px;
-    font-family: "Inter", Arial, Helvetica, sans-serif;
-    color: #2a3647;
+    font-family: $inter;
+    color: $dark;
   }
 
   &:hover {
-    // set 2px !?!
-    border: 1px solid #29abe2;
-    // border: 2px solid #29abe2;
+    border: 1px solid $lightblue;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 
     span {
-      color: #29abe2;
+      color: $lightblue;
     }
 
     img {
@@ -470,44 +58,69 @@ ul {
   }
 
   &:active {
-    border: 1px solid #091931;
+    border: 1px solid $darker;
 
     span {
-      color: #091931;
+      color: $darker;
     }
 
     img {
       content: url("../../../assets/img/add-task/cancel_button_active.png");
     }
   }
+
+  &:disabled {
+    @include round-border($b: 1px solid $dark, $br: 10px);
+    box-shadow: unset;
+    opacity: 0.5;
+
+    span {
+      color: $dark;
+    }
+
+    img {
+      content: unset;
+    }
+  }
 }
 
-// mixin?
+.h-24 {
+  height: 24px;
+}
+
 .create-task-btn {
-  @include display-horiz($g: 4px);
+  @include round-border($b: none, $br: 10px);
+  @include display-row($ai: center, $g: 4px);
   padding: 16px;
-  background-color: #2a3647;
-  border: none;
-  // border: 1px solid #2a3647;
-  border-radius: 10px;
+  background-color: $dark;
+  transition: all 100ms ease-in-out;
 
   span {
     @include font($fs: 21px, $fw: 700, $lh: 25.2px);
-    height: 24px;
-    font-family: "Inter", Arial, Helvetica, sans-serif;
-    color: #ffffff;
+    font-family: $inter;
+    color: $white;
   }
 
   &:hover {
-    background-color: #29abe2;
+    background-color: $lightblue;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   }
 
   &:active {
-    background: #091931;
+    background: $darker;
+  }
+
+  &:disabled {
+    background-color: $dark;
+    box-shadow: unset;
+    opacity: 0.5;
   }
 }
 
 .hint-cont {
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+}
+
+.star {
+  color: #ff8190;
 }

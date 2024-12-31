@@ -8,9 +8,10 @@ describe('PrioButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PrioButtonComponent],
-    }).compileComponents();
-
+      imports: [PrioButtonComponent]
+    })
+    .compileComponents();
+    
     fixture = TestBed.createComponent(PrioButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

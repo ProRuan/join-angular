@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { LabelComponent } from '../label/label.component';
-import { PrioButtonComponent } from '../prio-button/prio-button.component';
+import { PrioButtonComponent } from './prio-button/prio-button.component';
 import { PrioService } from '../../services/prio.service';
 
 @Component({

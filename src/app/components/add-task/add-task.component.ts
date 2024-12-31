@@ -1,15 +1,7 @@
-import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
-
-// verify!!!
+import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { JoinService } from '../../shared/services/join.service';
-
-// verify!!!
-import { PrioButtonComponent } from '../../shared/components/prio-button/prio-button.component';
-import { PrioService } from '../../shared/services/prio.service';
-import { last } from 'rxjs';
+import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { TitleInputComponent } from '../../shared/components/title-input/title-input.component';
 import { DescriptionInputComponent } from '../../shared/components/description-input/description-input.component';
 import { AssignedToInputComponent } from '../../shared/components/assigned-to-input/assigned-to-input.component';
@@ -17,19 +9,19 @@ import { DueDateInputComponent } from '../../shared/components/due-date-input/du
 import { PrioInputComponent } from '../../shared/components/prio-input/prio-input.component';
 import { CategoryInputComponent } from '../../shared/components/category-input/category-input.component';
 import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
+import { JoinService } from '../../shared/services/join.service';
 import { DialogService } from '../../shared/services/dialog.service';
-import { loadUser } from '../../shared/ts/global';
-import { User } from '../../shared/models/user';
 import { Task } from '../../shared/models/task';
 import { Contact } from '../../shared/models/contact';
 import { Subtask } from '../../shared/models/subtask';
-// import { User } from '../../shared/models/user';
+import { loadUser } from '../../shared/ts/global';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     JoinTitleComponent,
     TitleInputComponent,
     DescriptionInputComponent,
@@ -38,39 +30,28 @@ import { Subtask } from '../../shared/models/subtask';
     PrioInputComponent,
     CategoryInputComponent,
     SubtasksInputComponent,
-    FormsModule,
-    // PrioButtonComponent,
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
 })
+
+/**
+ * Represents an add-task component.
+ */
 export class AddTaskComponent {
+  // verify!!!
+  join: JoinService = inject(JoinService);
   dialog: DialogService = inject(DialogService);
 
-  // add AddTaskService?!
-
+  // verify!!!
   title: string = 'Add Task';
   id: string = 'category';
 
-  // global
-  // ------
-  // getCapitalized() ...
-  // add input:hover ... (0/7)
-
   // assigned-to input component
   // ---------------------------
-  // 1. Update category dialog ...
-  // 2. Implement user contacts ...
-  // 3. Replace filter witch assignable contacts ...
-  //      - double style with category input ... ?
-  //      - fix task @Input() value + task type ... (0/2)
-  //      - reset assign-to form ... !
-  //      - board task: (contact.assigned &&) contact.tasks.includes(this.task)
-
-  // PrioInputComponent
-  // ------------------
-  // add more space (not visible hint) ...
-  // move prio button to piro input ...
+  // 1. Implement user contacts ...
+  // 2. Reset assign-to form ... !
+  // *. board task: (contact.assigned &&) contact.tasks.includes(this.task)
 
   // CategoryInputComponent
   // ----------------------
@@ -103,7 +84,6 @@ export class AddTaskComponent {
   // onFocus and onBlur OR onFocusChange: verfiy event type?!
 
   // verify!!!
-  join: JoinService = inject(JoinService);
   // prio: PrioService = inject(PrioService);
 
   // verify + rename!!!
@@ -121,6 +101,7 @@ export class AddTaskComponent {
   subtask: string = '';
   subtaskFocused: boolean = false;
 
+  // assignable contacts come from join user!!!
   // only for testing!!!
   assignableContacts: Contact[] = [
     {
@@ -251,14 +232,14 @@ export class AddTaskComponent {
   //   this.formatCurrDate();
   // }
 
-  resetForm(ngForm: NgForm) {
+  onResetForm(ngForm: NgForm) {
     ngForm.reset();
     // reset prio!!!
     // this.prio.reset();
   }
 
   // add task to user!!!
-  async addTask(ngForm: NgForm) {
+  async onAddTask(ngForm: NgForm) {
     if (ngForm.form.valid) {
       console.log('title: ', this.task.title);
       console.log('due date: ', this.task.dueDate);

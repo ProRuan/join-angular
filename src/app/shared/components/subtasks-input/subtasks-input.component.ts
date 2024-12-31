@@ -31,10 +31,12 @@ export class SubtasksInputComponent extends BasicInput {
    * Adds the subtask on click.
    */
   onAdd() {
-    let subtask = this.getSubtask();
-    this.subtasks.push(subtask);
-    this.subtasksUpdate.emit(this.subtasks);
-    this.empty();
+    if (this.value.length > 0) {
+      let subtask = this.getSubtask();
+      this.subtasks.push(subtask);
+      this.subtasksUpdate.emit(this.subtasks);
+      this.empty();
+    }
   }
 
   /**
