@@ -11,6 +11,7 @@ export class DialogService {
   opened: { [key: string]: boolean } = {
     assignedTo: false,
     category: false,
+    subtask: false,
   };
 
   /**

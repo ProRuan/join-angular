@@ -2,14 +2,16 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DialogService } from '../../services/dialog.service';
 import { Subtask } from '../../models/subtask';
-import { getTime } from '../../ts/global';
+import { getTime, stop } from '../../ts/global';
 
 @Component({
   selector: 'app-subtask',
@@ -23,9 +25,12 @@ import { getTime } from '../../ts/global';
  * Represents a subtask component.
  */
 export class SubtaskComponent implements OnChanges {
+  dialog: DialogService = inject(DialogService);
+
   @Input() subtask: Subtask = new Subtask();
   @Input() index: number = 0;
 
+  id: string = 'subtask';
   doubleClick: boolean = false;
   timestamp: number = 0;
   clickTimeout?: ReturnType<typeof setTimeout>;
@@ -49,6 +54,14 @@ export class SubtaskComponent implements OnChanges {
   }
 
   /**
+   * Verifies the opened state of the subtask editor.
+   * @returns - A boolean value.
+   */
+  isOpen() {
+    return this.subtask.focussed && this.dialog.isOpened('subtask');
+  }
+
+  /**
    * Opens the subtask input on double click.
    */
   onOpen() {
@@ -67,6 +80,7 @@ export class SubtaskComponent implements OnChanges {
     this.doubleClick = false;
     this.editSubtask.emit(this.subtask.focussed);
     this.subtask.focussed = true;
+    this.dialog.open(this.id);
   }
 
   /**
@@ -86,6 +100,7 @@ export class SubtaskComponent implements OnChanges {
   onEdit() {
     this.editSubtask.emit(this.subtask.focussed);
     this.subtask.focussed = true;
+    this.dialog.open(this.id);
   }
 
   /**
@@ -96,9 +111,18 @@ export class SubtaskComponent implements OnChanges {
   }
 
   /**
+   * Stops the event on click.
+   * @param event - The event.
+   */
+  onStop(event: Event) {
+    stop(event);
+  }
+
+  /**
    * Saves the subtask on click.
    */
   onSave() {
     this.subtask.focussed = false;
+    this.dialog.close(this.id);
   }
 }

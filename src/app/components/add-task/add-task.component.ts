@@ -98,7 +98,6 @@ export class AddTaskComponent {
   // add task on submit (form) ... ?!
   // all form buttons of type="button" ... !!!
   // set subtask cont height limit?!
-  // close subtask global ... !
   // onChanges was working on subtasks ... ! (1/7)
 
   // onFocus and onBlur OR onFocusChange: verfiy event type?!
@@ -106,12 +105,6 @@ export class AddTaskComponent {
   // verify!!!
   join: JoinService = inject(JoinService);
   // prio: PrioService = inject(PrioService);
-
-  // add-task-inputs (1/7)* input component?
-  // ---------------
-  // 1. TitleInputComponent - check*
-  // 2. DescriptionInputComponent - check*
-  // 3. AssignedToInputComponent ...
 
   // verify + rename!!!
   sessionToken: string = '';
