@@ -6,6 +6,7 @@ import { Subtask } from './subtask';
  * Represents a task.
  */
 export class Task {
+  [key: string]: number | string | Contact[] | Subtask[];
   id: number;
   title: string;
   description: string;

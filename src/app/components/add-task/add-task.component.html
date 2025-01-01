@@ -5,19 +5,19 @@
         <div class="left-input-group">
             <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
             <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
-            <app-assigned-to-input [task]="task" [contacts]="assignableContacts" name="assigned-to"
-                (assign)="onAssignTask($event)"></app-assigned-to-input>
+            <app-assigned-to-input [task]="task" [contacts]="contacts" name="assigned-to"
+                (assign)="onSetTask('assignedTo', $event)"></app-assigned-to-input>
         </div>
 
         <div class="border"></div>
 
         <div class="right-input-group">
             <app-due-date-input [(ngModel)]="task.dueDate" name="due-date"
-                (date)="onDateChange($event)"></app-due-date-input>
-            <app-prio-input (prio)="onPrioChange($event)"></app-prio-input>
+                (date)="onSetTask('dueDate', $event)"></app-due-date-input>
+            <app-prio-input (prio)="onSetTask('prio', $event)"></app-prio-input>
             <app-category-input [(ngModel)]="task.category" name="category"
-                (category)="onCategoryChange($event)"></app-category-input>
-            <app-subtasks-input (update)="onSubtasksUpdate($event)"></app-subtasks-input>
+                (category)="onSetTask('category', $event)"></app-category-input>
+            <app-subtasks-input (update)="onSetTask('subtasks', $event)"></app-subtasks-input>
         </div>
     </form>
 

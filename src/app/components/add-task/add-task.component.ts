@@ -39,70 +39,13 @@ import { loadUser } from '../../shared/ts/global';
  * Represents an add-task component.
  */
 export class AddTaskComponent {
-  // verify!!!
   join: JoinService = inject(JoinService);
   dialog: DialogService = inject(DialogService);
 
-  // verify!!!
   title: string = 'Add Task';
-  id: string = 'category';
-
-  // assigned-to input component
-  // ---------------------------
-  // 1. Implement user contacts ...
-  // 2. Reset assign-to form ... !
-  // *. board task: (contact.assigned &&) contact.tasks.includes(this.task)
-
-  // CategoryInputComponent
-  // ----------------------
-  // set transition of all inputs (especially drop-down menu)!!!
-  // use ngIf for drop down menus!!!
-  // add error state and hints to inputs (even empty hints)!!!
-  // complete category style!
-  // improve getSrc() with this.directory ...
-
-  // add (You)!!!
-  // folder for checkbox images!
-  // combine add-task input styles ... ?
-  // move add-task input to add-task ... !
-  // clean add-task component ...
-
-  // SubtasksInputComponent
-  // ----------------------
-  // create default tasks
-  // create default contacts
-  // create default subtasks
-  // plus Style
-  // ----------
-  // position:absolute, because height is changing + stop(event)!!!
-  // button hover animation!!!
-  // add task on submit (form) ... ?!
-  // all form buttons of type="button" ... !!!
-  // set subtask cont height limit?!
-  // onChanges was working on subtasks ... ! (1/7)
-
-  // onFocus and onBlur OR onFocusChange: verfiy event type?!
-
-  // verify!!!
-  // prio: PrioService = inject(PrioService);
-
-  // verify + rename!!!
-  sessionToken: string = '';
-  codes: string[] = [];
-
-  // verify + rename
-  task: Task;
-  ACListViewed: boolean = true;
-  filter: string = '';
-  dueDate: any;
-  currDate: string = new Date().toLocaleDateString();
-  dateInvalid: boolean = false;
-  dueDatePat = /([0-3]?[0-9])[\.\/]([0-1]?[0-9])[\.\/]([0-9]{4})/;
-  subtask: string = '';
-  subtaskFocused: boolean = false;
-
-  // assignable contacts come from join user!!!
-  // only for testing!!!
+  // from user!
+  task: Task = new Task();
+  // from user + create sample tasks, sample contacts, sample subtasks!
   assignableContacts: Contact[] = [
     {
       initials: 'PM',
@@ -129,84 +72,46 @@ export class AddTaskComponent {
       tasks: [],
     },
   ];
-  assignedContacts: Contact[];
+  assignedContacts: Contact[] = [];
 
-  // subtasks = [
-  //   {
-  //     text: 'Contact Form',
-  //     done: false,
-  //     focused: false,
-  //   },
-  //   {
-  //     text: 'Write Legal Imprint',
-  //     done: false,
-  //     focused: false,
-  //   },
-  // ];
-
-  // Please review!!!
-
-  // title - check
-  // description - check
-  // assignedTo - check
-  //   - logged in user 'You' ... (!)
-  //   - subId ... ?
-  // dueDate - check
-  // prio - check
-  // category - check
-  // subtasks ...
-
-  constructor() {
-    this.task = new Task();
-    this.assignedContacts = [];
-
-    // replace assignedTo with isAssignedTo() => {c.assignedTo.lenght > 0}!!!
-    // assignedContacts necessary?!
+  get contacts() {
+    return this.join.user.contacts;
   }
 
-  // add AddTaskService?!
-  onAssignTask(contacts: Contact[]) {
-    this.task.assignedTo = contacts;
+  set contacts(contacts: Contact[]) {
+    this.join.user.contacts = contacts;
   }
 
-  // rename to onDateChange()
-  onDateChange(date: string) {
-    this.task.dueDate = date;
-  }
+  // assigned-to input component
+  // ---------------------------
+  // 1. Implement user contacts ...
+  //      - user on the top ...
+  //      - user with (You) ...
+  // 2. Reset assign-to form ... !
+  // *. board task: (contact.assigned &&) contact.tasks.includes(this.task)
 
-  onPrioChange(prio: string) {
-    this.task.prio = prio;
-  }
+  // CategoryInputComponent
+  // ----------------------
+  // set transition of all inputs (especially drop-down menu)!!!!
 
-  // rename to onCategoryChange()
-  onCategoryChange(category: string) {
-    this.task.category = category;
-  }
+  // move add-task input to add-task ... !
+  // clean add-task component ...
 
-  onSubtasksUpdate(subtasks: Subtask[]) {
-    this.task.subtasks = subtasks;
-  }
+  // SubtasksInputComponent
+  // ----------------------
+  // create default tasks
+  // create default contacts
+  // create default subtasks
+  // plus Style
+  // ----------
+  // position:absolute, because height is changing + stop(event)!!!
+  // set subtask cont height limit?!
 
-  // load saved user!
-  // disable button!
-  // write global isDisabled()!
+  // onFocus and onBlur OR onFocusChange: verfiy event type?!
 
   ngOnInit() {
     this.loadUser();
     console.log('add task user: ', this.join.user);
-
-    // loadUser or getUser!
-    // update user tasks!
-
-    let dateId = new Date().getTime();
-    console.log('date id: ', dateId);
-
-    // only for testing!!!
-    // -------------------
-    // setInterval(() => {
-    //   console.log('task title: ', this.task.title);
-    //   console.log('task description: ', this.task.description);
-    // }, 2000);
 
     // if (this.join.user.email !== undefined) {
     //   console.log('add task user: ', this.join.user);
@@ -217,20 +122,10 @@ export class AddTaskComponent {
     let user = loadUser();
     if (user) {
       this.join.user = user;
+      this.join.user.contacts = this.assignableContacts;
+      console.log('join user: ', this.join.user);
     }
   }
-
-  // get user() {
-  //   return this.join.user;
-  // }
-
-  // async ngOnInit() {
-  //   console.log('got user via join service: ', this.join.user);
-  //   if (!this.user.tasks) {
-  //     this.user.tasks = [];
-  //   }
-  //   this.formatCurrDate();
-  // }
 
   onResetForm(ngForm: NgForm) {
     ngForm.reset();
@@ -253,21 +148,14 @@ export class AddTaskComponent {
     } else {
       console.log('form invalid');
     }
-    // if (ngForm.form.valid) {
-    //   this.task.assignedTo = this.assignedContacts;
-    //   this.task.prio = this.prioData.prio;
-    //   this.task.subtasks = this.subTData.subtasks;
-    //   if (this.user.id) {
-    //     await this.join.updateUserProperty('tasks', JSON.stringify(this.task));
-    //     console.log('task created: ', this.task);
-    //   }
-    //   // check error!!!
-    //   // if (this.user.id) {
-    //   //   let temp = await this.userData.getUser(this.user.id);
-    //   //   console.log('tasks updated: ', JSON.parse(temp.tasks));
-    //   // }
-    // } else {
-    //   console.log('not valid');
-    // }
+  }
+
+  /**
+   * Sets the task property on change.
+   * @param key - The key of the task property.
+   * @param value - The value to set.
+   */
+  onSetTask(key: string, value: string | Contact[] | Subtask[]) {
+    this.task[key] = value;
   }
 }
