@@ -70,9 +70,10 @@ shared/components (16/?)
   - TitleComponent - check
   - SumCardComponent - check
 
-shared/interfaces (5/?)
+shared/interfaces (6/?)
 -----------------
   - checkItem - ... (necessary???)
+  - ContactData - check
   - DateData - check
   - MainLink - check
   - Properties - check

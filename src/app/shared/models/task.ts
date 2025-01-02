@@ -1,4 +1,4 @@
-import { getArray, getString, getTime } from '../ts/global';
+import { getArray, getConvertedValues, getString, getTime } from '../ts/global';
 import { Contact } from './contact';
 import { Subtask } from './subtask';
 
@@ -6,7 +6,7 @@ import { Subtask } from './subtask';
  * Represents a task.
  */
 export class Task {
-  [key: string]: number | string | Contact[] | Subtask[];
+  [key: string]: any;
   id: number;
   title: string;
   description: string;
@@ -31,5 +31,16 @@ export class Task {
     this.category = getString(task?.category);
     this.subtasks = getArray<Subtask>(task?.subtasks);
     this.column = getString(task?.column, 'to-do');
+  }
+
+  /**
+   * Provides the task as object.
+   * @returns - The task as object.
+   */
+  getObject() {
+    let task = { ...this };
+    task.assignedTo = getConvertedValues(this.assignedTo);
+    task.subtasks = getConvertedValues(this.subtasks);
+    return task;
   }
 }

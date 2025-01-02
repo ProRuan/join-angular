@@ -46,11 +46,13 @@
   padding-top: 48px;
   width: 100%;
   max-width: 440px;
+  max-height: 230px;
   background-color: $white;
   border-radius: 10px;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
   display: none;
   position: absolute;
+  overflow-y: auto;
 }
 
 .show {

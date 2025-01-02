@@ -17,14 +17,7 @@ import { isExistent } from '../../../shared/ts/global';
  * Represents an assignable contact component.
  */
 export class AssignableContactComponent {
-  @Input() contact: Contact = {
-    initials: 'SM',
-    bgc: 'cyan',
-    name: 'Sofia Müller',
-    email: 'mueller@mail.com',
-    phone: '+49 7777 777 77 7',
-    tasks: [],
-  };
+  @Input() contact: Contact = new Contact();
 
   /**
    * Provides the css class of the assignable contact.

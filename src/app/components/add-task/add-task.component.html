@@ -23,13 +23,11 @@
 
     <div>
         <div class="button-group">
-            <button class="clear-task-btn" type="button" [disabled]="!addTaskForm.dirty"
-                (click)="onResetForm(addTaskForm)">
+            <button class="clear-task-btn" [disabled]="!addTaskForm.dirty" (click)="onResetForm(addTaskForm)">
                 <div class="h-24"><span>Clear</span></div>
                 <img src="../../../assets/img/add-task/cancel_button.png" alt="cancel_button">
             </button>
-            <button class="create-task-btn" type="submit" [disabled]="addTaskForm.invalid"
-                (click)="onAddTask(addTaskForm)">
+            <button class="create-task-btn" [disabled]="addTaskForm.invalid" (click)="onAddTask(addTaskForm)">
                 <div class="h-24"><span>Create Task</span></div>
                 <img src="../../../assets/img/add-task/create_button.png" alt="create_button">
             </button>

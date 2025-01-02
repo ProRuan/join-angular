@@ -36,6 +36,20 @@ export function getCapitalized(word: string) {
 }
 
 /**
+ * Provides the converted values.
+ * @param customValues - The custom values.
+ * @returns - The converted values.
+ */
+export function getConvertedValues(customValues: any[]) {
+  let values: any[] = [];
+  customValues.forEach((customValue) => {
+    let value = customValue.getObject();
+    values.push(value);
+  });
+  return values;
+}
+
+/**
  * Provides the day start time as number.
  * @param date - The date as string.
  * @returns - The day start time as number.
@@ -61,6 +75,15 @@ export function getISODateString() {
  */
 export function getNumber(value?: number, defaultValue: number = 0) {
   return value ?? defaultValue;
+}
+
+/**
+ * Provides the model as object.
+ * @param model - The model to convert.
+ * @returns - The model as object.
+ */
+export function getObject(model: any) {
+  return { ...model };
 }
 
 /**

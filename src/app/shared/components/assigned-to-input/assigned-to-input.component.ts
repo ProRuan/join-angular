@@ -5,9 +5,9 @@ import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 import { AssignableContactComponent } from '../../../components/add-task/assignable-contact/assignable-contact.component';
 import { DialogService } from '../../services/dialog.service';
-import { stop } from '../../ts/global';
 import { Contact } from '../../models/contact';
 import { Task } from '../../models/task';
+import { stop } from '../../ts/global';
 
 @Component({
   selector: 'app-assigned-to-input',

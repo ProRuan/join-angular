@@ -2,7 +2,7 @@ import { Summary } from './summary';
 import { Task } from './task';
 import { Contact } from './contact';
 import { DocumentData } from 'firebase/firestore';
-import { getArray, getString } from '../ts/global';
+import { getArray, getConvertedValues, getString } from '../ts/global';
 
 /**
  * Represents a user.
@@ -35,5 +35,21 @@ export class User {
    */
   getSummary(value: Summary) {
     return value ?? new Summary();
+  }
+
+  /**
+   * Provides the user as object.
+   * @returns - The user as object.
+   */
+  getObject() {
+    return {
+      initials: this.initials,
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      summary: this.summary.getObject(),
+      tasks: getConvertedValues(this.tasks),
+      contacts: getConvertedValues(this.contacts),
+    };
   }
 }

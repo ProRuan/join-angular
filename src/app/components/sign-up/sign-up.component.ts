@@ -18,6 +18,9 @@ import {
   emailVal,
   passwordVal,
 } from '../../shared/services/input-validation.service';
+import { User } from '../../shared/models/user';
+import { Contact } from '../../shared/models/contact';
+import { sampleContacts } from '../../shared/ts/sample-contacts';
 
 @Component({
   selector: 'app-sign-up',
@@ -125,14 +128,37 @@ export class SignUpComponent {
    * @returns - The signee data.
    */
   getSigneeData() {
-    return {
-      data: {
-        initials: this.initials,
-        name: this.name,
-        email: this.email,
-        password: this.password,
-      },
-    };
+    let signee = this.getSignee();
+    let contact = this.getContact();
+    signee.contacts.push(contact);
+    signee.contacts.push(...sampleContacts);
+    return { data: signee.getObject() };
+  }
+
+  /**
+   * Provides the signee.
+   * @returns - The signee.
+   */
+  getSignee() {
+    let signee = new User();
+    signee.initials = this.initials;
+    signee.name = this.name;
+    signee.email = this.email;
+    signee.password = this.password;
+    return signee;
+  }
+
+  /**
+   * Provides the signee contact.
+   * @returns - The signee contact.
+   */
+  getContact() {
+    let contact = new Contact();
+    contact.initials = this.initials;
+    contact.bgc = 'lightblue';
+    contact.name = `${this.name} (You)`;
+    contact.email = this.email;
+    return contact;
   }
 
   /**

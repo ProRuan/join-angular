@@ -20,11 +20,7 @@ export class SumCardComponent {
   hoverPath: string = '';
   currentPath: string = '';
 
-  @Input() task: SummaryTask = {
-    amount: 1,
-    category: 'Urgent',
-    deadline: 'October 16, 2024',
-  };
+  @Input() task: SummaryTask = new SummaryTask('urgent');
 
   /**
    * Initializes the sum card component.

@@ -43,35 +43,7 @@ export class AddTaskComponent {
   dialog: DialogService = inject(DialogService);
 
   title: string = 'Add Task';
-  // from user!
   task: Task = new Task();
-  // from user + create sample tasks, sample contacts, sample subtasks!
-  assignableContacts: Contact[] = [
-    {
-      initials: 'PM',
-      bgc: 'cyan',
-      name: 'Peter Müller',
-      email: 'mueller@mail.com',
-      phone: '+49 1111 111 11 1',
-      tasks: [],
-    },
-    {
-      initials: 'AS',
-      bgc: 'purple',
-      name: 'Anja Schulz',
-      email: 'schulz@mail.com',
-      phone: '+49 2222 222 22 2',
-      tasks: [],
-    },
-    {
-      initials: 'EF',
-      bgc: 'yellow',
-      name: 'Eva Fischer',
-      email: 'fischer@mail.com',
-      phone: '+49 3333 333 33 3',
-      tasks: [],
-    },
-  ];
   assignedContacts: Contact[] = [];
 
   get contacts() {
@@ -84,9 +56,6 @@ export class AddTaskComponent {
 
   // assigned-to input component
   // ---------------------------
-  // 1. Implement user contacts ...
-  //      - user on the top ...
-  //      - user with (You) ...
   // 2. Reset assign-to form ... !
   // *. board task: (contact.assigned &&) contact.tasks.includes(this.task)
 
@@ -99,15 +68,20 @@ export class AddTaskComponent {
 
   // SubtasksInputComponent
   // ----------------------
-  // create default tasks
-  // create default contacts
-  // create default subtasks
   // plus Style
   // ----------
   // position:absolute, because height is changing + stop(event)!!!
   // set subtask cont height limit?!
 
-  // onFocus and onBlur OR onFocusChange: verfiy event type?!
+  // getObject() + taskRef/contactsRef ... ?! (1/2)
+
+  // --------------------------------------------------------------
+
+  // BoardComponent
+  // --------------
+  // create sample tasks ...
+
+  // onFocus and onBlur OR onFocusChange: verfiy event type?!F
 
   ngOnInit() {
     this.loadUser();
@@ -122,15 +96,18 @@ export class AddTaskComponent {
     let user = loadUser();
     if (user) {
       this.join.user = user;
-      this.join.user.contacts = this.assignableContacts;
-      console.log('join user: ', this.join.user);
+      console.log('join user contacts: ', this.join.user.contacts);
     }
   }
 
   onResetForm(ngForm: NgForm) {
     ngForm.reset();
-    // reset prio!!!
-    // this.prio.reset();
+
+    // reset assignedTo list + profiles ...
+    // reset due date ...
+    // reset prio ...
+    // reset category ...
+    // reset subtasks ...
   }
 
   // add task to user!!!
