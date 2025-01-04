@@ -28,7 +28,7 @@ import { stop } from '../../ts/global';
 export class AssignedToInputComponent extends BasicInput {
   dialog: DialogService = inject(DialogService);
 
-  id: string = 'assignedTo';
+  dialogId: string = 'assignedTo';
   assignedContacts: Contact[] = [];
   @Input('task') task: Task = new Task();
   @Input('contacts') assignableContacts: Contact[] = [];
@@ -48,7 +48,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - The css class to apply.
    */
   getFocusClass() {
-    return this.dialog.isOpened(this.id) ? 'focus' : '';
+    return this.dialog.isOpened(this.dialogId) ? 'focus' : '';
   }
 
   /**
@@ -56,7 +56,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - The placeholder.
    */
   getPlaceholder() {
-    let opened = this.dialog.isOpened(this.id);
+    let opened = this.dialog.isOpened(this.dialogId);
     return !opened ? 'Select contacts to assign' : '';
   }
 
@@ -65,7 +65,7 @@ export class AssignedToInputComponent extends BasicInput {
    */
   onOpenMenu() {
     this.dialog.close('category');
-    this.dialog.open(this.id);
+    this.dialog.open(this.dialogId);
   }
 
   /**
@@ -73,14 +73,14 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - The source path of the arrow.
    */
   getArrowSrc() {
-    return this.dialog.getArrowSrc(this.id);
+    return this.dialog.getArrowSrc(this.dialogId);
   }
 
   /**
    * Switches the drop-down menu on click.
    */
   onSwitchMenu() {
-    this.dialog.switch(this.id);
+    this.dialog.switch(this.dialogId);
   }
 
   /**
@@ -88,7 +88,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - The css class to apply.
    */
   getListClass() {
-    return this.dialog.isOpened(this.id) ? 'show' : '';
+    return this.dialog.isOpened(this.dialogId) ? 'show' : '';
   }
 
   /**
@@ -117,26 +117,35 @@ export class AssignedToInputComponent extends BasicInput {
    */
   setContactAssigned(i: number) {
     let contact = this.assignableContacts[i];
-    let contactAssigned = contact.tasks.includes(this.task);
-    !contactAssigned ? this.addTask(contact) : this.removeTask(contact);
+    let contactAssigned = this.isAssigned(contact);
+    !contactAssigned ? this.addContact(contact) : this.removeContact(contact);
   }
 
   /**
-   * Adds the task to the assignable contact.
+   * Verifies the assigned state of the contact.
    * @param contact - The assignable contact.
+   * @returns A boolean value.
    */
-  addTask(contact: Contact) {
-    contact.tasks.push(this.task);
+  isAssigned(contact: Contact) {
+    return this.task.assignedTo.includes(contact);
   }
 
   /**
-   * Removes the task from the assignable contact.
+   * Adds the assignable contact to the task.
    * @param contact - The assignable contact.
    */
-  removeTask(contact: Contact) {
-    let index = contact.tasks.indexOf(this.task);
+  addContact(contact: Contact) {
+    this.task.assignedTo.push(contact);
+  }
+
+  /**
+   * Removes the assignable contact from the task.
+   * @param contact - The assignable contact.
+   */
+  removeContact(contact: Contact) {
+    let index = this.task.assignedTo.indexOf(contact);
     if (index > -1) {
-      contact.tasks.splice(index, 1);
+      this.task.assignedTo.splice(index, 1);
     }
   }
 
@@ -153,7 +162,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - The assigned contacts.
    */
   getAssignedContacts() {
-    return this.assignableContacts.filter((c) => c.tasks.includes(this.task));
+    return this.assignableContacts.filter((c) => this.isAssigned(c));
   }
 
   /**

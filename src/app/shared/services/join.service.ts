@@ -108,6 +108,7 @@ export class JoinService {
   async addUserId(userRef: DocumentReference) {
     const id = userRef.id;
     await this.updateUser(id, 'id', id);
+    await this.updateUser(id, 'data.id', id);
     return id;
   }
 

@@ -1,29 +1,28 @@
 import { ContactData } from '../interfaces/contact-data';
-import { getArray, getConvertedValues, getString } from '../ts/global';
-import { Task } from './task';
+import { getId, getObject, getString } from '../ts/global';
 
 /**
  * Represents a contact.
  */
 export class Contact {
+  id: string;
   initials: string;
   bgc: string;
   name: string;
   email: string;
   phone: string;
-  tasks: Task[];
 
   /**
    * Creates a contact.
-   * @param contact - The providing contact.
+   * @param data - The contact data.
    */
-  constructor(contact?: Contact | ContactData) {
-    this.initials = getString(contact?.initials);
-    this.bgc = getString(contact?.bgc);
-    this.name = getString(contact?.name);
-    this.email = getString(contact?.email);
-    this.phone = getString(contact?.phone);
-    this.tasks = getArray<Task>(contact?.tasks);
+  constructor(data?: Contact | ContactData) {
+    this.id = getId(data?.id);
+    this.initials = getString(data?.initials);
+    this.bgc = getString(data?.bgc);
+    this.name = getString(data?.name);
+    this.email = getString(data?.email);
+    this.phone = getString(data?.phone);
   }
 
   /**
@@ -31,8 +30,6 @@ export class Contact {
    * @returns - The contact as object.
    */
   getObject() {
-    let contact = { ...this };
-    contact.tasks = getConvertedValues(this.tasks);
-    return contact;
+    return getObject(this);
   }
 }

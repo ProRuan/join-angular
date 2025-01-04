@@ -22,6 +22,11 @@ Final Tasks
 
   - remove event parameters which are not read ...
   - remove dash after returns ...
+
+  - add user greetings ... (1/?)
+  - limit for assigned contacts ... ?
+  - limit for subtasks ... ?
+  - replace SessionId with identify.ts ...
   
   - remove PrioButtonComponent ... ? (to less code)
   - add SubtaskComponent ... ? (to much code)
@@ -70,8 +75,9 @@ shared/components (16/?)
   - TitleComponent - check
   - SumCardComponent - check
 
-shared/interfaces (6/?)
+shared/interfaces (7/?)
 -----------------
+  - CharCodeGroup - check
   - checkItem - ... (necessary???)
   - ContactData - check
   - DateData - check
@@ -107,9 +113,10 @@ shared/services (11/?)
   - PrioService - check
   - SessionIdService - check
 
-shared/ts (1/?)
+shared/ts (2/?)
 ---------
-  - global.ts - check
+  - global.ts - check --> rename?
+  - identify.ts - check
 
 
   --> input   // width: 422px / 440px / 456px!!!

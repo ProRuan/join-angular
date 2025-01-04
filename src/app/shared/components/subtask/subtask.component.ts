@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DialogService } from '../../services/dialog.service';
 import { Subtask } from '../../models/subtask';
@@ -24,34 +16,21 @@ import { getTime, stop } from '../../ts/global';
 /**
  * Represents a subtask component.
  */
-export class SubtaskComponent implements OnChanges {
+export class SubtaskComponent {
   dialog: DialogService = inject(DialogService);
 
   @Input() subtask: Subtask = new Subtask();
-  @Input() index: number = 0;
+  @Input() set id(id: number) {
+    this.subtask.id = id;
+  }
 
-  id: string = 'subtask';
+  dialogId: string = 'subtask';
   doubleClick: boolean = false;
   timestamp: number = 0;
   clickTimeout?: ReturnType<typeof setTimeout>;
 
   @Output('edit') editSubtask = new EventEmitter<boolean>();
   @Output('delete') deleteSubtask = new EventEmitter<number>();
-
-  /**
-   * Updates a subtask component on change.
-   * @param changes - The SimpleChanges.
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    this.subtask.index = changes['index'].currentValue;
-  }
-
-  /**
-   * Initializes a subtask component.
-   */
-  ngOnInit() {
-    this.subtask.index = this.index;
-  }
 
   /**
    * Verifies the opened state of the subtask editor.
@@ -80,7 +59,7 @@ export class SubtaskComponent implements OnChanges {
     this.doubleClick = false;
     this.editSubtask.emit(this.subtask.focussed);
     this.subtask.focussed = true;
-    this.dialog.open(this.id);
+    this.dialog.open(this.dialogId);
   }
 
   /**
@@ -100,14 +79,14 @@ export class SubtaskComponent implements OnChanges {
   onEdit() {
     this.editSubtask.emit(this.subtask.focussed);
     this.subtask.focussed = true;
-    this.dialog.open(this.id);
+    this.dialog.open(this.dialogId);
   }
 
   /**
    * Deletes the subtask on click.
    */
   onDelete() {
-    this.deleteSubtask.emit(this.index);
+    this.deleteSubtask.emit(this.subtask.id);
   }
 
   /**
@@ -123,6 +102,6 @@ export class SubtaskComponent implements OnChanges {
    */
   onSave() {
     this.subtask.focussed = false;
-    this.dialog.close(this.id);
+    this.dialog.close(this.dialogId);
   }
 }

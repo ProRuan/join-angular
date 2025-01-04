@@ -89,9 +89,9 @@ export class SubtasksInputComponent extends BasicInput {
 
   /**
    * Deletes the subtask on delete.
-   * @param index - The index of the subtask.
+   * @param id - The id of the subtask.
    */
-  onDelete(index: number) {
-    this.subtasks.splice(index, 1);
+  onDelete(id: number) {
+    this.subtasks.splice(id, 1);
   }
 }

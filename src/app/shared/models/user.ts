@@ -1,13 +1,14 @@
+import { DocumentData } from 'firebase/firestore';
+import { Contact } from './contact';
 import { Summary } from './summary';
 import { Task } from './task';
-import { Contact } from './contact';
-import { DocumentData } from 'firebase/firestore';
-import { getArray, getConvertedValues, getString } from '../ts/global';
+import { getItems, getString } from '../ts/global';
 
 /**
  * Represents a user.
  */
 export class User {
+  id: string;
   initials: string;
   name: string;
   email: string;
@@ -21,13 +22,14 @@ export class User {
    * @param data - The user data.
    */
   constructor(data?: DocumentData | User) {
+    this.id = getString(data?.id);
     this.initials = getString(data?.initials);
     this.name = getString(data?.name);
     this.email = getString(data?.email);
     this.password = getString(data?.password);
     this.summary = this.getSummary(data?.summary);
-    this.tasks = getArray<Task>(data?.tasks);
-    this.contacts = getArray<Contact>(data?.contacts);
+    this.tasks = getItems<Task>(data?.tasks);
+    this.contacts = getItems<Contact>(data?.contacts);
   }
 
   /**
@@ -43,13 +45,15 @@ export class User {
    */
   getObject() {
     return {
+      id: this.id,
       initials: this.initials,
       name: this.name,
       email: this.email,
       password: this.password,
-      summary: this.summary.getObject(),
-      tasks: getConvertedValues(this.tasks),
-      contacts: getConvertedValues(this.contacts),
+      // summary: this.summary, // not working
+      // getItems() --> interface for constructor?
+      tasks: getItems(this.tasks, Task),
+      contacts: getItems(this.contacts, Contact),
     };
   }
 }

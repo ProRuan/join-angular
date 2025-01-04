@@ -1,14 +1,5 @@
 import { User } from '../models/user';
-
-/**
- * Provides an array.
- * @param value - The input array.
- * @param defaultValue - The default array.
- * @returns - An array.
- */
-export function getArray<type>(value?: type[], defaultValue: type[] = []) {
-  return value ?? defaultValue;
-}
+import { getRandomId } from './identify';
 
 /**
  * Provides a boolean.
@@ -36,17 +27,20 @@ export function getCapitalized(word: string) {
 }
 
 /**
- * Provides the converted values.
- * @param customValues - The custom values.
- * @returns - The converted values.
+ * Provides the items.
+ * @param items - The items.
+ * @param Constructor - The generic constructor.
+ * @returns - The items.
  */
-export function getConvertedValues(customValues: any[]) {
-  let values: any[] = [];
-  customValues.forEach((customValue) => {
-    let value = customValue.getObject();
-    values.push(value);
-  });
-  return values;
+export function getItems<T>(
+  items: T[] = [],
+  Constructor?: new (item: T) => { getObject: () => T }
+): T[] {
+  if (Constructor) {
+    return items.map((item) => new Constructor(item).getObject());
+  } else {
+    return items;
+  }
 }
 
 /**
@@ -57,6 +51,16 @@ export function getConvertedValues(customValues: any[]) {
 export function getDayStartTime(date: string) {
   let dayStartTime = new Date(date).setHours(0, 0, 0, 0);
   return new Date(dayStartTime).getTime();
+}
+
+/**
+ * Provides the verified id.
+ * @param id - The id to verify.
+ * @returns - The id.
+ */
+export function getId(id?: string) {
+  const verified = id && id.length > 0;
+  return verified ? id : getRandomId();
 }
 
 /**

@@ -14,7 +14,7 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { Task } from '../../shared/models/task';
 import { Contact } from '../../shared/models/contact';
 import { Subtask } from '../../shared/models/subtask';
-import { loadUser } from '../../shared/ts/global';
+import { getItems, loadUser } from '../../shared/ts/global';
 
 @Component({
   selector: 'app-add-task',
@@ -120,8 +120,36 @@ export class AddTaskComponent {
       console.log('user tasks: ', this.join.user.tasks);
       console.log('submitted task: ', this.task);
 
+      // let convertedUser = this.join.user.getObject();
+      // // let summary = this.join.user.summary;
+      // console.log('summary: ', convertedUser.summary);
+
+      // await this.join.updateUser(
+      //   this.join.user.id,
+      //   'data.summary',
+      //   convertedUser.summary
+      // );
+
+      // keep ids after converting!!!
+      let tasks = getItems(this.join.user.tasks, Task);
+      console.log('converted user tasks: ', tasks);
+
+      // let convertedUser = this.join.user.getObject();
+      // console.log('converted user: ', convertedUser);
+
       this.task = new Task();
       console.log('task emptied; ', this.task);
+
+      // assignedTo not working yet ...
+      // subtasks not working yet ...
+
+      // deletes task after reload --> update user!!!
+      await this.join.updateUser(
+        this.join.user.id,
+        'data.tasks',
+        tasks
+        // convertedUser.tasks
+      );
     } else {
       console.log('form invalid');
     }

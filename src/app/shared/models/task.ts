@@ -1,4 +1,4 @@
-import { getArray, getConvertedValues, getString, getTime } from '../ts/global';
+import { getId, getItems, getString } from '../ts/global';
 import { Contact } from './contact';
 import { Subtask } from './subtask';
 
@@ -7,7 +7,7 @@ import { Subtask } from './subtask';
  */
 export class Task {
   [key: string]: any;
-  id: number;
+  id: string;
   title: string;
   description: string;
   assignedTo: Contact[];
@@ -19,18 +19,18 @@ export class Task {
 
   /**
    * Creates a task.
-   * @param task - The providing task.
+   * @param data - The task data.
    */
-  constructor(task?: Task) {
-    this.id = getTime();
-    this.title = getString(task?.title);
-    this.description = getString(task?.description);
-    this.assignedTo = getArray<Contact>(task?.assignedTo);
-    this.dueDate = getString(task?.dueDate);
-    this.prio = getString(task?.prio, 'medium');
-    this.category = getString(task?.category);
-    this.subtasks = getArray<Subtask>(task?.subtasks);
-    this.column = getString(task?.column, 'to-do');
+  constructor(data?: Task) {
+    this.id = getId(data?.id);
+    this.title = getString(data?.title);
+    this.description = getString(data?.description);
+    this.assignedTo = getItems<Contact>(data?.assignedTo);
+    this.dueDate = getString(data?.dueDate);
+    this.prio = getString(data?.prio, 'medium');
+    this.category = getString(data?.category);
+    this.subtasks = getItems<Subtask>(data?.subtasks);
+    this.column = getString(data?.column, 'to-do');
   }
 
   /**
@@ -39,8 +39,8 @@ export class Task {
    */
   getObject() {
     let task = { ...this };
-    task.assignedTo = getConvertedValues(this.assignedTo);
-    task.subtasks = getConvertedValues(this.subtasks);
+    task.assignedTo = getItems<Contact>(this.assignedTo, Contact);
+    task.subtasks = getItems<Subtask>(this.subtasks, Subtask);
     return task;
   }
 }

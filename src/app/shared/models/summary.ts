@@ -1,4 +1,3 @@
-import { getObject } from '../ts/global';
 import { SummaryTask } from './summary-task';
 
 /**
@@ -35,20 +34,5 @@ export class Summary {
     } else {
       return new SummaryTask(category);
     }
-  }
-
-  /**
-   * Provides the summary as object.
-   * @returns - The summary as object.
-   */
-  getObject() {
-    return {
-      toDo: getObject(this.toDo),
-      done: getObject(this.done),
-      urgent: getObject(this.urgent),
-      inBoard: getObject(this.inBoard),
-      inProgress: getObject(this.inProgress),
-      awaitingFeedback: getObject(this.awaitingFeedback),
-    };
   }
 }

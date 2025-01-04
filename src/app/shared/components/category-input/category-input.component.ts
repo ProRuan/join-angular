@@ -25,7 +25,7 @@ import { stop } from '../../ts/global';
 export class CategoryInputComponent extends BasicInput {
   dialog: DialogService = inject(DialogService);
 
-  id: string = 'category';
+  dialogId: string = 'category';
 
   @Output('category') categoryChange = new EventEmitter<string>();
 
@@ -44,7 +44,7 @@ export class CategoryInputComponent extends BasicInput {
    * Switches the category menu on click.
    */
   onSwitchMenu() {
-    this.dialog.switch(this.id);
+    this.dialog.switch(this.dialogId);
   }
 
   /**
@@ -52,7 +52,7 @@ export class CategoryInputComponent extends BasicInput {
    * @returns - The source path of the arrow.
    */
   getArrowSrc() {
-    return this.dialog.getArrowSrc(this.id);
+    return this.dialog.getArrowSrc(this.dialogId);
   }
 
   /**
@@ -61,7 +61,7 @@ export class CategoryInputComponent extends BasicInput {
    */
   onSelect(element: HTMLDivElement) {
     this.value = element.innerText;
-    this.dialog.close(this.id);
+    this.dialog.close(this.dialogId);
     this.categoryChange.emit(this.value);
   }
 }

@@ -5,7 +5,7 @@
             (input)="onInputChange($event)" (click)="onSwitchMenu()">
         <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitchMenu()">
 
-        <div *ngIf="dialog.isOpened(id)" class="category-list">
+        <div *ngIf="dialog.isOpened(dialogId)" class="category-list">
             <div #technicalTask class="category-item" (click)="onSelect(technicalTask)">
                 <span>Technical Task</span>
             </div>
