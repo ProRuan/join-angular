@@ -1,3 +1,4 @@
+import { Model } from '../interfaces/model';
 import { User } from '../models/user';
 import { getRandomId } from './identify';
 
@@ -29,18 +30,11 @@ export function getCapitalized(word: string) {
 /**
  * Provides the items.
  * @param items - The items.
- * @param Constructor - The generic constructor.
+ * @param model - The generic model.
  * @returns - The items.
  */
-export function getItems<T>(
-  items: T[] = [],
-  Constructor?: new (item: T) => { getObject: () => T }
-): T[] {
-  if (Constructor) {
-    return items.map((item) => new Constructor(item).getObject());
-  } else {
-    return items;
-  }
+export function getItems<T>(items: T[] = [], model?: Model<T>): T[] {
+  return model ? items.map((item) => new model(item).getObject()) : items;
 }
 
 /**
