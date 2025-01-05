@@ -25,6 +25,6 @@ export class Subtask {
    * @returns - The subtask as object.
    */
   getObject() {
-    return getObject(this);
+    return getObject<Subtask>(this);
   }
 }

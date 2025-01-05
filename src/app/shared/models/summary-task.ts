@@ -1,3 +1,5 @@
+import { getObject } from '../ts/global';
+
 /**
  * Represents a summary task.
  */
@@ -17,5 +19,13 @@ export class SummaryTask {
     if (deadline) {
       this.deadline = deadline;
     }
+  }
+
+  /**
+   * Provides the summary task as object.
+   * @returns - The summary task as object.
+   */
+  getObject() {
+    return getObject<SummaryTask>(this);
   }
 }

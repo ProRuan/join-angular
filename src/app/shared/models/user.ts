@@ -2,7 +2,7 @@ import { DocumentData } from 'firebase/firestore';
 import { Contact } from './contact';
 import { Summary } from './summary';
 import { Task } from './task';
-import { getItems, getString } from '../ts/global';
+import { getCustomArray, getObjectArray, getString } from '../ts/global';
 
 /**
  * Represents a user.
@@ -28,15 +28,15 @@ export class User {
     this.email = getString(data?.email);
     this.password = getString(data?.password);
     this.summary = this.getSummary(data?.summary);
-    this.tasks = getItems<Task>(data?.tasks);
-    this.contacts = getItems<Contact>(data?.contacts);
+    this.tasks = getCustomArray<Task>(data?.tasks, Task);
+    this.contacts = getCustomArray<Contact>(data?.contacts, Contact);
   }
 
   /**
    * Provides the user summary.
    */
   getSummary(value: Summary) {
-    return value ?? new Summary();
+    return value instanceof Summary ? value : new Summary();
   }
 
   /**
@@ -50,10 +50,9 @@ export class User {
       name: this.name,
       email: this.email,
       password: this.password,
-      // summary: this.summary, // not working
-      // getItems() --> interface for constructor?
-      tasks: getItems(this.tasks, Task),
-      contacts: getItems(this.contacts, Contact),
+      summary: this.summary.getObject(),
+      tasks: getObjectArray<Task>(this.tasks, Task),
+      contacts: getObjectArray<Contact>(this.contacts, Contact),
     };
   }
 }

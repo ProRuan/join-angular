@@ -14,7 +14,10 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { Task } from '../../shared/models/task';
 import { Contact } from '../../shared/models/contact';
 import { Subtask } from '../../shared/models/subtask';
-import { getItems, loadUser } from '../../shared/ts/global';
+import { getObjectArray, loadUser } from '../../shared/ts/global';
+import { SummaryTask } from '../../shared/models/summary-task';
+import { Summary } from '../../shared/models/summary';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-add-task',
@@ -96,7 +99,15 @@ export class AddTaskComponent {
     let user = loadUser();
     if (user) {
       this.join.user = user;
-      console.log('join user contacts: ', this.join.user.contacts);
+      // console.log('user summary: ', this.join.user.summary instanceof Summary); // check
+      // console.log('user summary tasks: ', this.join.user.summary.urgent instanceof SummaryTask); // check
+      console.log('user tasks: ', this.join.user.tasks instanceof Array);
+      console.log('user task: ', this.join.user.tasks[0] instanceof Task);
+      console.log('user contacts: ', this.join.user.contacts instanceof Array);
+      console.log(
+        'user contact: ',
+        this.join.user.contacts[0] instanceof Contact
+      );
     }
   }
 
@@ -131,11 +142,12 @@ export class AddTaskComponent {
       // );
 
       // keep ids after converting!!!
-      let tasks = getItems(this.join.user.tasks, Task);
+      let tasks = getObjectArray<Task>(this.join.user.tasks, Task);
       console.log('converted user tasks: ', tasks);
 
-      // let convertedUser = this.join.user.getObject();
-      // console.log('converted user: ', convertedUser);
+      let convertedUser = this.join.user.getObject(); // not working
+      console.log('converted user: ', convertedUser);
+      // add task + update summary!!!
 
       this.task = new Task();
       console.log('task emptied; ', this.task);

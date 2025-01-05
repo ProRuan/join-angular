@@ -30,6 +30,6 @@ export class Contact {
    * @returns - The contact as object.
    */
   getObject() {
-    return getObject(this);
+    return getObject<Contact>(this);
   }
 }

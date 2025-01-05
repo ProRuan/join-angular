@@ -35,4 +35,19 @@ export class Summary {
       return new SummaryTask(category);
     }
   }
+
+  /**
+   * Provides the summary as object.
+   * @returns - The summary as object.
+   */
+  getObject() {
+    return {
+      toDo: this.toDo.getObject(),
+      done: this.done.getObject(),
+      urgent: this.urgent.getObject(),
+      inBoard: this.inBoard.getObject(),
+      inProgress: this.inProgress.getObject(),
+      awaitingFeedback: this.awaitingFeedback.getObject(),
+    };
+  }
 }

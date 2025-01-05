@@ -1,3 +1,4 @@
+import { Converter } from '../interfaces/converter';
 import { Model } from '../interfaces/model';
 import { User } from '../models/user';
 import { getRandomId } from './identify';
@@ -28,13 +29,13 @@ export function getCapitalized(word: string) {
 }
 
 /**
- * Provides the items.
- * @param items - The items.
- * @param model - The generic model.
- * @returns - The items.
+ * Provides the custom array.
+ * @param items - The input array.
+ * @param Model - The custom class.
+ * @returns - The custom array.
  */
-export function getItems<T>(items: T[] = [], model?: Model<T>): T[] {
-  return model ? items.map((item) => new model(item).getObject()) : items;
+export function getCustomArray<T>(items: T[] = [], Model: Model<T>) {
+  return items.map((item) => new Model(item));
 }
 
 /**
@@ -80,8 +81,18 @@ export function getNumber(value?: number, defaultValue: number = 0) {
  * @param model - The model to convert.
  * @returns - The model as object.
  */
-export function getObject(model: any) {
+export function getObject<T>(model: T) {
   return { ...model };
+}
+
+/**
+ * Provides the object array.
+ * @param items - The input array.
+ * @param Converter - The converter class.
+ * @returns - The object array.
+ */
+export function getObjectArray<T>(items: T[] = [], Converter: Converter<T>) {
+  return items.map((item) => new Converter(item).getObject());
 }
 
 /**

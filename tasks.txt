@@ -75,13 +75,15 @@ shared/components (16/?)
   - TitleComponent - check
   - SumCardComponent - check
 
-shared/interfaces (7/?)
+shared/interfaces (9/?)
 -----------------
   - CharCodeGroup - check
   - checkItem - ... (necessary???)
   - ContactData - check
+  - Converter - check
   - DateData - check
   - MainLink - check
+  - Model - check
   - Properties - check
   - Styles - check
   - States - check

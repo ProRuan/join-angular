@@ -1,4 +1,10 @@
-import { getId, getItems, getString } from '../ts/global';
+import {
+  getCustomArray,
+  getId,
+  getObject,
+  getObjectArray,
+  getString,
+} from '../ts/global';
 import { Contact } from './contact';
 import { Subtask } from './subtask';
 
@@ -25,11 +31,11 @@ export class Task {
     this.id = getId(data?.id);
     this.title = getString(data?.title);
     this.description = getString(data?.description);
-    this.assignedTo = getItems<Contact>(data?.assignedTo);
+    this.assignedTo = getCustomArray<Contact>(data?.assignedTo, Contact);
     this.dueDate = getString(data?.dueDate);
     this.prio = getString(data?.prio, 'medium');
     this.category = getString(data?.category);
-    this.subtasks = getItems<Subtask>(data?.subtasks);
+    this.subtasks = getCustomArray<Subtask>(data?.subtasks, Subtask);
     this.column = getString(data?.column, 'to-do');
   }
 
@@ -38,9 +44,9 @@ export class Task {
    * @returns - The task as object.
    */
   getObject() {
-    let task = { ...this };
-    task.assignedTo = getItems<Contact>(this.assignedTo, Contact);
-    task.subtasks = getItems<Subtask>(this.subtasks, Subtask);
+    let task = <Task>getObject(this);
+    task.assignedTo = getObjectArray<Contact>(this.assignedTo, Contact);
+    task.subtasks = getObjectArray<Subtask>(this.subtasks, Subtask);
     return task;
   }
 }

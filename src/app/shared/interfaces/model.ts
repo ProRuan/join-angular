@@ -1,6 +1,6 @@
 /**
- * Represents a generic model.
+ * Represents a model.
  */
 export interface Model<T> {
-  new (item: T): { getObject: () => T };
+  new (item: T): T;
 }
