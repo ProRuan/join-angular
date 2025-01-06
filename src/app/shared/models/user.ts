@@ -35,8 +35,8 @@ export class User {
   /**
    * Provides the user summary.
    */
-  getSummary(value: Summary) {
-    return value instanceof Summary ? value : new Summary();
+  getSummary(data: Summary) {
+    return data ? new Summary(data) : new Summary();
   }
 
   /**

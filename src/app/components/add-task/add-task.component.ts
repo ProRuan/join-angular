@@ -141,6 +141,13 @@ export class AddTaskComponent {
       //   convertedUser.summary
       // );
 
+      // do the same for other summary tasks!!!
+      // rename summary task to sum card?!
+      if (this.task.prio == 'urgent') {
+        this.join.user.summary.urgent.amount++;
+        this.join.user.summary.urgent.deadline = 'September 2, 2024';
+      }
+
       // keep ids after converting!!!
       let tasks = getObjectArray<Task>(this.join.user.tasks, Task);
       console.log('converted user tasks: ', tasks);
@@ -161,6 +168,11 @@ export class AddTaskComponent {
         'data.tasks',
         tasks
         // convertedUser.tasks
+      );
+      await this.join.updateUser(
+        this.join.user.id,
+        'data.summary',
+        this.join.user.summary.getObject()
       );
     } else {
       console.log('form invalid');

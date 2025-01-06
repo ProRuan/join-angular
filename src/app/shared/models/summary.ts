@@ -14,25 +14,64 @@ export class Summary {
   /**
    * Creates a summary.
    */
-  constructor() {
-    this.toDo = this.getTask('To-do');
-    this.done = this.getTask('Done');
-    this.urgent = this.getTask('Urgent');
-    this.inBoard = this.getTask('Task In Board');
-    this.inProgress = this.getTask('Task In Progress');
-    this.awaitingFeedback = this.getTask('Awaiting Feedback');
+  constructor(data?: Summary) {
+    this.toDo = this.getSummaryTask('To-do', data?.toDo);
+    this.done = this.getSummaryTask('Done', data?.done);
+    this.urgent = this.getSummaryTask('Urgent', data?.urgent);
+    this.inBoard = this.getSummaryTask('Tasks In Board', data?.inBoard);
+    this.inProgress = this.getSummaryTask(
+      'Tasks In Progress',
+      data?.inProgress
+    );
+    this.awaitingFeedback = this.getSummaryTask(
+      'Awaiting Feedback',
+      data?.awaitingFeedback
+    );
   }
 
   /**
-   * Provides the task object.
-   * @param category - The task category.
-   * @returns - The task object.
+   * Provides the summary task.
+   * @param category - The summary task category.
+   * @param data - The summary task data.
+   * @returns - The summary task.
    */
-  getTask(category: string) {
-    if (category == 'Urgent') {
-      return new SummaryTask(category, 'September 2, 2024');
+  getSummaryTask(category: string, data?: SummaryTask) {
+    if (data) {
+      return this.getUpdatedSummaryTask(data);
     } else {
-      return new SummaryTask(category);
+      return this.getAddedSummaryTask(category);
+    }
+  }
+
+  /**
+   * Provides the updated summary task.
+   * @param data - The summary task data.
+   * @returns - The updated summary task.
+   */
+  getUpdatedSummaryTask(data: SummaryTask) {
+    return new SummaryTask(data);
+  }
+
+  /**
+   * Provides the added summary task.
+   * @param category - The summary task category.
+   * @returns - The added summary task.
+   */
+  getAddedSummaryTask(category: string) {
+    const defaultTask = this.getDefaultSummaryTask(category);
+    return new SummaryTask(defaultTask);
+  }
+
+  /**
+   * Provides the default summary task.
+   * @param category - The summary task category.
+   * @returns - The default summary task.
+   */
+  getDefaultSummaryTask(category: string) {
+    if (category == 'Urgent') {
+      return { category: category, amount: 0, deadline: 'none' };
+    } else {
+      return { category: category, amount: 0 };
     }
   }
 

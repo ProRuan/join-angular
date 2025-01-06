@@ -1,23 +1,23 @@
-import { getObject } from '../ts/global';
+import { SummaryTaskData } from '../interfaces/summary-task-data';
+import { getNumber, getObject, getString } from '../ts/global';
 
 /**
  * Represents a summary task.
  */
 export class SummaryTask {
-  amount: number;
   category: string;
+  amount: number;
   deadline?: string;
 
   /**
    * Creates a summary task.
-   * @param category - The task category.
-   * @param deadline - The task deadline.
+   * @param data - The summary task data.
    */
-  constructor(category: string, deadline?: string) {
-    this.amount = 0;
-    this.category = category;
-    if (deadline) {
-      this.deadline = deadline;
+  constructor(data?: SummaryTask | SummaryTaskData) {
+    this.category = getString(data?.category);
+    this.amount = getNumber(data?.amount);
+    if (data?.deadline) {
+      this.deadline = getString(data?.deadline);
     }
   }
 

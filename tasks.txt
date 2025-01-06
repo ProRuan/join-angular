@@ -75,7 +75,7 @@ shared/components (16/?)
   - TitleComponent - check
   - SumCardComponent - check
 
-shared/interfaces (9/?)
+shared/interfaces (10/?)
 -----------------
   - CharCodeGroup - check
   - checkItem - ... (necessary???)
@@ -87,6 +87,7 @@ shared/interfaces (9/?)
   - Properties - check
   - Styles - check
   - States - check
+  - SummaryTaskData - check
 
 shared/models (9/?)
 -------------

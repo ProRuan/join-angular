@@ -20,7 +20,7 @@ export class SumCardComponent {
   hoverPath: string = '';
   currentPath: string = '';
 
-  @Input() task: SummaryTask = new SummaryTask('urgent');
+  @Input() task: SummaryTask = new SummaryTask();
 
   /**
    * Initializes the sum card component.
@@ -115,8 +115,8 @@ export class SumCardComponent {
    * @returns - A boolean value.
    */
   isIconlessCategory() {
-    let taskInBoard = this.isCategory('Task In Board');
-    let taskInProgress = this.isCategory('Task In Progress');
+    let taskInBoard = this.isCategory('Tasks In Board');
+    let taskInProgress = this.isCategory('Tasks In Progress');
     let awaitingFeedback = this.isCategory('Awaiting Feedback');
     return taskInBoard || taskInProgress || awaitingFeedback;
   }
