@@ -47,6 +47,7 @@ export class AddTaskComponent {
 
   title: string = 'Add Task';
   task: Task = new Task();
+  defaultTask: Task = new Task(this.task);
   assignedContacts: Contact[] = [];
 
   get contacts() {
@@ -82,13 +83,47 @@ export class AddTaskComponent {
 
   // BoardComponent
   // --------------
-  // create sample tasks ...
+  // create sample tasks ... !
+  // update summary tasks ... !
 
   // onFocus and onBlur OR onFocusChange: verfiy event type?!F
 
   ngOnInit() {
     this.loadUser();
     console.log('add task user: ', this.join.user);
+
+    // let date = new Date();
+    // console.log('date: ', date);
+    // // to string
+    // console.log('date to date string: ', date.toDateString());
+    // console.log('date to ISO string: ', date.toISOString());
+    // console.log('date to json: ', date.toJSON());
+    // console.log('date to locale date string: ', date.toLocaleDateString());
+    // console.log('date to locale time string: ', date.toLocaleTimeString());
+    // console.log('date to string: ', date.toString());
+    // console.log('date to time string: ', date.toTimeString());
+    // console.log('date to UTC string: ', date.toUTCString());
+    // // get
+    // console.log('date get date: ', date.getDate());
+    // console.log('date get day: ', date.getDay());
+    // console.log('date get full year: ', date.getFullYear());
+    // console.log('date get hours: ', date.getHours());
+    // console.log('date get ms: ', date.getMilliseconds());
+    // console.log('date get min: ', date.getMinutes());
+    // console.log('date get month: ', date.getMonth());
+    // console.log('date get sec: ', date.getSeconds());
+    // console.log('date get time: ', date.getTime());
+    // console.log('date get tz offset: ', date.getTimezoneOffset());
+    // console.log('date get utc date: ', date.getUTCDate());
+    // console.log('date get utc day: ', date.getUTCDay());
+    // console.log('date get utc full year: ', date.getUTCFullYear());
+    // console.log('date get utc hours: ', date.getUTCHours());
+    // console.log('date get utc ms: ', date.getUTCMilliseconds());
+    // console.log('date get utc min: ', date.getUTCMinutes());
+    // console.log('date get utc month: ', date.getUTCMonth());
+    // console.log('date get utc sec: ', date.getUTCSeconds());
+    // // create again
+    // console.log('date again: ', new Date(date.getTime()));
 
     // if (this.join.user.email !== undefined) {
     //   console.log('add task user: ', this.join.user);
@@ -112,13 +147,26 @@ export class AddTaskComponent {
   }
 
   onResetForm(ngForm: NgForm) {
-    ngForm.reset();
+    // [date] + resetForm() + setTimeout() + set _date() ...
+    this.task = new Task();
+    // ngForm.reset();
 
-    // reset assignedTo list + profiles ...
     // reset due date ...
-    // reset prio ...
-    // reset category ...
-    // reset subtasks ...
+    //   - summary update ...
+    //   - form builder + assignedTo filter + date value + subtask input value ...
+    //   - ControlValueAccessor ...
+    //   - DefaultTask ...
+    //   - two-way-binding and output or exchange value and date ...
+    //   - input [config]="config" as shortcut ... ?
+    //   - input [date]="date" --> give date, date string or date number ...
+    //   - input [filter], [date] and [add] ...
+    // reset assigntTo input ... !
+    // reset subtask input ... !
+  }
+
+  isDisabled() {
+    // ngForm.reset for inputs!?!
+    return this.task.isDefault();
   }
 
   // add task to user!!!
@@ -141,8 +189,8 @@ export class AddTaskComponent {
       //   convertedUser.summary
       // );
 
-      // do the same for other summary tasks!!!
-      // rename summary task to sum card?!
+      this.join.user.summary.toDo.amount++;
+      this.join.user.summary.inBoard.amount++;
       if (this.task.prio == 'urgent') {
         this.join.user.summary.urgent.amount++;
         this.join.user.summary.urgent.deadline = 'September 2, 2024';
@@ -177,6 +225,8 @@ export class AddTaskComponent {
     } else {
       console.log('form invalid');
     }
+
+    // remove test below!!!
   }
 
   /**
@@ -186,5 +236,10 @@ export class AddTaskComponent {
    */
   onSetTask(key: string, value: string | Contact[] | Subtask[]) {
     this.task[key] = value;
+    // console.log('task assigned-to test: ', this.task.assignedTo);
+    // console.log('task category test: ', this.task.category);
+    // console.log('task prio test: ', this.task.prio);
+    // console.log('task subtasks test: ', this.task.subtasks);
+    console.log('task due-date test: ', this.task.dueDate);
   }
 }

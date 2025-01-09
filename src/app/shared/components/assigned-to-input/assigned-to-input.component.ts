@@ -6,7 +6,6 @@ import { LabelComponent } from '../label/label.component';
 import { AssignableContactComponent } from '../../../components/add-task/assignable-contact/assignable-contact.component';
 import { DialogService } from '../../services/dialog.service';
 import { Contact } from '../../models/contact';
-import { Task } from '../../models/task';
 import { stop } from '../../ts/global';
 
 @Component({
@@ -29,10 +28,9 @@ export class AssignedToInputComponent extends BasicInput {
   dialog: DialogService = inject(DialogService);
 
   dialogId: string = 'assignedTo';
-  assignedContacts: Contact[] = [];
-  @Input('task') task: Task = new Task();
+  @Input('assignedTo') assignedContacts: Contact[] = [];
   @Input('contacts') assignableContacts: Contact[] = [];
-  @Output('assign') contactsChange = new EventEmitter<Contact[]>();
+  @Output() assignedToChange = new EventEmitter<Contact[]>();
 
   /**
    * Handles the dialog on click.
@@ -127,7 +125,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns A boolean value.
    */
   isAssigned(contact: Contact) {
-    return this.task.assignedTo.includes(contact);
+    return this.assignedContacts.includes(contact);
   }
 
   /**
@@ -135,7 +133,7 @@ export class AssignedToInputComponent extends BasicInput {
    * @param contact - The assignable contact.
    */
   addContact(contact: Contact) {
-    this.task.assignedTo.push(contact);
+    this.assignedContacts.push(contact);
   }
 
   /**
@@ -143,9 +141,9 @@ export class AssignedToInputComponent extends BasicInput {
    * @param contact - The assignable contact.
    */
   removeContact(contact: Contact) {
-    let index = this.task.assignedTo.indexOf(contact);
+    let index = this.assignedContacts.indexOf(contact);
     if (index > -1) {
-      this.task.assignedTo.splice(index, 1);
+      this.assignedContacts.splice(index, 1);
     }
   }
 
@@ -154,7 +152,7 @@ export class AssignedToInputComponent extends BasicInput {
    */
   updateAssignedCocntacts() {
     this.assignedContacts = this.getAssignedContacts();
-    this.contactsChange.emit(this.assignedContacts);
+    this.assignedToChange.emit(this.assignedContacts);
   }
 
   /**

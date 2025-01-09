@@ -102,7 +102,7 @@ shared/models (9/?)
   - Transform - check
   - User - check
 
-shared/services (11/?)
+shared/services (10/?)
 ---------------
   - DialogService - check* --> more dialogs?!
   - EmailValidationService - check
@@ -113,7 +113,6 @@ shared/services (11/?)
   - NavigationService - check
   - PasswordMaskService - check
   - PasswordValidationService - check
-  - PrioService - check
   - SessionIdService - check
 
 shared/ts (2/?)
@@ -154,4 +153,26 @@ ts
 --
 preventCopyPaste(event: Event): void {
   event.preventDefault();
+}
+
+
+sortContacts() {
+    let filteredNames = this.assignedContacts.map((c) => c.name);
+    console.log('filtered names: ', filteredNames);
+    let sortedNames = filteredNames.sort();
+    console.log('sorted names: ', sortedNames);
+
+    let sortedContacts: Contact[] = [];
+    sortedNames.forEach((name) => {
+      let contact = this.assignedContacts.find((c) => c.name === name);
+      if (contact) {
+        sortedContacts.push(contact);
+      }
+    });
+    console.log('sorted contacts: ', sortedContacts);
+
+    this.assignedContacts = [];
+    this.assignedContacts.push(...sortedContacts);
+
+    this.assignedToChange.emit(this.assignedContacts);
 }

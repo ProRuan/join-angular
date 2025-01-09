@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BasicInput, getProvider } from '../../models/basic-input';
 import { FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
@@ -23,9 +23,8 @@ import { Subtask } from '../../models/subtask';
  * @extends - The BasicInput.
  */
 export class SubtasksInputComponent extends BasicInput {
-  subtasks: Subtask[] = [];
-
-  @Output('update') subtasksUpdate = new EventEmitter<Subtask[]>();
+  @Input() subtasks: Subtask[] = [];
+  @Output() subtasksChange = new EventEmitter<Subtask[]>();
 
   /**
    * Adds the subtask on click.
@@ -34,7 +33,7 @@ export class SubtasksInputComponent extends BasicInput {
     if (this.value.length > 0) {
       let subtask = this.getSubtask();
       this.subtasks.push(subtask);
-      this.subtasksUpdate.emit(this.subtasks);
+      this.subtasksChange.emit(this.subtasks);
       this.empty();
     }
   }

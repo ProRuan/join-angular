@@ -49,4 +49,31 @@ export class Task {
     task.subtasks = getObjectArray<Subtask>(this.subtasks, Subtask);
     return task;
   }
+
+  isDefault() {
+    let taskCleared = true;
+    let defaultTask = {
+      title: this.isDefaultString(this.title),
+      description: this.isDefaultString(this.description),
+      assignedTo: this.isDefaultArray<Contact>(this.assignedTo),
+      dueDate: this.isDefaultString(this.dueDate),
+      prio: this.isDefaultString(this.prio, 'medium'),
+      category: this.isDefaultString(this.category),
+      subtasks: this.isDefaultArray<Subtask>(this.subtasks),
+    };
+    for (const [key, value] of Object.entries(defaultTask)) {
+      if (!value) {
+        taskCleared = false;
+      }
+    }
+    return taskCleared;
+  }
+
+  isDefaultString(value: string, defaultValue: string = '') {
+    return value === defaultValue;
+  }
+
+  isDefaultArray<T>(value: T[], defaultValue: T[] = []) {
+    return value.length === defaultValue.length;
+  }
 }

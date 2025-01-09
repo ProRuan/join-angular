@@ -8,8 +8,8 @@
 
         <div class="assignable-contacts-list" [ngClass]="getListClass()">
             @for (contact of assignableContacts; track contact; let i = $index) {
-            <app-assignable-contact *ngIf="isFiltered(contact.name)" [task]="task" [contact]="contact"
-                (click)="onAssignContact(i)"></app-assignable-contact>
+            <app-assignable-contact *ngIf="isFiltered(contact.name)" [contact]="contact"
+                [assigned]="isAssigned(contact)" (click)="onAssignContact(i)"></app-assignable-contact>
             }
         </div>
     </div>

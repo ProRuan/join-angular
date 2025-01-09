@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
-import { PrioService } from '../../../services/prio.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { getCapitalized } from '../../../ts/global';
 
 @Component({
@@ -15,11 +14,11 @@ import { getCapitalized } from '../../../ts/global';
  * Represents a prio button component.
  */
 export class PrioButtonComponent {
-  prio: PrioService = inject(PrioService);
-
-  @Input() id: string = 'urgent';
-  name: string = 'Urgent';
-  img: string = 'prio_urgent';
+  @Input() id: string = 'medium';
+  @Input() prio: string = 'medium';
+  @Output('prio') prioClick = new EventEmitter<string>();
+  name: string = 'Medium';
+  img: string = 'prio_medium';
   src: string = '';
 
   /**
@@ -60,14 +59,13 @@ export class PrioButtonComponent {
    * @returns - A boolean value.
    */
   isDisabled() {
-    return this.prio.get(this.id);
+    return this.prio === this.id;
   }
 
   /**
-   * Selects the prio button on click.
+   * Selects the prio on click.
    */
   onSelect() {
-    this.prio.clear();
-    this.prio.set(this.id);
+    this.prioClick.emit(this.id);
   }
 }

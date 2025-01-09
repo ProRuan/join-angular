@@ -1,7 +1,6 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LabelComponent } from '../label/label.component';
 import { PrioButtonComponent } from './prio-button/prio-button.component';
-import { PrioService } from '../../services/prio.service';
 
 @Component({
   selector: 'app-prio-input',
@@ -15,14 +14,15 @@ import { PrioService } from '../../services/prio.service';
  * Represents a prio input component.
  */
 export class PrioInputComponent {
-  prio: PrioService = inject(PrioService);
-
-  @Output('prio') prioChange = new EventEmitter<string>();
+  @Input() prio: string = 'medium';
+  @Output() prioChange = new EventEmitter<string>();
 
   /**
-   * Sets the prio on click.
+   * Updates the prio on click.
+   * @param prio - The prio.
    */
-  onSetPrio() {
-    this.prioChange.emit(this.prio.value);
+  onPrioClick(prio: string) {
+    this.prio = prio;
+    this.prioChange.emit(this.prio);
   }
 }
