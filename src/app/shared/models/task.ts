@@ -4,6 +4,8 @@ import {
   getObject,
   getObjectArray,
   getString,
+  isDefaultArray,
+  isDefaultString,
 } from '../ts/global';
 import { Contact } from './contact';
 import { Subtask } from './subtask';
@@ -44,36 +46,33 @@ export class Task {
    * @returns - The task as object.
    */
   getObject() {
-    let task = <Task>getObject(this);
+    let task = getObject<Task>(this);
     task.assignedTo = getObjectArray<Contact>(this.assignedTo, Contact);
     task.subtasks = getObjectArray<Subtask>(this.subtasks, Subtask);
     return task;
   }
 
+  /**
+   * Verifies the default of a task.
+   * @returns - A boolean value.
+   */
   isDefault() {
-    let taskCleared = true;
-    let defaultTask = {
-      title: this.isDefaultString(this.title),
-      description: this.isDefaultString(this.description),
-      assignedTo: this.isDefaultArray<Contact>(this.assignedTo),
-      dueDate: this.isDefaultString(this.dueDate),
-      prio: this.isDefaultString(this.prio, 'medium'),
-      category: this.isDefaultString(this.category),
-      subtasks: this.isDefaultArray<Subtask>(this.subtasks),
-    };
-    for (const [key, value] of Object.entries(defaultTask)) {
-      if (!value) {
-        taskCleared = false;
-      }
-    }
-    return taskCleared;
+    let defaultProperties = this.getDefaultProperties();
+    return !defaultProperties.includes(false);
   }
 
-  isDefaultString(value: string, defaultValue: string = '') {
-    return value === defaultValue;
-  }
-
-  isDefaultArray<T>(value: T[], defaultValue: T[] = []) {
-    return value.length === defaultValue.length;
+  /**
+   * Provides the default properties as boolean array.
+   * @returns - An booelan array.
+   */
+  getDefaultProperties() {
+    let title = isDefaultString(this.title);
+    let description = isDefaultString(this.description);
+    let assignedTo = isDefaultArray<Contact>(this.assignedTo);
+    let dueDate = isDefaultString(this.dueDate);
+    let prio = isDefaultString(this.prio, 'medium');
+    let category = isDefaultString(this.category);
+    let subtasks = isDefaultArray<Subtask>(this.subtasks);
+    return [title, description, assignedTo, dueDate, prio, category, subtasks];
   }
 }

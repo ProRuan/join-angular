@@ -1,39 +1,33 @@
 <section class="add-task">
     <app-join-title [title]="title"></app-join-title>
 
-    <form #addTaskForm="ngForm" class="form" (submit)="onAddTask(addTaskForm)">
-        <div class="left-input-group">
+    <form #form="ngForm" class="form" (submit)="onCreate(form)">
+        <fieldset class="left-fieldset">
             <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
             <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
-            <app-assigned-to-input [(assignedTo)]="task.assignedTo" [contacts]="contacts"></app-assigned-to-input>
-        </div>
+            <app-assigned-to-input [(ngModel)]="assignedTo" name="assigned-to" [(assignedTo)]="task.assignedTo"
+                [contacts]="contacts"></app-assigned-to-input>
+        </fieldset>
 
         <div class="border"></div>
 
-        <div class="right-input-group">
-            <app-due-date-input [(ngModel)]="task.dueDate" name="due-date"
-                (date)="onSetTask('dueDate', $event)"></app-due-date-input>
-            <app-prio-input [(prio)]="task.prio"></app-prio-input>
-            <app-category-input [(category)]="task.category"></app-category-input>
-            <app-subtasks-input [(subtasks)]="task.subtasks"></app-subtasks-input>
-        </div>
+        <fieldset class="right-fieldset">
+            <app-due-date-input [(ngModel)]="dueDate" name="due-date" [(dueDate)]="task.dueDate"></app-due-date-input>
+            <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
+            <app-category-input [(ngModel)]="task.category" name="category"></app-category-input>
+            <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
+                [(subtasks)]="task.subtasks"></app-subtasks-input>
+        </fieldset>
     </form>
 
     <div>
         <div class="button-group">
-            <button class="clear-task-btn" [disabled]="isDisabled()" (click)="onResetForm(addTaskForm)">
-                <div class="h-24"><span>Clear</span></div>
-                <img src="../../../assets/img/add-task/cancel_button.png" alt="cancel_button">
-            </button>
-            <button class="create-task-btn" [disabled]="addTaskForm.invalid" (click)="onAddTask(addTaskForm)">
-                <div class="h-24"><span>Create Task</span></div>
-                <img src="../../../assets/img/add-task/create_button.png" alt="create_button">
-            </button>
+            <app-button [button]="clearBtn" [disabled]="isClear(form)" (click)="onClear(form)"></app-button>
+            <app-button [button]="createBtn" [disabled]="isComplete(form)" (click)="onCreate(form)"></app-button>
         </div>
 
         <div class="hint-cont">
-            <span class="star">*</span>
-            <span>This field is required</span>
+            <span class="star">*</span><span>This field is required</span>
         </div>
     </div>
 </section>

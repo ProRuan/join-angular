@@ -4,9 +4,9 @@
         <input [value]="value" class="input" [ngClass]="getBorderClass()" type="text" placeholder="dd/mm/yyyy"
             maxlength="10" [pattern]="pattern" required (input)="onInputChange($event)"
             (focus)="onFocusChange($event, true)" (blur)="onFocusChange($event, false)" (keydown)="onVerifyKey($event)"
-            (keyup)="onUpdateDate()">
+            (keyup)="onUpdateDueDate()">
         <img class="calender" src="../../../assets/img/add-task/calender.png" alt="calender">
-        <input [value]="date" name="calender" class="date-input" type="date" [min]="minDate" required
+        <input [value]="dueDate" name="calender" class="date-input" type="date" [min]="minDate" required
             (focus)="onFocusChange($event, true)" (blur)="onFocusChange($event, false)"
             (change)="onUpdateValue($event)">
         <app-hint [invalid]="dateInvalid" [hint]="dateHint"></app-hint>

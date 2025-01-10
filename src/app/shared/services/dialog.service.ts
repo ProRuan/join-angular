@@ -13,6 +13,7 @@ export class DialogService {
     category: false,
     subtask: false,
   };
+  assignedTo: string = '';
 
   /**
    * Opens the dialog.
@@ -59,5 +60,12 @@ export class DialogService {
     } else {
       return '/assets/img/add-task/drop_down_arrow_down.png';
     }
+  }
+
+  /**
+   * Resets the assigned-to input value.
+   */
+  resetAssignedTo() {
+    this.assignedTo = '';
   }
 }

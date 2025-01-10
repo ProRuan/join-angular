@@ -95,9 +95,13 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns - A boolean value.
    */
   isFiltered(name: string) {
-    name = name.toLowerCase();
-    let value = this.value.toLowerCase();
-    return name.includes(value);
+    if (name && this.value) {
+      name = name.toLowerCase();
+      let value = this.value.toLowerCase();
+      return name.includes(value);
+    } else {
+      return name;
+    }
   }
 
   /**

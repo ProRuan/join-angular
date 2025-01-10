@@ -23,7 +23,9 @@ import { Subtask } from '../../models/subtask';
  * @extends - The BasicInput.
  */
 export class SubtasksInputComponent extends BasicInput {
+  @Input('ngModel') override value: string = '';
   @Input() subtasks: Subtask[] = [];
+  @Output('ngModelChange') valueChange = new EventEmitter<string>();
   @Output() subtasksChange = new EventEmitter<Subtask[]>();
 
   /**
@@ -53,6 +55,7 @@ export class SubtasksInputComponent extends BasicInput {
    */
   empty() {
     this.value = '';
+    this.valueChange.emit(this.value);
   }
 
   /**

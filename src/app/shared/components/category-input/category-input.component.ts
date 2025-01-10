@@ -27,8 +27,8 @@ export class CategoryInputComponent extends BasicInput {
 
   dialogId: string = 'category';
 
-  @Input('category') override value: string = '';
-  @Output('categoryChange') valueChange = new EventEmitter<string>();
+  @Input('ngModel') override value: string = '';
+  @Output('ngModelChange') valueChange = new EventEmitter<string>();
 
   override required: boolean = true;
 

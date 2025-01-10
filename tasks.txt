@@ -56,8 +56,9 @@ components (4/?)
       - PrioInputComponent - check
       - CategoryInputComponent - check
 
-shared/components (16/?)
+shared/components (17/?)
 -----------------
+  - Button - check
   - CheckboxComponent - check
   - HeaderComponent - check
   - HintComponent - check
@@ -75,8 +76,9 @@ shared/components (16/?)
   - TitleComponent - check
   - SumCardComponent - check
 
-shared/interfaces (10/?)
+shared/interfaces (11/?)
 -----------------
+  - ButtonData - check
   - CharCodeGroup - check
   - checkItem - ... (necessary???)
   - ContactData - check

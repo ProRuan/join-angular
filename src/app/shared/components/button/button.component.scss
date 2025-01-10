@@ -1,0 +1,89 @@
+@import "../../../../mixins.scss";
+
+.clear-btn {
+  @include round-border($b: 1px solid $dark, $br: 10px);
+  @include display-row($ai: center, $g: 4px);
+  padding: 15px;
+  background-color: transparent;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    border: 1px solid $lightblue;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    border: 1px solid $darker;
+  }
+
+  &:disabled {
+    @include round-border($b: 1px solid $dark, $br: 10px);
+    box-shadow: unset;
+    opacity: 0.5;
+  }
+}
+
+.h-24 {
+  height: 24px;
+}
+
+.clear-btn-text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  font-family: $inter;
+  color: $dark;
+
+  .clear-btn:hover & {
+    color: $lightblue;
+  }
+
+  .clear-btn:active & {
+    color: $darker;
+  }
+
+  .clear-btn:disabled & {
+    color: $dark;
+  }
+}
+
+.clear-btn-img {
+  .clear-btn:hover & {
+    content: url("../../../../assets/img/add-task/cancel_button_hover.png");
+  }
+
+  .clear-btn:active & {
+    content: url("../../../../assets/img/add-task/cancel_button_active.png");
+  }
+
+  .clear-btn:disabled & {
+    content: unset;
+  }
+}
+
+.create-btn {
+  @include round-border($b: none, $br: 10px);
+  @include display-row($ai: center, $g: 4px);
+  padding: 16px;
+  background-color: $dark;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    background-color: $lightblue;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    background: $darker;
+  }
+
+  &:disabled {
+    background-color: $dark;
+    box-shadow: unset;
+    opacity: 0.5;
+  }
+}
+
+.create-btn-text {
+  @include font($fs: 21px, $fw: 700, $lh: 25.2px);
+  font-family: $inter;
+  color: $white;
+}

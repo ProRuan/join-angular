@@ -128,7 +128,7 @@ export class BasicInput implements ControlValueAccessor {
    * @returns - A boolean value.
    */
   isFilled() {
-    return this.value.length > 0;
+    return this.value && this.value.length > 0;
   }
 
   /**

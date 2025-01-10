@@ -3,6 +3,13 @@ import { Model } from '../interfaces/model';
 import { User } from '../models/user';
 import { getRandomId } from './identify';
 
+const DD: string = '(0[1-9]|[12][0-9]|3[01])';
+const MM: string = '(0[1-9]|1[0-2])';
+const YYYY: string = '([0-9]{4})';
+const calenderRawPat: string = `${YYYY}[\\/\\-]${MM}[\\/\\-]${DD}`;
+
+export const calenderPat: RegExp = new RegExp(calenderRawPat);
+
 /**
  * Provides a boolean.
  * @param value - The input boolean.
@@ -114,12 +121,41 @@ export function getTime() {
 }
 
 /**
+ * Verifies the default array.
+ * @param value - The array.
+ * @param defaultValue - The default array.
+ * @returns - A boolean value.
+ */
+export function isDefaultArray<T>(value: T[], defaultValue: T[] = []) {
+  return value.length === defaultValue.length;
+}
+
+/**
+ * Verifies the default string.
+ * @param value - The string.
+ * @param defaultValue - The default string.
+ * @returns - A boolean value.
+ */
+export function isDefaultString(value: string, defaultValue: string = '') {
+  return value === defaultValue;
+}
+
+/**
  * Verifies the existence of the value.
  * @param value - The value.
  * @returns - A boolean value.
  */
 export function isExistent(value: any) {
   return value !== undefined;
+}
+
+/**
+ * Checks the value for true.
+ * @param value - The value.
+ * @returns - A boolean value.
+ */
+export function isTrue(value: boolean | null) {
+  return value ? true : false;
 }
 
 /**

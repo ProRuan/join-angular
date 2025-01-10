@@ -14,10 +14,14 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { Task } from '../../shared/models/task';
 import { Contact } from '../../shared/models/contact';
 import { Subtask } from '../../shared/models/subtask';
-import { getObjectArray, loadUser } from '../../shared/ts/global';
-import { SummaryTask } from '../../shared/models/summary-task';
-import { Summary } from '../../shared/models/summary';
-import { User } from '../../shared/models/user';
+import {
+  getObjectArray,
+  isDefaultString,
+  isTrue,
+  loadUser,
+} from '../../shared/ts/global';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { ButtonData } from '../../shared/interfaces/button-data';
 
 @Component({
   selector: 'app-add-task',
@@ -33,6 +37,7 @@ import { User } from '../../shared/models/user';
     PrioInputComponent,
     CategoryInputComponent,
     SubtasksInputComponent,
+    ButtonComponent,
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss',
@@ -50,12 +55,64 @@ export class AddTaskComponent {
   defaultTask: Task = new Task(this.task);
   assignedContacts: Contact[] = [];
 
+  dueDate: string = '';
+  subtasks: string = '';
+
+  // add-task create-task validation (title, due date, category) ... (0/3)
+  // category with ngModel ... ?
+
+  clearBtn: ButtonData = {
+    buttonClass: 'clear-btn',
+    contClass: 'h-24',
+    textClass: 'clear-btn-text',
+    text: 'Clear',
+    imgClass: 'clear-btn-img',
+    src: '../../../assets/img/add-task/cancel_button.png',
+    alt: 'cancel_button',
+  };
+
+  createBtn: ButtonData = {
+    buttonClass: 'create-btn',
+    contClass: 'h-24',
+    textClass: 'create-btn-text',
+    text: 'Create Task',
+    imgClass: '',
+    src: '../../../assets/img/add-task/create_button.png',
+    alt: 'create_button',
+  };
+
   get contacts() {
     return this.join.user.contacts;
   }
 
   set contacts(contacts: Contact[]) {
     this.join.user.contacts = contacts;
+  }
+
+  get assignedTo() {
+    return this.dialog.assignedTo;
+  }
+
+  set assignedTo(value: string) {
+    this.dialog.assignedTo = value;
+  }
+
+  resetInputs() {
+    this.assignedTo = '';
+    this.dueDate = '';
+    this.subtasks = '';
+  }
+
+  isDefaultForm() {
+    let defaultValues = this.getDefaultValues();
+    return !defaultValues.includes(false);
+  }
+
+  getDefaultValues() {
+    let assignedTo = isDefaultString(this.assignedTo);
+    let dueDate = isDefaultString(this.dueDate);
+    let subtasks = isDefaultString(this.subtasks);
+    return [assignedTo, dueDate, subtasks];
   }
 
   // assigned-to input component
@@ -146,7 +203,9 @@ export class AddTaskComponent {
     }
   }
 
-  onResetForm(ngForm: NgForm) {
+  onClear(ngForm: NgForm) {
+    // think about reset again ... !
+    this.resetInputs();
     // [date] + resetForm() + setTimeout() + set _date() ...
     this.task = new Task();
     // ngForm.reset();
@@ -164,13 +223,21 @@ export class AddTaskComponent {
     // reset subtask input ... !
   }
 
-  isDisabled() {
-    // ngForm.reset for inputs!?!
-    return this.task.isDefault();
+  // use custom two-way binding?? (one line code) ... ?
+  isClear(ngForm: NgForm) {
+    // think about validation again ... !
+    if (this.isDefaultForm()) {
+      ngForm.control.markAsPristine();
+    }
+    return ngForm.form.pristine && this.task.isDefault();
+  }
+
+  isComplete(ngForm: NgForm) {
+    return isTrue(ngForm.invalid);
   }
 
   // add task to user!!!
-  async onAddTask(ngForm: NgForm) {
+  async onCreate(ngForm: NgForm) {
     if (ngForm.form.valid) {
       console.log('title: ', this.task.title);
       console.log('due date: ', this.task.dueDate);

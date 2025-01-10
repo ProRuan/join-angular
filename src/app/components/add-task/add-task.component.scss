@@ -11,110 +11,23 @@
   gap: 48.25px;
 }
 
-.left-input-group {
+.left-fieldset {
   @include display-column($g: 16px);
   height: fit-content;
 }
 
 .border {
-  width: 0px;
-  height: 424px;
+  @include size($w: 0, $h: 424px);
   border-right: 1px solid $gray;
 }
 
-.right-input-group {
+.right-fieldset {
   @include display-column($g: 24px);
   height: fit-content;
 }
 
 .button-group {
   @include display-row($jc: flex-end, $ai: center, $g: 16px);
-}
-
-.clear-task-btn {
-  @include round-border($b: 1px solid $dark, $br: 10px);
-  @include display-row($ai: center, $g: 4px);
-  padding: 15px;
-  background-color: transparent;
-  transition: all 100ms ease-in-out;
-
-  span {
-    @include font($fs: 20px, $fw: 400, $lh: 24px);
-    font-family: $inter;
-    color: $dark;
-  }
-
-  &:hover {
-    border: 1px solid $lightblue;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-
-    span {
-      color: $lightblue;
-    }
-
-    img {
-      content: url("../../../assets/img/add-task/cancel_button_hover.png");
-    }
-  }
-
-  &:active {
-    border: 1px solid $darker;
-
-    span {
-      color: $darker;
-    }
-
-    img {
-      content: url("../../../assets/img/add-task/cancel_button_active.png");
-    }
-  }
-
-  &:disabled {
-    @include round-border($b: 1px solid $dark, $br: 10px);
-    box-shadow: unset;
-    opacity: 0.5;
-
-    span {
-      color: $dark;
-    }
-
-    img {
-      content: unset;
-    }
-  }
-}
-
-.h-24 {
-  height: 24px;
-}
-
-.create-task-btn {
-  @include round-border($b: none, $br: 10px);
-  @include display-row($ai: center, $g: 4px);
-  padding: 16px;
-  background-color: $dark;
-  transition: all 100ms ease-in-out;
-
-  span {
-    @include font($fs: 21px, $fw: 700, $lh: 25.2px);
-    font-family: $inter;
-    color: $white;
-  }
-
-  &:hover {
-    background-color: $lightblue;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  }
-
-  &:active {
-    background: $darker;
-  }
-
-  &:disabled {
-    background-color: $dark;
-    box-shadow: unset;
-    opacity: 0.5;
-  }
 }
 
 .hint-cont {
