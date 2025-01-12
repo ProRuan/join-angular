@@ -11,18 +11,11 @@ import { CategoryInputComponent } from '../../shared/components/category-input/c
 import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { JoinService } from '../../shared/services/join.service';
+import { SummaryService } from '../../shared/services/summary.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { Task } from '../../shared/models/task';
-import { Contact } from '../../shared/models/contact';
 import { ButtonData } from '../../shared/interfaces/button-data';
-import {
-  getObjectArray,
-  isDefaultString,
-  isTrue,
-  loadUser,
-} from '../../shared/ts/global';
-import { Summary } from '../../shared/models/summary';
-import { SummaryService } from '../../shared/services/summary.service';
+import { isDefaultString, isTrue } from '../../shared/ts/global';
 
 @Component({
   selector: 'app-add-task',
@@ -52,23 +45,18 @@ export class AddTaskComponent {
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
 
-  // summary update ...
-  // this.join.user.summary.toDo.amount++;
-  // this.join.user.summary.inBoard.amount++;
-  // if (this.task.prio == 'urgent') {
-  //   this.join.user.summary.urgent.amount++;
-  //   this.join.user.summary.urgent.deadline = 'September 2, 2024';
-  // }
-  // add greetings function ... (0/5)
-
-  // form builder + assignedTo filter + date value + subtask input value ....
-  // input [config]="config" as shortcut ... ?
+  // current tasks
+  // -------------
+  // add-task checklist ...
+  // clean add-task component ...
+  // check login component ...
+  // check sign-up component ...
+  // -------------
 
   // think about clear-btn validation ...
   // think about create-btn validation ...
 
   // add-task create-task validation (title, due date, category) ... (0/3)
-  // category with ngModel ... ?
 
   // CategoryInputComponent
   // ----------------------
@@ -132,33 +120,34 @@ export class AddTaskComponent {
   }
 
   /**
-   * Provides the user contacts.
+   * Initializes an add-task component.
    */
-  get contacts() {
-    return this.join.user.contacts;
+  async ngOnInit() {
+    await this.join.loadUser();
+    this.join.subscribeUser();
   }
 
   /**
-   * Sets the user contacts.
+   * Creates a task on submit.
+   * @param ngForm - The add-task form.
    */
-  set contacts(contacts: Contact[]) {
-    this.join.user.contacts = contacts;
-  }
-
-  // to check!!!
-  ngOnInit() {
-    this.initUser();
-    console.log('add task user: ', this.join.user);
-  }
-
-  /**
-   * Initializes the user.
-   */
-  initUser() {
-    let user = loadUser();
-    if (user) {
-      this.join.user = user;
+  async onCreate(ngForm: NgForm) {
+    if (ngForm.form.valid) {
+      this.join.user.tasks.push(this.task);
+      this.summary.update();
+      this.join.saveUser();
+      this.clearForm();
     }
+  }
+
+  /**
+   * Clears the form.
+   */
+  clearForm() {
+    this.assignedTo = '';
+    this.dueDate = '';
+    this.subtasks = '';
+    this.task = new Task();
   }
 
   /**
@@ -214,50 +203,11 @@ export class AddTaskComponent {
   }
 
   /**
-   * Clears the form.
-   */
-  clearForm() {
-    this.assignedTo = '';
-    this.dueDate = '';
-    this.subtasks = '';
-    this.task = new Task();
-  }
-
-  /**
    * Verifies the incompleteness of the form.
    * @param ngForm - The add-task form.
    * @returns - A boolean value.
    */
   isIncomplete(ngForm: NgForm) {
     return isTrue(ngForm.invalid);
-  }
-
-  // add task to user!!!
-  // update summary!!!
-  async onCreate(ngForm: NgForm) {
-    if (ngForm.form.valid) {
-      this.join.user.tasks.push(this.task);
-
-      this.summary.update();
-
-      this.join.updateUser(
-        this.join.user.id,
-        'data',
-        this.join.user.getObject()
-      );
-      // await this.updateUserTasks();
-
-      // deletes task after reload --> update user!!!
-
-      this.clearForm();
-    } else {
-      // backlog!?!
-      console.log('add-task form invalid');
-    }
-  }
-
-  async updateUserTasks() {
-    let tasks = getObjectArray<Task>(this.join.user.tasks, Task);
-    await this.join.updateUser(this.join.user.id, 'data.tasks', tasks);
   }
 }

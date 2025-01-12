@@ -151,8 +151,8 @@ export class LoginComponent {
     this.rememberUser(userDoc.data);
     // global.ts!
     saveUser(userDoc.data);
-    this.join.subscribe(userDoc.id);
-    this.join.user = new User(userDoc.data);
+    this.join.setUser(userDoc.data);
+    this.join.subscribeUser();
     this.router.navigate(['main', sid, 'summary']);
   }
 

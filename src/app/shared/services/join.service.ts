@@ -14,6 +14,7 @@ import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
 import { UserDoc } from '../models/user-doc';
 import { DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
+import { loadUser, saveUser } from '../ts/global';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,9 @@ export class JoinService {
   firestore: Firestore = inject(Firestore);
   sid: SessionIdService = inject(SessionIdService);
 
+  // review all funtions due to local user!!!
+  //   --> save at least one parameter, e. g. this.id!!!
+
   [key: string]: any;
   revealed: boolean;
   relocated: boolean;
@@ -34,12 +38,12 @@ export class JoinService {
   users: User[] = [];
   userDocs: UserDoc[] = [];
 
-  async subscribe(id: string) {
-    const unsub = onSnapshot(doc(this.firestore, 'users', id), (doc) => {
-      this.temp = doc.data();
-      console.log('Current data: ', this.temp);
-    });
-  }
+  // subscribeUser() {
+  //   let id = this.user.id;
+  //   const unsub = onSnapshot(doc(this.firestore, 'users', id), (doc) => {
+  //     console.log('Current data: ', doc.data());
+  //   });
+  // }
 
   // jsdoc + rename name --> subname and username --> name!!!
   // --> related to getUserName() and so on ...
@@ -172,11 +176,10 @@ export class JoinService {
     return sid;
   }
 
-  // improve!!!
-  subscribeUser(id: string) {
-    // update values user and userDoc!!!
+  // improve: e. g. add-task: log user tasks and perhaps user summary?!
+  subscribeUser() {
     const unsubscribe = onSnapshot(
-      doc(this.firestore, 'users', id),
+      doc(this.firestore, 'users', this.user.id),
       (userDoc) => console.log('subscribed user: ', userDoc.data()),
       (error) => console.log('Error - Could not subscribe user: ', error)
     );
@@ -201,6 +204,10 @@ export class JoinService {
   //   console.log('Error - Could not subscribe user: ', error);
   // }
 
+  setUser(user: User) {
+    this.user = new User(user);
+  }
+
   // jsdoc
   async getUser(id: string) {
     const userRef = doc(this.firestore, 'users', id);
@@ -208,6 +215,14 @@ export class JoinService {
     return user.exists() ? new UserDoc(user.data()) : undefined;
     // this.verifyUser(user);
   }
+
+  // // jsdoc
+  // async getUser(id: string) {
+  //   const userRef = doc(this.firestore, 'users', id);
+  //   const user = await getDoc(userRef);
+  //   return user.exists() ? new UserDoc(user.data()) : undefined;
+  //   // this.verifyUser(user);
+  // }
 
   // jsdoc
   verifyUser(user: DocumentSnapshot): DocumentData | void {
@@ -259,6 +274,58 @@ export class JoinService {
     let userDocs = await this.getUserDocs();
     let userDoc = userDocs.find((u) => u.sid == sid);
     return userDoc ? new User(userDoc.data) : undefined;
+  }
+
+  /**
+   * Loads the user.
+   */
+  async loadUser() {
+    this.loadUserLocally();
+    await this.loadUserOnline();
+  }
+
+  /**
+   * Loads the user locally.
+   */
+  loadUserLocally() {
+    let user = loadUser();
+    if (user) {
+      this.setUser(user);
+    }
+  }
+
+  /**
+   * Loads the user online.
+   */
+  async loadUserOnline() {
+    let userDoc = await this.getUser(this.user.id);
+    if (userDoc) {
+      this.setUser(userDoc.data);
+    }
+  }
+
+  /**
+   * Saves the user.
+   */
+  async saveUser() {
+    await this.saveUserOnline();
+    this.saveUserLocally();
+  }
+
+  /**
+   * Saves the user online.
+   */
+  async saveUserOnline() {
+    let id = this.user.id;
+    let data = this.user.getObject();
+    await this.updateUser(id, 'data', data);
+  }
+
+  /**
+   * Saves the user locally.
+   */
+  saveUserLocally() {
+    saveUser(this.user);
   }
 
   // add class UserDoc - check

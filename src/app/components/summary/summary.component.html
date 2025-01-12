@@ -4,16 +4,16 @@
     <div class="content">
         <div class="overview">
             <div class="task-row">
-                <app-sum-card [task]="tasks.toDo"></app-sum-card>
-                <app-sum-card [task]="tasks.done"></app-sum-card>
+                <app-sum-card [task]="summary.toDo"></app-sum-card>
+                <app-sum-card [task]="summary.done"></app-sum-card>
             </div>
             <div class="task-row">
-                <app-sum-card [task]="tasks.urgent"></app-sum-card>
+                <app-sum-card [task]="summary.urgent"></app-sum-card>
             </div>
             <div class="task-row">
-                <app-sum-card [task]="tasks.inBoard"></app-sum-card>
-                <app-sum-card [task]="tasks.inProgress"></app-sum-card>
-                <app-sum-card [task]="tasks.awaitingFeedback"></app-sum-card>
+                <app-sum-card [task]="summary.inBoard"></app-sum-card>
+                <app-sum-card [task]="summary.inProgress"></app-sum-card>
+                <app-sum-card [task]="summary.awaitingFeedback"></app-sum-card>
             </div>
         </div>
 

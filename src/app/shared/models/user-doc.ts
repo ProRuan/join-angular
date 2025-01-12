@@ -14,6 +14,19 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
+  // Input Components
+  // ----------------
+  // input [config]="config" --> short and flexible ... ?
+
+  // Summary Component
+  // -----------------
+  // greetings methods ... (0/5)
+
+  // Add-task Component
+  // ------------------
+  // Save user online, locally and on app level ... (2/3)
+  // redirect to board ... !
+
   // Routing
   // -------
   // https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
