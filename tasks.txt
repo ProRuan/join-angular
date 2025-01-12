@@ -104,7 +104,7 @@ shared/models (9/?)
   - Transform - check
   - User - check
 
-shared/services (10/?)
+shared/services (11/?)
 ---------------
   - DialogService - check* --> more dialogs?!
   - EmailValidationService - check
@@ -116,6 +116,7 @@ shared/services (10/?)
   - PasswordMaskService - check
   - PasswordValidationService - check
   - SessionIdService - check
+  - SummaryService - check
 
 shared/ts (2/?)
 ---------
@@ -178,3 +179,38 @@ sortContacts() {
 
     this.assignedToChange.emit(this.assignedContacts);
 }
+
+Date Test
+---------
+    // let date = new Date();
+    // console.log('date: ', date);
+    // // to string
+    // console.log('date to date string: ', date.toDateString());
+    // console.log('date to ISO string: ', date.toISOString());
+    // console.log('date to json: ', date.toJSON());
+    // console.log('date to locale date string: ', date.toLocaleDateString());
+    // console.log('date to locale time string: ', date.toLocaleTimeString());
+    // console.log('date to string: ', date.toString());
+    // console.log('date to time string: ', date.toTimeString());
+    // console.log('date to UTC string: ', date.toUTCString());
+    // // get
+    // console.log('date get date: ', date.getDate());
+    // console.log('date get day: ', date.getDay());
+    // console.log('date get full year: ', date.getFullYear());
+    // console.log('date get hours: ', date.getHours());
+    // console.log('date get ms: ', date.getMilliseconds());
+    // console.log('date get min: ', date.getMinutes());
+    // console.log('date get month: ', date.getMonth());
+    // console.log('date get sec: ', date.getSeconds());
+    // console.log('date get time: ', date.getTime());
+    // console.log('date get tz offset: ', date.getTimezoneOffset());
+    // console.log('date get utc date: ', date.getUTCDate());
+    // console.log('date get utc day: ', date.getUTCDay());
+    // console.log('date get utc full year: ', date.getUTCFullYear());
+    // console.log('date get utc hours: ', date.getUTCHours());
+    // console.log('date get utc ms: ', date.getUTCMilliseconds());
+    // console.log('date get utc min: ', date.getUTCMinutes());
+    // console.log('date get utc month: ', date.getUTCMonth());
+    // console.log('date get utc sec: ', date.getUTCSeconds());
+    // // create again
+    // console.log('date again: ', new Date(date.getTime()));

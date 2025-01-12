@@ -8,6 +8,21 @@ const MM: string = '(0[1-9]|1[0-2])';
 const YYYY: string = '([0-9]{4})';
 const calenderRawPat: string = `${YYYY}[\\/\\-]${MM}[\\/\\-]${DD}`;
 
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 export const calenderPat: RegExp = new RegExp(calenderRawPat);
 
 /**
@@ -71,6 +86,16 @@ export function getId(id?: string) {
  */
 export function getISODateString() {
   return new Date().toISOString().split('T')[0];
+}
+
+/**
+ * Provides the month name.
+ * @param month - The month as number.
+ * @returns - The month name.
+ */
+export function getMonthName(month: number) {
+  let index = month - 1;
+  return monthNames[index];
 }
 
 /**

@@ -22,8 +22,8 @@
 
     <div>
         <div class="button-group">
-            <app-button [button]="clearBtn" [disabled]="isClear(form)" (click)="onClear(form)"></app-button>
-            <app-button [button]="createBtn" [disabled]="isComplete(form)" (click)="onCreate(form)"></app-button>
+            <app-button [button]="clearBtn" [disabled]="isClear(form)" (click)="onClear()"></app-button>
+            <app-button [button]="createBtn" [disabled]="isIncomplete(form)" (click)="onCreate(form)"></app-button>
         </div>
 
         <div class="hint-cont">

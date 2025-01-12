@@ -4,6 +4,7 @@ import { SummaryTask } from './summary-task';
  * Represents a summary.
  */
 export class Summary {
+  [key: string]: any;
   toDo: SummaryTask;
   done: SummaryTask;
   urgent: SummaryTask;
