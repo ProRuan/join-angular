@@ -14,9 +14,14 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
+  // Menu Component
+  // --------------
+  // fix current link after reload ... !
+
   // Input Components
   // ----------------
   // input [config]="config" --> short and flexible ... ?
+  // onFocus and onBlur OR onFocusChange: verfiy event type?!F
 
   // Summary Component
   // -----------------
@@ -24,8 +29,22 @@ export class UserDoc {
 
   // Add-task Component
   // ------------------
+  // think about create-btn validation: title, due date, category ... (2/3)
+  //   --> add DueDateService (AddTaskService) ... !
+  // set transition of all inputs (especially drop-down menu)!!!!
+  // move add-task inputs to add-task ... !
   // Save user online, locally and on app level ... (2/3)
   // redirect to board ... !
+
+  // SubtasksInputComponent
+  // ----------------------
+  // set subtask cont height limit ...
+  //   --> set fix height for join app ... ?
+
+  // Board Component
+  // ---------------
+  // create sample tasks ... (0/5)
+  // update summary from board ...
 
   // Routing
   // -------

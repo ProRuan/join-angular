@@ -5,8 +5,8 @@
         <fieldset class="left-fieldset">
             <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
             <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
-            <app-assigned-to-input [(ngModel)]="assignedTo" name="assigned-to"
-                [(assignedTo)]="task.assignedTo"></app-assigned-to-input>
+            <app-assigned-to-input [(ngModel)]="assignedTo" name="assigned-to" [(assignedTo)]="task.assignedTo"
+                [contacts]="contacts"></app-assigned-to-input>
         </fieldset>
 
         <div class="border"></div>

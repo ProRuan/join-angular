@@ -45,41 +45,6 @@ export class AddTaskComponent {
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
 
-  // current tasks
-  // -------------
-  // add-task checklist ...
-  // clean add-task component ...
-  // check login component ...
-  // check sign-up component ...
-  // -------------
-
-  // think about clear-btn validation ...
-  // think about create-btn validation ...
-
-  // add-task create-task validation (title, due date, category) ... (0/3)
-
-  // CategoryInputComponent
-  // ----------------------
-  // set transition of all inputs (especially drop-down menu)!!!!
-
-  // move add-task inputs to add-task ... !
-
-  // SubtasksInputComponent
-  // ----------------------
-  // plus Style
-  // ----------
-  // position:absolute, because height is changing + stop(event)!!!
-  // set subtask cont height limit?!
-
-  // --------------------------------------------------------------
-
-  // BoardComponent
-  // --------------
-  // create sample tasks ... !
-  // update summary tasks ... !
-
-  // onFocus and onBlur OR onFocusChange: verfiy event type?!F
-
   title: string = 'Add Task';
   task: Task = new Task();
   dueDate: string = '';
@@ -91,7 +56,7 @@ export class AddTaskComponent {
     textClass: 'clear-btn-text',
     text: 'Clear',
     imgClass: 'clear-btn-img',
-    src: '../../../assets/img/add-task/cancel_button.png',
+    src: '/assets/img/add-task/cancel_button.png',
     alt: 'cancel_button',
   };
 
@@ -101,7 +66,7 @@ export class AddTaskComponent {
     textClass: 'create-btn-text',
     text: 'Create Task',
     imgClass: '',
-    src: '../../../assets/img/add-task/create_button.png',
+    src: '/assets/img/add-task/create_button.png',
     alt: 'create_button',
   };
 
@@ -117,6 +82,13 @@ export class AddTaskComponent {
    */
   set assignedTo(value: string) {
     this.dialog.assignedTo = value;
+  }
+
+  /**
+   * Provides the user contacts.
+   */
+  get contacts() {
+    return this.join.user.contacts;
   }
 
   /**

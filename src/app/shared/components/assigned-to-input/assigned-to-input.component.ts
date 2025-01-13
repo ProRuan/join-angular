@@ -4,7 +4,6 @@ import { BasicInput, getProvider } from '../../models/basic-input';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 import { AssignableContactComponent } from '../../../components/add-task/assignable-contact/assignable-contact.component';
-import { JoinService } from '../../services/join.service';
 import { DialogService } from '../../services/dialog.service';
 import { Contact } from '../../models/contact';
 import { stop } from '../../ts/global';
@@ -26,11 +25,11 @@ import { stop } from '../../ts/global';
  * @extends - The BasicInput.
  */
 export class AssignedToInputComponent extends BasicInput {
-  join: JoinService = inject(JoinService);
   dialog: DialogService = inject(DialogService);
 
   dialogId: string = 'assignedTo';
-  assignableContacts = this.join.user.contacts;
+
+  @Input('contacts') assignableContacts: Contact[] = [];
   @Input('assignedTo') assignedContacts: Contact[] = [];
   @Output() assignedToChange = new EventEmitter<Contact[]>();
 

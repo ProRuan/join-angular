@@ -4,6 +4,10 @@ Join
 
 Final Tasks
 -----------
+  - subscribe user with login ... !!!!!
+  - init user data only on reload (subscribed) ... !!!!!
+  - save user data only online ... ?????
+
   - prepare a GlobalFunctionService ... !!!
   - Set onFunction() ...
   - delete not used events ... !
@@ -35,6 +39,8 @@ Final Tasks
 
 Completed (0/?)
 ---------
+  - LoginComponent ... *review methods
+  - SignUpComponent ... *review methods
 
 
 Complete (1/?)
