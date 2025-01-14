@@ -23,8 +23,8 @@
   }
 }
 
-.h-24 {
-  height: 24px;
+.cont-49 {
+  @include size($w: 49px, $h: 24px);
 }
 
 .clear-btn-text {
@@ -46,12 +46,14 @@
 }
 
 .clear-btn-img {
+  @include size($w: 24px, $h: 24px);
+
   .clear-btn:hover & {
-    content: url("../../../../assets/img/add-task/cancel_button_hover.png");
+    content: url("/assets/img/add-task/cancel_button_hover.png");
   }
 
   .clear-btn:active & {
-    content: url("../../../../assets/img/add-task/cancel_button_active.png");
+    content: url("/assets/img/add-task/cancel_button_active.png");
   }
 
   .clear-btn:disabled & {
@@ -82,8 +84,28 @@
   }
 }
 
+.cont-122 {
+  @include size($w: 122px, $h: 24px);
+}
+
 .create-btn-text {
   @include font($fs: 21px, $fw: 700, $lh: 25.2px);
   font-family: $inter;
   color: $white;
+}
+
+.create-btn-img {
+  @include size($w: 24px, $h: 24px);
+}
+
+.slim {
+  padding: 8px 16px;
+}
+
+.cont-92 {
+  @include size($w: 92px, $h: 24px);
+}
+
+.img-32 {
+  @include size($w: 32px, $h: 32px);
 }

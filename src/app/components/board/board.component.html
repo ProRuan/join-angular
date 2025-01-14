@@ -1,28 +1,21 @@
 <section class="board">
     <div class="title-cont">
-        <h2 class="headline-2">Board</h2>
+        <app-join-title [title]="title"></app-join-title>
 
         <div class="input-button-cont">
-            <div class="input-cont">
-                <input #search class="input" type="text" placeholder="Find Task" (keyup)="filterTasks(search)">
-                <div class="border-input-cont">
-                    <img class="search-icon" src="../../../assets/img/board/search.png" alt="search">
-                </div>
-            </div>
-            <button class="add-task-btn" (click)="datData.open()">
-                <span>Add task</span>
-                <img src="../../../assets/img/board/add.png" alt="add">
-            </button>
+            <app-search-input [(value)]="filter"></app-search-input>
+            <app-button [button]="addTaskBtn" (click)="addTask()"></app-button>
         </div>
     </div>
 
+    <!-- continue here!!! -->
     <div class="content">
         <div class="board-column-group">
             <div class="column">
                 <div class="head">
                     <span>To do</span>
                     <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed"
-                        (click)="datData.open()">
+                        (click)="addTask()">
                 </div>
                 <div class="body" (drop)="moveTo('to-do')" (dragover)="drop($event)">
                     <div *ngIf="printPlaceholder('to-do')" class="default-task">
@@ -39,7 +32,7 @@
                 <div class="head">
                     <span>In progress</span>
                     <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed"
-                        (click)="datData.open()">
+                        (click)="addTask()">
                 </div>
                 <div class="body" (drop)="moveTo('in-progress')" (dragover)="drop($event)">
                     <div *ngIf="printPlaceholder('in-progress')" class="default-task">
@@ -56,7 +49,7 @@
                 <div class="head">
                     <span>Await feedback</span>
                     <img class="add-icon" src="../../../assets/img/board/add_framed.png" alt="add_framed"
-                        (click)="datData.open()">
+                        (click)="addTask()">
                 </div>
                 <div class="body" (drop)="moveTo('await-feedback')" (dragover)="drop($event)">
                     board-task gap 20px

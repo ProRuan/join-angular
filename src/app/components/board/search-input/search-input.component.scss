@@ -1,0 +1,50 @@
+@import "../../../../mixins.scss";
+
+.input-cont {
+  width: 312px;
+  position: relative;
+}
+
+.input {
+  @include box-padding($p: 11px 81px 11px 16px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: 1px solid $darkgray, $br: 10px);
+  width: 100%;
+  font-family: $inter;
+
+  &:focus {
+    border: 1px solid $lightblue;
+  }
+
+  &::placeholder {
+    color: $gray;
+  }
+}
+
+.button-cont {
+  @include position($pos: absolute, $t: 8px, $r: 17px);
+  padding-left: 16px;
+  max-height: 32px;
+  border-left: 1px solid $gray;
+}
+
+.button {
+  @include size($w: 32px, $h: 32px);
+  padding: 0;
+  background-color: transparent;
+  background-image: url("/assets/img/board/search.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-image: url("/assets/img/board/search_hover.png");
+  }
+
+  &:active {
+    background-image: url("/assets/img/board/search_active.png");
+  }
+}

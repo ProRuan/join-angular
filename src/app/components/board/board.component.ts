@@ -2,24 +2,53 @@ import { Component, inject, Input } from '@angular/core';
 import { MainComponent } from '../main/main.component';
 import { CommonModule } from '@angular/common';
 import { DraggableTaskComponent } from './draggable-task/draggable-task.component';
-import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
 import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
 import { JoinService } from '../../shared/services/join.service';
+import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
+import { ButtonData } from '../../shared/interfaces/button-data';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { DialogService } from '../../shared/services/dialog.service';
+import { SearchInputComponent } from './search-input/search-input.component';
+import { FormsModule } from '@angular/forms';
 // import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, DraggableTaskComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    JoinTitleComponent,
+    ButtonComponent,
+    SearchInputComponent,
+    DraggableTaskComponent,
+  ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
   join: JoinService = inject(JoinService);
+  dialog: DialogService = inject(DialogService);
+
+  // check dialog-add-task + rename???
+
+  // verify!!!
   mainComponent: MainComponent = inject(MainComponent);
-  datData: DialogAddTaskService = inject(DialogAddTaskService);
   dvtData: DialogViewTaskService = inject(DialogViewTaskService);
 
+  title: string = 'Board';
+
+  addTaskBtn: ButtonData = {
+    buttonClass: 'create-btn slim',
+    contClass: 'cont-92',
+    textClass: 'create-btn-text',
+    text: 'Add task',
+    imgClass: 'img-32',
+    src: '/assets/img/board/add.png',
+    alt: 'add',
+  };
+
+  // verify!!!
   filter: string = '';
   currTask: any;
   // user: User = new User();
@@ -66,15 +95,18 @@ export class BoardComponent {
     // console.log('from main user: ', this.mainComponent.user);
   }
 
-  filterTasks(input: HTMLInputElement) {
-    this.filter = input.value;
+  // jsdoc
+  addTask() {
+    this.dialog.open('addTask');
   }
 
   // consider case of column placeholder!!!
   verifyTasks(task: any, column: string) {
     let columnMatched = task.column == column;
-    let titleMatched = task.title.includes(this.filter);
-    let descriptionMatched = task.description.includes(this.filter);
+    let titleLowerCase = task.title.toLowerCase();
+    let titleMatched = titleLowerCase.includes(this.filter);
+    let descriptionToLowerCase = task.description.toLowerCase();
+    let descriptionMatched = descriptionToLowerCase.includes(this.filter);
     return columnMatched && (titleMatched || descriptionMatched);
   }
 

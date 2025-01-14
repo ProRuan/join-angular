@@ -5,7 +5,6 @@ import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
 import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
 import { CommonModule } from '@angular/common';
-import { DialogAddTaskService } from '../../shared/services/dialog-add-task.service';
 import { DialogViewTaskComponent } from './dialog-view-task/dialog-view-task.component';
 import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
 import { DialogEditContactComponent } from './dialog-edit-contact/dialog-edit-contact.component';
@@ -37,7 +36,6 @@ export class MainComponent {
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   dialog: DialogService = inject(DialogService);
-  datData: DialogAddTaskService = inject(DialogAddTaskService);
   dvtData: DialogViewTaskService = inject(DialogViewTaskService);
   decData: DialogEditContactService = inject(DialogEditContactService);
   dacData: DialogAddContactService = inject(DialogAddContactService);

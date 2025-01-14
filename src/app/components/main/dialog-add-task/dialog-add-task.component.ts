@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AddTaskComponent } from '../../add-task/add-task.component';
-import { DialogAddTaskService } from '../../../shared/services/dialog-add-task.service';
+import { DialogService } from '../../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-dialog-add-task',
@@ -10,7 +10,7 @@ import { DialogAddTaskService } from '../../../shared/services/dialog-add-task.s
   styleUrl: './dialog-add-task.component.scss',
 })
 export class DialogAddTaskComponent {
-  datData: DialogAddTaskService = inject(DialogAddTaskService);
+  dialog: DialogService = inject(DialogService);
 
   stop(event: Event) {
     event.stopPropagation();

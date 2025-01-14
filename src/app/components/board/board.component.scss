@@ -1,101 +1,21 @@
 @import "../../../mixins.scss";
 
 .board {
-  // start padding is wrong?
-  @include box-padding($p: 110px 96px);
+  @include box-padding($p: 79.5px 64px);
   @include size($w: 100%, $h: calc(100vh - 96px));
-  @include display-column();
-  gap: 48px;
-  //   overflow-y: scroll;
+  @include display-column($g: 48.5px);
 }
 
 .title-cont {
   @include display-flex($jc: space-between);
-  width: 100%;
-  max-width: 1016px;
+  width: 1056px;
 }
 
 .input-button-cont {
-  @include display-horiz($g: 32px);
+  @include display-row($ai: center, $g: 32px);
 }
 
-.input-cont {
-  width: 312px;
-  position: relative;
-}
-
-.input {
-  @include box-padding($p: 11px 81px 11px 16px);
-  @include font($fs: 20px, $fw: 400, $lh: 24px);
-  @include display-horiz($g: 10px);
-  width: 100%;
-  font-family: "Inter", Arial, Helvetica, sans-serif;
-  background-color: #ffffff;
-  border: 1px solid #ababab;
-  border-radius: 10px;
-  outline: none;
-
-  &:focus {
-    border: 1px solid #29abe2;
-  }
-
-  &::placeholder {
-    color: #d1d1d1;
-  }
-}
-
-.border-input-cont {
-  padding-left: 16px;
-  max-height: 32px;
-  border-left: 1px solid #d1d1d1;
-  position: absolute;
-  top: 8px;
-  right: 17px;
-}
-
-// mixin?
-.search-icon {
-  cursor: pointer;
-
-  &:hover {
-    content: url("../../../assets/img/board/search_hover.png");
-  }
-
-  &:active {
-    content: url("../../../assets/img/board/search_active.png");
-  }
-}
-
-// mixin?
-.add-task-btn {
-  @include display-horiz($g: 4px);
-  padding: 8px 16px;
-  background-color: #2a3647;
-  border: none;
-  // border: 1px solid #2a3647;
-  border-radius: 10px;
-
-  span {
-    @include font($fs: 21px, $fw: 700, $lh: 25.2px);
-    height: 24px;
-    font-family: "Inter", Arial, Helvetica, sans-serif;
-    color: #ffffff;
-  }
-
-  img {
-    @include size($w: 32px, $h: 32px);
-  }
-
-  &:hover {
-    background-color: #29abe2;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  }
-
-  &:active {
-    background: #091931;
-  }
-}
-
+// continue here!!!
 .content {
   width: 100%;
   max-width: 1016px;

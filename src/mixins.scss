@@ -76,6 +76,7 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
 }
 
 // background-images instead?!
+// version with default, hover, active???
 @mixin img-content($src1, $src2) {
   content: url($src1);
 

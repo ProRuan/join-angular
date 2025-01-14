@@ -52,7 +52,7 @@ export class AddTaskComponent {
 
   clearBtn: ButtonData = {
     buttonClass: 'clear-btn',
-    contClass: 'h-24',
+    contClass: 'cont-49',
     textClass: 'clear-btn-text',
     text: 'Clear',
     imgClass: 'clear-btn-img',
@@ -62,10 +62,10 @@ export class AddTaskComponent {
 
   createBtn: ButtonData = {
     buttonClass: 'create-btn',
-    contClass: 'h-24',
+    contClass: 'cont-122',
     textClass: 'create-btn-text',
     text: 'Create Task',
-    imgClass: '',
+    imgClass: 'create-btn-img',
     src: '/assets/img/add-task/create_button.png',
     alt: 'create_button',
   };

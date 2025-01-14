@@ -1,0 +1,7 @@
+<div class="input-cont">
+    <input [value]="value" class="input" type="text" placeholder="Find Task" (input)="onInputChange($event)"
+        (keydown)="onUpdate(true)">
+    <div class="button-cont">
+        <button class="button" (click)="onUpdate()"></button>
+    </div>
+</div>
