@@ -1,6 +1,6 @@
 <div class="draggable-task" draggable="true" (dragstart)="onDragMove()" (click)="onViewStart()">
-    <div class="task">
-        <div class="category" [ngClass]="color()">
+    <div [ngClass]="getTaskClass()">
+        <div class="category" [ngClass]="getCategoryClass()">
             <span class="text">{{ task.category }}</span>
         </div>
 
@@ -9,9 +9,9 @@
             <p class="description">{{ task.description }}</p>
         </div>
 
-        <div *ngIf="task.subtasks.length > 0" class="subtasks">
-            <div class="max-bar">
-                <div [ngStyle]="width" class="progress-bar"></div>
+        <div *ngIf="areSubtasksExistent()" class="subtasks">
+            <div class="progress-bar-max">
+                <div [ngStyle]="progress" class="progress-bar"></div>
             </div>
             <div class="counter">
                 <span>{{ counter }}/{{ max }} Subtasks</span>
@@ -20,11 +20,11 @@
 
         <div class="contacts-prio-cont">
             <div class="contacts">
-                <div *ngFor="let contact of task.assignedTo" [ngClass]="contact.bgc" class="profile">
+                <div *ngFor="let contact of task.assignedTo" class="profile" [ngClass]="contact.bgc">
                     <span class="initials">{{ contact.initials }}</span>
                 </div>
             </div>
-            <img class="prio" src="/assets/img/board/prio_{{ task.prio }}.png" alt="prio_{{ task.prio }}">
+            <img class="prio" [src]="getSrc()" [alt]="alt">
         </div>
     </div>
 </div>

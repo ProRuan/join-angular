@@ -8,12 +8,17 @@
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
 }
 
-.task {
+.column-24 {
   @include display-column($g: 24px);
+}
+
+.column-20 {
+  @include display-column($g: 20px);
 }
 
 .category {
   padding: 4px 16px;
+  width: fit-content;
   border-radius: 8px;
 }
 
@@ -48,7 +53,7 @@
   @include display-row($ai: center, $g: 16px);
 }
 
-.max-bar {
+.progress-bar-max {
   width: 128px;
   background-color: #f4f4f4;
   border-radius: 8px;
@@ -71,14 +76,6 @@
 
 .contacts {
   @include display-row($ai: center);
-
-  .profile:first-child {
-    margin-left: 0;
-  }
-
-  .profile {
-    margin-left: -8px;
-  }
 }
 
 .profile {
@@ -86,7 +83,12 @@
   @include round-border($b: 1px solid $white, $br: 45px);
   @include display-flex();
   box-sizing: border-box;
+  margin-left: -8px;
   text-align: center;
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .initials {

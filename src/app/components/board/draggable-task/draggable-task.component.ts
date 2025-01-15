@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Task } from '../../../shared/models/task';
-import { transition } from '@angular/animations';
+import { isDefaultArray } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-draggable-task',
@@ -10,56 +10,80 @@ import { transition } from '@angular/animations';
   templateUrl: './draggable-task.component.html',
   styleUrl: './draggable-task.component.scss',
 })
+
+/**
+ * Represents a draggable task component.
+ */
 export class DraggableTaskComponent {
   @Input() task: Task = new Task();
   counter: number = 0;
   max: number = 0;
-  px: number = 0;
-  pxString: string = '';
-  width = { width: '0px' };
+  progress = { width: '0px' };
+  alt: string = 'prio_medium';
 
   // checklist
   // ---------
-  // add card transition ...
-  // gap without subtasks: 20px ...
+  // global classes 'user-story' and 'technical-task' ...
+
+  // <div class="draggable-task" draggable="true"
+  // (dragstart)="onDragMove()" (click)="onViewStart()">
+
+  // add task (card) transition ...
   // cut to long descriptions ...
   // ---------
 
-  // @Input() task = {
-  //   category: 'User Story',
-  //   title: 'Kochwelt Page & Recipe Recommender',
-  //   description: 'Build start page with recipe recommendation...',
-  //   subtaskCounter: 1,
-  //   subtasks: 2,
-  //   assignedContacts: [
-  //     { bgc: '#9327ff', initials: 'AS' },
-  //     { bgc: '#fc71ff', initials: 'DE' },
-  //     { bgc: '#ffbb2b', initials: 'EF' },
-  //   ],
-  //   prio: 'medium',
-  // };
+  // verify!!!
   rotated: boolean = false;
 
   @Output() dragMove = new EventEmitter<any>();
   @Output() viewStart = new EventEmitter<any>();
 
   ngOnInit() {
-    // 128 / 2 = 64px
-    // 128 / n = apx
+    // only for testing!!!
     for (let i = 0; i < this.task.subtasks.length - 1; i++) {
       let subtask = this.task.subtasks[i];
       subtask.done = true;
     }
+
+    this.counter = this.getCounter();
+    this.max = this.getMax();
+    this.progress = this.getProgress();
+    this.alt = this.getAlt();
+  }
+
+  /**
+   * Provides the amount of the done subtasks.
+   * @returns - The amount of the done subtasks.
+   */
+  getCounter() {
     let doneSubtasks = this.task.subtasks.filter((s) => s.done);
-    if (doneSubtasks) {
-      this.counter = doneSubtasks.length;
-    }
-    this.max = this.task.subtasks.length;
-    console.log('counter und max: ', this.counter, this.max);
-    this.px = (128 / this.max) * this.counter;
-    this.pxString = this.px + 'px';
-    this.width = { width: this.pxString };
-    console.log('px: ', this.px, this.pxString, this.width);
+    return doneSubtasks.length;
+  }
+
+  /**
+   * Provides the maximum of the progress bar.
+   * @returns - The maximum of the progress bar.
+   */
+  getMax() {
+    return this.task.subtasks.length;
+  }
+
+  /**
+   * Provides the progress of the subtasks.
+   * @returns - The progress of the subtasks.
+   */
+  getProgress() {
+    let value = (128 / this.max) * this.counter;
+    let width = value + 'px';
+    return { width: width };
+  }
+
+  /**
+   * Provides the alternative text.
+   * @returns - The alternative text.
+   */
+  getAlt() {
+    return `prio_${this.task.prio}`;
   }
 
   onDragMove() {
@@ -68,11 +92,40 @@ export class DraggableTaskComponent {
     // console.log('on drag move: ', this.task); // in use
   }
 
-  color() {
-    let color = this.task.category.toLowerCase();
-    return color.replace(' ', '-');
+  /**
+   * Provides the css class of the task.
+   * @returns - The css class to apply.
+   */
+  getTaskClass() {
+    let subtasks = this.task.subtasks;
+    return subtasks.length > 0 ? 'column-24' : 'column-20';
   }
 
+  /**
+   * Provides the css class of the category.
+   * @returns - The css class to apply.
+   */
+  getCategoryClass() {
+    return this.task.category.toLowerCase().replace(' ', '-');
+  }
+
+  /**
+   * Verifies the existence of subtasks.
+   * @returns - A boolean value.
+   */
+  areSubtasksExistent() {
+    return !isDefaultArray(this.task.subtasks);
+  }
+
+  /**
+   * Provides the source path.
+   * @returns - The source path.
+   */
+  getSrc() {
+    return `/assets/img/board/${this.alt}.png`;
+  }
+
+  // verify!!!
   onViewStart() {
     this.rotated = true;
     this.viewStart.emit(this.task);
