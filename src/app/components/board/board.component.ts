@@ -10,6 +10,9 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { DialogService } from '../../shared/services/dialog.service';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { FormsModule } from '@angular/forms';
+import { ColumnComponent } from './column/column.component';
+import { BoardService } from '../../shared/services/board.service';
+import { Task } from '../../shared/models/task';
 // import { User } from '../../shared/models/user';
 
 @Component({
@@ -21,13 +24,15 @@ import { FormsModule } from '@angular/forms';
     JoinTitleComponent,
     ButtonComponent,
     SearchInputComponent,
-    DraggableTaskComponent,
+    ColumnComponent,
+    // DraggableTaskComponent,
   ],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss',
 })
 export class BoardComponent {
   join: JoinService = inject(JoinService);
+  board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
   // check dialog-add-task + rename???
@@ -49,8 +54,21 @@ export class BoardComponent {
   };
 
   // verify!!!
-  filter: string = '';
-  currTask: any;
+  currTask = {
+    column: 'in-progress',
+    category: 'User Story',
+    title: 'Kochwelt Page & Recipe Recommender',
+    description: 'Build start page with recipe recommendation...',
+    dueDate: '10/05/2023',
+    subtaskCounter: 1,
+    subtasks: 2,
+    assignedContacts: [
+      { bgc: '#9327ff', initials: 'AS', name: 'Anja Schulz' },
+      { bgc: '#fc71ff', initials: 'DE', name: 'David Eisenberg' },
+      { bgc: '#ffbb2b', initials: 'EF', name: 'Eva Fischer' },
+    ],
+    prio: 'medium',
+  };
   // user: User = new User();
 
   draggableTasks = [
@@ -86,13 +104,25 @@ export class BoardComponent {
     },
   ];
 
+  get filter() {
+    return this.board.filter;
+  }
+
+  set filter(value: string) {
+    this.board.filter = value;
+  }
+
+  get tasks() {
+    return this.join.user.tasks;
+  }
+
+  set tasks(tasks: Task[]) {
+    this.join.user.tasks = tasks;
+  }
+
   async ngOnInit() {
-    if (this.join.user.email !== undefined) {
-      console.log('board user: ', this.join.user);
-    }
-    // await this.mainComponent.ngOnInit();
-    // this.user = this.mainComponent.user;
-    // console.log('from main user: ', this.mainComponent.user);
+    await this.join.loadUser();
+    this.join.subscribeUser();
   }
 
   // jsdoc

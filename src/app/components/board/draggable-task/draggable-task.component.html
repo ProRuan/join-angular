@@ -1,34 +1,30 @@
 <div class="draggable-task" draggable="true" (dragstart)="onDragMove()" (click)="onViewStart()">
-    <div class="card">
-        <div class="card-category" [ngClass]="color()">
-            <span class="category-text">{{ task.category }}</span>
+    <div class="task">
+        <div class="category" [ngClass]="color()">
+            <span class="text">{{ task.category }}</span>
         </div>
 
         <div class="title-description-cont">
-            <h4 class="card-title">{{ task.title }}</h4>
-            <p class="card-description">{{ task.description }}</p>
+            <h4 class="title">{{ task.title }}</h4>
+            <p class="description">{{ task.description }}</p>
         </div>
 
-        <div class="card-subtasks">
+        <div *ngIf="task.subtasks.length > 0" class="subtasks">
             <div class="max-bar">
-                <div class="progress-bar"></div>
+                <div [ngStyle]="width" class="progress-bar"></div>
             </div>
-            <div class="subtask-counter">
-                <span>{{ task.subtaskCounter }}/{{ task.subtasks}} Subtasks</span>
+            <div class="counter">
+                <span>{{ counter }}/{{ max }} Subtasks</span>
             </div>
         </div>
 
         <div class="contacts-prio-cont">
-            <div class="assigned-contacts">
-                <!-- create an own component!!! -->
-                <div *ngFor="let contact of task.assignedContacts" [ngStyle]="{'background-color': contact.bgc}"
-                    class="profile">
+            <div class="contacts">
+                <div *ngFor="let contact of task.assignedTo" [ngClass]="contact.bgc" class="profile">
                     <span class="initials">{{ contact.initials }}</span>
                 </div>
             </div>
-            <div class="prio-cont">
-                <img class="prio-img" src="../../../assets/img/add-task/prio_{{ task.prio }}.png" alt="prio_medium">
-            </div>
+            <img class="prio" src="/assets/img/board/prio_{{ task.prio }}.png" alt="prio_{{ task.prio }}">
         </div>
     </div>
 </div>

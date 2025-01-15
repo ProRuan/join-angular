@@ -1,0 +1,48 @@
+@import "../../../../mixins.scss";
+
+.column {
+  @include display-column($ai: center);
+  flex: 1;
+  gap: 8px;
+}
+
+.head {
+  @include font($fs: 20px, $fw: 700, $lh: 24px);
+  @include display-flex($jc: space-between);
+  width: 244px;
+  color: #42526e;
+}
+
+.add-icon {
+  cursor: pointer;
+
+  &:hover {
+    content: url("../../../../assets/img/board/add_framed_hover.png");
+  }
+
+  &:active {
+    content: url("../../../../assets/img/board/add_framed_active.png");
+  }
+}
+
+.body {
+  @include size($w: 100%, $h: 100%);
+  @include display-column($g: 16px);
+  // fix height (size)!!!
+  height: 500px;
+}
+
+.default-task {
+  @include size($w: 100%, $h: 48px);
+  @include display-flex();
+  background-color: #e7e7e7;
+  border: 1px dotted #a8a8a8;
+  border-radius: 10px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
+}
+
+.default-task-text {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  color: #ababab;
+}

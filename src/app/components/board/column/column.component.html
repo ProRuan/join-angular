@@ -1,0 +1,17 @@
+<div [id]="id" class="column">
+    <div class="head">
+        <span>{{ name }}</span>
+        <!-- only 3x!!! -->
+        <img class="add-icon" src="/assets/img/board/add_framed.png" alt="add_framed" (click)="addTask()">
+    </div>
+    <div class="body" (drop)="moveTo(id)" (dragover)="drop($event)">
+        <div *ngIf="printPlaceholder(id)" class="default-task">
+            <!-- variable default task!!! -->
+            <span class="default-task-text">No tasks {{ lowercaseName }}</span>
+        </div>
+        @for(task of tasks; track task) {
+        <app-draggable-task *ngIf="verifyTasks(task, id)" [task]="task"
+            (dragMove)="logDrag($event)"></app-draggable-task>
+        }
+    </div>
+</div>
