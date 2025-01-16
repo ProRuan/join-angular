@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { JoinService } from '../../../shared/services/join.service';
+import { BoardService } from '../../../shared/services/board.service';
 import { Task } from '../../../shared/models/task';
 import { isDefaultArray } from '../../../shared/ts/global';
 
@@ -12,39 +14,23 @@ import { isDefaultArray } from '../../../shared/ts/global';
 })
 
 /**
- * Represents a draggable task component.
+ * Represents a draggable-task component.
  */
 export class DraggableTaskComponent {
+  join: JoinService = inject(JoinService);
+  board: BoardService = inject(BoardService);
+
   @Input() task: Task = new Task();
   counter: number = 0;
   max: number = 0;
   progress = { width: '0px' };
   alt: string = 'prio_medium';
-
-  // checklist
-  // ---------
-  // global classes 'user-story' and 'technical-task' ...
-
-  // <div class="draggable-task" draggable="true"
-  // (dragstart)="onDragMove()" (click)="onViewStart()">
-
-  // add task (card) transition ...
-  // cut to long descriptions ...
-  // ---------
-
-  // verify!!!
   rotated: boolean = false;
 
-  @Output() dragMove = new EventEmitter<any>();
-  @Output() viewStart = new EventEmitter<any>();
-
+  /**
+   * Initializes a draggable-task component.
+   */
   ngOnInit() {
-    // only for testing!!!
-    for (let i = 0; i < this.task.subtasks.length - 1; i++) {
-      let subtask = this.task.subtasks[i];
-      subtask.done = true;
-    }
-
     this.counter = this.getCounter();
     this.max = this.getMax();
     this.progress = this.getProgress();
@@ -86,10 +72,31 @@ export class DraggableTaskComponent {
     return `prio_${this.task.prio}`;
   }
 
-  onDragMove() {
+  /**
+   * Provides the css class of the draggable task rotation.
+   * @returns - The css class to apply.
+   */
+  getRotationClass() {
+    return this.rotated ? 'rotated' : '';
+  }
+
+  /**
+   * Starts the drag on dragstart.
+   */
+  onDragStart() {
     this.rotated = true;
-    this.dragMove.emit(this.task);
-    // console.log('on drag move: ', this.task); // in use
+    this.board.dragStarted = true;
+    this.board.currColumn = this.task.column;
+    this.board.currTask = this.task;
+    this.board.setNeighborColumns(this.task.column);
+  }
+
+  /**
+   * Ends the drag on dragend.
+   */
+  onDragEnd() {
+    this.board.dragStarted = false;
+    this.rotated = false;
   }
 
   /**
@@ -97,8 +104,16 @@ export class DraggableTaskComponent {
    * @returns - The css class to apply.
    */
   getTaskClass() {
-    let subtasks = this.task.subtasks;
-    return subtasks.length > 0 ? 'column-24' : 'column-20';
+    let subtasksExistent = this.areSubtasksExistent();
+    return subtasksExistent ? 'column-24' : 'column-20';
+  }
+
+  /**
+   * Verifies the existence of the subtasks.
+   * @returns - A boolean value.
+   */
+  areSubtasksExistent() {
+    return !isDefaultArray(this.task.subtasks);
   }
 
   /**
@@ -110,25 +125,10 @@ export class DraggableTaskComponent {
   }
 
   /**
-   * Verifies the existence of subtasks.
-   * @returns - A boolean value.
-   */
-  areSubtasksExistent() {
-    return !isDefaultArray(this.task.subtasks);
-  }
-
-  /**
    * Provides the source path.
    * @returns - The source path.
    */
   getSrc() {
     return `/assets/img/board/${this.alt}.png`;
-  }
-
-  // verify!!!
-  onViewStart() {
-    this.rotated = true;
-    this.viewStart.emit(this.task);
-    console.log('on view start: ', this.task);
   }
 }

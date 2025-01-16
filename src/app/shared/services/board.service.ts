@@ -1,59 +1,27 @@
 import { Injectable } from '@angular/core';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardService {
-  currTask = {
-    column: 'in-progress',
-    category: 'User Story',
-    title: 'Kochwelt Page & Recipe Recommender',
-    description: 'Build start page with recipe recommendation...',
-    dueDate: '10/05/2023',
-    subtaskCounter: 1,
-    subtasks: 2,
-    assignedContacts: [
-      { bgc: '#9327ff', initials: 'AS', name: 'Anja Schulz' },
-      { bgc: '#fc71ff', initials: 'DE', name: 'David Eisenberg' },
-      { bgc: '#ffbb2b', initials: 'EF', name: 'Eva Fischer' },
-    ],
-    prio: 'medium',
-  };
+  currColumn: string = ''; // rename to draggedColumn or necessary at all?
+  currTask: Task = new Task(); // rename to draggedTask + check onDragStart()!
+  neighborColumns: string[] = [];
+  dragStarted: boolean = false;
 
   filter: string = '';
 
-  draggableTasks = [
-    {
-      column: 'in-progress',
-      category: 'User Story',
-      title: 'Kochwelt Page & Recipe Recommender',
-      description: 'Build start page with recipe recommendation...',
-      dueDate: '10/05/2023',
-      subtaskCounter: 1,
-      subtasks: 2,
-      assignedContacts: [
-        { bgc: '#9327ff', initials: 'AS', name: 'Anja Schulz' },
-        { bgc: '#fc71ff', initials: 'DE', name: 'David Eisenberg' },
-        { bgc: '#ffbb2b', initials: 'EF', name: 'Eva Fischer' },
-      ],
-      prio: 'medium',
-    },
-    {
-      column: 'done',
-      category: 'Technical Task',
-      title: 'Kochwelt Page & Recipe Recommender',
-      description: 'Build start page with recipe recommendation...',
-      dueDate: '10/05/2023',
-      subtaskCounter: 1,
-      subtasks: 2,
-      assignedContacts: [
-        { bgc: '#9327ff', initials: 'AS', name: 'Anja Schulz' },
-        { bgc: '#fc71ff', initials: 'DE', name: 'David Eisenberg' },
-        { bgc: '#ffbb2b', initials: 'EF', name: 'Eva Fischer' },
-      ],
-      prio: 'medium',
-    },
-  ];
-
-  constructor() {}
+  setNeighborColumns(column: string) {
+    this.neighborColumns = [];
+    if (column == 'to-do') {
+      this.neighborColumns = ['in-progress'];
+    } else if (column == 'in-progress') {
+      this.neighborColumns = ['to-do', 'await-feedback'];
+    } else if (column == 'await-feedback') {
+      this.neighborColumns = ['in-progress', 'done'];
+    } else if (column == 'done') {
+      this.neighborColumns = ['await-feedback'];
+    }
+  }
 }

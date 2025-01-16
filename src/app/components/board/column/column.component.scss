@@ -46,3 +46,10 @@
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
   color: #ababab;
 }
+
+.feedback-card {
+  @include size($w: 252px, $h: 244px);
+  @include round-border($b: 1px dotted $darkgray, $br: 30px);
+  min-height: 244px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
+}

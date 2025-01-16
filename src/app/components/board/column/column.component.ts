@@ -36,49 +36,54 @@ export class ColumnComponent {
   @Output() currTaskChange = new EventEmitter<any>();
 
   ngOnInit() {
+    // console.log('tasks: ', this.tasks.length);
+
     this.id = this.name.toLowerCase().replace(' ', '-');
     this.lowercaseName = this.name.toLowerCase();
+
+    // console.log('column: ', this.name, this.lowercaseName, this.id);
   }
 
   addTask() {
     this.dialog.open(this.dialogId);
   }
 
-  moveTo(category: string) {
+  async moveTo(category: string) {
     this.board.currTask.column = category;
-    this.currTaskChange.emit(this.board.currTask);
+
+    this.board.dragStarted = false;
+
+    // activate!
+    // ---------
+    // let id = this.join.user.id;
+    // let tasks = this.join.user.getObject().tasks;
+    // await this.join.updateUser(id, 'data.tasks', tasks);
+    // await this.join.saveUser();
+    // console.log('saved');
   }
 
-  async drop(event: Event) {
+  async onDragover(event: Event) {
     event.preventDefault();
     // move code to the right place!!!
-    setTimeout(async () => {
-      let id = this.join.user.id;
-      let tasks = this.join.user.getObject().tasks;
-      await this.join.updateUser(id, 'data.tasks', tasks);
-      await this.join.saveUser();
-    }, 0);
+    // setTimeout(async () => {
+    //   let id = this.join.user.id;
+    //   let tasks = this.join.user.getObject().tasks;
+    //   await this.join.updateUser(id, 'data.tasks', tasks);
+    //   await this.join.saveUser();
+    // }, 0);
   }
 
   // consider case of column placeholder!!!
-  verifyTasks(task: any, column: string) {
-    let columnMatched = task.column == column;
+  verifyTasks(task: any) {
     let titleLowerCase = task.title.toLowerCase();
     let titleMatched = titleLowerCase.includes(this.board.filter);
     let descriptionToLowerCase = task.description.toLowerCase();
     let descriptionMatched = descriptionToLowerCase.includes(this.board.filter);
-    return columnMatched && (titleMatched || descriptionMatched);
+    return titleMatched || descriptionMatched;
   }
 
   printPlaceholder(column: string) {
     let tasks = this.tasks.some((t) => t.column == column);
     return !tasks ? true : false;
-  }
-
-  logDrag(event: any) {
-    this.board.currTask = event;
-    // this.currTaskChange.emit(this.currTask);
-    // console.log('log drag: ', this.board.currTask); // in use
-    // console.log('log draggable tasks: ', this.draggableTasks);
   }
 }

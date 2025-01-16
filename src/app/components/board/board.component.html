@@ -12,10 +12,10 @@
     <div class="content">
         <div class="board-column-group">
             <!-- filter tasks for each column?! -->
-            <app-column [tasks]="tasks" name="To do"></app-column>
-            <app-column [tasks]="tasks" name="In progress"></app-column>
-            <app-column [tasks]="tasks" name="Await feedback"></app-column>
-            <app-column [tasks]="tasks" name="Done"></app-column>
+            <app-column [tasks]="getTasks('to-do')" name="To do"></app-column>
+            <app-column [tasks]="getTasks('in-progress')" name="In progress"></app-column>
+            <app-column [tasks]="getTasks('await-feedback')" name="Await feedback"></app-column>
+            <app-column [tasks]="getTasks('done')" name="Done"></app-column>
             <!-- <div class="column">
                 <div class="head">
                     <span>Done</span>

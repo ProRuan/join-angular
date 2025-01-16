@@ -53,7 +53,7 @@ components (4/?)
   - SignUpComponent - check
   - SummaryComponent - check
       - SumCardComponent - check
-  - AddTaskComponent ... (7/?)
+  - AddTaskComponent - check* *How many child components?
       - AssignableContactComponent - check
       - TitleInputComponent - check
       - DescriptionInputComponent - check
@@ -61,6 +61,8 @@ components (4/?)
       - DueDateInputComponent - check
       - PrioInputComponent - check
       - CategoryInputComponent - check
+  - BoardComponent - ... (1/?)
+      - DraggableTaskComponent - check
 
 shared/components (17/?)
 -----------------
@@ -220,3 +222,14 @@ Date Test
     // console.log('date get utc sec: ', date.getUTCSeconds());
     // // create again
     // console.log('date again: ', new Date(date.getTime()));
+
+
+// drag events (7/7)
+  // -----------
+  // drag --> element is being dragged (nx) - no
+  // dragstart --> on dragging (1x) - yes (card style)
+  // dragleave --> on drop target left (tx) - maybe (column style)
+  // dragenter --> on drop target entered (tx) - maybe (column style)
+  // dragover --> over valid drop target (nx) - no
+  // dragend --> on dragend (1x) - yes (card style)
+  // drop --> on drop (1x) - yes (card style)

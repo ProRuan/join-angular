@@ -35,7 +35,26 @@ export class BoardComponent {
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
-  // check dialog-add-task + rename???
+  // Board Component
+  // ---------------
+  // check dialog-add-task + rename ... ?
+  // activate save on drop method (colum component) ... !
+  // verify and fix task and board ids ... !
+  // rename draggable task to drag card ... ?
+
+  // Draggable-Task Component
+  // ------------------------
+  // add onViewTask method ... !
+  // global classes 'user-story' and 'technical-task' ...
+  // cut to long descriptions ...
+
+  // subtasks test (only for testing)
+  // -------------
+  //  for (let i = 0; i < this.task.subtasks.length - 1; i++) {
+  //   let subtask = this.task.subtasks[i];
+  //   subtask.done = true;
+  // }
+  // ---------
 
   // verify!!!
   mainComponent: MainComponent = inject(MainComponent);
@@ -130,6 +149,10 @@ export class BoardComponent {
     this.dialog.open('addTask');
   }
 
+  getTasks(column: string) {
+    return this.tasks.filter((t) => t.column == column);
+  }
+
   // consider case of column placeholder!!!
   verifyTasks(task: any, column: string) {
     let columnMatched = task.column == column;
@@ -143,21 +166,6 @@ export class BoardComponent {
   printPlaceholder(column: string) {
     let tasks = this.draggableTasks.some((t) => t.column == column);
     return !tasks ? true : false;
-  }
-
-  logDrag(event: any) {
-    this.currTask = event;
-    console.log('log drag: ', this.currTask);
-    // console.log('log draggable tasks: ', this.draggableTasks);
-  }
-
-  // startDrag(i: number) {
-  //   this.currIndex = i;
-  //   console.log('currIndex: ', this.currIndex);
-  // }
-
-  moveTo(category: string) {
-    this.currTask.column = category;
   }
 
   drop(event: Event) {
