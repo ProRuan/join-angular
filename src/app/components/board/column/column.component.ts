@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { DraggableTaskComponent } from '../draggable-task/draggable-task.component';
-import { DialogService } from '../../../shared/services/dialog.service';
-import { BoardService } from '../../../shared/services/board.service';
-import { Task } from '../../../shared/models/task';
 import { JoinService } from '../../../shared/services/join.service';
+import { SummaryService } from '../../../shared/services/summary.service';
+import { BoardService } from '../../../shared/services/board.service';
+import { DialogService } from '../../../shared/services/dialog.service';
+import { Task } from '../../../shared/models/task';
 
 @Component({
   selector: 'app-column',
@@ -13,90 +14,116 @@ import { JoinService } from '../../../shared/services/join.service';
   templateUrl: './column.component.html',
   styleUrl: './column.component.scss',
 })
+
+/**
+ * Represents a column component.
+ */
 export class ColumnComponent {
   join: JoinService = inject(JoinService);
-  dialog: DialogService = inject(DialogService);
+  summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
+  dialog: DialogService = inject(DialogService);
 
-  // board-task gap 20px
-  // board-task with subtasks gap 24px
-  // create 2-4 components!!!
-
-  // also in board?!
-  dialogId: string = 'addTask';
-
-  // testing!!!
-  // ----------
-  id: string = '';
-  lowercaseName: string = '';
   @Input() name: string = 'To do';
   @Input() tasks: Task[] = [];
-  // ----------
+  id: string = '';
+  displayed: boolean = true;
+  dialogId: string = 'addTask';
 
+  /**
+   * Initializes a column component.
+   */
   ngOnInit() {
-    // console.log('tasks: ', this.tasks.length);
-
-    this.id = this.name.toLowerCase().replace(' ', '-');
-    this.lowercaseName = this.name.toLowerCase();
-
-    // console.log('column: ', this.name, this.lowercaseName, this.id);
+    this.id = this.getId();
+    this.displayed = this.isButtonDisplayed();
   }
 
-  addTask() {
+  /**
+   * Provides the column id.
+   * @returns - The id.
+   */
+  getId() {
+    return this.name.toLowerCase().replace(' ', '-');
+  }
+
+  /**
+   * Verifies the display state of the button.
+   * @returns - A boolean value.
+   */
+  isButtonDisplayed() {
+    return this.id != 'done';
+  }
+
+  /**
+   * Adds a task on click.
+   */
+  onAddTask() {
     this.dialog.open(this.dialogId);
   }
 
-  async moveTo(category: string) {
-    this.board.draggedTask.column = category;
-    this.board.setDrag();
-
-    // activate!
-    // ---------
-    // this.summary.update(); // update summary!!!
-    // let id = this.join.user.id;
-    // let tasks = this.join.user.getObject().tasks;
-    // await this.join.updateUser(id, 'data.tasks', tasks);
-    // await this.join.saveUser();
-    // console.log('saved');
-  }
-
-  async onDragover(event: Event) {
-    event.preventDefault();
-    // move code to the right place!!!
-    // setTimeout(async () => {
-    //   let id = this.join.user.id;
-    //   let tasks = this.join.user.getObject().tasks;
-    //   await this.join.updateUser(id, 'data.tasks', tasks);
-    //   await this.join.saveUser();
-    // }, 0);
-  }
-
-  // consider case of column placeholder!!!
-  verifyTasks(task: any) {
-    let titleLowerCase = task.title.toLowerCase();
-    let titleMatched = titleLowerCase.includes(this.board.filter);
-    let descriptionToLowerCase = task.description.toLowerCase();
-    let descriptionMatched = descriptionToLowerCase.includes(this.board.filter);
-    return titleMatched || descriptionMatched;
-  }
-
-  printPlaceholder(column: string) {
-    let tasks = this.tasks.some((t) => t.column == column);
-    return !tasks ? true : false;
-  }
-
-  onBgc() {
+  /**
+   * Sets the targeted column on dragover.
+   * @param event - The event.
+   */
+  onSetTarget(event: Event) {
     this.board.targetedColumn = this.id;
-    console.log('hovered column: ', this.id);
+    event.preventDefault();
   }
 
-  // rename!!!
-  isTargeted() {
+  /**
+   * Updates the task on drop.
+   * @param column - The targeted column.
+   */
+  async onUpdateTask(column: string) {
+    this.board.draggedTask.column = column;
+    this.board.setDrag();
+    this.summary.update();
+    await this.join.saveUser();
+  }
+
+  /**
+   * Verifies the empty state of the column.
+   * @returns - A boolean value.
+   */
+  isColumnEmpty() {
+    return !this.tasks.some((t) => t.column == this.id);
+  }
+
+  /**
+   * Verifies the task to filter.
+   * @param task - The task.
+   * @returns - A boolean value.
+   */
+  isTaskFiltered(task: Task) {
+    let titleFiltered = this.isFiltered(task.title);
+    let descriptionFiltered = this.isFiltered(task.description);
+    return titleFiltered || descriptionFiltered;
+  }
+
+  /**
+   * Verifies the match between filter and value.
+   * @param value - The value.
+   * @returns - A boolean value.
+   */
+  isFiltered(value: string) {
+    value = value.toLowerCase();
+    return value.includes(this.board.filter);
+  }
+
+  /**
+   * Verifies the neighbor column.
+   * @returns - A boolean value.
+   */
+  isNeighborColumn() {
     let dragStarted = this.board.dragStarted;
-    let included = this.board.neighborColumns.includes(this.id);
-    return dragStarted && included;
+    let neighborColumn = this.board.isNeighborColumn(this.id);
+    return dragStarted && neighborColumn;
   }
 
+  /**
+   * Verifies the css class of the feedback background color.
+   * @returns - The css class to apply.
+   */
   getBgcClass() {
     return this.board.targetedColumn == this.id ? 'bgc' : '';
   }

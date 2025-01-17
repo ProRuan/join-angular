@@ -8,7 +8,8 @@
     (click)="dacData.close()"></app-dialog-add-contact>
 
 <div class="user-interface"
-    (click)="dialog.close('assignedTo'); dialog.resetAssignedTo(); dialog.close('category'); dialog.close('subtask')">
+    (click)="dialog.close('assignedTo'); dialog.resetAssignedTo(); dialog.close('category'); dialog.close('subtask')"
+    (dragend)="onDragend()">
     <app-menu class=" menu"></app-menu>
     <div class="content">
         <app-join-header class="header"></app-join-header>

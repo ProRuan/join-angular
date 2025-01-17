@@ -8,28 +8,12 @@
         </div>
     </div>
 
-    <!-- continue here!!! -->
     <div class="content">
-        <div class="board-column-group">
-            <!-- filter tasks for each column?! -->
-            <app-column [tasks]="getTasks('to-do')" name="To do"></app-column>
-            <app-column [tasks]="getTasks('in-progress')" name="In progress"></app-column>
-            <app-column [tasks]="getTasks('await-feedback')" name="Await feedback"></app-column>
-            <app-column [tasks]="getTasks('done')" name="Done"></app-column>
-            <!-- <div class="column">
-                <div class="head">
-                    <span>Done</span>
-                </div>
-                <div class="body" (drop)="moveTo('done')" (dragover)="drop($event)">
-                    <div *ngIf="printPlaceholder('done')" class="default-task">
-                        <span class="default-task-text">No tasks done</span>
-                    </div>
-                    @for(task of draggableTasks; track task) {
-                    <app-draggable-task *ngIf="verifyTasks(task, 'done')" [task]="task" (dragMove)="logDrag($event)"
-                        (viewStart)="viewTask($event)"></app-draggable-task>
-                    }
-                </div>
-            </div> -->
+        <div class="column-group">
+            <app-column name="To do" [tasks]="getTasks('to-do')"></app-column>
+            <app-column name="In progress" [tasks]="getTasks('in-progress')"></app-column>
+            <app-column name="Await feedback" [tasks]="getTasks('await-feedback')"></app-column>
+            <app-column name="Done" [tasks]="getTasks('done')"></app-column>
         </div>
     </div>
 </section>

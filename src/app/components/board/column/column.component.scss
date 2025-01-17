@@ -1,54 +1,59 @@
 @import "../../../../mixins.scss";
 
 .column {
-  @include display-column($ai: center);
-  flex: 1;
-  gap: 8px;
+  @include display-column($ai: center, $g: 8px);
 }
 
 .head {
-  @include font($fs: 20px, $fw: 700, $lh: 24px);
+  @include box-padding($p: 0 4px);
   @include display-flex($jc: space-between);
-  width: 244px;
+  width: 100%;
   color: #42526e;
 }
 
-.add-icon {
-  cursor: pointer;
+.head-text {
+  @include font($fs: 20px, $fw: 700, $lh: 24px);
+}
+
+.add-btn {
+  @include size($w: 24px, $h: 24px);
+  padding: 0;
+  background-image: url("../../../../assets/img/board/add_framed.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  border: none;
 
   &:hover {
-    content: url("../../../../assets/img/board/add_framed_hover.png");
+    background-image: url("../../../../assets/img/board/add_framed_hover.png");
   }
 
   &:active {
-    content: url("../../../../assets/img/board/add_framed_active.png");
+    background-image: url("../../../../assets/img/board/add_framed_active.png");
   }
 }
 
 .body {
-  @include size($w: 100%, $h: 100%);
   @include display-column($g: 16px);
-  // fix height (size)!!!
-  height: 500px;
-  // overflow-y: auto;
+  height: 668px;
 }
 
-.default-task {
+.placeholder {
   @include size($w: 100%, $h: 48px);
+  @include round-border($b: 1px dotted $darkgray, $br: 10px);
   @include display-flex();
+  min-width: 252px;
   background-color: #e7e7e7;
-  border: 1px dotted #a8a8a8;
-  border-radius: 10px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
 }
 
-.default-task-text {
+.placeholder-text {
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   font-family: "Open Sans", Arial, Helvetica, sans-serif;
-  color: #ababab;
+  color: $darkgray;
 }
 
-.feedback-card {
+.feedback {
   @include size($w: 252px, $h: 244px);
   @include round-border($b: 1px dotted $darkgray, $br: 30px);
   min-height: 244px;

@@ -107,7 +107,7 @@ export class AddTaskComponent {
     if (ngForm.form.valid) {
       this.join.user.tasks.push(this.task);
       this.summary.update();
-      this.join.saveUser();
+      await this.join.saveUser();
       this.clearForm();
     }
   }

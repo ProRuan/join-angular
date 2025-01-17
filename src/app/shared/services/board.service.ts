@@ -73,4 +73,13 @@ export class BoardService {
   isIndex(index: number) {
     return -1 < index && index < this.columns.length;
   }
+
+  /**
+   * Verifies the neighbor column.
+   * @param column - The neighbor column.
+   * @returns - A boolean value.
+   */
+  isNeighborColumn(column: string) {
+    return this.neighborColumns.includes(column);
+  }
 }

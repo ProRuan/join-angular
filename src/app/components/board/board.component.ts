@@ -42,6 +42,13 @@ export class BoardComponent {
   // verify and fix task and board ids ... !
   // rename draggable task to drag card ... ?
 
+  // Column Component
+  // ----------------
+  // fix feedback style on drop on main component ... !
+  // disable non-neighbor column ... ?
+  // check onUpdateTask() --> summary (in-progress, await-feedback) ... !!!
+  //   --> match summary, task and column ids ... (0/3)
+
   // Draggable-Task Component
   // ------------------------
   // add onViewTask method ... !

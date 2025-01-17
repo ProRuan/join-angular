@@ -1,21 +1,18 @@
 <div [id]="id" class="column">
     <div class="head">
-        <span>{{ name }}</span>
-        <!-- only 3x!!! -->
-        <img class="add-icon" src="/assets/img/board/add_framed.png" alt="add_framed" (click)="addTask()">
+        <span class="head-text">{{ name }}</span>
+        <button *ngIf="displayed" class="add-btn" (click)="onAddTask()"></button>
     </div>
-    <div class="body" (drop)="moveTo(id)" (dragover)="onDragover($event); onBgc()">
-        <div *ngIf="printPlaceholder(id)" class="default-task">
-            <!-- variable default task!!! -->
-            <span class="default-task-text">No tasks {{ lowercaseName }}</span>
+
+    <div class="body" (dragover)="onSetTarget($event)" (drop)="onUpdateTask(id)">
+        <div *ngIf="isColumnEmpty()" class="placeholder">
+            <span class="placeholder-text">No tasks {{ name }}</span>
         </div>
+
         @for(task of tasks; track task) {
-        <app-draggable-task *ngIf="verifyTasks(task)" [task]="task"></app-draggable-task>
+        <app-draggable-task *ngIf="isTaskFiltered(task)" [task]="task"></app-draggable-task>
         }
 
-        <div *ngIf="isTargeted()" class="feedback-card" [ngClass]="getBgcClass()">
-        </div>
-        <!-- <div *ngIf="board.dragStarted && board.neighborColumns.includes(id)" class="feedback-card"
-            [ngClass]="getBgcClass()"></div> -->
+        <div *ngIf="isNeighborColumn()" class="feedback" [ngClass]="getBgcClass()"></div>
     </div>
 </div>

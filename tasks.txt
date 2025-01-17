@@ -4,9 +4,11 @@ Join
 
 Final Tasks
 -----------
+  - rename events methods and outputs: onUpdateTask --> onTaskUpdate ... !!!!!
   - subscribe user with login ... !!!!!
   - init user data only on reload (subscribed) ... !!!!!
   - save user data only online ... ?????
+  - @returns A boolean value ... (without dash "-")
 
   - prepare a GlobalFunctionService ... !!!
   - Set onFunction() ...
