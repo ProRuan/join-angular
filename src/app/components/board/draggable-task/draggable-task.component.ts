@@ -59,9 +59,9 @@ export class DraggableTaskComponent {
    * @returns - The progress of the subtasks.
    */
   getProgress() {
-    let value = (128 / this.max) * this.counter;
-    let width = value + 'px';
-    return { width: width };
+    let progress = (128 / this.max) * this.counter;
+    let value = Math.round(progress);
+    return { width: `${value}px` };
   }
 
   /**
@@ -85,17 +85,13 @@ export class DraggableTaskComponent {
    */
   onDragStart() {
     this.rotated = true;
-    this.board.dragStarted = true;
-    this.board.currColumn = this.task.column;
-    this.board.currTask = this.task;
-    this.board.setNeighborColumns(this.task.column);
+    this.board.setDrag(this.task);
   }
 
   /**
    * Ends the drag on dragend.
    */
   onDragEnd() {
-    this.board.dragStarted = false;
     this.rotated = false;
   }
 

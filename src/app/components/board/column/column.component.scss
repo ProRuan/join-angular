@@ -30,6 +30,7 @@
   @include display-column($g: 16px);
   // fix height (size)!!!
   height: 500px;
+  // overflow-y: auto;
 }
 
 .default-task {
@@ -52,4 +53,9 @@
   @include round-border($b: 1px dotted $darkgray, $br: 30px);
   min-height: 244px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
+  transition: all 100ms ease-in-out;
+}
+
+.bgc {
+  background-color: rgba(0, 0, 0, 0.05);
 }

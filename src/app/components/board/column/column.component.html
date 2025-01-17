@@ -4,7 +4,7 @@
         <!-- only 3x!!! -->
         <img class="add-icon" src="/assets/img/board/add_framed.png" alt="add_framed" (click)="addTask()">
     </div>
-    <div class="body" (drop)="moveTo(id)" (dragover)="onDragover($event)">
+    <div class="body" (drop)="moveTo(id)" (dragover)="onDragover($event); onBgc()">
         <div *ngIf="printPlaceholder(id)" class="default-task">
             <!-- variable default task!!! -->
             <span class="default-task-text">No tasks {{ lowercaseName }}</span>
@@ -12,7 +12,10 @@
         @for(task of tasks; track task) {
         <app-draggable-task *ngIf="verifyTasks(task)" [task]="task"></app-draggable-task>
         }
-        <!-- visibility and transition?! -->
-        <div *ngIf="board.dragStarted && board.neighborColumns.includes(id)" class="feedback-card"></div>
+
+        <div *ngIf="isTargeted()" class="feedback-card" [ngClass]="getBgcClass()">
+        </div>
+        <!-- <div *ngIf="board.dragStarted && board.neighborColumns.includes(id)" class="feedback-card"
+            [ngClass]="getBgcClass()"></div> -->
     </div>
 </div>

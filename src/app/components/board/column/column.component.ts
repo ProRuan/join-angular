@@ -33,8 +33,6 @@ export class ColumnComponent {
   @Input() tasks: Task[] = [];
   // ----------
 
-  @Output() currTaskChange = new EventEmitter<any>();
-
   ngOnInit() {
     // console.log('tasks: ', this.tasks.length);
 
@@ -49,12 +47,12 @@ export class ColumnComponent {
   }
 
   async moveTo(category: string) {
-    this.board.currTask.column = category;
-
-    this.board.dragStarted = false;
+    this.board.draggedTask.column = category;
+    this.board.setDrag();
 
     // activate!
     // ---------
+    // this.summary.update(); // update summary!!!
     // let id = this.join.user.id;
     // let tasks = this.join.user.getObject().tasks;
     // await this.join.updateUser(id, 'data.tasks', tasks);
@@ -85,5 +83,21 @@ export class ColumnComponent {
   printPlaceholder(column: string) {
     let tasks = this.tasks.some((t) => t.column == column);
     return !tasks ? true : false;
+  }
+
+  onBgc() {
+    this.board.targetedColumn = this.id;
+    console.log('hovered column: ', this.id);
+  }
+
+  // rename!!!
+  isTargeted() {
+    let dragStarted = this.board.dragStarted;
+    let included = this.board.neighborColumns.includes(this.id);
+    return dragStarted && included;
+  }
+
+  getBgcClass() {
+    return this.board.targetedColumn == this.id ? 'bgc' : '';
   }
 }
