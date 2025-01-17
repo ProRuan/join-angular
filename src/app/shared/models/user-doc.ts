@@ -43,8 +43,28 @@ export class UserDoc {
 
   // Board Component
   // ---------------
-  // create sample tasks ... (0/5)
-  // update summary from board ...
+  // check dialog-add-task + rename ... ?
+  // rename draggable task to drag card ... ?
+  // create 5 sample tasks ... !
+
+  // Column Component
+  // ----------------
+  // check onUpdateTask() --> summary (in-progress, await-feedback) ... !!!
+  //   --> match summary, task and column ids ... (0/3)
+
+  // Draggable-Task Component
+  // ------------------------
+  // add onViewTask method ... !
+  // global classes 'user-story' and 'technical-task' ...
+  // cut to long descriptions ...
+
+  // subtasks test (only for testing)
+  // -------------
+  //  for (let i = 0; i < this.task.subtasks.length - 1; i++) {
+  //   let subtask = this.task.subtasks[i];
+  //   subtask.done = true;
+  // }
+  // ---------
 
   // Routing
   // -------

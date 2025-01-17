@@ -1,10 +1,10 @@
-<section class="board">
+<section class="board" (dragleave)="onResetTarget()">
     <div class="title-cont">
         <app-join-title [title]="title"></app-join-title>
 
         <div class="input-button-cont">
-            <app-search-input [(value)]="filter"></app-search-input>
-            <app-button [button]="addTaskBtn" (click)="addTask()"></app-button>
+            <app-search-input [(value)]="board.filter"></app-search-input>
+            <app-button [button]="addTaskBtn" (click)="onAddTask()"></app-button>
         </div>
     </div>
 
