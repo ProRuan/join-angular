@@ -3,7 +3,6 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
-import { DialogAddTaskComponent } from './dialog-add-task/dialog-add-task.component';
 import { CommonModule } from '@angular/common';
 import { DialogViewTaskComponent } from './dialog-view-task/dialog-view-task.component';
 import { DialogViewTaskService } from '../../shared/services/dialog-view-task.service';
@@ -14,6 +13,7 @@ import { DialogAddContactService } from '../../shared/services/dialog-add-contac
 import { JoinHeaderComponent } from '../../shared/components/join-header/join-header.component';
 import { DialogService } from '../../shared/services/dialog.service';
 import { BoardService } from '../../shared/services/board.service';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-main',
@@ -22,11 +22,8 @@ import { BoardService } from '../../shared/services/board.service';
     RouterOutlet,
     MenuComponent,
     JoinHeaderComponent,
-    DialogAddTaskComponent,
     CommonModule,
-    DialogViewTaskComponent,
-    DialogEditContactComponent,
-    DialogAddContactComponent,
+    DialogComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

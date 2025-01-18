@@ -1,0 +1,30 @@
+@import "../../../../mixins.scss";
+
+.add-task-dialog {
+  @include display-flex();
+  background-color: $white;
+  border-radius: 30px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.cancel-btn {
+  @include size($w: 32px, $h: 32px);
+  @include position($pos: absolute, $t: 64px, $r: 40px);
+  padding: 0;
+  background-color: transparent;
+  background-image: url("../../../../assets/img/board/close_default.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  border: none;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    background-image: url("../../../../assets/img/board/close_hover.png");
+  }
+
+  &:active {
+    background-image: url("../../../../assets/img/board/close_default.png");
+  }
+}

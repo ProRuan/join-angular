@@ -1,33 +1,36 @@
-<section class="add-task">
-    <app-join-title [title]="title"></app-join-title>
+<section class="add-task" [ngClass]="classes['add-task']">
+    <div [ngClass]="classes['cont']">
+        <app-join-title [title]="title"></app-join-title>
 
-    <form #form="ngForm" class="form" (submit)="onCreate(form)">
-        <fieldset class="left-fieldset">
-            <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
-            <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
-            <app-assigned-to-input [(ngModel)]="assignedTo" name="assigned-to" [(assignedTo)]="task.assignedTo"
-                [contacts]="contacts"></app-assigned-to-input>
-        </fieldset>
+        <form #form="ngForm" class="form" (submit)="onCreate(form)">
+            <fieldset class="left-fieldset">
+                <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
+                <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
+                <app-assigned-to-input [(ngModel)]="assignedTo" name="assigned-to" [(assignedTo)]="task.assignedTo"
+                    [contacts]="contacts"></app-assigned-to-input>
+            </fieldset>
 
-        <div class="border"></div>
+            <div class="border"></div>
 
-        <fieldset class="right-fieldset">
-            <app-due-date-input [(ngModel)]="dueDate" name="due-date" [(dueDate)]="task.dueDate"></app-due-date-input>
-            <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
-            <app-category-input [(ngModel)]="task.category" name="category"></app-category-input>
-            <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
-                [(subtasks)]="task.subtasks"></app-subtasks-input>
-        </fieldset>
-    </form>
+            <fieldset class="right-fieldset">
+                <app-due-date-input [(ngModel)]="dueDate" name="due-date"
+                    [(dueDate)]="task.dueDate"></app-due-date-input>
+                <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
+                <app-category-input [(ngModel)]="task.category" name="category"></app-category-input>
+                <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
+                    [(subtasks)]="task.subtasks"></app-subtasks-input>
+            </fieldset>
+        </form>
+    </div>
 
-    <div>
+    <div class="hint-button-cont">
+        <div class="hint-cont">
+            <span class="star">*</span><span>This field is required</span>
+        </div>
+
         <div class="button-group">
             <app-button [button]="clearBtn" [disabled]="isClear(form)" (click)="onClear()"></app-button>
             <app-button [button]="createBtn" [disabled]="isIncomplete(form)" (click)="onCreate(form)"></app-button>
-        </div>
-
-        <div class="hint-cont">
-            <span class="star">*</span><span>This field is required</span>
         </div>
     </div>
 </section>

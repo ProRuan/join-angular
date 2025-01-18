@@ -1,14 +1,28 @@
 @import "../../../mixins.scss";
 
 .add-task {
-  @include box-padding($p: 110px 96px);
   @include size($w: 100%, $h: calc(100vh - 96px));
-  @include display-column($g: 28px);
+  @include display-column($jc: space-between, $g: 30px);
+}
+
+.add-task-desktop {
+  @include box-padding($p: 110px 96px);
+}
+
+.add-task-dialog {
+  @include box-padding($p: 64px 74px);
+}
+
+.cont-desktop {
+  @include display-column($g: 48px);
+}
+
+.cont-dialog {
+  @include display-column($g: 32px);
 }
 
 .form {
-  display: flex;
-  gap: 48.25px;
+  @include display-row($jc: space-between, $g: 48px);
 }
 
 .left-fieldset {
@@ -26,8 +40,8 @@
   height: fit-content;
 }
 
-.button-group {
-  @include display-row($jc: flex-end, $ai: center, $g: 16px);
+.hint-button-cont {
+  @include display-flex($jc: space-between, $ai: flex-end);
 }
 
 .hint-cont {
@@ -36,4 +50,8 @@
 
 .star {
   color: #ff8190;
+}
+
+.button-group {
+  @include display-row($jc: flex-end, $ai: center, $g: 16px);
 }

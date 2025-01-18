@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { TitleInputComponent } from '../../shared/components/title-input/title-input.component';
@@ -13,6 +13,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { JoinService } from '../../shared/services/join.service';
 import { SummaryService } from '../../shared/services/summary.service';
 import { DialogService } from '../../shared/services/dialog.service';
+import { Simple } from '../../shared/interfaces/simple';
 import { Task } from '../../shared/models/task';
 import { ButtonData } from '../../shared/interfaces/button-data';
 import { isDefaultString, isTrue } from '../../shared/ts/global';
@@ -45,6 +46,8 @@ export class AddTaskComponent {
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
 
+  @Input() first: boolean = true;
+  classes: Simple = {};
   title: string = 'Add Task';
   task: Task = new Task();
   dueDate: string = '';
@@ -95,8 +98,29 @@ export class AddTaskComponent {
    * Initializes an add-task component.
    */
   async ngOnInit() {
-    await this.join.loadUser();
-    this.join.subscribeUser();
+    this.setDesign();
+    if (this.first) {
+      await this.join.loadUser();
+      this.join.subscribeUser();
+    }
+  }
+
+  /**
+   * Sets the design.
+   */
+  setDesign() {
+    this.setCSSClass('add-task');
+    this.setCSSClass('cont');
+  }
+
+  /**
+   * Sets the css class.
+   * @param className - The class name.
+   */
+  setCSSClass(className: string) {
+    let desktopClass = `${className}-desktop`;
+    let dialogClass = `${className}-dialog`;
+    this.classes[className] = this.first ? desktopClass : dialogClass;
   }
 
   /**

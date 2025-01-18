@@ -14,6 +14,11 @@ export class UserDoc {
     this.sid = doc['sid'];
   }
 
+  // App/Main Component
+  // ------------------
+  // load and subscribe user only one time ... !
+  // work only with online date from http request ... !
+
   // Menu Component
   // --------------
   // fix current link after reload ... !
@@ -35,6 +40,7 @@ export class UserDoc {
   // move add-task inputs to add-task ... !
   // Save user online, locally and on app level ... (2/3)
   // redirect to board ... !
+  // title-button-cont with gap 30-100px ... ?!
 
   // SubtasksInputComponent
   // ----------------------
@@ -43,6 +49,9 @@ export class UserDoc {
 
   // Board Component
   // ---------------
+  // I. dialog add-task ...
+  // II. dialog view-task ...
+  // III. dialog edit-task ...
   // check dialog-add-task + rename ... ?
   // rename draggable task to drag card ... ?
   // create 5 sample tasks ... !
