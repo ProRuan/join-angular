@@ -13,6 +13,10 @@
   @include box-padding($p: 64px 74px);
 }
 
+.max-w-1016 {
+  max-width: 1016px;
+}
+
 .cont-desktop {
   @include display-column($g: 48px);
 }

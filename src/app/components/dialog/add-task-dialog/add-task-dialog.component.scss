@@ -1,11 +1,16 @@
 @import "../../../../mixins.scss";
 
-.add-task-dialog {
+.dialog-box {
   @include display-flex();
+  @include position($pos: relative, $l: 0px, $t: 0px);
   background-color: $white;
   border-radius: 30px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  position: relative;
+  transition: left 100ms ease-in-out;
+}
+
+.out {
+  left: calc(100% + calc(1025px / 2));
 }
 
 .cancel-btn {

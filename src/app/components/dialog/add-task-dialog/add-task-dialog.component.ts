@@ -1,12 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { DialogService } from '../../../shared/services/dialog.service';
 import { AddTaskComponent } from '../../add-task/add-task.component';
+import { DialogService } from '../../../shared/services/dialog.service';
 import { stop } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-add-task-dialog',
   standalone: true,
-  imports: [AddTaskComponent],
+  imports: [CommonModule, AddTaskComponent],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss',
 })
@@ -16,6 +17,14 @@ import { stop } from '../../../shared/ts/global';
  */
 export class AddTaskDialogComponent {
   dialog: DialogService = inject(DialogService);
+
+  /**
+   * Provides the css class.
+   * @returns - The css class.
+   */
+  getClass() {
+    return !this.dialog.isOpened('addTask') ? 'out' : '';
+  }
 
   /**
    * Stops the event on click.

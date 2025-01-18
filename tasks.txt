@@ -50,6 +50,8 @@ Complete (1/?)
 
 components (4/?)
 ----------
+  - DialogComponent - ... (1/?)
+      - AddTaskDialogComponent - check
   - LoginComponent - check
   - NewPasswordComponent - check
   - SignUpComponent - check

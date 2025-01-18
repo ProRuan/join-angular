@@ -1,7 +1,7 @@
 <!-- tag dialog? -->
 <section class="dialog" [ngClass]="!dialog.isOpened('addTask') ? 'closed': ''" (click)="dialog.close('addTask')">
-    <!-- add-task-dialog + view-task-dialog + edit-task-dialog ... (1/3) -->
+    <!-- view-task-dialog + edit-task-dialog ... (0/2) -->
 
-    <!-- ngIf or visibilty + transition?! -->
+    <!-- global style out as mixin: out(1025px) out(800px)? -->
     <app-add-task-dialog></app-add-task-dialog>
 </section>

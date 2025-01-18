@@ -6,8 +6,11 @@
   background-color: rgba(0, 0, 0, 0.25);
   position: fixed;
   z-index: 10;
+  visibility: visible;
+  transition: all 100ms ease-in-out;
 }
 
 .closed {
-  display: none;
+  background-color: transparent;
+  visibility: hidden;
 }

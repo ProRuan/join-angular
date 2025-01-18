@@ -1,5 +1,5 @@
 <section class="add-task" [ngClass]="classes['add-task']">
-    <div [ngClass]="classes['cont']">
+    <div class="max-w-1016" [ngClass]="classes['cont']">
         <app-join-title [title]="title"></app-join-title>
 
         <form #form="ngForm" class="form" (submit)="onCreate(form)">
@@ -23,7 +23,7 @@
         </form>
     </div>
 
-    <div class="hint-button-cont">
+    <div class="hint-button-cont max-w-1016">
         <div class="hint-cont">
             <span class="star">*</span><span>This field is required</span>
         </div>
