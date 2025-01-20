@@ -1,7 +1,9 @@
 <!-- tag dialog? -->
-<section class="dialog" [ngClass]="!dialog.isOpened('addTask') ? 'closed': ''" (click)="dialog.close('addTask')">
+<section class="dialog" [ngClass]="!dialog.isOpened('viewTask') ? 'closed': ''" (click)="dialog.close('addTask')">
     <!-- view-task-dialog + edit-task-dialog ... (0/2) -->
 
     <!-- global style out as mixin: out(1025px) out(800px)? -->
-    <app-add-task-dialog></app-add-task-dialog>
+    <!-- ngIf for dialog itself + own variable opened - not here - ??? -->
+    <app-add-task-dialog *ngIf="dialog.isOpened('addTask')"></app-add-task-dialog>
+    <app-view-task-dialog *ngIf="dialog.isOpened('viewTask')"></app-view-task-dialog>
 </section>

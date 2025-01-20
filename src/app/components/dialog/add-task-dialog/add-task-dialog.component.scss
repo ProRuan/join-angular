@@ -13,7 +13,7 @@
   left: calc(100% + calc(1025px / 2));
 }
 
-.cancel-btn {
+.close-btn {
   @include size($w: 32px, $h: 32px);
   @include position($pos: absolute, $t: 64px, $r: 40px);
   padding: 0;

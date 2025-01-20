@@ -13,6 +13,8 @@ export class DialogService {
     category: false,
     subtask: false,
     addTask: false,
+    viewTask: false,
+    editTask: false,
   };
   assignedTo: string = '';
 

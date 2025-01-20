@@ -17,7 +17,7 @@ export class BoardService {
   ];
 
   filter: string = '';
-  draggedTask: Task = new Task();
+  task: Task = new Task();
   dragStarted: boolean = false;
   neighborColumns: string[] = [];
   targetedColumn: string = '';
@@ -27,7 +27,7 @@ export class BoardService {
    * @param task - The draggable task.
    */
   setDrag(task?: Task) {
-    this.draggedTask = task ? task : new Task();
+    this.task = task ? task : new Task();
     this.dragStarted = task ? true : false;
     this.setNeighborColumns(task?.column);
   }

@@ -67,7 +67,9 @@ export class ColumnComponent {
    */
   onSetTarget(event: Event) {
     this.board.targetedColumn = this.id;
-    event.preventDefault();
+    if (this.board.isNeighborColumn(this.id)) {
+      event.preventDefault();
+    }
   }
 
   /**
@@ -75,7 +77,7 @@ export class ColumnComponent {
    * @param column - The targeted column.
    */
   async onUpdateTask(column: string) {
-    this.board.draggedTask.column = column;
+    this.board.task.column = column;
     this.board.setDrag();
     this.summary.update();
     await this.join.saveUser();

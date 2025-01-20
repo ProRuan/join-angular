@@ -75,6 +75,19 @@ export class UserDoc {
   // }
   // ---------
 
+  // View-Task Dialog Component
+  // --------------------------
+  // rename stop() to stopPropagation() ... !
+  // close-btn-comp ... ?
+  // profile component?!
+  // edit task button ...
+  // two-way binding for checkbox component?!
+  // checkbox hover must be darker ($gray) ... ?
+  // important
+  // ---------
+  // update user.tasks + get tasks ... (0/2)
+  // update tasks on board ... !
+
   // Routing
   // -------
   // https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/

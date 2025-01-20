@@ -1,5 +1,5 @@
 <div class="draggable-task" [ngClass]="getRotationClass()" draggable="true" (dragstart)="onDragStart()"
-    (dragend)="onDragEnd()">
+    (dragend)="onDragEnd()" (click)="onView()">
     <div [ngClass]="getTaskClass()">
         <div class="category" [ngClass]="getCategoryClass()">
             <span class="text">{{ task.category }}</span>

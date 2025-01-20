@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { JoinService } from '../../../shared/services/join.service';
 import { BoardService } from '../../../shared/services/board.service';
+import { DialogService } from '../../../shared/services/dialog.service';
 import { Task } from '../../../shared/models/task';
 import { isDefaultArray } from '../../../shared/ts/global';
 
@@ -19,6 +20,7 @@ import { isDefaultArray } from '../../../shared/ts/global';
 export class DraggableTaskComponent {
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
+  dialog: DialogService = inject(DialogService);
 
   @Input() task: Task = new Task();
   counter: number = 0;
@@ -93,6 +95,14 @@ export class DraggableTaskComponent {
    */
   onDragEnd() {
     this.rotated = false;
+  }
+
+  /**
+   * Views the task on click.
+   */
+  onView() {
+    this.board.task = this.task;
+    this.dialog.open('viewTask');
   }
 
   /**

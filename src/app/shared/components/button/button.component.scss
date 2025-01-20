@@ -109,3 +109,58 @@
 .img-32 {
   @include size($w: 32px, $h: 32px);
 }
+
+.prio-btn {
+  @include display-flex($g: 10px);
+  @include round-border($b: none, $br: 10px);
+  padding: 0px 18px;
+  background-color: transparent;
+  cursor: default;
+}
+
+.prio-btn-text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $black;
+}
+
+.settings-btn {
+  @include display-row($ai: center, $g: 8px);
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  flex-direction: row-reverse;
+
+  img {
+    @include size($w: 24px, $h: 24px);
+  }
+}
+
+.w-49 {
+  width: 49px;
+}
+
+.w-31 {
+  width: 31px;
+}
+
+.settings-btn-text {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  color: $dark;
+
+  .settings-btn:hover & {
+    font-weight: 700;
+    color: $lightblue;
+  }
+}
+
+.edit {
+  .settings-btn:hover & {
+    content: url("../../../../assets/img/contacts/edit_blue.png");
+  }
+}
+
+.delete {
+  .settings-btn:hover & {
+    content: url("../../../../assets/img/contacts/delete_blue.png");
+  }
+}

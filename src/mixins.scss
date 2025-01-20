@@ -13,6 +13,7 @@ $medium: #ffa800;
 $low: #7ae229;
 
 $inter: "Inter", Arial, Helvetica, sans-serif;
+$openSans: "Open Sans", Arial, Helvetica, sans-serif;
 $poppins: "Poppins", Arial, Helvetica, sans-serif;
 
 // rename to camelCase!!!
@@ -49,10 +50,11 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   gap: $g;
 }
 
-@mixin display-flex($jc: center, $ai: center) {
+@mixin display-flex($jc: center, $ai: center, $g: normal normal) {
   display: flex;
   justify-content: $jc;
   align-items: $ai;
+  gap: $g;
 }
 
 @mixin display-horiz($g) {
