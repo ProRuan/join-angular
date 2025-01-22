@@ -126,8 +126,9 @@ export class ViewTaskDialogComponent {
    * @param subtask - The subtask.
    */
   onCheck(subtask: Subtask) {
-    let done = subtask.done;
-    subtask.done = !done ? true : false;
+    let id = subtask.id;
+    let done = !subtask.done ? true : false;
+    this.task.subtasks[id].done = done;
   }
 
   /**
@@ -155,5 +156,13 @@ export class ViewTaskDialogComponent {
     let tasks = this.join.user.tasks;
     let index = tasks.indexOf(this.task);
     return index;
+  }
+
+  /**
+   * Edits the task on click.
+   */
+  onEdit() {
+    this.dialog.close('viewTask');
+    this.dialog.open('editTask');
   }
 }

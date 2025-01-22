@@ -1,0 +1,24 @@
+<section class="dialog-box" (click)="onStop($event)">
+    <div class="button-cont">
+        <button class="close-btn" (click)="onClose()"></button>
+    </div>
+
+    <form #form="ngForm" class="form">
+        <fieldset class="top-fieldset">
+            <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
+            <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
+            <app-due-date-input [(ngModel)]="dueDate" name="dueDate" [(dueDate)]="task.dueDate"></app-due-date-input>
+        </fieldset>
+        <fieldset class="bottom-fieldset">
+            <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
+            <app-assigned-to-input [(ngModel)]="assignedTo" name="assignedTo" [(assignedTo)]="task.assignedTo"
+                [contacts]="contacts"></app-assigned-to-input>
+            <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
+                [(subtasks)]="task.subtasks"></app-subtasks-input>
+        </fieldset>
+    </form>
+
+    <div class="button-cont">
+        <app-button [button]="createBtn" [disabled]="isIncomplete(form)" (click)="onUpdate(form)"></app-button>
+    </div>
+</section>

@@ -18,6 +18,7 @@ export class BoardService {
 
   filter: string = '';
   task: Task = new Task();
+  defaultTask = new Task();
   dragStarted: boolean = false;
   neighborColumns: string[] = [];
   targetedColumn: string = '';

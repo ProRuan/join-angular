@@ -164,3 +164,7 @@
     content: url("../../../../assets/img/contacts/delete_blue.png");
   }
 }
+
+.cont-29 {
+  @include size($w: 29px, $h: 25px);
+}

@@ -23,20 +23,30 @@ export class DraggableTaskComponent {
   dialog: DialogService = inject(DialogService);
 
   @Input() task: Task = new Task();
-  counter: number = 0;
-  max: number = 0;
-  progress = { width: '0px' };
-  alt: string = 'prio_medium';
   rotated: boolean = false;
 
   /**
-   * Initializes a draggable-task component.
+   * Provides the amount of the done subtasks.
+   * @returns - The amount of the done subtasks.
    */
-  ngOnInit() {
-    this.counter = this.getCounter();
-    this.max = this.getMax();
-    this.progress = this.getProgress();
-    this.alt = this.getAlt();
+  get counter() {
+    return this.getCounter();
+  }
+
+  /**
+   * Provides the amount of the subtasks to do.
+   * @returns - The amount of the subtasks to do.
+   */
+  get max() {
+    return this.task.subtasks.length;
+  }
+
+  /**
+   * Provides the alternative text.
+   * @returns - The alternative text.
+   */
+  get alt() {
+    return this.getAlt();
   }
 
   /**
@@ -46,24 +56,6 @@ export class DraggableTaskComponent {
   getCounter() {
     let doneSubtasks = this.task.subtasks.filter((s) => s.done);
     return doneSubtasks.length;
-  }
-
-  /**
-   * Provides the maximum of the progress bar.
-   * @returns - The maximum of the progress bar.
-   */
-  getMax() {
-    return this.task.subtasks.length;
-  }
-
-  /**
-   * Provides the progress of the subtasks.
-   * @returns - The progress of the subtasks.
-   */
-  getProgress() {
-    let progress = (128 / this.max) * this.counter;
-    let value = Math.round(progress);
-    return { width: `${value}px` };
   }
 
   /**
@@ -128,6 +120,16 @@ export class DraggableTaskComponent {
    */
   getCategoryClass() {
     return this.task.category.toLowerCase().replace(' ', '-');
+  }
+
+  /**
+   * Provides the style of the progress bar.
+   * @returns - The style of the progress bar.
+   */
+  getStyle() {
+    let progress = (128 / this.max) * this.counter;
+    let value = Math.round(progress);
+    return { width: `${value}px` };
   }
 
   /**
