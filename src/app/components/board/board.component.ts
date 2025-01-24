@@ -61,14 +61,6 @@ export class BoardComponent {
   }
 
   /**
-   * Initializes a board component.
-   */
-  async ngOnInit() {
-    await this.join.loadUser();
-    this.join.subscribeUser();
-  }
-
-  /**
    * Resets the targeted column on dragleave.
    */
   onResetTarget() {
@@ -76,10 +68,10 @@ export class BoardComponent {
   }
 
   /**
-   * Adds a task on click.
+   * Opens the add-task dialog on click.
    */
   onAddTask() {
-    this.dialog.open('addTask');
+    this.dialog.openDialog('addTask');
   }
 
   /**

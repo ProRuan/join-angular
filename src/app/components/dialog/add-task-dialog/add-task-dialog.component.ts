@@ -38,6 +38,6 @@ export class AddTaskDialogComponent {
    * Closes the dialog on click.
    */
   onClose() {
-    this.dialog.close('addTask');
+    this.dialog.closeDialog('addTask');
   }
 }

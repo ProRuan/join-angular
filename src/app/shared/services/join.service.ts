@@ -14,7 +14,8 @@ import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
 import { UserDoc } from '../models/user-doc';
 import { DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
-import { loadUser, saveUser } from '../ts/global';
+import { getObjectArray, loadUser, saveUser } from '../ts/global';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root',
@@ -326,6 +327,15 @@ export class JoinService {
    */
   saveUserLocally() {
     saveUser(this.user);
+  }
+
+  /**
+   * Saves the user tasks.
+   */
+  async saveUserTasks() {
+    let id = this.user.id;
+    let tasks = getObjectArray<Task>(this.user.tasks, Task);
+    await this.updateUser(id, 'data.tasks', tasks);
   }
 
   // add class UserDoc - check

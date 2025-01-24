@@ -5,7 +5,7 @@
     </div>
 
     <div class="body" (dragover)="onSetTarget($event)" (drop)="onUpdateTask(id)">
-        <div *ngIf="isColumnEmpty()" class="placeholder">
+        <div *ngIf="isPlaceholderDisplayed()" class="placeholder">
             <span class="placeholder-text">No tasks {{ name }}</span>
         </div>
 

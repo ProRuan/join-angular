@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Task } from '../models/task';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,8 @@ import { Injectable } from '@angular/core';
  * Represents a dialog service.
  */
 export class DialogService {
+  ids: string[] = ['addTask', 'viewTask', 'editTask'];
+
   opened: { [key: string]: boolean } = {
     assignedTo: false,
     category: false,
@@ -15,8 +18,17 @@ export class DialogService {
     addTask: false,
     viewTask: false,
     editTask: false,
+    deleteTask: false,
   };
   assignedTo: string = '';
+
+  currDialog: string = '';
+  dialogOpened: boolean = false;
+  animated: boolean = false; // rename?!
+  transparent: boolean = false;
+
+  task: Task = new Task();
+  dueDate: string = '';
 
   /**
    * Opens the dialog.
@@ -70,5 +82,54 @@ export class DialogService {
    */
   resetAssignedTo() {
     this.assignedTo = '';
+  }
+
+  onOpenDialog(id: string) {
+    this.closeAllDialogs();
+    this.openDialog(id);
+  }
+
+  closeAllDialogs() {
+    this.ids.forEach((id) => {
+      this.closeDialog(id);
+    });
+  }
+
+  // use optional logical parameter!!!
+  closeDialog(id: string, opened: boolean = false) {
+    if (this.isOpened(id)) {
+      if (id == 'editTask') {
+        this.animated = true;
+      }
+      this.close(id);
+      this.dialogOpened = opened;
+      // animate edit-task dialong on close and on closeAll ... (0/2)
+      // if (id == 'editTask') {
+      //   this.currDialog = '';
+      // }
+    }
+  }
+
+  // use this or the upper method?!
+  openDialog(id: string) {
+    this.currDialog = id;
+    if (id == 'editTask' && this.animated == true) {
+      this.animated = false;
+    }
+    setTimeout(() => {
+      if (!this.dialogOpened) {
+        this.dialogOpened = true;
+      }
+      this.open(id);
+      console.log('openend', this.opened);
+    }, 0);
+  }
+
+  setTransparency(value?: boolean) {
+    if (value) {
+      this.transparent = value;
+    } else if (this.transparent) {
+      this.transparent = false;
+    }
   }
 }

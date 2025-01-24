@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { isTrue, stop } from '../../../shared/ts/global';
-import { DialogService } from '../../../shared/services/dialog.service';
+import { FormsModule, NgForm } from '@angular/forms';
 import { TitleInputComponent } from '../../../shared/components/title-input/title-input.component';
 import { DescriptionInputComponent } from '../../../shared/components/description-input/description-input.component';
 import { DueDateInputComponent } from '../../../shared/components/due-date-input/due-date-input.component';
@@ -9,13 +8,12 @@ import { PrioInputComponent } from '../../../shared/components/prio-input/prio-i
 import { AssignedToInputComponent } from '../../../shared/components/assigned-to-input/assigned-to-input.component';
 import { SubtasksInputComponent } from '../../../shared/components/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { FormsModule, NgForm } from '@angular/forms';
 import { JoinService } from '../../../shared/services/join.service';
-import { Task } from '../../../shared/models/task';
 import { SummaryService } from '../../../shared/services/summary.service';
-import { Contact } from '../../../shared/models/contact';
-import { ButtonData } from '../../../shared/interfaces/button-data';
 import { BoardService } from '../../../shared/services/board.service';
+import { DialogService } from '../../../shared/services/dialog.service';
+import { ButtonData } from '../../../shared/interfaces/button-data';
+import { isTrue, stop } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -34,29 +32,24 @@ import { BoardService } from '../../../shared/services/board.service';
   templateUrl: './edit-task-dialog.component.html',
   styleUrl: './edit-task-dialog.component.scss',
 })
+
+/**
+ * Represents an edit-task dialog component.
+ */
 export class EditTaskDialogComponent {
   join: JoinService = inject(JoinService);
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
-  // isComplete() ... ?
-  // onOk(), onSave() ...
-  // fill form for editing ... !
-  // fix style (width) ... !
-  // init dueDate ... !
-  // viewTask: save after delete ... !
-  // empty board task on close and/or ok ... !
-  // no upcoming deadlines in the past ... ?
-  // viewTask and editTask visibility and transition ... (0/2)
-  // highlight assinged contacts ... !
+  // reset dialog task, dueDate, assignedTo, subtasks ... (0/4)
+  // reset input values ... (0/3)
+  // reset assignedTo (origin/copy) ... (0/2)
 
   dialogId: string = 'editTask';
-  dueDate: string = '';
-  subtasks: string = '';
+  subtasks: string = ''; // move to dialog service?!
 
-  // edit!!!
-  createBtn: ButtonData = {
+  okBtn: ButtonData = {
     buttonClass: 'create-btn',
     contClass: 'cont-29',
     textClass: 'create-btn-text',
@@ -66,39 +59,77 @@ export class EditTaskDialogComponent {
     alt: 'create_button',
   };
 
+  /**
+   * Provides the task.
+   * @returns - The task.
+   */
   get task() {
-    return this.board.task;
-  }
-
-  set task(task: Task) {
-    this.board.task = task;
-  }
-
-  get assignedTo() {
-    return this.dialog.assignedTo;
-  }
-
-  set assignedTo(value) {
-    this.dialog.assignedTo = value;
-  }
-
-  get contacts() {
-    return this.join.user.contacts;
-  }
-
-  ngOnInit() {
-    this.dueDate = this.getDueDate();
+    return this.dialog.task;
   }
 
   /**
    * Provides the due date.
    * @returns - The due date.
    */
+  get dueDate() {
+    return this.dialog.dueDate;
+  }
+
+  /**
+   * Sets the due date.
+   */
+  set dueDate(value: string) {
+    this.dialog.dueDate = value;
+  }
+
+  /**
+   * Provides the assigned contacts.
+   * @returns - The assigned contacts.
+   */
+  get assignedTo() {
+    return this.dialog.assignedTo;
+  }
+
+  /**
+   * Sets the assigned contacts.
+   */
+  set assignedTo(value) {
+    this.dialog.assignedTo = value;
+  }
+
+  /**
+   * Provides the user contacts.
+   */
+  get contacts() {
+    return this.join.user.contacts;
+  }
+
+  /**
+   * Provides the due date of the task.
+   * @returns - The due date of the task.
+   */
   getDueDate() {
     let [year, month, day] = this.task.dueDate.split('-');
     return `${day}/${month}/${year}`;
   }
 
+  /**
+   * Provides the css class.
+   * @returns - The css class.
+   */
+  getClass() {
+    let closed = !this.dialog.isOpened('editTask');
+    if (this.dialog.animated && closed) {
+      return 'out';
+    } else {
+      return '';
+    } // on update with opacity?!
+  }
+
+  /**
+   * Stops the event on click.
+   * @param event - The event.
+   */
   onStop(event: Event) {
     stop(event);
   }
@@ -107,7 +138,8 @@ export class EditTaskDialogComponent {
    * Closes the dialog on click.
    */
   onClose() {
-    this.dialog.close(this.dialogId);
+    this.dialog.closeAllDialogs();
+    this.board.setDefaultTask();
   }
 
   /**
@@ -119,16 +151,22 @@ export class EditTaskDialogComponent {
     return isTrue(ngForm.invalid);
   }
 
+  /**
+   * Updates the user task on click.
+   * @param ngForm - The edit-task form.
+   */
   async onUpdate(ngForm: NgForm) {
     if (ngForm.form.valid) {
+      this.board.task.set(this.task);
       this.summary.update();
       await this.join.saveUser();
-      this.dialog.close(this.dialogId);
-      // this.board.resetTask();
-      this.board.task = this.board.defaultTask;
+      // one method from dialog?!
+      this.dialog.closeDialog(this.dialogId, true);
+      this.dialog.openDialog('viewTask');
     }
   }
 
+  // onClose(), onUpdate() ... ?
   clearForm() {
     this.assignedTo = '';
     this.dueDate = '';

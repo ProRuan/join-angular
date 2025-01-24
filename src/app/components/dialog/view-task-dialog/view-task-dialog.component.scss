@@ -1,5 +1,20 @@
 @import "../../../../mixins.scss";
 
+.transit-cont {
+  @include size($w: 100%, $h: 100vh);
+  @include display-flex();
+  @include position($pos: relative, $l: 0px, $t: 0px);
+  transition: all 100ms ease-in-out;
+}
+
+.out {
+  left: 100%;
+}
+
+.o-0 {
+  opacity: 0;
+}
+
 .dialog-box {
   @include box-padding($p: 48px 40px);
   @include display-column($g: 24px);

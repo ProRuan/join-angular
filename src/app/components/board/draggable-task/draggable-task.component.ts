@@ -94,7 +94,8 @@ export class DraggableTaskComponent {
    */
   onView() {
     this.board.task = this.task;
-    this.dialog.open('viewTask');
+    this.dialog.setTransparency();
+    this.dialog.openDialog('viewTask');
   }
 
   /**

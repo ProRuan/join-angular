@@ -27,7 +27,6 @@ export class SummaryComponent {
    * Initializes a summary component.
    */
   async ngOnInit() {
-    this.join.loadUser();
     this.summary = this.join.user.summary;
   }
 }

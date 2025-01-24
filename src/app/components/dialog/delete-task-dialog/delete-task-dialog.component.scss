@@ -3,24 +3,30 @@
 .transit-cont {
   @include size($w: 100%, $h: 100vh);
   @include display-flex();
-  @include position($pos: relative, $l: 0px, $t: 0px);
+  @include position($pos: absolute, $l: 0px, $t: 0px);
+  background-color: rgba(0, 0, 0, 0.25);
   transition: all 100ms ease-in-out;
 }
 
-.out {
-  left: 100%;
+.o-0 {
+  opacity: 0;
 }
 
 .dialog-box {
-  @include display-flex();
+  @include box-padding($p: 48px 40px);
+  @include display-column($g: 24px);
+  width: 400px;
   background-color: $white;
   border-radius: 30px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
+}
+
+.button-cont {
+  @include display-row($jc: flex-end);
 }
 
 .close-btn {
   @include size($w: 32px, $h: 32px);
-  @include position($pos: absolute, $t: 64px, $r: 40px);
   padding: 0;
   background-color: transparent;
   background-image: url("../../../../assets/img/board/close_default.png");
@@ -37,4 +43,18 @@
   &:active {
     background-image: url("../../../../assets/img/board/close_default.png");
   }
+}
+
+.text-button-cont {
+  @include display-column($ai: center, $g: 24px);
+}
+
+.text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  text-align: center;
+  color: $black;
+}
+
+.g-64 {
+  gap: 64px;
 }

@@ -41,6 +41,8 @@ export class UserDoc {
   // Save user online, locally and on app level ... (2/3)
   // redirect to board ... !
   // title-button-cont with gap 30-100px ... ?!
+  // rename variable "first" to "origin" ... ?
+  // is onSumbit() necessary (working) ... ?!
 
   // SubtasksInputComponent
   // ----------------------
@@ -87,6 +89,15 @@ export class UserDoc {
   // ---------
   // update user.tasks + get tasks ... (0/2)
   // update tasks on board ... !
+
+  // Edit-Task Dialog Component
+  // --------------------------
+  // isComplete() ... ?
+  //   - title required ... (0/1)
+  //   - dueDate required, valid, min ... (0/3)
+  // no upcoming deadlines in the past ... ?
+  // ButtonDataService ... ?
+  // please notice the local notes there ... !
 
   // Routing
   // -------

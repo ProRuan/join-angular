@@ -31,7 +31,7 @@
 
 .left-fieldset {
   @include display-column($g: 16px);
-  height: fit-content;
+  @include size($w: 440px, $h: fit-content);
 }
 
 .border {
@@ -41,7 +41,7 @@
 
 .right-fieldset {
   @include display-column($g: 24px);
-  height: fit-content;
+  @include size($w: 440px, $h: fit-content);
 }
 
 .hint-button-cont {

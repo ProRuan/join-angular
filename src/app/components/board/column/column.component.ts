@@ -84,6 +84,16 @@ export class ColumnComponent {
   }
 
   /**
+   * Verifies the display state of the placeholder.
+   * @returns - A boolean value.
+   */
+  isPlaceholderDisplayed() {
+    let columnEmpty = this.isColumnEmpty();
+    let neighborColumn = this.isNeighborColumn();
+    return columnEmpty && !neighborColumn;
+  }
+
+  /**
    * Verifies the empty state of the column.
    * @returns - A boolean value.
    */

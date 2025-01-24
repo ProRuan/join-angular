@@ -130,7 +130,8 @@ export class AssignedToInputComponent extends BasicInput {
    * @returns A boolean value.
    */
   isAssigned(contact: Contact) {
-    return this.assignedContacts.includes(contact);
+    let assigned = this.assignedContacts.find((c) => c.id == contact.id);
+    return assigned ? true : false;
   }
 
   /**

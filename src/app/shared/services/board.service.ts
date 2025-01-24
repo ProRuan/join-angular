@@ -83,4 +83,11 @@ export class BoardService {
   isNeighborColumn(column: string) {
     return this.neighborColumns.includes(column);
   }
+
+  /**
+   * Sets the task to the default task.
+   */
+  setDefaultTask() {
+    this.task = this.defaultTask;
+  }
 }

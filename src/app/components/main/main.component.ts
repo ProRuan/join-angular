@@ -43,8 +43,20 @@ export class MainComponent {
 
   // create own function!!!
   async ngOnInit() {
+    await this.join.loadUser();
+    this.join.subscribeUser();
     // const sid = this.route.snapshot.paramMap.get('id');
     // console.log('main user sid: ', sid);
+    // new
+    // ---
+    // if (sid) {
+    //   let user = await this.join.getUserBySid(sid);
+    //   if (user) {
+    //     console.log('main user: ', user);
+    //   }
+    // }
+    // old
+    // ---
     // if (sid) {
     //   this.join.sid = sid;
     //   // set user via UserService --> get/set user from join!!!

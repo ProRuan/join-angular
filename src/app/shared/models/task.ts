@@ -15,21 +15,29 @@ import { Subtask } from './subtask';
  */
 export class Task {
   [key: string]: any;
-  id: string;
-  title: string;
-  description: string;
-  assignedTo: Contact[];
-  dueDate: string;
-  prio: string;
-  category: string;
-  subtasks: Subtask[];
-  column: string;
+  id!: string;
+  title!: string;
+  description!: string;
+  assignedTo!: Contact[];
+  dueDate!: string;
+  prio!: string;
+  category!: string;
+  subtasks!: Subtask[];
+  column!: string;
 
   /**
    * Creates a task.
    * @param data - The task data.
    */
   constructor(data?: Task) {
+    this.assignValues(data);
+  }
+
+  /**
+   * Assigns the property values.
+   * @param data - The task data.
+   */
+  private assignValues(data?: Task) {
     this.id = getId(data?.id);
     this.title = getString(data?.title);
     this.description = getString(data?.description);
@@ -39,6 +47,14 @@ export class Task {
     this.category = getString(data?.category);
     this.subtasks = getCustomArray<Subtask>(data?.subtasks, Subtask);
     this.column = getString(data?.column, 'to-do');
+  }
+
+  /**
+   * Sets the task data.
+   * @param data - The task data.
+   */
+  set(data?: Task) {
+    this.assignValues(data);
   }
 
   /**
@@ -63,7 +79,7 @@ export class Task {
 
   /**
    * Provides the default properties as boolean array.
-   * @returns - An booelan array.
+   * @returns - An boolean array.
    */
   getDefaultProperties() {
     let title = isDefaultString(this.title);

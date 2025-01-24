@@ -47,11 +47,15 @@ export class AddTaskComponent {
   dialog: DialogService = inject(DialogService);
 
   @Input() first: boolean = true;
-  classes: Simple = {};
   title: string = 'Add Task';
   task: Task = new Task();
   dueDate: string = '';
   subtasks: string = '';
+
+  classes: Simple = {
+    'add-task': 'add-task-desktop',
+    cont: 'cont-desktop',
+  };
 
   clearBtn: ButtonData = {
     buttonClass: 'clear-btn',
@@ -98,17 +102,17 @@ export class AddTaskComponent {
    * Initializes an add-task component.
    */
   async ngOnInit() {
-    this.setDesign();
-    if (this.first) {
-      await this.join.loadUser();
-      this.join.subscribeUser();
+    if (!this.first) {
+      this.setDialogDesign();
+      this.setClearBtn();
+      this.setCreateBtn();
     }
   }
 
   /**
-   * Sets the design.
+   * Sets the dialog design.
    */
-  setDesign() {
+  setDialogDesign() {
     this.setCSSClass('add-task');
     this.setCSSClass('cont');
   }
@@ -118,22 +122,33 @@ export class AddTaskComponent {
    * @param className - The class name.
    */
   setCSSClass(className: string) {
-    let desktopClass = `${className}-desktop`;
-    let dialogClass = `${className}-dialog`;
-    this.classes[className] = this.first ? desktopClass : dialogClass;
+    this.classes[className] = `${className}-dialog`;
   }
 
   /**
-   * Creates a task on submit.
-   * @param ngForm - The add-task form.
+   * Sets the clear button.
    */
-  async onCreate(ngForm: NgForm) {
-    if (ngForm.form.valid) {
-      this.join.user.tasks.push(this.task);
-      this.summary.update();
-      await this.join.saveUser();
-      this.clearForm();
-    }
+  setClearBtn() {
+    this.clearBtn.contClass = 'cont-63';
+    this.clearBtn.text = 'Cancel';
+    this.isClear = () => this.isNullified();
+    this.onClear = () => this.cancel();
+  }
+
+  /**
+   * Nullifies the method by returning false.
+   * @returns - False.
+   */
+  isNullified() {
+    return false;
+  }
+
+  /**
+   * Closes and clears the add-task dialog.
+   */
+  cancel() {
+    this.dialog.closeDialog('addTask');
+    this.clearForm();
   }
 
   /**
@@ -144,6 +159,43 @@ export class AddTaskComponent {
     this.dueDate = '';
     this.subtasks = '';
     this.task = new Task();
+  }
+
+  /**
+   * Sets the create button.
+   */
+  setCreateBtn() {
+    this.onCreate = (ngForm: NgForm) => this.addTask(ngForm);
+  }
+
+  /**
+   * Adds a task.
+   * @param ngForm - The add-task dialog form.
+   */
+  async addTask(ngForm: NgForm) {
+    await this.createTask(ngForm);
+    this.dialog.closeDialog('addTask');
+    this.clearForm();
+  }
+
+  /**
+   * Creates a task on submit.
+   * @param ngForm - The add-task form.
+   */
+  async onCreate(ngForm: NgForm) {
+    await this.createTask(ngForm);
+  }
+
+  /**
+   * Creates a task.
+   * @param ngForm - The add-task form.
+   */
+  async createTask(ngForm: NgForm) {
+    if (ngForm.form.valid) {
+      this.join.user.tasks.push(this.task);
+      this.summary.update();
+      await this.join.saveUser();
+    }
   }
 
   /**

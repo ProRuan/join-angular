@@ -3,12 +3,11 @@
 .textarea {
   @include box-padding($p: 17px 15px);
   @include size($w: 100%, $h: 120px);
-  @include min-size($w: 440px, $h: 60px);
-  @include max-size($w: 440px, $h: 240px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include color-set($c: $black, $bgc: $white);
   @include round-border($b: 1px solid $gray, $br: 10px);
   font-family: $inter;
+  resize: none;
 
   &:focus {
     border: 1px solid $lightblue;

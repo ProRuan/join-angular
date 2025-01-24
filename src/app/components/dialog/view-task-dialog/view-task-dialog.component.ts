@@ -4,9 +4,9 @@ import { JoinTitleComponent } from '../../../shared/components/join-title/join-t
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
 import { JoinService } from '../../../shared/services/join.service';
+import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { DialogService } from '../../../shared/services/dialog.service';
-import { Task } from '../../../shared/models/task';
 import { Subtask } from '../../../shared/models/subtask';
 import { ButtonData } from '../../../shared/interfaces/button-data';
 import { stop } from '../../../shared/ts/global';
@@ -23,24 +23,17 @@ import { stop } from '../../../shared/ts/global';
   templateUrl: './view-task-dialog.component.html',
   styleUrl: './view-task-dialog.component.scss',
 })
+
+/**
+ * Represents a view-task dialog component.
+ */
 export class ViewTaskDialogComponent {
   join: JoinService = inject(JoinService);
+  summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
-  task: Task = new Task();
-  bgc: string = '';
-  dueDate: string = '';
-
-  prioBtn: ButtonData = {
-    buttonClass: 'prio-btn',
-    contClass: '',
-    textClass: 'prio-btn-text',
-    text: 'medium',
-    imgClass: 'img-32',
-    src: '/assets/img/board/prio_medium.png',
-    alt: 'prio_medium',
-  };
+  dialogId: string = 'viewTask';
 
   deleteBtn: ButtonData = {
     buttonClass: 'settings-btn',
@@ -62,20 +55,36 @@ export class ViewTaskDialogComponent {
     alt: 'edit',
   };
 
-  ngOnInit() {
-    this.task = this.board.task;
-    this.bgc = this.getBgc();
-    this.dueDate = this.getDueDate();
-    this.prioBtn.text = this.getPrio();
-    this.prioBtn.src = this.getPrioBtnSrc();
+  /**
+   * Provides the task to view.
+   * @returns - The task to view.
+   */
+  get task() {
+    return this.board.task;
   }
 
   /**
-   * Provides the css class of the category backgrond-color.
-   * @returns - The css class to apply.
+   * Provides the due date.
+   * @returns - The due date.
    */
-  getBgc() {
-    return this.task.category.toLowerCase().replace(' ', '-');
+  get dueDate() {
+    return this.getDueDate();
+  }
+
+  /**
+   * Provides the prio button.
+   * @returns - The prio button.
+   */
+  get prioBtn(): ButtonData {
+    return {
+      buttonClass: 'prio-btn',
+      contClass: '',
+      textClass: 'prio-btn-text',
+      text: this.getPrioText(),
+      imgClass: 'img-32',
+      src: this.getPrioSrc(),
+      alt: 'prio_medium',
+    };
   }
 
   /**
@@ -88,22 +97,40 @@ export class ViewTaskDialogComponent {
   }
 
   /**
-   * Provides the prio.
-   * @returns - The prio.
+   * Provides the prio text.
+   * @returns - The prio text.
    */
-  getPrio() {
+  getPrioText() {
     let prio = this.task.prio.toLowerCase();
-    let initial = prio[0].toUpperCase();
-    return initial + prio.slice(1);
+    if (prio) {
+      let initial = prio[0].toUpperCase();
+      return initial + prio.slice(1);
+    } else {
+      return 'undefined';
+    }
   }
 
   /**
-   * Provides the source path of the prio button.
-   * @returns - The source path of the prio button.
+   * Provides the source path of the prio.
+   * @returns - The source path of the prio.
    */
-  getPrioBtnSrc() {
+  getPrioSrc() {
     let prio = this.task.prio;
     return `/assets/img/board/prio_${prio}.png`;
+  }
+
+  /**
+   * Provides the css class.
+   * @returns - The css class.
+   */
+  getClass() {
+    if (this.dialog.transparent) {
+      return 'o-0';
+    } else if (!this.dialog.isOpened(this.dialogId)) {
+      return 'out';
+    } else {
+      return '';
+    }
   }
 
   /**
@@ -115,54 +142,53 @@ export class ViewTaskDialogComponent {
   }
 
   /**
+   * Provides the css class of the category.
+   * @returns - The css class of the category.
+   */
+  getCategoryClass() {
+    return this.task.category.toLowerCase().replace(' ', '-');
+  }
+
+  /**
    * Closes the dialog on click.
    */
   onClose() {
-    this.dialog.close('viewTask');
+    this.dialog.closeDialog(this.dialogId);
   }
 
   /**
    * Checks the subtasks on click.
    * @param subtask - The subtask.
    */
-  onCheck(subtask: Subtask) {
+  async onCheck(subtask: Subtask) {
+    this.checkSubtask(subtask);
+    this.join.saveUserTasks();
+    this.join.saveUserLocally();
+  }
+
+  /**
+   * Checks the subtask.
+   * @param subtask - The subtask.
+   */
+  checkSubtask(subtask: Subtask) {
     let id = subtask.id;
     let done = !subtask.done ? true : false;
     this.task.subtasks[id].done = done;
   }
 
   /**
-   * Deletes the task on click.
+   * Opens the delete-task dialog on click.
    */
-  onDelete() {
-    let index = this.getTaskIndex();
-    if (index > -1) {
-      this.deleteTask(index);
-    }
-  }
-
-  deleteTask(index: number) {
-    console.log('deleted task: ', index, this.join.user.tasks[index]);
-    this.dialog.close('viewTask');
-    this.join.user.tasks.splice(index, 1);
-    // updateUser (tasks and summary)!!!
+  async onDelete() {
+    this.dialog.open('deleteTask');
   }
 
   /**
-   * Provides the task index.
-   * @returns - The task index.
-   */
-  getTaskIndex() {
-    let tasks = this.join.user.tasks;
-    let index = tasks.indexOf(this.task);
-    return index;
-  }
-
-  /**
-   * Edits the task on click.
+   * Opens the edit-task dialog on click.
    */
   onEdit() {
-    this.dialog.close('viewTask');
-    this.dialog.open('editTask');
+    this.dialog.task.set(this.board.task);
+    this.dialog.dueDate = this.getDueDate();
+    this.dialog.openDialog('editTask');
   }
 }

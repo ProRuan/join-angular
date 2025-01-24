@@ -2,7 +2,7 @@
 
 .label-input-cont {
   @include display-column($g: 8px);
-  width: 440px;
+  width: 100%;
 }
 
 .prio-button-group {
