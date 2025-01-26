@@ -1,0 +1,60 @@
+@import "../../../../mixins.scss";
+
+.contact-list {
+  @include size($w: 456px, $h: calc(100vh - 96px));
+  background-color: $white;
+  box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
+}
+
+.list-head {
+  @include box-padding($p: 22.5px 0 10px 24px);
+  @include display-flex();
+  width: 100%;
+}
+
+// mixin?
+.add-new-contact-btn {
+  @include display-horiz($g: 16px);
+  padding: 12px 0;
+  width: 352px;
+  background-color: #2a3647;
+  border: none;
+  // border: 1px solid #2a3647;
+  border-radius: 10px;
+  justify-content: center;
+
+  span {
+    @include font($fs: 21px, $fw: 700, $lh: 25.2px);
+    height: 24px;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    color: #ffffff;
+  }
+
+  img {
+    @include size($w: 32px, $h: 32px);
+  }
+
+  &:hover {
+    background-color: #29abe2;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    background: #091931;
+  }
+}
+
+.contact-collector {
+  padding: 0 0 0 24px;
+}
+
+.register-letter {
+  margin-bottom: 8px;
+  padding: 17px 36px 25px 36px;
+  box-shadow: 0 1px 0 0 #d1d1d1;
+}
+
+.letter {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: #000000;
+}

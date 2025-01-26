@@ -1,57 +1,66 @@
 @import "../../../../mixins.scss";
 
 .contact {
-  @include box-padding($p: 15px 24px);
-  @include display-horiz($g: 35px);
-  width: 100%;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 10px;
+  @include round-border($b: none, $br: 10px);
+  @include display-row($g: 35px);
+  padding: 15px 24px;
+  width: 352px;
+  text-align: left;
+  background-color: $white;
 
   &:hover {
     background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
   }
+}
 
-  &:disabled {
-    background-color: #2a3647;
+.selected {
+  background-color: $dark;
 
-    .contact-name {
-      color: #ffffff;
-    }
+  &:hover {
+    background: $dark;
   }
 }
 
-// mixin?
 .profile {
-  @include size($w: 42px, $h: 42px);
+  @include min-size($w: 42px, $h: 42px);
+  @include max-size($w: 42px, $h: 42px);
+  @include round-border($b: 2px solid $white, $br: 45px);
   @include display-flex();
-  // padding-top?
-  // background-color: #29abe2;
   box-sizing: border-box;
-  text-align: center;
-  border: 2px solid #ffffff;
-  border-radius: 45px;
+}
+
+.h-14 {
+  height: 14px;
 }
 
 .initials {
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
   text-align: center;
-  color: #ffffff;
+  color: $white;
 }
 
-.contact-details {
-  @include display-column();
-  width: calc(100% - 77px);
-  gap: 5px;
+.name-email-cont {
+  @include display-column($g: 5px);
 }
 
-.contact-name {
+.h-24 {
+  height: 24px;
+}
+
+.name {
   @include font($fs: 20px, $fw: 400, $lh: 24px);
-  color: #000000;
+  color: $black;
+
+  .selected & {
+    color: $white;
+  }
 }
 
-.contact-email {
-  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+.h-19 {
   height: 19px;
+}
+
+.email {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   color: #007cee;
 }

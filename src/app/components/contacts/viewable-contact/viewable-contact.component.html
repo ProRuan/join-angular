@@ -1,9 +1,10 @@
-<button class="contact" (click)="viewContact()">
-    <div class="profile {{ color }}">
-        <span class="initials">{{ contact.initials }}</span>
+<button class="contact" [ngClass]="getClass()" (click)="onView()">
+    <div class="profile" [ngClass]="contact.bgc">
+        <div class="h-14"><span class="initials">{{ contact.initials }}</span></div>
     </div>
-    <div class="contact-details">
-        <span class="contact-name">{{ contact.name }}</span>
-        <span class="contact-email">{{ contact.email }}</span>
+
+    <div class="name-email-cont">
+        <div class="h-24"><span class="name">{{ contact.name }}</span></div>
+        <div class="h-19"><span class="email">{{ contact.email }}</span></div>
     </div>
 </button>

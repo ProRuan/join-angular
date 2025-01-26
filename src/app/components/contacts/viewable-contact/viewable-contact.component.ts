@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Contact } from '../../../shared/models/contact';
+import { ContactService } from '../../../shared/services/contact.service';
 
 @Component({
   selector: 'app-viewable-contact',
@@ -9,17 +11,29 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './viewable-contact.component.scss',
 })
 export class ViewableContactComponent {
-  @Input() contact = {
-    initials: 'AM',
-    name: 'Anton Mayer',
-    email: 'antonm@gmail.com',
-  };
-  // add color to contact object?!?
-  @Input() color: string = 'orange';
+  // rename to ContactViewerService?!?
+  viewer: ContactService = inject(ContactService);
 
-  @Output() viewableContact = new EventEmitter<any>();
+  // reset selected after click ...
+  // hover + active transition ...
 
-  viewContact() {
-    this.viewableContact.emit({ contact: this.contact, color: this.color });
+  @Input() contact: Contact = new Contact();
+
+  getClass() {
+    let selected = this.isSelected();
+    return selected ? 'selected' : '';
+  }
+
+  isSelected() {
+    return this.contact.email == this.viewer.contact.email;
+  }
+
+  onView() {
+    if (this.viewer.contact != this.contact) {
+      this.viewer.contact = this.contact;
+    } else {
+      // move to contact service!!!
+      this.viewer.contact = this.viewer.defaultContact;
+    }
   }
 }

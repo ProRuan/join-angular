@@ -1,0 +1,16 @@
+<div class="contact-list">
+    <div class="list-head">
+        <button class="add-new-contact-btn" (click)="addContact()">
+            <span>Add new contact</span>
+            <img src="../../../assets/img/contacts/add_new_contact.png" alt="add_new_contact">
+        </button>
+    </div>
+    <!-- only contact-collecter scrollable!!! -->
+    <div class="contact-collector">
+        <div class="register-letter">
+            <span class="letter">A</span>
+        </div>
+        <app-viewable-contact *ngFor="let contact of contacts; index as i" [contact]="contact"
+            (viewableContact)="viewContact($event)"></app-viewable-contact>
+    </div>
+</div>
