@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { Contact } from '../../../shared/models/contact';
 import { ContactService } from '../../../shared/services/contact.service';
+import { Contact } from '../../../shared/models/contact';
 
 @Component({
   selector: 'app-viewable-contact',
@@ -10,30 +10,41 @@ import { ContactService } from '../../../shared/services/contact.service';
   templateUrl: './viewable-contact.component.html',
   styleUrl: './viewable-contact.component.scss',
 })
-export class ViewableContactComponent {
-  // rename to ContactViewerService?!?
-  viewer: ContactService = inject(ContactService);
 
-  // reset selected after click ...
-  // hover + active transition ...
+/**
+ * Represents a viewable-contact component.
+ */
+export class ViewableContactComponent {
+  viewer: ContactService = inject(ContactService);
 
   @Input() contact: Contact = new Contact();
 
+  /**
+   * Provides the css class.
+   * @returns - The css class.
+   */
   getClass() {
     let selected = this.isSelected();
     return selected ? 'selected' : '';
   }
 
-  isSelected() {
-    return this.contact.email == this.viewer.contact.email;
+  /**
+   * Views the contact on click.
+   */
+  onView() {
+    if (!this.isSelected()) {
+      this.viewer.setContact(this.contact);
+    } else {
+      this.viewer.setContact();
+    }
   }
 
-  onView() {
-    if (this.viewer.contact != this.contact) {
-      this.viewer.contact = this.contact;
-    } else {
-      // move to contact service!!!
-      this.viewer.contact = this.viewer.defaultContact;
-    }
+  /**
+   * Verifies the selected state of the contact.
+   * @returns - A boolean value.
+   */
+  isSelected() {
+    let selectedContact = this.viewer.contact;
+    return selectedContact.email == this.contact.email;
   }
 }

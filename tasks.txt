@@ -38,6 +38,8 @@ Final Tasks
   - add SubtaskComponent ... ? (to much code)
   - optional: input border color transition?
 
+  - rename contact service to contact viewer service ... ?
+
 
 Completed (0/?)
 ---------
@@ -65,8 +67,11 @@ components (4/?)
       - DueDateInputComponent - check
       - PrioInputComponent - check
       - CategoryInputComponent - check
-  - BoardComponent - ... (1/?)
+  - BoardComponent - ... (2/?)
+      - ColumnComponent - check
       - DraggableTaskComponent - check
+  - ContactComponent - ... (1/?)
+      - ViewableContactComponent - check
 
 shared/components (17/?)
 -----------------
@@ -119,6 +124,7 @@ shared/models (9/?)
 
 shared/services (11/?)
 ---------------
+  - ContactService ... 
   - DialogService - check* --> more dialogs?!
   - EmailValidationService - check
   - InputConfigurationService - check
