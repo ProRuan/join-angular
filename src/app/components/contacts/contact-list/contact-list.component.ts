@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ViewableContactComponent } from '../viewable-contact/viewable-contact.component';
 import { CommonModule } from '@angular/common';
 import { Contact } from '../../../shared/models/contact';
+import { ButtonData } from '../../../shared/interfaces/button-data';
 
 @Component({
   selector: 'app-contact-list',
@@ -11,11 +12,26 @@ import { Contact } from '../../../shared/models/contact';
   styleUrl: './contact-list.component.scss',
 })
 export class ContactListComponent {
-  contacts: Contact[] = [];
-  @Input('contacts') set _contacts(contacts: Contact[]) {
-    this.contacts = this.getSortedContacts(contacts);
+  private sortedContacts: Contact[] = [];
+
+  get contacts() {
+    return this.sortedContacts;
   }
-  // @Input() contacts: Contact[] = [];
+
+  @Input('contacts') set contacts(contacts: Contact[]) {
+    this.sortedContacts = this.getSortedContacts(contacts);
+  }
+
+  // set!!!
+  addBtn: ButtonData = {
+    buttonClass: 'create-btn',
+    contClass: '',
+    textClass: 'create-btn-text',
+    text: 'Add new contact',
+    imgClass: 'create-btn-img',
+    src: '/assets/img/add-task/create_button.png',
+    alt: 'create_button',
+  };
 
   getSortedContacts(contacts: Contact[]) {
     let copiedContacts = [...contacts];

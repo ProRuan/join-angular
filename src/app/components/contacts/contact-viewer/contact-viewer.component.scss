@@ -1,25 +1,6 @@
 @import "../../../../mixins.scss";
 
-.contact-viewer {
-  @include box-padding($p: 110px 55px);
-  @include display-column();
-  height: calc(100vh - 96px);
-  flex: 1;
-  gap: 32px;
-}
-
-.title-cont {
-  @include display-horiz($g: 30px);
-}
-
-.vector-cont {
-  @include size($w: 3px, $h: 59px);
-}
-
-.vector {
-  object-fit: contain;
-}
-
+// rename!!!
 .contact-card {
   @include display-column();
   gap: 21px;

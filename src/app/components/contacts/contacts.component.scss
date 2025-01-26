@@ -1,5 +1,11 @@
 @import "../../../mixins.scss";
 
 .contacts {
-  display: flex;
+  @include display-row();
+}
+
+.title-viewer-cont {
+  @include box-padding($p: 110px 55px);
+  @include display-column($g: 32px);
+  flex: 1;
 }

@@ -21,4 +21,10 @@ export class ContactViewerComponent {
   }
 
   editContact() {}
+
+  // editContact() {
+  //   this.decData.setContact(this.currContact);
+  //   this.decData.setColor(this.currColor);
+  //   this.decData.open();
+  // }
 }

@@ -1,49 +1,39 @@
-<div class="contact-viewer">
-    <div class="title-cont">
-        <h2 class="headline-2">Contacts</h2>
-        <div class="vector-cont">
-            <img class="vector" src="../../../assets/img/summary/title_vector.png" alt="title_vector">
+<div class="contact-card">
+    <div class="displayed-contact">
+        <!-- bgc!!! -->
+        <div class="displayed-profile" [ngClass]="contact.bgc">
+            <!-- initials!!! -->
+            <span class="displayed-initials">{{ contact.initials }}</span>
         </div>
-        <span class="subheadline-2">Better with a team</span>
+        <div class="name-button-cont">
+            <!-- name!!! -->
+            <span class="displayed-name">{{ contact.name }}</span>
+            <div class="settings-button-group">
+                <button class="settings-btn" (click)="editContact()">
+                    <img class="edit" src="../../../assets/img/contacts/edit.png" alt="edit">
+                    <span>Edit</span>
+                </button>
+                <button class="settings-btn">
+                    <img class="delete" src="../../../assets/img/contacts/delete.png" alt="delete">
+                    <span>Delete</span>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="contact-card">
-        <div class="displayed-contact">
-            <!-- bgc!!! -->
-            <div class="displayed-profile" [ngClass]="contact.bgc">
-                <!-- initials!!! -->
-                <span class="displayed-initials">{{ contact.initials }}</span>
-            </div>
-            <div class="name-button-cont">
-                <!-- name!!! -->
-                <span class="displayed-name">{{ contact.name }}</span>
-                <div class="settings-button-group">
-                    <button class="settings-btn" (click)="editContact()">
-                        <img class="edit" src="../../../assets/img/contacts/edit.png" alt="edit">
-                        <span>Edit</span>
-                    </button>
-                    <button class="settings-btn">
-                        <img class="delete" src="../../../assets/img/contacts/delete.png" alt="delete">
-                        <span>Delete</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="contact-info">
+        <span>Contact-information</span>
+    </div>
 
-        <div class="contact-info">
-            <span>Contact-information</span>
+    <div class="email-phone-cont">
+        <div class="contact-detail-cont">
+            <span class="fw-700">Email</span>
+            <!-- email!!! -->
+            <span class="email-text">{{ contact.email }}</span>
         </div>
-
-        <div class="email-phone-cont">
-            <div class="contact-detail-cont">
-                <span class="fw-700">Email</span>
-                <!-- email!!! -->
-                <span class="email-text">{{ contact.email }}</span>
-            </div>
-            <div class="contact-detail-cont">
-                <span class="fw-700">Phone</span>
-                <span class="phone-text">+49 1111 111 11 1</span>
-            </div>
+        <div class="contact-detail-cont">
+            <span class="fw-700">Phone</span>
+            <span class="phone-text">+49 1111 111 11 1</span>
         </div>
     </div>
 </div>

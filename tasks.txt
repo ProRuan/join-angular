@@ -70,8 +70,10 @@ components (4/?)
   - BoardComponent - ... (2/?)
       - ColumnComponent - check
       - DraggableTaskComponent - check
-  - ContactComponent - ... (1/?)
+  - ContactComponent - check (2/?)
+      - ContactListComponent ...
       - ViewableContactComponent - check
+      - ContactViewerComponent ...
 
 shared/components (17/?)
 -----------------

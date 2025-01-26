@@ -7,7 +7,6 @@
   width: 352px;
   text-align: left;
   background-color: $white;
-  transition: all 100ms ease-in-out;
 
   &:hover {
     background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
@@ -51,7 +50,6 @@
 .name {
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   color: $black;
-  transition: all 100ms ease-in-out;
 
   .selected & {
     color: $white;
