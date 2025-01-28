@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ViewableContactComponent } from '../viewable-contact/viewable-contact.component';
+import { DialogService } from '../../../shared/services/dialog.service';
 import { Contact } from '../../../shared/models/contact';
 import { Register } from '../../../shared/interfaces/register';
 import { ButtonData } from '../../../shared/interfaces/button-data';
@@ -18,8 +19,9 @@ import { ButtonData } from '../../../shared/interfaces/button-data';
  * Represents a contact-list component.
  */
 export class ContactListComponent {
-  private sortedContacts: Contact[] = [];
+  dialog: DialogService = inject(DialogService);
 
+  private sortedContacts: Contact[] = [];
   registerLetters: string[] = [];
   register: Register[] = [];
 
@@ -139,5 +141,10 @@ export class ContactListComponent {
     return { letter: letter, contacts: contacts };
   }
 
-  addContact() {}
+  /**
+   * Opens the add-contact dialog on click.
+   */
+  onAddContact() {
+    this.dialog.open('addContact');
+  }
 }

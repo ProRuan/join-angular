@@ -197,3 +197,7 @@
 .h-25 {
   height: 25px;
 }
+
+.cont-146 {
+  @include size($w: 146px, $h: 24px);
+}

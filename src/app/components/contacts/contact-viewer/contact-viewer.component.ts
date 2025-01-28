@@ -3,6 +3,8 @@ import { Component, inject } from '@angular/core';
 import { ContactService } from '../../../shared/services/contact.service';
 import { ButtonData } from '../../../shared/interfaces/button-data';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { JoinService } from '../../../shared/services/join.service';
+import { DialogService } from '../../../shared/services/dialog.service';
 
 @Component({
   selector: 'app-contact-viewer',
@@ -12,12 +14,13 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
   styleUrl: './contact-viewer.component.scss',
 })
 export class ContactViewerComponent {
+  join: JoinService = inject(JoinService);
   // rename?!
   viewer: ContactService = inject(ContactService);
+  dialog: DialogService = inject(DialogService);
 
   // add onEdit() + onDelete() ... (0/2)
   // edit-contact dialog ...
-  // delete-contact dialog ...
   // add contact viewer transition ...
   // ButtonDataService ...
 
@@ -45,6 +48,7 @@ export class ContactViewerComponent {
     return this.viewer.contact;
   }
 
+  // onEdit() or onEditContact() or onContactEdit();
   editContact() {}
 
   // editContact() {
@@ -52,4 +56,8 @@ export class ContactViewerComponent {
   //   this.decData.setColor(this.currColor);
   //   this.decData.open();
   // }
+
+  onDelete() {
+    this.dialog.open('deleteContact');
+  }
 }

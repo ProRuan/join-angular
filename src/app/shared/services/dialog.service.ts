@@ -19,6 +19,9 @@ export class DialogService {
     viewTask: false,
     editTask: false,
     deleteTask: false,
+    addContact: false,
+    editContact: false,
+    deleteContact: false,
   };
   assignedTo: string = '';
 

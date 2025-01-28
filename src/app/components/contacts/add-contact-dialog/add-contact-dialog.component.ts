@@ -1,17 +1,17 @@
-import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
-import { getObjectArray, stop } from '../../../shared/ts/global';
+import { Component, inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
 import { TextInputComponent } from '../../../shared/components/text-input/text-input.component';
-import { ButtonData } from '../../../shared/interfaces/button-data';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { Contact } from '../../../shared/models/contact';
-import { DialogService } from '../../../shared/services/dialog.service';
 import { JoinService } from '../../../shared/services/join.service';
+import { DialogService } from '../../../shared/services/dialog.service';
+import { Contact } from '../../../shared/models/contact';
+import { ButtonData } from '../../../shared/interfaces/button-data';
+import { getObjectArray, stop } from '../../../shared/ts/global';
 
 @Component({
-  selector: 'app-dialog-add-contact',
+  selector: 'app-add-contact-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -20,10 +20,10 @@ import { JoinService } from '../../../shared/services/join.service';
     TextInputComponent,
     ButtonComponent,
   ],
-  templateUrl: './dialog-add-contact.component.html',
-  styleUrl: './dialog-add-contact.component.scss',
+  templateUrl: './add-contact-dialog.component.html',
+  styleUrl: './add-contact-dialog.component.scss',
 })
-export class DialogAddContactComponent {
+export class AddContactDialogComponent {
   join: JoinService = inject(JoinService);
   dialog: DialogService = inject(DialogService);
 

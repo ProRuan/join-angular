@@ -45,6 +45,16 @@ export class InputConfigurationService {
       charSet: this.getCharSet(emailVal),
       isInvalid: (value: string) => emailVal.isInvalid(value),
     },
+    phone: {
+      // to set!!!
+      placeholder: 'Phone',
+      pattern: /[\+]?[d]{5,10}/, // to set!!!
+      required: false,
+      img: 'phone.png',
+      hint: () => {}, // to set!!!
+      charSet: new Set('+0123456789'), // to set!!!
+      isInvalid: () => {}, // to set!!!
+    },
     password: {
       placeholder: 'Password',
       pattern: passwordVal.passwordPat,

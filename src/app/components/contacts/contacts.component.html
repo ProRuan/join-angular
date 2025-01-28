@@ -1,3 +1,10 @@
+<dialog [open]="dialog.isOpened('addContact') || dialog.isOpened('deleteContact')" class="dialog" (click)="onClose()">
+    <app-add-contact-dialog [ngClass]="getVisClass('addContact')"></app-add-contact-dialog>
+    <app-delete-contact-dialog [ngClass]="getVisClass('deleteContact')"></app-delete-contact-dialog>
+    <!-- edit-contact-dialog -->
+    <!-- dialog control (dialog to viewer)? -->
+</dialog>
+
 <section class="contacts">
     <app-contact-list [contacts]="contacts"></app-contact-list>
 

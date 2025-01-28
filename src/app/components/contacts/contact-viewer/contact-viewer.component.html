@@ -7,7 +7,7 @@
             <span class="name">{{ contact.name }}</span>
             <div class="settings-button-group">
                 <app-button [button]="editBtn"></app-button>
-                <app-button [button]="deleteBtn"></app-button>
+                <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
             </div>
         </div>
     </div>

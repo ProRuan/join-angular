@@ -1,5 +1,10 @@
-<div class="title-cont">
-    <h2 class="headline-2">{{ title }}</h2>
-    <div *ngIf="subtitle" class="border"></div>
-    <span *ngIf="subtitle" class="subheadline-2">{{ subtitle }}</span>
+<div class="dark-theme">
+    <div class="title-cont" [ngClass]="getTitleClass()">
+        <h2 class="headline-2" [ngClass]="getColorClass()">{{ title }}</h2>
+        @if(subtitle) {
+        <div *ngIf="isDarkTheme(false)" class="border"></div>
+        <span class="subheadline-2" [ngClass]="getColorClass()">{{ subtitle }}</span>
+        }
+    </div>
+    <div *ngIf="isDarkTheme(true)" class="border-dark"></div>
 </div>
