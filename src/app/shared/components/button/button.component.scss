@@ -187,3 +187,13 @@
 .h-24 {
   height: 24px;
 }
+
+.add-new-contact-btn {
+  @include display-row($jc: center, $ai: center, $g: 16px);
+  padding: 12px;
+  width: 352px;
+}
+
+.h-25 {
+  height: 25px;
+}

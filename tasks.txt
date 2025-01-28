@@ -95,7 +95,7 @@ shared/components (17/?)
   - TitleComponent - check
   - SumCardComponent - check
 
-shared/interfaces (12/?)
+shared/interfaces (13/?)
 -----------------
   - ButtonData - check
   - CharCodeGroup - check
@@ -106,6 +106,7 @@ shared/interfaces (12/?)
   - MainLink - check
   - Model - check
   - Properties - check
+  - Register - check
   - Simple - check
   - Styles - check
   - States - check

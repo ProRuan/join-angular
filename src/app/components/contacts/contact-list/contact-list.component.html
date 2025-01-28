@@ -1,16 +1,20 @@
 <div class="contact-list">
-    <div class="list-head">
-        <button class="add-new-contact-btn" (click)="addContact()">
-            <span>Add new contact</span>
-            <img src="../../../assets/img/contacts/add_new_contact.png" alt="add_new_contact">
-        </button>
+    <div class="head">
+        <app-button [button]="addBtn" (click)="addContact()"></app-button>
     </div>
-    <!-- only contact-collecter scrollable!!! -->
-    <div class="contact-collector">
-        <div class="register-letter">
-            <span class="letter">A</span>
+
+    <div class="collector">
+        @for(section of register; track section.letter) {
+        <div class="letter-border-cont">
+            <div class="letter-cont">
+                <span class="letter">{{ section.letter }}</span>
+            </div>
+            <div class="border-cont">
+                <div class="border"></div>
+            </div>
         </div>
-        <app-viewable-contact *ngFor="let contact of contacts; index as i" [contact]="contact"
-            (viewableContact)="viewContact($event)"></app-viewable-contact>
+
+        <app-viewable-contact *ngFor="let contact of section.contacts" [contact]="contact"></app-viewable-contact>
+        }
     </div>
 </div>
