@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
 import { TextInputComponent } from '../../../shared/components/text-input/text-input.component';
@@ -8,10 +8,15 @@ import { JoinService } from '../../../shared/services/join.service';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { Contact } from '../../../shared/models/contact';
 import { ButtonData } from '../../../shared/interfaces/button-data';
-import { getObjectArray, stop } from '../../../shared/ts/global';
+import {
+  getObjectArray,
+  isDefaultString,
+  stop,
+} from '../../../shared/ts/global';
+import { ContactService } from '../../../shared/services/contact.service';
 
 @Component({
-  selector: 'app-add-contact-dialog',
+  selector: 'app-contact-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -20,11 +25,12 @@ import { getObjectArray, stop } from '../../../shared/ts/global';
     TextInputComponent,
     ButtonComponent,
   ],
-  templateUrl: './add-contact-dialog.component.html',
-  styleUrl: './add-contact-dialog.component.scss',
+  templateUrl: './contact-dialog.component.html',
+  styleUrl: './contact-dialog.component.scss',
 })
-export class AddContactDialogComponent {
+export class ContactDialogComponent {
   join: JoinService = inject(JoinService);
+  viewer: ContactService = inject(ContactService);
   dialog: DialogService = inject(DialogService);
 
   // input height: 50px ... ?
@@ -36,10 +42,7 @@ export class AddContactDialogComponent {
   // transition ... !
   // button validation ... (0/2)
 
-  title: string = 'Add contact';
-  subtitle: string = 'Tasks are better with a team!';
-  dialogId: string = 'addContact';
-  contact: Contact = new Contact();
+  @Input() dialogId: string = 'addContact';
 
   // disabled?
   cancelBtn: ButtonData = {
@@ -63,6 +66,39 @@ export class AddContactDialogComponent {
     alt: 'create_button',
   };
 
+  deleteBtn: ButtonData = {
+    buttonClass: 'clear-btn',
+    contClass: 'cont-58',
+    textClass: 'clear-btn-text',
+    text: 'Delete',
+    imgClass: 'delete-btn-img',
+    src: '/assets/img/contacts/delete.png',
+    alt: 'delete',
+  };
+
+  // disabled?
+  saveBtn: ButtonData = {
+    buttonClass: 'create-btn',
+    contClass: 'cont-50',
+    textClass: 'create-btn-text',
+    text: 'Save',
+    imgClass: 'create-btn-img',
+    src: '/assets/img/add-task/create_button.png',
+    alt: 'create_button',
+  };
+
+  get contact() {
+    return this.viewer.cachedContact;
+  }
+
+  get title() {
+    return this.dialog.title;
+  }
+
+  get subtitle() {
+    return this.dialog.subtitle;
+  }
+
   isOpened() {
     return this.dialog.isOpened(this.dialogId);
   }
@@ -73,11 +109,18 @@ export class AddContactDialogComponent {
 
   cancel() {
     this.dialog.close(this.dialogId);
-    this.contact = new Contact();
+    this.dialog.title = '';
+    this.dialog.subtitle = '';
+    this.viewer.cachedContact = new Contact();
   }
 
   onStop(event: Event) {
     stop(event);
+  }
+
+  getBgcClass() {
+    let empty = isDefaultString(this.contact.bgc);
+    return !empty ? this.contact.bgc : 'bgc-gray';
   }
 
   async onCreate(ngForm: NgForm) {
@@ -92,5 +135,20 @@ export class AddContactDialogComponent {
     this.join.saveUserLocally();
     // real time update!!!
     // close and reset!!!
+  }
+
+  onDelete() {
+    this.dialog.open('deleteContact');
+  }
+
+  async onSave(ngForm: NgForm) {
+    // // if ngForm.form.valid!!!
+    this.viewer.contact.set(this.contact);
+    let id = this.join.user.id;
+    let contacts = getObjectArray<Contact>(this.join.user.contacts, Contact);
+    console.log('contacts: ', contacts);
+    await this.join.updateUser(id, 'data.contacts', contacts);
+    this.join.saveUserLocally();
+    this.cancel();
   }
 }

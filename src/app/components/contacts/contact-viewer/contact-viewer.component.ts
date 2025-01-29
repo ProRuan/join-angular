@@ -5,6 +5,7 @@ import { ButtonData } from '../../../shared/interfaces/button-data';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { JoinService } from '../../../shared/services/join.service';
 import { DialogService } from '../../../shared/services/dialog.service';
+import { Contact } from '../../../shared/models/contact';
 
 @Component({
   selector: 'app-contact-viewer',
@@ -19,10 +20,10 @@ export class ContactViewerComponent {
   viewer: ContactService = inject(ContactService);
   dialog: DialogService = inject(DialogService);
 
-  // add onEdit() + onDelete() ... (0/2)
-  // edit-contact dialog ...
   // add contact viewer transition ...
   // ButtonDataService ...
+
+  dialogId: string = 'editContact';
 
   editBtn: ButtonData = {
     buttonClass: 'settings-btn',
@@ -48,14 +49,14 @@ export class ContactViewerComponent {
     return this.viewer.contact;
   }
 
-  // onEdit() or onEditContact() or onContactEdit();
-  editContact() {}
-
-  // editContact() {
-  //   this.decData.setContact(this.currContact);
-  //   this.decData.setColor(this.currColor);
-  //   this.decData.open();
-  // }
+  onEdit() {
+    // write set() on class Contacts!!!
+    // reset contact and cached contact!!!
+    this.viewer.cachedContact = new Contact(this.contact);
+    this.dialog.dialogId = this.dialogId;
+    this.dialog.title = 'Edit contact';
+    this.dialog.open(this.dialogId);
+  }
 
   onDelete() {
     this.dialog.open('deleteContact');

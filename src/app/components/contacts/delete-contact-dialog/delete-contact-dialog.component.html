@@ -1,16 +1,18 @@
-<div class="transit-cont" [ngClass]="getClass()" (click)="onClose($event)">
-    <section class="dialog-box" (click)="onStop($event)">
-        <div class="button-cont">
-            <button class="close-btn" (click)="onClose($event)"></button>
-        </div>
-
-        <div class="text-button-cont">
-            <!-- Delete this user + confirmation/delete/logout!!! -->
-            <span class="text"><b>Delete</b> this contact?</span>
-            <div class="button-cont g-64">
-                <app-button [button]="noBtn" (click)="onClose($event)"></app-button>
-                <app-button [button]="yesBtn" (click)="onDelete()"></app-button>
+<dialog [open]="dialog.isOpened('deleteContact')" class="dialog" (click)="onClose()">
+    <div class="transit-cont" [ngClass]="getClass()" (click)="onClose()">
+        <section class="dialog-box" (click)="onStop($event)">
+            <div class="button-cont">
+                <button class="close-btn" (click)="onClose()"></button>
             </div>
-        </div>
-    </section>
-</div>
+
+            <div class="text-button-cont">
+                <!-- Delete this user + confirmation/delete/logout!!! -->
+                <span class="text"><b>Delete</b> this contact?</span>
+                <div class="button-cont g-64">
+                    <app-button [button]="noBtn" (click)="onClose()"></app-button>
+                    <app-button [button]="yesBtn" (click)="onDelete()"></app-button>
+                </div>
+            </div>
+        </section>
+    </div>
+</dialog>

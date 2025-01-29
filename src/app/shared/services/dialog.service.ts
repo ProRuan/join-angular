@@ -33,6 +33,11 @@ export class DialogService {
   task: Task = new Task();
   dueDate: string = '';
 
+  // just id?!
+  dialogId: string = 'addContact';
+  title: string = '';
+  subtitle: string = '';
+
   /**
    * Opens the dialog.
    * @param id - The dialog id.

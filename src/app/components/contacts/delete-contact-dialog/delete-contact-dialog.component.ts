@@ -61,9 +61,8 @@ export class DeleteContactDialogComponent {
   /**
    * Closes the dialog on click.
    */
-  onClose(event: Event) {
+  onClose() {
     this.dialog.close(this.dialogId);
-    stop(event);
   }
 
   /**

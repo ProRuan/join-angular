@@ -10,6 +10,7 @@ import { Contact } from '../models/contact';
  */
 export class ContactService {
   contact: Contact = new Contact();
+  cachedContact: Contact = new Contact();
   defaultContact: Contact = new Contact();
 
   /**

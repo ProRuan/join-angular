@@ -201,3 +201,27 @@
 .cont-146 {
   @include size($w: 146px, $h: 24px);
 }
+
+.cont-58 {
+  @include size($w: 58px, $h: 24px);
+}
+
+.delete-btn-img {
+  @include size($w: 24px, $h: 24px);
+
+  .clear-btn:hover & {
+    content: url("/assets/img/contacts/delete_blue.png");
+  }
+
+  .clear-btn:active & {
+    content: url("/assets/img/contacts/delete.png");
+  }
+
+  .clear-btn:disabled & {
+    content: unset;
+  }
+}
+
+.cont-50 {
+  @include size($w: 50px, $h: 24px);
+}

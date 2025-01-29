@@ -24,6 +24,7 @@ export class ContactListComponent {
   private sortedContacts: Contact[] = [];
   registerLetters: string[] = [];
   register: Register[] = [];
+  dialogId: string = 'addContact';
 
   addBtn: ButtonData = {
     buttonClass: 'create-btn add-new-contact-btn',
@@ -67,7 +68,35 @@ export class ContactListComponent {
    */
   setSortedContacts(contacts: Contact[]) {
     this.sortedContacts = [...contacts];
-    this.sortedContacts.sort((a, b) => a.name.localeCompare(b.name));
+    this.sortedContacts.sort((a, b) => this.compareNames(a, b));
+  }
+
+  /**
+   * Compares names.
+   * @param a - The name of contact a.
+   * @param b - The name of contact b.
+   * @returns - A comparable figure.
+   */
+  compareNames(a: Contact, b: Contact) {
+    let nameA = this.getComparableName(a.name);
+    let nameB = this.getComparableName(b.name);
+    return nameA.localeCompare(nameB);
+  }
+
+  /**
+   * Provides the comparable name.
+   * @param name - The contact name.
+   * @returns - The comparable name.
+   */
+  getComparableName(name: string) {
+    if (name.includes(' ')) {
+      let names = name.split(' ');
+      let firstInitial = names[0][0];
+      let lastName = names[1];
+      return firstInitial + lastName;
+    } else {
+      return name;
+    }
   }
 
   /**
@@ -145,6 +174,9 @@ export class ContactListComponent {
    * Opens the add-contact dialog on click.
    */
   onAddContact() {
-    this.dialog.open('addContact');
+    this.dialog.dialogId = this.dialogId;
+    this.dialog.title = 'Add contact';
+    this.dialog.subtitle = 'Tasks are better with a team!';
+    this.dialog.open(this.dialogId);
   }
 }

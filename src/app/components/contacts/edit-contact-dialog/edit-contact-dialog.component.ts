@@ -9,9 +9,10 @@ import { DialogService } from '../../../shared/services/dialog.service';
 import { Contact } from '../../../shared/models/contact';
 import { ButtonData } from '../../../shared/interfaces/button-data';
 import { getObjectArray, stop } from '../../../shared/ts/global';
+import { ContactService } from '../../../shared/services/contact.service';
 
 @Component({
-  selector: 'app-add-contact-dialog',
+  selector: 'app-edit-contact-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -20,48 +21,44 @@ import { getObjectArray, stop } from '../../../shared/ts/global';
     TextInputComponent,
     ButtonComponent,
   ],
-  templateUrl: './add-contact-dialog.component.html',
-  styleUrl: './add-contact-dialog.component.scss',
+  templateUrl: './edit-contact-dialog.component.html',
+  styleUrl: './edit-contact-dialog.component.scss',
 })
-export class AddContactDialogComponent {
+export class EditContactDialogComponent {
   join: JoinService = inject(JoinService);
+  viewer: ContactService = inject(ContactService);
   dialog: DialogService = inject(DialogService);
 
-  // input height: 50px ... ?
-  // InputConfigurationService --> set phone input ...
-  // CloseButtonComponent ... !
-  // imgClasses: 24, 32, 64 ...
-  // ProfileComponent with name and email ... ?
+  // gap logo-title ... ?
+  // saveBtn --> disabled, if empty ... !
 
-  // transition ... !
-  // button validation ... (0/2)
+  title: string = 'Edit contact';
+  dialogId: string = 'editContact';
 
-  title: string = 'Add contact';
-  subtitle: string = 'Tasks are better with a team!';
-  dialogId: string = 'addContact';
-  contact: Contact = new Contact();
-
-  // disabled?
-  cancelBtn: ButtonData = {
+  deleteBtn: ButtonData = {
     buttonClass: 'clear-btn',
-    contClass: 'cont-63',
+    contClass: 'cont-58',
     textClass: 'clear-btn-text',
-    text: 'Cancel',
-    imgClass: 'clear-btn-img',
-    src: '/assets/img/add-task/cancel_button.png',
-    alt: 'cancel_button',
+    text: 'Delete',
+    imgClass: 'delete-btn-img',
+    src: '/assets/img/contacts/delete.png',
+    alt: 'delete',
   };
 
   // disabled?
-  createBtn: ButtonData = {
+  saveBtn: ButtonData = {
     buttonClass: 'create-btn',
-    contClass: 'cont-146',
+    contClass: 'cont-50',
     textClass: 'create-btn-text',
-    text: 'Create contact',
+    text: 'Save',
     imgClass: 'create-btn-img',
     src: '/assets/img/add-task/create_button.png',
     alt: 'create_button',
   };
+
+  get contact() {
+    return this.viewer.cachedContact;
+  }
 
   isOpened() {
     return this.dialog.isOpened(this.dialogId);
@@ -73,24 +70,25 @@ export class AddContactDialogComponent {
 
   cancel() {
     this.dialog.close(this.dialogId);
-    this.contact = new Contact();
+    this.viewer.cachedContact = new Contact();
   }
 
   onStop(event: Event) {
     stop(event);
   }
 
-  async onCreate(ngForm: NgForm) {
-    // if ngForm.form.valid!!!
-    // set contact complete (with initials)!!!
-    this.join.user.contacts.push(this.contact);
+  onDelete() {
+    this.dialog.open('deleteContact');
+  }
+
+  async onSave(ngForm: NgForm) {
+    // // if ngForm.form.valid!!!
+    this.viewer.contact.set(this.contact);
     let id = this.join.user.id;
     let contacts = getObjectArray<Contact>(this.join.user.contacts, Contact);
     console.log('contacts: ', contacts);
-
     await this.join.updateUser(id, 'data.contacts', contacts);
     this.join.saveUserLocally();
-    // real time update!!!
-    // close and reset!!!
+    this.cancel();
   }
 }

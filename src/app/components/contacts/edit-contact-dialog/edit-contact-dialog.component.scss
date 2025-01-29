@@ -73,12 +73,13 @@
   @include round-border($b: 3px solid $white, $br: 70px);
   @include display-flex();
   box-sizing: border-box;
-  background-color: $gray;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
 }
 
-.img-64 {
-  @include size($w: 64px, $h: 64px);
+.initials {
+  @include font($fs: 47px, $fw: 500, $lh: 56.4px);
+  text-align: center;
+  color: $white;
 }
 
 .form {
