@@ -11,10 +11,10 @@
             <div class="profile-form-cont">
                 <div class="profile-cont">
                     <div class="profile" [ngClass]="getBgcClass()">
-                        @if (dialogId == 'addContact') {
-                        <img class="img-64" src="/assets/img/contacts/person.png" alt="person">
-                        } @else {
+                        @if (dialogId == 'editContact') {
                         <span class="initials">{{ contact.initials }}</span>
+                        } @else {
+                        <img class="img-64" src="/assets/img/contacts/person.png" alt="person">
                         }
                     </div>
                 </div>
@@ -27,12 +27,12 @@
                     </div>
 
                     <div class="button-group">
-                        @if(dialogId == 'addContact') {
-                        <app-button [button]="cancelBtn" (click)="onClose()"></app-button>
-                        <app-button [button]="createBtn" (click)="onCreate(form)"></app-button>
-                        } @else {
+                        @if(dialogId == 'editContact') {
                         <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
                         <app-button [button]="saveBtn" (click)="onSave(form)"></app-button>
+                        } @else {
+                        <app-button [button]="cancelBtn" (click)="onClose()"></app-button>
+                        <app-button [button]="createBtn" (click)="onCreate(form)"></app-button>
                         }
                     </div>
                 </form>

@@ -7,11 +7,13 @@ import { DialogService } from '../../../shared/services/dialog.service';
 import { ButtonData } from '../../../shared/interfaces/button-data';
 import { getObjectArray, stop } from '../../../shared/ts/global';
 import { Contact } from '../../../shared/models/contact';
+import { FormsModule } from '@angular/forms';
+import { PasswordInputComponent } from '../../../shared/components/password-input/password-input.component';
 
 @Component({
   selector: 'app-delete-contact-dialog',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, FormsModule, PasswordInputComponent, ButtonComponent],
   templateUrl: './delete-contact-dialog.component.html',
   styleUrl: './delete-contact-dialog.component.scss',
 })
@@ -21,6 +23,9 @@ export class DeleteContactDialogComponent {
   dialog: DialogService = inject(DialogService);
 
   dialogId: string = 'deleteContact';
+  password: string = '';
+  // passwordPat = this.user.password ...
+  resigned: boolean = false;
 
   noBtn: ButtonData = {
     buttonClass: 'clear-btn no-btn',
@@ -41,6 +46,15 @@ export class DeleteContactDialogComponent {
     src: '/assets/img/add-task/create_button.png',
     alt: 'create_button',
   };
+
+  get passwordPat() {
+    return this.join.user.password;
+  }
+
+  isUser() {
+    let name = this.viewer.contact.name.toLowerCase();
+    return name.includes('you');
+  }
 
   /**
    * Provides the css class.
@@ -63,6 +77,11 @@ export class DeleteContactDialogComponent {
    */
   onClose() {
     this.dialog.close(this.dialogId);
+    if (this.resigned) {
+      this.resigned = false;
+      this.noBtn.text = 'No';
+      this.yesBtn.text = 'Yes';
+    }
   }
 
   /**
@@ -108,5 +127,14 @@ export class DeleteContactDialogComponent {
    */
   deleteTask(index: number) {
     this.join.user.tasks.splice(index, 1);
+  }
+
+  onResign() {
+    this.resigned = true;
+    this.noBtn.text = 'Keep';
+    this.yesBtn.text = 'Delete';
+    // reset on close!
+    // reset button text!
+    // exchange light and dark button for final step!
   }
 }
