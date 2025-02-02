@@ -1,0 +1,43 @@
+Final Tasks
+-----------
+  - /assets/img/input/...
+  - /assets/img/button/...
+  - move validate.ts ... ?
+
+// NameInputComponent
+// ------------------
+// mixins.scss + inputs.scss
+// onValueChange()
+// is import of mixins still necessary???
+// global mixins
+// global img-32
+// global input (move)
+// folder input/buttons
+
+Final Check
+-----------
+  - LoginComponent (html, scss, ts) ... (0/3)
+
+
+Components (1/?)
+----------
+  - inputs (1/?)
+    ------
+      - NameInputComponent - check
+
+
+Interfaces
+----------
+
+
+Models
+------
+  - ReactiveInput ...
+
+
+Services
+      
+
+ts (1/?)
+--
+  - validate.ts - check

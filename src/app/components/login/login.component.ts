@@ -1,6 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -18,6 +24,7 @@ import {
 import { saveUser } from '../../shared/ts/global';
 import { User } from '../../shared/models/user';
 import { UserDoc } from '../../shared/models/user-doc';
+import { NameInputComponent } from '../../shared/components/inputs/name-input/name-input.component';
 
 @Component({
   selector: 'app-login',
@@ -25,10 +32,12 @@ import { UserDoc } from '../../shared/models/user-doc';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterLink,
     LogoComponent,
     HeaderComponent,
     TitleComponent,
+    NameInputComponent,
     TextInputComponent,
     PasswordInputComponent,
     CheckboxComponent,
@@ -42,6 +51,7 @@ import { UserDoc } from '../../shared/models/user-doc';
  * Represents a login component.
  */
 export class LoginComponent {
+  fb: FormBuilder = inject(FormBuilder);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
@@ -56,13 +66,28 @@ export class LoginComponent {
   rejected: boolean = false;
   hint = 'Check your email and password. Please try again.';
 
+  signUpForm!: FormGroup;
+
   /**
    * Initializes the login component.
    */
   async ngOnInit() {
+    this.signUpForm = this.fb.group({
+      name: [''], // Name validation
+      // email: ['', [Validators.required, Validators.email]], // Email validation
+      // password: [''] // Password will be handled inside app-password-input
+    });
+    console.log('signUpForm: ', this.signUpForm);
+
     await this.setSigneeEmail();
     await this.setRememberedData();
     setTimeout(() => (this.loggedIn = false), 0);
+  }
+
+  logName() {
+    if (this.signUpForm.valid) {
+      console.log('name: ', this.signUpForm.value.name);
+    }
   }
 
   /**

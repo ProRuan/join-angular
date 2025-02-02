@@ -1,0 +1,10 @@
+<div class="component" [ngClass]="getCompClass()">
+    <div class="pos-relative">
+        <input [value]="value" class="input" [ngClass]="getInputClass()" [placeholder]="placeholder" type="text"
+            (input)="onInput($event)" (focus)="onFocus()" (blur)="onBlur()">
+        <img class="img" [src]="getSrc()" [alt]="img">
+    </div>
+    <div *ngIf="invalid" class="error-cont">
+        <span class="error">{{ error }}</span>
+    </div>
+</div>

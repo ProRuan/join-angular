@@ -4,6 +4,11 @@
     <app-header type="login"></app-header>
 
     <div class="form-cont">
+        <form [formGroup]="signUpForm" (ngSubmit)="logName()">
+            <app-name-input formControlName="name"></app-name-input>
+            <!-- <button>Submit</button> -->
+        </form>
+
         <form #loginForm="ngForm" class="form" (ngSubmit)="onLogIn(loginForm)">
             <app-title title="Log in"></app-title>
 
