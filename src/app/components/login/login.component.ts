@@ -25,6 +25,7 @@ import { saveUser } from '../../shared/ts/global';
 import { User } from '../../shared/models/user';
 import { UserDoc } from '../../shared/models/user-doc';
 import { NameInputComponent } from '../../shared/components/inputs/name-input/name-input.component';
+import { EmailInputComponent } from '../../shared/components/inputs/email-input/email-input.component';
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ import { NameInputComponent } from '../../shared/components/inputs/name-input/na
     HeaderComponent,
     TitleComponent,
     NameInputComponent,
+    EmailInputComponent,
     TextInputComponent,
     PasswordInputComponent,
     CheckboxComponent,
@@ -73,8 +75,8 @@ export class LoginComponent {
    */
   async ngOnInit() {
     this.signUpForm = this.fb.group({
-      name: [''], // Name validation
-      // email: ['', [Validators.required, Validators.email]], // Email validation
+      name: [''],
+      email: [''], // Email validation
       // password: [''] // Password will be handled inside app-password-input
     });
     console.log('signUpForm: ', this.signUpForm);

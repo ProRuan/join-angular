@@ -6,6 +6,7 @@
     <div class="form-cont">
         <form [formGroup]="signUpForm" (ngSubmit)="logName()">
             <app-name-input formControlName="name"></app-name-input>
+            <app-email-input formControlName="email"></app-email-input>
             <!-- <button>Submit</button> -->
         </form>
 

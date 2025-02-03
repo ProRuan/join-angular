@@ -2,7 +2,7 @@ Final Tasks
 -----------
   - /assets/img/input/...
   - /assets/img/button/...
-  - move validate.ts ... ?
+  - rename + move validate.ts ... ?
 
 // NameInputComponent
 // ------------------
@@ -14,6 +14,15 @@ Final Tasks
 // global input (move)
 // folder input/buttons
 
+// EmailInputComponent
+// -------------------
+// this.type ...
+// check type="email" ...
+// validateName() + validateEmail() ...
+// TextInputComponent ... ?!
+// double html and scss ...
+// h-70 and h-48 necessary ... ?
+
 Final Check
 -----------
   - LoginComponent (html, scss, ts) ... (0/3)
@@ -21,9 +30,10 @@ Final Check
 
 Components (1/?)
 ----------
-  - inputs (1/?)
+  - inputs (2/?)
     ------
-      - NameInputComponent - check
+      - EmailInputComponent - check* * reactive TextInputComponent?
+      - NameInputComponent - check* * reactive TextInputComponent?
 
 
 Interfaces

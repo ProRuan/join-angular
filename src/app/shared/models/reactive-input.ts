@@ -110,10 +110,10 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     this.error = '';
     if (this.control.invalid) {
       this.invalid = true;
-      if (this.control.hasError('minlength')) {
-        this.error = 'Enter at least 2 characters.';
+      if (this.control.hasError('pattern')) {
+        this.error = 'Enter a valid ...';
       }
-      return { invalidName: true };
+      return { invalid: true };
     } else {
       return null;
     }

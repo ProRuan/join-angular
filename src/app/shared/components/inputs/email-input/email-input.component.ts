@@ -8,28 +8,28 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { namePattern } from '../../../ts/validate';
+import { emailPattern } from '../../../ts/validate';
 
 @Component({
-  selector: 'app-name-input',
+  selector: 'app-email-input',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './name-input.component.html',
-  styleUrl: './name-input.component.scss',
+  templateUrl: './email-input.component.html',
+  styleUrl: './email-input.component.scss',
   providers: [
-    getProvider(NG_VALUE_ACCESSOR, NameInputComponent),
-    getProvider(NG_VALIDATORS, NameInputComponent),
+    getProvider(NG_VALUE_ACCESSOR, EmailInputComponent),
+    getProvider(NG_VALIDATORS, EmailInputComponent),
   ],
 })
 
 /**
- * Represents a name input component.
- * @extends ReactiveInput
+ * Represents an email input component.
+ * @extends {ReactiveInput}
  */
-export class NameInputComponent extends ReactiveInput {
-  placeholder: string = 'Name';
-  override img: string = 'person';
-  pattern: RegExp = namePattern;
+export class EmailInputComponent extends ReactiveInput {
+  placeholder: string = 'Email';
+  override img: string = 'email';
+  pattern: RegExp = emailPattern;
 
   @Input() override control!: FormControl;
 
@@ -39,7 +39,7 @@ export class NameInputComponent extends ReactiveInput {
   ];
 
   /**
-   * Initializes a name input component.
+   * Initializes an email input component.
    */
   ngOnInit() {
     this.control = this.fb.control('', this.inputValidators);
