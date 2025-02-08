@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { getProvider, ReactiveInput } from '../../../models/reactive-input';
 import {
-  FormControl,
+  AbstractControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidatorFn,
-  Validators,
 } from '@angular/forms';
-import { namePattern } from '../../../ts/validate';
+import { getProvider, ReactiveInput } from '../../../models/reactive-input';
+import { namePatterns } from '../../../ts/pattern';
 
 @Component({
   selector: 'app-name-input',
@@ -23,25 +22,30 @@ import { namePattern } from '../../../ts/validate';
 })
 
 /**
- * Represents a name input component.
+ * Class representing a name input component.
  * @extends ReactiveInput
  */
 export class NameInputComponent extends ReactiveInput {
   placeholder: string = 'Name';
+  patterns = namePatterns;
+
   override img: string = 'person';
-  pattern: RegExp = namePattern;
 
-  @Input() override control!: FormControl;
+  @Input() override control: AbstractControl | null = null;
 
-  @Input() inputValidators: ValidatorFn[] = [
-    Validators.required,
-    Validators.pattern(this.pattern),
+  @Input() override inputValidators: ValidatorFn[] = [
+    this.validator.required(),
+    this.validator.forbidden(this.patterns.forbidden),
+    this.validator.minLength(2),
+    this.validator.sequence(this.patterns.sequence),
+    this.validator.name(this.patterns.name),
+    this.validator.maxLength(127),
   ];
 
   /**
    * Initializes a name input component.
    */
   ngOnInit() {
-    this.control = this.fb.control('', this.inputValidators);
+    this.control?.setValidators(this.inputValidators);
   }
 }

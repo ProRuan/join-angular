@@ -3,10 +3,11 @@ import {
   AbstractControl,
   ControlValueAccessor,
   FormBuilder,
-  FormControl,
   ValidationErrors,
   Validator,
+  ValidatorFn,
 } from '@angular/forms';
+import { InputValidator } from './input-validator';
 
 /**
  * Represents a reactive input.
@@ -16,12 +17,49 @@ import {
 export class ReactiveInput implements ControlValueAccessor, Validator {
   fb: FormBuilder = inject(FormBuilder);
 
-  control!: FormControl;
+  // copy and compare
+  // ----------------
+  // - Class/Interface/Service/Component representing ...
+  // - private functions ... !
+  // - shortcut: { name, forbidden, sequence } ...
+
+  // tasks
+  // -----
+  // pattern specialChars inside of the methods (name, email, password) ...
+  // pattern.ts shorcuts: d, l, ...
+  // ReactiveInputComponent or TextInputComponent ... ?!
+  // global name + pattern  length ...
+  // onKeydown() ... ?
+  // email error: username@domain.tld ...
+
+  // create own requried/minLength/pattern validator with error object!
+
+  // password input, phone input etc.
+  // TextInputComponent
+  // build charSet A-Z ...
+  // export digitPattern ...
+  // /name/g ...?!
+
+  // class PasswordValidator ... !
+  // required()
+  // forbidden(param)
+  // set invalid + error text
+
+  // rename PasswordValidatorFn to InputValidator ...
+  // replace { [key: string]: any } with Record<stirng, any> ...
+  // replace class PasswordValidatorFn with InputValidator ...
+
+  // rename to InputValidatorFn!
+
+  control: AbstractControl | null = null;
+
   focused: boolean = false;
-  touched: boolean = false;
-  invalid: boolean = false;
+  // touched: boolean = false;
   error: string = '';
   img: string = '';
+
+  inputValidators: ValidatorFn[] = [];
+  validator = new InputValidator();
 
   onChange = (value: string) => {};
   onTouched = () => {};
@@ -31,7 +69,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The current value of the control.
    */
   get value() {
-    return this.control.value;
+    return this.control?.value;
   }
 
   /**
@@ -39,7 +77,15 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @param value - The value to set.
    */
   set value(value: string) {
-    this.control.setValue(value);
+    this.control?.setValue(value);
+  }
+
+  get invalid() {
+    return this.control?.invalid;
+  }
+
+  get dirty() {
+    return this.control?.dirty;
   }
 
   /**
@@ -47,7 +93,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @param value - The value to write.
    */
   writeValue(value: string) {
-    this.control.setValue(value);
+    this.control?.setValue(value);
   }
 
   /**
@@ -55,7 +101,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @param fn - The function to register.
    */
   registerOnChange(fn: any) {
-    this.control.valueChanges.subscribe(fn);
+    this.control?.valueChanges.subscribe(fn);
   }
 
   /**
@@ -74,6 +120,8 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     this.value = this.getInputValue(event);
     this.onChange(this.value);
     this.onTouched();
+    console.log('touched: ', this.control?.touched);
+    this.control?.markAsDirty();
   }
 
   /**
@@ -91,9 +139,6 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    */
   onFocus() {
     this.focused = true;
-    if (!this.touched) {
-      this.touched = true;
-    }
   }
 
   /**
@@ -103,27 +148,27 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     this.focused = false;
   }
 
-  // edit!!!
-  // ----------
   validate(control: AbstractControl): ValidationErrors | null {
-    this.invalid = false;
-    this.error = '';
-    if (this.control.invalid) {
-      this.invalid = true;
-      if (this.control.hasError('pattern')) {
-        this.error = 'Enter a valid ...';
-      }
-      return { invalid: true };
-    } else {
-      return null;
-    }
-    // return this.control.valid ? null : { invalidName: true };
+    const error = this.getValidationError(control);
+
+    // only for testing!!!
+    console.log('error: ', error);
+
+    return error;
   }
 
-  // Custom Validators
-  uppercaseValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    return /[A-Z]/.test(value) ? null : { uppercase: true };
+  isInvalid(error: ValidationErrors | null) {
+    return !!error;
+  }
+
+  getValidationError(control: AbstractControl): ValidationErrors | null {
+    for (let validator of this.inputValidators) {
+      const result = validator(control);
+      if (result) {
+        return result;
+      }
+    }
+    return null;
   }
 
   /**
@@ -140,7 +185,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The css class of the input.
    */
   getInputClass() {
-    let invalid = this.touched && this.invalid;
+    let invalid = this.dirty && this.invalid;
     return invalid ? 'invalid' : 'default';
   }
 

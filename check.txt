@@ -3,6 +3,10 @@ Final Tasks
   - /assets/img/input/...
   - /assets/img/button/...
   - rename + move validate.ts ... ?
+  - Class/Interface/Service/Component representing ...
+  - private functions ... !
+  - Bonus: Alias ... ?
+  - documentate fn: return value ...
 
 // NameInputComponent
 // ------------------
@@ -32,17 +36,18 @@ Components (1/?)
 ----------
   - inputs (2/?)
     ------
-      - EmailInputComponent - check* * reactive TextInputComponent?
-      - NameInputComponent - check* * reactive TextInputComponent?
+      - EmailInputComponent - check* * reactive TextInputComponent? *componente representing ...
+      - NameInputComponent - check* * reactive TextInputComponent? *componente representing ...
 
 
-Interfaces
+Interfaces (0/?)
 ----------
+  - 
 
-
-Models
+Models (1/?)
 ------
-  - ReactiveInput ...
+  - InputValidator - check
+  - ReactiveInput ... *class representing ...
 
 
 Services
@@ -51,3 +56,12 @@ Services
 ts (1/?)
 --
   - validate.ts - check
+
+
+
+     <form [formGroup]="signUpForm" (submit)="logName()">
+            <app-name-input [control]="signUpForm.get('name')"></app-name-input>
+            <app-email-input [control]="signUpForm.get('email')"></app-email-input>
+            <app-password-input [control]="signUpForm.get('password')"></app-password-input>
+            <button>Submit</button>
+        </form>

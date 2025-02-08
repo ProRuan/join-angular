@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { getProvider, ReactiveInput } from '../../../models/reactive-input';
 import {
-  FormControl,
+  AbstractControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidatorFn,
-  Validators,
 } from '@angular/forms';
-import { emailPattern } from '../../../ts/validate';
+import { getProvider, ReactiveInput } from '../../../models/reactive-input';
+import { emailPatterns } from '../../../ts/pattern';
 
 @Component({
   selector: 'app-email-input',
@@ -23,25 +22,29 @@ import { emailPattern } from '../../../ts/validate';
 })
 
 /**
- * Represents an email input component.
+ * Class representing an email input component.
  * @extends {ReactiveInput}
  */
 export class EmailInputComponent extends ReactiveInput {
   placeholder: string = 'Email';
+  patterns = emailPatterns;
+
   override img: string = 'email';
-  pattern: RegExp = emailPattern;
 
-  @Input() override control!: FormControl;
+  @Input() override control: AbstractControl | null = null;
 
-  @Input() inputValidators: ValidatorFn[] = [
-    Validators.required,
-    Validators.pattern(this.pattern),
+  @Input() override inputValidators: ValidatorFn[] = [
+    this.validator.required(),
+    this.validator.forbidden(this.patterns.forbidden),
+    this.validator.minLength(6),
+    this.validator.email(this.patterns.email),
+    this.validator.maxLength(127),
   ];
 
   /**
    * Initializes an email input component.
    */
   ngOnInit() {
-    this.control = this.fb.control('', this.inputValidators);
+    this.control?.setValidators(this.inputValidators);
   }
 }

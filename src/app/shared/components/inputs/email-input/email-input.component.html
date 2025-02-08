@@ -1,6 +1,6 @@
 <div class="component" [ngClass]="getCompClass()">
     <div class="pos-relative">
-        <input [value]="value" class="input" [ngClass]="getInputClass()" [placeholder]="placeholder" type="email"
+        <input [value]="value" class="input" [ngClass]="getInputClass()" [placeholder]="placeholder" type="text" maxlength="128"
             (input)="onInput($event)" (focus)="onFocus()" (blur)="onBlur()">
         <img class="img" [src]="getSrc()" [alt]="img">
     </div>

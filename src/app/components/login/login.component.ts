@@ -6,13 +6,14 @@ import {
   FormsModule,
   NgForm,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
-import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
+// import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
@@ -24,8 +25,8 @@ import {
 import { saveUser } from '../../shared/ts/global';
 import { User } from '../../shared/models/user';
 import { UserDoc } from '../../shared/models/user-doc';
-import { NameInputComponent } from '../../shared/components/inputs/name-input/name-input.component';
 import { EmailInputComponent } from '../../shared/components/inputs/email-input/email-input.component';
+import { PasswordInputComponent } from '../../shared/components/inputs/password-input/password-input.component';
 
 @Component({
   selector: 'app-login',
@@ -38,9 +39,7 @@ import { EmailInputComponent } from '../../shared/components/inputs/email-input/
     LogoComponent,
     HeaderComponent,
     TitleComponent,
-    NameInputComponent,
     EmailInputComponent,
-    TextInputComponent,
     PasswordInputComponent,
     CheckboxComponent,
     FooterComponent,
@@ -58,9 +57,26 @@ export class LoginComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
+  // check
+  // -----
+  // components
+  // ----------
+  // LogoComponent ...
+  // HeaderComponent ...
+  // TitleComponent ...
+  // NameInputComponent --> TextInputComponent ... ?
+  // EmailInputComponent --> TextInputComponent ... ?
+  // PasswordInputComponent --> masked password ... !
+  // CheckboxComponent ...
+  // ButtonComponent ...
+
+  // this
+  // ----
+  // - input height (error) ...
+  // - input border color (error) ...
+  // - login form error ...
+
   [key: string]: any;
-  email: string = '';
-  password: string = '';
   emailPat: RegExp = emailVal.emailPat;
   passwordPat: RegExp = passwordVal.passwordPat;
   remembered: boolean = false;
@@ -68,28 +84,42 @@ export class LoginComponent {
   rejected: boolean = false;
   hint = 'Check your email and password. Please try again.';
 
-  signUpForm!: FormGroup;
+  loginForm!: FormGroup;
+
+  get email() {
+    return this.loginForm.value.email;
+  }
+
+  get password() {
+    return this.loginForm.value.password;
+  }
+
+  set email(value: string) {
+    this.loginForm.value.email = value;
+  }
+
+  set password(value: string) {
+    this.loginForm.value.password = value;
+  }
 
   /**
    * Initializes the login component.
    */
   async ngOnInit() {
-    this.signUpForm = this.fb.group({
-      name: [''],
-      email: [''], // Email validation
-      // password: [''] // Password will be handled inside app-password-input
+    this.loginForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required], // @Input() pattern!
     });
-    console.log('signUpForm: ', this.signUpForm);
+    console.log('loginForm: ', this.loginForm);
+    console.log('get email: ', this.loginForm.value.email);
 
     await this.setSigneeEmail();
     await this.setRememberedData();
     setTimeout(() => (this.loggedIn = false), 0);
   }
 
-  logName() {
-    if (this.signUpForm.valid) {
-      console.log('name: ', this.signUpForm.value.name);
-    }
+  getControl(key: string) {
+    return this.loginForm.get(key);
   }
 
   /**
@@ -147,12 +177,13 @@ export class LoginComponent {
 
   /**
    * Processes the login data on submit.
-   * @param ngForm - The login form.
    */
-  async onLogIn(ngForm: NgForm) {
-    if (ngForm.form.valid) {
-      this.loggedIn = true;
-      await this.processLoginData();
+  async onLogIn() {
+    if (this.loginForm.valid) {
+      console.log('loginForm: ', this.loginForm);
+
+      // this.loggedIn = true;
+      // await this.processLoginData();
     }
   }
 
@@ -216,10 +247,9 @@ export class LoginComponent {
 
   /**
    * Verifies the disabled state of the login button.
-   * @param ngForm - The login form.
    * @returns - A boolean value.
    */
-  isDisabled(ngForm: NgForm) {
-    return ngForm.form.invalid || this.loggedIn;
+  isDisabled() {
+    return this.loginForm.invalid || this.loggedIn;
   }
 }
