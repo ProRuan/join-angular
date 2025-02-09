@@ -8,6 +8,7 @@ import {
   ValidatorFn,
 } from '@angular/forms';
 import { InputValidator } from './input-validator';
+import { InputConfig } from '../interfaces/input-config';
 
 /**
  * Represents a reactive input.
@@ -56,9 +57,10 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   focused: boolean = false;
   // touched: boolean = false;
   error: string = '';
+  placeholder: string = '';
   img: string = '';
 
-  inputValidators: ValidatorFn[] = [];
+  validators: ValidatorFn[] = [];
   validator = new InputValidator();
 
   onChange = (value: string) => {};
@@ -162,7 +164,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   }
 
   getValidationError(control: AbstractControl): ValidationErrors | null {
-    for (let validator of this.inputValidators) {
+    for (let validator of this.validators) {
       const result = validator(control);
       if (result) {
         return result;
@@ -195,6 +197,12 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    */
   getSrc() {
     return `/assets/img/input/${this.img}.png`;
+  }
+
+  set(config: InputConfig) {
+    this.placeholder = config.placeholder;
+    this.img = config.img;
+    this.control = config.control;
   }
 }
 

@@ -10,8 +10,8 @@
             <div class="input-checkbox-cont">
                 <div class="input-group-hint-cont">
                     <div class="input-group">
-                        <app-email-input [control]="getControl('email')"></app-email-input>
-                        <app-password-input [control]="getControl('password')"></app-password-input>
+                        <app-text-input [config]="config.email"></app-text-input>
+                        <app-password-input [config]="config.password"></app-password-input>
                     </div>
                     <span *ngIf="rejected" class="hint">{{ hint }}</span>
                 </div>

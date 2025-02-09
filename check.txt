@@ -34,19 +34,19 @@ Final Check
 
 Components (1/?)
 ----------
-  - inputs (2/?)
+  - inputs (1/?)
     ------
-      - EmailInputComponent - check* * reactive TextInputComponent? *componente representing ...
-      - NameInputComponent - check* * reactive TextInputComponent? *componente representing ...
+      - PasswordInputComponent ...
+      - TextInputComponent - check
 
 
-Interfaces (0/?)
+Interfaces (1/?)
 ----------
-  - 
+  - InputConfig - check
 
 Models (1/?)
 ------
-  - InputValidator - check
+  - InputValidator - check *error { key: key, value: value }
   - ReactiveInput ... *class representing ...
 
 
@@ -59,9 +59,21 @@ ts (1/?)
 
 
 
-     <form [formGroup]="signUpForm" (submit)="logName()">
+<form [formGroup]="signUpForm" (submit)="logName()">
             <app-name-input [control]="signUpForm.get('name')"></app-name-input>
             <app-email-input [control]="signUpForm.get('email')"></app-email-input>
             <app-password-input [control]="signUpForm.get('password')"></app-password-input>
             <button>Submit</button>
         </form>
+
+emailConfig = {
+    placeholder: 'Email',
+    img: 'email',
+    inputValidators: [
+      this.validator.required(),
+      this.validator.forbidden(emailPatterns.forbidden),
+      this.validator.minLength(6),
+      this.validator.email(emailPatterns.email),
+      this.validator.maxLength(127),
+    ],
+  };

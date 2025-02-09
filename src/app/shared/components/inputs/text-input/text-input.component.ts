@@ -5,22 +5,21 @@ import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputConfig } from '../../../interfaces/input-config';
 
 @Component({
-  selector: 'app-password-input',
+  selector: 'app-text-input',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './password-input.component.html',
-  styleUrl: './password-input.component.scss',
+  templateUrl: './text-input.component.html',
+  styleUrl: './text-input.component.scss',
   providers: [
-    getProvider(NG_VALUE_ACCESSOR, PasswordInputComponent),
-    getProvider(NG_VALIDATORS, PasswordInputComponent),
+    getProvider(NG_VALUE_ACCESSOR, TextInputComponent),
+    getProvider(NG_VALIDATORS, TextInputComponent),
   ],
 })
 
 /**
- * Class representing a password input component.
- * @extends {ReactiveInput}
+ * Class representing a text input component.
  */
-export class PasswordInputComponent extends ReactiveInput {
+export class TextInputComponent extends ReactiveInput {
   @Input() set config(config: InputConfig) {
     this.set(config);
   }
