@@ -13,7 +13,7 @@ import { Styles } from '../interfaces/styles';
 import { States } from '../interfaces/states';
 
 /**
- * Represents a transform (animation).
+ * Class representing a transform (animation).
  */
 export class Transform {
   name: string;
@@ -43,24 +43,24 @@ export class Transform {
   }
 
   /**
-   * Provides the animation start.
-   * @returns - The animation start.
+   * Gets the animation start.
+   * @returns The animation start.
    */
   get start(): string {
     return this.name + '-start';
   }
 
   /**
-   * Provides the animation end.
-   * @returns the animation end.
+   * Gets the animation end.
+   * @returns The animation end.
    */
   get end(): string {
     return this.name + '-end';
   }
 
   /**
-   * Provides the animation styles.
-   * @returns - The animation styles.
+   * Gets the animation styles.
+   * @returns The animation styles.
    */
   getStyles() {
     return {
@@ -70,8 +70,8 @@ export class Transform {
   }
 
   /**
-   * Provides the animation states.
-   * @returns - The animation states.
+   * Gets the animation states.
+   * @returns The animation states.
    */
   getStates() {
     return {
@@ -81,33 +81,33 @@ export class Transform {
   }
 
   /**
-   * Provides the state change expression.
-   * @returns - The state change expression.
+   * Gets the state change expression.
+   * @returns The state change expression.
    */
   getStateChangeExpr() {
     return `${this.start} => ${this.end}`;
   }
 
   /**
-   * Provides the animation timings.
+   * Gets the animation timings.
    * @param timings - The animation timings.
-   * @returns - The animation timings.
+   * @returns The animation timings.
    */
   getTimings(timings: string) {
     return timings;
   }
 
   /**
-   * Provides the transition.
-   * @returns - The transition.
+   * Gets the transition.
+   * @returns The transition.
    */
   getTransition() {
     return transition(this.stateChangeExpr, [animate(this.timings)]);
   }
 
   /**
-   * Provides the animation.
-   * @returns - The animation.
+   * Gets the animation.
+   * @returns The animation.
    */
   getAnimation() {
     return [this.states.start, this.states.end, this.transition];
@@ -115,7 +115,7 @@ export class Transform {
 
   /**
    * Triggers the animation.
-   * @returns - The animation trigger meta data.
+   * @returns The animation trigger meta data.
    */
   trigger(): AnimationTriggerMetadata {
     return trigger(this.name, this.animation);

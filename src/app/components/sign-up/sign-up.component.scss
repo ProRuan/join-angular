@@ -21,10 +21,12 @@
 
 .input-checkbox-cont {
   @include display-column($g: 16px);
+  // set height!!!
 }
 
 .input-group {
-  @include display-column($g: 24px);
+  @include display-column($g: 2px);
+  width: 422px;
 }
 
 .privacy-policy-line {

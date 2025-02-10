@@ -4,17 +4,19 @@
     <app-header type="sign-up"></app-header>
 
     <div class="form-cont">
-        <form #signUpForm="ngForm" class="form" (ngSubmit)="onSignUp(signUpForm)">
+        <form [formGroup]="signUpForm" class="form" (ngSubmit)="onSignUp()">
             <app-login-arrow></app-login-arrow>
             <app-title title="Sign up"></app-title>
 
             <div class="input-checkbox-cont">
                 <div class="input-group">
-                    <app-text-input [(ngModel)]="name" name="name"></app-text-input>
-                    <app-text-input [(ngModel)]="email" name="email"></app-text-input>
-                    <app-password-input [(ngModel)]="password" name="password"></app-password-input>
-                    <app-password-input [(ngModel)]="matchword" name="matchword"
-                        [pattern]="password"></app-password-input>
+                    <app-text-input [config]="config.name"></app-text-input>
+                    <app-text-input [config]="config.email"></app-text-input>
+                    <app-password-input [config]="config.password"></app-password-input>
+                    <app-password-input [config]="config.matchword"></app-password-input>
+                    <!-- set matchword input -->
+                    <!-- <app-password-input [(ngModel)]="matchword" name="matchword"
+                        [pattern]="password"></app-password-input> -->
                 </div>
 
                 <div class="privacy-policy-line">
@@ -28,7 +30,7 @@
                 </div>
             </div>
 
-            <button [disabled]="isDisabled(signUpForm)" class="prim-btn sign-up-btn">Sign up</button>
+            <button [disabled]="isDisabled()" class="prim-btn sign-up-btn">Sign up</button>
         </form>
     </div>
 

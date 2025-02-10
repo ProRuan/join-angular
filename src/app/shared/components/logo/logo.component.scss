@@ -6,8 +6,11 @@ $top: calc(calc(100vh - 335px) / 2);
 .logo-cont {
   @include size($w: 100%, $h: 100vh);
   @include position($pos: absolute, $l: 0, $t: 0);
-  background-color: transparent;
   z-index: 1;
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .bg-color {
@@ -15,8 +18,11 @@ $top: calc(calc(100vh - 335px) / 2);
 }
 
 .logo {
-  @include position($pos: relative, $l: 77px, $t: 80px);
   width: 100px;
+}
+
+.pos-top-left {
+  @include position($pos: relative, $l: 77px, $t: 80px);
 }
 
 .pos-center {

@@ -20,6 +20,7 @@ export class LogoComponent {
   join: JoinService = inject(JoinService);
 
   @Input() enabled: boolean = true;
+
   pointless: boolean = false;
   logo: string = '../../../assets/img/login/logo.png';
 
@@ -27,6 +28,13 @@ export class LogoComponent {
    * Initializes a logo component.
    */
   ngOnInit() {
+    this.introduce();
+  }
+
+  /**
+   * Introduces the app by animation.
+   */
+  introduce() {
     let welcomed = this.enabled && !this.join.revealed;
     welcomed ? this.playIntro() : this.skipIntro();
   }
@@ -48,8 +56,8 @@ export class LogoComponent {
   }
 
   /**
-   * Reveals the app.
-   * @returns - The animation state.
+   * Reveals the app by animation.
+   * @returns The animation state.
    */
   revealApp() {
     if (this.enabled) {
@@ -60,26 +68,26 @@ export class LogoComponent {
   }
 
   /**
-   * Sets the template to pointless.
-   * @returns - The property to set.
+   * Sets the style of the pointer-events.
+   * @returns The style of the pointer-events.
    */
-  setPointless() {
+  getPointerEventStyle() {
     let propertyA = { 'pointer-events': 'none' };
     let propertyB = { 'pointer-events': 'auto' };
     return this.pointless ? propertyA : propertyB;
   }
 
   /**
-   * Colors the background.
-   * @returns - The class to apply.
+   * Gets the css class of the logo background-color.
+   * @returns The css class of the logo background-color.
    */
-  colorBg() {
-    return !this.join.revealed ? 'bg-color' : '';
+  getBgcClass() {
+    return this.join.revealed ? 'bg-transparent' : 'bg-color';
   }
 
   /**
-   * Relocates the logo.
-   * @returns - The animation state.
+   * Relocates the logo by animation.
+   * @returns The animation state.
    */
   relocateLogo() {
     if (this.enabled) {
@@ -90,10 +98,10 @@ export class LogoComponent {
   }
 
   /**
-   * Centers the logo.
-   * @returns - The class to apply.
+   * Gets the css class of the logo position.
+   * @returns The css class of the logo position.
    */
-  centerLogo() {
-    return !this.join.relocated ? 'pos-center' : '';
+  getPosClass() {
+    return this.join.relocated ? 'pos-top-left' : 'pos-center';
   }
 }

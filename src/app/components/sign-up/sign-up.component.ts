@@ -1,13 +1,19 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
-import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
-import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
+// import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
+// import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
@@ -21,6 +27,14 @@ import {
 import { User } from '../../shared/models/user';
 import { Contact } from '../../shared/models/contact';
 import { sampleContacts } from '../../shared/ts/sample-contacts';
+import { TextInputComponent } from '../../shared/components/inputs/text-input/text-input.component';
+import { PasswordInputComponent } from '../../shared/components/inputs/password-input/password-input.component';
+import { InputValidator } from '../../shared/models/input-validator';
+import {
+  emailPatterns,
+  namePatterns,
+  passwordPatterns,
+} from '../../shared/ts/pattern';
 
 @Component({
   selector: 'app-sign-up',
@@ -28,6 +42,7 @@ import { sampleContacts } from '../../shared/ts/sample-contacts';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterLink,
     LogoComponent,
     HeaderComponent,
@@ -35,6 +50,8 @@ import { sampleContacts } from '../../shared/ts/sample-contacts';
     TitleComponent,
     TextInputComponent,
     PasswordInputComponent,
+    // TextInputComponent,
+    // PasswordInputComponent,
     CheckboxComponent,
     FooterComponent,
   ],
@@ -50,6 +67,7 @@ export class SignUpComponent {
   join: JoinService = inject(JoinService);
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
+  fb: FormBuilder = inject(FormBuilder);
 
   [key: string]: any;
   initials: string = '';
@@ -63,12 +81,98 @@ export class SignUpComponent {
   ppAccepted: boolean = false;
   signedUp: boolean = false;
 
+  user: User = new User();
+  signUpForm!: FormGroup;
+  validator = new InputValidator();
+
+  nameValidators = [
+    this.validator.required(),
+    this.validator.forbidden(namePatterns.forbidden),
+    this.validator.minLength(2),
+    this.validator.sequence(namePatterns.sequence),
+    this.validator.name(namePatterns.name),
+    this.validator.maxLength(127),
+  ];
+
+  emailValidators = [
+    this.validator.required(),
+    this.validator.forbidden(emailPatterns.forbidden),
+    this.validator.minLength(6),
+    this.validator.email(emailPatterns.email),
+    this.validator.maxLength(127),
+  ];
+
+  passwordValidators = [
+    this.validator.required(),
+    this.validator.forbidden(passwordPatterns.forbidden),
+    this.validator.minLength(8),
+    this.validator.upperCase(passwordPatterns.upperCase),
+    this.validator.lowerCase(passwordPatterns.lowerCase),
+    this.validator.digit(passwordPatterns.digit),
+    this.validator.specialChar(passwordPatterns.specialChar),
+    this.validator.maxLength(127),
+  ]; // set validator for matchword by pattern (pattern = valid password)!!!
+
+  config!: {
+    name: {
+      placeholder: string;
+      img: string;
+      control: any;
+    };
+    email: {
+      placeholder: string;
+      img: string;
+      control: any;
+    };
+    password: {
+      placeholder: string;
+      img: string;
+      control: any;
+    };
+    matchword: {
+      placeholder: string;
+      img: string;
+      control: any;
+    };
+  };
+
+  ngOnInit() {
+    this.signUpForm = this.fb.group({
+      name: [this.user.name, this.nameValidators],
+      email: [this.user.email, this.emailValidators],
+      password: [this.user.password, this.passwordValidators],
+      matchword: [this.matchword, this.passwordValidators], // set validator for pattern!!!
+    });
+
+    this.config = {
+      name: {
+        placeholder: 'Name',
+        img: 'person',
+        control: this.signUpForm.get('name'),
+      },
+      email: {
+        placeholder: 'Email',
+        img: 'email',
+        control: this.signUpForm.get('email'),
+      },
+      password: {
+        placeholder: 'Password',
+        img: 'lock',
+        control: this.signUpForm.get('password'),
+      },
+      matchword: {
+        placeholder: 'Confirm password',
+        img: 'lock',
+        control: this.signUpForm.get('matchword'),
+      },
+    };
+  }
+
   /**
    * Processes the sign-up data on submit.
-   * @param ngForm - The sign-up form.
    */
-  async onSignUp(ngForm: NgForm) {
-    if (ngForm.form.valid) {
+  async onSignUp() {
+    if (this.signUpForm.valid) {
       this.signedUp = true;
       this.updateSignUpData();
       await this.processSignUpData();
@@ -182,10 +286,9 @@ export class SignUpComponent {
 
   /**
    * Verifies the disabled state of the sign-up button.
-   * @param ngForm - The sign-up form.
    * @returns - A boolean value.
    */
-  isDisabled(ngForm: NgForm) {
-    return ngForm.form.invalid || !this.ppAccepted || this.signedUp;
+  isDisabled() {
+    return this.signUpForm.invalid || !this.ppAccepted || this.signedUp;
   }
 }

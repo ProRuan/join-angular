@@ -1,7 +1,7 @@
 import { AnimationStateMetadata } from '@angular/animations';
 
 /**
- * Represents animation states.
+ * Interface representing animation states.
  */
 export interface States {
   start: AnimationStateMetadata;

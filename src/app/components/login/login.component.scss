@@ -30,6 +30,11 @@
 
 .input-group {
   @include display-column($g: 32px);
+  width: 422px;
+}
+
+.password-hint-cont {
+  @include display-column($g: 8px);
 }
 
 .checkbox-link-cont {

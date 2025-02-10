@@ -58,19 +58,6 @@ export class LoginComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
-  // check
-  // -----
-  // components
-  // ----------
-  // LogoComponent ...
-  // HeaderComponent ...
-  // TitleComponent ...
-  // NameInputComponent --> TextInputComponent ... ?
-  // EmailInputComponent --> TextInputComponent ... ?
-  // PasswordInputComponent --> masked password ... !
-  // CheckboxComponent ...
-  // ButtonComponent ...
-
   // this
   // ----
   // - input height (error) ...
@@ -92,21 +79,21 @@ export class LoginComponent {
 
   emailValidators = [
     this.validator.required(),
-    this.validator.forbidden(emailPatterns.forbidden),
-    this.validator.minLength(6),
-    this.validator.email(emailPatterns.email),
-    this.validator.maxLength(127),
+    // this.validator.forbidden(emailPatterns.forbidden),
+    // this.validator.minLength(6),
+    // this.validator.email(emailPatterns.email),
+    // this.validator.maxLength(127),
   ];
 
   passwordValidators = [
     this.validator.required(),
-    this.validator.forbidden(passwordPatterns.forbidden),
-    this.validator.minLength(8),
-    this.validator.upperCase(passwordPatterns.upperCase),
-    this.validator.lowerCase(passwordPatterns.lowerCase),
-    this.validator.digit(passwordPatterns.digit),
-    this.validator.specialChar(passwordPatterns.specialChar),
-    this.validator.maxLength(127),
+    // this.validator.forbidden(passwordPatterns.forbidden),
+    // this.validator.minLength(8),
+    // this.validator.upperCase(passwordPatterns.upperCase),
+    // this.validator.lowerCase(passwordPatterns.lowerCase),
+    // this.validator.digit(passwordPatterns.digit),
+    // this.validator.specialChar(passwordPatterns.specialChar),
+    // this.validator.maxLength(127),
   ];
 
   config!: {
@@ -217,11 +204,11 @@ export class LoginComponent {
    */
   async onLogIn() {
     if (this.loginForm.valid) {
-      console.log('loginForm: ', this.loginForm); // testing!!!
-      this.loginForm.reset(); // testing!!!
+      // console.log('loginForm: ', this.loginForm); // testing!!!
+      // this.loginForm.reset(); // testing!!!
 
-      // this.loggedIn = true;
-      // await this.processLoginData();
+      this.loggedIn = true;
+      await this.processLoginData();
     }
   }
 

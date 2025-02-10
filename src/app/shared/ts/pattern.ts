@@ -54,7 +54,7 @@ export const namePatterns = getNamePatterns();
  */
 function getEmailPatterns() {
   const email = getEmailPattern();
-  const forbidden = getEmailForbbidenPattern();
+  const forbidden = getEmailForbiddenPattern();
   return { email, forbidden };
 }
 
@@ -97,7 +97,7 @@ function getEmailTopLevelDomain() {
  * Gets a forbidden pattern for the email input validation.
  * @returns The forbidden pattern.
  */
-function getEmailForbbidenPattern() {
+function getEmailForbiddenPattern() {
   return new RegExp(`[^${DIGITS}${letters}._%+-@]`, 'i');
 }
 

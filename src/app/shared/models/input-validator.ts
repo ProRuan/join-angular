@@ -5,19 +5,21 @@ import {
   Validators,
 } from '@angular/forms';
 
+type Control = AbstractControl;
+
 /**
  * Class providing validator functions for an input validation.
  */
 export class InputValidator {
   errors: Record<string, string> = {
     forbidden: 'Forbidden character: ',
-    sequence: 'Invalid character sequence: ',
-    name: 'Start with 2+ letters',
-    email: 'Enter a valid email',
     upperCase: 'Use 1+ upper-case characters',
     lowerCase: 'Use 1+ lower-case characters',
     digit: 'Use 1+ digits',
     specialChar: 'Use 1+ special characters',
+    sequence: 'Invalid character sequence: ',
+    name: 'Start with 2+ letters',
+    email: 'Enter a valid email',
   };
 
   /**
@@ -25,7 +27,17 @@ export class InputValidator {
    * @returns ValidatorFn.
    */
   required(): ValidatorFn {
-    return Validators.required;
+    const text = 'This field is required';
+    return (control: Control) => this.require(control, 'required', text);
+  }
+
+  require(control: Control, key: string, value: string) {
+    const error = this.getSimpleError(key, value);
+    return control.value ? null : error;
+  }
+
+  getSimpleError(key: string, value: string) {
+    return { [key]: value };
   }
 
   /**
@@ -33,8 +45,16 @@ export class InputValidator {
    * @param value - The value to set.
    * @returns ValidatorFn.
    */
-  minLength(value: number): ValidatorFn {
-    return Validators.minLength(value);
+  minLength(minLength: number): ValidatorFn {
+    return (control: Control) => this.minimum(control, 'minLength', minLength);
+  }
+
+  // use better method name!!!
+  minimum(control: Control, key: string, minLength: number) {
+    const longEnough = control.value.length < minLength ? true : false;
+    const value = `Use ${minLength}+ characters`;
+    const error = this.getSimpleError(key, value);
+    return longEnough ? error : null;
   }
 
   /**
@@ -42,8 +62,16 @@ export class InputValidator {
    * @param value - The value to set.
    * @returns ValidatorFn.
    */
-  maxLength(value: number): ValidatorFn {
-    return Validators.maxLength(value);
+  maxLength(maxLength: number): ValidatorFn {
+    return (control: Control) => this.maximum(control, 'maxLength', maxLength);
+  }
+
+  // use better method name!!!
+  maximum(control: Control, key: string, maxLength: number) {
+    const tooLong = control.value.length > maxLength ? true : false;
+    const value = `Maximum ${maxLength} characters allowed`; // improve!!!
+    const error = this.getSimpleError(key, value);
+    return tooLong ? error : null;
   }
 
   /**
@@ -62,7 +90,7 @@ export class InputValidator {
    * @returns ValidatorFn.
    */
   private rejectPattern(key: string, pattern: RegExp): ValidatorFn {
-    return (control: AbstractControl) => this.reject(control, key, pattern);
+    return (control: Control) => this.reject(control, key, pattern);
   }
 
   /**
@@ -72,7 +100,7 @@ export class InputValidator {
    * @param pattern - The test pattern.
    * @returns ValidationErrors or null.
    */
-  private reject(control: AbstractControl, key: string, pattern: RegExp) {
+  private reject(control: Control, key: string, pattern: RegExp) {
     const error = this.getError(key, pattern, control);
     return error.pattern.test(control.value) ? error.value : null;
   }
@@ -84,7 +112,7 @@ export class InputValidator {
    * @param control - The abstract control.
    * @returns The error.
    */
-  private getError(key: string, pattern: RegExp, control?: AbstractControl) {
+  private getError(key: string, pattern: RegExp, control?: Control) {
     const char = this.getChar(pattern, control);
     const value = this.getErrorValue(key, char);
     return { pattern, value };
@@ -96,7 +124,7 @@ export class InputValidator {
    * @param control - The abstract control.
    * @returns The char.
    */
-  private getChar(pattern: RegExp, control?: AbstractControl) {
+  private getChar(pattern: RegExp, control?: Control) {
     return control?.value ? control.value.match(pattern) : undefined;
   }
 
@@ -146,7 +174,7 @@ export class InputValidator {
    * @returns ValidatorFn.
    */
   private acceptPattern(key: string, pattern: RegExp): ValidatorFn {
-    return (control: AbstractControl) => this.accept(control, key, pattern);
+    return (control: Control) => this.accept(control, key, pattern);
   }
 
   /**
@@ -156,7 +184,7 @@ export class InputValidator {
    * @param pattern - The test pattern.
    * @returns ValidationErrors or null.
    */
-  private accept(control: AbstractControl, key: string, pattern: RegExp) {
+  private accept(control: Control, key: string, pattern: RegExp) {
     const error = this.getError(key, pattern);
     return pattern.test(control.value) ? null : error.value;
   }

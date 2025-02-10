@@ -32,22 +32,30 @@ Final Check
   - LoginComponent (html, scss, ts) ... (0/3)
 
 
-Components (1/?)
+Components (2/?)
 ----------
   - inputs (1/?)
     ------
       - PasswordInputComponent ...
       - TextInputComponent - check
+  - LogoComponent - check
+    -------------
+      - Relocation - check
+      - Reveletion - check
 
 
-Interfaces (1/?)
+Interfaces (4/?)
 ----------
   - InputConfig - check
+  - Propertiess - check
+  - States - check
+  - Styles - check
 
-Models (1/?)
+Models (2/?)
 ------
   - InputValidator - check *error { key: key, value: value }
   - ReactiveInput ... *class representing ...
+  - Transform - check
 
 
 Services

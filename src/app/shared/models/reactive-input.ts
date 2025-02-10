@@ -62,6 +62,8 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
 
   validators: ValidatorFn[] = [];
   validator = new InputValidator();
+  valOff: boolean = true; // input value!!!
+  // update text input and password input for displayed error!!!
 
   onChange = (value: string) => {};
   onTouched = () => {};
@@ -122,8 +124,30 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     this.value = this.getInputValue(event);
     this.onChange(this.value);
     this.onTouched();
-    console.log('touched: ', this.control?.touched);
     this.control?.markAsDirty();
+
+    // define errors on input component!!!
+    const errors = [
+      'required',
+      'forbidden',
+      'minLength',
+      'upperCase',
+      'lowerCase',
+      'digit',
+      'specialChar',
+      'sequence',
+      'name',
+      'email',
+      'maxLength',
+    ];
+    this.error = '';
+    for (let i = 0; i < errors.length; i++) {
+      let error = errors[i];
+      if (this.control?.hasError(error)) {
+        this.error = this.control.getError(error);
+        break;
+      }
+    }
   }
 
   /**
@@ -178,8 +202,9 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The css class of the component.
    */
   getCompClass() {
-    let larger = this.focused && this.invalid;
-    return larger ? 'h-70' : 'h-48';
+    return this.valOff ? 'h-48' : 'h-70'; // exchange css classes
+    // let larger = this.focused && this.invalid;
+    // return larger ? 'h-70' : 'h-48';
   }
 
   /**
@@ -187,7 +212,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The css class of the input.
    */
   getInputClass() {
-    let invalid = this.dirty && this.invalid;
+    let invalid = !this.valOff && this.dirty && this.invalid;
     return invalid ? 'invalid' : 'default';
   }
 
