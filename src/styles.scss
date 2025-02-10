@@ -51,6 +51,21 @@ app-prio-button {
   color: $black;
 }
 
+.column-8 {
+  @include display-column($g: 8px);
+}
+
+.error-cont {
+  @include display-row($ai: center);
+  height: 14px;
+}
+
+.error {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  font-family: $poppins;
+  color: $hint;
+}
+
 .prim-btn {
   @include color-set($c: $white, $bgc: $dark);
   @include round-border($b: none, $br: 8px);

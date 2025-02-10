@@ -1,42 +1,37 @@
 <app-logo></app-logo>
 
 <section class="login">
-    <!-- check header component -->
     <app-header type="login"></app-header>
 
     <div class="form-cont">
         <form [formGroup]="loginForm" class="form" (submit)="onLogIn()">
-            <!-- check title component and so on -->
             <app-title title="Log in"></app-title>
 
             <div class="input-checkbox-cont">
-                <div class="input-group-hint-cont">
+                <div class="column-8">
                     <div class="input-group">
-                        <!-- set gap!!! -->
-                        <!-- check text input component -->
                         <app-text-input [config]="config.email"></app-text-input>
-                        <div class="password-hint-cont">
-                            <!-- check password input component -->
+                        <div class="input-error-cont">
                             <app-password-input [config]="config.password"></app-password-input>
-                            <span *ngIf="rejected" class="hint">{{ hint }}</span>
+                            <div class="error-cont">
+                                <span *ngIf="rejected" class="error">{{ error }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="checkbox-link-cont">
                     <div class="remember-me-cont">
-                        <!-- check checkbox component -->
-                        <app-checkbox [checked]="this.remembered" (check)="onRemember($event)"></app-checkbox>
+                        <app-checkbox [checked]="this.remembered" (check)="onRememberMe($event)"></app-checkbox>
                         <span>Remember me</span>
                     </div>
                     <a routerLink="/new-password" class="new-password-link">I forgot my password</a>
                 </div>
             </div>
 
-            <!-- button component ?! -->
             <div class="button-group">
                 <button [disabled]="isDisabled()" class="prim-btn login-btn">Log in</button>
-                <button [disabled]="isDisabled()" class="sec-btn guest-login-btn">Guest Log in</button>
+                <button [disabled]="isDisabled()" class="sec-btn login-btn">Guest Log in</button>
             </div>
         </form>
     </div>

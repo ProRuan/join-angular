@@ -10,7 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 
 /**
- * Represents a checkbox.
+ * Class representing a checkbox.
  */
 export class CheckboxComponent {
   @Input() checked: boolean = false;
@@ -18,8 +18,8 @@ export class CheckboxComponent {
   @Output() check = new EventEmitter<boolean>();
 
   /**
-   * Provides the css class of the checkbox.
-   * @returns - The css class to apply.
+   * Gets the css class of the checkbox.
+   * @returns The css class of the checkbox.
    */
   getClass() {
     if (this.checked && this.bright) {

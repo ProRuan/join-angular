@@ -27,6 +27,7 @@ import { PasswordInputComponent } from '../../shared/components/inputs/password-
 import { TextInputComponent } from '../../shared/components/inputs/text-input/text-input.component';
 import { emailPatterns, passwordPatterns } from '../../shared/ts/pattern';
 import { InputValidator } from '../../shared/models/input-validator';
+import { InputConfig } from '../../shared/interfaces/input-config';
 
 @Component({
   selector: 'app-login',
@@ -58,12 +59,6 @@ export class LoginComponent {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
 
-  // this
-  // ----
-  // - input height (error) ...
-  // - input border color (error) ...
-  // - login form error ...
-
   [key: string]: any;
   user: User = new User();
   emailPat: RegExp = emailVal.emailPat;
@@ -71,7 +66,7 @@ export class LoginComponent {
   remembered: boolean = false;
   loggedIn: boolean = true;
   rejected: boolean = false;
-  hint = 'Check your email and password. Please try again.';
+  error = 'Check your email and password. Please try again.';
 
   loginForm!: FormGroup;
 
@@ -97,16 +92,8 @@ export class LoginComponent {
   ];
 
   config!: {
-    email: {
-      placeholder: string;
-      img: string;
-      control: any;
-    };
-    password: {
-      placeholder: string;
-      img: string;
-      control: any;
-    };
+    email: InputConfig;
+    password: InputConfig;
   };
 
   get control() {
@@ -133,11 +120,13 @@ export class LoginComponent {
         placeholder: 'Email',
         img: 'email',
         control: this.control.email,
+        valOff: true,
       },
       password: {
         placeholder: 'Password',
         img: 'lock',
         control: this.control.password,
+        valOff: true,
       },
     };
 
@@ -269,7 +258,7 @@ export class LoginComponent {
    * Remembers the user on check.
    * @param checked - A boolean value.
    */
-  onRemember(checked: boolean) {
+  onRememberMe(checked: boolean) {
     this.remembered = checked;
   }
 

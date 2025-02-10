@@ -62,7 +62,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
 
   validators: ValidatorFn[] = [];
   validator = new InputValidator();
-  valOff: boolean = true; // input value!!!
+  valOff: boolean = false; // input value!!!
   // update text input and password input for displayed error!!!
 
   onChange = (value: string) => {};
@@ -202,9 +202,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The css class of the component.
    */
   getCompClass() {
-    return this.valOff ? 'h-48' : 'h-70'; // exchange css classes
-    // let larger = this.focused && this.invalid;
-    // return larger ? 'h-70' : 'h-48';
+    return this.valOff ? 'h-48' : 'h-70';
   }
 
   /**
@@ -212,7 +210,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The css class of the input.
    */
   getInputClass() {
-    let invalid = !this.valOff && this.dirty && this.invalid;
+    let invalid = !this.valOff && this.dirty && this.invalid; // clean?!
     return invalid ? 'invalid' : 'default';
   }
 
@@ -224,10 +222,19 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     return `/assets/img/input/${this.img}.png`;
   }
 
+  /**
+   * Verifies the existence of an error.
+   * @returns A boolean value.
+   */
+  isError() {
+    return !this.valOff && this.error;
+  }
+
   set(config: InputConfig) {
     this.placeholder = config.placeholder;
     this.img = config.img;
     this.control = config.control;
+    this.valOff = config.valOff;
   }
 }
 

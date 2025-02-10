@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 
 /**
- * Represents a title component.
+ * Class representing a title component.
  */
 export class TitleComponent {
   @Input() title: string = '';

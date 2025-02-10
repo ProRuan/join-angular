@@ -35,6 +35,7 @@ import {
   namePatterns,
   passwordPatterns,
 } from '../../shared/ts/pattern';
+import { InputConfig } from '../../shared/interfaces/input-config';
 
 @Component({
   selector: 'app-sign-up',
@@ -68,6 +69,8 @@ export class SignUpComponent {
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
   fb: FormBuilder = inject(FormBuilder);
+
+  // PasswordInputComponent: mask, button etc. ...
 
   [key: string]: any;
   initials: string = '';
@@ -114,26 +117,10 @@ export class SignUpComponent {
   ]; // set validator for matchword by pattern (pattern = valid password)!!!
 
   config!: {
-    name: {
-      placeholder: string;
-      img: string;
-      control: any;
-    };
-    email: {
-      placeholder: string;
-      img: string;
-      control: any;
-    };
-    password: {
-      placeholder: string;
-      img: string;
-      control: any;
-    };
-    matchword: {
-      placeholder: string;
-      img: string;
-      control: any;
-    };
+    name: InputConfig;
+    email: InputConfig;
+    password: InputConfig;
+    matchword: InputConfig;
   };
 
   ngOnInit() {
@@ -149,21 +136,25 @@ export class SignUpComponent {
         placeholder: 'Name',
         img: 'person',
         control: this.signUpForm.get('name'),
+        valOff: false,
       },
       email: {
         placeholder: 'Email',
         img: 'email',
         control: this.signUpForm.get('email'),
+        valOff: false,
       },
       password: {
         placeholder: 'Password',
         img: 'lock',
         control: this.signUpForm.get('password'),
+        valOff: false,
       },
       matchword: {
         placeholder: 'Confirm password',
         img: 'lock',
         control: this.signUpForm.get('matchword'),
+        valOff: false,
       },
     };
   }

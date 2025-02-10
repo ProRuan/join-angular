@@ -27,21 +27,23 @@ Final Tasks
 // double html and scss ...
 // h-70 and h-48 necessary ... ?
 
-Final Check
+Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 -----------
-  - LoginComponent (html, scss, ts) ... (0/3)
+  - LoginComponent (html, scss, ts) ... (2/3)
+  - SignUpComponent ... (0/3)
 
 
-Components (2/?)
+Components (5/?) + await inputs ...
 ----------
-  - inputs (1/?)
-    ------
-      - PasswordInputComponent ...
-      - TextInputComponent - check
+  - CheckboxComponent - check
+  - FooterComponent - check
+  - HeaderComponent - check
   - LogoComponent - check
-    -------------
-      - Relocation - check
-      - Reveletion - check
+  - TitleComponent - check
+  - inputs ... (1/?)
+    ------
+      - PasswordInputComponent ... *admin-inputs.scss?!
+      - TextInputComponent - check *admin-inputs.scss?!
 
 
 Interfaces (4/?)
@@ -64,6 +66,14 @@ Services
 ts (1/?)
 --
   - validate.ts - check
+
+
+Styles
+------
+  - styles.scss ...
+  - styles/
+    -------
+      - admin-inputs.scss - check
 
 
 

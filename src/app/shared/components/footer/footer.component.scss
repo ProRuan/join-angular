@@ -3,15 +3,10 @@
 .footer {
   @include box-padding($p: 40px 77px);
   @include display-row($jc: center);
-  width: 100%;
 }
 
 .legal-link-group {
-  @include display-flex($ai: flex-start);
-  gap: 16px;
-  // position: absolute;
-  // left: 0;
-  // bottom: 0;
+  @include display-row($jc: center, $g: 16px);
 }
 
 .legal-link {
@@ -20,19 +15,15 @@
   min-height: 36px;
   text-align: center;
   text-decoration: none;
-  color: #ababab;
+  color: $darkgray;
 
   &:hover,
   &:focus-visible {
     font-weight: 700;
-    color: #29abe2;
+    color: $lightblue;
   }
 }
 
-.w-123 {
+.w-125 {
   width: 125px;
-}
-
-.w-111 {
-  width: 112px;
 }

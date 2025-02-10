@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 
 /**
- * Represents a header component.
+ * Class representing a header component.
  */
 export class HeaderComponent {
   router: Router = inject(Router);
@@ -19,8 +19,8 @@ export class HeaderComponent {
   @Input() type: string = '';
 
   /**
-   * Provides the css class of the header.
-   * @returns - The css class to apply.
+   * Gets the css class of the header.
+   * @returns The css class of the header.
    */
   getClass() {
     return this.isType('sign-up') ? 'sign-up' : 'login';
@@ -29,7 +29,7 @@ export class HeaderComponent {
   /**
    * Verifies the header type.
    * @param type - The header type to match.
-   * @returns - A boolean value.
+   * @returns A boolean value.
    */
   isType(type: string) {
     return this.type == type;

@@ -23,18 +23,14 @@
   @include display-column($g: 20px);
 }
 
-.input-group-hint-cont {
-  @include display-column($g: 8px);
-  height: 152px;
-}
-
 .input-group {
   @include display-column($g: 32px);
   width: 422px;
 }
 
-.password-hint-cont {
+.input-error-cont {
   @include display-column($g: 8px);
+  height: 70px;
 }
 
 .checkbox-link-cont {
@@ -62,11 +58,8 @@
 }
 
 .login-btn {
-  @include box-padding($p: 11px 24px);
+  @include box-padding($p: 15px 24px);
   @include font($fs: 21px, $fw: 700, $lh: 25.2px);
-}
-
-.guest-login-btn {
-  @include box-padding($p: 10px 24px);
-  @include font($fs: 21px, $fw: 700, $lh: 25.2px);
+  @include display-flex();
+  height: 48px;
 }
