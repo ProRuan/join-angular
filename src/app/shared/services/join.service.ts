@@ -14,7 +14,7 @@ import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
 import { UserDoc } from '../models/user-doc';
 import { DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
-import { getObjectArray, loadUser, saveUser } from '../ts/global';
+import { getObjectArray, loadUser, setLocalItem } from '../ts/global';
 import { Task } from '../models/task';
 
 @Injectable({
@@ -326,7 +326,7 @@ export class JoinService {
    * Saves the user locally.
    */
   saveUserLocally() {
-    saveUser(this.user);
+    setLocalItem('user', this.user);
   }
 
   /**
@@ -336,6 +336,12 @@ export class JoinService {
     let id = this.user.id;
     let tasks = getObjectArray<Task>(this.user.tasks, Task);
     await this.updateUser(id, 'data.tasks', tasks);
+  }
+
+  async logUserIn(user: User) {
+    this.setUser(user);
+    await this.saveUser();
+    this.subscribeUser(); // necessary? --> app subscription!!!
   }
 
   // add class UserDoc - check

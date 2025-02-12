@@ -72,6 +72,17 @@ export class SignUpComponent {
 
   // PasswordInputComponent: mask, button etc. ...
 
+  // JoinService
+  // -----------
+  // getUserBySid() ...
+  // getUserDoc() ...
+  // getSessionId() ...
+
+  // LoginComponent
+  // --------------
+  // logIn() --> sid ...
+  // rememberUser() ...
+
   [key: string]: any;
   initials: string = '';
   name: string = '';
@@ -85,7 +96,7 @@ export class SignUpComponent {
   signedUp: boolean = false;
 
   user: User = new User();
-  signUpForm!: FormGroup;
+  form!: FormGroup;
   validator = new InputValidator();
 
   nameValidators = [
@@ -124,7 +135,7 @@ export class SignUpComponent {
   };
 
   ngOnInit() {
-    this.signUpForm = this.fb.group({
+    this.form = this.fb.group({
       name: [this.user.name, this.nameValidators],
       email: [this.user.email, this.emailValidators],
       password: [this.user.password, this.passwordValidators],
@@ -135,35 +146,41 @@ export class SignUpComponent {
       name: {
         placeholder: 'Name',
         img: 'person',
-        control: this.signUpForm.get('name'),
         valOff: false,
       },
       email: {
         placeholder: 'Email',
         img: 'email',
-        control: this.signUpForm.get('email'),
         valOff: false,
       },
       password: {
         placeholder: 'Password',
         img: 'lock',
-        control: this.signUpForm.get('password'),
         valOff: false,
       },
       matchword: {
         placeholder: 'Confirm password',
         img: 'lock',
-        control: this.signUpForm.get('matchword'),
+
         valOff: false,
       },
     };
   }
 
   /**
+   * Gets a form control.
+   * @param name - The form control name.
+   * @returns The form control.
+   */
+  getControl(name: string) {
+    return this.form.get(name);
+  }
+
+  /**
    * Processes the sign-up data on submit.
    */
   async onSignUp() {
-    if (this.signUpForm.valid) {
+    if (this.form.valid) {
       this.signedUp = true;
       this.updateSignUpData();
       await this.processSignUpData();
@@ -280,6 +297,6 @@ export class SignUpComponent {
    * @returns - A boolean value.
    */
   isDisabled() {
-    return this.signUpForm.invalid || !this.ppAccepted || this.signedUp;
+    return this.form.invalid || !this.ppAccepted || this.signedUp;
   }
 }

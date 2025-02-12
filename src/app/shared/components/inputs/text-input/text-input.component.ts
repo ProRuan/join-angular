@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { getProvider, ReactiveInput } from '../../../models/reactive-input';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { InputConfig } from '../../../interfaces/input-config';
 
 @Component({
@@ -20,6 +24,8 @@ import { InputConfig } from '../../../interfaces/input-config';
  * Class representing a text input component.
  */
 export class TextInputComponent extends ReactiveInput {
+  @Input() override control: AbstractControl | null = null;
+
   @Input() set config(config: InputConfig) {
     this.set(config);
   }

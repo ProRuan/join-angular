@@ -29,7 +29,7 @@ Final Tasks
 
 Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 -----------
-  - LoginComponent (html, scss, ts) ... (2/3)
+  - LoginComponent (html, scss, ts) ... (3/3) *logInUser() and rememberUser()
   - SignUpComponent ... (0/3)
 
 

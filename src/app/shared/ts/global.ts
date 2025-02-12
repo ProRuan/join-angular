@@ -89,6 +89,15 @@ export function getISODateString() {
 }
 
 /**
+ * Gets an item from the local storage.
+ * @param key - The item key.
+ * @returns The item.
+ */
+export function getLocalItem(key: string) {
+  return localStorage.getItem(key);
+}
+
+/**
  * Provides the month name.
  * @param month - The month as number.
  * @returns - The month name.
@@ -198,13 +207,27 @@ export function loadUser() {
 }
 
 /**
- * Saves the user.
- * @param data - The user data.
+ * Removes an item from the local storage.
+ * @param key - The item key.
  */
+export function removeLocalItem(key: string) {
+  localStorage.removeItem(key);
+}
+
+// in use + remove?!
 export function saveUser(data: User) {
   let user = new User(data);
   let userAsText = JSON.stringify(user);
   localStorage.setItem('user', userAsText);
+}
+
+/**
+ * Sets an item at the local storage.
+ * @param key - The item key.
+ * @param value - The item value.
+ */
+export function setLocalItem(key: string, value: any) {
+  localStorage.setItem(key, JSON.stringify(value));
 }
 
 /**

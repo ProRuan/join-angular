@@ -233,7 +233,6 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   set(config: InputConfig) {
     this.placeholder = config.placeholder;
     this.img = config.img;
-    this.control = config.control;
     this.valOff = config.valOff;
   }
 }

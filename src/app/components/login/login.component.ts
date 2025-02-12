@@ -2,32 +2,31 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
-  NgForm,
   ReactiveFormsModule,
-  Validators,
+  ValidatorFn,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
+import { TextInputComponent } from '../../shared/components/inputs/text-input/text-input.component';
+import { PasswordInputComponent } from '../../shared/components/inputs/password-input/password-input.component';
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { InputValidatorService } from '../../shared/services/input-validator.service';
+import { InputConfig } from '../../shared/interfaces/input-config';
 import {
-  emailVal,
-  passwordVal,
-} from '../../shared/services/input-validation.service';
-// global.ts! (5x)
-import { saveUser } from '../../shared/ts/global';
+  getLocalItem,
+  isDefaultString,
+  removeLocalItem,
+  setLocalItem,
+} from '../../shared/ts/global';
 import { User } from '../../shared/models/user';
 import { UserDoc } from '../../shared/models/user-doc';
-import { PasswordInputComponent } from '../../shared/components/inputs/password-input/password-input.component';
-import { TextInputComponent } from '../../shared/components/inputs/text-input/text-input.component';
-import { emailPatterns, passwordPatterns } from '../../shared/ts/pattern';
-import { InputValidator } from '../../shared/models/input-validator';
-import { InputConfig } from '../../shared/interfaces/input-config';
 
 @Component({
   selector: 'app-login',
@@ -41,7 +40,6 @@ import { InputConfig } from '../../shared/interfaces/input-config';
     HeaderComponent,
     TitleComponent,
     TextInputComponent,
-    // EmailInputComponent,
     PasswordInputComponent,
     CheckboxComponent,
     FooterComponent,
@@ -51,88 +49,104 @@ import { InputConfig } from '../../shared/interfaces/input-config';
 })
 
 /**
- * Represents a login component.
+ * Class representing a login component.
  */
 export class LoginComponent {
   fb: FormBuilder = inject(FormBuilder);
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  validators: InputValidatorService = inject(InputValidatorService);
 
-  [key: string]: any;
-  user: User = new User();
-  emailPat: RegExp = emailVal.emailPat;
-  passwordPat: RegExp = passwordVal.passwordPat;
+  form!: FormGroup;
+  config: InputConfig[] = [];
   remembered: boolean = false;
-  loggedIn: boolean = true;
+  loggedIn: boolean = false;
   rejected: boolean = false;
   error = 'Check your email and password. Please try again.';
 
-  loginForm!: FormGroup;
-
-  validator = new InputValidator();
-
-  emailValidators = [
-    this.validator.required(),
-    // this.validator.forbidden(emailPatterns.forbidden),
-    // this.validator.minLength(6),
-    // this.validator.email(emailPatterns.email),
-    // this.validator.maxLength(127),
-  ];
-
-  passwordValidators = [
-    this.validator.required(),
-    // this.validator.forbidden(passwordPatterns.forbidden),
-    // this.validator.minLength(8),
-    // this.validator.upperCase(passwordPatterns.upperCase),
-    // this.validator.lowerCase(passwordPatterns.lowerCase),
-    // this.validator.digit(passwordPatterns.digit),
-    // this.validator.specialChar(passwordPatterns.specialChar),
-    // this.validator.maxLength(127),
-  ];
-
-  config!: {
-    email: InputConfig;
-    password: InputConfig;
-  };
-
-  get control() {
-    return this.loginForm.controls;
-  }
-
-  set control(value: any) {
-    this.loginForm.setControl(value.name, value.control);
+  /**
+   * Gets a form control.
+   * @param name - The form control name.
+   * @returns The form control.
+   */
+  get(name: string) {
+    return this.form.get(name);
   }
 
   /**
-   * Initializes the login component.
+   * Gets a form control value.
+   * @param name - The form control name.
+   * @returns The form control value.
+   */
+  getValue(name: string) {
+    return this.form.get(name)?.value;
+  }
+
+  /**
+   * Sets the value of a form control.
+   * @param name - The form control name.
+   * @param value - The value to set.
+   */
+  setValue(name: string, value: string) {
+    this.form.get(name)?.setValue(value);
+  }
+
+  /**
+   * Initializes a login component.
    */
   async ngOnInit() {
-    this.loginForm = this.fb.group({
-      email: [this.user.email, this.emailValidators],
-      password: [this.user.password, this.passwordValidators], // @Input() pattern!
-    });
-    console.log('loginForm: ', this.loginForm);
-    console.log('get email: ', this.loginForm.value.email);
-
-    this.config = {
-      email: {
-        placeholder: 'Email',
-        img: 'email',
-        control: this.control.email,
-        valOff: true,
-      },
-      password: {
-        placeholder: 'Password',
-        img: 'lock',
-        control: this.control.password,
-        valOff: true,
-      },
-    };
-
+    this.setForm();
+    this.setConfig();
     await this.setSigneeEmail();
-    await this.setRememberedData();
-    setTimeout(() => (this.loggedIn = false), 0);
+    await this.setRememberedUser();
+  }
+
+  /**
+   * Sets a form.
+   */
+  setForm() {
+    this.form = this.getForm();
+    this.addControl('email', '', this.validators.email);
+    this.addControl('password', '', this.validators.password);
+  }
+
+  /**
+   * Gets a form.
+   * @returns The form.
+   */
+  getForm() {
+    return this.fb.group({});
+  }
+
+  /**
+   * Adds a form control.
+   * @param name - The form control name.
+   * @param value - The form control value.
+   * @param validators - The form control validators.
+   */
+  addControl(name: string, value: string, validators: ValidatorFn[]) {
+    let control = new FormControl(value, validators);
+    this.form.addControl(name, control);
+  }
+
+  /**
+   * Sets a configuration.
+   */
+  setConfig() {
+    this.addInputConfig('Email', 'email', true);
+    this.addInputConfig('Password', 'lock', true);
+  }
+
+  /**
+   * Adds an input configuration.
+   * @param placeholder - The input placeholder.
+   * @param img - The input image.
+   * @param valOff - A boolean value.
+   */
+  addInputConfig(placeholder: string, img: string, valOff: boolean) {
+    const inputConfig = { placeholder, img, valOff };
+    this.config.push(inputConfig);
   }
 
   /**
@@ -141,30 +155,30 @@ export class LoginComponent {
   async setSigneeEmail() {
     let sid = this.route.snapshot.paramMap.get('id');
     if (sid) {
-      await this.setEmail(sid);
+      await this.updateEmailControl(sid);
     }
   }
 
   /**
-   * Sets the email.
+   * Updates the value of the email form control.
    * @param sid - The session id.
    */
-  async setEmail(sid: string) {
+  async updateEmailControl(sid: string) {
     let user = await this.join.getUserBySid(sid);
     if (user) {
-      this.user.email = user.email;
+      this.setValue('email', user.email);
     }
   }
 
   /**
-   * Sets the remembered user data.
+   * Sets the remembered user.
    */
-  async setRememberedData() {
-    if (this.user.email == '') {
-      // global.ts!
-      let trueAsText = localStorage.getItem('remembered');
-      let userAsText = localStorage.getItem('user');
-      if (trueAsText && userAsText) {
+  async setRememberedUser() {
+    let email = this.getValue('email');
+    if (isDefaultString(email)) {
+      let rememberedAsText = getLocalItem('remembered');
+      let userAsText = getLocalItem('user');
+      if (rememberedAsText && userAsText) {
         let user = JSON.parse(userAsText);
         await this.verifyLoadedUser(user);
       }
@@ -177,85 +191,81 @@ export class LoginComponent {
    */
   async verifyLoadedUser(user: User) {
     let userExistent = await this.join.getUserDoc(user.email, user.password);
-    if (userExistent) {
-      this.user.email = user.email;
-      this.user.password = user.password;
-      this.remembered = true;
-    } else {
-      // global.ts!
-      localStorage.removeItem('remembered');
-      localStorage.removeItem('user');
-    }
+    userExistent ? this.updateForm(user) : this.removeRememberedUser();
   }
 
   /**
-   * Processes the login data on submit.
+   * Updates the form by the loaded user.
+   * @param user - The loaded user.
    */
-  async onLogIn() {
-    if (this.loginForm.valid) {
-      // console.log('loginForm: ', this.loginForm); // testing!!!
-      // this.loginForm.reset(); // testing!!!
+  updateForm(user: User) {
+    this.setValue('email', user.email);
+    this.setValue('password', user.password);
+    this.remembered = true;
+  }
 
+  /**
+   * Removes the remembered user from the local storage.
+   */
+  removeRememberedUser() {
+    removeLocalItem('remembered');
+    removeLocalItem('user');
+  }
+
+  /**
+   * Logs the user in on submit.
+   */
+  async onLogin() {
+    if (this.form.valid) {
       this.loggedIn = true;
-      await this.processLoginData();
+      let userDoc = await this.getUserDoc();
+      userDoc ? await this.logIn(userDoc) : this.reject();
     }
   }
 
   /**
-   * Processes the login data.
+   * Gets the user doc.
+   * @returns The user doc.
    */
-  async processLoginData() {
-    let userDoc = await this.join.getUserDoc(
-      this.user.email,
-      this.user.password
-    );
-    if (userDoc) {
-      await this.executeLogin(userDoc);
-    } else {
-      this.executeFeedback();
-    }
+  async getUserDoc() {
+    let email = this.getValue('email');
+    let password = this.getValue('password');
+    return await this.join.getUserDoc(email, password);
   }
 
   /**
-   * Executes the user login.
-   * @param id - The user id.
+   * Logs a user in.
+   * @param userDoc - The user doc.
    */
-  async executeLogin(userDoc: UserDoc) {
-    this.rejected = !this.rejected ? this.rejected : false;
+  async logIn(userDoc: UserDoc) {
+    this.rejected = false;
     let sid = await this.join.getSessionId(userDoc.id);
-    this.rememberUser(userDoc.data);
-    // global.ts!
-    saveUser(userDoc.data);
-    this.join.setUser(userDoc.data);
-    this.join.subscribeUser();
+    this.rememberUser();
+    this.join.logUserIn(userDoc.data);
     this.router.navigate(['main', sid, 'summary']);
   }
 
   /**
-   * Remembers the user.
-   * @param data - The user data.
+   * Remembers a user.
    */
-  rememberUser(data: User) {
+  rememberUser() {
     if (this.remembered) {
-      localStorage.setItem('remembered', JSON.stringify(true));
-      // global.ts!
-      saveUser(data);
+      setLocalItem('remembered', true);
     } else {
-      localStorage.removeItem('remembered');
-      localStorage.removeItem('user');
+      this.removeRememberedUser();
     }
   }
 
   /**
-   * Executes the user feedback.
+   * Rejects a form.
    */
-  executeFeedback() {
+  reject() {
     this.rejected = true;
     this.loggedIn = false;
   }
 
   /**
-   * Remembers the user on check.
+   * Remembers a user on check.
    * @param checked - A boolean value.
    */
   onRememberMe(checked: boolean) {
@@ -263,10 +273,10 @@ export class LoginComponent {
   }
 
   /**
-   * Verifies the disabled state of the login button.
+   * Verifies the disabled state of a login button.
    * @returns - A boolean value.
    */
   isDisabled() {
-    return this.loginForm.invalid || this.loggedIn;
+    return this.form.invalid || this.loggedIn;
   }
 }

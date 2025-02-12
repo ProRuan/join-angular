@@ -4,15 +4,15 @@
     <app-header type="login"></app-header>
 
     <div class="form-cont">
-        <form [formGroup]="loginForm" class="form" (submit)="onLogIn()">
+        <form [formGroup]="form" class="form" (submit)="onLogin()">
             <app-title title="Log in"></app-title>
 
             <div class="input-checkbox-cont">
                 <div class="column-8">
                     <div class="input-group">
-                        <app-text-input [config]="config.email"></app-text-input>
+                        <app-text-input [control]="get('email')" [config]="config[0]"></app-text-input>
                         <div class="input-error-cont">
-                            <app-password-input [config]="config.password"></app-password-input>
+                            <app-password-input [control]="get('password')" [config]="config[1]"></app-password-input>
                             <div class="error-cont">
                                 <span *ngIf="rejected" class="error">{{ error }}</span>
                             </div>
@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="checkbox-link-cont">
-                    <div class="remember-me-cont">
+                    <div class="checkbox-cont">
                         <app-checkbox [checked]="this.remembered" (check)="onRememberMe($event)"></app-checkbox>
                         <span>Remember me</span>
                     </div>

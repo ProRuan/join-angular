@@ -4,16 +4,18 @@
     <app-header type="sign-up"></app-header>
 
     <div class="form-cont">
-        <form [formGroup]="signUpForm" class="form" (ngSubmit)="onSignUp()">
+        <form [formGroup]="form" class="form" (ngSubmit)="onSignUp()">
             <app-login-arrow></app-login-arrow>
             <app-title title="Sign up"></app-title>
 
             <div class="input-checkbox-cont">
                 <div class="input-group">
-                    <app-text-input [config]="config.name"></app-text-input>
-                    <app-text-input [config]="config.email"></app-text-input>
-                    <app-password-input [config]="config.password"></app-password-input>
-                    <app-password-input [config]="config.matchword"></app-password-input>
+                    <app-text-input [control]="getControl('name')" [config]="config.name"></app-text-input>
+                    <app-text-input [control]="getControl('email')" [config]="config.email"></app-text-input>
+                    <app-password-input [control]="getControl('password')"
+                        [config]="config.password"></app-password-input>
+                    <app-password-input [control]="getControl('matchword')"
+                        [config]="config.matchword"></app-password-input>
                     <!-- set matchword input -->
                     <!-- <app-password-input [(ngModel)]="matchword" name="matchword"
                         [pattern]="password"></app-password-input> -->
