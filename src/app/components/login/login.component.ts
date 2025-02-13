@@ -62,7 +62,6 @@ export class LoginComponent {
   config: InputConfig[] = [];
   remembered: boolean = false;
   loggedIn: boolean = false;
-  rejected: boolean = false;
   error = 'Check your email and password. Please try again.';
 
   /**
@@ -238,7 +237,7 @@ export class LoginComponent {
    * @param userDoc - The user doc.
    */
   async logIn(userDoc: UserDoc) {
-    this.rejected = false;
+    this.validators.setRejected(false);
     let sid = await this.join.getSessionId(userDoc.id);
     this.rememberUser();
     this.join.logUserIn(userDoc.data);
@@ -260,8 +259,9 @@ export class LoginComponent {
    * Rejects a form.
    */
   reject() {
-    this.rejected = true;
     this.loggedIn = false;
+    this.setValue('password', '');
+    this.validators.setRejected(true);
   }
 
   /**

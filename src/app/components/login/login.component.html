@@ -14,7 +14,7 @@
                         <div class="input-error-cont">
                             <app-password-input [control]="get('password')" [config]="config[1]"></app-password-input>
                             <div class="error-cont">
-                                <span *ngIf="rejected" class="error">{{ error }}</span>
+                                <span *ngIf="validators.rejected" class="error">{{ error }}</span>
                             </div>
                         </div>
                     </div>

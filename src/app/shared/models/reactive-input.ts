@@ -9,6 +9,9 @@ import {
 } from '@angular/forms';
 import { InputValidator } from './input-validator';
 import { InputConfig } from '../interfaces/input-config';
+import { InputValidatorService } from '../services/input-validator.service';
+
+type FormService = InputValidatorService;
 
 /**
  * Represents a reactive input.
@@ -17,6 +20,7 @@ import { InputConfig } from '../interfaces/input-config';
  */
 export class ReactiveInput implements ControlValueAccessor, Validator {
   fb: FormBuilder = inject(FormBuilder);
+  form: FormService = inject(InputValidatorService);
 
   // copy and compare
   // ----------------
@@ -210,7 +214,8 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The css class of the input.
    */
   getInputClass() {
-    let invalid = !this.valOff && this.dirty && this.invalid; // clean?!
+    let invalid =
+      (!this.valOff && this.dirty && this.invalid) || this.form.rejected; // clean?!
     return invalid ? 'invalid' : 'default';
   }
 
@@ -227,7 +232,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns A boolean value.
    */
   isError() {
-    return !this.valOff && this.error;
+    return !this.valOff && this.focused && this.error;
   }
 
   set(config: InputConfig) {

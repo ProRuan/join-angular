@@ -6,6 +6,8 @@ import { emailPatterns, passwordPatterns } from '../ts/pattern';
   providedIn: 'root',
 })
 export class InputValidatorService {
+  [key: string]: any;
+  rejected: boolean = false;
   validator = new InputValidator();
 
   email = [
@@ -28,4 +30,8 @@ export class InputValidatorService {
   ];
 
   constructor() {}
+
+  setRejected(value: boolean) {
+    this.rejected = value;
+  }
 }
