@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InputValidator } from '../models/input-validator';
-import { emailPatterns, passwordPatterns } from '../ts/pattern';
+import { emailPatterns, namePatterns, passwordPatterns } from '../ts/pattern';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +9,15 @@ export class InputValidatorService {
   [key: string]: any;
   rejected: boolean = false;
   validator = new InputValidator();
+
+  name = [
+    this.validator.required(),
+    this.validator.forbidden(namePatterns.forbidden),
+    this.validator.minLength(2),
+    this.validator.sequence(namePatterns.sequence),
+    this.validator.name(namePatterns.name),
+    this.validator.maxLength(127),
+  ];
 
   email = [
     this.validator.required(),
@@ -33,5 +42,15 @@ export class InputValidatorService {
 
   setRejected(value: boolean) {
     this.rejected = value;
+  }
+
+  getMatchword(value: string) {
+    return [
+      this.validator.required(),
+      this.validator.forbidden(passwordPatterns.forbidden),
+      this.validator.minLength(8),
+      this.validator.password(value),
+      this.validator.maxLength(127),
+    ];
   }
 }

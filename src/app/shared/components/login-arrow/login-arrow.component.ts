@@ -11,7 +11,7 @@ import { JoinService } from '../../services/join.service';
 })
 
 /**
- * Represents a login arrow component.
+ * Class representing a login arrow component.
  */
 export class LoginArrowComponent {
   router: Router = inject(Router);

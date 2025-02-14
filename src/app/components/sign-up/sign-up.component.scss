@@ -21,7 +21,6 @@
 
 .input-checkbox-cont {
   @include display-column($g: 16px);
-  // set height!!!
 }
 
 .input-group {
@@ -29,28 +28,21 @@
   width: 422px;
 }
 
-.privacy-policy-line {
-  @include display-row($jc: center);
-  width: 100%;
-}
-
 .privacy-policy-cont {
-  @include display-row($ai: center, $g: 8px);
+  @include display-row($jc: center, $ai: center, $g: 8px);
 }
 
 .privacy-policy-text {
-  span {
-    color: $darkgray;
-  }
+  color: $darkgray;
+}
 
-  a {
-    text-decoration: none;
-    color: $lightblue;
+.privacy-policy-link {
+  text-decoration: none;
+  color: $lightblue;
 
-    &:hover,
-    &:focus-visible {
-      text-decoration: underline;
-    }
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
   }
 }
 

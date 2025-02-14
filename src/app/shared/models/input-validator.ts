@@ -20,6 +20,7 @@ export class InputValidator {
     sequence: 'Invalid character sequence: ',
     name: 'Start with 2+ letters',
     email: 'Enter a valid email',
+    password: "Your passwords don't match. Please try again.",
   };
 
   /**
@@ -232,5 +233,11 @@ export class InputValidator {
    */
   specialChar(pattern: RegExp): ValidatorFn {
     return this.acceptPattern('specialChar', pattern);
+  }
+
+  // call it pattern or matchword?!
+  password(password: string) {
+    let pattern = new RegExp(`^${password}$`);
+    return this.acceptPattern('password', pattern);
   }
 }

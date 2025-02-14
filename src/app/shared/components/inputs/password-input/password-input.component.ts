@@ -26,6 +26,40 @@ import { InputConfig } from '../../../interfaces/input-config';
  */
 export class PasswordInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;
+  @Input() set matchValue(value: string) {
+    if (value.length > 7) {
+      this.control?.setValidators(this.inputs.getMatchword(value));
+    } else {
+      this.control?.setValidators([]);
+    }
+    // sometimes no error update ...
+    // move to sign-up component ... ?!
+    this.control?.updateValueAndValidity();
+
+    const errors = [
+      'required',
+      'forbidden',
+      'minLength',
+      'upperCase',
+      'lowerCase',
+      'digit',
+      'specialChar',
+      'sequence',
+      'name',
+      'email',
+      'password',
+      'maxLength',
+    ];
+    this.error = '';
+    for (let i = 0; i < errors.length; i++) {
+      let error = errors[i];
+      if (this.control?.hasError(error)) {
+        this.error = this.control.getError(error);
+        break;
+      }
+    }
+    console.log('error: ', this.error);
+  }
 
   @Input() set config(config: InputConfig) {
     this.set(config);

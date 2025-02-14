@@ -19,7 +19,7 @@ import { relocation } from './animations/relocation.animation';
 export class LogoComponent {
   join: JoinService = inject(JoinService);
 
-  @Input() enabled: boolean = true;
+  @Input() animated: boolean = true;
 
   pointless: boolean = false;
   logo: string = '../../../assets/img/login/logo.png';
@@ -35,7 +35,7 @@ export class LogoComponent {
    * Introduces the app by animation.
    */
   introduce() {
-    let welcomed = this.enabled && !this.join.revealed;
+    let welcomed = this.animated && !this.join.revealed;
     welcomed ? this.playIntro() : this.skipIntro();
   }
 
@@ -60,7 +60,7 @@ export class LogoComponent {
    * @returns The animation state.
    */
   revealApp() {
-    if (this.enabled) {
+    if (this.animated) {
       return !this.join.revealed ? revelation.start : revelation.end;
     } else {
       return revelation.end;
@@ -90,7 +90,7 @@ export class LogoComponent {
    * @returns The animation state.
    */
   relocateLogo() {
-    if (this.enabled) {
+    if (this.animated) {
       return !this.join.relocated ? relocation.start : relocation.end;
     } else {
       return relocation.end;

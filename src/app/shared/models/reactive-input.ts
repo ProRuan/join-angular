@@ -11,8 +11,6 @@ import { InputValidator } from './input-validator';
 import { InputConfig } from '../interfaces/input-config';
 import { InputValidatorService } from '../services/input-validator.service';
 
-type FormService = InputValidatorService;
-
 /**
  * Represents a reactive input.
  * @implements {ControlValueAccessor}
@@ -20,7 +18,7 @@ type FormService = InputValidatorService;
  */
 export class ReactiveInput implements ControlValueAccessor, Validator {
   fb: FormBuilder = inject(FormBuilder);
-  form: FormService = inject(InputValidatorService);
+  inputs: InputValidatorService = inject(InputValidatorService);
 
   // copy and compare
   // ----------------
@@ -142,6 +140,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
       'sequence',
       'name',
       'email',
+      'password',
       'maxLength',
     ];
     this.error = '';
@@ -152,6 +151,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
         break;
       }
     }
+    console.log('error: ', this.error);
   }
 
   /**
@@ -215,7 +215,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    */
   getInputClass() {
     let invalid =
-      (!this.valOff && this.dirty && this.invalid) || this.form.rejected; // clean?!
+      (!this.valOff && this.dirty && this.invalid) || this.inputs.rejected; // clean?!
     return invalid ? 'invalid' : 'default';
   }
 

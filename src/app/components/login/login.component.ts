@@ -279,4 +279,11 @@ export class LoginComponent {
   isDisabled() {
     return this.form.invalid || this.loggedIn;
   }
+
+  /**
+   * Destroys a login component.
+   */
+  ngOnDestroy() {
+    this.validators.setRejected(false);
+  }
 }

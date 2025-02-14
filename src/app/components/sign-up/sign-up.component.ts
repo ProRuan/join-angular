@@ -2,10 +2,12 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   NgForm,
   ReactiveFormsModule,
+  ValidatorFn,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
@@ -36,6 +38,7 @@ import {
   passwordPatterns,
 } from '../../shared/ts/pattern';
 import { InputConfig } from '../../shared/interfaces/input-config';
+import { InputValidatorService } from '../../shared/services/input-validator.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -61,7 +64,7 @@ import { InputConfig } from '../../shared/interfaces/input-config';
 })
 
 /**
- * Represents a sign-up component.
+ * Class representing a sign-up component.
  */
 export class SignUpComponent {
   router: Router = inject(Router);
@@ -69,7 +72,11 @@ export class SignUpComponent {
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
   fb: FormBuilder = inject(FormBuilder);
+  validators: InputValidatorService = inject(InputValidatorService);
 
+  // matchword validator ...
+  //   --> improve login with updateValueAndValidity() ... !
+  // review val services ... (0/3)
   // PasswordInputComponent: mask, button etc. ...
 
   // JoinService
@@ -82,12 +89,10 @@ export class SignUpComponent {
   // --------------
   // logIn() --> sid ...
   // rememberUser() ...
+  // onUserLogin() + onGuestLogin() ...
 
   [key: string]: any;
   initials: string = '';
-  name: string = '';
-  email: string = '';
-  password: string = '';
   matchword: string = '';
   namePat: RegExp = nameVal.namePat;
   emailPat: RegExp = emailVal.emailPat;
@@ -99,72 +104,63 @@ export class SignUpComponent {
   form!: FormGroup;
   validator = new InputValidator();
 
-  nameValidators = [
-    this.validator.required(),
-    this.validator.forbidden(namePatterns.forbidden),
-    this.validator.minLength(2),
-    this.validator.sequence(namePatterns.sequence),
-    this.validator.name(namePatterns.name),
-    this.validator.maxLength(127),
-  ];
+  config: InputConfig[] = [];
 
-  emailValidators = [
-    this.validator.required(),
-    this.validator.forbidden(emailPatterns.forbidden),
-    this.validator.minLength(6),
-    this.validator.email(emailPatterns.email),
-    this.validator.maxLength(127),
-  ];
+  // double code
+  get(name: string) {
+    return this.form.get(name);
+  }
 
-  passwordValidators = [
-    this.validator.required(),
-    this.validator.forbidden(passwordPatterns.forbidden),
-    this.validator.minLength(8),
-    this.validator.upperCase(passwordPatterns.upperCase),
-    this.validator.lowerCase(passwordPatterns.lowerCase),
-    this.validator.digit(passwordPatterns.digit),
-    this.validator.specialChar(passwordPatterns.specialChar),
-    this.validator.maxLength(127),
-  ]; // set validator for matchword by pattern (pattern = valid password)!!!
+  // double code
+  getValue(name: string) {
+    return this.form.get(name)?.value;
+  }
 
-  config!: {
-    name: InputConfig;
-    email: InputConfig;
-    password: InputConfig;
-    matchword: InputConfig;
-  };
+  // double code
+  setValue(name: string, value: string) {
+    this.form.get(name)?.setValue(value);
+  }
 
+  /**
+   * Initializes a sign-up component.
+   */
   ngOnInit() {
-    this.form = this.fb.group({
-      name: [this.user.name, this.nameValidators],
-      email: [this.user.email, this.emailValidators],
-      password: [this.user.password, this.passwordValidators],
-      matchword: [this.matchword, this.passwordValidators], // set validator for pattern!!!
-    });
+    this.setForm();
+    this.setConfig();
+  }
 
-    this.config = {
-      name: {
-        placeholder: 'Name',
-        img: 'person',
-        valOff: false,
-      },
-      email: {
-        placeholder: 'Email',
-        img: 'email',
-        valOff: false,
-      },
-      password: {
-        placeholder: 'Password',
-        img: 'lock',
-        valOff: false,
-      },
-      matchword: {
-        placeholder: 'Confirm password',
-        img: 'lock',
+  // double code
+  setForm() {
+    this.form = this.getForm();
+    this.addControl('name', '', this.validators.name);
+    this.addControl('email', '', this.validators.email);
+    this.addControl('password', '', this.validators.password);
+    this.addControl('matchword', '', []);
+  }
 
-        valOff: false,
-      },
-    };
+  // double code
+  getForm() {
+    return this.fb.group({});
+  }
+
+  // double code
+  addControl(name: string, value: string, validators: ValidatorFn[]) {
+    let control = new FormControl(value, validators);
+    this.form.addControl(name, control);
+  }
+
+  // double code
+  setConfig() {
+    this.addInputConfig('Name', 'person');
+    this.addInputConfig('Email', 'email');
+    this.addInputConfig('Password', 'lock');
+    this.addInputConfig('Confirm Password', 'lock');
+  }
+
+  // double code
+  addInputConfig(placeholder: string, img: string, valOff: boolean = false) {
+    const inputConfig = { placeholder, img, valOff };
+    this.config.push(inputConfig);
   }
 
   /**
@@ -187,21 +183,22 @@ export class SignUpComponent {
     }
   }
 
-  /**
-   * Updates the sign-up data.
-   */
+  // improve!!!
   updateSignUpData() {
-    this.initials = nameVal.getInitials(this.name);
-    this.name = nameVal.getUserName(this.name);
-    this.email = emailVal.getEmail(this.email);
-    this.password = passwordVal.getPassword(this.password);
+    this.initials = nameVal.getInitials(this.getValue('name'));
+    this.setValue('name', nameVal.getUserName(this.getValue('name')));
+    this.setValue('email', emailVal.getEmail(this.getValue('email')));
+    this.setValue(
+      'password',
+      passwordVal.getPassword(this.getValue('password'))
+    );
   }
 
   /**
    * Processes the sign-up data.
    */
   async processSignUpData() {
-    let userDoc = await this.join.getUserDoc(this.email);
+    let userDoc = await this.join.getUserDoc(this.getValue('email'));
     if (userDoc) {
       this.executeFeedback();
     } else {
@@ -254,9 +251,9 @@ export class SignUpComponent {
   getSignee() {
     let signee = new User();
     signee.initials = this.initials;
-    signee.name = this.name;
-    signee.email = this.email;
-    signee.password = this.password;
+    signee.name = this.getValue('name');
+    signee.email = this.getValue('email');
+    signee.password = this.getValue('password');
     return signee;
   }
 
@@ -268,8 +265,8 @@ export class SignUpComponent {
     let contact = new Contact();
     contact.initials = this.initials;
     contact.bgc = 'lightblue';
-    contact.name = `${this.name} (You)`;
-    contact.email = this.email;
+    contact.name = `${this.getValue('name')} (You)`;
+    contact.email = this.getValue('email');
     return contact;
   }
 
