@@ -1,13 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  ValidatorFn,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -18,7 +11,6 @@ import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.com
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
-import { InputConfig } from '../../shared/interfaces/input-config';
 import {
   getLocalItem,
   isDefaultString,
@@ -27,6 +19,7 @@ import {
 } from '../../shared/ts/global';
 import { User } from '../../shared/models/user';
 import { UserDoc } from '../../shared/models/user-doc';
+import { FormController } from '../../shared/models/form-controller';
 
 @Component({
   selector: 'app-login',
@@ -50,46 +43,17 @@ import { UserDoc } from '../../shared/models/user-doc';
 
 /**
  * Class representing a login component.
+ * @extends FormController
  */
-export class LoginComponent {
-  fb: FormBuilder = inject(FormBuilder);
+export class LoginComponent extends FormController {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   validators: InputValidatorService = inject(InputValidatorService);
 
-  form!: FormGroup;
-  config: InputConfig[] = [];
   remembered: boolean = false;
   loggedIn: boolean = false;
   error = 'Check your email and password. Please try again.';
-
-  /**
-   * Gets a form control.
-   * @param name - The form control name.
-   * @returns The form control.
-   */
-  get(name: string) {
-    return this.form.get(name);
-  }
-
-  /**
-   * Gets a form control value.
-   * @param name - The form control name.
-   * @returns The form control value.
-   */
-  getValue(name: string) {
-    return this.form.get(name)?.value;
-  }
-
-  /**
-   * Sets the value of a form control.
-   * @param name - The form control name.
-   * @param value - The value to set.
-   */
-  setValue(name: string, value: string) {
-    this.form.get(name)?.setValue(value);
-  }
 
   /**
    * Initializes a login component.
@@ -104,54 +68,24 @@ export class LoginComponent {
   /**
    * Sets a form.
    */
-  setForm() {
+  private setForm() {
     this.form = this.getForm();
     this.addControl('email', '', this.validators.email);
     this.addControl('password', '', this.validators.password);
   }
 
   /**
-   * Gets a form.
-   * @returns The form.
-   */
-  getForm() {
-    return this.fb.group({});
-  }
-
-  /**
-   * Adds a form control.
-   * @param name - The form control name.
-   * @param value - The form control value.
-   * @param validators - The form control validators.
-   */
-  addControl(name: string, value: string, validators: ValidatorFn[]) {
-    let control = new FormControl(value, validators);
-    this.form.addControl(name, control);
-  }
-
-  /**
    * Sets a configuration.
    */
-  setConfig() {
+  private setConfig() {
     this.addInputConfig('Email', 'email', true);
     this.addInputConfig('Password', 'lock', true);
   }
 
   /**
-   * Adds an input configuration.
-   * @param placeholder - The input placeholder.
-   * @param img - The input image.
-   * @param valOff - A boolean value.
-   */
-  addInputConfig(placeholder: string, img: string, valOff: boolean) {
-    const inputConfig = { placeholder, img, valOff };
-    this.config.push(inputConfig);
-  }
-
-  /**
    * Sets the signee email.
    */
-  async setSigneeEmail() {
+  private async setSigneeEmail() {
     let sid = this.route.snapshot.paramMap.get('id');
     if (sid) {
       await this.updateEmailControl(sid);
@@ -162,7 +96,7 @@ export class LoginComponent {
    * Updates the value of the email form control.
    * @param sid - The session id.
    */
-  async updateEmailControl(sid: string) {
+  private async updateEmailControl(sid: string) {
     let user = await this.join.getUserBySid(sid);
     if (user) {
       this.setValue('email', user.email);
@@ -172,7 +106,7 @@ export class LoginComponent {
   /**
    * Sets the remembered user.
    */
-  async setRememberedUser() {
+  private async setRememberedUser() {
     let email = this.getValue('email');
     if (isDefaultString(email)) {
       let rememberedAsText = getLocalItem('remembered');
@@ -188,7 +122,7 @@ export class LoginComponent {
    * Verifies the loaded user.
    * @param user - The loaded user.
    */
-  async verifyLoadedUser(user: User) {
+  private async verifyLoadedUser(user: User) {
     let userExistent = await this.join.getUserDoc(user.email, user.password);
     userExistent ? this.updateForm(user) : this.removeRememberedUser();
   }
@@ -197,7 +131,7 @@ export class LoginComponent {
    * Updates the form by the loaded user.
    * @param user - The loaded user.
    */
-  updateForm(user: User) {
+  private updateForm(user: User) {
     this.setValue('email', user.email);
     this.setValue('password', user.password);
     this.remembered = true;
@@ -206,7 +140,7 @@ export class LoginComponent {
   /**
    * Removes the remembered user from the local storage.
    */
-  removeRememberedUser() {
+  private removeRememberedUser() {
     removeLocalItem('remembered');
     removeLocalItem('user');
   }
@@ -226,7 +160,7 @@ export class LoginComponent {
    * Gets the user doc.
    * @returns The user doc.
    */
-  async getUserDoc() {
+  private async getUserDoc() {
     let email = this.getValue('email');
     let password = this.getValue('password');
     return await this.join.getUserDoc(email, password);
@@ -236,7 +170,7 @@ export class LoginComponent {
    * Logs a user in.
    * @param userDoc - The user doc.
    */
-  async logIn(userDoc: UserDoc) {
+  private async logIn(userDoc: UserDoc) {
     this.validators.setRejected(false);
     let sid = await this.join.getSessionId(userDoc.id);
     this.rememberUser();
@@ -247,7 +181,7 @@ export class LoginComponent {
   /**
    * Remembers a user.
    */
-  rememberUser() {
+  private rememberUser() {
     if (this.remembered) {
       setLocalItem('remembered', true);
     } else {
@@ -258,7 +192,7 @@ export class LoginComponent {
   /**
    * Rejects a form.
    */
-  reject() {
+  private reject() {
     this.loggedIn = false;
     this.setValue('password', '');
     this.validators.setRejected(true);

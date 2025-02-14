@@ -53,14 +53,17 @@ Interfaces (4/?)
   - States - check
   - Styles - check
 
-Models (2/?)
+Models (3/?)
 ------
+  - FormController - check
   - InputValidator - check *error { key: key, value: value }
   - ReactiveInput ... *class representing ...
   - Transform - check
 
 
-Services
+Services (1/?)
+--------
+  - NameFormatterService - check
       
 
 ts (1/?)

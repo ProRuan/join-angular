@@ -89,6 +89,16 @@ export function getISODateString() {
 }
 
 /**
+ * Gets the last element of an array.
+ * @param values - The array.
+ * @returns The last element.
+ */
+export function getLastElement<T>(values: T[]) {
+  let lastIndex = values.length - 1;
+  return values[lastIndex];
+}
+
+/**
  * Gets an item from the local storage.
  * @param key - The item key.
  * @returns The item.
