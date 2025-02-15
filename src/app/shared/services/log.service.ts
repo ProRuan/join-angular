@@ -5,19 +5,27 @@ import { Injectable } from '@angular/core';
 })
 
 /**
- * Represents a log service.
+ * Class representing a log service.
  */
 export class LogService {
-  key: string = '';
+  text: string = '';
   logged: boolean = false;
 
   /**
    * Sets the log.
    * @param logged - A boolean value.
-   * @param key - The key of the log text.
+   * @param text - The text to set.
    */
-  setLog(logged: boolean, key?: string) {
-    this.key = key ? key : this.key;
+  setLog(logged: boolean, text?: string) {
+    this.setText(text);
     this.logged = logged;
+  }
+
+  /**
+   * Sets the log text.
+   * @param text - The text to set.
+   */
+  setText(text?: string) {
+    this.text = text ?? this.text;
   }
 }

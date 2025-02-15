@@ -8,7 +8,7 @@ import { LogService } from './log.service';
 })
 
 /**
- * Represents a navigation service.
+ * Class representing a navigation service.
  */
 export class NavigationService {
   router: Router = inject(Router);
@@ -16,33 +16,31 @@ export class NavigationService {
   log: LogService = inject(LogService);
 
   /**
-   * Opens a login session.
+   * Opens a new login session.
    * @param id - The user id.
+   * @param text - The log text.
    */
-  async openLoginSession(id: string) {
+  async openLoginSession(id: string, text: string) {
     let sid = await this.join.getSessionId(id);
     if (sid) {
-      this.log.setLog(true, 'newPassword');
-      this.selectCustomLogin(sid);
+      this.log.setLog(true, text);
+      this.redirectsToCustomLogin(sid);
     }
   }
 
   /**
-   * Selects the custom login.
+   * Redirects to a custom login.
    * @param sid - The session id.
    */
-  selectCustomLogin(sid: string) {
-    setTimeout(() => {
-      let url = `login/${sid}`;
-      this.backToLogin(url);
-    }, 1000);
+  redirectsToCustomLogin(sid: string) {
+    setTimeout(() => this.redirectsToLogin(`login/${sid}`), 1000);
   }
 
   /**
-   * Redirects to the login.
-   * @param url - The url of the component.
+   * Redirects to a login.
+   * @param url - The login url.
    */
-  backToLogin(url: string) {
+  redirectsToLogin(url: string) {
     this.join.setIntroDone();
     this.router.navigateByUrl(url);
     this.log.setLog(false);

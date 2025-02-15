@@ -16,6 +16,7 @@ import { UserDoc } from '../models/user-doc';
 import { DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
 import { getObjectArray, loadUser, setLocalItem } from '../ts/global';
 import { Task } from '../models/task';
+import { UserData } from '../interfaces/user-data';
 
 @Injectable({
   providedIn: 'root',
@@ -78,7 +79,7 @@ export class JoinService {
    * @param data - The signee data.
    * @returns - The user id or void.
    */
-  async addUser(data: any): Promise<string | void> {
+  async addUser(data: UserData): Promise<string | void> {
     try {
       return await this.addUserDoc(data);
     } catch (error) {
@@ -91,7 +92,7 @@ export class JoinService {
    * @param data - The signee data.
    * @returns - The user id.
    */
-  async addUserDoc(data: any) {
+  async addUserDoc(data: UserData) {
     const userRef = await this.addUserData(data);
     return await this.addUserId(userRef);
   }
@@ -101,7 +102,7 @@ export class JoinService {
    * @param data - The signee data.
    * @returns - The user reference.
    */
-  async addUserData(data: any) {
+  async addUserData(data: UserData) {
     return await addDoc(collection(this.firestore, 'users'), data);
   }
 

@@ -49,6 +49,16 @@ function getNameSequencePattern() {
 export const namePatterns = getNamePatterns();
 
 /**
+ * Gets a double name pattern for the name input validation.
+ * @returns The double name pattern.
+ */
+function getDoubleNamePattern() {
+  return new RegExp(`[${letters}]{2,}(:?-[${letters}]{2,})?`, 'gi');
+}
+
+export const doubleNamePattern = getDoubleNamePattern();
+
+/**
  * Gets email patterns for the email input validation.
  * @returns The email patterns.
  */

@@ -13,14 +13,13 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 import { JoinService } from '../../shared/services/join.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { NameFormatterService } from '../../shared/services/name-formatter.service';
-
-// verfiy!!!
 import { LogService } from '../../shared/services/log.service';
 import { NavigationService } from '../../shared/services/navigation.service';
-import { User } from '../../shared/models/user';
-import { Contact } from '../../shared/models/contact';
-import { sampleContacts } from '../../shared/ts/sample-contacts';
 import { FormController } from '../../shared/models/form-controller';
+import { User } from '../../shared/models/user';
+import { sampleContacts } from '../../shared/ts/sample-contacts';
+import { Contact } from '../../shared/models/contact';
+import { UserData } from '../../shared/interfaces/user-data';
 
 @Component({
   selector: 'app-sign-up',
@@ -51,21 +50,18 @@ export class SignUpComponent extends FormController {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   validators: InputValidatorService = inject(InputValidatorService);
-  namer: NameFormatterService = inject(NameFormatterService);
-
-  // verify!!!
+  nameFormatter: NameFormatterService = inject(NameFormatterService);
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
-  // delete nameVal, emailVal, passwordVal and inputVal ... ?!
-  // improve extends (like FormController) ...
-  // set private methods ...
-  // fix matchword validation --> validation on focus (not on dirty) ... ?!
-  // 5 input values for inputs ... ?
-
-  initials: string = '';
+  user: User = new User();
   ppAccepted: boolean = false;
   signedUp: boolean = false;
+
+  texts = {
+    rejected: 'Email already associated with account',
+    registered: 'You signed up successfully',
+  };
 
   /**
    * Initializes a sign-up component.
@@ -97,65 +93,38 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Registers the user on submit.
+   * Registers a user on submit.
    */
   async onSignUp() {
     if (this.form.valid) {
       this.signedUp = true;
-      this.updateSigneeData();
-      // await this.processSignUpData(); // activate!!!
+      let userDoc = await this.getUserDoc();
+      userDoc ? this.reject() : this.signUp();
     }
   }
 
   /**
-   * Updates signee data.
+   * Gets a user doc.
+   * @returns The user doc.
    */
-  updateSigneeData() {
-    this.updateName();
-    this.updateInitials();
+  async getUserDoc() {
+    let email = this.getValue('email');
+    return await this.join.getUserDoc(email);
   }
 
   /**
-   * Updates the value of a name form control.
+   * Rejects a form.
    */
-  updateName() {
-    let name = this.getValue('name');
-    let userName = this.namer.getFormattedName(name);
-    this.setValue('name', userName);
+  reject() {
+    let text = this.texts.rejected;
+    this.log.setLog(true, text);
+    this.rejectBelatedly();
   }
 
   /**
-   * Updates the initials.
+   * Rejects a form belatedly.
    */
-  updateInitials() {
-    let name = this.getValue('name');
-    this.initials = this.namer.getInitials(name);
-  }
-
-  /**
-   * Processes the sign-up data.
-   */
-  async processSignUpData() {
-    let userDoc = await this.join.getUserDoc(this.getValue('email'));
-    if (userDoc) {
-      this.executeFeedback();
-    } else {
-      this.executeRegistration();
-    }
-  }
-
-  /**
-   * Executes the user feedback.
-   */
-  executeFeedback() {
-    this.log.setLog(true, 'email');
-    this.returnForm();
-  }
-
-  /**
-   * Returns the sign-up form.
-   */
-  returnForm() {
+  rejectBelatedly() {
     setTimeout(() => {
       this.log.setLog(false);
       this.signedUp = false;
@@ -163,64 +132,89 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Executes the user registration.
+   * Registers a user.
    */
-  async executeRegistration() {
-    let data = this.getSigneeData();
-    await this.registerUser(data);
+  async signUp() {
+    this.updateUser();
+    this.updateUserContacts();
+    let data = this.getUserData();
+    await this.addUser(data);
   }
 
   /**
-   * Provides the signee data.
-   * @returns - The signee data.
+   * Udpates a user.
    */
-  getSigneeData() {
-    let signee = this.getSignee();
-    let contact = this.getContact();
-    signee.contacts.push(contact);
-    signee.contacts.push(...sampleContacts);
-    return { data: signee.getObject() };
+  updateUser() {
+    this.user.name = this.getName();
+    this.user.initials = this.getInitials(this.user.name);
+    this.user.email = this.getValue('email');
+    this.user.password = this.getValue('password');
   }
 
   /**
-   * Provides the signee.
-   * @returns - The signee.
+   * Gets a user name.
+   * @returns The user name.
    */
-  getSignee() {
-    let signee = new User();
-    signee.initials = this.initials;
-    signee.name = this.getValue('name');
-    signee.email = this.getValue('email');
-    signee.password = this.getValue('password');
-    return signee;
+  getName() {
+    let name = this.getValue('name');
+    return this.nameFormatter.getFormattedName(name);
   }
 
   /**
-   * Provides the signee contact.
-   * @returns - The signee contact.
+   * Gets user initials.
+   * @param name - The user name.
+   * @returns The user initials.
    */
-  getContact() {
+  getInitials(name: string) {
+    return this.nameFormatter.getInitials(name);
+  }
+
+  /**
+   * Updates user contacts.
+   */
+  updateUserContacts() {
+    let contact = this.getContact(this.user);
+    this.user.contacts.push(contact);
+    this.user.contacts.push(...sampleContacts);
+  }
+
+  /**
+   * Gets a user as a contact.
+   * @param user - The user.
+   * @returns The user as a contact.
+   */
+  getContact(user: User) {
     let contact = new Contact();
-    contact.initials = this.initials;
+    contact.initials = user.initials;
     contact.bgc = 'lightblue';
-    contact.name = `${this.getValue('name')} (You)`;
-    contact.email = this.getValue('email');
+    contact.name = `${user.name} (You)`;
+    contact.email = user.email;
     return contact;
   }
 
   /**
-   * Registers the user.
-   * @param data - The signee data.
+   * Gets user data.
+   * @returns The user data.
    */
-  async registerUser(data: any): Promise<string | void> {
+  getUserData() {
+    let data = this.user.getObject();
+    return { data };
+  }
+
+  /**
+   * Adds a user.
+   * @param data - The user data.
+   */
+  async addUser(data: UserData): Promise<string | void> {
     let id = await this.join.addUser(data);
     if (id) {
-      this.nav.openLoginSession(id);
+      let text = this.texts.registered;
+      await this.nav.openLoginSession(id, text);
     }
   }
 
   /**
-   * Accepts the privacy policy on check.
+   * Accepts a privacy policy on check.
    * @param checked - A boolean value.
    */
   onAccept(checked: boolean) {
@@ -228,8 +222,8 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Verifies the disabled state of the sign-up button.
-   * @returns - A boolean value.
+   * Verifies the disabled state of a sign-up button.
+   * @returns A boolean value.
    */
   isDisabled() {
     return this.form.invalid || !this.ppAccepted || this.signedUp;

@@ -11,31 +11,17 @@ import { LogService } from '../../services/log.service';
 })
 
 /**
- * Represents a log component.
+ * Class representing a log component.
  */
 export class LogComponent {
   log: LogService = inject(LogService);
 
-  texts: { [key: string]: any } = {
-    signUp: 'You signed up successfully',
-    email: 'Email already associated with account',
-    newPassword: 'Password updated successfully',
-  };
-
   /**
-   * Provides the css class.
-   * @param prop - The property name.
-   * @returns - The css class to apply.
+   * Gets a css class of an element.
+   * @param element - The element name.
+   * @returns The css class of the element.
    */
-  getClass(prop: string) {
-    return !this.log.logged ? `${prop}-hidden` : `${prop}-visible`;
-  }
-
-  /**
-   * Prints the log text.
-   * @returns - The log text to print.
-   */
-  printText() {
-    return this.texts[this.log.key];
+  getClass(element: string) {
+    return this.log.logged ? `${element}-visible` : `${element}-hidden`;
   }
 }

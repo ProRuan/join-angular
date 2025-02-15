@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getCapitalized, getLastElement } from '../ts/global';
+import { doubleNamePattern } from '../ts/pattern';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,14 @@ import { getCapitalized, getLastElement } from '../ts/global';
  * Class representing a name formatter service.
  */
 export class NameFormatterService {
-  pattern: RegExp = /[a-z]{2,}(:?-[a-z]{2,})?/gi;
+  pattern: RegExp;
+
+  /**
+   * Creates a name formatter service.
+   */
+  constructor() {
+    this.pattern = doubleNamePattern;
+  }
 
   /**
    * Gets a formatted name.

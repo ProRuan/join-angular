@@ -29,15 +29,18 @@ Final Tasks
 
 Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 -----------
-  - LoginComponent (html, scss, ts) ... (3/3) *logInUser() and rememberUser()
-  - SignUpComponent ... (0/3)
+Join (2/?)
+----
+  - LoginComponent - check *logInUser() and rememberUser()
+  - SignUpComponent - check
 
 
-Components (5/?) + await inputs ...
+Components (6/?) + await inputs ...
 ----------
   - CheckboxComponent - check
   - FooterComponent - check
   - HeaderComponent - check
+  - LogComponent - check
   - LogoComponent - check
   - TitleComponent - check
   - inputs ... (1/?)
@@ -46,12 +49,13 @@ Components (5/?) + await inputs ...
       - TextInputComponent - check *admin-inputs.scss?!
 
 
-Interfaces (4/?)
+Interfaces (5/?)
 ----------
   - InputConfig - check
   - Propertiess - check
   - States - check
   - Styles - check
+  - UserData - check
 
 Models (3/?)
 ------
@@ -61,9 +65,11 @@ Models (3/?)
   - Transform - check
 
 
-Services (1/?)
+Services (3/?)
 --------
+  - LogService - check
   - NameFormatterService - check
+  - NavigationService - check
       
 
 ts (1/?)

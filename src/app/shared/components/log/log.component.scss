@@ -1,6 +1,6 @@
 @import "../../../../mixins.scss";
 
-.log-layer {
+.layer {
   @include size($w: 100%, $h: 100vh);
   @include display-flex();
   @include position($pos: fixed, $l: 0, $t: 0);
@@ -8,12 +8,12 @@
   transition: all 200ms ease-in-out;
 }
 
-.vis-hidden {
+.layer-hidden {
   background-color: rgba(0, 0, 0, 0);
   visibility: hidden;
 }
 
-.vis-visible {
+.layer-visible {
   background-color: rgba(0, 0, 0, 0.25);
   visibility: visible;
 }
@@ -30,10 +30,10 @@
   transition: all 200ms ease-in-out;
 }
 
-.pos-hidden {
-  top: calc(50vh + 57px);
+.log-hidden {
+  top: calc(50vh + 41px);
 }
 
-.pos-visible {
+.log-visible {
   top: 0vh;
 }

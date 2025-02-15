@@ -42,6 +42,18 @@ export class NewPasswordComponent {
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
+  // registerUser() ...
+  // reject(): rename (also for login) ... !!!
+  // move log ... ?
+  // log reset wrong ... !
+  // remember me wrong ... !!!
+
+  // delete nameVal, emailVal, passwordVal and inputVal ... ?!
+  // improve extends (like FormController) ...
+  // set private methods ...
+  // fix matchword validation --> validation on focus (not on dirty) ... ?!
+  // 5 input values for inputs ... ?
+
   [key: string]: any;
   title: string = 'Join user';
   id: string = '';
@@ -110,8 +122,9 @@ export class NewPasswordComponent {
   async onUpdatePassword(ngForm: NgForm) {
     if (ngForm.form.valid) {
       this.submitted = true;
+      let text = 'Password updated successfully';
       await this.join.updateUser(this.id, 'data.password', this.password);
-      await this.nav.openLoginSession(this.id);
+      await this.nav.openLoginSession(this.id, text);
     }
   }
 }
