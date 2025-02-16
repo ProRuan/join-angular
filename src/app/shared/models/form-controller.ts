@@ -33,28 +33,6 @@ export class FormController {
   }
 
   /**
-   * Adds a form control.
-   * @param name - The form control name.
-   * @param value - The form control value.
-   * @param validators - The form control validators.
-   */
-  addControl(name: string, value: string, validators: ValidatorFn[]) {
-    let control = new FormControl(value, validators);
-    this.form.addControl(name, control);
-  }
-
-  /**
-   * Adds an input configuration.
-   * @param placeholder - The input placeholder.
-   * @param img - The input image.
-   * @param valOff - A boolean value.
-   */
-  addInputConfig(placeholder: string, img: string, valOff: boolean = false) {
-    const inputConfig = { placeholder, img, valOff };
-    this.config.push(inputConfig);
-  }
-
-  /**
    * Gets a form control.
    * @param name - The form control name.
    * @returns The form control.
@@ -79,5 +57,66 @@ export class FormController {
    */
   setValue(name: string, value: string) {
     this.form.get(name)?.setValue(value);
+  }
+
+  /**
+   * Registers a form control.
+   * @param name - The form control name.
+   * @param value - The form control value.
+   * @param validators - The form control validators.
+   */
+  registerControl(name: string, value: string, validators: ValidatorFn[]) {
+    let control = this.getControl(value, validators);
+    this.form.registerControl(name, control);
+  }
+
+  /**
+   * Gets a form control.
+   * @param value - The form control value.
+   * @param validators - The form control validators.
+   * @returns The form control.
+   */
+  getControl(value: string, validators: ValidatorFn[]) {
+    return new FormControl(value, validators);
+  }
+
+  /**
+   * Adds a form control.
+   * @param name - The form control name.
+   * @param value - The form control value.
+   * @param validators - The form control validators.
+   */
+  addControl(name: string, value: string, validators: ValidatorFn[]) {
+    let control = this.getControl(value, validators);
+    this.form.addControl(name, control);
+  }
+
+  /**
+   * Removes a form control.
+   * @param name - The form control name.
+   */
+  removeControl(name: string) {
+    this.form.removeControl(name);
+  }
+
+  /**
+   * Verifies the existence of a form control.
+   * @param name - The form control name.
+   * @returns A boolean value.
+   */
+  isControl(name: string) {
+    let control = this.get(name);
+    return control ? true : false;
+  }
+
+  /**
+   * Adds an input configuration.
+   * @param placeholder - The input placeholder.
+   * @param img - The input image.
+   * @param valOff - A boolean value.
+   */
+  addInputConfig(placeholder: string, img: string, valOff: boolean = false) {
+    const inputConfig = { placeholder, img, valOff };
+    this.config.push(inputConfig);
   }
 }

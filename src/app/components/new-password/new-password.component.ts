@@ -1,18 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import {
+  AbstractControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
-import { TextInputComponent } from '../../shared/components/text-input/text-input.component';
-import { PasswordInputComponent } from '../../shared/components/password-input/password-input.component';
+import { TextInputComponent } from '../../shared/components/inputs/text-input/text-input.component';
+import { PasswordInputComponent } from '../../shared/components/inputs/password-input/password-input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { LogService } from '../../shared/services/log.service';
 import { NavigationService } from '../../shared/services/navigation.service';
-import { passwordVal } from '../../shared/services/input-validation.service';
+import { FormController } from '../../shared/models/form-controller';
 import { UserDoc } from '../../shared/models/user-doc';
 
 @Component({
@@ -21,6 +26,7 @@ import { UserDoc } from '../../shared/models/user-doc';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     LogoComponent,
     HeaderComponent,
     LoginArrowComponent,
@@ -34,97 +40,144 @@ import { UserDoc } from '../../shared/models/user-doc';
 })
 
 /**
- * Represents a new password component.
+ * Class representing a new password component.
  */
-export class NewPasswordComponent {
+export class NewPasswordComponent extends FormController {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  validators: InputValidatorService = inject(InputValidatorService);
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
-  // registerUser() ...
-  // reject(): rename (also for login) ... !!!
-  // move log ... ?
-  // log reset wrong ... !
-  // remember me wrong ... !!!
-
-  // delete nameVal, emailVal, passwordVal and inputVal ... ?!
-  // improve extends (like FormController) ...
-  // set private methods ...
-  // fix matchword validation --> validation on focus (not on dirty) ... ?!
-  // 5 input values for inputs ... ?
-
-  [key: string]: any;
-  title: string = 'Join user';
+  title: string = 'Email';
   id: string = '';
-  email: string = '';
-  submitted: boolean = true;
+  email: AbstractControl | null = null;
+  password: AbstractControl | null = null;
+  matchword: AbstractControl | null = null;
+  submitted: boolean = false;
   rejected: boolean = false;
-  hint: string = 'Email unknown.';
-  password: string = '';
-  matchword: string = '';
-  passwordPat: RegExp = passwordVal.passwordPat;
-
-  /**
-   * Provides the entered state of the email.
-   * @returns - A boolean value.
-   */
-  get emailEntered() {
-    return this.id.length != 0;
-  }
+  error: string = 'Email unknown.';
 
   /**
    * Initializes the new password component.
    */
   ngOnInit() {
-    setTimeout(() => (this.submitted = false), 0);
+    this.setForm();
+    this.setControls();
+    this.setConfig();
   }
 
   /**
-   * Verifies the user on submit.
-   * @param ngForm - The enter email form.
+   * Sets a form.
    */
-  async onVerifyUser(ngForm: NgForm) {
-    if (ngForm.form.valid) {
+  setForm() {
+    this.registerControl('email', '', this.validators.email);
+  }
+
+  /**
+   * Sets form controls.
+   */
+  setControls() {
+    this.email = this.get('email');
+  }
+
+  /**
+   * Sets a configuration.
+   */
+  setConfig() {
+    this.addInputConfig('Email', 'email', true);
+    this.addInputConfig('Password', 'lock');
+    this.addInputConfig('Confirm Password', 'lock');
+  }
+
+  /**
+   * Continues a form on submit.
+   */
+  async onContinue() {
+    if (this.form.valid) {
       this.submitted = true;
-      let userDoc = await this.join.getUserDoc(this.email);
-      this.verifyUser(userDoc);
-      this.submitted = false;
+      let userDoc = await this.getUserDoc();
+      userDoc ? this.continue(userDoc) : this.reject();
     }
   }
 
   /**
-   * Verifies the user.
-   * @param userDoc - The user document.
+   * Gets a user doc.
+   * @returns The user doc.
    */
-  verifyUser(userDoc?: UserDoc) {
-    if (userDoc) {
-      this.title = 'Password';
-      this.id = userDoc.id;
-    } else {
-      this.rejected = true;
-    }
+  async getUserDoc() {
+    return await this.join.getUserDoc(this.email?.value);
   }
 
   /**
-   * Verifies the disabled state of the submit button.
-   * @param ngForm - The submitted form.
-   * @returns - A boolean value.
+   * Continues a form.
+   * @param userDoc - The user doc.
    */
-  isDisabled(ngForm: NgForm) {
-    return ngForm.form.invalid || this.submitted;
+  continue(userDoc: UserDoc) {
+    this.title = 'Password';
+    this.id = userDoc.id;
+    this.updateForm();
+    this.updateControls();
+    this.submitted = false;
   }
 
   /**
-   * Updates the user password on submit.
-   * @param ngForm - The new password form.
+   * Updates a form.
    */
-  async onUpdatePassword(ngForm: NgForm) {
-    if (ngForm.form.valid) {
+  updateForm() {
+    this.removeControl('email');
+    this.addControl('password', '', this.validators.password);
+    this.addControl('matchword', '', []);
+  }
+
+  /**
+   * Updates form controls.
+   */
+  updateControls() {
+    this.email = this.get('email');
+    this.password = this.get('password');
+    this.matchword = this.get('matchword');
+  }
+
+  /**
+   * Rejects a form.
+   */
+  reject() {
+    this.rejected = true;
+    this.submitted = false;
+  }
+
+  /**
+   * Verifies the disabled state of a submit button.
+   * @returns A boolean value.
+   */
+  isDisabled() {
+    return this.form.invalid || this.submitted;
+  }
+
+  /**
+   * Updates a user password on submit.
+   */
+  async onUpdate() {
+    if (this.form.valid) {
       this.submitted = true;
-      let text = 'Password updated successfully';
-      await this.join.updateUser(this.id, 'data.password', this.password);
-      await this.nav.openLoginSession(this.id, text);
+      await this.updatePassword();
+      await this.openLoginSession();
     }
+  }
+
+  /**
+   * Updates a user password.
+   */
+  async updatePassword() {
+    await this.join.updateUser(this.id, 'data.password', this.password?.value);
+  }
+
+  /**
+   * Opens a login session.
+   */
+  async openLoginSession() {
+    let text = 'Password updated successfully';
+    await this.nav.openLoginSession(this.id, text);
   }
 }

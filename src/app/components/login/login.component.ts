@@ -70,8 +70,8 @@ export class LoginComponent extends FormController {
    */
   private setForm() {
     this.form = this.getForm();
-    this.addControl('email', '', this.validators.email);
-    this.addControl('password', '', this.validators.password);
+    this.registerControl('email', '', this.validators.email);
+    this.registerControl('password', '', this.validators.password);
   }
 
   /**

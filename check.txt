@@ -29,10 +29,12 @@ Final Tasks
 
 Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 -----------
-Join (2/?)
+Join (3/?)
 ----
   - LoginComponent - check *logInUser() and rememberUser()
+  - NewPasswordComponent - check
   - SignUpComponent - check
+  - SummaryComponent ...
 
 
 Components (6/?) + await inputs ...
