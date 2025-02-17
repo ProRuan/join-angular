@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 
 /**
- * Represents a join title component.
+ * Class representing a join title component.
  */
 export class JoinTitleComponent {
   @Input() dark: boolean = false;
@@ -18,16 +18,16 @@ export class JoinTitleComponent {
   @Input() subtitle?: string;
 
   /**
-   * Provides the css class of the title container.
-   * @returns - The css class to apply.
+   * Gets the css class of a title container.
+   * @returns The css class of the title container.
    */
   getTitleClass() {
     return this.dark ? 'title-cont-dark' : '';
   }
 
   /**
-   * Provides the css class of the text color.
-   * @returns - The css class to apply.
+   * Gets the css class of a text color.
+   * @returns The css class of the text color.
    */
   getColorClass() {
     return this.dark ? 'white' : '';
@@ -36,7 +36,7 @@ export class JoinTitleComponent {
   /**
    * Verifies the dark theme.
    * @param value - A boolean value.
-   * @returns - A boolean value.
+   * @returns A boolean value.
    */
   isDarkTheme(value: boolean = false) {
     return value == this.dark;

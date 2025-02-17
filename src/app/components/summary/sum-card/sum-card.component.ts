@@ -12,7 +12,7 @@ import { SummaryTask } from '../../../shared/models/summary-task';
 })
 
 /**
- * Represents a sum card component.
+ * Class representing a sum card component.
  */
 export class SumCardComponent {
   icon: string = '';
@@ -23,7 +23,7 @@ export class SumCardComponent {
   @Input() task: SummaryTask = new SummaryTask();
 
   /**
-   * Initializes the sum card component.
+   * Initializes a sum card component.
    */
   ngOnInit() {
     this.icon = this.getIcon();
@@ -33,8 +33,8 @@ export class SumCardComponent {
   }
 
   /**
-   * Provides the icon of the task.
-   * @returns - The icon of the task.
+   * Gets a task icon.
+   * @returns The task icon.
    */
   getIcon() {
     if (this.isCategory('Urgent')) {
@@ -47,18 +47,18 @@ export class SumCardComponent {
   }
 
   /**
-   * Verifies the task category.
-   * @param category - The task category to match.
-   * @returns - A boolean value.
+   * Verifies a task category.
+   * @param category - The task category.
+   * @returns A boolean value.
    */
   isCategory(category: string) {
     return this.task.category == category;
   }
 
   /**
-   * Provides the source path.
+   * Gets a source path.
    * @param hover - A boolean value.
-   * @returns - The source path.
+   * @returns The source path.
    */
   getPath(hover?: string) {
     if (hover && !this.isCategory('Urgent')) {
@@ -69,8 +69,8 @@ export class SumCardComponent {
   }
 
   /**
-   * Provides the css class of the card.
-   * @returns - The css class of the card.
+   * Gets the css class of a card.
+   * @returns The css class of the card.
    */
   getCardClass(element: string) {
     if (this.isCategory('Urgent')) {
@@ -83,7 +83,7 @@ export class SumCardComponent {
   }
 
   /**
-   * Sets the current path of the icon.
+   * Sets the current path of an icon.
    * @param logical - A boolean value.
    */
   setPath(logical: boolean) {
@@ -91,28 +91,8 @@ export class SumCardComponent {
   }
 
   /**
-   * Provides the css class of the icon.
-   * @returns - The css class to apply.
-   */
-  getIconClass(element: string) {
-    if (this.isCategory('Urgent')) {
-      return `${element}-urgent`;
-    } else {
-      return element;
-    }
-  }
-
-  /**
-   * Provides the css class for the max-width.
-   * @returns - The css class to apply.
-   */
-  getMaxWidthClass() {
-    return this.isIconlessCategory() ? `mw-80` : '';
-  }
-
-  /**
-   * Verifies the iconless category.
-   * @returns - A boolean value.
+   * Verifies a iconless category.
+   * @returns A boolean value.
    */
   isIconlessCategory() {
     let taskInBoard = this.isCategory('Tasks In Board');
@@ -122,8 +102,24 @@ export class SumCardComponent {
   }
 
   /**
-   * Provides the css class of the category.
-   * @returns - The css class to apply.
+   * Gets the css class of an icon.
+   * @returns The css class of the icon.
+   */
+  getIconClass(element: string) {
+    return this.isCategory('Urgent') ? `${element}-urgent` : element;
+  }
+
+  /**
+   * Gets the css class for the max-width.
+   * @returns The css class for the max-width.
+   */
+  getMaxWidthClass() {
+    return this.isIconlessCategory() ? `mw-80` : '';
+  }
+
+  /**
+   * Gets the css class of a category.
+   * @returns The css class of the category.
    */
   getCategoryClass() {
     return this.isCategory('Urgent') ? 'category-urgent' : 'category';

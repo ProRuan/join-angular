@@ -14,27 +14,10 @@ import { Summary } from '../../shared/models/summary';
 })
 
 /**
- * Represents a summary component.
+ * Class representing a summary component.
  */
 export class SummaryComponent {
   join: JoinService = inject(JoinService);
-
-  // update login and sign-up
-  // ------------------------
-  // this.email (control) and so on ...
-  //   --> udpate login and sign-up ... !
-
-  // registerUser() ...
-  // reject(): rename (also for login) ... !!!
-  // move log ... ?
-  // log reset wrong ... !
-  // remember me wrong ... !!!
-
-  // delete nameVal, emailVal, passwordVal and inputVal ... ?!
-  // improve extends (like FormController) ...
-  // set private methods ...
-  // fix matchword validation --> validation on focus (not on dirty) ... ?!
-  // 5 input values for inputs ... ?
 
   title: string = 'Join 360';
   subtitle: string = 'Key Metrics at a Glance';

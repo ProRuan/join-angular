@@ -29,19 +29,21 @@ Final Tasks
 
 Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 -----------
-Join (3/?)
+Join (4/?)
 ----
   - LoginComponent - check *logInUser() and rememberUser()
   - NewPasswordComponent - check
   - SignUpComponent - check
-  - SummaryComponent ...
+  - SummaryComponent - check
+      - SumCardComponent - check
 
 
-Components (6/?) + await inputs ...
+Components (7/?) + await inputs ...
 ----------
   - CheckboxComponent - check
   - FooterComponent - check
   - HeaderComponent - check
+  - JoinTitleComponent - check
   - LogComponent - check
   - LogoComponent - check
   - TitleComponent - check

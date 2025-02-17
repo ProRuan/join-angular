@@ -26,6 +26,44 @@ import { InputConfig } from '../../../interfaces/input-config';
  */
 export class PasswordInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;
+
+  // SummaryComponent
+  // ----------------
+  // MainComponent ...
+  // MenuComponent ...
+  // HeaderComponent ...
+  // Log out ...
+  // greetings (5x) ...
+  // -----------------
+
+  // update login and sign-up
+  // ------------------------
+  // this.email (control) and so on ...
+  //   --> udpate login and sign-up ... !
+
+  // registerUser() ...
+  // reject(): rename (also for login) ... !!!
+  // move log ... ?
+  // log reset wrong ... !
+  // remember me wrong ... !!!
+
+  // delete nameVal, emailVal, passwordVal and inputVal ... ?!
+  // improve extends (like FormController) ...
+  // set private methods ...
+  // fix matchword validation --> validation on focus (not on dirty) ... ?!
+  // 5 input values for inputs ... ?
+
+  // check list
+  // ----------
+  // PasswordInputComponent
+  // InputValidator.class.ts
+  // validate.ts
+  // InputValidatorService
+  // pattern.ts
+
+  // ReactiveInput
+  // global.ts
+
   @Input() set matchValue(value: string) {
     if (value.length > 7) {
       this.control?.setValidators(this.inputs.getMatchword(value));

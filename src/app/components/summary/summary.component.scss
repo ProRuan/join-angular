@@ -9,7 +9,6 @@
 
 .content {
   @include display-row($ai: center, $g: 80px);
-  width: 100%;
 }
 
 .overview {
@@ -19,7 +18,6 @@
 
 .task-row {
   @include display-row($jc: space-between);
-  width: 100%;
 }
 
 .greeting-cont {
