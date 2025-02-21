@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
+import { AbstractControl, FormControl } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class DialogService {
     editContact: false,
     deleteContact: false,
   };
+  assignedToNew: AbstractControl | null = new FormControl('', []);
   assignedTo: string = '';
 
   currDialog: string = '';
@@ -90,7 +92,8 @@ export class DialogService {
    * Resets the assigned-to input value.
    */
   resetAssignedTo() {
-    this.assignedTo = '';
+    this.assignedToNew?.setValue('');
+    this.assignedTo = ''; // remove later!!!
   }
 
   onOpenDialog(id: string) {

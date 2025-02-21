@@ -22,6 +22,7 @@ import { InputConfig } from '../../../interfaces/input-config';
 
 /**
  * Class representing a text input component.
+ * @extends ReactiveInput
  */
 export class TextInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;

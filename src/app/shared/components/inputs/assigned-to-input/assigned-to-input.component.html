@@ -1,0 +1,22 @@
+<div class="label-input-cont">
+    <app-label text="Assigned to"></app-label>
+
+    <div class="input-list-cont" (click)="onHandleDialog($event)">
+        <input [value]="control?.value" name="assigned-to" class="input" [ngClass]="getFocusClass()" type="text"
+            [placeholder]="getPlaceholder()" (input)="onInput($event)" (focus)="onOpenMenu()">
+        <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitchMenu()">
+
+        <div class="assignable-contacts-list" [ngClass]="getListClass()">
+            @for (contact of assignableContacts; track contact; let i = $index) {
+            <app-assignable-contact *ngIf="isFiltered(contact.name)" [contact]="contact"
+                [assigned]="isAssigned(contact)" (click)="onAssignContact(i)"></app-assignable-contact>
+            }
+        </div>
+    </div>
+
+    <div *ngIf="isAnyContactAssigned()" class="assigned-contacts">
+        <div *ngFor="let contact of assignedContacts?.value" class="profile" [ngClass]="contact.bgc">
+            <span class="initials">{{ contact.initials }}</span>
+        </div>
+    </div>
+</div>

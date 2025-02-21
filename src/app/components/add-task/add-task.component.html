@@ -2,7 +2,28 @@
     <div class="max-w-1016" [ngClass]="classes['cont']">
         <app-join-title [title]="title"></app-join-title>
 
-        <form #form="ngForm" class="form" (submit)="onCreate(form)">
+        <form [formGroup]="form" class="form" (submit)="onCreate()">
+            <fieldset class="left-fieldset">
+                <app-title-input [control]="get('title')"></app-title-input>
+                <app-description-input [control]="get('description')"></app-description-input>
+                <!-- replace assignedToNew and assignees!!! -->
+                <app-assigned-to-input [control]="assignedToNew" [assignedContacts]="assignees"
+                    [contacts]="contacts"></app-assigned-to-input>
+            </fieldset>
+
+            <div class="border"></div>
+
+            <fieldset class="right-fieldset">
+                <!-- <app-due-date-input [(ngModel)]="dueDate" name="due-date"
+                    [(dueDate)]="task.dueDate"></app-due-date-input>
+                <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
+                <app-category-input [(ngModel)]="task.category" name="category"></app-category-input>
+                <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
+                    [(subtasks)]="task.subtasks"></app-subtasks-input> -->
+            </fieldset>
+        </form>
+
+        <!-- <form #form="ngForm" class="form" (submit)="onCreate(form)">
             <fieldset class="left-fieldset">
                 <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
                 <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
@@ -20,7 +41,7 @@
                 <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
                     [(subtasks)]="task.subtasks"></app-subtasks-input>
             </fieldset>
-        </form>
+        </form> -->
     </div>
 
     <div class="hint-button-cont max-w-1016">
@@ -29,8 +50,8 @@
         </div>
 
         <div class="button-group">
-            <app-button [button]="clearBtn" [disabled]="isClear(form)" (click)="onClear()"></app-button>
-            <app-button [button]="createBtn" [disabled]="isIncomplete(form)" (click)="onCreate(form)"></app-button>
+            <app-button [button]="clearBtn" [disabled]="isClear()" (click)="onClear()"></app-button>
+            <app-button [button]="createBtn" [disabled]="isIncomplete()" (click)="onCreate()"></app-button>
         </div>
     </div>
 </section>

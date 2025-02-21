@@ -84,7 +84,6 @@ export class SignUpComponent extends FormController {
    * Sets a form.
    */
   setForm() {
-    this.form = this.getForm();
     this.registerControl('name', '', this.validators.name);
     this.registerControl('email', '', this.validators.email);
     this.registerControl('password', '', this.validators.password);

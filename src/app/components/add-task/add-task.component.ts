@@ -1,14 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import {
+  AbstractControl,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
-import { TitleInputComponent } from '../../shared/components/title-input/title-input.component';
-import { DescriptionInputComponent } from '../../shared/components/description-input/description-input.component';
-import { AssignedToInputComponent } from '../../shared/components/assigned-to-input/assigned-to-input.component';
-import { DueDateInputComponent } from '../../shared/components/due-date-input/due-date-input.component';
-import { PrioInputComponent } from '../../shared/components/prio-input/prio-input.component';
-import { CategoryInputComponent } from '../../shared/components/category-input/category-input.component';
-import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
+// import { TitleInputComponent } from '../../shared/components/title-input/title-input.component';
+// import { DescriptionInputComponent } from '../../shared/components/description-input/description-input.component';
+// import { AssignedToInputComponent } from '../../shared/components/assigned-to-input/assigned-to-input.component';
+// import { DueDateInputComponent } from '../../shared/components/due-date-input/due-date-input.component';
+// import { PrioInputComponent } from '../../shared/components/prio-input/prio-input.component';
+// import { CategoryInputComponent } from '../../shared/components/category-input/category-input.component';
+// import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { JoinService } from '../../shared/services/join.service';
 import { SummaryService } from '../../shared/services/summary.service';
@@ -17,6 +22,11 @@ import { Simple } from '../../shared/interfaces/simple';
 import { Task } from '../../shared/models/task';
 import { ButtonData } from '../../shared/interfaces/button-data';
 import { isDefaultString, isTrue } from '../../shared/ts/global';
+import { FormController } from '../../shared/models/form-controller';
+import { InputValidator } from '../../shared/models/input-validator';
+import { TitleInputComponent } from '../../shared/components/inputs/title-input/title-input.component';
+import { DescriptionInputComponent } from '../../shared/components/inputs/description-input/description-input.component';
+import { AssignedToInputComponent } from '../../shared/components/inputs/assigned-to-input/assigned-to-input.component';
 
 @Component({
   selector: 'app-add-task',
@@ -24,14 +34,18 @@ import { isDefaultString, isTrue } from '../../shared/ts/global';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     JoinTitleComponent,
     TitleInputComponent,
     DescriptionInputComponent,
     AssignedToInputComponent,
-    DueDateInputComponent,
-    PrioInputComponent,
-    CategoryInputComponent,
-    SubtasksInputComponent,
+    // TitleInputComponent,
+    // DescriptionInputComponent,
+    // AssignedToInputComponent,
+    // DueDateInputComponent,
+    // PrioInputComponent,
+    // CategoryInputComponent,
+    // SubtasksInputComponent,
     ButtonComponent,
   ],
   templateUrl: './add-task.component.html',
@@ -41,10 +55,20 @@ import { isDefaultString, isTrue } from '../../shared/ts/global';
 /**
  * Represents an add-task component.
  */
-export class AddTaskComponent {
+export class AddTaskComponent extends FormController {
   join: JoinService = inject(JoinService);
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
+
+  // delete old add-task inputs ... !!!
+
+  // AssignableContactComponent ...
+  // control?.value or get('control') for login, sign-up and so on ... ?
+
+  // TitleInputCommponent
+  // --------------------
+  // delete HintComponent ... ?
+  // add-task inputs double style ... ?
 
   @Input() first: boolean = true;
   title: string = 'Add Task';
@@ -77,6 +101,21 @@ export class AddTaskComponent {
     alt: 'create_button',
   };
 
+  // new!!!
+  taskTitle: AbstractControl | null = null;
+  description: AbstractControl | null = null;
+  // assignedTo: AbstractControl | null = null;
+  assignees: AbstractControl | null = null;
+  validator = new InputValidator();
+
+  get assignedToNew() {
+    return this.dialog.assignedToNew;
+  }
+
+  set assignedToNew(value: any) {
+    this.dialog.assignedToNew?.setValue(value);
+  }
+
   /**
    * Provides the value of the assigned-to input.
    */
@@ -102,11 +141,26 @@ export class AddTaskComponent {
    * Initializes an add-task component.
    */
   async ngOnInit() {
+    this.setForm();
+    this.setControls();
+
     if (!this.first) {
       this.setDialogDesign();
       this.setClearBtn();
       this.setCreateBtn();
     }
+  }
+
+  // set subform?!
+  setForm() {
+    this.registerControl('title', '', [this.validator.required()]);
+    this.registerControl('description', '', []);
+    this.registerControl('assignees', [], []); // any value on form controller!!!
+  }
+
+  setControls() {
+    this.taskTitle = this.get('title');
+    this.assignees = this.get('assignees');
   }
 
   /**
@@ -165,33 +219,33 @@ export class AddTaskComponent {
    * Sets the create button.
    */
   setCreateBtn() {
-    this.onCreate = (ngForm: NgForm) => this.addTask(ngForm);
+    this.onCreate = () => this.addTask();
   }
 
   /**
    * Adds a task.
-   * @param ngForm - The add-task dialog form.
    */
-  async addTask(ngForm: NgForm) {
-    await this.createTask(ngForm);
+  async addTask() {
+    await this.createTask();
     this.dialog.closeDialog('addTask');
     this.clearForm();
   }
 
   /**
    * Creates a task on submit.
-   * @param ngForm - The add-task form.
    */
-  async onCreate(ngForm: NgForm) {
-    await this.createTask(ngForm);
+  async onCreate() {
+    console.log('form valid: ', this.form.valid);
+    console.log('form: ', this.form);
+
+    // await this.createTask(ngForm);
   }
 
   /**
    * Creates a task.
-   * @param ngForm - The add-task form.
    */
-  async createTask(ngForm: NgForm) {
-    if (ngForm.form.valid) {
+  async createTask() {
+    if (this.form.valid) {
       this.join.user.tasks.push(this.task);
       this.summary.update();
       await this.join.saveUser();
@@ -200,24 +254,22 @@ export class AddTaskComponent {
 
   /**
    * Verifies the clear state of the form.
-   * @param ngForm - The add-task form.
    * @returns - A boolean value.
    */
-  isClear(ngForm: NgForm) {
-    let formPristine = this.isFormPristine(ngForm);
+  isClear() {
+    let formPristine = this.form.pristine;
     let taskDefault = this.task.isDefault();
     return formPristine && taskDefault;
   }
 
   /**
    * Verifies the pristineness of the form.
-   * @param ngForm - The add-task form.
    * @returns - A boolean value.
    */
-  isFormPristine(ngForm: NgForm) {
+  isFormPristine() {
     if (this.isDefaultForm()) {
-      ngForm.control.markAsPristine();
-      return ngForm.form.pristine;
+      this.form.markAsPristine();
+      return this.form.pristine;
     } else {
       return false;
     }
@@ -250,12 +302,7 @@ export class AddTaskComponent {
     this.clearForm();
   }
 
-  /**
-   * Verifies the incompleteness of the form.
-   * @param ngForm - The add-task form.
-   * @returns - A boolean value.
-   */
-  isIncomplete(ngForm: NgForm) {
-    return isTrue(ngForm.invalid);
+  isIncomplete() {
+    return this.form.invalid;
   }
 }

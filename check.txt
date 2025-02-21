@@ -50,14 +50,18 @@ Components (10/?) + await inputs ...
   - HeaderComponent - check
   - JoinHeaderComponent - check
   - JoinTitleComponent - check
+  - LabelComponent - check
   - LogComponent - check
   - LogoComponent - check
   - MenuComponent - check
   - TitleComponent - check
-  - inputs ... (1/?)
+  - inputs ... (4/?)
     ------
+      - AssignedToInputComponent - check
+      - DescriptionInputComponent - check
       - PasswordInputComponent ... *admin-inputs.scss?!
       - TextInputComponent - check *admin-inputs.scss?!
+      - TitleInputComponent - check
 
 
 Interfaces (5/?)

@@ -65,7 +65,7 @@ export class FormController {
    * @param value - The form control value.
    * @param validators - The form control validators.
    */
-  registerControl(name: string, value: string, validators: ValidatorFn[]) {
+  registerControl(name: string, value: any, validators: ValidatorFn[]) {
     let control = this.getControl(value, validators);
     this.form.registerControl(name, control);
   }
@@ -86,7 +86,7 @@ export class FormController {
    * @param value - The form control value.
    * @param validators - The form control validators.
    */
-  addControl(name: string, value: string, validators: ValidatorFn[]) {
+  addControl(name: string, value: any, validators: ValidatorFn[]) {
     let control = this.getControl(value, validators);
     this.form.addControl(name, control);
   }

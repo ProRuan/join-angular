@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 
 /**
- * Represents a label component.
+ * Class representing a label component.
  */
 export class LabelComponent {
   @Input() text: string = '';
@@ -18,11 +18,10 @@ export class LabelComponent {
   target: string = '';
 
   /**
-   * Provides the input name.
-   * @returns - The input name.
+   * Gets an input name.
+   * @returns The input name.
    */
   getInputName() {
-    let inputName = this.text.toLowerCase();
-    return inputName.replaceAll(' ', '-');
+    return this.text.toLowerCase().replaceAll(' ', '-');
   }
 }

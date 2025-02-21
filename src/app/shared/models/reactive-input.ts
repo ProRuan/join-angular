@@ -235,6 +235,11 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     return !this.valOff && this.focused && this.error;
   }
 
+  // rename isError() and isErrorPermanently()!!!
+  isErrorPermanently() {
+    return this.error;
+  }
+
   set(config: InputConfig) {
     this.placeholder = config.placeholder;
     this.img = config.img;

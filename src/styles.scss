@@ -66,6 +66,14 @@ app-prio-button {
   color: $hint;
 }
 
+.o-1 {
+  opacity: 1;
+}
+
+.o-0 {
+  opacity: 0;
+}
+
 .prim-btn {
   @include color-set($c: $white, $bgc: $dark);
   @include round-border($b: none, $br: 8px);

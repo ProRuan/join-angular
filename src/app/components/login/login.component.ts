@@ -66,6 +66,7 @@ export class LoginComponent extends FormController {
    */
   async ngOnInit() {
     this.setForm();
+    this.setControls();
     this.setConfig();
     await this.setSigneeEmail();
     await this.setRememberedUser();
@@ -75,7 +76,6 @@ export class LoginComponent extends FormController {
    * Sets a form.
    */
   private setForm() {
-    this.form = this.getForm();
     this.registerControl('email', '', this.validators.email);
     this.registerControl('password', '', this.validators.password);
   }

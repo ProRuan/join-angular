@@ -22,7 +22,7 @@ import { InputConfig } from '../../../interfaces/input-config';
 
 /**
  * Class representing a password input component.
- * @extends {ReactiveInput}
+ * @extends ReactiveInput
  */
 export class PasswordInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;

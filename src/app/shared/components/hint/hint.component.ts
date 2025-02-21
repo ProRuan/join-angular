@@ -13,6 +13,9 @@ import { Component, Input } from '@angular/core';
  * Represents a hint component.
  */
 export class HintComponent {
+  // error text ...
+  // replace with error component ...
+
   @Input() invalid: boolean = false;
   @Input() hint: string = '  This field is required.';
 
@@ -21,6 +24,6 @@ export class HintComponent {
    * @returns - A boolean value.
    */
   getOpacityClass() {
-    return this.invalid ? 'o-1' : '';
+    return this.invalid ? 'o-1' : 'o-0';
   }
 }

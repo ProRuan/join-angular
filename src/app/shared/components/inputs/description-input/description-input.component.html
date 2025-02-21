@@ -1,0 +1,13 @@
+<div class="label-input-cont">
+    <app-label text="Description"></app-label>
+    <div class="input-hint-cont pos-relative">
+        <textarea [value]="value" class="textarea" placeholder="Enter a description" (input)="onInput($event)"
+            (focus)="onFocus()" (blur)="onBlur()"></textarea>
+        <div class="resizer-cont">
+            <img class="resizer" src="../../../assets/img/add-task/resizer.png" alt="resizer">
+        </div>
+        <div *ngIf="isErrorPermanently()" class="error-cont">
+            <span class="error">{{ error }}</span>
+        </div>
+    </div>
+</div>

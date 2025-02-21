@@ -1,0 +1,85 @@
+@import "../../../../../mixins.scss";
+
+.label-input-cont {
+  @include display-column($g: 8px);
+}
+
+.input-list-cont {
+  @include display-column($g: 4px);
+  position: relative;
+}
+
+.input {
+  @include box-padding($p: 11px 49px 11px 15px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: 1px solid $gray, $br: 10px);
+  @include display-row($g: 10px);
+  font-family: $inter;
+  z-index: 1;
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    border: 1px solid $darkgray;
+  }
+
+  &:focus {
+    border: 1px solid $lightblue;
+  }
+
+  &::placeholder {
+    color: $black;
+  }
+}
+
+.focus {
+  border: 1px solid $lightblue;
+
+  &:hover {
+    border: 1px solid $lightblue;
+  }
+}
+
+.drop-down-arrow {
+  @include position($pos: absolute, $t: 12px, $r: 16px);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.assignable-contacts-list {
+  @include display-column($g: 2px);
+  padding-top: 48px;
+  width: 100%;
+  max-height: 230px;
+  background-color: $white;
+  border-radius: 10px;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
+  position: absolute;
+  overflow-y: auto;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: flex;
+}
+
+.assigned-contacts {
+  @include display-row($g: 8px);
+}
+
+.profile {
+  @include size($w: 42px, $h: 42px);
+  @include round-border($b: 2px solid $white, $br: 45px);
+  @include display-flex();
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.initials {
+  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  text-align: center;
+  color: $white;
+}
