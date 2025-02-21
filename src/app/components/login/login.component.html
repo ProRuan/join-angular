@@ -10,9 +10,9 @@
             <div class="input-checkbox-cont">
                 <div class="column-8">
                     <div class="input-group">
-                        <app-text-input [control]="get('email')" [config]="config[0]"></app-text-input>
+                        <app-text-input [control]="email" [config]="config[0]"></app-text-input>
                         <div class="input-error-cont">
-                            <app-password-input [control]="get('password')" [config]="config[1]"></app-password-input>
+                            <app-password-input [control]="password" [config]="config[1]"></app-password-input>
                             <div class="error-cont">
                                 <span *ngIf="validators.rejected" class="error">{{ error }}</span>
                             </div>

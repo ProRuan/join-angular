@@ -10,11 +10,11 @@
 
             <div class="input-checkbox-cont">
                 <div class="input-group">
-                    <app-text-input [control]="get('name')" [config]="config[0]"></app-text-input>
-                    <app-text-input [control]="get('email')" [config]="config[1]"></app-text-input>
-                    <app-password-input [control]="get('password')" [config]="config[2]"></app-password-input>
-                    <app-password-input [control]="get('matchword')" [config]="config[3]"
-                        [matchValue]="getValue('password')"></app-password-input>
+                    <app-text-input [control]="name" [config]="config[0]"></app-text-input>
+                    <app-text-input [control]="email" [config]="config[1]"></app-text-input>
+                    <app-password-input [control]="password" [config]="config[2]"></app-password-input>
+                    <app-password-input [control]="matchword" [config]="config[3]"
+                        [matchValue]="password?.value"></app-password-input>
                 </div>
 
                 <div class="privacy-policy-cont">

@@ -1,6 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -51,6 +55,8 @@ export class LoginComponent extends FormController {
   join: JoinService = inject(JoinService);
   validators: InputValidatorService = inject(InputValidatorService);
 
+  email: AbstractControl | null = null;
+  password: AbstractControl | null = null;
   remembered: boolean = false;
   loggedIn: boolean = false;
   error = 'Check your email and password. Please try again.';
@@ -72,6 +78,14 @@ export class LoginComponent extends FormController {
     this.form = this.getForm();
     this.registerControl('email', '', this.validators.email);
     this.registerControl('password', '', this.validators.password);
+  }
+
+  /**
+   * Sets form controls.
+   */
+  setControls() {
+    this.email = this.get('email');
+    this.password = this.get('password');
   }
 
   /**

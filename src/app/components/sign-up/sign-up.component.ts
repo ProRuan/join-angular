@@ -1,6 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -55,6 +59,10 @@ export class SignUpComponent extends FormController {
   nav: NavigationService = inject(NavigationService);
 
   user: User = new User();
+  name: AbstractControl | null = null;
+  email: AbstractControl | null = null;
+  password: AbstractControl | null = null;
+  matchword: AbstractControl | null = null;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
 
@@ -68,6 +76,7 @@ export class SignUpComponent extends FormController {
    */
   ngOnInit() {
     this.setForm();
+    this.setControls();
     this.setConfig();
   }
 
@@ -80,6 +89,16 @@ export class SignUpComponent extends FormController {
     this.registerControl('email', '', this.validators.email);
     this.registerControl('password', '', this.validators.password);
     this.registerControl('matchword', '', []);
+  }
+
+  /**
+   * Sets form controls.
+   */
+  setControls() {
+    this.name = this.get('name');
+    this.email = this.get('email');
+    this.password = this.get('password');
+    this.matchword = this.get('matchword');
   }
 
   /**
@@ -108,8 +127,7 @@ export class SignUpComponent extends FormController {
    * @returns The user doc.
    */
   async getUserDoc() {
-    let email = this.getValue('email');
-    return await this.join.getUserDoc(email);
+    return await this.join.getUserDoc(this.email?.value);
   }
 
   /**
@@ -156,8 +174,7 @@ export class SignUpComponent extends FormController {
    * @returns The user name.
    */
   getName() {
-    let name = this.getValue('name');
-    return this.nameFormatter.getFormattedName(name);
+    return this.nameFormatter.getFormattedName(this.name?.value);
   }
 
   /**
