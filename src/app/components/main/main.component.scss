@@ -70,15 +70,9 @@
   width: calc(100% - 232px);
 }
 
-.header {
-  @include box-padding($p: 20px 40px 20px 96px);
-  @include display-flex($jc: space-between);
-  background-color: $white;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
-}
-
 .main {
   height: calc(100vh - 96px);
   color: #2a3647;
   display: flex;
+  overflow-x: hidden;
 }

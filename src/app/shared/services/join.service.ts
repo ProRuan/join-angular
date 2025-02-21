@@ -40,6 +40,8 @@ export class JoinService {
   users: User[] = [];
   userDocs: UserDoc[] = [];
 
+  windowWidth: number = 0;
+
   // subscribeUser() {
   //   let id = this.user.id;
   //   const unsub = onSnapshot(doc(this.firestore, 'users', id), (doc) => {
@@ -72,6 +74,10 @@ export class JoinService {
       this.revealed = true;
       this.relocated = true;
     }
+  }
+
+  setWindowWidth(value: number) {
+    this.windowWidth = value;
   }
 
   /**

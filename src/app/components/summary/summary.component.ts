@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { SumCardComponent } from './sum-card/sum-card.component';
 import { JoinService } from '../../shared/services/join.service';
+import { DialogService } from '../../shared/services/dialog.service';
 import { Summary } from '../../shared/models/summary';
 
 @Component({
@@ -18,6 +19,7 @@ import { Summary } from '../../shared/models/summary';
  */
 export class SummaryComponent {
   join: JoinService = inject(JoinService);
+  dialog: DialogService = inject(DialogService);
 
   title: string = 'Join 360';
   subtitle: string = 'Key Metrics at a Glance';
@@ -28,5 +30,12 @@ export class SummaryComponent {
    */
   async ngOnInit() {
     this.summary = this.join.user.summary;
+  }
+
+  /**
+   * Destroys a summary component.
+   */
+  ngOnDestroy() {
+    this.dialog.close('flipMenu');
   }
 }

@@ -6,8 +6,10 @@
     (dragend)="onDragend()">
     <app-menu class=" menu"></app-menu>
     <div class="content">
-        <app-join-header class="header"></app-join-header>
-        <main class="main">
+        <app-join-header></app-join-header>
+        <main class="main pos-relative">
+            <!-- z-index + move to header?! -->
+            <app-flip-menu></app-flip-menu>
             <router-outlet></router-outlet>
         </main>
     </div>

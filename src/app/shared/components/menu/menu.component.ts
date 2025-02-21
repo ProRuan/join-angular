@@ -1,59 +1,48 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { MainLinkComponent } from './main-link/main-link.component';
-import { MainLink } from '../../interfaces/main-link';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [CommonModule, RouterLink, MainLinkComponent],
+  imports: [CommonModule, RouterLink],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
 })
 
 /**
- * Represents a menu component.
+ * Class representing a menu component.
  */
 export class MenuComponent {
-  mainLinks: MainLink[] = [
-    {
-      img: 'summary_icon',
-      text: 'Summary',
-      active: true,
-    },
-    {
-      img: 'task_icon',
-      text: 'Add task',
-      active: false,
-    },
-    {
-      img: 'board_icon',
-      text: 'Board',
-      active: false,
-    },
-    {
-      img: 'contacts_icon',
-      text: 'Contacts',
-      active: false,
-    },
+  router: Router = inject(Router);
+
+  mainLinks = [
+    { id: 'summary', img: 'summary_icon', text: 'Summary' },
+    { id: 'add-task', img: 'task_icon', text: 'Add Task' },
+    { id: 'board', img: 'board_icon', text: 'Board' },
+    { id: 'contacts', img: 'contacts_icon', text: 'Contacts' },
+  ];
+
+  legalLinks = [
+    { id: 'privacy-policy', text: 'Privacy Policy' },
+    { id: 'legal-notice', text: 'Legal Notice' },
   ];
 
   /**
-   * Sets the main link active.
-   * @param i - The main link index.
+   * Gets the source path of a link icon.
+   * @param img - The image name.
+   * @returns The source path of the link icon.
    */
-  setLink(i: number) {
-    this.resetLink();
-    this.mainLinks[i].active = true;
+  getSrc(img: string) {
+    return `./assets/img/menu/${img}.png`;
   }
 
   /**
-   * Resets the main links.
+   * Verifies the disabled state of a link.
+   * @param id - The link id.
+   * @returns A boolean value.
    */
-  resetLink() {
-    this.mainLinks.forEach((link) => {
-      link.active = false;
-    });
+  isDisabled(id: string) {
+    return this.router.url.endsWith(id);
   }
 }

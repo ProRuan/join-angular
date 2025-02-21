@@ -1,0 +1,6 @@
+<div class="flip-menu" [ngClass]="getClass()">
+    <a *ngIf="isDisplayed()" routerLink="help" class="link"><span class="text">Help</span></a>
+    <a routerLink="legal-notice" class="link"><span class="text">Legal Notice</span></a>
+    <a routerLink="privacy-policy" class="link"><span class="text">Privacy Policy</span></a>
+    <a routerLink="../../login" class="link"><span class="text">Log out</span></a>
+</div>

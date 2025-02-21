@@ -1,12 +1,14 @@
-<span class="title">Kanban Project Management Tool</span>
+<header class="header">
+    <span class="title">Kanban Project Management Tool</span>
 
-<div class="button-group">
-    <a routerLink="help" target="_blank" class="help-link">
-        <img [src]="src" alt="help">
-    </a>
-    <button class="profile-btn" (click)="onLogOut()">
-        <div class="initials-cont">
-            <span class="initials">RS</span>
-        </div>
-    </button>
-</div>
+    <div *ngIf="isButtonGroupDisplayed()" class="button-group">
+        <a *ngIf="isHelpDisplayed()" routerLink="help" class="help-link">
+            <img class="help-icon" [src]="src" alt="help">
+        </a>
+        <button class="profile-btn" (click)="onSwitch()">
+            <div class="initials-cont">
+                <span class="initials">RS</span>
+            </div>
+        </button>
+    </div>
+</header>

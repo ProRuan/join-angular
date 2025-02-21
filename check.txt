@@ -29,6 +29,10 @@ Final Tasks
 
 Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 -----------
+Top Level Scripts
+-----------------
+  - app ...
+
 Join (4/?)
 ----
   - LoginComponent - check *logInUser() and rememberUser()
@@ -38,14 +42,17 @@ Join (4/?)
       - SumCardComponent - check
 
 
-Components (7/?) + await inputs ...
+Components (10/?) + await inputs ...
 ----------
   - CheckboxComponent - check
+  - FlipMenuComponent - check
   - FooterComponent - check
   - HeaderComponent - check
+  - JoinHeaderComponent - check
   - JoinTitleComponent - check
   - LogComponent - check
   - LogoComponent - check
+  - MenuComponent - check
   - TitleComponent - check
   - inputs ... (1/?)
     ------

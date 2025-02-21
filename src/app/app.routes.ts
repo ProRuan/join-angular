@@ -40,6 +40,8 @@ export const routes: Routes = [
       { path: 'board', component: BoardComponent },
       { path: 'contacts', component: ContactsComponent },
       { path: 'help', component: HelpComponent },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+      { path: 'legal-notice', component: LegalNoticeComponent },
       { path: '', redirectTo: ':id/summary', pathMatch: 'full' },
       { path: '**', redirectTo: 'summary' },
     ],

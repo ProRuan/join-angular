@@ -1,5 +1,13 @@
 @import "../../../../mixins.scss";
 
+.header {
+  @include box-padding($p: 20px 40px 20px 96px);
+  @include display-row($jc: space-between, $ai: center);
+  min-height: 96px;
+  background-color: $white;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
 .title {
   @include font(20px, 400, 24px);
   color: $black;
@@ -11,11 +19,11 @@
 
 .help-link {
   @include size($w: 32px, $h: 32px);
+}
 
-  &:hover {
-    img {
-      transform: scale(1.2);
-    }
+.help-icon {
+  .help-link:hover & {
+    transform: scale(1.2);
   }
 }
 

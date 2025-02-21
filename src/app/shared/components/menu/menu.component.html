@@ -1,13 +1,20 @@
 <div class="logo-main-link-cont">
-    <img class="logo" src="../../../../assets/img/menu/menu_logo.png" alt="menu_logo">
+    <img class="logo" [src]="getSrc('menu_logo')" alt="menu_logo">
 
     <div class="main-link-group">
-        <app-main-link *ngFor="let link of mainLinks, index as i" [link]="link" class="main-link"
-            (click)="setLink(i)"></app-main-link>
+        <div *ngFor="let link of mainLinks">
+            <button [routerLink]="link.id" class="main-link" [disabled]="isDisabled(link.id)">
+                <img class="opacity" [src]="getSrc(link.img)" [alt]="link.img">
+                <span class="opacity">{{ link.text }}</span>
+            </button>
+        </div>
     </div>
 </div>
 
 <div class="legal-link-group">
-    <a routerLink="privacy-policy" target="_blank" class="legal-link">Privacy Policy</a>
-    <a routerLink="legal-notice" target="_blank" class="legal-link">Legal Notice</a>
+    <div *ngFor="let link of legalLinks">
+        <button [routerLink]="link.id" class="legal-link" [disabled]="isDisabled(link.id)">
+            <span>{{ link.text }}</span>
+        </button>
+    </div>
 </div>

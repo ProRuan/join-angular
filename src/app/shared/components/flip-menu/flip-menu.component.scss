@@ -1,0 +1,35 @@
+@import "../../../../mixins.scss";
+
+.flip-menu {
+  @include display-column();
+  padding: 10px;
+  background-color: $dark;
+  border-radius: 20px 0 20px 20px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  transition: all 100ms ease-in-out;
+}
+
+.flip-in {
+  @include position($pos: absolute, $t: 0px, $r: -152px);
+}
+
+.flip-out {
+  @include position($pos: absolute, $t: 0px, $r: 24px);
+}
+
+.link {
+  @include box-padding($p: 8px 16px);
+  @include size($w: 132px, $h: 46px);
+  @include display-row($ai: center);
+  text-decoration: none;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: #2a3d59;
+  }
+}
+
+.text {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  color: #cdcdcd;
+}

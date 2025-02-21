@@ -12,6 +12,7 @@ import { JoinHeaderComponent } from '../../shared/components/join-header/join-he
 import { DialogService } from '../../shared/services/dialog.service';
 import { BoardService } from '../../shared/services/board.service';
 import { DialogComponent } from '../dialog/dialog.component';
+import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.component';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +23,7 @@ import { DialogComponent } from '../dialog/dialog.component';
     JoinHeaderComponent,
     CommonModule,
     DialogComponent,
+    FlipMenuComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -35,6 +37,22 @@ export class MainComponent {
   dialog: DialogService = inject(DialogService);
   decData: DialogEditContactService = inject(DialogEditContactService);
   dacData: DialogAddContactService = inject(DialogAddContactService);
+
+  // MenuComponent
+  // -------------
+  // Appearance of guest version ... !
+
+  // FlipMenuComponent
+  // -----------------
+  // rename task-icon to add-task-icon ... ?
+  // set links with target:_blank ... (1-3)
+
+  // check routes.ts ...
+  // check dialog.service.ts ...
+
+  // set currentLink (this.router.url) ...
+  // destroy all children components for flipMenu at least ...
+  // add user log out method ...
 
   mainToken: any;
   sid: any;

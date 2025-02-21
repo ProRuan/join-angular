@@ -12,6 +12,7 @@ export class DialogService {
   ids: string[] = ['addTask', 'viewTask', 'editTask'];
 
   opened: { [key: string]: boolean } = {
+    flipMenu: false,
     assignedTo: false,
     category: false,
     subtask: false,
