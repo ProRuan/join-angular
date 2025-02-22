@@ -60,9 +60,9 @@ export class AddTaskComponent extends FormController {
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
 
-  // delete old add-task inputs ... !!!
+  // delete old add-task input components ... !
+  // delete AssignableContactComponent ... !
 
-  // AssignableContactComponent ...
   // control?.value or get('control') for login, sign-up and so on ... ?
 
   // TitleInputCommponent

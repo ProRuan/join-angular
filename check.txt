@@ -82,6 +82,7 @@ Models (3/?)
 
 Services (3/?)
 --------
+  - DialogService ...
   - LogService - check
   - NameFormatterService - check
   - NavigationService - check

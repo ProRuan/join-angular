@@ -66,8 +66,27 @@
   display: flex;
 }
 
-.assigned-contacts {
-  @include display-row($g: 8px);
+.assignable-contact {
+  @include box-padding($p: 7px 16px);
+  @include display-flex($jc: space-between);
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #eeeeee;
+  }
+}
+
+.assigned {
+  background-color: $dark;
+
+  &:hover {
+    background-color: $darker;
+  }
+}
+
+.profile-name-cont {
+  @include display-row($ai: center, $g: 16px);
 }
 
 .profile {
@@ -82,4 +101,17 @@
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
   text-align: center;
   color: $white;
+}
+
+.name {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $black;
+
+  .assigned & {
+    color: $white;
+  }
+}
+
+.assigned-contacts {
+  @include display-row($g: 8px);
 }

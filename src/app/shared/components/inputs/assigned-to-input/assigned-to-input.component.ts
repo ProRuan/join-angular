@@ -7,7 +7,7 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { LabelComponent } from '../../label/label.component';
-import { AssignableContactComponent } from '../../../../components/add-task/assignable-contact/assignable-contact.component';
+import { CheckboxComponent } from '../../checkbox/checkbox.component';
 import { DialogService } from '../../../services/dialog.service';
 import { Contact } from '../../../models/contact';
 import { stop } from '../../../ts/global';
@@ -15,7 +15,7 @@ import { stop } from '../../../ts/global';
 @Component({
   selector: 'app-assigned-to-input',
   standalone: true,
-  imports: [CommonModule, LabelComponent, AssignableContactComponent],
+  imports: [CommonModule, LabelComponent, CheckboxComponent],
   templateUrl: './assigned-to-input.component.html',
   styleUrl: './assigned-to-input.component.scss',
   providers: [
@@ -41,7 +41,7 @@ export class AssignedToInputComponent extends ReactiveInput {
    * Handles a dialog on click.
    * @param event - The event.
    */
-  onHandleDialog(event: Event) {
+  onHandle(event: Event) {
     this.dialog.close('category');
     stop(event);
   }
@@ -66,7 +66,7 @@ export class AssignedToInputComponent extends ReactiveInput {
   /**
    * Opens a drop-down menu.
    */
-  onOpenMenu() {
+  onOpen() {
     this.dialog.close('category');
     this.dialog.open(this.dialogId);
   }
@@ -82,7 +82,7 @@ export class AssignedToInputComponent extends ReactiveInput {
   /**
    * Switches a drop-down menu on click.
    */
-  onSwitchMenu() {
+  onSwitch() {
     this.dialog.switch(this.dialogId);
   }
 
@@ -110,10 +110,20 @@ export class AssignedToInputComponent extends ReactiveInput {
   }
 
   /**
+   * Gets the css class of an assignable contact.
+   * @param contact - The assignable contact.
+   * @returns The css class of the assignable contact.
+   */
+  getBgcClass(contact: Contact) {
+    let assigned = this.isAssigned(contact);
+    return assigned ? 'assigned' : '';
+  }
+
+  /**
    * Assigns a contact on click.
    * @param i - The index of the assignable contact.
    */
-  onAssignContact(i: number) {
+  onAssign(i: number) {
     this.setContactAssigned(i);
     this.updateAssignedCocntacts();
   }

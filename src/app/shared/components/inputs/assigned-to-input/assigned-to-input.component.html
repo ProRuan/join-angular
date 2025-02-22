@@ -1,15 +1,24 @@
 <div class="label-input-cont">
     <app-label text="Assigned to"></app-label>
 
-    <div class="input-list-cont" (click)="onHandleDialog($event)">
-        <input [value]="control?.value" name="assigned-to" class="input" [ngClass]="getFocusClass()" type="text"
-            [placeholder]="getPlaceholder()" (input)="onInput($event)" (focus)="onOpenMenu()">
-        <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitchMenu()">
+    <div class="input-list-cont" (click)="onHandle($event)">
+        <input [value]="control?.value" class="input" [ngClass]="getFocusClass()" type="text"
+            [placeholder]="getPlaceholder()" (input)="onInput($event)" (focus)="onOpen()">
+        <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitch()">
 
         <div class="assignable-contacts-list" [ngClass]="getListClass()">
             @for (contact of assignableContacts; track contact; let i = $index) {
-            <app-assignable-contact *ngIf="isFiltered(contact.name)" [contact]="contact"
-                [assigned]="isAssigned(contact)" (click)="onAssignContact(i)"></app-assignable-contact>
+            <div *ngIf="isFiltered(contact.name)">
+                <div class="assignable-contact" [ngClass]="getBgcClass(contact)" (click)="onAssign(i)">
+                    <div class="profile-name-cont">
+                        <div class="profile" [ngClass]="contact.bgc">
+                            <span class="initials">{{ contact.initials }}</span>
+                        </div>
+                        <span class="name">{{ contact.name }}</span>
+                    </div>
+                    <app-checkbox [checked]="isAssigned(contact)" [bright]="true"></app-checkbox>
+                </div>
+            </div>
             }
         </div>
     </div>
