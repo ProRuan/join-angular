@@ -34,7 +34,23 @@ export class DueDateInputComponent extends ReactiveInput {
   minDate: string = '';
 
   @Input() override control: AbstractControl<any, any> | null = null;
-  @Input() dueDate: AbstractControl | null = null;
+  @Input('dueDate') taskControl: AbstractControl | null = null;
+
+  /**
+   * Gets the value of a task control.
+   * @returns The value of the task control.
+   */
+  get dueDate() {
+    return this.taskControl?.value;
+  }
+
+  /**
+   * Sets the value of a task control.
+   * @param value - The value to set.
+   */
+  set dueDate(value: string) {
+    this.taskControl?.setValue(value);
+  }
 
   /**
    * Initializes a due date input component.
@@ -68,8 +84,7 @@ export class DueDateInputComponent extends ReactiveInput {
    * Updates a calendar.
    */
   updateCalendar() {
-    let dueDate = this.getDueDate();
-    this.dueDate?.setValue(dueDate);
+    this.dueDate = this.getDueDate();
   }
 
   /**
@@ -98,7 +113,7 @@ export class DueDateInputComponent extends ReactiveInput {
    */
   onCalendarUpdate(event: Event) {
     let calendar = event.target as HTMLInputElement;
-    this.dueDate?.setValue(calendar.value);
+    this.dueDate = calendar.value;
     this.updateInput();
     this.resetInputState();
   }
@@ -107,8 +122,7 @@ export class DueDateInputComponent extends ReactiveInput {
    * Updates an input.
    */
   updateInput() {
-    let value = this.dateFormatter.getInputDate(this.dueDate?.value);
-    this.control?.setValue(value);
+    this.value = this.dateFormatter.getInputDate(this.dueDate);
   }
 
   /**

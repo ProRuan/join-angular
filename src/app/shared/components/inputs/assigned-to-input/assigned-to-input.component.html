@@ -2,8 +2,8 @@
     <app-label text="Assigned to"></app-label>
 
     <div class="input-list-cont" (click)="onHandle($event)">
-        <input [value]="control?.value" class="input" [ngClass]="getFocusClass()" type="text"
-            [placeholder]="getPlaceholder()" (input)="onInput($event)" (focus)="onOpen()">
+        <input [value]="value" class="input" [ngClass]="getFocusClass()" type="text" [placeholder]="getPlaceholder()"
+            (input)="onInput($event)" (focus)="onOpen()">
         <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitch()">
 
         <div class="assignable-contacts-list" [ngClass]="getListClass()">
@@ -24,7 +24,7 @@
     </div>
 
     <div *ngIf="isAnyContactAssigned()" class="assigned-contacts">
-        <div *ngFor="let contact of assignedContacts?.value" class="profile" [ngClass]="contact.bgc">
+        <div *ngFor="let contact of assignedContacts" class="profile" [ngClass]="contact.bgc">
             <span class="initials">{{ contact.initials }}</span>
         </div>
     </div>

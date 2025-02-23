@@ -34,8 +34,24 @@ export class AssignedToInputComponent extends ReactiveInput {
   dialogId: string = 'assignedTo';
 
   @Input() override control: AbstractControl | null = null;
-  @Input() assignedContacts: AbstractControl | null = null;
+  @Input('assignedContacts') taskControl: AbstractControl | null = null;
   @Input('contacts') assignableContacts: Contact[] = [];
+
+  /**
+   * Gets assigned contacts.
+   * @returns The assigned contacts.
+   */
+  get assignedContacts() {
+    return this.taskControl?.value;
+  }
+
+  /**
+   * Sets assigned contacts.
+   * @param contacts - The contacts to set.
+   */
+  set assignedContacts(contacts: Contact[]) {
+    this.taskControl?.setValue(contacts);
+  }
 
   /**
    * Handles a dialog on click.
@@ -144,17 +160,7 @@ export class AssignedToInputComponent extends ReactiveInput {
    * @returns A boolean value.
    */
   isAssigned(contact: Contact) {
-    let assignedContacts: Contact[] = this.getAssignedContactsArray();
-    let assigned = assignedContacts.find((c) => c.id == contact.id);
-    return assigned ? true : false;
-  }
-
-  /**
-   * Gets an array of assigned contacts.
-   * @returns The array of assigned contacts.
-   */
-  getAssignedContactsArray() {
-    return this.assignedContacts?.value;
+    return !!this.assignedContacts.find((c) => c.id == contact.id);
   }
 
   /**
@@ -162,8 +168,7 @@ export class AssignedToInputComponent extends ReactiveInput {
    * @param contact - The assignable contact.
    */
   addContact(contact: Contact) {
-    let assignedContacts = this.getAssignedContactsArray();
-    assignedContacts.push(contact);
+    this.assignedContacts.push(contact);
   }
 
   /**
@@ -171,10 +176,9 @@ export class AssignedToInputComponent extends ReactiveInput {
    * @param contact - The assignable contact.
    */
   removeContact(contact: Contact) {
-    let assignedContacts = this.getAssignedContactsArray();
-    let index = assignedContacts.indexOf(contact);
+    let index = this.assignedContacts.indexOf(contact);
     if (index > -1) {
-      assignedContacts.splice(index, 1);
+      this.assignedContacts.splice(index, 1);
     }
   }
 
@@ -182,8 +186,7 @@ export class AssignedToInputComponent extends ReactiveInput {
    * Updates assigned contacts.
    */
   updateAssignedCocntacts() {
-    let assignedContacts = this.getAssignedContacts();
-    this.assignedContacts?.setValue(assignedContacts);
+    this.assignedContacts = this.getAssignedContacts();
   }
 
   /**
@@ -199,7 +202,6 @@ export class AssignedToInputComponent extends ReactiveInput {
    * @returns A boolean value.
    */
   isAnyContactAssigned() {
-    let assignedContacts = this.getAssignedContactsArray();
-    return assignedContacts.length > 0 ? true : false;
+    return this.assignedContacts.length > 0 ? true : false;
   }
 }
