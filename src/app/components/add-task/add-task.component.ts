@@ -7,9 +7,10 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
-// import { TitleInputComponent } from '../../shared/components/title-input/title-input.component';
-// import { DescriptionInputComponent } from '../../shared/components/description-input/description-input.component';
-// import { AssignedToInputComponent } from '../../shared/components/assigned-to-input/assigned-to-input.component';
+import { TitleInputComponent } from '../../shared/components/inputs/title-input/title-input.component';
+import { DescriptionInputComponent } from '../../shared/components/inputs/description-input/description-input.component';
+import { AssignedToInputComponent } from '../../shared/components/inputs/assigned-to-input/assigned-to-input.component';
+import { DueDateInputComponent } from '../../shared/components/inputs/due-date-input/due-date-input.component';
 // import { DueDateInputComponent } from '../../shared/components/due-date-input/due-date-input.component';
 // import { PrioInputComponent } from '../../shared/components/prio-input/prio-input.component';
 // import { CategoryInputComponent } from '../../shared/components/category-input/category-input.component';
@@ -24,9 +25,7 @@ import { ButtonData } from '../../shared/interfaces/button-data';
 import { isDefaultString, isTrue } from '../../shared/ts/global';
 import { FormController } from '../../shared/models/form-controller';
 import { InputValidator } from '../../shared/models/input-validator';
-import { TitleInputComponent } from '../../shared/components/inputs/title-input/title-input.component';
-import { DescriptionInputComponent } from '../../shared/components/inputs/description-input/description-input.component';
-import { AssignedToInputComponent } from '../../shared/components/inputs/assigned-to-input/assigned-to-input.component';
+import { InputValidatorService } from '../../shared/services/input-validator.service';
 
 @Component({
   selector: 'app-add-task',
@@ -39,10 +38,7 @@ import { AssignedToInputComponent } from '../../shared/components/inputs/assigne
     TitleInputComponent,
     DescriptionInputComponent,
     AssignedToInputComponent,
-    // TitleInputComponent,
-    // DescriptionInputComponent,
-    // AssignedToInputComponent,
-    // DueDateInputComponent,
+    DueDateInputComponent,
     // PrioInputComponent,
     // CategoryInputComponent,
     // SubtasksInputComponent,
@@ -57,11 +53,25 @@ import { AssignedToInputComponent } from '../../shared/components/inputs/assigne
  */
 export class AddTaskComponent extends FormController {
   join: JoinService = inject(JoinService);
+  validators: InputValidatorService = inject(InputValidatorService);
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
 
+  // DueDateInputComponent
+  // ---------------------
+  // pattern test instead of value match ... !
+  //   --> improve name formatter ... !
+
+  // calendarDate and inputDate ... !
+  // prepare a second control (control array) ... ?
+
+  // remove input transition ... ?
+
   // delete old add-task input components ... !
   // delete AssignableContactComponent ... !
+
+  // set all control types (not any) ... !
+  // set validator array as optional + update components ... !
 
   // control?.value or get('control') for login, sign-up and so on ... ?
 
@@ -73,7 +83,8 @@ export class AddTaskComponent extends FormController {
   @Input() first: boolean = true;
   title: string = 'Add Task';
   task: Task = new Task();
-  dueDate: string = '';
+  dueDate: AbstractControl | null = null;
+  // dueDate: string = '';
   subtasks: string = '';
 
   classes: Simple = {
@@ -106,7 +117,7 @@ export class AddTaskComponent extends FormController {
   description: AbstractControl | null = null;
   // assignedTo: AbstractControl | null = null;
   assignees: AbstractControl | null = null;
-  validator = new InputValidator();
+  validator = new InputValidator(); // necessary???
 
   get assignedToNew() {
     return this.dialog.assignedToNew;
@@ -156,6 +167,10 @@ export class AddTaskComponent extends FormController {
     this.registerControl('title', '', [this.validator.required()]);
     this.registerControl('description', '', []);
     this.registerControl('assignees', [], []); // any value on form controller!!!
+    this.registerControl('due-date', '', this.validators.dueDate); // add validators!!!
+
+    // assistant controls!!!
+    this.dueDate = this.getControl('', []); // exchange controls (value and dueDate)!!!
   }
 
   setControls() {
@@ -210,7 +225,7 @@ export class AddTaskComponent extends FormController {
    */
   clearForm() {
     this.assignedTo = '';
-    this.dueDate = '';
+    this.dueDate?.setValue('');
     this.subtasks = '';
     this.task = new Task();
   }
@@ -237,6 +252,7 @@ export class AddTaskComponent extends FormController {
   async onCreate() {
     console.log('form valid: ', this.form.valid);
     console.log('form: ', this.form);
+    console.log('due date calendar: ', this.dueDate);
 
     // await this.createTask(ngForm);
   }
@@ -290,7 +306,7 @@ export class AddTaskComponent extends FormController {
    */
   getDefaultValues() {
     let assignedTo = isDefaultString(this.assignedTo);
-    let dueDate = isDefaultString(this.dueDate);
+    let dueDate = isDefaultString(this.dueDate?.value); // review code!!!
     let subtasks = isDefaultString(this.subtasks);
     return [assignedTo, dueDate, subtasks];
   }

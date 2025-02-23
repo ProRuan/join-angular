@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { InputValidator } from '../models/input-validator';
-import { emailPatterns, namePatterns, passwordPatterns } from '../ts/pattern';
+import {
+  dueDatePatterns,
+  emailPatterns,
+  namePatterns,
+  passwordPatterns,
+} from '../ts/pattern';
+import { getDayStartTime, getISODateString } from '../ts/global';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +15,18 @@ export class InputValidatorService {
   [key: string]: any;
   rejected: boolean = false;
   validator = new InputValidator();
+
+  // only for testing!!!
+  minDate = getISODateString();
+  minTime = getDayStartTime(this.minDate);
+
+  // password pattern with 4 subpatterns ...
+  // password() --> 4 suberrors ... ?!
+
+  // update errors on reactive input ... !
+  // errors with ending dot or not ... ?
+  // forbidden with " " ... !
+  // dueDate --> date invalid ... ?!
 
   name = [
     this.validator.required(),
@@ -36,6 +54,15 @@ export class InputValidatorService {
     this.validator.digit(passwordPatterns.digit),
     this.validator.specialChar(passwordPatterns.specialChar),
     this.validator.maxLength(127),
+  ];
+
+  // add more validators!!!
+  dueDate = [
+    this.validator.required(),
+    this.validator.forbidden(dueDatePatterns.forbidden),
+    this.validator.dueDate(dueDatePatterns.dueDate),
+    this.validator.invalidDate(dueDatePatterns.dueDate),
+    this.validator.minDate(dueDatePatterns.dueDate, this.minTime),
   ];
 
   constructor() {}

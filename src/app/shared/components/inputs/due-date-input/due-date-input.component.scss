@@ -1,0 +1,53 @@
+@import "../../../../../mixins.scss";
+
+.input-hint-cont {
+  @include display-column($g: 4px);
+  min-height: 64px;
+}
+
+.input {
+  @include box-padding($p: 11px 15px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: $white);
+  font-family: $inter;
+  border-radius: 10px;
+  transition: border 100ms ease-in-out;
+
+  &::placeholder {
+    color: $gray;
+  }
+}
+
+.default {
+  border: 1px solid $gray;
+}
+
+.focus {
+  border: 1px solid $lightblue;
+}
+
+.invalid {
+  border: 1px solid $error;
+}
+
+.calender {
+  @include size($w: 24px, $h: 24px);
+  @include position($pos: absolute, $t: 12px, $r: 16px);
+  background-color: $white;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.due-date-input {
+  @include box-padding($p: 0);
+  @include size($w: 24px, $h: 24px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: none, $br: 10px);
+  @include position($pos: absolute, $t: 12px, $r: 16px);
+  font-family: $inter;
+
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+}

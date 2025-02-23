@@ -20,6 +20,8 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   fb: FormBuilder = inject(FormBuilder);
   inputs: InputValidatorService = inject(InputValidatorService);
 
+  // create one input component ... ?
+
   // copy and compare
   // ----------------
   // - Class/Interface/Service/Component representing ...
@@ -141,6 +143,9 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
       'name',
       'email',
       'password',
+      'dueDate',
+      'invalidDate',
+      'minDate',
       'maxLength',
     ];
     this.error = '';
@@ -187,10 +192,15 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     return error;
   }
 
-  isInvalid(error: ValidationErrors | null) {
-    return !!error;
+  isInvalid() {
+    return this.dirty && this.invalid;
   }
 
+  // isInvalid(error: ValidationErrors | null) {
+  //   return !!error;
+  // }
+
+  // catch error here?!
   getValidationError(control: AbstractControl): ValidationErrors | null {
     for (let validator of this.validators) {
       const result = validator(control);
@@ -213,7 +223,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * Gets the css class of the input.
    * @returns The css class of the input.
    */
-  getInputClass() {
+  getInputClass(): string {
     let invalid =
       (!this.valOff && this.dirty && this.invalid) || this.inputs.rejected; // clean?!
     return invalid ? 'invalid' : 'default';

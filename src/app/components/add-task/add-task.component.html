@@ -14,11 +14,11 @@
             <div class="border"></div>
 
             <fieldset class="right-fieldset">
-                <!-- <app-due-date-input [(ngModel)]="dueDate" name="due-date"
-                    [(dueDate)]="task.dueDate"></app-due-date-input>
-                <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
-                <app-category-input [(ngModel)]="task.category" name="category"></app-category-input>
-                <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
+                <app-due-date-input [control]="get('due-date')" [dueDate]="dueDate"></app-due-date-input>
+
+                <!-- <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input> -->
+                <!-- <app-category-input [(ngModel)]="task.category" name="category"></app-category-input> -->
+                <!-- <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
                     [(subtasks)]="task.subtasks"></app-subtasks-input> -->
             </fieldset>
         </form>

@@ -1,9 +1,5 @@
 @import "../../../../../mixins.scss";
 
-.label-input-cont {
-  @include display-column($g: 8px);
-}
-
 .input-hint-cont {
   @include display-column($g: 4px);
   min-height: 136px;

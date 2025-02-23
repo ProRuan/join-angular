@@ -4,6 +4,8 @@ const LOWER_CASES = 'a-zà-ÿß';
 const SPECIAL_CHARS = '!@#$%^&*';
 const letters = LOWER_CASES;
 
+// think about pattern structure: service, classes, objects ...
+
 // for name input validation!!!
 // ----------------------------
 // let testRawPattern = '([a-zà-ÿß]{2,}(?:-([a-zà-ÿß]{2,}))?)';
@@ -144,3 +146,19 @@ function getPasswordForbiddenPattern() {
 }
 
 export const passwordPatterns = getPasswordPatterns();
+
+function getDueDatePatterns() {
+  const dueDate = getDueDatePattern();
+  const forbidden = getDueDateForbiddenPattern();
+  return { dueDate, forbidden };
+}
+
+function getDueDatePattern() {
+  return new RegExp(`^(\\d{1,2})\/(\\d{1,2})\/(\\d{4})$`);
+}
+
+function getDueDateForbiddenPattern() {
+  return new RegExp(`[^\\d\\/]`);
+}
+
+export const dueDatePatterns = getDueDatePatterns();

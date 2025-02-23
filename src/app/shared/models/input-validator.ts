@@ -21,6 +21,7 @@ export class InputValidator {
     name: 'Start with 2+ letters',
     email: 'Enter a valid email',
     password: "Your passwords don't match. Please try again.",
+    dueDate: 'Enter a valid date.',
   };
 
   /**
@@ -239,5 +240,56 @@ export class InputValidator {
   password(password: string) {
     let pattern = new RegExp(`^${password}$`);
     return this.acceptPattern('password', pattern);
+  }
+
+  dueDate(pattern: RegExp): ValidatorFn {
+    return this.acceptPattern('dueDate', pattern);
+  }
+
+  invalidDate(pattern: RegExp): ValidatorFn {
+    return (control: Control) => this.validateDate(control, pattern);
+  }
+
+  validateDate(control: Control, pattern: RegExp): ValidationErrors | null {
+    let dateMatched = new RegExp(pattern).test(control.value);
+    if (dateMatched) {
+      let matchedDate = control.value.match(pattern);
+      if (matchedDate) {
+        let date = this.getDate(matchedDate);
+        let testDate = `${date.year}.${date.month}.${date.day}`;
+        if (new Date(testDate).toDateString() != 'Invalid Date') {
+          return null;
+        } else {
+          return { invalidDate: 'invalid date' };
+        }
+      }
+    }
+    return null;
+  }
+
+  getDate(result: RegExpMatchArray) {
+    return { day: result[1], month: result[2], year: result[3] };
+  }
+
+  minDate(pattern: RegExp, minTime: number) {
+    return (control: Control) => this.limitDateRange(control, pattern, minTime);
+  }
+
+  limitDateRange(control: Control, pattern: RegExp, minTime: number) {
+    let dateMatched = new RegExp(pattern).test(control.value);
+    if (dateMatched) {
+      let matchedDate = control.value.match(pattern);
+      if (matchedDate) {
+        let date = this.getDate(matchedDate);
+        let testDate = `${date.year}.${date.month}.${date.day}`;
+
+        if (new Date(testDate).getTime() < minTime) {
+          return { minDate: 'Date out of range' };
+        } else {
+          return null;
+        }
+      }
+    }
+    return null;
   }
 }
