@@ -11,8 +11,7 @@ import { TitleInputComponent } from '../../shared/components/inputs/title-input/
 import { DescriptionInputComponent } from '../../shared/components/inputs/description-input/description-input.component';
 import { AssignedToInputComponent } from '../../shared/components/inputs/assigned-to-input/assigned-to-input.component';
 import { DueDateInputComponent } from '../../shared/components/inputs/due-date-input/due-date-input.component';
-// import { DueDateInputComponent } from '../../shared/components/due-date-input/due-date-input.component';
-// import { PrioInputComponent } from '../../shared/components/prio-input/prio-input.component';
+import { PrioInputComponent } from '../../shared/components/inputs/prio-input/prio-input.component';
 // import { CategoryInputComponent } from '../../shared/components/category-input/category-input.component';
 // import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
@@ -39,7 +38,7 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
     DescriptionInputComponent,
     AssignedToInputComponent,
     DueDateInputComponent,
-    // PrioInputComponent,
+    PrioInputComponent,
     // CategoryInputComponent,
     // SubtasksInputComponent,
     ButtonComponent,
@@ -168,6 +167,7 @@ export class AddTaskComponent extends FormController {
     this.registerControl('description', '', []);
     this.registerControl('assignees', [], []); // any value on form controller!!!
     this.registerControl('due-date', '', this.validators.dueDate); // add validators!!!
+    this.registerControl('prio', '', []);
 
     // assistant controls!!!
     this.dueDate = this.getControl('', []); // exchange controls (value and dueDate)!!!

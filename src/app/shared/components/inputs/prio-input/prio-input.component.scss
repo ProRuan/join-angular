@@ -1,0 +1,46 @@
+@import "../../../../../mixins.scss";
+
+.button-group {
+  @include display-row($ai: center, $g: 16px);
+}
+
+.button {
+  @include box-padding($p: 16px 10px);
+  @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: none, $br: 10px);
+  @include display-row($jc: center, $ai: center, $g: 8px);
+  flex: 1;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  transition: all 100ms ease-in-out;
+
+  &:hover {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  &:disabled {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+.text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $black;
+
+  .button:disabled & {
+    @include font($fs: 21px, $fw: 700, $lh: 25.2px);
+    height: 24px;
+    color: $white;
+  }
+}
+
+.urgent {
+  @include prio-disabled($bgc: $urgent, $path: $urgent_white);
+}
+
+.medium {
+  @include prio-disabled($bgc: $medium, $path: $medium_white);
+}
+
+.low {
+  @include prio-disabled($bgc: $low, $path: $low_white);
+}

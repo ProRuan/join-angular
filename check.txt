@@ -61,13 +61,15 @@ Components (10/?) + await inputs ...
       - DescriptionInputComponent - check
       - DueDateInputComponent - check
       - PasswordInputComponent ... *admin-inputs.scss?!
+      - PrioInputComponent - check
       - TextInputComponent - check *admin-inputs.scss?!
       - TitleInputComponent - check
 
 
-Interfaces (5/?)
+Interfaces (6/?)
 ----------
   - InputConfig - check
+  - PrioButton - check
   - Propertiess - check
   - States - check
   - Styles - check
