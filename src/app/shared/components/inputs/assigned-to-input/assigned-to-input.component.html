@@ -8,17 +8,17 @@
 
         <div class="assignable-contacts-list" [ngClass]="getListClass()">
             @for (contact of assignableContacts; track contact; let i = $index) {
-            <div *ngIf="isFiltered(contact.name)">
-                <div class="assignable-contact" [ngClass]="getBgcClass(contact)" (click)="onAssign(i)">
-                    <div class="profile-name-cont">
-                        <div class="profile" [ngClass]="contact.bgc">
-                            <span class="initials">{{ contact.initials }}</span>
-                        </div>
-                        <span class="name">{{ contact.name }}</span>
+            @if (isFiltered(contact.name)) {
+            <div class="assignable-contact" [ngClass]="getBgcClass(contact)" (click)="onAssign(i)">
+                <div class="profile-name-cont">
+                    <div class="profile" [ngClass]="contact.bgc">
+                        <span class="initials">{{ contact.initials }}</span>
                     </div>
-                    <app-checkbox [checked]="isAssigned(contact)" [bright]="true"></app-checkbox>
+                    <span class="name">{{ contact.name }}</span>
                 </div>
+                <app-checkbox [checked]="isAssigned(contact)" [bright]="true"></app-checkbox>
             </div>
+            }
             }
         </div>
     </div>

@@ -58,6 +58,7 @@ Components (10/?) + await inputs ...
   - inputs ... (4/?)
     ------
       - AssignedToInputComponent - check
+      - CategoryInputComponent - check
       - DescriptionInputComponent - check
       - DueDateInputComponent - check
       - PasswordInputComponent ... *admin-inputs.scss?!

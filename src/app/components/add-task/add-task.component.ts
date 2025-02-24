@@ -12,7 +12,7 @@ import { DescriptionInputComponent } from '../../shared/components/inputs/descri
 import { AssignedToInputComponent } from '../../shared/components/inputs/assigned-to-input/assigned-to-input.component';
 import { DueDateInputComponent } from '../../shared/components/inputs/due-date-input/due-date-input.component';
 import { PrioInputComponent } from '../../shared/components/inputs/prio-input/prio-input.component';
-// import { CategoryInputComponent } from '../../shared/components/category-input/category-input.component';
+import { CategoryInputComponent } from '../../shared/components/inputs/category-input/category-input.component';
 // import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { JoinService } from '../../shared/services/join.service';
@@ -39,7 +39,7 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
     AssignedToInputComponent,
     DueDateInputComponent,
     PrioInputComponent,
-    // CategoryInputComponent,
+    CategoryInputComponent,
     // SubtasksInputComponent,
     ButtonComponent,
   ],
@@ -55,6 +55,12 @@ export class AddTaskComponent extends FormController {
   validators: InputValidatorService = inject(InputValidatorService);
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
+
+  // CategoryInputComponent
+  // ----------------------
+  // fix height (body overflow-y) of assigned-to list ...
+  // fix focus over button ... (2x)
+  // arrow button (also for assigned-to) ...
 
   // DueDateInputComponent
   // ---------------------
@@ -163,11 +169,12 @@ export class AddTaskComponent extends FormController {
 
   // set subform?!
   setForm() {
-    this.registerControl('title', '', [this.validator.required()]);
+    this.registerControl('title', '', [this.validator.required()]); // add validators!!!
     this.registerControl('description', '', []);
     this.registerControl('assignees', [], []); // any value on form controller!!!
     this.registerControl('due-date', '', this.validators.dueDate); // add validators!!!
     this.registerControl('prio', '', []);
+    this.registerControl('category', '', [this.validator.required()]); // add validators!!!
 
     // assistant controls!!!
     this.dueDate = this.getControl('', []); // exchange controls (value and dueDate)!!!

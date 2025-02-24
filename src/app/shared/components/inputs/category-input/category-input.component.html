@@ -1,0 +1,17 @@
+<div class="column-8">
+    <app-label text="Category" [req]="true"></app-label>
+    <div class="input-cont" (click)="onHandle($event)">
+        <input [value]="value" class="input read-only" type="text" placeholder="Select task category" readonly
+            (input)="onInput($event)" (click)="onSwitch()">
+        <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitch()">
+
+        <div *ngIf="isOpened()" class="list">
+            <div #technicalTask class="item" (click)="onSelect(technicalTask)">
+                <span class="text">Technical Task</span>
+            </div>
+            <div #userStory class="item" (click)="onSelect(userStory)">
+                <span class="text">User Story</span>
+            </div>
+        </div>
+    </div>
+</div>
