@@ -255,6 +255,10 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     this.img = config.img;
     this.valOff = config.valOff;
   }
+
+  isFilled() {
+    return this.value.length > 0;
+  }
 }
 
 /**

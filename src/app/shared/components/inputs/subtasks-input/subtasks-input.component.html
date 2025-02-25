@@ -1,0 +1,40 @@
+<div class="column-8">
+    <app-label text="Subtasks"></app-label>
+
+    <form class="form" (submit)="onAdd()">
+        <input [value]="value" class="input" type="text" placeholder="Add new subtask" (input)="onInput($event)">
+        <div class="button-bar">
+            @if (isFilled()) {
+            <button class="button cancel" type="button" (click)="onClear()"></button>
+            <div class="border"></div>
+            <button class="button check" type="button" (click)="onAdd()"></button>
+            } @else {
+            <img class="add" src="/assets/img/add-task/add_subtask.png" alt="add_subtask">
+            }
+        </div>
+    </form>
+
+    <ul *ngIf="isSubtasksFilled()" class="list">
+        <div *ngFor="let subtask of subtasks; index as i" (click)="onStop($event)">
+            @if (!isOpened(i)) {
+            <div class="item-cont pos-relative" (click)="onDoubleClick(i)">
+                <li class="item">{{ subtask.text }}</li>
+                <div class="editor-button-bar">
+                    <button class="button edit" type="button" (click)="onEdit(i)"></button>
+                    <div class="border"></div>
+                    <button class="button delete" type="button" (click)="onDelete(i)"></button>
+                </div>
+            </div>
+            } @else {
+            <form class="pos-relative" (submit)="onSave(i)">
+                <input [(ngModel)]="subtask.text" name="editor" class="editor" type="text">
+                <div class="editor-button-bar d-flex">
+                    <button class="button delete" type="button" (click)="onDelete(i)"></button>
+                    <div class="border"></div>
+                    <button class="button check" type="button" (click)="onSave(i)"></button>
+                </div>
+            </form>
+            }
+        </div>
+    </ul>
+</div>

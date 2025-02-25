@@ -55,7 +55,7 @@ Components (10/?) + await inputs ...
   - LogoComponent - check
   - MenuComponent - check
   - TitleComponent - check
-  - inputs ... (4/?)
+  - inputs ... (8/?) ? = 10?
     ------
       - AssignedToInputComponent - check
       - CategoryInputComponent - check
@@ -63,6 +63,7 @@ Components (10/?) + await inputs ...
       - DueDateInputComponent - check
       - PasswordInputComponent ... *admin-inputs.scss?!
       - PrioInputComponent - check
+      - SubtasksInputComponent - check
       - TextInputComponent - check *admin-inputs.scss?!
       - TitleInputComponent - check
 

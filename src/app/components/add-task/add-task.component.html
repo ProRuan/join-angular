@@ -6,17 +6,20 @@
             <fieldset class="left-fieldset">
                 <app-title-input [control]="get('title')"></app-title-input>
                 <app-description-input [control]="get('description')"></app-description-input>
-                <!-- replace assignedToNew and assignees!!! -->
-                <app-assigned-to-input [control]="assignedToNew" [assignedContacts]="assignees"
+                <!-- check/exchange double control + replace assignedToNew and assignees!!! -->
+                <app-assigned-to-input [control]="assignedToNew" [assignedContacts]="get('assigned-to')"
                     [contacts]="contacts"></app-assigned-to-input>
             </fieldset>
 
             <div class="border"></div>
 
             <fieldset class="right-fieldset">
-                <app-due-date-input [control]="get('due-date')" [dueDate]="dueDate"></app-due-date-input>
+                <!-- exchange double control?! -->
+                <app-due-date-input [control]="get('due-date')" [calendar]="calendar"></app-due-date-input>
                 <app-prio-input [control]="get('prio')"></app-prio-input>
                 <app-category-input [control]="get('category')"></app-category-input>
+                <!-- check double control!!! -->
+                <app-subtasks-input [control]="subtasks" [subtasks]="get('subtasks')"></app-subtasks-input>
 
                 <!-- <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
                     [(subtasks)]="task.subtasks"></app-subtasks-input> -->

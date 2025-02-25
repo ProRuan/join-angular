@@ -1,11 +1,13 @@
 <div class="column-8">
     <app-label text="Due date" [req]="true"></app-label>
+
     <div class="input-hint-cont pos-relative">
         <input [value]="value" class="input" [ngClass]="getBorderClass()" type="text" placeholder="dd/mm/yyyy"
             maxlength="10" (input)="onInput($event)" (focus)="onFocus()" (blur)="onBlur()" (keydown)="onInputUpdate()">
         <img class="calender" src="../../../assets/img/add-task/calender.png" alt="calender">
         <input [value]="dueDate" class="due-date-input" type="date" [min]="minDate" (focus)="onFocus()"
             (blur)="onBlur()" (click)="onFocus()" (change)="onCalendarUpdate($event)">
+
         <div *ngIf="isErrorPermanently()" class="error-cont">
             <span class="error">{{ error }}</span>
         </div>

@@ -1,8 +1,10 @@
 <div class="column-8">
     <app-label text="Title" [req]="true"></app-label>
+
     <div class="input-hint-cont">
         <input [value]="value" class="input" [ngClass]="getInputClass()" type="text" placeholder="Enter a title"
             (input)="onInput($event)" (focus)="onFocus()" (blur)="onBlur()">
+
         <div *ngIf="isErrorPermanently()" class="error-cont">
             <span class="error">{{ error }}</span>
         </div>

@@ -34,14 +34,14 @@ export class DueDateInputComponent extends ReactiveInput {
   minDate: string = '';
 
   @Input() override control: AbstractControl<any, any> | null = null;
-  @Input('dueDate') taskControl: AbstractControl | null = null;
+  @Input() calendar: AbstractControl | null = null;
 
   /**
    * Gets the value of a task control.
    * @returns The value of the task control.
    */
   get dueDate() {
-    return this.taskControl?.value;
+    return this.calendar?.value;
   }
 
   /**
@@ -49,7 +49,7 @@ export class DueDateInputComponent extends ReactiveInput {
    * @param value - The value to set.
    */
   set dueDate(value: string) {
-    this.taskControl?.setValue(value);
+    this.calendar?.setValue(value);
   }
 
   /**

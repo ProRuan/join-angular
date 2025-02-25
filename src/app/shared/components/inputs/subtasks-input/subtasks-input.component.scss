@@ -1,0 +1,121 @@
+@import "../../../../../mixins.scss";
+
+.form {
+  @include display-column($g: 4px);
+  position: relative;
+}
+
+.input {
+  @include box-padding($p: 11px 49px 11px 15px);
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: 1px solid $gray, $br: 10px);
+  font-family: $inter;
+  transition: border 100ms ease-in-out;
+
+  &:focus {
+    border: 1px solid $lightblue;
+  }
+
+  &::placeholder {
+    color: $gray;
+  }
+}
+
+.button-bar {
+  @include display-row($g: 4px);
+  @include position($pos: absolute, $t: 12px, $r: 16px);
+  max-width: 56px;
+}
+
+.button {
+  @include size($w: 24px, $h: 24px);
+  @include min-size($w: 24px, $h: 24px);
+  padding: 0;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  border: none;
+  transition: all 100ms ease-out;
+
+  &:hover {
+    background-color: #eeeeee;
+    border-radius: 50px;
+  }
+}
+
+.cancel {
+  background-image: url("/assets/img/add-task/cancel_subtask.png");
+}
+
+.border {
+  @include size($w: 0, $h: 24px);
+  border-right: 1px solid $darkgray;
+}
+
+.check {
+  background-image: url("/assets/img/add-task/check_subtask.png");
+}
+
+.add {
+  @include size($w: 24px, $h: 24px);
+}
+
+.list {
+  @include display-column($g: 8px);
+  margin: 0;
+  padding-inline-start: 0;
+}
+
+.item-cont {
+  @include box-padding($p: 6px 16px 6px 40px);
+  @include display-flex($jc: flex-start);
+  height: 32px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #eeeeee;
+
+    .editor-button-bar {
+      display: flex;
+    }
+  }
+}
+
+.item {
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  color: $black;
+}
+
+.editor-button-bar {
+  @include position($pos: absolute, $t: 4px, $r: 16px);
+  max-width: 56px;
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.edit {
+  background-image: url("/assets/img/add-task/edit_subtask.png");
+}
+
+.delete {
+  background-image: url("/assets/img/add-task/delete_subtask.png");
+}
+
+.editor {
+  @include box-padding($p: 6px 16px 5px 16px);
+  @include size($w: 100%, $h: 32px);
+  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  @include color-set($c: $black, $bgc: $white);
+  font-family: $inter;
+  border-left: none;
+  border-top: none;
+  border-bottom: 1px solid #005dff;
+  border-right: none;
+}

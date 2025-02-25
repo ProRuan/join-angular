@@ -13,7 +13,7 @@ import { AssignedToInputComponent } from '../../shared/components/inputs/assigne
 import { DueDateInputComponent } from '../../shared/components/inputs/due-date-input/due-date-input.component';
 import { PrioInputComponent } from '../../shared/components/inputs/prio-input/prio-input.component';
 import { CategoryInputComponent } from '../../shared/components/inputs/category-input/category-input.component';
-// import { SubtasksInputComponent } from '../../shared/components/subtasks-input/subtasks-input.component';
+import { SubtasksInputComponent } from '../../shared/components/inputs/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { JoinService } from '../../shared/services/join.service';
 import { SummaryService } from '../../shared/services/summary.service';
@@ -40,7 +40,7 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
     DueDateInputComponent,
     PrioInputComponent,
     CategoryInputComponent,
-    // SubtasksInputComponent,
+    SubtasksInputComponent,
     ButtonComponent,
   ],
   templateUrl: './add-task.component.html',
@@ -55,6 +55,21 @@ export class AddTaskComponent extends FormController {
   validators: InputValidatorService = inject(InputValidatorService);
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
+
+  // control decorators: [title]="get('title')" and so on ... ?
+
+  // SubtasksInputComponent
+  // ----------------------
+  // replace hint with error ...
+  // replace input-hint-cont with column-4 + pos-relative ...
+  // rename focussed to focused ... !
+  // subtask id necessary ... ?!
+
+  // rename dialog to dialogs ... !
+  // rename stop to preventDefault() ... !
+
+  // move subtask component code here ... ?
+  // delete empty and edited subtasks ... ?
 
   // CategoryInputComponent
   // ----------------------
@@ -88,9 +103,10 @@ export class AddTaskComponent extends FormController {
   @Input() first: boolean = true;
   title: string = 'Add Task';
   task: Task = new Task();
-  dueDate: AbstractControl | null = null;
+  calendar: AbstractControl | null = null;
   // dueDate: string = '';
-  subtasks: string = '';
+  subtasks: AbstractControl | null = null;
+  // subtasks: string = '';
 
   classes: Simple = {
     'add-task': 'add-task-desktop',
@@ -121,7 +137,6 @@ export class AddTaskComponent extends FormController {
   taskTitle: AbstractControl | null = null;
   description: AbstractControl | null = null;
   // assignedTo: AbstractControl | null = null;
-  assignees: AbstractControl | null = null;
   validator = new InputValidator(); // necessary???
 
   get assignedToNew() {
@@ -171,18 +186,19 @@ export class AddTaskComponent extends FormController {
   setForm() {
     this.registerControl('title', '', [this.validator.required()]); // add validators!!!
     this.registerControl('description', '', []);
-    this.registerControl('assignees', [], []); // any value on form controller!!!
+    this.registerControl('assigned-to', [], []); // any value on form controller!!!
     this.registerControl('due-date', '', this.validators.dueDate); // add validators!!!
     this.registerControl('prio', '', []);
     this.registerControl('category', '', [this.validator.required()]); // add validators!!!
+    this.registerControl('subtasks', [], []);
 
     // assistant controls!!!
-    this.dueDate = this.getControl('', []); // exchange controls (value and dueDate)!!!
+    this.calendar = this.getControl('', []); // exchange controls (value and dueDate)!!!
+    this.subtasks = this.getControl('', []); // exchange contrls (value and subtasks)!!!
   }
 
   setControls() {
     this.taskTitle = this.get('title');
-    this.assignees = this.get('assignees');
   }
 
   /**
@@ -232,8 +248,8 @@ export class AddTaskComponent extends FormController {
    */
   clearForm() {
     this.assignedTo = '';
-    this.dueDate?.setValue('');
-    this.subtasks = '';
+    this.calendar?.setValue('');
+    this.subtasks?.setValue('');
     this.task = new Task();
   }
 
@@ -259,7 +275,7 @@ export class AddTaskComponent extends FormController {
   async onCreate() {
     console.log('form valid: ', this.form.valid);
     console.log('form: ', this.form);
-    console.log('due date calendar: ', this.dueDate);
+    console.log('due date calendar: ', this.calendar);
 
     // await this.createTask(ngForm);
   }
@@ -313,8 +329,8 @@ export class AddTaskComponent extends FormController {
    */
   getDefaultValues() {
     let assignedTo = isDefaultString(this.assignedTo);
-    let dueDate = isDefaultString(this.dueDate?.value); // review code!!!
-    let subtasks = isDefaultString(this.subtasks);
+    let dueDate = isDefaultString(this.calendar?.value); // review code!!!
+    let subtasks = isDefaultString(this.subtasks?.value);
     return [assignedTo, dueDate, subtasks];
   }
 

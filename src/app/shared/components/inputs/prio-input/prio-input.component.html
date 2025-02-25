@@ -1,5 +1,6 @@
 <div class="column-8">
     <app-label text="Prio"></app-label>
+
     <div class="button-group">
         <button *ngFor="let button of buttons" class="button" [ngClass]="button.id" type="button"
             [disabled]="isDisabled(button.id)" (click)="onClick(button.id)">
