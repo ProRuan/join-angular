@@ -13,7 +13,7 @@
             </fieldset>
             <fieldset class="bottom-fieldset">
                 <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
-                <app-assigned-to-input [(ngModel)]="assignedTo" name="assignedTo" [(assignedTo)]="task.assignedTo"
+                <app-assigned-to-input [(ngModel)]="search" name="assignedTo" [(assignedTo)]="task.assignedTo"
                     [contacts]="contacts"></app-assigned-to-input>
                 <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
                     [(subtasks)]="task.subtasks"></app-subtasks-input>

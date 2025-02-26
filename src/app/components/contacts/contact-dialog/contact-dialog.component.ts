@@ -47,7 +47,6 @@ export class ContactDialogComponent {
   // disabled?
   cancelBtn: ButtonData = {
     buttonClass: 'clear-btn',
-    contClass: 'cont-63',
     textClass: 'clear-btn-text',
     text: 'Cancel',
     imgClass: 'clear-btn-img',
@@ -58,7 +57,6 @@ export class ContactDialogComponent {
   // disabled?
   createBtn: ButtonData = {
     buttonClass: 'create-btn',
-    contClass: 'cont-146',
     textClass: 'create-btn-text',
     text: 'Create contact',
     imgClass: 'create-btn-img',
@@ -68,7 +66,6 @@ export class ContactDialogComponent {
 
   deleteBtn: ButtonData = {
     buttonClass: 'clear-btn',
-    contClass: 'cont-58',
     textClass: 'clear-btn-text',
     text: 'Delete',
     imgClass: 'delete-btn-img',
@@ -79,7 +76,6 @@ export class ContactDialogComponent {
   // disabled?
   saveBtn: ButtonData = {
     buttonClass: 'create-btn',
-    contClass: 'cont-50',
     textClass: 'create-btn-text',
     text: 'Save',
     imgClass: 'create-btn-img',

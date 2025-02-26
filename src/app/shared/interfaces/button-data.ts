@@ -2,8 +2,8 @@
  * Represents button data.
  */
 export interface ButtonData {
+  [key: string]: any;
   buttonClass: string;
-  contClass: string;
   textClass: string;
   text: string;
   imgClass: string;

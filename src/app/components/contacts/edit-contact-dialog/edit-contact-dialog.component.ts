@@ -37,7 +37,6 @@ export class EditContactDialogComponent {
 
   deleteBtn: ButtonData = {
     buttonClass: 'clear-btn',
-    contClass: 'cont-58',
     textClass: 'clear-btn-text',
     text: 'Delete',
     imgClass: 'delete-btn-img',
@@ -48,7 +47,6 @@ export class EditContactDialogComponent {
   // disabled?
   saveBtn: ButtonData = {
     buttonClass: 'create-btn',
-    contClass: 'cont-50',
     textClass: 'create-btn-text',
     text: 'Save',
     imgClass: 'create-btn-img',

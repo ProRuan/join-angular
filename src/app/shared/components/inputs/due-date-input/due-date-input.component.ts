@@ -114,22 +114,23 @@ export class DueDateInputComponent extends ReactiveInput {
   onCalendarUpdate(event: Event) {
     let calendar = event.target as HTMLInputElement;
     this.dueDate = calendar.value;
-    this.updateInput();
-    this.resetInputState();
+    this.updateInputValue();
+    this.updateInputState();
   }
 
   /**
-   * Updates an input.
+   * Updates an input value.
    */
-  updateInput() {
+  updateInputValue() {
     this.value = this.dateFormatter.getInputDate(this.dueDate);
   }
 
   /**
-   * Resets an input state.
+   * Updates an input state.
    */
-  resetInputState() {
+  updateInputState() {
     this.error = '';
     this.focused = false;
+    this.markAsDirty(this.control);
   }
 }

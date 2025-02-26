@@ -51,7 +51,6 @@ export class EditTaskDialogComponent {
 
   okBtn: ButtonData = {
     buttonClass: 'create-btn',
-    contClass: 'cont-29',
     textClass: 'create-btn-text',
     text: 'Ok',
     imgClass: 'create-btn-img',
@@ -82,19 +81,12 @@ export class EditTaskDialogComponent {
     this.dialog.dueDate = value;
   }
 
-  /**
-   * Provides the assigned contacts.
-   * @returns - The assigned contacts.
-   */
-  get assignedTo() {
-    return this.dialog.assignedTo;
+  get search() {
+    return this.dialog.search?.value;
   }
 
-  /**
-   * Sets the assigned contacts.
-   */
-  set assignedTo(value) {
-    this.dialog.assignedTo = value;
+  set search(value) {
+    this.dialog.search?.setValue(value);
   }
 
   /**
@@ -168,7 +160,7 @@ export class EditTaskDialogComponent {
 
   // onClose(), onUpdate() ... ?
   clearForm() {
-    this.assignedTo = '';
+    this.search = '';
     this.dueDate = '';
     this.subtasks = '';
     // this.task = new Task();

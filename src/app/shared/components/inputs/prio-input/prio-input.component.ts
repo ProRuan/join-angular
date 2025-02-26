@@ -103,5 +103,6 @@ export class PrioInputComponent extends ReactiveInput {
    */
   onClick(prio: string) {
     this.value = prio;
+    this.markAsDirty(this.control);
   }
 }

@@ -3,7 +3,6 @@ import { Component, inject, Input } from '@angular/core';
 import {
   AbstractControl,
   FormsModule,
-  NgForm,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
@@ -15,16 +14,15 @@ import { PrioInputComponent } from '../../shared/components/inputs/prio-input/pr
 import { CategoryInputComponent } from '../../shared/components/inputs/category-input/category-input.component';
 import { SubtasksInputComponent } from '../../shared/components/inputs/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { FormController } from '../../shared/models/form-controller';
 import { JoinService } from '../../shared/services/join.service';
+import { ButtonDataService } from '../../shared/services/button-data.service';
+import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { SummaryService } from '../../shared/services/summary.service';
 import { DialogService } from '../../shared/services/dialog.service';
-import { Simple } from '../../shared/interfaces/simple';
+import { Contact } from '../../shared/models/contact';
 import { Task } from '../../shared/models/task';
-import { ButtonData } from '../../shared/interfaces/button-data';
-import { isDefaultString, isTrue } from '../../shared/ts/global';
-import { FormController } from '../../shared/models/form-controller';
-import { InputValidator } from '../../shared/models/input-validator';
-import { InputValidatorService } from '../../shared/services/input-validator.service';
+import { JoinButton } from '../../shared/models/join-button';
 
 @Component({
   selector: 'app-add-task',
@@ -48,195 +46,115 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
 })
 
 /**
- * Represents an add-task component.
+ * Class representing an add-task component.
+ * @extends FormController
  */
 export class AddTaskComponent extends FormController {
   join: JoinService = inject(JoinService);
+  buttons: ButtonDataService = inject(ButtonDataService);
   validators: InputValidatorService = inject(InputValidatorService);
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
 
-  // control decorators: [title]="get('title')" and so on ... ?
-
-  // SubtasksInputComponent
-  // ----------------------
-  // replace hint with error ...
-  // replace input-hint-cont with column-4 + pos-relative ...
-  // rename focussed to focused ... !
-  // subtask id necessary ... ?!
-
-  // rename dialog to dialogs ... !
-  // rename stop to preventDefault() ... !
-
-  // move subtask component code here ... ?
-  // delete empty and edited subtasks ... ?
-
-  // CategoryInputComponent
-  // ----------------------
-  // fix height (body overflow-y) of assigned-to list ...
-  // fix focus over button ... (2x)
-  // arrow button (also for assigned-to) ...
-
-  // DueDateInputComponent
-  // ---------------------
-  // pattern test instead of value match ... !
-  //   --> improve name formatter ... !
-
-  // calendarDate and inputDate ... !
-  // prepare a second control (control array) ... ?
-
-  // remove input transition ... ?
-
-  // delete old add-task input components ... !
-  // delete AssignableContactComponent ... !
-
-  // set all control types (not any) ... !
-  // set validator array as optional + update components ... !
-
-  // control?.value or get('control') for login, sign-up and so on ... ?
-
-  // TitleInputCommponent
-  // --------------------
-  // delete HintComponent ... ?
-  // add-task inputs double style ... ?
-
   @Input() first: boolean = true;
+
   title: string = 'Add Task';
-  task: Task = new Task();
+  contacts: Contact[] = [];
+  task: Task = new Task(); // necessary???
+  search: AbstractControl | null = null;
   calendar: AbstractControl | null = null;
-  // dueDate: string = '';
-  subtasks: AbstractControl | null = null;
-  // subtasks: string = '';
+  subtask: AbstractControl | null = null;
+  clearBtn = new JoinButton();
+  createBtn = new JoinButton();
 
-  classes: Simple = {
-    'add-task': 'add-task-desktop',
-    cont: 'cont-desktop',
-  };
-
-  clearBtn: ButtonData = {
-    buttonClass: 'clear-btn',
-    contClass: 'cont-49',
-    textClass: 'clear-btn-text',
-    text: 'Clear',
-    imgClass: 'clear-btn-img',
-    src: '/assets/img/add-task/cancel_button.png',
-    alt: 'cancel_button',
-  };
-
-  createBtn: ButtonData = {
-    buttonClass: 'create-btn',
-    contClass: 'cont-122',
-    textClass: 'create-btn-text',
-    text: 'Create Task',
-    imgClass: 'create-btn-img',
-    src: '/assets/img/add-task/create_button.png',
-    alt: 'create_button',
-  };
-
-  // new!!!
-  taskTitle: AbstractControl | null = null;
-  description: AbstractControl | null = null;
-  // assignedTo: AbstractControl | null = null;
-  validator = new InputValidator(); // necessary???
-
-  get assignedToNew() {
-    return this.dialog.assignedToNew;
-  }
-
-  set assignedToNew(value: any) {
-    this.dialog.assignedToNew?.setValue(value);
-  }
-
-  /**
-   * Provides the value of the assigned-to input.
-   */
-  get assignedTo() {
-    return this.dialog.assignedTo;
-  }
-
-  /**
-   * Sets the value of the assigned-to input.
-   */
-  set assignedTo(value: string) {
-    this.dialog.assignedTo = value;
-  }
-
-  /**
-   * Provides the user contacts.
-   */
-  get contacts() {
-    return this.join.user.contacts;
-  }
+  classes = { addTask: 'add-task-desktop', cont: 'cont-desktop' };
 
   /**
    * Initializes an add-task component.
    */
   async ngOnInit() {
+    this.contacts = this.join.user.contacts;
     this.setForm();
-    this.setControls();
+    this.setButtons();
+    this.updateVersion();
+  }
 
+  /**
+   * Sets a form.
+   */
+  setForm() {
+    this.setTaskControls();
+    this.setAssistantControls();
+  }
+
+  /**
+   * Sets a form control for each task property.
+   */
+  setTaskControls() {
+    this.registerControl('title', '', this.validators.required);
+    this.registerControl('description', '');
+    this.registerControl('assignedTo', []);
+    this.registerControl('dueDate', '', this.validators.dueDate);
+    this.registerControl('prio', 'medium');
+    this.registerControl('category', '', this.validators.required);
+    this.registerControl('subtasks', []);
+  }
+
+  /**
+   * Sets a form control for each assistant input.
+   */
+  setAssistantControls() {
+    this.search = this.dialog.search;
+    this.calendar = this.getControl('');
+    this.subtask = this.getControl('');
+  }
+
+  /**
+   * Sets form buttons.
+   */
+  setButtons() {
+    this.clearBtn.set(this.buttons.clearBtn);
+    this.createBtn.set(this.buttons.createBtn);
+  }
+
+  /**
+   * Updates the version of an add-task component.
+   */
+  updateVersion() {
     if (!this.first) {
-      this.setDialogDesign();
-      this.setClearBtn();
-      this.setCreateBtn();
+      this.updateCSSClasses();
+      this.updateClearBtn();
+      this.updateCreateBtn();
     }
   }
 
-  // set subform?!
-  setForm() {
-    this.registerControl('title', '', [this.validator.required()]); // add validators!!!
-    this.registerControl('description', '', []);
-    this.registerControl('assigned-to', [], []); // any value on form controller!!!
-    this.registerControl('due-date', '', this.validators.dueDate); // add validators!!!
-    this.registerControl('prio', '', []);
-    this.registerControl('category', '', [this.validator.required()]); // add validators!!!
-    this.registerControl('subtasks', [], []);
-
-    // assistant controls!!!
-    this.calendar = this.getControl('', []); // exchange controls (value and dueDate)!!!
-    this.subtasks = this.getControl('', []); // exchange contrls (value and subtasks)!!!
-  }
-
-  setControls() {
-    this.taskTitle = this.get('title');
+  /**
+   * Updates css classes.
+   */
+  updateCSSClasses() {
+    this.classes.addTask = 'add-task-dialog';
+    this.classes.cont = 'cont-dialog';
   }
 
   /**
-   * Sets the dialog design.
+   * Updates a clear button.
    */
-  setDialogDesign() {
-    this.setCSSClass('add-task');
-    this.setCSSClass('cont');
-  }
-
-  /**
-   * Sets the css class.
-   * @param className - The class name.
-   */
-  setCSSClass(className: string) {
-    this.classes[className] = `${className}-dialog`;
-  }
-
-  /**
-   * Sets the clear button.
-   */
-  setClearBtn() {
-    this.clearBtn.contClass = 'cont-63';
+  updateClearBtn() {
     this.clearBtn.text = 'Cancel';
     this.isClear = () => this.isNullified();
     this.onClear = () => this.cancel();
   }
 
   /**
-   * Nullifies the method by returning false.
-   * @returns - False.
+   * Nullifies a method by returning false.
+   * @returns False.
    */
   isNullified() {
     return false;
   }
 
   /**
-   * Closes and clears the add-task dialog.
+   * Closes and clears an add-task dialog.
    */
   cancel() {
     this.dialog.closeDialog('addTask');
@@ -244,20 +162,18 @@ export class AddTaskComponent extends FormController {
   }
 
   /**
-   * Clears the form.
+   * Clears a form.
    */
   clearForm() {
-    this.assignedTo = '';
-    this.calendar?.setValue('');
-    this.subtasks?.setValue('');
-    this.task = new Task();
+    this.form = this.getForm();
+    this.setForm();
   }
 
   /**
-   * Sets the create button.
+   * Updates a create button.
    */
-  setCreateBtn() {
-    this.onCreate = () => this.addTask();
+  updateCreateBtn() {
+    this.onCreate = async () => await this.addTask();
   }
 
   /**
@@ -270,14 +186,33 @@ export class AddTaskComponent extends FormController {
   }
 
   /**
-   * Creates a task on submit.
+   * Verifies the clear state of a form.
+   * @returns A boolean value.
+   */
+  isClear() {
+    return this.form.pristine;
+  }
+
+  /**
+   * Clears a form on click.
+   */
+  onClear() {
+    this.clearForm();
+  }
+
+  /**
+   * Verifies the invalidity of a form.
+   * @returns A boolean value.
+   */
+  isIncomplete() {
+    return this.form.invalid;
+  }
+
+  /**
+   * Creates a task on click.
    */
   async onCreate() {
-    console.log('form valid: ', this.form.valid);
-    console.log('form: ', this.form);
-    console.log('due date calendar: ', this.calendar);
-
-    // await this.createTask(ngForm);
+    await this.createTask();
   }
 
   /**
@@ -285,63 +220,10 @@ export class AddTaskComponent extends FormController {
    */
   async createTask() {
     if (this.form.valid) {
+      this.task.set(this.form.value);
       this.join.user.tasks.push(this.task);
       this.summary.update();
       await this.join.saveUser();
     }
-  }
-
-  /**
-   * Verifies the clear state of the form.
-   * @returns - A boolean value.
-   */
-  isClear() {
-    let formPristine = this.form.pristine;
-    let taskDefault = this.task.isDefault();
-    return formPristine && taskDefault;
-  }
-
-  /**
-   * Verifies the pristineness of the form.
-   * @returns - A boolean value.
-   */
-  isFormPristine() {
-    if (this.isDefaultForm()) {
-      this.form.markAsPristine();
-      return this.form.pristine;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Verifies the default form.
-   * @returns - A boolean value.
-   */
-  isDefaultForm() {
-    let defaultValues = this.getDefaultValues();
-    return !defaultValues.includes(false);
-  }
-
-  /**
-   * Provides the default values.
-   * @returns - The default values.
-   */
-  getDefaultValues() {
-    let assignedTo = isDefaultString(this.assignedTo);
-    let dueDate = isDefaultString(this.calendar?.value); // review code!!!
-    let subtasks = isDefaultString(this.subtasks?.value);
-    return [assignedTo, dueDate, subtasks];
-  }
-
-  /**
-   * Clears the form on click.
-   */
-  onClear() {
-    this.clearForm();
-  }
-
-  isIncomplete() {
-    return this.form.invalid;
   }
 }

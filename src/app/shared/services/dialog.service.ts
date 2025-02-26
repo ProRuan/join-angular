@@ -25,8 +25,7 @@ export class DialogService {
     editContact: false,
     deleteContact: false,
   };
-  assignedToNew: AbstractControl | null = new FormControl('', []);
-  assignedTo: string = '';
+  search: AbstractControl | null = new FormControl('', []);
 
   currDialog: string = '';
   dialogOpened: boolean = false;
@@ -92,8 +91,7 @@ export class DialogService {
    * Resets the assigned-to input value.
    */
   resetAssignedTo() {
-    this.assignedToNew?.setValue('');
-    this.assignedTo = ''; // remove later!!!
+    this.search?.setValue('');
   }
 
   onOpenDialog(id: string) {

@@ -16,7 +16,6 @@ import { ButtonData } from '../../interfaces/button-data';
 export class ButtonComponent {
   @Input() button: ButtonData = {
     buttonClass: '',
-    contClass: '',
     textClass: '',
     text: '',
     imgClass: '',

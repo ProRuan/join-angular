@@ -28,7 +28,7 @@ export class ContactListComponent {
 
   addBtn: ButtonData = {
     buttonClass: 'create-btn add-new-contact-btn',
-    contClass: 'h-25',
+    // contClass: 'h-25',
     textClass: 'create-btn-text',
     text: 'Add new contact',
     imgClass: 'img-32',

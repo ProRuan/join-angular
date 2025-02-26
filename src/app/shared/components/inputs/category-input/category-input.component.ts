@@ -72,5 +72,6 @@ export class CategoryInputComponent extends ReactiveInput {
   onSelect(element: HTMLDivElement) {
     this.value = element.innerText;
     this.dialog.close(this.dialogId);
+    this.markAsDirty(this.control);
   }
 }

@@ -1,50 +1,24 @@
-<section class="add-task" [ngClass]="classes['add-task']">
-    <div class="max-w-1016" [ngClass]="classes['cont']">
+<section class="add-task" [ngClass]="classes.addTask">
+    <div class="max-w-1016" [ngClass]="classes.cont">
         <app-join-title [title]="title"></app-join-title>
 
-        <form [formGroup]="form" class="form" (submit)="onCreate()">
+        <form [formGroup]="form" class="form">
             <fieldset class="left-fieldset">
                 <app-title-input [control]="get('title')"></app-title-input>
                 <app-description-input [control]="get('description')"></app-description-input>
-                <!-- check/exchange double control + replace assignedToNew and assignees!!! -->
-                <app-assigned-to-input [control]="assignedToNew" [assignedContacts]="get('assigned-to')"
+                <app-assigned-to-input [control]="search" [assignedContacts]="get('assignedTo')"
                     [contacts]="contacts"></app-assigned-to-input>
             </fieldset>
 
             <div class="border"></div>
 
             <fieldset class="right-fieldset">
-                <!-- exchange double control?! -->
-                <app-due-date-input [control]="get('due-date')" [calendar]="calendar"></app-due-date-input>
+                <app-due-date-input [control]="get('dueDate')" [calendar]="calendar"></app-due-date-input>
                 <app-prio-input [control]="get('prio')"></app-prio-input>
                 <app-category-input [control]="get('category')"></app-category-input>
-                <!-- check double control!!! -->
-                <app-subtasks-input [control]="subtasks" [subtasks]="get('subtasks')"></app-subtasks-input>
-
-                <!-- <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
-                    [(subtasks)]="task.subtasks"></app-subtasks-input> -->
+                <app-subtasks-input [control]="subtask" [subtasks]="get('subtasks')"></app-subtasks-input>
             </fieldset>
         </form>
-
-        <!-- <form #form="ngForm" class="form" (submit)="onCreate(form)">
-            <fieldset class="left-fieldset">
-                <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
-                <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
-                <app-assigned-to-input [(ngModel)]="assignedTo" name="assigned-to" [(assignedTo)]="task.assignedTo"
-                    [contacts]="contacts"></app-assigned-to-input>
-            </fieldset>
-
-            <div class="border"></div>
-
-            <fieldset class="right-fieldset">
-                <app-due-date-input [(ngModel)]="dueDate" name="due-date"
-                    [(dueDate)]="task.dueDate"></app-due-date-input>
-                <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
-                <app-category-input [(ngModel)]="task.category" name="category"></app-category-input>
-                <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
-                    [(subtasks)]="task.subtasks"></app-subtasks-input>
-            </fieldset>
-        </form> -->
     </div>
 
     <div class="hint-button-cont max-w-1016">

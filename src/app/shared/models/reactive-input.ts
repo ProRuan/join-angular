@@ -247,7 +247,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
 
   // rename isError() and isErrorPermanently()!!!
   isErrorPermanently() {
-    return this.error;
+    return !this.control?.pristine && this.error;
   }
 
   set(config: InputConfig) {
@@ -258,6 +258,12 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
 
   isFilled() {
     return this.value.length > 0;
+  }
+
+  markAsDirty(control: AbstractControl | null) {
+    if (control?.pristine) {
+      control?.markAsDirty();
+    }
   }
 }
 

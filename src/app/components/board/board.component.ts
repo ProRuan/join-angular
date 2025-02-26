@@ -34,11 +34,77 @@ export class BoardComponent {
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
+  // First tasks
+  // -----------
+  // move add-task inputs to add-task ... ?
+  // add-task component: defaultValue ...
+  // add-task max-w-1016 container ...
+  // login, sign-up, new-password control variables ...
+
+  // I. Complete/move notes ...
+  // III. replace error with control?.errors ...
+
+  // Buttons
+  // -------
+  // update ButtonComponent ...
+  // update JoinButton ...
+  // update ButtonData ...
+  // update ButtonDataService ...
+
+  // AddTaskComponent
+  // ----------------
+  // Think about bottom padding ... !
+  // review button component ... !
+  // review max-width container ... !
+  // delete interface Simple ... !
+  // delete isTrue() ... ?!
+
+  // SubtasksInputComponent
+  // ----------------------
+  // replace hint with error ...
+  // replace input-hint-cont with column-4 + pos-relative ...
+  // rename focussed to focused ... !
+  // subtask id necessary ... ?!
+
+  // rename dialog to dialogs ... !
+  // rename stop to preventDefault() ... !
+
+  // move subtask component code here ... ?
+  // delete empty and edited subtasks ... ?
+
+  // CategoryInputComponent
+  // ----------------------
+  // fix height (body overflow-y) of assigned-to list ...
+  // fix focus over button ... (2x)
+  // arrow button (also for assigned-to) ...
+
+  // DueDateInputComponent
+  // ---------------------
+  // pattern test instead of value match ... !
+  //   --> improve name formatter ... !
+
+  // calendarDate and inputDate ... !
+  // prepare a second control (control array) ... ?
+
+  // remove input transition ... ?
+
+  // delete old add-task input components ... !
+  // delete AssignableContactComponent ... !
+
+  // set all control types (not any) ... !
+  // set validator array as optional + update components ... !
+
+  // control?.value or get('control') for login, sign-up and so on ... ?
+
+  // TitleInputCommponent
+  // --------------------
+  // delete HintComponent ... ?
+  // add-task inputs double style ... ?
+
   title: string = 'Board';
 
   addTaskBtn: ButtonData = {
     buttonClass: 'create-btn slim',
-    contClass: 'cont-92',
     textClass: 'create-btn-text',
     text: 'Add task',
     imgClass: 'img-32',

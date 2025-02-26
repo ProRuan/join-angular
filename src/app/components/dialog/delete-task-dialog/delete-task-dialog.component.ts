@@ -29,7 +29,6 @@ export class DeleteTaskDialogComponent {
 
   noBtn: ButtonData = {
     buttonClass: 'clear-btn no-btn',
-    contClass: 'h-24',
     textClass: 'clear-btn-text',
     text: 'No',
     imgClass: 'clear-btn-img',
@@ -39,7 +38,6 @@ export class DeleteTaskDialogComponent {
 
   yesBtn: ButtonData = {
     buttonClass: 'create-btn yes-btn',
-    contClass: 'h-24',
     textClass: 'create-btn-text',
     text: 'Yes',
     imgClass: 'create-btn-img',

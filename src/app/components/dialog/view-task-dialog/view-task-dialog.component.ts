@@ -37,7 +37,6 @@ export class ViewTaskDialogComponent {
 
   deleteBtn: ButtonData = {
     buttonClass: 'settings-btn',
-    contClass: 'w-49',
     textClass: 'settings-btn-text',
     text: 'Delete',
     imgClass: 'delete',
@@ -47,7 +46,6 @@ export class ViewTaskDialogComponent {
 
   editBtn: ButtonData = {
     buttonClass: 'settings-btn',
-    contClass: 'w-31',
     textClass: 'settings-btn-text',
     text: 'Edit',
     imgClass: 'edit',
@@ -78,7 +76,6 @@ export class ViewTaskDialogComponent {
   get prioBtn(): ButtonData {
     return {
       buttonClass: 'prio-btn',
-      contClass: '',
       textClass: 'prio-btn-text',
       text: this.getPrioText(),
       imgClass: 'img-32',

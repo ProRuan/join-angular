@@ -27,7 +27,6 @@ export class ContactViewerComponent {
 
   editBtn: ButtonData = {
     buttonClass: 'settings-btn',
-    contClass: 'w-31',
     textClass: 'settings-btn-text',
     text: 'Edit',
     imgClass: 'edit',
@@ -37,7 +36,6 @@ export class ContactViewerComponent {
 
   deleteBtn: ButtonData = {
     buttonClass: 'settings-btn',
-    contClass: 'w-49',
     textClass: 'settings-btn-text',
     text: 'Delete',
     imgClass: 'delete',

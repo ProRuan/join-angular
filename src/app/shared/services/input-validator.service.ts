@@ -56,6 +56,8 @@ export class InputValidatorService {
     this.validator.maxLength(127),
   ];
 
+  required = [this.validator.required()];
+
   // add more validators!!!
   dueDate = [
     this.validator.required(),

@@ -127,7 +127,7 @@ export class NewPasswordComponent extends FormController {
   updateForm() {
     this.removeControl('email');
     this.addControl('password', '', this.validators.password);
-    this.addControl('matchword', '', []);
+    this.addControl('matchword', '');
   }
 
   /**

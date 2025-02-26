@@ -39,6 +39,8 @@ export class SubtasksInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl<any, any> | null = null;
   @Input('subtasks') taskControl: AbstractControl | null = null;
 
+  override onChange: (value: string) => void = this.change;
+
   /**
    * Gets subtasks.
    * @returns The subtasks.
@@ -53,6 +55,13 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   set subtasks(subtasks: Subtask[]) {
     this.taskControl?.setValue(subtasks);
+  }
+
+  /**
+   * Changes an input state to dirty.
+   */
+  change() {
+    this.markAsDirty(this.taskControl);
   }
 
   /**
