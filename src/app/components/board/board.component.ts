@@ -36,9 +36,11 @@ export class BoardComponent {
 
   // First tasks
   // -----------
-  // redirect to board ... !
-  // add-task max-w-1016 container ...
   // login, sign-up, new-password control variables ...
+
+  // Async, Await and Subscribe
+  // --------------------------
+  // await saveUser() necessary ... ?! (check all save functions)
 
   // I. Complete/move notes ...
   // III. replace error with control?.errors ...

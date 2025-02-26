@@ -15,6 +15,7 @@ import { CategoryInputComponent } from '../../shared/components/inputs/category-
 import { SubtasksInputComponent } from '../../shared/components/inputs/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormController } from '../../shared/models/form-controller';
+import { Router } from '@angular/router';
 import { JoinService } from '../../shared/services/join.service';
 import { ButtonDataService } from '../../shared/services/button-data.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
@@ -50,6 +51,7 @@ import { JoinButton } from '../../shared/models/join-button';
  * @extends FormController
  */
 export class AddTaskComponent extends FormController {
+  router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   validators: InputValidatorService = inject(InputValidatorService);
@@ -66,8 +68,8 @@ export class AddTaskComponent extends FormController {
   subtask: AbstractControl | null = null;
   clearBtn = new JoinButton();
   createBtn = new JoinButton();
-
-  classes = { addTask: 'add-task-desktop', cont: 'cont-desktop' };
+  paddingClass: string = 'padding-desktop';
+  columnClass: string = 'column-desktop';
 
   /**
    * Initializes an add-task component.
@@ -132,8 +134,8 @@ export class AddTaskComponent extends FormController {
    * Updates css classes.
    */
   updateCSSClasses() {
-    this.classes.addTask = 'add-task-dialog';
-    this.classes.cont = 'cont-dialog';
+    this.paddingClass = 'padding-dialog';
+    this.columnClass = 'column-dialog';
   }
 
   /**
@@ -249,7 +251,16 @@ export class AddTaskComponent extends FormController {
       this.task.set(this.form.value);
       this.join.user.tasks.push(this.task);
       this.summary.update();
-      await this.join.saveUser();
+      this.join.saveUser();
+      this.navigateToBoard();
     }
+  }
+
+  /**
+   * Navigates to a board.
+   */
+  navigateToBoard() {
+    let url = this.router.url.replace('add-task', 'board');
+    this.router.navigateByUrl(url);
   }
 }

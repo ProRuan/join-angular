@@ -2,26 +2,26 @@
 
 .add-task {
   @include size($w: 100%, $h: calc(100vh - 96px));
-  @include display-column($jc: space-between, $g: 30px);
 }
 
-.add-task-desktop {
+.padding-desktop {
   @include box-padding($p: 110px 96px);
 }
 
-.add-task-dialog {
+.padding-dialog {
   @include box-padding($p: 64px 74px);
 }
 
-.max-w-1016 {
-  max-width: 1016px;
+.content {
+  @include size($w: 1016px, $h: 100%);
+  @include display-column($jc: space-between, $g: 32px);
 }
 
-.cont-desktop {
+.column-desktop {
   @include display-column($g: 48px);
 }
 
-.cont-dialog {
+.column-dialog {
   @include display-column($g: 32px);
 }
 
