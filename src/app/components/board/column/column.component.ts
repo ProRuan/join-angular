@@ -16,7 +16,7 @@ import { Task } from '../../../shared/models/task';
 })
 
 /**
- * Represents a column component.
+ * Class representing a column component.
  */
 export class ColumnComponent {
   join: JoinService = inject(JoinService);
@@ -26,9 +26,10 @@ export class ColumnComponent {
 
   @Input() name: string = 'To do';
   @Input() tasks: Task[] = [];
+
   id: string = '';
-  displayed: boolean = true;
   dialogId: string = 'addTask';
+  displayed: boolean = true;
 
   /**
    * Initializes a column component.
@@ -39,18 +40,18 @@ export class ColumnComponent {
   }
 
   /**
-   * Provides the column id.
-   * @returns - The id.
+   * Gets a column id.
+   * @returns The column id.
    */
-  getId() {
+  private getId() {
     return this.name.toLowerCase().replace(' ', '-');
   }
 
   /**
-   * Verifies the display state of the button.
-   * @returns - A boolean value.
+   * Verifies the display state of a button.
+   * @returns A boolean value.
    */
-  isButtonDisplayed() {
+  private isButtonDisplayed() {
     return this.id != 'done';
   }
 
@@ -62,7 +63,7 @@ export class ColumnComponent {
   }
 
   /**
-   * Sets the targeted column on dragover.
+   * Sets a targeted column on dragover.
    * @param event - The event.
    */
   onSetTarget(event: Event) {
@@ -73,7 +74,7 @@ export class ColumnComponent {
   }
 
   /**
-   * Updates the task on drop.
+   * Updates a task on drop.
    * @param column - The targeted column.
    */
   async onUpdateTask(column: string) {
@@ -84,8 +85,8 @@ export class ColumnComponent {
   }
 
   /**
-   * Verifies the display state of the placeholder.
-   * @returns - A boolean value.
+   * Verifies the display state of a placeholder.
+   * @returns A boolean value.
    */
   isPlaceholderDisplayed() {
     let columnEmpty = this.isColumnEmpty();
@@ -94,37 +95,16 @@ export class ColumnComponent {
   }
 
   /**
-   * Verifies the empty state of the column.
-   * @returns - A boolean value.
+   * Verifies the empty state of a column.
+   * @returns A boolean value.
    */
-  isColumnEmpty() {
+  private isColumnEmpty() {
     return !this.tasks.some((t) => t.column == this.id);
   }
 
   /**
-   * Verifies the task to filter.
-   * @param task - The task.
-   * @returns - A boolean value.
-   */
-  isTaskFiltered(task: Task) {
-    let titleFiltered = this.isFiltered(task.title);
-    let descriptionFiltered = this.isFiltered(task.description);
-    return titleFiltered || descriptionFiltered;
-  }
-
-  /**
-   * Verifies the match between filter and value.
-   * @param value - The value.
-   * @returns - A boolean value.
-   */
-  isFiltered(value: string) {
-    value = value.toLowerCase();
-    return value.includes(this.board.filter);
-  }
-
-  /**
-   * Verifies the neighbor column.
-   * @returns - A boolean value.
+   * Verifies a neighbor column.
+   * @returns A boolean value.
    */
   isNeighborColumn() {
     let dragStarted = this.board.dragStarted;
@@ -133,8 +113,28 @@ export class ColumnComponent {
   }
 
   /**
-   * Verifies the css class of the feedback background color.
-   * @returns - The css class to apply.
+   * Verifies a task to filter.
+   * @param task - The task.
+   * @returns A boolean value.
+   */
+  isTaskFiltered(task: Task) {
+    let titleFiltered = this.isFiltered(task.title);
+    let descriptionFiltered = this.isFiltered(task.description);
+    return titleFiltered || descriptionFiltered;
+  }
+
+  /**
+   * Verifies a match between filter and value.
+   * @param value - The value.
+   * @returns A boolean value.
+   */
+  private isFiltered(value: string) {
+    return value.toLowerCase().includes(this.board.filter);
+  }
+
+  /**
+   * Verifies the css class of a feedback background color.
+   * @returns The css class of the feedback background color.
    */
   getBgcClass() {
     return this.board.targetedColumn == this.id ? 'bgc' : '';

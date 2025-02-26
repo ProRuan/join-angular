@@ -6,9 +6,10 @@ import { SearchInputComponent } from './search-input/search-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ColumnComponent } from './column/column.component';
 import { JoinService } from '../../shared/services/join.service';
+import { ButtonDataService } from '../../shared/services/button-data.service';
 import { BoardService } from '../../shared/services/board.service';
 import { DialogService } from '../../shared/services/dialog.service';
-import { ButtonData } from '../../shared/interfaces/button-data';
+import { JoinButton } from '../../shared/models/join-button';
 import { Task } from '../../shared/models/task';
 
 @Component({
@@ -27,124 +28,58 @@ import { Task } from '../../shared/models/task';
 })
 
 /**
- * Represents a board component.
+ * Class representing a board component.
  */
 export class BoardComponent {
   join: JoinService = inject(JoinService);
+  buttons: ButtonDataService = inject(ButtonDataService);
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
-  // First tasks
-  // -----------
-  // login, sign-up, new-password control variables ...
-
-  // Async, Await and Subscribe
-  // --------------------------
-  // await saveUser() necessary ... ?! (check all save functions)
-
-  // I. Complete/move notes ...
-  // III. replace error with control?.errors ...
-
-  // Buttons
-  // -------
-  // update ButtonComponent ...
-  // update JoinButton ...
-  // update ButtonData ...
-  // update ButtonDataService ...
-
-  // AddTaskComponent
-  // ----------------
-  // Think about bottom padding ... !
-  // review button component ... !
-  // review max-width container ... !
-  // delete interface Simple ... !
-  // delete isTrue() ... ?!
-
-  // SubtasksInputComponent
-  // ----------------------
-  // replace hint with error ...
-  // replace input-hint-cont with column-4 + pos-relative ...
-  // rename focussed to focused ... !
-  // subtask id necessary ... ?!
-
-  // rename dialog to dialogs ... !
-  // rename stop to preventDefault() ... !
-
-  // move subtask component code here ... ?
-  // delete empty and edited subtasks ... ?
-
-  // CategoryInputComponent
-  // ----------------------
-  // fix height (body overflow-y) of assigned-to list ...
-  // fix focus over button ... (2x)
-  // arrow button (also for assigned-to) ...
-
-  // DueDateInputComponent
-  // ---------------------
-  // pattern test instead of value match ... !
-  //   --> improve name formatter ... !
-
-  // calendarDate and inputDate ... !
-  // prepare a second control (control array) ... ?
-
-  // remove input transition ... ?
-
-  // delete old add-task input components ... !
-  // delete AssignableContactComponent ... !
-
-  // set all control types (not any) ... !
-  // set validator array as optional + update components ... !
-
-  // control?.value or get('control') for login, sign-up and so on ... ?
-
-  // TitleInputCommponent
-  // --------------------
-  // delete HintComponent ... ?
-  // add-task inputs double style ... ?
-
   title: string = 'Board';
-
-  addTaskBtn: ButtonData = {
-    buttonClass: 'create-btn slim',
-    textClass: 'create-btn-text',
-    text: 'Add task',
-    imgClass: 'img-32',
-    src: '/assets/img/board/add.png',
-    alt: 'add',
-  };
+  addTaskBtn = new JoinButton();
 
   /**
-   * Provides the user tasks.
+   * Gets user tasks.
+   * @returns The user tasks.
    */
   get tasks() {
     return this.join.user.tasks;
   }
 
   /**
-   * Sets the user tasks.
+   * Sets user tasks.
+   * @param tasks - The tasks to set.
    */
   set tasks(tasks: Task[]) {
     this.join.user.tasks = tasks;
   }
 
   /**
-   * Resets the targeted column on dragleave.
+   * Initializes a board component.
    */
-  onResetTarget() {
+  ngOnInit() {
+    this.addTaskBtn.set(this.buttons.addTaskBtn);
+  }
+
+  /**
+   * Resets a targeted column on dragleave.
+   */
+  onReset() {
     this.board.targetedColumn = '';
   }
 
   /**
-   * Opens the add-task dialog on click.
+   * Opens an add-task dialog on click.
    */
-  onAddTask() {
+  onAdd() {
     this.dialog.openDialog('addTask');
   }
 
   /**
-   * Provides the tasks of the column.
+   * Gets the tasks of a column.
    * @param column - The column.
-   * @returns - The tasks of the column.
+   * @returns The tasks of the column.
    */
   getTasks(column: string) {
     return this.tasks.filter((t) => t.column == column);

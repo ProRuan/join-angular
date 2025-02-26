@@ -1,14 +1,14 @@
-<section class="board" (dragleave)="onResetTarget()">
-    <div class="title-cont">
-        <app-join-title [title]="title"></app-join-title>
-
-        <div class="input-button-cont">
-            <app-search-input [(value)]="board.filter"></app-search-input>
-            <app-button [button]="addTaskBtn" (click)="onAddTask()"></app-button>
-        </div>
-    </div>
-
+<section class="board" (dragleave)="onReset()">
     <div class="content">
+        <div class="title-cont">
+            <app-join-title [title]="title"></app-join-title>
+
+            <div class="input-button-cont">
+                <app-search-input [(value)]="board.filter"></app-search-input>
+                <app-button [button]="addTaskBtn" (click)="onAdd()"></app-button>
+            </div>
+        </div>
+
         <div class="column-group">
             <app-column name="To do" [tasks]="getTasks('to-do')"></app-column>
             <app-column name="In progress" [tasks]="getTasks('in-progress')"></app-column>

@@ -6,6 +6,11 @@
   @include display-column($g: 48.5px);
 }
 
+.content {
+  @include display-column($g: 48px);
+  width: 1080px;
+}
+
 .title-cont {
   @include display-flex($jc: space-between);
   width: 1056px;
@@ -15,10 +20,6 @@
   @include display-row($ai: center, $g: 32px);
 }
 
-.content {
-  width: 1080px;
-}
-
 .column-group {
-  @include display-row($g: 26px);
+  @include display-row($jc: space-between);
 }

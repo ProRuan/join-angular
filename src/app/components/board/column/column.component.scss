@@ -18,18 +18,18 @@
 .add-btn {
   @include size($w: 24px, $h: 24px);
   padding: 0;
-  background-image: url("../../../../assets/img/board/add_framed.png");
+  background-image: url("/assets/img/board/add_framed.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 24px 24px;
   border: none;
 
   &:hover {
-    background-image: url("../../../../assets/img/board/add_framed_hover.png");
+    background-image: url("/assets/img/board/add_framed_hover.png");
   }
 
   &:active {
-    background-image: url("../../../../assets/img/board/add_framed_active.png");
+    background-image: url("/assets/img/board/add_framed_active.png");
   }
 }
 
@@ -49,7 +49,7 @@
 
 .placeholder-text {
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-family: $openSans;
   color: $darkgray;
 }
 
