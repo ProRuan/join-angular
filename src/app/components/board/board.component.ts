@@ -36,8 +36,7 @@ export class BoardComponent {
 
   // First tasks
   // -----------
-  // move add-task inputs to add-task ... ?
-  // add-task component: defaultValue ...
+  // redirect to board ... !
   // add-task max-w-1016 container ...
   // login, sign-up, new-password control variables ...
 

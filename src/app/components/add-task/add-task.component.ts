@@ -165,8 +165,34 @@ export class AddTaskComponent extends FormController {
    * Clears a form.
    */
   clearForm() {
-    this.form = this.getForm();
-    this.setForm();
+    this.resetForm();
+    this.search?.reset('');
+    this.calendar?.reset('');
+    this.subtask?.reset('');
+  }
+
+  /**
+   * Resets a form.
+   */
+  resetForm() {
+    let defaultValues = this.getDefaultValues();
+    this.form.reset(defaultValues);
+  }
+
+  /**
+   * Gets form default values.
+   * @returns The form default values.
+   */
+  getDefaultValues() {
+    return {
+      title: '',
+      description: '',
+      assignedTo: [],
+      dueDate: '',
+      prio: 'medium',
+      category: '',
+      subtasks: [],
+    };
   }
 
   /**
