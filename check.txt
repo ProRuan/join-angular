@@ -42,7 +42,7 @@ Join (5/?)
       - SumCardComponent - check
   - AddTaskComponent - check
   - BoardComponent - check
-      - SearchInputComponent ...
+      - SearchInputComponent - check
       - ColumnComponent - check
       - DraggableTaskComponent ...
 
