@@ -1,14 +1,20 @@
-<!-- tag dialog? -->
-<section class="dialog" [ngClass]="getDialogClass()" (click)="onClose()">
-    <!-- view-task-dialog + edit-task-dialog ... (0/2) -->
+<app-add-task-dialog></app-add-task-dialog>
 
-    <!-- global style out as mixin: out(1025px) out(800px)? -->
-    <!-- ngIf for dialog itself + own variable opened - not here - ??? -->
-    <app-add-task-dialog [ngClass]="getDialogBoxClass('addTask')"></app-add-task-dialog>
+<!-- add all dialogs here!!! -->
 
-    <!-- visibility + transition!! (2x) -->
-    <!-- getDisplayClass()!! (2x) -->
+<!-- <section class="dialog" [ngClass]="getDialogClass()" (click)="onClose()">
     <app-view-task-dialog [ngClass]="getDialogBoxClass('viewTask')"></app-view-task-dialog>
     <app-delete-task-dialog [ngClass]="getSubdialogboxClass()"></app-delete-task-dialog>
     <app-edit-task-dialog [ngClass]="getDialogBoxClass('editTask')"></app-edit-task-dialog>
-</section>
+</section> -->
+
+<!-- tag dialog? -->
+
+<!-- view-task-dialog + edit-task-dialog ... (0/2) -->
+
+<!-- global style out as mixin: out(1025px) out(800px)? -->
+<!-- ngIf for dialog itself + own variable opened - not here - ??? -->
+<!-- <app-add-task-dialog [ngClass]="getDialogBoxClass('addTask')"></app-add-task-dialog> -->
+
+<!-- visibility + transition!! (2x) -->
+<!-- getDisplayClass()!! (2x) -->

@@ -38,6 +38,8 @@ Join (6/?)
   - LoginComponent - check *logInUser() and rememberUser()
   - NewPasswordComponent - check
   - SignUpComponent - check
+  - DialogComponent ...
+      - AddTaskDialogComponent - check
   - SummaryComponent - check
       - SumCardComponent - check
   - AddTaskComponent - check
