@@ -40,6 +40,7 @@ Join (6/?)
   - SignUpComponent - check
   - DialogComponent ...
       - AddTaskDialogComponent - check
+      - ViewTaskDialogComponent - check
   - SummaryComponent - check
       - SumCardComponent - check
   - AddTaskComponent - check

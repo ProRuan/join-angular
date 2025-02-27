@@ -1,20 +1,5 @@
 @import "../../../../mixins.scss";
 
-.transit-cont {
-  @include size($w: 100%, $h: 100vh);
-  @include display-flex();
-  @include position($pos: relative, $l: 0px, $t: 0px);
-  transition: all 100ms ease-in-out;
-}
-
-.out {
-  left: 100%;
-}
-
-.o-0 {
-  opacity: 0;
-}
-
 .dialog-box {
   @include box-padding($p: 48px 40px);
   @include display-column($g: 24px);
@@ -39,26 +24,6 @@
   color: $white;
 }
 
-.close-btn {
-  @include size($w: 32px, $h: 32px);
-  padding: 0;
-  background-color: transparent;
-  background-image: url("../../../../assets/img/board/close_default.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
-  border: none;
-  transition: all 100ms ease-in-out;
-
-  &:hover {
-    background-image: url("../../../../assets/img/board/close_hover.png");
-  }
-
-  &:active {
-    background-image: url("../../../../assets/img/board/close_default.png");
-  }
-}
-
 .description {
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   color: $black;
@@ -80,10 +45,6 @@
 .assigned-to-cont {
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include display-column($g: 8px);
-}
-
-.contact-group {
-  @include display-column($g: 4px);
 }
 
 .contact {
@@ -111,17 +72,9 @@
   color: $black;
 }
 
-.subtasks-cont {
-  @include display-column($g: 8px);
-}
-
 .subtasks-head {
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   color: $dark;
-}
-
-.subtask-group {
-  @include display-column($g: 4px);
 }
 
 .subtask {

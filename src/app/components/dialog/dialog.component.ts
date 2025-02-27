@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { DialogService } from '../../shared/services/dialog.service';
 import { CommonModule } from '@angular/common';
-import { AddTaskDialogComponent } from '../board/add-task-dialog/add-task-dialog.component';
+import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 import { ViewTaskDialogComponent } from './view-task-dialog/view-task-dialog.component';
 import { EditTaskDialogComponent } from './edit-task-dialog/edit-task-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
@@ -12,7 +12,7 @@ import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dial
   imports: [
     CommonModule,
     AddTaskDialogComponent,
-    // ViewTaskDialogComponent,
+    ViewTaskDialogComponent,
     // DeleteTaskDialogComponent,
     // EditTaskDialogComponent,
   ],

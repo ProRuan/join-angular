@@ -53,7 +53,7 @@ export class DraggableTaskComponent {
    * Gets an amount of done subtasks.
    * @returns The amount of done subtasks.
    */
-  getCounter() {
+  private getCounter() {
     let doneSubtasks = this.task.subtasks.filter((s) => s.done);
     return doneSubtasks.length;
   }
@@ -62,7 +62,7 @@ export class DraggableTaskComponent {
    * Gets an alternative text.
    * @returns The alternative text.
    */
-  getAlt() {
+  private getAlt() {
     return `prio_${this.task.prio}`;
   }
 

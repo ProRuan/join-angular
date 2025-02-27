@@ -82,6 +82,8 @@ export class ButtonDataService {
   // delete HintComponent ... ?
   // add-task inputs double style ... ?
 
+  [key: string]: any;
+
   clearBtn: ButtonData = {
     buttonClass: 'clear-btn',
     textClass: 'clear-btn-text',
@@ -107,6 +109,24 @@ export class ButtonDataService {
     imgClass: 'img-32',
     src: '/assets/img/board/add.png',
     alt: 'add',
+  };
+
+  deleteBtn: ButtonData = {
+    buttonClass: 'settings-btn',
+    textClass: 'settings-btn-text',
+    text: 'Delete',
+    imgClass: 'delete',
+    src: '/assets/img/contacts/delete.png',
+    alt: 'delete',
+  };
+
+  editBtn: ButtonData = {
+    buttonClass: 'settings-btn',
+    textClass: 'settings-btn-text',
+    text: 'Edit',
+    imgClass: 'edit',
+    src: '/assets/img/contacts/edit.png',
+    alt: 'edit',
   };
 
   constructor() {}

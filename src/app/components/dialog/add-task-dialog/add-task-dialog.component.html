@@ -1,6 +1,8 @@
-<div class="transit-cont" [ngClass]="getClass()">
-    <section class="dialog-box pos-relative" (click)="onStop($event)">
-        <app-add-task [first]="false"></app-add-task>
-        <button class="close-btn" (click)="onClose()"></button>
-    </section>
+<div class="dialog" [ngClass]="getDialogClass()">
+    <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
+        <section class="dialog-box pos-relative" (click)="onStop($event)">
+            <app-add-task [original]="false"></app-add-task>
+            <button class="close-btn pos" (click)="onClose()"></button>
+        </section>
+    </div>
 </div>

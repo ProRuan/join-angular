@@ -58,7 +58,7 @@ export class AddTaskComponent extends FormController {
   summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
 
-  @Input() first: boolean = true;
+  @Input() original: boolean = true;
 
   title: string = 'Add Task';
   contacts: Contact[] = [];
@@ -66,8 +66,8 @@ export class AddTaskComponent extends FormController {
   search: AbstractControl | null = null;
   calendar: AbstractControl | null = null;
   subtask: AbstractControl | null = null;
-  clearBtn = new JoinButton();
-  createBtn = new JoinButton();
+  clearBtn = new JoinButton('clearBtn');
+  createBtn = new JoinButton('createBtn');
   paddingClass: string = 'padding-desktop';
   columnClass: string = 'column-desktop';
 
@@ -77,7 +77,6 @@ export class AddTaskComponent extends FormController {
   async ngOnInit() {
     this.contacts = this.join.user.contacts;
     this.setForm();
-    this.setButtons();
     this.updateVersion();
   }
 
@@ -112,18 +111,10 @@ export class AddTaskComponent extends FormController {
   }
 
   /**
-   * Sets form buttons.
-   */
-  setButtons() {
-    this.clearBtn.set(this.buttons.clearBtn);
-    this.createBtn.set(this.buttons.createBtn);
-  }
-
-  /**
    * Updates the version of an add-task component.
    */
   updateVersion() {
-    if (!this.first) {
+    if (!this.original) {
       this.updateCSSClasses();
       this.updateClearBtn();
       this.updateCreateBtn();

@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { AddTaskComponent } from '../../add-task/add-task.component';
-import { DialogService } from '../../../shared/services/dialog.service';
-import { stop } from '../../../shared/ts/global';
+import { JoinDialog } from '../../../shared/models/join-dialog';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -13,31 +12,9 @@ import { stop } from '../../../shared/ts/global';
 })
 
 /**
- * Represents an add-task dialog component.
+ * Class representing an add-task dialog component.
+ * @extends JoinDialog
  */
-export class AddTaskDialogComponent {
-  dialog: DialogService = inject(DialogService);
-
-  /**
-   * Provides the css class.
-   * @returns - The css class.
-   */
-  getClass() {
-    return !this.dialog.isOpened('addTask') ? 'out' : '';
-  }
-
-  /**
-   * Stops the event on click.
-   * @param event - The event.
-   */
-  onStop(event: Event) {
-    stop(event);
-  }
-
-  /**
-   * Closes the dialog on click.
-   */
-  onClose() {
-    this.dialog.closeDialog('addTask');
-  }
+export class AddTaskDialogComponent extends JoinDialog {
+  override id: string = 'addTask';
 }

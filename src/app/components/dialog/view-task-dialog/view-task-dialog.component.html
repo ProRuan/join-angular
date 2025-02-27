@@ -1,52 +1,54 @@
-<div class="transit-cont" [ngClass]="getClass()">
-    <section class="dialog-box" (click)="onStop($event)">
-        <div class="category-button-cont">
-            <div class="category" [ngClass]="getCategoryClass()">
-                <span class="category-text">{{ task.category }}</span>
+<div class="dialog" [ngClass]="getDialogClass()">
+    <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
+        <section class="dialog-box" (click)="onStop($event)">
+            <div class="category-button-cont">
+                <div class="category" [ngClass]="getCategoryClass()">
+                    <span class="category-text">{{ task.category }}</span>
+                </div>
+                <button class="close-btn" (click)="onClose()"></button>
             </div>
-            <button class="close-btn" (click)="onClose()"></button>
-        </div>
 
-        <app-join-title [title]="task.title"></app-join-title>
+            <app-join-title [title]="task.title"></app-join-title>
 
-        <span class="description">{{ task.description }}</span>
+            <span class="description">{{ task.description }}</span>
 
-        <div class="property">
-            <span class="property-head">Due date:</span>
-            <span class="property-data">{{ dueDate }}</span>
-        </div>
+            <div class="property">
+                <span class="property-head">Due date:</span>
+                <span class="property-data">{{ task.dueDate }}</span>
+            </div>
 
-        <div class="property">
-            <span class="property-head">Priority:</span>
-            <app-button [button]="prioBtn"></app-button>
-        </div>
+            <div class="property">
+                <span class="property-head">Priority:</span>
+                <app-button [button]="prioBtn"></app-button>
+            </div>
 
-        <div class="assigned-to-cont">
-            <span class="property-head">Assinged To:</span>
-            <div class="contact-group">
-                <div *ngFor="let contact of task.assignedTo" class="contact">
-                    <div class="profile" [ngClass]="contact.bgc">
-                        <span class="initials">{{ contact.initials }}</span>
+            <div class="assigned-to-cont">
+                <span class="property-head">Assinged To:</span>
+                <div class="column-4">
+                    <div *ngFor="let contact of task.assignedTo" class="contact">
+                        <div class="profile" [ngClass]="contact.bgc">
+                            <span class="initials">{{ contact.initials }}</span>
+                        </div>
+                        <span class="name">{{ contact.name }}</span>
                     </div>
-                    <span class="name">{{ contact.name }}</span>
                 </div>
             </div>
-        </div>
 
-        <div class="subtasks-cont">
-            <span class="subtasks-head">Subtasks</span>
-            <div class="subtask-group">
-                <div *ngFor="let subtask of task.subtasks" class="subtask" (click)="onCheck(subtask)">
-                    <app-checkbox [checked]="subtask.done"></app-checkbox>
-                    <span class="subtask-text">{{ subtask.text }}</span>
+            <div class="column-8">
+                <span class="subtasks-head">Subtasks</span>
+                <div class="column-4">
+                    <div *ngFor="let subtask of task.subtasks" class="subtask" (click)="onCheck(subtask)">
+                        <app-checkbox [checked]="subtask.done"></app-checkbox>
+                        <span class="subtask-text">{{ subtask.text }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="settings-button-group">
-            <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
-            <div class="border"></div>
-            <app-button [button]="editBtn" (click)="onEdit()"></app-button>
-        </div>
-    </section>
+            <div class="settings-button-group">
+                <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
+                <div class="border"></div>
+                <app-button [button]="editBtn" (click)="onEdit()"></app-button>
+            </div>
+        </section>
+    </div>
 </div>

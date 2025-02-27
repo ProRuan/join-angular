@@ -3,13 +3,15 @@ import { Component, inject } from '@angular/core';
 import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
+import { JoinDialog } from '../../../shared/models/join-dialog';
 import { JoinService } from '../../../shared/services/join.service';
+import { ButtonDataService } from '../../../shared/services/button-data.service';
 import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
-import { DialogService } from '../../../shared/services/dialog.service';
-import { Subtask } from '../../../shared/models/subtask';
+import { JoinButton } from '../../../shared/models/join-button';
 import { ButtonData } from '../../../shared/interfaces/button-data';
-import { stop } from '../../../shared/ts/global';
+import { Subtask } from '../../../shared/models/subtask';
+import { getCapitalized } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-view-task-dialog',
@@ -25,53 +27,31 @@ import { stop } from '../../../shared/ts/global';
 })
 
 /**
- * Represents a view-task dialog component.
+ * Class representing a view-task dialog component.
+ * @extends JoinDialog
  */
-export class ViewTaskDialogComponent {
+export class ViewTaskDialogComponent extends JoinDialog {
   join: JoinService = inject(JoinService);
+  buttons: ButtonDataService = inject(ButtonDataService);
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
-  dialog: DialogService = inject(DialogService);
 
-  dialogId: string = 'viewTask';
+  override id: string = 'viewTask';
 
-  deleteBtn: ButtonData = {
-    buttonClass: 'settings-btn',
-    textClass: 'settings-btn-text',
-    text: 'Delete',
-    imgClass: 'delete',
-    src: '/assets/img/contacts/delete.png',
-    alt: 'delete',
-  };
-
-  editBtn: ButtonData = {
-    buttonClass: 'settings-btn',
-    textClass: 'settings-btn-text',
-    text: 'Edit',
-    imgClass: 'edit',
-    src: '/assets/img/contacts/edit.png',
-    alt: 'edit',
-  };
+  deleteBtn = new JoinButton('deleteBtn');
+  editBtn = new JoinButton('editBtn');
 
   /**
-   * Provides the task to view.
-   * @returns - The task to view.
+   * Gets a task to view.
+   * @returns The task to view.
    */
   get task() {
     return this.board.task;
   }
 
   /**
-   * Provides the due date.
-   * @returns - The due date.
-   */
-  get dueDate() {
-    return this.getDueDate();
-  }
-
-  /**
-   * Provides the prio button.
-   * @returns - The prio button.
+   * Gets a prio button.
+   * @returns The prio button.
    */
   get prioBtn(): ButtonData {
     return {
@@ -85,45 +65,28 @@ export class ViewTaskDialogComponent {
   }
 
   /**
-   * Provides the due date.
-   * @returns - The due date.
-   */
-  getDueDate() {
-    let [year, month, day] = this.task.dueDate.split('-');
-    return `${day}/${month}/${year}`;
-  }
-
-  /**
-   * Provides the prio text.
-   * @returns - The prio text.
+   * Gets a prio text.
+   * @returns The prio text.
    */
   getPrioText() {
     let prio = this.task.prio.toLowerCase();
-    if (prio) {
-      let initial = prio[0].toUpperCase();
-      return initial + prio.slice(1);
-    } else {
-      return 'undefined';
-    }
+    return prio ? getCapitalized(prio) : 'undefined';
   }
 
   /**
-   * Provides the source path of the prio.
-   * @returns - The source path of the prio.
+   * Gets the source path of a prio.
+   * @returns The source path of the prio.
    */
   getPrioSrc() {
     let prio = this.task.prio;
     return `/assets/img/board/prio_${prio}.png`;
   }
 
-  /**
-   * Provides the css class.
-   * @returns - The css class.
-   */
+  // check this!!!
   getClass() {
     if (this.dialog.transparent) {
       return 'o-0';
-    } else if (!this.dialog.isOpened(this.dialogId)) {
+    } else if (!this.dialog.isOpened(this.id)) {
       return 'out';
     } else {
       return '';
@@ -131,31 +94,16 @@ export class ViewTaskDialogComponent {
   }
 
   /**
-   * Stops the event on click.
-   * @param event - The event.
-   */
-  onStop(event: Event) {
-    stop(event);
-  }
-
-  /**
-   * Provides the css class of the category.
-   * @returns - The css class of the category.
+   * Gets the css class of a category.
+   * @returns The css class of the category.
    */
   getCategoryClass() {
     return this.task.category.toLowerCase().replace(' ', '-');
   }
 
   /**
-   * Closes the dialog on click.
-   */
-  onClose() {
-    this.dialog.closeDialog(this.dialogId);
-  }
-
-  /**
-   * Checks the subtasks on click.
-   * @param subtask - The subtask.
+   * Checks a subtask on click.
+   * @param subtask - The subtask to check.
    */
   async onCheck(subtask: Subtask) {
     this.checkSubtask(subtask);
@@ -164,8 +112,8 @@ export class ViewTaskDialogComponent {
   }
 
   /**
-   * Checks the subtask.
-   * @param subtask - The subtask.
+   * Checks a subtask.
+   * @param subtask - The subtask to check.
    */
   checkSubtask(subtask: Subtask) {
     let id = subtask.id;
@@ -174,18 +122,17 @@ export class ViewTaskDialogComponent {
   }
 
   /**
-   * Opens the delete-task dialog on click.
+   * Opens a delete-task dialog on click.
    */
   async onDelete() {
     this.dialog.open('deleteTask');
   }
 
   /**
-   * Opens the edit-task dialog on click.
+   * Opens an edit-task dialog on click.
    */
   onEdit() {
     this.dialog.task.set(this.board.task);
-    this.dialog.dueDate = this.getDueDate();
     this.dialog.openDialog('editTask');
   }
 }

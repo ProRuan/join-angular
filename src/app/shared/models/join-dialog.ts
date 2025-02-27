@@ -5,9 +5,6 @@ import { stop } from '../ts/global';
 export class JoinDialog {
   dialog: DialogService = inject(DialogService);
 
-  // draggable task: private methods ...
-  // rename add-task first to origin ...
-
   id: string = '';
 
   /**

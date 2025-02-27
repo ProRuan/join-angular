@@ -25,6 +25,11 @@ export class DeleteTaskDialogComponent {
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
+  // ViewTaskDialogComponent
+  // -----------------------
+  // set subtask id ... !
+  // view-task dialog component: check getClass() ...
+
   dialogId: string = 'deleteTask';
 
   noBtn: ButtonData = {

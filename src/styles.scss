@@ -51,6 +51,10 @@ app-prio-button {
   color: $black;
 }
 
+.column-4 {
+  @include display-column($g: 4px);
+}
+
 .column-8 {
   @include display-column($g: 8px);
 }
@@ -183,7 +187,6 @@ fieldset {
 
 .close-btn {
   @include size($w: 32px, $h: 32px);
-  @include position($pos: absolute, $t: 64px, $r: 40px);
   padding: 0;
   background-color: transparent;
   background-image: url("/assets/img/board/close_default.png");

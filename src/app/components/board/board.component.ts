@@ -37,7 +37,7 @@ export class BoardComponent {
   dialog: DialogService = inject(DialogService);
 
   title: string = 'Board';
-  addTaskBtn = new JoinButton();
+  addTaskBtn = new JoinButton('addTaskBtn');
 
   /**
    * Gets user tasks.
@@ -53,13 +53,6 @@ export class BoardComponent {
    */
   set tasks(tasks: Task[]) {
     this.join.user.tasks = tasks;
-  }
-
-  /**
-   * Initializes a board component.
-   */
-  ngOnInit() {
-    this.addTaskBtn.set(this.buttons.addTaskBtn);
   }
 
   /**
