@@ -33,7 +33,7 @@ Top Level Scripts
 -----------------
   - app ...
 
-Join (5/?)
+Join (6/?)
 ----
   - LoginComponent - check *logInUser() and rememberUser()
   - NewPasswordComponent - check
@@ -44,7 +44,7 @@ Join (5/?)
   - BoardComponent - check
       - SearchInputComponent - check
       - ColumnComponent - check
-      - DraggableTaskComponent ...
+      - DraggableTaskComponent - check
 
 
 Components (10/?) + await inputs ...

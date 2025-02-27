@@ -15,117 +15,43 @@ import { isDefaultArray } from '../../../shared/ts/global';
 })
 
 /**
- * Represents a draggable-task component.
+ * Class representing a draggable-task component.
  */
 export class DraggableTaskComponent {
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
-  // First tasks
-  // -----------
-  // login, sign-up, new-password control variables ...
-  // set private functions: summary, add-task, board ...
-  // set private functions for their children ...
-
-  // BoardComponent
-  // --------------
-  // set board column body height ... !
-
-  // Async, Await and Subscribe
-  // --------------------------
-  // await saveUser() necessary ... ?! (check all save functions)
-
-  // I. Complete/move notes ...
-  // III. replace error with control?.errors ...
-
-  // Buttons
-  // -------
-  // update ButtonComponent ...
-  // update JoinButton ...
-  // update ButtonData ...
-  // update ButtonDataService ...
-
-  // AddTaskComponent
-  // ----------------
-  // Think about bottom padding ... !
-  // review button component ... !
-  // review max-width container ... !
-  // delete interface Simple ... !
-  // delete isTrue() ... ?!
-
-  // SubtasksInputComponent
-  // ----------------------
-  // replace hint with error ...
-  // replace input-hint-cont with column-4 + pos-relative ...
-  // rename focussed to focused ... !
-  // subtask id necessary ... ?!
-
-  // rename dialog to dialogs ... !
-  // rename stop to preventDefault() ... !
-
-  // move subtask component code here ... ?
-  // delete empty and edited subtasks ... ?
-
-  // CategoryInputComponent
-  // ----------------------
-  // fix height (body overflow-y) of assigned-to list ...
-  // fix focus over button ... (2x)
-  // arrow button (also for assigned-to) ...
-
-  // DueDateInputComponent
-  // ---------------------
-  // pattern test instead of value match ... !
-  //   --> improve name formatter ... !
-
-  // calendarDate and inputDate ... !
-  // prepare a second control (control array) ... ?
-
-  // remove input transition ... ?
-
-  // delete old add-task input components ... !
-  // delete AssignableContactComponent ... !
-
-  // set all control types (not any) ... !
-  // set validator array as optional + update components ... !
-
-  // control?.value or get('control') for login, sign-up and so on ... ?
-
-  // TitleInputCommponent
-  // --------------------
-  // delete HintComponent ... ?
-  // add-task inputs double style ... ?
-
   @Input() task: Task = new Task();
   rotated: boolean = false;
 
   /**
-   * Provides the amount of the done subtasks.
-   * @returns - The amount of the done subtasks.
+   * Gets an amount of done subtasks.
+   * @returns The amount of done subtasks.
    */
   get counter() {
     return this.getCounter();
   }
 
   /**
-   * Provides the amount of the subtasks to do.
-   * @returns - The amount of the subtasks to do.
+   * Gets an maximum amount of subtasks to do.
+   * @returns The maximum amount of subtasks to do.
    */
   get max() {
     return this.task.subtasks.length;
   }
 
   /**
-   * Provides the alternative text.
-   * @returns - The alternative text.
+   * Gets an alternative text.
+   * @returns The alternative text.
    */
   get alt() {
     return this.getAlt();
   }
 
   /**
-   * Provides the amount of the done subtasks.
-   * @returns - The amount of the done subtasks.
+   * Gets an amount of done subtasks.
+   * @returns The amount of done subtasks.
    */
   getCounter() {
     let doneSubtasks = this.task.subtasks.filter((s) => s.done);
@@ -133,23 +59,23 @@ export class DraggableTaskComponent {
   }
 
   /**
-   * Provides the alternative text.
-   * @returns - The alternative text.
+   * Gets an alternative text.
+   * @returns The alternative text.
    */
   getAlt() {
     return `prio_${this.task.prio}`;
   }
 
   /**
-   * Provides the css class of the draggable task rotation.
-   * @returns - The css class to apply.
+   * Gets the css class of a draggable task rotation.
+   * @returns The css class of the draggable task rotation.
    */
   getRotationClass() {
     return this.rotated ? 'rotated' : '';
   }
 
   /**
-   * Starts the drag on dragstart.
+   * Starts a drag on dragstart.
    */
   onDragStart() {
     this.rotated = true;
@@ -157,14 +83,14 @@ export class DraggableTaskComponent {
   }
 
   /**
-   * Ends the drag on dragend.
+   * Ends a drag on dragend.
    */
   onDragEnd() {
     this.rotated = false;
   }
 
   /**
-   * Views the task on click.
+   * Views a task on click.
    */
   onView() {
     this.board.task = this.task;
@@ -173,8 +99,8 @@ export class DraggableTaskComponent {
   }
 
   /**
-   * Provides the css class of the task.
-   * @returns - The css class to apply.
+   * Gets the css class of a task.
+   * @returns The css class of the task.
    */
   getTaskClass() {
     let subtasksExistent = this.areSubtasksExistent();
@@ -182,24 +108,24 @@ export class DraggableTaskComponent {
   }
 
   /**
-   * Verifies the existence of the subtasks.
-   * @returns - A boolean value.
+   * Verifies the existence of subtasks.
+   * @returns A boolean value.
    */
   areSubtasksExistent() {
     return !isDefaultArray(this.task.subtasks);
   }
 
   /**
-   * Provides the css class of the category.
-   * @returns - The css class to apply.
+   * Gets the css class of a category.
+   * @returns The css class of the category.
    */
   getCategoryClass() {
     return this.task.category.toLowerCase().replace(' ', '-');
   }
 
   /**
-   * Provides the style of the progress bar.
-   * @returns - The style of the progress bar.
+   * Gets the style of a progress bar.
+   * @returns The style of the progress bar.
    */
   getStyle() {
     let progress = (128 / this.max) * this.counter;
@@ -208,8 +134,8 @@ export class DraggableTaskComponent {
   }
 
   /**
-   * Provides the source path.
-   * @returns - The source path.
+   * Gets a source path.
+   * @returns The source path.
    */
   getSrc() {
     return `/assets/img/board/${this.alt}.png`;
