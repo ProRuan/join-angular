@@ -41,6 +41,7 @@ Join (6/?)
   - DialogComponent ...
       - AddTaskDialogComponent - check
       - ViewTaskDialogComponent - check
+      - EditTaskDialogComponent - ... * logic, animation (0/2)
   - SummaryComponent - check
       - SumCardComponent - check
   - AddTaskComponent - check
@@ -89,6 +90,7 @@ Models (3/?)
 ------
   - FormController - check
   - InputValidator - check *error { key: key, value: value }
+  - JoinDialog ...
   - ReactiveInput ... *class representing ...
   - Transform - check
 

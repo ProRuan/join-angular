@@ -30,11 +30,11 @@ export class DraggableTaskComponent {
    * @returns The amount of done subtasks.
    */
   get counter() {
-    return this.getCounter();
+    return this.task.subtasks.filter((s) => s.done).length;
   }
 
   /**
-   * Gets an maximum amount of subtasks to do.
+   * Gets a maximum amount of subtasks to do.
    * @returns The maximum amount of subtasks to do.
    */
   get max() {
@@ -46,23 +46,6 @@ export class DraggableTaskComponent {
    * @returns The alternative text.
    */
   get alt() {
-    return this.getAlt();
-  }
-
-  /**
-   * Gets an amount of done subtasks.
-   * @returns The amount of done subtasks.
-   */
-  private getCounter() {
-    let doneSubtasks = this.task.subtasks.filter((s) => s.done);
-    return doneSubtasks.length;
-  }
-
-  /**
-   * Gets an alternative text.
-   * @returns The alternative text.
-   */
-  private getAlt() {
     return `prio_${this.task.prio}`;
   }
 

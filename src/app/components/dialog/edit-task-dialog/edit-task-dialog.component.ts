@@ -1,19 +1,32 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { TitleInputComponent } from '../../../shared/components/title-input/title-input.component';
-import { DescriptionInputComponent } from '../../../shared/components/description-input/description-input.component';
-import { DueDateInputComponent } from '../../../shared/components/due-date-input/due-date-input.component';
-import { PrioInputComponent } from '../../../shared/components/prio-input/prio-input.component';
-import { AssignedToInputComponent } from '../../../shared/components/assigned-to-input/assigned-to-input.component';
-import { SubtasksInputComponent } from '../../../shared/components/subtasks-input/subtasks-input.component';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { TitleInputComponent } from '../../../shared/components/inputs/title-input/title-input.component';
+import { DescriptionInputComponent } from '../../../shared/components/inputs/description-input/description-input.component';
+import { DueDateInputComponent } from '../../../shared/components/inputs/due-date-input/due-date-input.component';
+import { PrioInputComponent } from '../../../shared/components/inputs/prio-input/prio-input.component';
+import { AssignedToInputComponent } from '../../../shared/components/inputs/assigned-to-input/assigned-to-input.component';
+import { SubtasksInputComponent } from '../../../shared/components/inputs/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { JoinDialog } from '../../../shared/models/join-dialog';
 import { JoinService } from '../../../shared/services/join.service';
+import { InputValidatorService } from '../../../shared/services/input-validator.service';
+import { DateFormatterService } from '../../../shared/services/date-formatter.service';
 import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
-import { DialogService } from '../../../shared/services/dialog.service';
-import { ButtonData } from '../../../shared/interfaces/button-data';
-import { isTrue, stop } from '../../../shared/ts/global';
+import { JoinButton } from '../../../shared/models/join-button';
+import { Task } from '../../../shared/models/task';
+import { stop } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -21,6 +34,7 @@ import { isTrue, stop } from '../../../shared/ts/global';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     TitleInputComponent,
     DescriptionInputComponent,
     DueDateInputComponent,
@@ -34,135 +48,189 @@ import { isTrue, stop } from '../../../shared/ts/global';
 })
 
 /**
- * Represents an edit-task dialog component.
+ * Class representing an edit-task dialog component.
+ * @extends FormController
  */
-export class EditTaskDialogComponent {
+export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
   join: JoinService = inject(JoinService);
+  validators: InputValidatorService = inject(InputValidatorService);
+  formatter: DateFormatterService = inject(DateFormatterService);
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
-  dialog: DialogService = inject(DialogService);
 
-  // reset dialog task, dueDate, assignedTo, subtasks ... (0/4)
-  // reset input values ... (0/3)
-  // reset assignedTo (origin/copy) ... (0/2)
+  // reset on close and on update ...
+  //   --> form, board.task, task, calendar, search, subtask ...
 
-  dialogId: string = 'editTask';
-  subtasks: string = ''; // move to dialog service?!
+  calendar: AbstractControl | null = null;
+  search: AbstractControl | null = null;
+  subtask: AbstractControl | null = null;
+  okBtn = new JoinButton('okBtn');
 
-  okBtn: ButtonData = {
-    buttonClass: 'create-btn',
-    textClass: 'create-btn-text',
-    text: 'Ok',
-    imgClass: 'create-btn-img',
-    src: '/assets/img/add-task/create_button.png',
-    alt: 'create_button',
-  };
+  override id: string = 'editTask';
+
+  @Input() task = new Task();
 
   /**
-   * Provides the task.
-   * @returns - The task.
-   */
-  get task() {
-    return this.dialog.task;
-  }
-
-  /**
-   * Provides the due date.
-   * @returns - The due date.
-   */
-  get dueDate() {
-    return this.dialog.dueDate;
-  }
-
-  /**
-   * Sets the due date.
-   */
-  set dueDate(value: string) {
-    this.dialog.dueDate = value;
-  }
-
-  get search() {
-    return this.dialog.search?.value;
-  }
-
-  set search(value) {
-    this.dialog.search?.setValue(value);
-  }
-
-  /**
-   * Provides the user contacts.
+   * Gets user contacts.
    */
   get contacts() {
     return this.join.user.contacts;
   }
 
   /**
-   * Provides the due date of the task.
-   * @returns - The due date of the task.
+   * Updates an edit-task component on changes.
+   * @param changes - The changes.
    */
-  getDueDate() {
-    let [year, month, day] = this.task.dueDate.split('-');
-    return `${day}/${month}/${year}`;
+  ngOnChanges(changes: SimpleChanges): void {
+    let task = this.getTask(changes);
+    this.updateForm(task);
+    this.updateCalendar(task.dueDate);
   }
 
   /**
-   * Provides the css class.
-   * @returns - The css class.
+   * Gets a task.
+   * @param changes - The changes.
+   * @returns The task.
    */
-  getClass() {
-    let closed = !this.dialog.isOpened('editTask');
-    if (this.dialog.animated && closed) {
-      return 'out';
+  getTask(changes: SimpleChanges) {
+    return changes['task'].currentValue;
+  }
+
+  /**
+   * Updates a form.
+   * @param task - The task to set.
+   */
+  updateForm(task: Task) {
+    this.form.patchValue(task);
+  }
+
+  /**
+   * Updates a calendar.
+   * @param dueDate - The task due date.
+   */
+  updateCalendar(dueDate: string) {
+    let date = this.formatter.getCalendarDate(dueDate);
+    this.calendar?.setValue(date);
+  }
+
+  /**
+   * Initializes an edit-task component.
+   */
+  ngOnInit() {
+    this.setForm();
+  }
+
+  /**
+   * Sets a form.
+   */
+  setForm() {
+    this.setTaskControls();
+    this.setAssistantControls();
+  }
+
+  /**
+   * Sets a form control for each task property.
+   */
+  setTaskControls() {
+    this.registerControl('title', '', this.validators.required);
+    this.registerControl('description', '');
+    this.registerControl('dueDate', '', this.validators.dueDate);
+    this.registerControl('prio', 'medium');
+    this.registerControl('assignedTo', []);
+    this.registerControl('subtasks', []);
+  }
+
+  /**
+   * Sets a form control for each assistant input.
+   */
+  setAssistantControls() {
+    this.calendar = this.getControl('');
+    this.search = this.getControl('');
+    this.subtask = this.getControl('');
+  }
+
+  override getDialogClass() {
+    if (!this.isOpened()) {
+      return 'closed';
     } else {
       return '';
-    } // on update with opacity?!
+    }
+  }
+
+  override getTransitClass(): string {
+    if (!this.isOpened()) {
+      return 'go-out';
+    } else {
+      return '';
+    }
+  }
+  override onClose() {
+    this.dialog.close(this.id); // close all?
+    // this.resetForm();
+  }
+
+  resetForm() {
+    this.board.setDefaultTask(); // necessary?
+    this.task.set();
+    this.resetAssistantControls();
+
+    console.log('board task: ', this.board.task); // done
+    console.log('this task: ', this.task); // done
+    console.log('calendar: ', this.calendar?.value); // done
+    console.log('search: ', this.search?.value); // done
+    console.log('subtask: ', this.subtask?.value); // done
+  }
+
+  resetAssistantControls() {
+    this.calendar?.setValue('');
+    this.search?.setValue('');
+    this.subtask?.setValue('');
   }
 
   /**
-   * Stops the event on click.
+   * Handles an event on click.
    * @param event - The event.
    */
-  onStop(event: Event) {
+  onHandle(event: Event): void {
+    this.dialog.close('assignedTo');
+    this.search?.setValue('');
     stop(event);
   }
 
   /**
-   * Closes the dialog on click.
+   * Verifies the incompleteness of a form.
+   * @returns A boolean value.
    */
-  onClose() {
-    this.dialog.closeAllDialogs();
-    this.board.setDefaultTask();
+  isIncomplete() {
+    return this.form.invalid;
   }
 
-  /**
-   * Verifies the incompleteness of the form.
-   * @param ngForm - The add-task form.
-   * @returns - A boolean value.
-   */
-  isIncomplete(ngForm: NgForm) {
-    return isTrue(ngForm.invalid);
-  }
-
-  /**
-   * Updates the user task on click.
-   * @param ngForm - The edit-task form.
-   */
-  async onUpdate(ngForm: NgForm) {
-    if (ngForm.form.valid) {
-      this.board.task.set(this.task);
+  async onUpdate() {
+    if (this.form.valid) {
+      let task = this.getEditedTask();
+      this.board.task.set(task);
       this.summary.update();
       await this.join.saveUser();
-      // one method from dialog?!
-      this.dialog.closeDialog(this.dialogId, true);
-      this.dialog.openDialog('viewTask');
+
+      // add other dialog!!!
+      this.dialog.close(this.id);
+      // this.resetForm();
+
+      // // one method from dialog?!
+      // this.dialog.closeDialog(this.id, true);
+      // this.dialog.openDialog('viewTask');
     }
   }
 
-  // onClose(), onUpdate() ... ?
-  clearForm() {
-    this.search = '';
-    this.dueDate = '';
-    this.subtasks = '';
-    // this.task = new Task();
+  /**
+   * Gets an edited task.
+   * @returns - The edited task.
+   */
+  getEditedTask() {
+    let task = new Task(this.form.value);
+    task.id = this.board.task.id;
+    task.column = this.board.task.column;
+    task.category = this.board.task.category;
+    return task;
   }
 }

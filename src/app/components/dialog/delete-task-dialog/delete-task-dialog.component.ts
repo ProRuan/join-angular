@@ -30,6 +30,12 @@ export class DeleteTaskDialogComponent {
   // set subtask id ... !
   // view-task dialog component: check getClass() ...
 
+  // EditTaskDialogComponent
+  // -----------------------
+  // complete edit-task dialog component ... !
+  // fix transition: open, close, submitted ... (0/3)
+  // animation by browser moduls or css ...
+
   dialogId: string = 'deleteTask';
 
   noBtn: ButtonData = {

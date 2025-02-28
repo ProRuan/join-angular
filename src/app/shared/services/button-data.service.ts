@@ -129,5 +129,14 @@ export class ButtonDataService {
     alt: 'edit',
   };
 
+  okBtn: ButtonData = {
+    buttonClass: 'create-btn',
+    textClass: 'create-btn-text',
+    text: 'Ok',
+    imgClass: 'create-btn-img',
+    src: '/assets/img/add-task/create_button.png',
+    alt: 'create_button',
+  };
+
   constructor() {}
 }

@@ -1,27 +1,27 @@
-<div class="transit-cont" [ngClass]="getClass()">
-    <section class="dialog-box" (click)="onStop($event)">
-        <div class="button-cont">
-            <button class="close-btn" (click)="onClose()"></button>
-        </div>
+<div class="dialog" [ngClass]="getDialogClass()">
+    <div class="transit-cont transition-none" [ngClass]="getTransitClass()" (click)="onClose()">
+        <section class="dialog-box" (click)="onHandle($event)">
+            <div class="button-cont">
+                <button class="close-btn" (click)="onClose()"></button>
+            </div>
 
-        <form #form="ngForm" class="form">
-            <fieldset class="top-fieldset">
-                <app-title-input [(ngModel)]="task.title" name="title"></app-title-input>
-                <app-description-input [(ngModel)]="task.description" name="description"></app-description-input>
-                <app-due-date-input [(ngModel)]="dueDate" name="dueDate"
-                    [(dueDate)]="task.dueDate"></app-due-date-input>
-            </fieldset>
-            <fieldset class="bottom-fieldset">
-                <app-prio-input [(ngModel)]="task.prio" name="prio"></app-prio-input>
-                <app-assigned-to-input [(ngModel)]="search" name="assignedTo" [(assignedTo)]="task.assignedTo"
-                    [contacts]="contacts"></app-assigned-to-input>
-                <app-subtasks-input [(ngModel)]="subtasks" name="subtasks"
-                    [(subtasks)]="task.subtasks"></app-subtasks-input>
-            </fieldset>
-        </form>
+            <form [formGroup]="form" class="form">
+                <fieldset class="top-fieldset">
+                    <app-title-input [control]="get('title')"></app-title-input>
+                    <app-description-input [control]="get('description')"></app-description-input>
+                    <app-due-date-input [control]="get('dueDate')" [calendar]="calendar"></app-due-date-input>
+                </fieldset>
+                <fieldset class="bottom-fieldset">
+                    <app-prio-input [control]="get('prio')"></app-prio-input>
+                    <app-assigned-to-input [control]="search" [assignedContacts]="get('assignedTo')"
+                        [contacts]="contacts"></app-assigned-to-input>
+                    <app-subtasks-input [control]="subtask" [subtasks]="get('subtasks')"></app-subtasks-input>
+                </fieldset>
+            </form>
 
-        <div class="button-cont">
-            <app-button [button]="okBtn" [disabled]="isIncomplete(form)" (click)="onUpdate(form)"></app-button>
-        </div>
-    </section>
+            <div class="button-cont">
+                <app-button [button]="okBtn" [disabled]="isIncomplete()" (click)="onUpdate()"></app-button>
+            </div>
+        </section>
+    </div>
 </div>

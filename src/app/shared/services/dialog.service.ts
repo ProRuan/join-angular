@@ -25,7 +25,6 @@ export class DialogService {
     editContact: false,
     deleteContact: false,
   };
-  search: AbstractControl | null = new FormControl('', []);
 
   currDialog: string = '';
   dialogOpened: boolean = false;
@@ -33,7 +32,7 @@ export class DialogService {
   transparent: boolean = false;
 
   task: Task = new Task();
-  dueDate: string = '';
+  search: AbstractControl | null = new FormControl('');
 
   // just id?!
   dialogId: string = 'addContact';

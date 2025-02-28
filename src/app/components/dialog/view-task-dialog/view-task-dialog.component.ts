@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
@@ -8,8 +14,8 @@ import { JoinService } from '../../../shared/services/join.service';
 import { ButtonDataService } from '../../../shared/services/button-data.service';
 import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
+import { Task } from '../../../shared/models/task';
 import { JoinButton } from '../../../shared/models/join-button';
-import { ButtonData } from '../../../shared/interfaces/button-data';
 import { Subtask } from '../../../shared/models/subtask';
 import { getCapitalized } from '../../../shared/ts/global';
 
@@ -30,7 +36,7 @@ import { getCapitalized } from '../../../shared/ts/global';
  * Class representing a view-task dialog component.
  * @extends JoinDialog
  */
-export class ViewTaskDialogComponent extends JoinDialog {
+export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   summary: SummaryService = inject(SummaryService);
@@ -41,19 +47,40 @@ export class ViewTaskDialogComponent extends JoinDialog {
   deleteBtn = new JoinButton('deleteBtn');
   editBtn = new JoinButton('editBtn');
 
+  @Input() task = new Task();
+  prioBtn = new JoinButton();
+
   /**
-   * Gets a task to view.
-   * @returns The task to view.
+   * Updates a view-task dialog component on changes.
+   * @param changes - The changes.
    */
-  get task() {
-    return this.board.task;
+  ngOnChanges(changes: SimpleChanges): void {
+    this.updateTask(changes);
+    this.updatePrioBtn();
   }
 
   /**
-   * Gets a prio button.
-   * @returns The prio button.
+   * Updates a task.
+   * @param changes - The changes.
    */
-  get prioBtn(): ButtonData {
+  updateTask(changes: SimpleChanges) {
+    let value = changes['task'].currentValue;
+    this.task.set(value);
+  }
+
+  /**
+   * Updates a prio button.
+   */
+  updatePrioBtn() {
+    let data = this.getPrioBtnData();
+    this.prioBtn.set(data);
+  }
+
+  /**
+   * Gets prio button data.
+   * @returns The prio button data.
+   */
+  getPrioBtnData() {
     return {
       buttonClass: 'prio-btn',
       textClass: 'prio-btn-text',

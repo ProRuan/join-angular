@@ -5,6 +5,7 @@ import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.compon
 import { ViewTaskDialogComponent } from './view-task-dialog/view-task-dialog.component';
 import { EditTaskDialogComponent } from './edit-task-dialog/edit-task-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
+import { BoardService } from '../../shared/services/board.service';
 
 @Component({
   selector: 'app-dialog',
@@ -13,14 +14,15 @@ import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dial
     CommonModule,
     AddTaskDialogComponent,
     ViewTaskDialogComponent,
+    EditTaskDialogComponent,
     // DeleteTaskDialogComponent,
-    // EditTaskDialogComponent,
   ],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',
 })
 export class DialogComponent {
   dialog: DialogService = inject(DialogService);
+  board: BoardService = inject(BoardService);
 
   // Dialog Component
   // ----------------

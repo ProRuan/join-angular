@@ -1,14 +1,7 @@
 @import "../../../../mixins.scss";
 
-.transit-cont {
-  @include size($w: 100%, $h: 100vh);
-  @include display-flex();
-  @include position($pos: relative, $l: 0px, $t: 0px);
-  transition: all 100ms ease-in-out;
-}
-
-.out {
-  left: 100%;
+.transition-none {
+  transition: none;
 }
 
 .dialog-box {
@@ -20,28 +13,13 @@
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
 }
 
-.button-cont {
-  @include display-row($jc: flex-end);
+.go-out {
+  left: 100%;
+  transition: all 100ms ease-in-out;
 }
 
-.close-btn {
-  @include size($w: 32px, $h: 32px);
-  padding: 0;
-  background-color: transparent;
-  background-image: url("../../../../assets/img/board/close_default.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
-  border: none;
-  transition: all 100ms ease-in-out;
-
-  &:hover {
-    background-image: url("../../../../assets/img/board/close_hover.png");
-  }
-
-  &:active {
-    background-image: url("../../../../assets/img/board/close_default.png");
-  }
+.button-cont {
+  @include display-row($jc: flex-end);
 }
 
 .form {
