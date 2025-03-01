@@ -164,8 +164,8 @@ fieldset {
   background-color: rgba(0, 0, 0, 0.25);
   position: fixed;
   z-index: 10;
-  visibility: visible;
-  transition: all 100ms ease-in-out;
+  // visibility: visible;
+  // transition: all 100ms ease-in-out;
 }
 
 // double code!
@@ -177,8 +177,8 @@ fieldset {
 .transit-cont {
   @include size($w: 100%, $h: 100vh);
   @include display-flex();
-  @include position($pos: relative, $l: 0px, $t: 0px);
-  transition: all 100ms ease-in-out;
+  // @include position($pos: relative, $l: 0px, $t: 0px);
+  // transition: all 100ms ease-in-out;
 }
 
 .out {

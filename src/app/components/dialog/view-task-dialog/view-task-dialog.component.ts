@@ -42,6 +42,15 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
 
+  // improve logo animation ... !!!
+  // set task-dialog animations ... (0/4)
+
+  // update add-task menus ...
+  // update view-task, edit-task, delete-task ...
+  // update contact dialogs ...
+
+  // only subscription on open?!
+
   override id: string = 'viewTask';
 
   deleteBtn = new JoinButton('deleteBtn');
@@ -107,6 +116,10 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
   getPrioSrc() {
     let prio = this.task.prio;
     return `/assets/img/board/prio_${prio}.png`;
+  }
+
+  onClose() {
+    this.close();
   }
 
   // check this!!!

@@ -6,6 +6,8 @@ import { FormController } from './form-controller';
 export class JoinDialog extends FormController {
   dialog: DialogService = inject(DialogService);
 
+  // add add-task backlog logic ... !
+
   // create a join component ... !!!
   //   --> including form controller, join dialog, user getters and setters ...
   // review all components for Input + ngOnChanges ... !
@@ -39,8 +41,8 @@ export class JoinDialog extends FormController {
     return this.isOpened() ? '' : 'out';
   }
 
-  onClose() {
-    this.dialog.closeDialog(this.id);
+  close() {
+    return this.dialog.close(this.id);
   }
 
   onStop(event: Event) {

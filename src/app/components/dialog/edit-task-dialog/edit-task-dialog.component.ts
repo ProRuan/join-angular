@@ -164,10 +164,15 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
       return '';
     }
   }
-  override onClose() {
-    this.dialog.close(this.id); // close all?
-    // this.resetForm();
+
+  onClose() {
+    this.close();
   }
+
+  // onClose() {
+  //   this.dialog.close(this.id); // close all?
+  //   // this.resetForm();
+  // }
 
   resetForm() {
     this.board.setDefaultTask(); // necessary?
