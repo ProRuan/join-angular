@@ -1,14 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AddTaskComponent } from '../../add-task/add-task.component';
-import {
-  animate,
-  group,
-  query,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { dialogAnimation } from '../../../shared/animations/dialog/dialog.animation';
 import { JoinDialog } from '../../../shared/models/join-dialog';
 
 @Component({
@@ -17,37 +10,7 @@ import { JoinDialog } from '../../../shared/models/join-dialog';
   imports: [CommonModule, AddTaskComponent],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss',
-  animations: [
-    trigger('dialogAnimation', [
-      transition(':enter', [
-        group([
-          style({ backgroundColor: 'transparent' }),
-          animate(
-            '300ms ease-in-out',
-            style({ backgroundColor: 'rgba(0, 0, 0, 0.25)' })
-          ),
-          query('.transit-cont', [
-            style({ transform: 'translateX(100%)' }),
-            animate('300ms ease-in-out', style({ transform: 'translateX(0)' })),
-          ]),
-        ]),
-      ]),
-      transition(':leave', [
-        group([
-          animate(
-            '300ms ease-in-out',
-            style({ backgroundColor: 'transparent' })
-          ),
-          query('.transit-cont', [
-            animate(
-              '300ms ease-in-out',
-              style({ transform: 'translateX(100%)' })
-            ),
-          ]),
-        ]),
-      ]),
-    ]),
-  ],
+  animations: [dialogAnimation],
 })
 
 /**
@@ -57,10 +20,23 @@ import { JoinDialog } from '../../../shared/models/join-dialog';
 export class AddTaskDialogComponent extends JoinDialog {
   override id: string = 'addTask';
 
+  // give fade out to dialog class ... ?!
+  // set transition 100ms ease-in-out ...
+  // rename fade to shade ... !
+  // close flip-menu on click ... !
+
+  transitClass: string = 'slide';
+
   /**
    * Closes a dialog on click.
    */
   onClose() {
-    this.close();
+    this.transitClass = 'fade'; // review case close, cancel, submit ... (0/3)
+    setTimeout(() => {
+      this.close();
+      setTimeout(() => {
+        this.transitClass = 'slide';
+      }, 100);
+    }, 0);
   }
 }

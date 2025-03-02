@@ -51,6 +51,11 @@ Join (6/?)
       - DraggableTaskComponent - check
 
 
+Animations (1/?)
+----------
+  - DialogAnimation - check
+  - LogoAnimation ...
+
 Components (10/?) + await inputs ...
 ----------
   - CheckboxComponent - check
@@ -77,8 +82,9 @@ Components (10/?) + await inputs ...
       - TitleInputComponent - check
 
 
-Interfaces (6/?)
+Interfaces (7/?)
 ----------
+  - DialogAnimationData - check
   - InputConfig - check
   - PrioButton - check
   - Propertiess - check
