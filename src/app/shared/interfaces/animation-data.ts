@@ -1,9 +1,9 @@
 /**
- * Interface representing dialog animation data.
+ * Interface representing animation data.
  */
-export interface DialogAnimationData {
+export interface AnimationData {
   parent: ParentAnimationData;
-  children: ChildAnimationData[];
+  children?: ChildAnimationData[];
 }
 
 /**

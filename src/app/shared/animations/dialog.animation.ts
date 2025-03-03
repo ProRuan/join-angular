@@ -1,6 +1,7 @@
-import { DialogAnimationData } from '../../interfaces/dialog-animation-data';
+import { AnimationData } from '../interfaces/animation-data';
+import { getAnimation } from '../ts/animate';
 
-const defaultTimings = '500ms ease-in-out';
+const defaultTimings = '100ms ease-in-out';
 const parentStartProperties = [{ backgroundColor: 'transparent' }];
 const parentEndProperties = [{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }];
 const slideStartProperties = [{ transform: 'translateX(100%)' }];
@@ -9,7 +10,9 @@ const fadeStartProperties = [{ opacity: 0 }];
 const fadeEndProperties = [{ opacity: 1 }];
 const optional = { optional: true };
 
-export const DIALOG_ANIMATION_DATA: DialogAnimationData[] = [
+const NAME = 'dialogAnimation';
+
+const DATA: AnimationData[] = [
   {
     parent: {
       state: ':enter',
@@ -71,3 +74,5 @@ export const DIALOG_ANIMATION_DATA: DialogAnimationData[] = [
     ],
   },
 ];
+
+export const dialogAnimation = getAnimation(NAME, DATA);

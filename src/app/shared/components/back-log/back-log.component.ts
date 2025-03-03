@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { backLogAnimation } from '../../animations/backlog/back-log.animation';
+import { backLogAnimation } from '../../animations/back-log.animation';
 import { DialogService } from '../../services/dialog.service';
 
 @Component({

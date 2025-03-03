@@ -51,10 +51,10 @@ Join (6/?)
       - DraggableTaskComponent - check
 
 
-Animations (1/?)
+Animations (2/?)
 ----------
+  - BackLogAnimation - check
   - DialogAnimation - check
-  - LogoAnimation ...
 
 Components (10/?) + await inputs ...
 ----------
@@ -85,7 +85,7 @@ Components (10/?) + await inputs ...
 
 Interfaces (7/?)
 ----------
-  - DialogAnimationData - check
+  - AnimationData - check
   - InputConfig - check
   - PrioButton - check
   - Propertiess - check

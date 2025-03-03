@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AddTaskComponent } from '../../add-task/add-task.component';
 import { BackLogComponent } from '../../../shared/components/back-log/back-log.component';
-import { dialogAnimation } from '../../../shared/animations/dialog/dialog.animation';
+import { dialogAnimation } from '../../../shared/animations/dialog.animation';
 import { JoinDialog } from '../../../shared/models/join-dialog';
 
 @Component({

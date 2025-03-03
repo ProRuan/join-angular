@@ -1,4 +1,3 @@
-import { BACK_LOG_ANIMATION_DATA } from './back-log.data';
 import {
   animate,
   group,
@@ -8,37 +7,26 @@ import {
   trigger,
 } from '@angular/animations';
 import {
+  AnimationData,
   ChildAnimationData,
-  DialogAnimationData,
   PropertyData,
-} from '../../interfaces/dialog-animation-data';
-
-const name = 'backLogAnimation';
-const data = BACK_LOG_ANIMATION_DATA;
-
-/**
- * Gets a dialog animation.
- * @returns The dialog animation.
- */
-function getDialogAnimation() {
-  const definitions = getDefinitions();
-  return trigger(name, definitions);
-}
+} from '../interfaces/animation-data';
 
 /**
  * Gets animation definitions.
+ * @param data - The animation data.
  * @returns The animation definitions.
  */
-function getDefinitions() {
+function getDefinitions(data: AnimationData[]) {
   return data.map((d) => getTransitionData(d));
 }
 
 /**
  * Gets transition data.
- * @param data - The dialog animation data.
+ * @param data - The animation data.
  * @returns The transition data.
  */
-function getTransitionData(data: DialogAnimationData) {
+function getTransitionData(data: AnimationData) {
   const state = data.parent.state;
   const steps = getGroupData(data);
   return transition(state, steps);
@@ -46,20 +34,20 @@ function getTransitionData(data: DialogAnimationData) {
 
 /**
  * Gets group data.
- * @param data - The dialog animation data.
+ * @param data - The animation data.
  * @returns The group data.
  */
-function getGroupData(data: DialogAnimationData) {
+function getGroupData(data: AnimationData) {
   const steps = getSteps(data);
   return [group(steps)];
 }
 
 /**
  * Gets animation steps.
- * @param data - The dialog animation data.
+ * @param data - The animation data.
  * @returns The animation steps.
  */
-function getSteps(data: DialogAnimationData) {
+function getSteps(data: AnimationData) {
   const startStyle = getStyleData(data.parent.properties.start);
   const animation = getParentAnimation(data);
   const queries = getQueries(data);
@@ -77,10 +65,10 @@ function getStyleData(properties: PropertyData[]) {
 
 /**
  * Gets a parent animation.
- * @param data - The dialog animation data.
+ * @param data - The animation data.
  * @returns The parent animation.
  */
-function getParentAnimation(data: DialogAnimationData) {
+function getParentAnimation(data: AnimationData) {
   const parent = data.parent;
   const styleData = getStyleData(parent.properties.end);
   return animate(parent.timings, styleData);
@@ -88,12 +76,12 @@ function getParentAnimation(data: DialogAnimationData) {
 
 /**
  * Gets animation queries.
- * @param data - The dialog animation data.
+ * @param data - The animation data.
  * @returns The animation queries.
  */
-function getQueries(data: DialogAnimationData) {
+function getQueries(data: AnimationData) {
   const children = data.children;
-  return children.map((child) => getQuery(child));
+  return children?.map((child) => getQuery(child)) ?? [];
 }
 
 /**
@@ -120,4 +108,13 @@ function getChildAnimation(child: ChildAnimationData) {
   return [startStyle, animate(timings, styleData)];
 }
 
-export const backLogAnimation = getDialogAnimation();
+/**
+ * Gets an animation.
+ * @param name - The animation name.
+ * @param data - The animation data.
+ * @returns The animation.
+ */
+export function getAnimation(name: string, data: AnimationData[]) {
+  const definitions = getDefinitions(data);
+  return trigger(name, definitions);
+}

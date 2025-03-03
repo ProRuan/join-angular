@@ -43,7 +43,7 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
   board: BoardService = inject(BoardService);
 
   // improve logo animation ... !!!
-  // set task-dialog animations ... (0/4)
+  // set task-dialog animations ... (1/4)
 
   // update add-task menus ...
   // update view-task, edit-task, delete-task ...
@@ -53,13 +53,9 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
 
   // AddTaskDialogComponent
   // ----------------------
-  // give fade out to dialog class ... ?!
   // set transition 100ms ease-in-out ...
-  // rename fade to shade ... !
   // close flip-menu on click ... !
 
-  // backlog: delay 900ms ...
-  // backlog animation ...
   // update/add all back logs ... !
   // fix all icons with size + object-fit ... !
 
