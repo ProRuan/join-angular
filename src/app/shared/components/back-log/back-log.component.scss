@@ -1,0 +1,30 @@
+@import "../../../../mixins.scss";
+
+.back-log-cont {
+  @include size($w: 100%, $h: 100vh);
+  @include display-flex();
+  @include position($pos: absolute, $l: 0, $t: 0);
+  z-index: 20;
+}
+
+.back-log {
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.text-icon-cont {
+  @include display-row($jc: center, $ai: center, $g: 35px);
+  padding: 22px 25px;
+  background-color: $dark;
+  border-radius: 20px;
+  filter: drop-shadow(0 0 4px 0 rgba(0, 0, 0, 0.15));
+}
+
+.text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $white;
+}
+
+.img {
+  @include size($w: 30px, $h: 30px);
+  object-fit: contain;
+}

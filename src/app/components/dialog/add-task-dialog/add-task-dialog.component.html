@@ -1,5 +1,5 @@
 <div *ngIf="isOpened()" @dialogAnimation class="dialog">
-    <div class="transit-cont" [ngClass]="transitClass" (click)="onClose()">
+    <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
         <section class="dialog-box pos-relative" (click)="onStop($event)">
             <app-add-task [original]="false"></app-add-task>
             <button class="close-btn top-right" (click)="onClose()"></button>

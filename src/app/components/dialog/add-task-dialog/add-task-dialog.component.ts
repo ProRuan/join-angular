@@ -25,18 +25,27 @@ export class AddTaskDialogComponent extends JoinDialog {
   // rename fade to shade ... !
   // close flip-menu on click ... !
 
-  transitClass: string = 'slide';
+  // backlog: delay 900ms ...
+  // backlog animation ...
+  // update/add all back logs ... !
+  // fix all icons with size + object-fit ... !
+
+  // <app-back-log *ngIf="dialog.submitted" text="Task added to board" img="board_icon"></app-back-log>
+
+  backLog = {
+    displayed: false,
+    text: 'Task added to board',
+    img: 'board_icon',
+  };
 
   /**
    * Closes a dialog on click.
    */
   onClose() {
-    this.transitClass = 'fade'; // review case close, cancel, submit ... (0/3)
-    setTimeout(() => {
-      this.close();
-      setTimeout(() => {
-        this.transitClass = 'slide';
-      }, 100);
-    }, 0);
+    this.close();
+  }
+
+  override getTransitClass(): string {
+    return this.dialog.submitted ? 'fade' : 'slide';
   }
 }

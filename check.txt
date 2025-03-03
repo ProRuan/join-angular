@@ -58,6 +58,7 @@ Animations (1/?)
 
 Components (10/?) + await inputs ...
 ----------
+  - BackLogComponente - check *replace LogComponent with BackLogComponent!
   - CheckboxComponent - check
   - FlipMenuComponent - check
   - FooterComponent - check

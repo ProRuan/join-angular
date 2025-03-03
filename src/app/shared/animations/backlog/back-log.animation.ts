@@ -1,4 +1,4 @@
-import { DIALOG_ANIMATION_DATA } from './dialog.data';
+import { BACK_LOG_ANIMATION_DATA } from './back-log.data';
 import {
   animate,
   group,
@@ -13,8 +13,8 @@ import {
   PropertyData,
 } from '../../interfaces/dialog-animation-data';
 
-const name = 'dialogAnimation';
-const data = DIALOG_ANIMATION_DATA;
+const name = 'backLogAnimation';
+const data = BACK_LOG_ANIMATION_DATA;
 
 /**
  * Gets a dialog animation.
@@ -120,4 +120,4 @@ function getChildAnimation(child: ChildAnimationData) {
   return [startStyle, animate(timings, styleData)];
 }
 
-export const dialogAnimation = getDialogAnimation();
+export const backLogAnimation = getDialogAnimation(); // rename!!!

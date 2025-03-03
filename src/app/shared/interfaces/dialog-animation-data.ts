@@ -3,7 +3,7 @@
  */
 export interface DialogAnimationData {
   parent: ParentAnimationData;
-  children: ChildAnimationData[];
+  children?: ChildAnimationData[];
 }
 
 /**

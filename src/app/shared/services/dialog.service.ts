@@ -39,6 +39,8 @@ export class DialogService {
   title: string = '';
   subtitle: string = '';
 
+  submitted: boolean = false;
+
   /**
    * Opens the dialog.
    * @param id - The dialog id.

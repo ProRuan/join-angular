@@ -1,0 +1,8 @@
+<div *ngIf="displayed" class="back-log-cont">
+    <div class="back-log">
+        <div class="text-icon-cont">
+            <span class="text">{{ text }}</span>
+            <img *ngIf="img" class="img" [src]="getSrc()" [alt]="img">
+        </div>
+    </div>
+</div>

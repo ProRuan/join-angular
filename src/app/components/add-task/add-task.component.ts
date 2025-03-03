@@ -199,9 +199,13 @@ export class AddTaskComponent extends FormController {
    * Adds a task.
    */
   async addTask() {
-    await this.createTask();
-    this.dialog.closeDialog('addTask');
-    this.clearForm();
+    // await this.createTask();
+    this.dialog.submitted = true;
+    setTimeout(() => {
+      this.dialog.closeDialog('addTask');
+      this.clearForm();
+      this.dialog.submitted = false;
+    }, 900);
   }
 
   /**
