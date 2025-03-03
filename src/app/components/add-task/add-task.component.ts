@@ -150,7 +150,7 @@ export class AddTaskComponent extends FormController {
    * Closes and clears an add-task dialog.
    */
   cancel() {
-    this.dialog.closeDialog('addTask');
+    this.dialog.close('addTask');
     this.clearForm();
   }
 
@@ -199,13 +199,25 @@ export class AddTaskComponent extends FormController {
    * Adds a task.
    */
   async addTask() {
-    // await this.createTask();
+    await this.createTask();
+    this.fadeDialogOut();
+  }
+
+  /**
+   * Fades an add-task dialog out.
+   */
+  fadeDialogOut() {
     this.dialog.submitted = true;
-    setTimeout(() => {
-      this.dialog.closeDialog('addTask');
-      this.clearForm();
-      this.dialog.submitted = false;
-    }, 900);
+    setTimeout(() => this.resetDialog(), 1000);
+  }
+
+  /**
+   * Resets an add-task dialog.
+   */
+  resetDialog() {
+    this.dialog.close('addTask');
+    this.clearForm();
+    this.dialog.submitted = false;
   }
 
   /**

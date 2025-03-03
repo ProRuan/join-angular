@@ -1,8 +1,13 @@
 import { DialogAnimationData } from '../../interfaces/dialog-animation-data';
 
-const defaultTimings = '100ms ease-in-out';
+const defaultTimings = '500ms ease-in-out';
 const parentStartProperties = [{ opacity: 0 }];
 const parentEndProperties = [{ opacity: 1 }];
+const slideStartProperties = [{ transform: 'translateX(100%)' }];
+const slideEndProperties = [{ transform: 'translateX(0%)' }];
+const fadeStartProperties = [{ opacity: 0 }];
+const fadeEndProperties = [{ opacity: 1 }];
+const optional = { optional: true };
 
 export const BACK_LOG_ANIMATION_DATA: DialogAnimationData[] = [
   {
@@ -14,6 +19,26 @@ export const BACK_LOG_ANIMATION_DATA: DialogAnimationData[] = [
         end: parentEndProperties,
       },
     },
+    children: [
+      {
+        selector: '.slide',
+        timings: defaultTimings,
+        properties: {
+          start: slideStartProperties,
+          end: slideEndProperties,
+        },
+        options: optional,
+      },
+      {
+        selector: '.fade',
+        timings: defaultTimings,
+        properties: {
+          start: fadeStartProperties,
+          end: fadeEndProperties,
+        },
+        options: optional,
+      },
+    ],
   },
   {
     parent: {
@@ -24,5 +49,25 @@ export const BACK_LOG_ANIMATION_DATA: DialogAnimationData[] = [
         end: parentStartProperties,
       },
     },
+    children: [
+      {
+        selector: '.slide',
+        timings: defaultTimings,
+        properties: {
+          start: slideEndProperties,
+          end: slideStartProperties,
+        },
+        options: optional,
+      },
+      {
+        selector: '.fade',
+        timings: defaultTimings,
+        properties: {
+          start: fadeEndProperties,
+          end: fadeStartProperties,
+        },
+        options: optional,
+      },
+    ],
   },
 ];

@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AddTaskComponent } from '../../add-task/add-task.component';
+import { BackLogComponent } from '../../../shared/components/back-log/back-log.component';
 import { dialogAnimation } from '../../../shared/animations/dialog/dialog.animation';
 import { JoinDialog } from '../../../shared/models/join-dialog';
 
 @Component({
   selector: 'app-add-task-dialog',
   standalone: true,
-  imports: [CommonModule, AddTaskComponent],
+  imports: [CommonModule, AddTaskComponent, BackLogComponent],
   templateUrl: './add-task-dialog.component.html',
   styleUrl: './add-task-dialog.component.scss',
   animations: [dialogAnimation],
@@ -20,24 +21,6 @@ import { JoinDialog } from '../../../shared/models/join-dialog';
 export class AddTaskDialogComponent extends JoinDialog {
   override id: string = 'addTask';
 
-  // give fade out to dialog class ... ?!
-  // set transition 100ms ease-in-out ...
-  // rename fade to shade ... !
-  // close flip-menu on click ... !
-
-  // backlog: delay 900ms ...
-  // backlog animation ...
-  // update/add all back logs ... !
-  // fix all icons with size + object-fit ... !
-
-  // <app-back-log *ngIf="dialog.submitted" text="Task added to board" img="board_icon"></app-back-log>
-
-  backLog = {
-    displayed: false,
-    text: 'Task added to board',
-    img: 'board_icon',
-  };
-
   /**
    * Closes a dialog on click.
    */
@@ -45,6 +28,10 @@ export class AddTaskDialogComponent extends JoinDialog {
     this.close();
   }
 
+  /**
+   * Gets the css class of a transit container.
+   * @returns The css class of the transit container.
+   */
   override getTransitClass(): string {
     return this.dialog.submitted ? 'fade' : 'slide';
   }

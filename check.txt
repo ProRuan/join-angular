@@ -39,7 +39,7 @@ Join (6/?)
   - NewPasswordComponent - check
   - SignUpComponent - check
   - DialogComponent ...
-      - AddTaskDialogComponent - check
+      - AddTaskDialogComponent - check * animation outside from back log compenent?
       - ViewTaskDialogComponent - check
       - EditTaskDialogComponent - ... * logic, animation (0/2)
   - SummaryComponent - check

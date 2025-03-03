@@ -92,7 +92,7 @@ function getParentAnimation(data: DialogAnimationData) {
  * @returns The animation queries.
  */
 function getQueries(data: DialogAnimationData) {
-  const children = data.children ?? [];
+  const children = data.children;
   return children.map((child) => getQuery(child));
 }
 
@@ -120,4 +120,4 @@ function getChildAnimation(child: ChildAnimationData) {
   return [startStyle, animate(timings, styleData)];
 }
 
-export const backLogAnimation = getDialogAnimation(); // rename!!!
+export const backLogAnimation = getDialogAnimation();

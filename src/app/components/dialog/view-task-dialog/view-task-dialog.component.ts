@@ -51,6 +51,18 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
 
   // only subscription on open?!
 
+  // AddTaskDialogComponent
+  // ----------------------
+  // give fade out to dialog class ... ?!
+  // set transition 100ms ease-in-out ...
+  // rename fade to shade ... !
+  // close flip-menu on click ... !
+
+  // backlog: delay 900ms ...
+  // backlog animation ...
+  // update/add all back logs ... !
+  // fix all icons with size + object-fit ... !
+
   override id: string = 'viewTask';
 
   deleteBtn = new JoinButton('deleteBtn');

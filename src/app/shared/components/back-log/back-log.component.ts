@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { backLogAnimation } from '../../animations/backlog/back-log.animation';
+import { DialogService } from '../../services/dialog.service';
 
 @Component({
   selector: 'app-back-log',
@@ -15,7 +16,8 @@ import { backLogAnimation } from '../../animations/backlog/back-log.animation';
  * Class representing a back log component.
  */
 export class BackLogComponent {
-  @Input() displayed: boolean = false;
+  dialog: DialogService = inject(DialogService);
+
   @Input() text: string = 'Back log text';
   @Input() img?: string;
 
