@@ -9,6 +9,8 @@ import {
 import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
+import { DeleteTaskDialogComponent } from '../delete-task-dialog/delete-task-dialog.component';
+import { dialogAnimation } from '../../../shared/animations/dialog.animation';
 import { JoinDialog } from '../../../shared/models/join-dialog';
 import { JoinService } from '../../../shared/services/join.service';
 import { ButtonDataService } from '../../../shared/services/button-data.service';
@@ -18,8 +20,6 @@ import { Task } from '../../../shared/models/task';
 import { JoinButton } from '../../../shared/models/join-button';
 import { Subtask } from '../../../shared/models/subtask';
 import { getCapitalized } from '../../../shared/ts/global';
-import { dialogAnimation } from '../../../shared/animations/dialog.animation';
-import { DeleteTaskDialogComponent } from '../delete-task-dialog/delete-task-dialog.component';
 
 @Component({
   selector: 'app-view-task-dialog',
@@ -46,41 +46,13 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
 
-  // improve logo animation ... !!!
-  // set task-dialog animations ... (1/4)
+  @Input() task = new Task();
 
-  // update add-task menus ...
-  // update view-task, edit-task, delete-task ...
-  // update contact dialogs ...
-
-  // only subscription on open?!
-
-  // AddTaskDialogComponent
-  // ----------------------
-  // set transition 100ms ease-in-out ...
-  // close flip-menu on click ... !
-
-  // update/add all back logs ... !
-  // fix all icons with size + object-fit ... !
-
-  // ViewTaskDialogComponent
-  // -----------------------
-  // set subtask id ... !
-  // view-task dialog component: check getClass() ...
-
-  // EditTaskDialogComponent
-  // -----------------------
-  // complete edit-task dialog component ... !
-  // fix transition: open, close, submitted ... (0/3)
-  // animation by browser moduls or css ...
-
-  override id: string = 'viewTask';
-
+  prioBtn = new JoinButton();
   deleteBtn = new JoinButton('deleteBtn');
   editBtn = new JoinButton('editBtn');
 
-  @Input() task = new Task();
-  prioBtn = new JoinButton();
+  override id: string = 'viewTask';
 
   /**
    * Updates a view-task dialog component on changes.
@@ -141,19 +113,11 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
     return `/assets/img/board/prio_${prio}.png`;
   }
 
+  /**
+   * Closes a dialog on click.
+   */
   onClose() {
     this.close();
-  }
-
-  // check this!!!
-  getClass() {
-    if (this.dialog.transparent) {
-      return 'o-0';
-    } else if (!this.dialog.isOpened(this.id)) {
-      return 'out';
-    } else {
-      return '';
-    }
   }
 
   /**
@@ -195,7 +159,11 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
    * Opens an edit-task dialog on click.
    */
   onEdit() {
+    this.dialog.deleted = true;
     this.dialog.task.set(this.board.task);
-    this.dialog.openDialog('editTask');
+    this.dialog.open('editTask');
+    setTimeout(() => {
+      this.dialog.deleted = false;
+    }, 0);
   }
 }

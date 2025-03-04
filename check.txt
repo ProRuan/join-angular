@@ -38,9 +38,9 @@ Join (6/?)
   - LoginComponent - check *logInUser() and rememberUser()
   - NewPasswordComponent - check
   - SignUpComponent - check
-  - DialogComponent ... (2/4)
+  - DialogComponent ... (3/4)
       - AddTaskDialogComponent - check * animation outside from back log compenent?
-      - ViewTaskDialogComponent - ...
+      - ViewTaskDialogComponent - check
       - EditTaskDialogComponent - ... * logic, animation (0/2)
       - DeleteTaskDialogComponent - check
   - SummaryComponent - check

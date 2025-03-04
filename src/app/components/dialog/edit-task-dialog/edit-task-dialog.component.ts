@@ -18,6 +18,7 @@ import { PrioInputComponent } from '../../../shared/components/inputs/prio-input
 import { AssignedToInputComponent } from '../../../shared/components/inputs/assigned-to-input/assigned-to-input.component';
 import { SubtasksInputComponent } from '../../../shared/components/inputs/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { dialogAnimation } from '../../../shared/animations/dialog.animation';
 import { JoinDialog } from '../../../shared/models/join-dialog';
 import { JoinService } from '../../../shared/services/join.service';
 import { InputValidatorService } from '../../../shared/services/input-validator.service';
@@ -45,6 +46,7 @@ import { stop } from '../../../shared/ts/global';
   ],
   templateUrl: './edit-task-dialog.component.html',
   styleUrl: './edit-task-dialog.component.scss',
+  animations: [dialogAnimation],
 })
 
 /**
@@ -157,16 +159,9 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
     }
   }
 
-  override getTransitClass(): string {
-    if (!this.isOpened()) {
-      return 'go-out';
-    } else {
-      return '';
-    }
-  }
-
   onClose() {
     this.close();
+    this.dialog.close('viewTask');
   }
 
   // onClose() {
@@ -217,9 +212,13 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
       this.summary.update();
       await this.join.saveUser();
 
-      // add other dialog!!!
-      this.dialog.close(this.id);
-      // this.resetForm();
+      this.dialog.deleted = true;
+      setTimeout(() => {
+        // add other dialog!!!
+        this.dialog.close(this.id);
+        // this.resetForm();
+        this.dialog.deleted = false;
+      }, 0);
 
       // // one method from dialog?!
       // this.dialog.closeDialog(this.id, true);

@@ -24,6 +24,40 @@ export class DialogComponent {
   dialog: DialogService = inject(DialogService);
   board: BoardService = inject(BoardService);
 
+  // View/EditTaskDialogComponent
+  // ----------------------------
+  // rename this.dialog.deleted to updated ... ?!
+  // ViewTaskComponent and EditTaskComponent ...
+  //   --> OR: AddTaskDialogComponent ...
+
+  // improve logo animation ... !!!
+  // set task-dialog animations ... (1/4)
+
+  // update add-task menus ...
+  // update view-task, edit-task, delete-task ...
+  // update contact dialogs ...
+
+  // only subscription on open?!
+
+  // AddTaskDialogComponent
+  // ----------------------
+  // set transition 100ms ease-in-out ...
+  // close flip-menu on click ... !
+
+  // update/add all back logs ... !
+  // fix all icons with size + object-fit ... !
+
+  // ViewTaskDialogComponent
+  // -----------------------
+  // set subtask id ... !
+  // view-task dialog component: check getClass() ...
+
+  // EditTaskDialogComponent
+  // -----------------------
+  // complete edit-task dialog component ... !
+  // fix transition: open, close, submitted ... (0/3)
+  // animation by browser moduls or css ...
+
   // Dialog Component
   // ----------------
   // remove transit-class to app-dialog classes ... (0/4)
