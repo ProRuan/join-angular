@@ -1,9 +1,5 @@
 @import "../../../../mixins.scss";
 
-.transition-none {
-  transition: none;
-}
-
 .dialog-box {
   @include box-padding($p: 48px 40px);
   @include display-column($g: 24px);
@@ -11,11 +7,6 @@
   background-color: $white;
   border-radius: 30px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
-}
-
-.go-out {
-  left: 100%;
-  transition: all 100ms ease-in-out;
 }
 
 .button-cont {

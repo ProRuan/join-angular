@@ -60,9 +60,6 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
 
-  // reset on close and on update ...
-  //   --> form, board.task, task, calendar, search, subtask ...
-
   calendar: AbstractControl | null = null;
   search: AbstractControl | null = null;
   subtask: AbstractControl | null = null;
@@ -151,47 +148,30 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
     this.subtask = this.getControl('');
   }
 
-  override getDialogClass() {
-    if (!this.isOpened()) {
-      return 'closed';
-    } else {
-      return '';
-    }
-  }
-
+  /**
+   * Closes a dialog on close.
+   */
   onClose() {
     this.close();
     this.dialog.close('viewTask');
-  }
-
-  // onClose() {
-  //   this.dialog.close(this.id); // close all?
-  //   // this.resetForm();
-  // }
-
-  resetForm() {
-    this.board.setDefaultTask(); // necessary?
-    this.task.set();
+    this.board.setDefaultTask();
     this.resetAssistantControls();
-
-    console.log('board task: ', this.board.task); // done
-    console.log('this task: ', this.task); // done
-    console.log('calendar: ', this.calendar?.value); // done
-    console.log('search: ', this.search?.value); // done
-    console.log('subtask: ', this.subtask?.value); // done
-  }
-
-  resetAssistantControls() {
-    this.calendar?.setValue('');
-    this.search?.setValue('');
-    this.subtask?.setValue('');
   }
 
   /**
-   * Handles an event on click.
+   * Resets all assistant controls.
+   */
+  resetAssistantControls() {
+    this.calendar?.reset('');
+    this.search?.reset('');
+    this.subtask?.reset('');
+  }
+
+  /**
+   * Closes a drop-down menu on click.
    * @param event - The event.
    */
-  onHandle(event: Event): void {
+  onMenuClose(event: Event): void {
     this.dialog.close('assignedTo');
     this.search?.setValue('');
     stop(event);
@@ -205,25 +185,24 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
     return this.form.invalid;
   }
 
+  /**
+   * Updates a board task on click.
+   */
   async onUpdate() {
     if (this.form.valid) {
-      let task = this.getEditedTask();
-      this.board.task.set(task);
+      this.updateTask();
       this.summary.update();
       await this.join.saveUser();
-
-      this.dialog.deleted = true;
-      setTimeout(() => {
-        // add other dialog!!!
-        this.dialog.close(this.id);
-        // this.resetForm();
-        this.dialog.deleted = false;
-      }, 0);
-
-      // // one method from dialog?!
-      // this.dialog.closeDialog(this.id, true);
-      // this.dialog.openDialog('viewTask');
+      this.fadeDialogOut();
     }
+  }
+
+  /**
+   * Updates a board task.
+   */
+  updateTask() {
+    let task = this.getEditedTask();
+    this.board.task.set(task);
   }
 
   /**
@@ -236,5 +215,17 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
     task.column = this.board.task.column;
     task.category = this.board.task.category;
     return task;
+  }
+
+  /**
+   * Fades a dialog out.
+   */
+  fadeDialogOut() {
+    this.dialog.deleted = true;
+    setTimeout(() => {
+      this.dialog.close(this.id);
+      this.dialog.deleted = false;
+      this.resetAssistantControls();
+    }, 0);
   }
 }

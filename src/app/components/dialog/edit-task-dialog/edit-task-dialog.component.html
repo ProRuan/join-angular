@@ -1,6 +1,6 @@
-<div *ngIf="isOpened()" @dialogAnimation class="dialog" [ngClass]="getDialogClass()">
-    <div class="transit-cont transition-none" [ngClass]="getTransitClass()" (click)="onClose()">
-        <section class="dialog-box" (click)="onHandle($event)">
+<div *ngIf="isOpened()" @dialogAnimation class="dialog">
+    <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
+        <section class="dialog-box" (click)="onMenuClose($event)">
             <div class="button-cont">
                 <button class="close-btn" (click)="onClose()"></button>
             </div>
