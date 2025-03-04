@@ -1,44 +1,39 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ViewableContactComponent } from '../viewable-contact/viewable-contact.component';
+import { ContactService } from '../../../shared/services/contact.service';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { Contact } from '../../../shared/models/contact';
 import { Register } from '../../../shared/interfaces/register';
-import { ButtonData } from '../../../shared/interfaces/button-data';
+import { JoinButton } from '../../../shared/models/join-button';
 
 @Component({
   selector: 'app-contact-list',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, ViewableContactComponent],
+  imports: [CommonModule, ButtonComponent],
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.scss',
 })
 
 /**
- * Represents a contact-list component.
+ * Class representing a contact-list component.
  */
 export class ContactListComponent {
+  viewer: ContactService = inject(ContactService);
   dialog: DialogService = inject(DialogService);
+
+  // set button h-25 ... !
 
   private sortedContacts: Contact[] = [];
   registerLetters: string[] = [];
   register: Register[] = [];
   dialogId: string = 'addContact';
 
-  addBtn: ButtonData = {
-    buttonClass: 'create-btn add-new-contact-btn',
-    // contClass: 'h-25',
-    textClass: 'create-btn-text',
-    text: 'Add new contact',
-    imgClass: 'img-32',
-    src: '/assets/img/contacts/add_new_contact.png',
-    alt: 'add_new_contact',
-  };
+  addBtn = new JoinButton('addBtn');
 
   /**
-   * Provides the contacts.
-   * @returns - The contacts.
+   * Gets the contacts.
+   * @returns The contacts.
    */
   get contacts() {
     return this.sortedContacts;
@@ -75,7 +70,7 @@ export class ContactListComponent {
    * Compares names.
    * @param a - The name of contact a.
    * @param b - The name of contact b.
-   * @returns - A comparable figure.
+   * @returns A comparable figure.
    */
   compareNames(a: Contact, b: Contact) {
     let nameA = this.getComparableName(a.name);
@@ -84,9 +79,9 @@ export class ContactListComponent {
   }
 
   /**
-   * Provides the comparable name.
+   * Gets the comparable name.
    * @param name - The contact name.
-   * @returns - The comparable name.
+   * @returns The comparable name.
    */
   getComparableName(name: string) {
     if (name.includes(' ')) {
@@ -112,9 +107,9 @@ export class ContactListComponent {
   }
 
   /**
-   * Provides the initial of the contact name.
+   * Gets the initial of the contact name.
    * @param name - The contact name.
-   * @returns - The initial.
+   * @returns The initial.
    */
   getInitial(name: string) {
     name = name.toLowerCase();
@@ -140,9 +135,9 @@ export class ContactListComponent {
   }
 
   /**
-   * Provides the section contacts.
+   * Gets the section contacts.
    * @param letter - The section letter.
-   * @returns - The section contacts.
+   * @returns The section contacts.
    */
   getSectionContacts(letter: string) {
     return this.contacts.filter((c) => this.isFiltered(c, letter));
@@ -152,7 +147,7 @@ export class ContactListComponent {
    * Verifies the contact to filter.
    * @param contact - The contact.
    * @param letter - The section letter.
-   * @returns - A boolean value.
+   * @returns A boolean value.
    */
   isFiltered(contact: Contact, letter: string) {
     let initial = this.getInitial(contact.name);
@@ -160,10 +155,10 @@ export class ContactListComponent {
   }
 
   /**
-   * Provides the section.
+   * Gets the section.
    * @param letter - The section letter.
    * @param contacts - The section contacts.
-   * @returns - The section.
+   * @returns The section.
    */
   getSection(letter: string, contacts: Contact[]) {
     letter = letter.toUpperCase();
@@ -178,5 +173,37 @@ export class ContactListComponent {
     this.dialog.title = 'Add contact';
     this.dialog.subtitle = 'Tasks are better with a team!';
     this.dialog.open(this.dialogId);
+  }
+
+  /**
+   * Gets the css class of a contact.
+   * @param contact - The contact.
+   * @returns The css class of the contact.
+   */
+  getClass(contact: Contact) {
+    let selected = this.isSelected(contact);
+    return selected ? 'selected' : '';
+  }
+
+  /**
+   * Verifies the selected state of a contact.
+   * @param contact - The contact.
+   * @returns A boolean value.
+   */
+  isSelected(contact: Contact) {
+    let selectedContact = this.viewer.contact;
+    return contact.email == selectedContact.email;
+  }
+
+  /**
+   * Views a contact on click.
+   * @param contact - The contact.
+   */
+  onView(contact: Contact) {
+    if (!this.isSelected(contact)) {
+      this.viewer.setContact(contact);
+    } else {
+      this.viewer.setContact();
+    }
   }
 }

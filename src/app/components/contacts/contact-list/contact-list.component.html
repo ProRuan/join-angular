@@ -4,7 +4,7 @@
     </div>
 
     <div class="collector">
-        @for(section of register; track section.letter) {
+        @for (section of register; track section.letter) {
         <div class="letter-border-cont">
             <div class="letter-cont">
                 <span class="letter">{{ section.letter }}</span>
@@ -14,7 +14,18 @@
             </div>
         </div>
 
-        <app-viewable-contact *ngFor="let contact of section.contacts" [contact]="contact"></app-viewable-contact>
+        @for (contact of section.contacts; track contact.id) {
+        <button class="contact" [ngClass]="getClass(contact)" (click)="onView(contact)">
+            <div class="profile" [ngClass]="contact.bgc">
+                <div class="h-14"><span class="initials">{{ contact.initials }}</span></div>
+            </div>
+
+            <div class="name-email-cont">
+                <div class="h-24"><span class="name">{{ contact.name }}</span></div>
+                <div class="h-19"><span class="email">{{ contact.email }}</span></div>
+            </div>
+        </button>
+        }
         }
     </div>
 </div>

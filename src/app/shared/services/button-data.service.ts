@@ -156,5 +156,15 @@ export class ButtonDataService {
     alt: 'create_button',
   };
 
+  addBtn: ButtonData = {
+    buttonClass: 'create-btn add-new-contact-btn',
+    // contClass: 'h-25',
+    textClass: 'create-btn-text',
+    text: 'Add new contact',
+    imgClass: 'img-32',
+    src: '/assets/img/contacts/add_new_contact.png',
+    alt: 'add_new_contact',
+  };
+
   constructor() {}
 }
