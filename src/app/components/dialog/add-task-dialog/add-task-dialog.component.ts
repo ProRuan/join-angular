@@ -27,12 +27,4 @@ export class AddTaskDialogComponent extends JoinDialog {
   onClose() {
     this.close();
   }
-
-  /**
-   * Gets the css class of a transit container.
-   * @returns The css class of the transit container.
-   */
-  override getTransitClass(): string {
-    return this.dialog.submitted ? 'fade' : 'slide';
-  }
 }

@@ -5,7 +5,7 @@ const defaultTimings = '100ms ease-in-out';
 const parentStartProperties = [{ opacity: 0 }];
 const parentEndProperties = [{ opacity: 1 }];
 
-const NAME = 'backLogAnimation';
+const NAME = 'fadeAnimation';
 
 const DATA: AnimationData[] = [
   {
@@ -30,4 +30,4 @@ const DATA: AnimationData[] = [
   },
 ];
 
-export const backLogAnimation = getAnimation(NAME, DATA);
+export const fadeAnimation = getAnimation(NAME, DATA);

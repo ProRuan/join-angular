@@ -351,6 +351,14 @@ export class JoinService {
     this.subscribeUser(); // necessary? --> app subscription!!!
   }
 
+  /**
+   * Deletes a user task.
+   * @param index - The task index.
+   */
+  deleteTask(index: number) {
+    this.user.tasks.splice(index, 1);
+  }
+
   // add class UserDoc - check
   // add class UserId ...
   // add class UserData ...

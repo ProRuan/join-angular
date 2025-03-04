@@ -18,6 +18,8 @@ import { Task } from '../../../shared/models/task';
 import { JoinButton } from '../../../shared/models/join-button';
 import { Subtask } from '../../../shared/models/subtask';
 import { getCapitalized } from '../../../shared/ts/global';
+import { dialogAnimation } from '../../../shared/animations/dialog.animation';
+import { DeleteTaskDialogComponent } from '../delete-task-dialog/delete-task-dialog.component';
 
 @Component({
   selector: 'app-view-task-dialog',
@@ -27,9 +29,11 @@ import { getCapitalized } from '../../../shared/ts/global';
     JoinTitleComponent,
     ButtonComponent,
     CheckboxComponent,
+    DeleteTaskDialogComponent,
   ],
   templateUrl: './view-task-dialog.component.html',
   styleUrl: './view-task-dialog.component.scss',
+  animations: [dialogAnimation],
 })
 
 /**
@@ -58,6 +62,17 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
 
   // update/add all back logs ... !
   // fix all icons with size + object-fit ... !
+
+  // ViewTaskDialogComponent
+  // -----------------------
+  // set subtask id ... !
+  // view-task dialog component: check getClass() ...
+
+  // EditTaskDialogComponent
+  // -----------------------
+  // complete edit-task dialog component ... !
+  // fix transition: open, close, submitted ... (0/3)
+  // animation by browser moduls or css ...
 
   override id: string = 'viewTask';
 

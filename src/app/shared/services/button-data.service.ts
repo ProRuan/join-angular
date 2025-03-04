@@ -138,5 +138,23 @@ export class ButtonDataService {
     alt: 'create_button',
   };
 
+  noBtn: ButtonData = {
+    buttonClass: 'clear-btn',
+    textClass: 'clear-btn-text',
+    text: 'No',
+    imgClass: 'clear-btn-img',
+    src: '/assets/img/add-task/cancel_button.png',
+    alt: 'cancel_button',
+  };
+
+  yesBtn: ButtonData = {
+    buttonClass: 'create-btn',
+    textClass: 'create-btn-text',
+    text: 'Yes',
+    imgClass: 'create-btn-img',
+    src: '/assets/img/add-task/create_button.png',
+    alt: 'create_button',
+  };
+
   constructor() {}
 }

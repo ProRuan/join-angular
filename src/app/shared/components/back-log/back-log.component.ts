@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { backLogAnimation } from '../../animations/back-log.animation';
+import { fadeAnimation } from '../../animations/fade-animation';
 import { DialogService } from '../../services/dialog.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { DialogService } from '../../services/dialog.service';
   imports: [CommonModule],
   templateUrl: './back-log.component.html',
   styleUrl: './back-log.component.scss',
-  animations: [backLogAnimation],
+  animations: [fadeAnimation],
 })
 
 /**

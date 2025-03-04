@@ -1,4 +1,4 @@
-<div class="dialog" [ngClass]="getDialogClass()">
+<div *ngIf="isOpened()" @dialogAnimation class="dialog">
     <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
         <section class="dialog-box" (click)="onStop($event)">
             <div class="category-button-cont">
@@ -52,3 +52,5 @@
         </section>
     </div>
 </div>
+
+<app-delete-task-dialog></app-delete-task-dialog>

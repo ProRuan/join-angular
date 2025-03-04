@@ -33,16 +33,15 @@ export class JoinDialog extends FormController {
     return this.dialog.isOpened(this.id);
   }
 
-  /**
-   * Gets the css class of a transit container.
-   * @returns The css class of the transit container.
-   */
   getTransitClass(): string {
-    return this.isOpened() ? '' : 'out';
+    return this.dialog.submitted || this.dialog.deleted ? 'fade' : 'slide';
   }
 
-  close() {
-    return this.dialog.close(this.id);
+  close(event?: Event) {
+    this.dialog.close(this.id);
+    if (event) {
+      stop(event);
+    }
   }
 
   onStop(event: Event) {

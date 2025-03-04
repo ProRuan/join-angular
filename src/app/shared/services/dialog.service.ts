@@ -40,6 +40,7 @@ export class DialogService {
   subtitle: string = '';
 
   submitted: boolean = false;
+  deleted: boolean = false;
 
   /**
    * Opens the dialog.

@@ -1,15 +1,17 @@
-<div class="transit-cont" [ngClass]="getClass()" (click)="onClose($event)">
-    <section class="dialog-box" (click)="onStop($event)">
-        <div class="button-cont">
-            <button class="close-btn" (click)="onClose($event)"></button>
-        </div>
-
-        <div class="text-button-cont">
-            <span class="text"><b>Delete</b> this task?</span>
-            <div class="button-cont g-64">
-                <app-button [button]="noBtn" (click)="onClose($event)"></app-button>
-                <app-button [button]="yesBtn" (click)="onDelete()"></app-button>
+<div *ngIf="isOpened()" @fadeAnimation class="dialog">
+    <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose($event)">
+        <section class="dialog-box" (click)="onStop($event)">
+            <div class="close-btn-cont">
+                <button class="close-btn" (click)="onClose($event)"></button>
             </div>
-        </div>
-    </section>
+
+            <div class="choice-cont">
+                <span class="text"><b>Delete</b> this task?</span>
+                <div class="button-group-cont">
+                    <app-button [button]="noBtn" (click)="onClose($event)"></app-button>
+                    <app-button [button]="yesBtn" (click)="onDelete()"></app-button>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>

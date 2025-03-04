@@ -1,17 +1,5 @@
 @import "../../../../mixins.scss";
 
-.transit-cont {
-  @include size($w: 100%, $h: 100vh);
-  @include display-flex();
-  @include position($pos: absolute, $l: 0px, $t: 0px);
-  background-color: rgba(0, 0, 0, 0.25);
-  transition: all 100ms ease-in-out;
-}
-
-.o-0 {
-  opacity: 0;
-}
-
 .dialog-box {
   @include box-padding($p: 48px 40px);
   @include display-column($g: 24px);
@@ -21,31 +9,11 @@
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
 }
 
-.button-cont {
+.close-btn-cont {
   @include display-row($jc: flex-end);
 }
 
-.close-btn {
-  @include size($w: 32px, $h: 32px);
-  padding: 0;
-  background-color: transparent;
-  background-image: url("../../../../assets/img/board/close_default.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
-  border: none;
-  transition: all 100ms ease-in-out;
-
-  &:hover {
-    background-image: url("../../../../assets/img/board/close_hover.png");
-  }
-
-  &:active {
-    background-image: url("../../../../assets/img/board/close_default.png");
-  }
-}
-
-.text-button-cont {
+.choice-cont {
   @include display-column($ai: center, $g: 24px);
 }
 
@@ -55,6 +23,6 @@
   color: $black;
 }
 
-.g-64 {
-  gap: 64px;
+.button-group-cont {
+  @include display-row($g: 64px);
 }
