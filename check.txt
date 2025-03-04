@@ -50,6 +50,9 @@ Join (6/?)
       - SearchInputComponent - check
       - ColumnComponent - check
       - DraggableTaskComponent - check
+  - ContactsComponent ...
+      - ContactListComponent ...
+      - ViewableContactComponet - check
 
 
 Animations (2/?)

@@ -12,7 +12,7 @@ import { Contact } from '../../../shared/models/contact';
 })
 
 /**
- * Represents a viewable-contact component.
+ * Class representing a viewable-contact component.
  */
 export class ViewableContactComponent {
   viewer: ContactService = inject(ContactService);
@@ -20,8 +20,8 @@ export class ViewableContactComponent {
   @Input() contact: Contact = new Contact();
 
   /**
-   * Provides the css class.
-   * @returns - The css class.
+   * Gets the css class of a contact.
+   * @returns The css class of the contact.
    */
   getClass() {
     let selected = this.isSelected();
@@ -29,7 +29,16 @@ export class ViewableContactComponent {
   }
 
   /**
-   * Views the contact on click.
+   * Verifies the selected state of a contact.
+   * @returns A boolean value.
+   */
+  isSelected() {
+    let selectedContact = this.viewer.contact;
+    return selectedContact.email == this.contact.email;
+  }
+
+  /**
+   * Views a contact on click.
    */
   onView() {
     if (!this.isSelected()) {
@@ -37,14 +46,5 @@ export class ViewableContactComponent {
     } else {
       this.viewer.setContact();
     }
-  }
-
-  /**
-   * Verifies the selected state of the contact.
-   * @returns - A boolean value.
-   */
-  isSelected() {
-    let selectedContact = this.viewer.contact;
-    return selectedContact.email == this.contact.email;
   }
 }

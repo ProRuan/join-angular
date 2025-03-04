@@ -30,6 +30,9 @@ export class ContactsComponent {
   join: JoinService = inject(JoinService);
   dialog: DialogService = inject(DialogService);
 
+  // rename contacts service to contact viewer service ... ?
+  // move viewable contact component to contact list ... ?
+
   title: string = 'Contacts';
   subtitle: string = 'Better with a team';
 
