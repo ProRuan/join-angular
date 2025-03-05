@@ -7,6 +7,56 @@ import { ButtonData } from '../interfaces/button-data';
 export class ButtonDataService {
   // improve classes and class names ...
 
+  // DialogComponent
+  // ---------------
+  // move dialogs to other folder ...
+  // delete dialog component ...
+  // rename this.dialog to this.dialogs ...
+  // app back log or component back logs ... ?
+
+  // View/EditTaskDialogComponent
+  // ----------------------------
+  // rename this.dialog.deleted to updated ... ?!
+  // ViewTaskComponent and EditTaskComponent ...
+  //   --> OR: AddTaskDialogComponent ...
+
+  // improve logo animation ... !!!
+  // set task-dialog animations ... (1/4)
+
+  // update add-task menus ...
+  // update view-task, edit-task, delete-task ...
+  // update contact dialogs ...
+
+  // only subscription on open?!
+
+  // AddTaskDialogComponent
+  // ----------------------
+  // set transition 100ms ease-in-out ...
+  // close flip-menu on click ... !
+
+  // update/add all back logs ... !
+  // fix all icons with size + object-fit ... !
+
+  // ViewTaskDialogComponent
+  // -----------------------
+  // set subtask id ... !
+  // view-task dialog component: check getClass() ...
+
+  // EditTaskDialogComponent
+  // -----------------------
+  // complete edit-task dialog component ... !
+  // fix transition: open, close, submitted ... (0/3)
+  // animation by browser moduls or css ...
+
+  // Dialog Component
+  // ----------------
+  // remove transit-class to app-dialog classes ... (0/4)
+  // fix delete-task dialog transition (bgc/box) ...
+  // verfiy dialog and dialog comp transitions ... (0/5)
+  // rename stop() to stopEvent() or stopPropagation() ...
+  // double style of dialogs ... (0/4)
+  // double style of close button ... (0/4+)
+
   // First tasks
   // -----------
   // login, sign-up, new-password control variables ...

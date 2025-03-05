@@ -11,7 +11,6 @@ import { DialogAddContactService } from '../../shared/services/dialog-add-contac
 import { JoinHeaderComponent } from '../../shared/components/join-header/join-header.component';
 import { DialogService } from '../../shared/services/dialog.service';
 import { BoardService } from '../../shared/services/board.service';
-import { DialogComponent } from '../dialog/dialog.component';
 import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.component';
 
 @Component({
@@ -22,7 +21,6 @@ import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.c
     MenuComponent,
     JoinHeaderComponent,
     CommonModule,
-    DialogComponent,
     FlipMenuComponent,
   ],
   templateUrl: './main.component.html',

@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AddTaskDialogComponent } from '../dialog/add-task-dialog/add-task-dialog.component';
+import { ViewTaskDialogComponent } from '../dialog/view-task-dialog/view-task-dialog.component';
+import { EditTaskDialogComponent } from '../dialog/edit-task-dialog/edit-task-dialog.component';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
@@ -18,6 +21,9 @@ import { Task } from '../../shared/models/task';
   imports: [
     CommonModule,
     FormsModule,
+    AddTaskDialogComponent,
+    ViewTaskDialogComponent,
+    EditTaskDialogComponent,
     JoinTitleComponent,
     SearchInputComponent,
     ButtonComponent,
