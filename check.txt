@@ -44,7 +44,8 @@ Join (6/?)
       - EditTaskDialogComponent - check * think about close()?!
       - DeleteTaskDialogComponent - check * think about close()?!
       - ContactDialogComponent - check
-      - DeleteContactComponent - check
+      - DeleteContactDialogComponent - check
+      - DeleteUserDialogComponent ...
       
   - SummaryComponent - check
       - SumCardComponent - check
@@ -53,15 +54,15 @@ Join (6/?)
       - SearchInputComponent - check
       - ColumnComponent - check
       - DraggableTaskComponent - check
-  - ContactsComponent ...
+  - ContactsComponent - check
       - ContactListComponent - check
       - ContactViewerComponent - check
 
 
 Animations (2/?)
 ----------
-  - BackLogAnimation - check
   - DialogAnimation - check
+  - FadeAnimation - check
 
 Components (10/?) + await inputs ...
 ----------
@@ -73,7 +74,7 @@ Components (10/?) + await inputs ...
   - JoinHeaderComponent - check
   - JoinTitleComponent - check
   - LabelComponent - check
-  - LogComponent - check
+  - LogComponent - check *replace with BackLogComponent!
   - LogoComponent - check
   - MenuComponent - check
   - TitleComponent - check
@@ -84,6 +85,7 @@ Components (10/?) + await inputs ...
       - DescriptionInputComponent - check
       - DueDateInputComponent - check
       - PasswordInputComponent ... *admin-inputs.scss?!
+      - PhoneInputComponent ...
       - PrioInputComponent - check
       - SubtasksInputComponent - check
       - TextInputComponent - check *admin-inputs.scss?!
@@ -122,6 +124,7 @@ Services (3/?)
 ts (1/?)
 --
   - validate.ts - check
+  - ... ... ...
 
 
 Styles

@@ -32,6 +32,55 @@ export class JoinService {
   // review all funtions due to local user!!!
   //   --> save at least one parameter, e. g. this.id!!!
 
+  // ContactComponent
+  // ----------------
+  // delete-object-dialog ...
+  // delete-user-dialog ...
+
+  // DeleteContactComponent
+  // ----------------------
+  // reset/close contact viewer after deleting contact ...
+  // combine delete-task/delete-contact dialog ... ?
+
+  // ContactDialogComponent
+  // ----------------------
+  // getObjectArray(): remove front type ... !
+  // set contact complete (with initials) ... !!!
+  // set validators ... !
+  // review onSave() ... !
+  // check animation!!!
+  // rename inputConfig to input ...
+  // disable buttons ... ?!
+  // set alternative buttons for add-task dialog like at contact dialog ... ?
+
+  // input height: 50px ... ?
+  // InputConfigurationService --> set phone input ...
+  // CloseButtonComponent ... !
+  // imgClasses: 24, 32, 64 ...
+  // ProfileComponent with name and email ... ?
+
+  // transition ... !
+  // button validation ... (0/2)
+
+  // delete task (show task title) ...
+  // delete contact (show contact name or email) ...
+  // check asset folder: img, font and so on ...
+
+  // ContactViewerService extends DialogService ... ?
+
+  // set button h-25 for add-contact-btn ... !
+  // input h-50 ... ?
+
+  // rename contacts service to contact viewer service ... ?
+  // move viewable contact component to contact list ... ?
+
+  // ContactViewerComponent
+  // ----------------------
+  // show on opened-contact only ... !
+  // add contact viewer transition ...
+  // write set() on class Contacts (for contact viewer at least)!!!
+  // reset contact and cached contact!!!
+
   [key: string]: any;
   revealed: boolean;
   relocated: boolean;
