@@ -1,11 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ContactService } from '../../../shared/services/contact.service';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { Contact } from '../../../shared/models/contact';
 import { Register } from '../../../shared/interfaces/register';
 import { JoinButton } from '../../../shared/models/join-button';
+import { getCapitalized, getInitial } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-contact-list',
@@ -16,112 +23,54 @@ import { JoinButton } from '../../../shared/models/join-button';
 })
 
 /**
- * Class representing a contact-list component.
+ * Class representing a contact list component.
  */
-export class ContactListComponent {
+export class ContactListComponent implements OnChanges {
   viewer: ContactService = inject(ContactService);
   dialog: DialogService = inject(DialogService);
 
-  // set button h-25 ... !
+  @Input() contacts: Contact[] = [];
 
-  private sortedContacts: Contact[] = [];
   registerLetters: string[] = [];
   register: Register[] = [];
   dialogId: string = 'addContact';
-
   addBtn = new JoinButton('addBtn');
 
   /**
-   * Gets the contacts.
-   * @returns The contacts.
+   * Updates a contact list component on changes.
+   * @param changes - The changes.
    */
-  get contacts() {
-    return this.sortedContacts;
+  ngOnChanges(changes: SimpleChanges): void {
+    let contacts = changes['contacts'].currentValue;
+    this.updateRegisterLetters(contacts);
+    this.updateRegister();
   }
 
   /**
-   * Sets the contacts.
-   * @param - The user contacts.
+   * Updates register letters.
+   * @param contacts - The contacts.
    */
-  @Input() set contacts(contacts: Contact[]) {
-    this.setContactList(contacts);
+  updateRegisterLetters(contacts: Contact[]) {
+    this.registerLetters = [];
+    contacts.forEach((contact) => this.addRegisterLetter(contact));
   }
 
   /**
-   * Sets the contact list.
-   * @param contacts - The user contacts.
+   * Adds a register letter.
+   * @param contact - The contact.
    */
-  setContactList(contacts: Contact[]) {
-    this.setSortedContacts(contacts);
-    this.setRegisterLetters();
-    this.setRegister();
-  }
-
-  /**
-   * Sets the sorted contacts.
-   * @param contacts - The user contacts.
-   */
-  setSortedContacts(contacts: Contact[]) {
-    this.sortedContacts = [...contacts];
-    this.sortedContacts.sort((a, b) => this.compareNames(a, b));
-  }
-
-  /**
-   * Compares names.
-   * @param a - The name of contact a.
-   * @param b - The name of contact b.
-   * @returns A comparable figure.
-   */
-  compareNames(a: Contact, b: Contact) {
-    let nameA = this.getComparableName(a.name);
-    let nameB = this.getComparableName(b.name);
-    return nameA.localeCompare(nameB);
-  }
-
-  /**
-   * Gets the comparable name.
-   * @param name - The contact name.
-   * @returns The comparable name.
-   */
-  getComparableName(name: string) {
-    if (name.includes(' ')) {
-      let names = name.split(' ');
-      let firstInitial = names[0][0];
-      let lastName = names[1];
-      return firstInitial + lastName;
-    } else {
-      return name;
+  addRegisterLetter(contact: Contact) {
+    let initial = getInitial(contact.name);
+    if (!this.registerLetters.includes(initial)) {
+      this.registerLetters.push(initial);
     }
   }
 
   /**
-   * Sets the register letters.
+   * Updates a register.
    */
-  setRegisterLetters() {
-    this.contacts.forEach((contact) => {
-      let initial = this.getInitial(contact.name);
-      if (!this.registerLetters.includes(initial)) {
-        this.registerLetters.push(initial);
-      }
-    });
-  }
-
-  /**
-   * Gets the initial of the contact name.
-   * @param name - The contact name.
-   * @returns The initial.
-   */
-  getInitial(name: string) {
-    name = name.toLowerCase();
-    return name[0];
-  }
-
-  /**
-   * Sets the register.
-   */
-  setRegister() {
-    this.register = [];
-    this.registerLetters.forEach((letter) => this.addSection(letter));
+  updateRegister() {
+    this.register = this.registerLetters.map((l) => this.addSection(l));
   }
 
   /**
@@ -129,13 +78,13 @@ export class ContactListComponent {
    * @param letter - The section letter.
    */
   addSection(letter: string) {
-    let contacts: Contact[] = this.getSectionContacts(letter);
-    let section = this.getSection(letter, contacts);
-    this.register.push(section);
+    let contacts = this.getSectionContacts(letter);
+    letter = getCapitalized(letter);
+    return this.getSection(letter, contacts);
   }
 
   /**
-   * Gets the section contacts.
+   * Gets section contacts.
    * @param letter - The section letter.
    * @returns The section contacts.
    */
@@ -144,31 +93,30 @@ export class ContactListComponent {
   }
 
   /**
-   * Verifies the contact to filter.
+   * Verifies a contact to filter.
    * @param contact - The contact.
    * @param letter - The section letter.
    * @returns A boolean value.
    */
   isFiltered(contact: Contact, letter: string) {
-    let initial = this.getInitial(contact.name);
+    let initial = getInitial(contact.name);
     return initial == letter;
   }
 
   /**
-   * Gets the section.
+   * Gets a section.
    * @param letter - The section letter.
    * @param contacts - The section contacts.
    * @returns The section.
    */
   getSection(letter: string, contacts: Contact[]) {
-    letter = letter.toUpperCase();
     return { letter: letter, contacts: contacts };
   }
 
   /**
-   * Opens the add-contact dialog on click.
+   * Opens an add-contact dialog on click.
    */
-  onAddContact() {
+  onAdd() {
     this.dialog.dialogId = this.dialogId;
     this.dialog.title = 'Add contact';
     this.dialog.subtitle = 'Tasks are better with a team!';

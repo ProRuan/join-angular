@@ -7,7 +7,7 @@
 <!-- visibility, opacity and transition of dialogs!!! -->
 
 <section class="contacts">
-    <app-contact-list [contacts]="contacts"></app-contact-list>
+    <app-contact-list [contacts]="getSortedContacts()"></app-contact-list>
 
     <div class="title-viewer-cont">
         <app-join-title [title]="title" [subtitle]="subtitle"></app-join-title>

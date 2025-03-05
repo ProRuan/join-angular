@@ -51,7 +51,7 @@ Join (6/?)
       - ColumnComponent - check
       - DraggableTaskComponent - check
   - ContactsComponent ...
-      - ContactListComponent ...
+      - ContactListComponent - check
       - ViewableContactComponet - check
 
 
@@ -108,7 +108,9 @@ Models (3/?)
 
 Services (3/?)
 --------
+  - ContactService ... * rename to ContactViewerService?
   - DialogService ...
+  - GlobalService ...
   - LogService - check
   - NameFormatterService - check
   - NavigationService - check

@@ -42,7 +42,7 @@ export function getBoolean(value?: boolean, defaultValue: boolean = false) {
  */
 export function getCapitalized(word: string) {
   if (word.length > 1) {
-    return word[0].toUpperCase() + word.slice(1);
+    return word.charAt(0).toUpperCase() + word.slice(1);
   } else if (word.length > 0) {
     return word.toUpperCase();
   } else {
@@ -78,6 +78,15 @@ export function getDayStartTime(date: string) {
 export function getId(id?: string) {
   const verified = id && id.length > 0;
   return verified ? id : getRandomId();
+}
+
+/**
+ * Gets the initial letter of a word.
+ * @param word - The word.
+ * @returns The initial letter.
+ */
+export function getInitial(word: string) {
+  return word.charAt(0).toLowerCase();
 }
 
 /**
