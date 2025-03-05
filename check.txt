@@ -52,7 +52,7 @@ Join (6/?)
       - DraggableTaskComponent - check
   - ContactsComponent ...
       - ContactListComponent - check
-      - ViewableContactComponet - check
+      - ContactViewerComponent - check
 
 
 Animations (2/?)

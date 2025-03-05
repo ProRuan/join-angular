@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ContactService } from '../../../shared/services/contact.service';
-import { ButtonData } from '../../../shared/interfaces/button-data';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { JoinService } from '../../../shared/services/join.service';
+import { ContactService } from '../../../shared/services/contact.service';
 import { DialogService } from '../../../shared/services/dialog.service';
+import { JoinButton } from '../../../shared/models/join-button';
 import { Contact } from '../../../shared/models/contact';
 
 @Component({
@@ -14,48 +14,40 @@ import { Contact } from '../../../shared/models/contact';
   templateUrl: './contact-viewer.component.html',
   styleUrl: './contact-viewer.component.scss',
 })
+
+/**
+ * Class representing a contact viewer component.
+ */
 export class ContactViewerComponent {
   join: JoinService = inject(JoinService);
-  // rename?!
   viewer: ContactService = inject(ContactService);
   dialog: DialogService = inject(DialogService);
 
-  // add contact viewer transition ...
-  // ButtonDataService ...
-
   dialogId: string = 'editContact';
+  editBtn = new JoinButton('editBtn');
+  deleteBtn = new JoinButton('deleteBtn');
 
-  editBtn: ButtonData = {
-    buttonClass: 'settings-btn',
-    textClass: 'settings-btn-text',
-    text: 'Edit',
-    imgClass: 'edit',
-    src: '/assets/img/contacts/edit.png',
-    alt: 'edit',
-  };
-
-  deleteBtn: ButtonData = {
-    buttonClass: 'settings-btn',
-    textClass: 'settings-btn-text',
-    text: 'Delete',
-    imgClass: 'delete',
-    src: '/assets/img/contacts/delete.png',
-    alt: 'delete',
-  };
-
+  /**
+   * Gets a contact to view.
+   * @returns The contact to view.
+   */
   get contact() {
     return this.viewer.contact;
   }
 
+  /**
+   * Opens an edit-contact dialog on click.
+   */
   onEdit() {
-    // write set() on class Contacts!!!
-    // reset contact and cached contact!!!
     this.viewer.cachedContact = new Contact(this.contact);
     this.dialog.dialogId = this.dialogId;
     this.dialog.title = 'Edit contact';
     this.dialog.open(this.dialogId);
   }
 
+  /**
+   * Opens a delete-contact dialog on click.
+   */
   onDelete() {
     this.dialog.open('deleteContact');
   }

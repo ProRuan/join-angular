@@ -23,10 +23,6 @@
   color: $white;
 }
 
-.name-button-cont {
-  @include display-column($g: 8px);
-}
-
 .name {
   @include font($fs: 47px, $fw: 500, $lh: 56.4px);
   color: $black;

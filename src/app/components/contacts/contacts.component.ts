@@ -38,6 +38,13 @@ export class ContactsComponent {
   // rename contacts service to contact viewer service ... ?
   // move viewable contact component to contact list ... ?
 
+  // ContactViewerComponent
+  // ----------------------
+  // show on opened-contact only ... !
+  // add contact viewer transition ...
+  // write set() on class Contacts (for contact viewer at least)!!!
+  // reset contact and cached contact!!!
+
   title: string = 'Contacts';
   subtitle: string = 'Better with a team';
 
