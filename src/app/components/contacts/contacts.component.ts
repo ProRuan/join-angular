@@ -13,7 +13,7 @@ import { Contact } from '../../shared/models/contact';
   standalone: true,
   imports: [
     CommonModule,
-    DeleteContactDialogComponent,
+    // DeleteContactDialogComponent,
     ContactListComponent,
     JoinTitleComponent,
     ContactViewerComponent,
@@ -28,6 +28,11 @@ import { Contact } from '../../shared/models/contact';
 export class ContactsComponent {
   join: JoinService = inject(JoinService);
   dialog: DialogService = inject(DialogService);
+
+  // DeleteContactComponent
+  // ----------------------
+  // reset/close contact viewer after deleting contact ...
+  // combine delete-task/delete-contact dialog ... ?
 
   // ContactDialogComponent
   // ----------------------

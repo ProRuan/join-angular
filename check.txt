@@ -44,7 +44,7 @@ Join (6/?)
       - EditTaskDialogComponent - check * think about close()?!
       - DeleteTaskDialogComponent - check * think about close()?!
       - ContactDialogComponent - check
-      - DeleteContactComponent ...
+      - DeleteContactComponent - check
       
   - SummaryComponent - check
       - SumCardComponent - check

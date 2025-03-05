@@ -4,32 +4,31 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { fadeAnimation } from '../../../shared/animations/fade-animation';
 import { JoinDialog } from '../../../shared/models/join-dialog';
 import { JoinService } from '../../../shared/services/join.service';
-import { SummaryService } from '../../../shared/services/summary.service';
-import { BoardService } from '../../../shared/services/board.service';
+import { ContactService } from '../../../shared/services/contact.service';
 import { JoinButton } from '../../../shared/models/join-button';
 
 @Component({
-  selector: 'app-delete-task-dialog',
+  selector: 'app-delete-contact-dialog',
   standalone: true,
   imports: [CommonModule, ButtonComponent],
-  templateUrl: './delete-task-dialog.component.html',
-  styleUrl: './delete-task-dialog.component.scss',
+  templateUrl: './delete-contact-dialog.component.html',
+
+  styleUrl: './delete-contact-dialog.component.scss',
   animations: [fadeAnimation],
 })
 
 /**
- * Class representing a delete-task dialog component.
+ * Class representing a delete-contact dialog component.
  * @extends JoinDialog
  */
-export class DeleteTaskDialogComponent extends JoinDialog {
+export class DeleteContactDialogComponent extends JoinDialog {
   join: JoinService = inject(JoinService);
-  summary: SummaryService = inject(SummaryService);
-  board: BoardService = inject(BoardService);
+  viewer: ContactService = inject(ContactService);
 
   noBtn = new JoinButton('noBtn');
   yesBtn = new JoinButton('yesBtn');
 
-  override id: string = 'deleteTask';
+  override id: string = 'deleteContact';
 
   /**
    * Closes a dialog on click.
@@ -39,33 +38,32 @@ export class DeleteTaskDialogComponent extends JoinDialog {
   }
 
   /**
-   * Deletes a task on click.
+   * Deletes a contact on click.
    */
   async onDelete() {
-    let index = this.getTaskIndex();
+    let index = this.getContactIndex();
     if (index > -1) {
-      this.deleteTask(index);
+      this.deleteContact(index);
     }
   }
 
   /**
-   * Gets a task index.
-   * @returns The task index.
+   * Gets a contact index.
+   * @returns - The contact index.
    */
-  getTaskIndex() {
-    return this.join.user.tasks.indexOf(this.board.task);
+  getContactIndex() {
+    return this.join.user.contacts.indexOf(this.viewer.contact);
   }
 
   /**
-   * Deletes a task.
-   * @param index - The task index.
+   * Deletes a contact.
+   * @param index - The contact index.
    */
-  deleteTask(index: number) {
+  deleteContact(index: number) {
     this.dialog.deleted = true;
     setTimeout(async () => {
       this.closesDialogs();
-      this.join.deleteTask(index);
-      this.summary.update();
+      this.join.deleteContact(index);
       await this.join.saveUser();
       this.dialog.deleted = false;
     }, 0);
@@ -76,6 +74,6 @@ export class DeleteTaskDialogComponent extends JoinDialog {
    */
   closesDialogs() {
     this.close();
-    this.dialog.close('viewTask');
+    this.dialog.close('editContact');
   }
 }

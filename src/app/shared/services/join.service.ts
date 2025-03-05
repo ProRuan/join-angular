@@ -359,6 +359,14 @@ export class JoinService {
     this.user.tasks.splice(index, 1);
   }
 
+  /**
+   * Deletes a user contact.
+   * @param index - The contact index.
+   */
+  deleteContact(index: number) {
+    this.user.contacts.splice(index, 1);
+  }
+
   // add class UserDoc - check
   // add class UserId ...
   // add class UserData ...
