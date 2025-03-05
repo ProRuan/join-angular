@@ -27,6 +27,8 @@ export class DialogComponent {
   dialog: DialogService = inject(DialogService);
   board: BoardService = inject(BoardService);
 
+  // DialogService: think about submitted and deleted ... (0/2)
+
   // View/EditTaskDialogComponent
   // ----------------------------
   // rename this.dialog.deleted to updated ... ?!
@@ -69,43 +71,4 @@ export class DialogComponent {
   // rename stop() to stopEvent() or stopPropagation() ...
   // double style of dialogs ... (0/4)
   // double style of close button ... (0/4+)
-
-  getDialogClass() {
-    return !this.dialog.dialogOpened ? 'closed' : '';
-  }
-
-  // attention: edit-task dialog?!
-  onClose() {
-    this.dialog.closeAllDialogs();
-    // set defaultTask for viewTask and editTask ... (0/2)
-  }
-
-  getDialogBoxClass(id: string) {
-    return this.dialog.currDialog != id ? 'hidden' : '';
-  }
-
-  getSubdialogboxClass() {
-    return !this.dialog.isOpened('deleteTask') ? 'hidden' : '';
-  }
-
-  // getDisplayClass(id: string) {
-  //   let opened = !this.isClosed();
-  //   let dialogOpened = this.dialog.isOpened(id);
-  //   return opened && !dialogOpened ? 'd-none' : '';
-  // }
-
-  // isOpened(id: string) {
-  //   let opened = !this.isClosed();
-  //   return opened && this.dialog.isOpened(id);
-  // }
-
-  // getDialogClass() {
-  //   let closed = this.isClosed();
-  //   return closed ? 'closed' : '';
-  // }
-
-  // isClosed() {
-  //   let dialogsOpened = this.ids.map((id) => this.dialog.isOpened(id));
-  //   return !dialogsOpened.includes(true);
-  // }
 }

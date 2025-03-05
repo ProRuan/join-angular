@@ -117,7 +117,7 @@ export class ContactListComponent implements OnChanges {
    * Opens an add-contact dialog on click.
    */
   onAdd() {
-    this.dialog.dialogId = this.dialogId;
+    this.dialog.id = this.dialogId;
     this.dialog.title = 'Add contact';
     this.dialog.subtitle = 'Tasks are better with a team!';
     this.dialog.open(this.dialogId);

@@ -221,10 +221,10 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
    * Fades a dialog out.
    */
   fadeDialogOut() {
-    this.dialog.deleted = true;
+    this.dialog.fadedOut = true;
     setTimeout(() => {
       this.dialog.close(this.id);
-      this.dialog.deleted = false;
+      this.dialog.fadedOut = false;
       this.resetAssistantControls();
     }, 0);
   }

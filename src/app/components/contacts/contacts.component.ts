@@ -31,27 +31,11 @@ export class ContactsComponent {
   subtitle: string = 'Better with a team';
 
   /**
-   * Gets user contacts.
-   * @returns The user contacts.
-   */
-  get contacts() {
-    return this.join.user.contacts;
-  }
-
-  /**
-   * Gets a dialog id.
-   * @returns The dialog id.
-   */
-  get dialogId() {
-    return this.dialog.dialogId;
-  }
-
-  /**
    * Gets sorted contacts.
    * @returns The sorted contacts.
    */
   getSortedContacts() {
-    let contacts = [...this.contacts];
+    let contacts = [...this.join.user.contacts];
     return contacts.sort((a, b) => this.compareNames(a, b));
   }
 

@@ -66,7 +66,7 @@ export class BoardComponent {
    * Opens an add-task dialog on click.
    */
   onAdd() {
-    this.dialog.openDialog('addTask');
+    this.dialog.open('addTask');
   }
 
   /**

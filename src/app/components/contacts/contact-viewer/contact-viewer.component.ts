@@ -40,7 +40,7 @@ export class ContactViewerComponent {
    */
   onEdit() {
     this.viewer.cachedContact = new Contact(this.contact);
-    this.dialog.dialogId = this.dialogId;
+    this.dialog.id = this.dialogId;
     this.dialog.title = 'Edit contact';
     this.dialog.open(this.dialogId);
   }

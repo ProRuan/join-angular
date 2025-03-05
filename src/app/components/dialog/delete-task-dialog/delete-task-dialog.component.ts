@@ -61,13 +61,13 @@ export class DeleteTaskDialogComponent extends JoinDialog {
    * @param index - The task index.
    */
   deleteTask(index: number) {
-    this.dialog.deleted = true;
+    this.dialog.fadedOut = true;
     setTimeout(async () => {
       this.closesDialogs();
       this.join.deleteTask(index);
       this.summary.update();
       await this.join.saveUser();
-      this.dialog.deleted = false;
+      this.dialog.fadedOut = false;
     }, 0);
   }
 

@@ -34,7 +34,7 @@ export class JoinDialog extends FormController {
   }
 
   getTransitClass(): string {
-    return this.dialog.submitted || this.dialog.deleted ? 'fade' : 'slide';
+    return this.dialog.submitted || this.dialog.fadedOut ? 'fade' : 'slide';
   }
 
   close(event?: Event) {

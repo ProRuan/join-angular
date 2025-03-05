@@ -111,13 +111,13 @@ Models (3/?)
   - Transform - check
 
 
-Services (3/?)
+Services (4/?)
 --------
   - ContactService ... * rename to ContactViewerService?
-  - DialogService ...
+  - DialogService - check
   - GlobalService ...
   - LogService - check
-  - NameFormatterService - check
+  - NameFormatterService - check * combine with DateFormatterService?!
   - NavigationService - check
       
 

@@ -159,11 +159,11 @@ export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
    * Opens an edit-task dialog on click.
    */
   onEdit() {
-    this.dialog.deleted = true;
+    this.dialog.fadedOut = true;
     this.dialog.task.set(this.board.task);
     this.dialog.open('editTask');
     setTimeout(() => {
-      this.dialog.deleted = false;
+      this.dialog.fadedOut = false;
     }, 0);
   }
 }

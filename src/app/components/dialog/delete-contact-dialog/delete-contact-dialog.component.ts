@@ -60,12 +60,12 @@ export class DeleteContactDialogComponent extends JoinDialog {
    * @param index - The contact index.
    */
   deleteContact(index: number) {
-    this.dialog.deleted = true;
+    this.dialog.fadedOut = true;
     setTimeout(async () => {
       this.closesDialogs();
       this.join.deleteContact(index);
       await this.join.saveUser();
-      this.dialog.deleted = false;
+      this.dialog.fadedOut = false;
     }, 0);
   }
 
