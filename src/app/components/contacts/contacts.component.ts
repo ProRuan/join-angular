@@ -6,7 +6,6 @@ import { ContactViewerComponent } from './contact-viewer/contact-viewer.componen
 import { JoinService } from '../../shared/services/join.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { DeleteContactDialogComponent } from './delete-contact-dialog/delete-contact-dialog.component';
-import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
 import { Contact } from '../../shared/models/contact';
 
 @Component({
@@ -14,7 +13,6 @@ import { Contact } from '../../shared/models/contact';
   standalone: true,
   imports: [
     CommonModule,
-    ContactDialogComponent,
     DeleteContactDialogComponent,
     ContactListComponent,
     JoinTitleComponent,
@@ -31,9 +29,34 @@ export class ContactsComponent {
   join: JoinService = inject(JoinService);
   dialog: DialogService = inject(DialogService);
 
+  // ContactDialogComponent
+  // ----------------------
+  // getObjectArray(): remove front type ... !
+  // set contact complete (with initials) ... !!!
+  // set validators ... !
+  // review onSave() ... !
+  // check animation!!!
+  // rename inputConfig to input ...
+  // disable buttons ... ?!
+  // set alternative buttons for add-task dialog like at contact dialog ... ?
+
+  // input height: 50px ... ?
+  // InputConfigurationService --> set phone input ...
+  // CloseButtonComponent ... !
+  // imgClasses: 24, 32, 64 ...
+  // ProfileComponent with name and email ... ?
+
+  // transition ... !
+  // button validation ... (0/2)
+
+  // delete task (show task title) ...
+  // delete contact (show contact name or email) ...
+  // check asset folder: img, font and so on ...
+
   // ContactViewerService extends DialogService ... ?
 
   // set button h-25 for add-contact-btn ... !
+  // input h-50 ... ?
 
   // rename contacts service to contact viewer service ... ?
   // move viewable contact component to contact list ... ?

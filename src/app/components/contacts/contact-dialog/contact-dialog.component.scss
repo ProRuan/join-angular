@@ -1,19 +1,5 @@
 @import "../../../../mixins.scss";
 
-.dialog {
-  @include size($w: 100%, $h: 100vh);
-  @include position($pos: fixed, $l: 0, $t: 0);
-  padding: 0;
-  background-color: rgba(0, 0, 0, 0.25);
-  border: none;
-  display: none; // visibility, opacity, transition???
-  z-index: 10;
-}
-
-.dialog[open] {
-  @include display-flex();
-}
-
 .add-contact {
   @include round-border($b: none, $br: 30px);
   @include display-row();
@@ -38,25 +24,8 @@
   position: relative;
 }
 
-.close-btn {
-  @include size($w: 32px, $h: 32px);
+.top-right {
   @include position($pos: absolute, $t: 48px, $r: 48px);
-  padding: 0;
-  background-color: transparent;
-  background-image: url("../../../../assets/img/board/close_default.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
-  border: none;
-  transition: all 100ms ease-in-out;
-
-  &:hover {
-    background-image: url("../../../../assets/img/board/close_hover.png");
-  }
-
-  &:active {
-    background-image: url("../../../../assets/img/board/close_default.png");
-  }
 }
 
 .profile-form-cont {
@@ -96,6 +65,7 @@
 
 .input-group {
   @include display-column($g: 32px);
+  width: 422px;
 }
 
 .button-group {

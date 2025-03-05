@@ -1,42 +1,44 @@
-<dialog [open]="isOpened()" class="dialog" (click)="onClose()">
-    <section class="add-contact" (click)="onStop($event)">
-        <div class="dark-cont">
-            <img class="logo" src="/assets/img/menu/menu_logo.png" alt="menu-logo">
-            <app-join-title [title]="title" [subtitle]="subtitle" [dark]="true"></app-join-title>
-        </div>
-
-        <div class="light-cont">
-            <button class="close-btn" (click)="onClose()"></button>
-
-            <div class="profile-form-cont">
-                <div class="profile-cont">
-                    <div class="profile" [ngClass]="getBgcClass()">
-                        @if (dialogId == 'editContact') {
-                        <span class="initials">{{ contact.initials }}</span>
-                        } @else {
-                        <img class="img-64" src="/assets/img/contacts/person.png" alt="person">
-                        }
-                    </div>
-                </div>
-
-                <form #form="ngForm" class="form">
-                    <div class="input-group">
-                        <app-text-input [(ngModel)]="contact.name" name="name"></app-text-input>
-                        <app-text-input [(ngModel)]="contact.email" name="email"></app-text-input>
-                        <app-text-input [(ngModel)]="contact.phone" name="phone"></app-text-input>
-                    </div>
-
-                    <div class="button-group">
-                        @if(dialogId == 'editContact') {
-                        <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
-                        <app-button [button]="saveBtn" (click)="onSave(form)"></app-button>
-                        } @else {
-                        <app-button [button]="cancelBtn" (click)="onClose()"></app-button>
-                        <app-button [button]="createBtn" (click)="onCreate(form)"></app-button>
-                        }
-                    </div>
-                </form>
+<div *ngIf="isOpened()" @dialogAnimation class="dialog">
+    <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
+        <section class="add-contact" (click)="onStop($event)">
+            <div class="dark-cont">
+                <img class="logo" src="/assets/img/menu/menu_logo.png" alt="menu-logo">
+                <app-join-title [title]="dialog.title" [subtitle]="dialog.subtitle" [dark]="true"></app-join-title>
             </div>
-        </div>
-    </section>
-</dialog>
+
+            <div class="light-cont">
+                <button class="close-btn top-right" (click)="onClose()"></button>
+
+                <div class="profile-form-cont">
+                    <div class="profile-cont">
+                        <div class="profile" [ngClass]="getBgcClass()">
+                            @if (isEditContactDialog()) {
+                            <span class="initials">{{ contact.initials }}</span>
+                            } @else {
+                            <img class="img-64" src="/assets/img/contacts/person.png" alt="person">
+                            }
+                        </div>
+                    </div>
+
+                    <form [formGroup]="form" class="form">
+                        <div class="input-group">
+                            <app-text-input [control]="get('name')" [config]="inputConfig[0]"></app-text-input>
+                            <app-text-input [control]="get('email')" [config]="inputConfig[1]"></app-text-input>
+                            <app-text-input [control]="get('phone')" [config]="inputConfig[2]"></app-text-input>
+                        </div>
+
+                        <div class="button-group">
+                            @if(isEditContactDialog()) {
+                            <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
+                            <app-button [button]="saveBtn" (click)="onSave()"></app-button>
+                            } @else {
+                            <app-button [button]="cancelBtn" (click)="onClose()"></app-button>
+                            <app-button [button]="createBtn" (click)="onCreate()"></app-button>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

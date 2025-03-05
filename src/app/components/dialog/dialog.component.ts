@@ -6,6 +6,7 @@ import { ViewTaskDialogComponent } from './view-task-dialog/view-task-dialog.com
 import { EditTaskDialogComponent } from './edit-task-dialog/edit-task-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
 import { BoardService } from '../../shared/services/board.service';
+import { ContactDialogComponent } from '../contacts/contact-dialog/contact-dialog.component';
 
 @Component({
   selector: 'app-dialog',
@@ -15,7 +16,7 @@ import { BoardService } from '../../shared/services/board.service';
     AddTaskDialogComponent,
     ViewTaskDialogComponent,
     EditTaskDialogComponent,
-    // DeleteTaskDialogComponent,
+    ContactDialogComponent,
   ],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss',

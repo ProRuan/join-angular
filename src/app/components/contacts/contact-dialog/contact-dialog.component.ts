@@ -1,19 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
-import { TextInputComponent } from '../../../shared/components/text-input/text-input.component';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { JoinService } from '../../../shared/services/join.service';
-import { DialogService } from '../../../shared/services/dialog.service';
-import { Contact } from '../../../shared/models/contact';
-import { ButtonData } from '../../../shared/interfaces/button-data';
 import {
-  getObjectArray,
-  isDefaultString,
-  stop,
-} from '../../../shared/ts/global';
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
+import { TextInputComponent } from '../../../shared/components/inputs/text-input/text-input.component';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { dialogAnimation } from '../../../shared/animations/dialog.animation';
+import { JoinDialog } from '../../../shared/models/join-dialog';
+import { JoinService } from '../../../shared/services/join.service';
 import { ContactService } from '../../../shared/services/contact.service';
+import { InputConfig } from '../../../shared/interfaces/input-config';
+import { JoinButton } from '../../../shared/models/join-button';
+import { Contact } from '../../../shared/models/contact';
+import { getObjectArray, isDefaultString } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-contact-dialog',
@@ -21,130 +25,156 @@ import { ContactService } from '../../../shared/services/contact.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     JoinTitleComponent,
     TextInputComponent,
     ButtonComponent,
   ],
   templateUrl: './contact-dialog.component.html',
   styleUrl: './contact-dialog.component.scss',
+  animations: [dialogAnimation],
 })
-export class ContactDialogComponent {
+
+/**
+ * Class representing a contact dialog component.
+ * @extends JoinDialog
+ * @implements {OnChanges}
+ */
+export class ContactDialogComponent extends JoinDialog implements OnChanges {
   join: JoinService = inject(JoinService);
   viewer: ContactService = inject(ContactService);
-  dialog: DialogService = inject(DialogService);
-
-  // input height: 50px ... ?
-  // InputConfigurationService --> set phone input ...
-  // CloseButtonComponent ... !
-  // imgClasses: 24, 32, 64 ...
-  // ProfileComponent with name and email ... ?
-
-  // transition ... !
-  // button validation ... (0/2)
 
   @Input() dialogId: string = 'addContact';
 
-  // disabled?
-  cancelBtn: ButtonData = {
-    buttonClass: 'clear-btn',
-    textClass: 'clear-btn-text',
-    text: 'Cancel',
-    imgClass: 'clear-btn-img',
-    src: '/assets/img/add-task/cancel_button.png',
-    alt: 'cancel_button',
-  };
+  defaultValue = { name: '', email: '', phone: '' };
 
-  // disabled?
-  createBtn: ButtonData = {
-    buttonClass: 'create-btn',
-    textClass: 'create-btn-text',
-    text: 'Create contact',
-    imgClass: 'create-btn-img',
-    src: '/assets/img/add-task/create_button.png',
-    alt: 'create_button',
-  };
+  inputConfig: InputConfig[] = [
+    { placeholder: 'Name', img: 'person', valOff: true },
+    { placeholder: 'Email', img: 'email', valOff: true },
+    { placeholder: 'Phone', img: 'phone', valOff: true },
+  ];
 
-  deleteBtn: ButtonData = {
-    buttonClass: 'clear-btn',
-    textClass: 'clear-btn-text',
-    text: 'Delete',
-    imgClass: 'delete-btn-img',
-    src: '/assets/img/contacts/delete.png',
-    alt: 'delete',
-  };
+  cancelBtn = new JoinButton('clearBtn');
+  createBtn = new JoinButton('createBtn');
+  deleteBtn = new JoinButton('deleteContactBtn');
+  saveBtn = new JoinButton('saveBtn');
 
-  // disabled?
-  saveBtn: ButtonData = {
-    buttonClass: 'create-btn',
-    textClass: 'create-btn-text',
-    text: 'Save',
-    imgClass: 'create-btn-img',
-    src: '/assets/img/add-task/create_button.png',
-    alt: 'create_button',
-  };
-
+  /**
+   * Gets a contact to edit.
+   * @returns The contact to edit.
+   */
   get contact() {
     return this.viewer.cachedContact;
   }
 
-  get title() {
-    return this.dialog.title;
+  /**
+   * Updates a contact dialog component on changes.
+   * @param changes - The changes.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    this.id = changes['dialogId'].currentValue;
+    if (this.isEditContactDialog()) {
+      this.form.patchValue(this.contact);
+    } else {
+      this.form.reset(this.defaultValue);
+    }
   }
 
-  get subtitle() {
-    return this.dialog.subtitle;
+  /**
+   * Initializes a contact dialog component.
+   */
+  ngOnInit() {
+    this.setForm();
+    this.setButtonTexts();
   }
 
-  isOpened() {
-    return this.dialog.isOpened(this.dialogId);
+  /**
+   * Sets a form.
+   */
+  setForm() {
+    this.registerControl('name', '');
+    this.registerControl('email', '');
+    this.registerControl('phone', '');
   }
 
+  /**
+   * Sets the button texts.
+   */
+  setButtonTexts() {
+    this.cancelBtn.text = 'Cancel';
+    this.createBtn.text = 'Create contact';
+  }
+
+  /**
+   * Gets the css class of a profile background-color.
+   * @returns The css class of the profile background-color.
+   */
+  getBgcClass() {
+    let empty = isDefaultString(this.contact.bgc);
+    return !empty ? this.contact.bgc : 'bgc-gray';
+  }
+
+  /**
+   * Verifies an edit-contact dialog.
+   * @returns A boolean value.
+   */
+  isEditContactDialog() {
+    return this.id == 'editContact';
+  }
+
+  /**
+   * Closes a dialog on click.
+   */
   onClose() {
-    this.cancel();
+    this.closeDialog();
   }
 
-  cancel() {
+  /**
+   * Closes a dialog.
+   */
+  closeDialog() {
     this.dialog.close(this.dialogId);
     this.dialog.title = '';
     this.dialog.subtitle = '';
     this.viewer.cachedContact = new Contact();
   }
 
-  onStop(event: Event) {
-    stop(event);
-  }
-
-  getBgcClass() {
-    let empty = isDefaultString(this.contact.bgc);
-    return !empty ? this.contact.bgc : 'bgc-gray';
-  }
-
-  async onCreate(ngForm: NgForm) {
-    // if ngForm.form.valid!!!
-    // set contact complete (with initials)!!!
-    this.join.user.contacts.push(this.contact);
-    let id = this.join.user.id;
-    let contacts = getObjectArray<Contact>(this.join.user.contacts, Contact);
-    console.log('contacts: ', contacts);
-
-    await this.join.updateUser(id, 'data.contacts', contacts);
-    this.join.saveUserLocally();
-    // real time update!!!
-    // close and reset!!!
-  }
-
+  /**
+   * Opens a delete-contact dialog on click.
+   */
   onDelete() {
     this.dialog.open('deleteContact');
   }
 
-  async onSave(ngForm: NgForm) {
-    // // if ngForm.form.valid!!!
-    this.viewer.contact.set(this.contact);
+  /**
+   * Saves a contact on click.
+   */
+  async onSave() {
+    if (this.form.valid) {
+      this.viewer.contact.set(this.form.value);
+      await this.saveUserContacts();
+      this.closeDialog();
+    }
+  }
+
+  /**
+   * Saves user contacts.
+   */
+  async saveUserContacts() {
     let id = this.join.user.id;
     let contacts = getObjectArray<Contact>(this.join.user.contacts, Contact);
-    console.log('contacts: ', contacts);
     await this.join.updateUser(id, 'data.contacts', contacts);
     this.join.saveUserLocally();
-    this.cancel();
+  }
+
+  /**
+   * Creates a contact on click.
+   */
+  async onCreate() {
+    if (this.form.valid) {
+      this.join.user.contacts.push(this.form.value);
+      await this.saveUserContacts();
+      this.closeDialog();
+    }
   }
 }

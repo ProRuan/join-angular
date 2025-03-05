@@ -166,5 +166,24 @@ export class ButtonDataService {
     alt: 'add_new_contact',
   };
 
+  deleteContactBtn: ButtonData = {
+    buttonClass: 'clear-btn',
+    textClass: 'clear-btn-text',
+    text: 'Delete',
+    imgClass: 'delete-btn-img',
+    src: '/assets/img/contacts/delete.png',
+    alt: 'delete',
+  };
+
+  // disabled?
+  saveBtn: ButtonData = {
+    buttonClass: 'create-btn',
+    textClass: 'create-btn-text',
+    text: 'Save',
+    imgClass: 'create-btn-img',
+    src: '/assets/img/add-task/create_button.png',
+    alt: 'create_button',
+  };
+
   constructor() {}
 }
