@@ -57,7 +57,7 @@ export class ContactDialogComponent extends JoinDialog implements OnChanges {
   cancelBtn = new JoinButton('clearBtn');
   createBtn = new JoinButton('createBtn');
   deleteBtn = new JoinButton('deleteContactBtn');
-  saveBtn = new JoinButton('saveBtn');
+  saveBtn = new JoinButton('createBtn', 'Save');
 
   /**
    * Gets a contact to edit.

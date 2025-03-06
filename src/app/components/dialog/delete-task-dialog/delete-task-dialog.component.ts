@@ -26,8 +26,8 @@ export class DeleteTaskDialogComponent extends JoinDialog {
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
 
-  noBtn = new JoinButton('noBtn');
-  yesBtn = new JoinButton('yesBtn');
+  noBtn = new JoinButton('clearBtn', 'No');
+  yesBtn = new JoinButton('createBtn', 'Yes');
 
   override id: string = 'deleteTask';
 

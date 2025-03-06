@@ -63,7 +63,7 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
   calendar: AbstractControl | null = null;
   search: AbstractControl | null = null;
   subtask: AbstractControl | null = null;
-  okBtn = new JoinButton('okBtn');
+  okBtn = new JoinButton('createBtn', 'Ok');
 
   override id: string = 'editTask';
 

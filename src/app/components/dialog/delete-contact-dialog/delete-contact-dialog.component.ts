@@ -25,8 +25,8 @@ export class DeleteContactDialogComponent extends JoinDialog {
   join: JoinService = inject(JoinService);
   viewer: ContactService = inject(ContactService);
 
-  noBtn = new JoinButton('noBtn');
-  yesBtn = new JoinButton('yesBtn');
+  noBtn = new JoinButton('clearBtn', 'No');
+  yesBtn = new JoinButton('createBtn', 'Yes');
 
   override id: string = 'deleteContact';
 
