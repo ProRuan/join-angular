@@ -2,29 +2,39 @@ import { inject } from '@angular/core';
 import { ButtonData } from '../interfaces/button-data';
 import { ButtonDataService } from '../services/button-data.service';
 
+/**
+ * Class representing a join button.
+ */
 export class JoinButton {
   buttons: ButtonDataService = inject(ButtonDataService);
 
   [key: string]: any;
-  buttonClass: string = 'create-btn';
-  textClass: string = 'create-btn-text';
-  text: string = 'Create Task';
-  imgClass: string = 'create-btn-img';
-  src: string = '/assets/img/add-task/create_button.png';
-  alt: string = 'create_button';
+  buttonClass: string = '';
+  textClass: string = '';
+  text: string = '';
+  imgClass: string = '';
+  src: string = '';
+  alt: string = '';
 
-  // create default button (to show the default) ... ?
-
+  /**
+   * Creates a join button.
+   * @param id - The button id.
+   */
   constructor(id?: string) {
     if (id) {
       this.set(this.buttons[id]);
+    } else {
+      this.set(this.buttons['createBtn']);
     }
   }
 
-  // replace all with contructor!!!
+  /**
+   * Sets a join button.
+   * @param data - The button data.
+   */
   set(data: ButtonData) {
-    for (const [key] of Object.entries(this)) {
-      this[key] = data[key];
+    for (const [key, value] of Object.entries(data)) {
+      this[key] = value;
     }
   }
 }

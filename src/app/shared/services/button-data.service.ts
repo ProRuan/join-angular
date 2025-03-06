@@ -7,6 +7,12 @@ import { ButtonData } from '../interfaces/button-data';
 export class ButtonDataService {
   // improve classes and class names ...
 
+  // JoinButton
+  // ----------
+  // create default button (to show the default) ... ?
+  //   --> update join button default setting ... !
+  // set optional class contClass ... ? (for h-25)
+
   // DialogComponent
   // ---------------
   // move dialogs to other folder ...

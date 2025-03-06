@@ -102,10 +102,11 @@ Interfaces (7/?)
   - Styles - check
   - UserData - check
 
-Models (3/?)
+Models (4/?)
 ------
   - FormController - check
   - InputValidator - check *error { key: key, value: value }
+  - JoinButton - check
   - JoinDialog ...
   - ReactiveInput ... *class representing ...
   - Transform - check
