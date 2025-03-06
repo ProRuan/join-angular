@@ -7,12 +7,14 @@ import {
   Validator,
   ValidatorFn,
 } from '@angular/forms';
+
+// verify!!!
 import { InputValidator } from './input-validator';
 import { InputConfig } from '../interfaces/input-config';
 import { InputValidatorService } from '../services/input-validator.service';
 
 /**
- * Represents a reactive input.
+ * Class representing a reactive input.
  * @implements {ControlValueAccessor}
  * @implements {Validator}
  */
@@ -59,8 +61,27 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   control: AbstractControl | null = null;
 
   focused: boolean = false;
-  // touched: boolean = false;
-  error: string = '';
+  error: string = ''; // errorText?!
+
+  // define errors on input components!!!
+  possibleErrors: string[] = [
+    'required',
+    'forbidden',
+    'minLength',
+    'upperCase',
+    'lowerCase',
+    'digit',
+    'specialChar',
+    'sequence',
+    'name',
+    'email',
+    'password',
+    'dueDate',
+    'invalidDate',
+    'minDate',
+    'maxLength',
+  ];
+
   placeholder: string = '';
   img: string = '';
 
@@ -69,11 +90,8 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   valOff: boolean = false; // input value!!!
   // update text input and password input for displayed error!!!
 
-  onChange = (value: string) => {};
-  onTouched = () => {};
-
   /**
-   * Gets the current value of the control.
+   * Gets the current value of a control.
    * @returns The current value of the control.
    */
   get value() {
@@ -81,7 +99,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   }
 
   /**
-   * Sets the current value of the control.
+   * Sets the current value of a control.
    * @param value - The value to set.
    */
   set value(value: string) {
@@ -97,7 +115,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   }
 
   /**
-   * Writes the input value.
+   * Writes an input value.
    * @param value - The value to write.
    */
   writeValue(value: string) {
@@ -113,94 +131,28 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   }
 
   /**
-   * Registers a function to be called on touched.
-   * @param fn - The function to register.
+   * Validates a control on change.
    */
-  registerOnTouched(fn: any) {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Sets the input value on input.
-   * @param event - The occurring event.
-   */
-  onInput(event: Event) {
-    this.value = this.getInputValue(event);
-    this.onChange(this.value);
-    this.onTouched();
-    this.control?.markAsDirty();
-
-    // define errors on input component!!!
-    const errors = [
-      'required',
-      'forbidden',
-      'minLength',
-      'upperCase',
-      'lowerCase',
-      'digit',
-      'specialChar',
-      'sequence',
-      'name',
-      'email',
-      'password',
-      'dueDate',
-      'invalidDate',
-      'minDate',
-      'maxLength',
-    ];
-    this.error = '';
-    for (let i = 0; i < errors.length; i++) {
-      let error = errors[i];
-      if (this.control?.hasError(error)) {
-        this.error = this.control.getError(error);
-        break;
-      }
+  onChange() {
+    if (this.control) {
+      this.validate(this.control);
     }
-    console.log('error: ', this.error);
-  }
-
-  /**
-   * Gets the input value by an event.
-   * @param event - The occurring event.
-   * @returns The input value.
-   */
-  getInputValue(event: Event) {
-    let input = event.target as HTMLInputElement;
-    return input.value;
-  }
-
-  /**
-   * Focuses the input on focus.
-   */
-  onFocus() {
-    this.focused = true;
-  }
-
-  /**
-   * Blurs the input on blur.
-   */
-  onBlur() {
-    this.focused = false;
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
     const error = this.getValidationError(control);
 
-    // only for testing!!!
-    console.log('error: ', error);
+    this.error = '';
+    for (let error of this.possibleErrors) {
+      if (this.control?.hasError(error)) {
+        this.error = this.control.getError(error);
+        break;
+      }
+    }
 
     return error;
   }
 
-  isInvalid() {
-    return this.dirty && this.invalid;
-  }
-
-  // isInvalid(error: ValidationErrors | null) {
-  //   return !!error;
-  // }
-
-  // catch error here?!
   getValidationError(control: AbstractControl): ValidationErrors | null {
     for (let validator of this.validators) {
       const result = validator(control);
@@ -209,6 +161,49 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
       }
     }
     return null;
+  }
+
+  /**
+   * Registers a function to be called on touched.
+   * @param fn - The function to register.
+   */
+  registerOnTouched(fn: any) {}
+
+  /**
+   * Updates an input value on input.
+   * @param event - The event.
+   */
+  onInput(event: Event) {
+    this.setInputValue(event);
+    this.onChange();
+    this.control?.markAsDirty(); // verfiy this!!!
+  }
+
+  /**
+   * Sets an input value.
+   * @param event - The event.
+   */
+  setInputValue(event: Event) {
+    let input = event.target as HTMLInputElement;
+    this.value = input.value;
+  }
+
+  /**
+   * Focuses an input on focus.
+   */
+  onFocus() {
+    this.focused = true;
+  }
+
+  /**
+   * Blurs an input on blur.
+   */
+  onBlur() {
+    this.focused = false;
+  }
+
+  isInvalid() {
+    return this.dirty && this.invalid;
   }
 
   /**

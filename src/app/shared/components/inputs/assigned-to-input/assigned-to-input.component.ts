@@ -37,8 +37,6 @@ export class AssignedToInputComponent extends ReactiveInput {
   @Input('assignedContacts') taskControl: AbstractControl | null = null;
   @Input('contacts') assignableContacts: Contact[] = [];
 
-  override onChange: (value: string) => void = this.change;
-
   /**
    * Gets assigned contacts.
    * @returns The assigned contacts.
@@ -56,9 +54,9 @@ export class AssignedToInputComponent extends ReactiveInput {
   }
 
   /**
-   * Changes an input state to dirty.
+   * Marks an input as dirty on change.
    */
-  change() {
+  override onChange() {
     this.markAsDirty(this.taskControl);
   }
 

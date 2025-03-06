@@ -127,6 +127,7 @@ shared/models (9/?)
   - Task - check
   - Transform - check
   - User - check
+  - UserDoc - check * delete/move sid to data?!
 
 shared/services (11/?)
 ---------------
