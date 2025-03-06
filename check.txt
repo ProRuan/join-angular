@@ -112,9 +112,10 @@ Models (4/?)
   - Transform - check
 
 
-Services (4/?)
+Services (5/?)
 --------
   - ContactService ... * rename to ContactViewerService?
+  - DateFormatterService - check
   - DialogService - check
   - GlobalService ...
   - LogService - check

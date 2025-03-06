@@ -56,7 +56,7 @@ import { stop } from '../../../shared/ts/global';
 export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
   join: JoinService = inject(JoinService);
   validators: InputValidatorService = inject(InputValidatorService);
-  formatter: DateFormatterService = inject(DateFormatterService);
+  dateFormatter: DateFormatterService = inject(DateFormatterService);
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
 
@@ -108,7 +108,7 @@ export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
    * @param dueDate - The task due date.
    */
   updateCalendar(dueDate: string) {
-    let date = this.formatter.getCalendarDate(dueDate);
+    let date = this.dateFormatter.getCalendarDate(dueDate);
     this.calendar?.setValue(date);
   }
 
