@@ -122,8 +122,9 @@ Services (4/?)
   - NavigationService - check
       
 
-ts (1/?)
+ts (2/?)
 --
+  - pattern.ts check
   - validate.ts - check
   - ... ... ...
 

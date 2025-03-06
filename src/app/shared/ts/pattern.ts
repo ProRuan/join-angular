@@ -2,19 +2,9 @@ const DIGITS = '0-9';
 const UPPER_CASES = 'A-ZÀ-Ÿ';
 const LOWER_CASES = 'a-zà-ÿß';
 const SPECIAL_CHARS = '!@#$%^&*';
-const letters = LOWER_CASES;
-
-// think about pattern structure: service, classes, objects ...
-
-// for name input validation!!!
-// ----------------------------
-// let testRawPattern = '([a-zà-ÿß]{2,}(?:-([a-zà-ÿß]{2,}))?)';
-// let testPattern = new RegExp(`${testRawPattern}`, 'gi');
-// let testName = 'Rudolf-Johann Sachslehner-S Wald-Pilz';
-// console.log('pattern test: ', testName.match(testPattern));
 
 /**
- * Gets name patterns for the name input validation.
+ * Gets name patterns.
  * @returns The name patterns.
  */
 function getNamePatterns() {
@@ -25,43 +15,53 @@ function getNamePatterns() {
 }
 
 /**
- * Gets a name pattern for the name input validation.
+ * Gets a name pattern.
  * @returns The name pattern.
  */
 function getNamePattern() {
-  return new RegExp(`^[${letters}]{2,}`, 'i');
+  return getPattern(`^[${LOWER_CASES}]{2,}`, 'i');
 }
 
 /**
- * Gets a forbidden pattern for the name input validation.
- * @returns The forbidden pattern.
+ * Gets a pattern.
+ * @param pattern - The pattern.
+ * @param flags - The flags.
+ * @returns The pattern.
+ */
+function getPattern(pattern: string, flags?: string) {
+  return new RegExp(pattern, flags);
+}
+
+/**
+ * Gets a forbidden pattern for names.
+ * @returns The forbidden pattern for names.
  */
 function getNameForbiddenPattern() {
-  return new RegExp(`[^${letters}\\s-]`, 'i');
+  return getPattern(`[^${LOWER_CASES}\\s-]`, 'i');
 }
 
 /**
- * Gets a sequence pattern for the name input validation.
- * @returns The sequence pattern.
+ * Gets a sequence pattern for names.
+ * @returns The sequence pattern for names.
  */
 function getNameSequencePattern() {
-  return new RegExp(`(?:[\\s-][${letters}][\\s-])|(?:[\\s|-]{2,})`, 'i');
+  return getPattern(`(?:[\\s-][${LOWER_CASES}][\\s-])|(?:[\\s|-]{2,})`, 'i');
 }
 
 export const namePatterns = getNamePatterns();
 
 /**
- * Gets a double name pattern for the name input validation.
+ * Gets a double name pattern.
  * @returns The double name pattern.
  */
 function getDoubleNamePattern() {
-  return new RegExp(`[${letters}]{2,}(:?-[${letters}]{2,})?`, 'gi');
+  return getPattern(`[${LOWER_CASES}]{2,}(:?-[${LOWER_CASES}]{2,})?`, 'gi');
 }
 
 export const doubleNamePattern = getDoubleNamePattern();
 
 /**
- * Gets email patterns for the email input validation.
+ * Gets email patterns.
  * @returns The email patterns.
  */
 function getEmailPatterns() {
@@ -71,52 +71,52 @@ function getEmailPatterns() {
 }
 
 /**
- * Gets an email pattern for the email input validation.
+ * Gets an email pattern.
  * @returns The email pattern.
  */
 function getEmailPattern() {
-  const userName = getEmailUserName();
-  const domain = getEmailDomain();
-  const topLevelDomain = getEmailTopLevelDomain();
-  return new RegExp(`^${userName}@${domain}\\.${topLevelDomain}$`, 'i');
+  const userName = getEmailUserNamePattern();
+  const domain = getEmailDomainPattern();
+  const topLevelDomain = getEmailTopLevelDomainPattern();
+  return getPattern(`^${userName}@${domain}\\.${topLevelDomain}$`, 'i');
 }
 
 /**
- * Gets a user name pattern for the email input validation.
- * @returns The user name pattern.
+ * Gets a user name pattern for emails.
+ * @returns The user name pattern for emails.
  */
-function getEmailUserName() {
-  return `[${DIGITS}${letters}._%+-]+`;
+function getEmailUserNamePattern() {
+  return `[${DIGITS}${LOWER_CASES}._%+-]+`;
 }
 
 /**
- * Gets a domain pattern for the email input validation.
- * @returns The domain pattern.
+ * Gets a domain pattern for emails.
+ * @returns The domain pattern for emails.
  */
-function getEmailDomain() {
-  return `[${DIGITS}${letters}.-]+`;
+function getEmailDomainPattern() {
+  return `[${DIGITS}${LOWER_CASES}.-]+`;
 }
 
 /**
- * Gets a top-level-domain pattern for the email input validation.
- * @returns The top-level-domain pattern.
+ * Gets a top-level-domain pattern for emails.
+ * @returns The top-level-domain pattern for emails.
  */
-function getEmailTopLevelDomain() {
-  return `[${letters}]{2,}`;
+function getEmailTopLevelDomainPattern() {
+  return `[${LOWER_CASES}]{2,}`;
 }
 
 /**
- * Gets a forbidden pattern for the email input validation.
- * @returns The forbidden pattern.
+ * Gets a forbidden pattern for emails.
+ * @returns The forbidden pattern for emails.
  */
 function getEmailForbiddenPattern() {
-  return new RegExp(`[^${DIGITS}${letters}._%+-@]`, 'i');
+  return getPattern(`[^${DIGITS}${LOWER_CASES}._%+-@]`, 'i');
 }
 
 export const emailPatterns = getEmailPatterns();
 
 /**
- * Gets password patterns for the password input validation.
+ * Gets password patterns.
  * @returns The password patterns.
  */
 function getPasswordPatterns() {
@@ -134,31 +134,43 @@ function getPasswordPatterns() {
  * @returns The lockahead pattern.
  */
 function getLockaheadPattern(value: string) {
-  return new RegExp(`(?=.*[${value}])`);
+  return getPattern(`(?=.*[${value}])`);
 }
 
 /**
- * Gets a forbidden pattern for the password input validation.
- * @returns The forbidden pattern.
+ * Gets a forbidden pattern for passwords.
+ * @returns The forbidden pattern for passwords.
  */
 function getPasswordForbiddenPattern() {
-  return new RegExp(`[^${DIGITS}${letters}${SPECIAL_CHARS}]`, 'i');
+  return getPattern(`[^${DIGITS}${LOWER_CASES}${SPECIAL_CHARS}]`, 'i');
 }
 
 export const passwordPatterns = getPasswordPatterns();
 
+/**
+ * Gets due date patterns.
+ * @returns - The due date patterns.
+ */
 function getDueDatePatterns() {
   const dueDate = getDueDatePattern();
   const forbidden = getDueDateForbiddenPattern();
   return { dueDate, forbidden };
 }
 
+/**
+ * Gets a due date pattern.
+ * @returns - The due date pattern.
+ */
 function getDueDatePattern() {
-  return new RegExp(`^(\\d{1,2})\/(\\d{1,2})\/(\\d{4})$`);
+  return getPattern(`^(\\d{1,2})\/(\\d{1,2})\/(\\d{4})$`);
 }
 
+/**
+ * Gets a forbidden pattern for due dates.
+ * @returns - The forbidden pattern for due dates.
+ */
 function getDueDateForbiddenPattern() {
-  return new RegExp(`[^\\d\\/]`);
+  return getPattern(`[^\\d\\/]`);
 }
 
 export const dueDatePatterns = getDueDatePatterns();
