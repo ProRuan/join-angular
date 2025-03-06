@@ -42,7 +42,7 @@ export class ButtonDataService {
     buttonClass: 'settings-btn',
     textClass: 'settings-btn-text',
     text: 'Delete',
-    imgClass: 'delete',
+    imgClass: 'img-24 delete',
     src: '/assets/img/contacts/delete.png',
     alt: 'delete',
   };
@@ -51,7 +51,7 @@ export class ButtonDataService {
     buttonClass: 'settings-btn',
     textClass: 'settings-btn-text',
     text: 'Edit',
-    imgClass: 'edit',
+    imgClass: 'img-24 edit',
     src: '/assets/img/contacts/edit.png',
     alt: 'edit',
   };

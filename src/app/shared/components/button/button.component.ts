@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ButtonData } from '../../interfaces/button-data';
+import { JoinButton } from '../../models/join-button';
 
 @Component({
   selector: 'app-button',
@@ -11,16 +11,9 @@ import { ButtonData } from '../../interfaces/button-data';
 })
 
 /**
- * Represents a button component.
+ * Class representing a button component.
  */
 export class ButtonComponent {
-  @Input() button: ButtonData = {
-    buttonClass: '',
-    textClass: '',
-    text: '',
-    imgClass: '',
-    src: '',
-    alt: '',
-  };
+  @Input() button = new JoinButton();
   @Input() disabled: boolean = false;
 }

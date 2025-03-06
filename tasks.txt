@@ -54,9 +54,13 @@ components (4/?)
 ----------
   - DialogComponent - ... (1/?)
       - AddTaskDialogComponent - check
+      - ViewTaskDialogComponent - check
+      - EditTaskDialogComponent - check
+      - DeleteTaskDialogComponent - check
   - LoginComponent - check
   - NewPasswordComponent - check
   - SignUpComponent - check
+  - MainComponent ...
   - SummaryComponent - check
       - SumCardComponent - check
   - AddTaskComponent - check* *How many child components?
@@ -72,15 +76,14 @@ components (4/?)
       - DraggableTaskComponent - check
   - ContactComponent - check (2/?)
       - ContactListComponent ...
-      - ViewableContactComponent - check
       - ContactViewerComponent ...
       - AddContactDialogComponent ...
       - EditContactDialogComponent ...
       - DeleteContactDialogComponent ...
 
-shared/components (17/?)
+shared/components (16/?)
 -----------------
-  - Button - check
+  - ButtonComponent - check
   - CheckboxComponent - check
   - HeaderComponent - check
   - HintComponent - check
@@ -117,15 +120,16 @@ shared/interfaces (13/?)
 
 shared/models (9/?)
 -------------
-  - BasicInput - check
+  - BasicInput - ... * delete?!
   - Contact - check
-  - PasswordInput - check
+  - JoinButton - check
+  - PasswordInput - ... ?
   - SessionId - ... --> delete!!!
   - Subtask - check
   - Summary - check
   - SummaryTask - check
   - Task - check
-  - Transform - check
+  - Transform - check * necessary?
   - User - check
   - UserDoc - check * delete/move sid to data?!
 

@@ -1,8 +1,5 @@
 @import "../../../../mixins.scss";
 
-// think about cont classes and width classes ... !!!
-// rename buttons and add button + ext ... !!!
-
 .clear-btn {
   @include round-border($b: 1px solid $dark, $br: 10px);
   @include display-row($ai: center, $g: 4px);
@@ -120,10 +117,6 @@
   background-color: transparent;
   border: none;
   flex-direction: row-reverse;
-
-  img {
-    @include size($w: 24px, $h: 24px);
-  }
 }
 
 .settings-btn-text {
@@ -136,39 +129,26 @@
   }
 }
 
+.img-24 {
+  @include size($w: 24px, $h: 24px);
+}
+
 .edit {
   .settings-btn:hover & {
-    content: url("../../../../assets/img/contacts/edit_blue.png");
+    content: url("/assets/img/contacts/edit_blue.png");
   }
 }
 
 .delete {
   .settings-btn:hover & {
-    content: url("../../../../assets/img/contacts/delete_blue.png");
+    content: url("/assets/img/contacts/delete_blue.png");
   }
-}
-
-.no-btn {
-  padding: 7px 15px;
-}
-
-.yes-btn {
-  padding: 8px 16px;
-}
-
-.h-24 {
-  height: 24px;
 }
 
 .add-new-contact-btn {
   @include display-row($jc: center, $ai: center, $g: 16px);
   padding: 12px;
   width: 352px;
-}
-
-// necessary!!!
-.h-25 {
-  height: 25px;
 }
 
 .delete-btn-img {
