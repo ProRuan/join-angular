@@ -62,25 +62,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
 
   focused: boolean = false;
   error: string = ''; // errorText?!
-
-  // define errors on input components!!!
-  possibleErrors: string[] = [
-    'required',
-    'forbidden',
-    'minLength',
-    'upperCase',
-    'lowerCase',
-    'digit',
-    'specialChar',
-    'sequence',
-    'name',
-    'email',
-    'password',
-    'dueDate',
-    'invalidDate',
-    'minDate',
-    'maxLength',
-  ];
+  possibleErrors: string[] = [];
 
   placeholder: string = '';
   img: string = '';
@@ -249,6 +231,9 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     this.placeholder = config.placeholder;
     this.img = config.img;
     this.valOff = config.valOff;
+    if (config.possibleErrors) {
+      this.possibleErrors = config.possibleErrors;
+    }
   }
 
   isFilled() {

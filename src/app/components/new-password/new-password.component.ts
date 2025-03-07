@@ -14,6 +14,7 @@ import { TextInputComponent } from '../../shared/components/inputs/text-input/te
 import { PasswordInputComponent } from '../../shared/components/inputs/password-input/password-input.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { LogService } from '../../shared/services/log.service';
 import { NavigationService } from '../../shared/services/navigation.service';
@@ -45,6 +46,7 @@ import { UserDoc } from '../../shared/models/user-doc';
 export class NewPasswordComponent extends FormController {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
@@ -64,7 +66,6 @@ export class NewPasswordComponent extends FormController {
   ngOnInit() {
     this.setForm();
     this.setControls();
-    this.setConfig();
   }
 
   /**
@@ -79,15 +80,6 @@ export class NewPasswordComponent extends FormController {
    */
   setControls() {
     this.email = this.get('email');
-  }
-
-  /**
-   * Sets a configuration.
-   */
-  setConfig() {
-    this.addInputConfig('Email', 'email', true);
-    this.addInputConfig('Password', 'lock');
-    this.addInputConfig('Confirm Password', 'lock');
   }
 
   /**

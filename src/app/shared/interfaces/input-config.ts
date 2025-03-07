@@ -5,4 +5,5 @@ export interface InputConfig {
   placeholder: string;
   img: string;
   valOff: boolean;
+  possibleErrors?: string[];
 }

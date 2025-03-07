@@ -14,6 +14,7 @@ import { PasswordInputComponent } from '../../shared/components/inputs/password-
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import {
   getLocalItem,
@@ -53,6 +54,7 @@ export class LoginComponent extends FormController {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
 
   email: AbstractControl | null = null;
@@ -67,7 +69,6 @@ export class LoginComponent extends FormController {
   async ngOnInit() {
     this.setForm();
     this.setControls();
-    this.setConfig();
     await this.setSigneeEmail();
     await this.setRememberedUser();
   }
@@ -86,14 +87,6 @@ export class LoginComponent extends FormController {
   setControls() {
     this.email = this.get('email');
     this.password = this.get('password');
-  }
-
-  /**
-   * Sets a configuration.
-   */
-  private setConfig() {
-    this.addInputConfig('Email', 'email', true);
-    this.addInputConfig('Password', 'lock', true);
   }
 
   /**

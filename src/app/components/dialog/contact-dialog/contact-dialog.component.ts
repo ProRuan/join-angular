@@ -13,8 +13,8 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { dialogAnimation } from '../../../shared/animations/dialog.animation';
 import { JoinDialog } from '../../../shared/models/join-dialog';
 import { JoinService } from '../../../shared/services/join.service';
+import { InputConfigurationService } from '../../../shared/services/input-configuration.service';
 import { ContactService } from '../../../shared/services/contact.service';
-import { InputConfig } from '../../../shared/interfaces/input-config';
 import { JoinButton } from '../../../shared/models/join-button';
 import { Contact } from '../../../shared/models/contact';
 import { getObjectArray, isDefaultString } from '../../../shared/ts/global';
@@ -42,17 +42,12 @@ import { getObjectArray, isDefaultString } from '../../../shared/ts/global';
  */
 export class ContactDialogComponent extends JoinDialog implements OnChanges {
   join: JoinService = inject(JoinService);
+  config: InputConfigurationService = inject(InputConfigurationService);
   viewer: ContactService = inject(ContactService);
 
   @Input() dialogId: string = 'addContact';
 
   defaultValue = { name: '', email: '', phone: '' };
-
-  inputConfig: InputConfig[] = [
-    { placeholder: 'Name', img: 'person', valOff: true },
-    { placeholder: 'Email', img: 'email', valOff: true },
-    { placeholder: 'Phone', img: 'phone', valOff: true },
-  ];
 
   cancelBtn = new JoinButton('clearBtn');
   createBtn = new JoinButton('createBtn');

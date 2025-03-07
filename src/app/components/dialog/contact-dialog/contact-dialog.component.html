@@ -22,9 +22,9 @@
 
                     <form [formGroup]="form" class="form">
                         <div class="input-group">
-                            <app-text-input [control]="get('name')" [config]="inputConfig[0]"></app-text-input>
-                            <app-text-input [control]="get('email')" [config]="inputConfig[1]"></app-text-input>
-                            <app-text-input [control]="get('phone')" [config]="inputConfig[2]"></app-text-input>
+                            <app-text-input [control]="get('name')" [config]="config.name"></app-text-input>
+                            <app-text-input [control]="get('email')" [config]="config.email"></app-text-input>
+                            <app-text-input [control]="get('phone')" [config]="config.name"></app-text-input>
                         </div>
 
                         <div class="button-group">

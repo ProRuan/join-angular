@@ -7,6 +7,7 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { InputConfigurationService } from '../../../services/input-configuration.service';
 import { DateFormatterService } from '../../../services/date-formatter.service';
 import { dueDatePatterns } from '../../../ts/pattern';
 import { getISODateString } from '../../../ts/global';
@@ -28,10 +29,13 @@ import { getISODateString } from '../../../ts/global';
  * @extends ReactiveInput
  */
 export class DueDateInputComponent extends ReactiveInput {
+  config: InputConfigurationService = inject(InputConfigurationService);
   dateFormatter: DateFormatterService = inject(DateFormatterService);
 
   pattern: RegExp = dueDatePatterns.dueDate;
   minDate: string = '';
+
+  override possibleErrors: string[] = this.config.dueDate.possibleErrors;
 
   @Input() override control: AbstractControl<any, any> | null = null;
   @Input() calendar: AbstractControl | null = null;

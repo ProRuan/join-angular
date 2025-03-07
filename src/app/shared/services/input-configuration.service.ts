@@ -1,98 +1,89 @@
 import { Injectable } from '@angular/core';
-import { nameVal, emailVal, passwordVal } from './input-validation.service';
+import { InputConfig } from '../interfaces/input-config';
 
 @Injectable({
   providedIn: 'root',
 })
 
 /**
- * Represents an input configuration service.
+ * Class representing an input configuration service.
  */
 export class InputConfigurationService {
-  allowedKeys: string[] = [
-    'home',
-    'end',
-    'insert',
-    'delete',
-    'backspace',
-    'tab',
-    'capslock',
-    'shift',
-    'control',
-    'meta',
-    'alt',
-    'altgraph',
-    'arrowleft',
-    'arrowright',
-  ];
-
-  input: { [key: string]: any } = {
-    name: {
-      placeholder: 'Name',
-      pattern: nameVal.namePat,
-      required: true,
-      img: 'person.png',
-      hint: () => nameVal.getHint(),
-      charSet: this.getCharSet(nameVal),
-      isInvalid: (value: string) => nameVal.isInvalid(value),
-    },
-    email: {
-      placeholder: 'Email',
-      pattern: emailVal.emailPat,
-      required: true,
-      img: 'email.png',
-      hint: () => emailVal.getHint(),
-      charSet: this.getCharSet(emailVal),
-      isInvalid: (value: string) => emailVal.isInvalid(value),
-    },
-    phone: {
-      // to set!!!
-      placeholder: 'Phone',
-      pattern: /[\+]?[d]{5,10}/, // to set!!!
-      required: false,
-      img: 'phone.png',
-      hint: () => {}, // to set!!!
-      charSet: new Set('+0123456789'), // to set!!!
-      isInvalid: () => {}, // to set!!!
-    },
-    password: {
-      placeholder: 'Password',
-      pattern: passwordVal.passwordPat,
-      required: true,
-      img: 'lock.png',
-      hint: (value: string) => passwordVal.getHint(value),
-      charSet: this.getCharSet(passwordVal),
-      isInvalid: (value: string) => passwordVal.isInvalid(value),
-    },
-    matchword: {
-      placeholder: 'Confirm password',
-      pattern: (value: string) => passwordVal.getMatchPattern(value),
-      required: true,
-      img: 'lock.png',
-      hint: (matchValue: string, value: string) =>
-        passwordVal.getMatchHint(matchValue, value),
-      charSet: this.getCharSet(passwordVal),
-      isInvalid: (matchValue: string, value: string) =>
-        passwordVal.isMismatch(matchValue, value),
-    },
+  name: InputConfig = {
+    placeholder: 'Name',
+    img: 'person',
+    valOff: false,
+    possibleErrors: [
+      'required',
+      'forbidden',
+      'minLength',
+      'sequence',
+      'name',
+      'maxLength',
+    ],
   };
 
-  /**
-   * Provides the char set.
-   * @param val - The validation service.
-   * @returns - The char set.
-   */
-  getCharSet(val: any) {
-    let rawCharSet = val.getRawSet();
-    return new Set(rawCharSet);
-  }
+  email: InputConfig = {
+    placeholder: 'Email',
+    img: 'email',
+    valOff: false,
+    possibleErrors: [
+      'required',
+      'forbidden',
+      'minLength',
+      'email',
+      'maxLength',
+    ],
+  };
 
-  /**
-   * Provides the input configuration.
-   * @param key - The key of the input type.
-   * @returns - The input configuration.
-   */
-  getInput(key: string) {
-    return this.input[key];
-  }
+  password: InputConfig = {
+    placeholder: 'Password',
+    img: 'lock',
+    valOff: false,
+    possibleErrors: [
+      'required',
+      'forbidden',
+      'minLegnth',
+      'upperCase',
+      'lowerCase',
+      'digit',
+      'specialChar',
+      'maxLength',
+    ],
+  };
+
+  matchword: InputConfig = {
+    placeholder: 'Confirm Password',
+    img: 'lock',
+    valOff: false,
+    possibleErrors: [
+      'required',
+      'forbidden',
+      'minLegnth',
+      'password',
+      'maxLength',
+    ],
+  };
+
+  loginEmail: InputConfig = {
+    placeholder: 'Email',
+    img: 'email',
+    valOff: true,
+  };
+
+  loginWord: InputConfig = {
+    placeholder: 'Password',
+    img: 'lock',
+    valOff: true,
+  };
+
+  dueDate = {
+    possibleErrors: [
+      'required',
+      'forbidden',
+      'dueDate',
+      'invalidDate',
+      'minDate',
+    ],
+  };
 }

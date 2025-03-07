@@ -5,7 +5,6 @@ import {
   FormGroup,
   ValidatorFn,
 } from '@angular/forms';
-import { InputConfig } from '../interfaces/input-config';
 
 /**
  * Class representing a form controller.
@@ -13,15 +12,16 @@ import { InputConfig } from '../interfaces/input-config';
 export class FormController {
   fb: FormBuilder = inject(FormBuilder);
 
+  // check this class ...
+  // check tasks.txt and check.txt ... !!!
+
   form: FormGroup;
-  config: InputConfig[];
 
   /**
    * Creates a form controller.
    */
   constructor() {
     this.form = this.getForm();
-    this.config = [];
   }
 
   /**
@@ -107,16 +107,5 @@ export class FormController {
   isControl(name: string) {
     let control = this.get(name);
     return control ? true : false;
-  }
-
-  /**
-   * Adds an input configuration.
-   * @param placeholder - The input placeholder.
-   * @param img - The input image.
-   * @param valOff - A boolean value.
-   */
-  addInputConfig(placeholder: string, img: string, valOff: boolean = false) {
-    const inputConfig = { placeholder, img, valOff };
-    this.config.push(inputConfig);
   }
 }

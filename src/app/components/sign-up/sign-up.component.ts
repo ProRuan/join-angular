@@ -15,6 +15,7 @@ import { PasswordInputComponent } from '../../shared/components/inputs/password-
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { NameFormatterService } from '../../shared/services/name-formatter.service';
 import { LogService } from '../../shared/services/log.service';
@@ -53,6 +54,7 @@ import { UserData } from '../../shared/interfaces/user-data';
 export class SignUpComponent extends FormController {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
   nameFormatter: NameFormatterService = inject(NameFormatterService);
   log: LogService = inject(LogService);
@@ -77,7 +79,6 @@ export class SignUpComponent extends FormController {
   ngOnInit() {
     this.setForm();
     this.setControls();
-    this.setConfig();
   }
 
   /**
@@ -98,16 +99,6 @@ export class SignUpComponent extends FormController {
     this.email = this.get('email');
     this.password = this.get('password');
     this.matchword = this.get('matchword');
-  }
-
-  /**
-   * Sets a configuration.
-   */
-  setConfig() {
-    this.addInputConfig('Name', 'person');
-    this.addInputConfig('Email', 'email');
-    this.addInputConfig('Password', 'lock');
-    this.addInputConfig('Confirm Password', 'lock');
   }
 
   /**
