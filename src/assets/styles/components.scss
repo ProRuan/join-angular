@@ -1,0 +1,22 @@
+app-login,
+app-new-password,
+app-sign-up,
+app-summary,
+app-add-task,
+app-board,
+app-contacts,
+app-header,
+app-footer,
+app-add-task-dialog,
+app-view-task-dialog,
+app-edit-task-dialog,
+app-delete-task-dialog,
+app-contact-dialog,
+app-delete-contact-dialog {
+  display: block;
+  width: 100%;
+}
+
+app-checkbox {
+  @include size($w: 24px, $h: 24px);
+}

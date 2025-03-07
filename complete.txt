@@ -9,6 +9,19 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+Fonts
+-----
+  - add inter, poppins, open sans ... (0/3)
+
+Styles
+------
+  - updates components.scss ...
+  - add missing components!
+  - legal notice, privacy policy, help etc.
+  - delete-user-dialog ...
+  - enable scrollbars.scss ... ?
+  - review mixins.scss ... !
+
 Checklists
 ----------
   --> compare tasks.text with check.txt ... !!!

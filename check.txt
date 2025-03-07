@@ -145,10 +145,18 @@ ts (2/?)
 
 Styles
 ------
-  - styles.scss ...
+  - mixins.scss ...
+  - styles.scss - check
   - styles/
     -------
-      - admin-inputs.scss - check
+      - admin-inputs.scss - check * review?!
+      - background-colors.scss - check
+      - components.scss - check * update legal notice and so on!
+      - dialogs.scss - check
+      - scrollbars.scss ... * currently not in use
+      - tags.scss - check
+      - ... ... ...
+
 
 
 

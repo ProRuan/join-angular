@@ -1,0 +1,33 @@
+body {
+  @include font();
+  @include color-set($c: $black, $bgc: #f6f7f8);
+  margin: 0;
+  font-family: $inter;
+}
+
+button {
+  font-family: $inter;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+button,
+input,
+textarea,
+a {
+  outline: none;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+h4,
+p {
+  margin: 0;
+}
