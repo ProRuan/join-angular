@@ -12,9 +12,6 @@ import {
 export class FormController {
   fb: FormBuilder = inject(FormBuilder);
 
-  // check this class ...
-  // check tasks.txt and check.txt ... !!!
-
   form: FormGroup;
 
   /**
@@ -55,7 +52,7 @@ export class FormController {
    * @param name - The form control name.
    * @param value - The value to set.
    */
-  setValue(name: string, value: string) {
+  setValue(name: string, value: any) {
     this.form.get(name)?.setValue(value);
   }
 
@@ -76,7 +73,7 @@ export class FormController {
    * @param validators - The form control validators.
    * @returns The form control.
    */
-  getControl(value: string, validators: ValidatorFn[] = []) {
+  getControl(value: any, validators: ValidatorFn[] = []) {
     return new FormControl(value, validators);
   }
 

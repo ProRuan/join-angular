@@ -85,6 +85,7 @@ shared/components (16/?)
 -----------------
   - ButtonComponent - check
   - CheckboxComponent - check
+  - FormController - check
   - HeaderComponent - check
   - HintComponent - check
   - InputComponent - ... (necessary???)
