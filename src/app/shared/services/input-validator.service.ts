@@ -6,23 +6,20 @@ import {
   namePatterns,
   passwordPatterns,
 } from '../ts/pattern';
-import { getDayStartTime, getISODateString } from '../ts/global';
 
 @Injectable({
   providedIn: 'root',
 })
+
+/**
+ * Class representing an input validator service.
+ */
 export class InputValidatorService {
   [key: string]: any;
   rejected: boolean = false;
   validator = new InputValidator();
 
-  // password pattern with 4 subpatterns ...
-  // password() --> 4 suberrors ... ?!
-
-  // update errors on reactive input ... !
-  // errors with ending dot or not ... ?
-  // forbidden with " " ... !
-  // dueDate --> date invalid ... ?!
+  required = [this.validator.required()];
 
   name = [
     this.validator.required(),
@@ -52,9 +49,6 @@ export class InputValidatorService {
     this.validator.maxLength(127),
   ];
 
-  required = [this.validator.required()];
-
-  // add more validators!!!
   dueDate = [
     this.validator.required(),
     this.validator.forbidden(dueDatePatterns.forbidden),
@@ -63,18 +57,25 @@ export class InputValidatorService {
     this.validator.minDate(dueDatePatterns.dueDate),
   ];
 
-  constructor() {}
-
+  /**
+   * Marks a form as rejected.
+   * @param value - The value to set.
+   */
   setRejected(value: boolean) {
     this.rejected = value;
   }
 
-  getMatchword(value: string) {
+  /**
+   * Gets a ValidatorFn array for a matchword input.
+   * @param password - The password to match.
+   * @returns The ValidatorFn array for the matchword input.
+   */
+  getMatchword(password: string) {
     return [
       this.validator.required(),
       this.validator.forbidden(passwordPatterns.forbidden),
       this.validator.minLength(8),
-      this.validator.matchword(value),
+      this.validator.matchword(password),
       this.validator.maxLength(127),
     ];
   }

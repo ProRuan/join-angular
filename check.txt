@@ -129,6 +129,7 @@ Services (8/?)
   - DialogService - check
   - GlobalService ...
   - InputConfigurationService - check
+  - InputValidatorService - check
   - LogService - check
   - NameFormatterService - check * combine with DateFormatterService?!
   - NavigationService - check
