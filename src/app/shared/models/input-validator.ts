@@ -1,9 +1,6 @@
-import {
-  AbstractControl,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { DateFormatterService } from '../services/date-formatter.service';
+import { inject } from '@angular/core';
 
 type Control = AbstractControl;
 
@@ -11,6 +8,8 @@ type Control = AbstractControl;
  * Class providing validator functions for an input validation.
  */
 export class InputValidator {
+  dateFormatter: DateFormatterService = inject(DateFormatterService);
+
   errors: Record<string, string> = {
     forbidden: 'Forbidden character: ',
     upperCase: 'Use 1+ upper-case characters',
@@ -20,95 +19,153 @@ export class InputValidator {
     sequence: 'Invalid character sequence: ',
     name: 'Start with 2+ letters',
     email: 'Enter a valid email',
-    password: "Your passwords don't match. Please try again.",
-    dueDate: 'Enter a valid date.',
+    matchword: "Your passwords don't match. Please try again.",
+    dueDate: 'Enter a valid date',
   };
+
+  requiredError = { required: 'This field is required' };
+  invalidDateError = { invalidDate: 'Invalid date' };
+  minDateError = { minDate: 'Date out of range' };
+  minTime: number;
+
+  /**
+   * Creates an input validator.
+   */
+  constructor() {
+    this.minTime = this.dateFormatter.getMinTime();
+  }
 
   /**
    * Validates the filled state of an input.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   required(): ValidatorFn {
-    const text = 'This field is required';
-    return (control: Control) => this.require(control, 'required', text);
+    return (control: Control) => this.getRequiredError(control);
   }
 
-  require(control: Control, key: string, value: string) {
-    const error = this.getSimpleError(key, value);
+  /**
+   * Gets a required error.
+   * @param control - The abstract control.
+   * @returns The ValidationErrors or null.
+   */
+  private getRequiredError(control: Control) {
+    const error = this.requiredError;
     return control.value ? null : error;
-  }
-
-  getSimpleError(key: string, value: string) {
-    return { [key]: value };
   }
 
   /**
    * Validates the minimum length of an input value.
-   * @param value - The value to set.
-   * @returns ValidatorFn.
+   * @param minLength - The minimum length.
+   * @returns The ValidatorFn.
    */
   minLength(minLength: number): ValidatorFn {
-    return (control: Control) => this.minimum(control, 'minLength', minLength);
+    return (control: Control) => this.getMinLengthError(control, minLength);
   }
 
-  // use better method name!!!
-  minimum(control: Control, key: string, minLength: number) {
-    const longEnough = control.value.length < minLength ? true : false;
-    const value = `Use ${minLength}+ characters`;
-    const error = this.getSimpleError(key, value);
-    return longEnough ? error : null;
+  /**
+   * Gets a minLength error.
+   * @param control - The abstract control.
+   * @param minLength - The minimum length.
+   * @returns The ValidationErrors or null.
+   */
+  private getMinLengthError(control: Control, minLength: number) {
+    const tooShort = this.isTooShort(control, minLength);
+    const error = this.getMinLengthErrorObject(minLength);
+    return tooShort ? error : null;
+  }
+
+  /**
+   * Checks if the input value is too short.
+   * @param control - The abstract control.
+   * @param minLength - The minimum length.
+   * @returns A boolean value.
+   */
+  private isTooShort(control: Control, minLength: number) {
+    return control.value.length < minLength ? true : false;
+  }
+
+  /**
+   * Gets a minLength error object.
+   * @param minLength - The minimum length.
+   * @returns The minLength error object.
+   */
+  private getMinLengthErrorObject(minLength: number) {
+    return { minLength: `Use ${minLength}+ characters` };
   }
 
   /**
    * Validates the maximum length of an input value.
-   * @param value - The value to set.
-   * @returns ValidatorFn.
+   * @param maxLength - The maximum length.
+   * @returns The ValidatorFn.
    */
   maxLength(maxLength: number): ValidatorFn {
-    return (control: Control) => this.maximum(control, 'maxLength', maxLength);
+    return (control: Control) => this.getMaxLengthError(control, maxLength);
   }
 
-  // use better method name!!!
-  maximum(control: Control, key: string, maxLength: number) {
-    const tooLong = control.value.length > maxLength ? true : false;
-    const value = `Maximum ${maxLength} characters allowed`; // improve!!!
-    const error = this.getSimpleError(key, value);
+  /**
+   * Gets an maxLength error.
+   * @param control - The abstract control.
+   * @param maxLength - The maximum length.
+   * @returns ValidationErrors or null.
+   */
+  private getMaxLengthError(control: Control, maxLength: number) {
+    const tooLong = this.isTooLong(control, maxLength);
+    const error = this.getMaxLengthErrorObject(maxLength);
     return tooLong ? error : null;
   }
 
   /**
-   * Validates the existence of forbidden characters within the input value.
+   * Checks if an input value is too long.
+   * @param control - The abstract control.
+   * @param maxLength - The maximum length.
+   * @returns A boolean value.
+   */
+  private isTooLong(control: Control, maxLength: Number) {
+    return control.value.length > maxLength ? true : false;
+  }
+
+  /**
+   * Gets a maxLength error object.
+   * @param maxLength - The maximum length.
+   * @returns The maxLength error object.
+   */
+  private getMaxLengthErrorObject(maxLength: number) {
+    return { maxLength: `Maximum ${maxLength} characters allowed` };
+  }
+
+  /**
+   * Validates the existence of forbidden characters within an input value.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   forbidden(pattern: RegExp): ValidatorFn {
-    return this.rejectPattern('forbidden', pattern);
+    return this.getRejectorFn('forbidden', pattern);
   }
 
   /**
    * Rejects an input value by an excluding pattern.
    * @param key - The error key.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
-  private rejectPattern(key: string, pattern: RegExp): ValidatorFn {
-    return (control: Control) => this.reject(control, key, pattern);
+  private getRejectorFn(key: string, pattern: RegExp): ValidatorFn {
+    return (control: Control) => this.getRejectionError(control, key, pattern);
   }
 
   /**
-   * Throws an error, if the excluding pattern matches the input value.
+   * Throws an error, if the excluding pattern matches an input value.
    * @param control - The abstract control.
    * @param key - The error key.
    * @param pattern - The test pattern.
-   * @returns ValidationErrors or null.
+   * @returns The ValidationErrors or null.
    */
-  private reject(control: Control, key: string, pattern: RegExp) {
+  private getRejectionError(control: Control, key: string, pattern: RegExp) {
     const error = this.getError(key, pattern, control);
     return error.pattern.test(control.value) ? error.value : null;
   }
 
   /**
-   * Gets the error.
+   * Gets an error.
    * @param key - The error key.
    * @param pattern - The test pattern.
    * @param control - The abstract control.
@@ -121,21 +178,21 @@ export class InputValidator {
   }
 
   /**
-   * Gets the char.
+   * Gets a char.
    * @param pattern - The test pattern.
    * @param control - The abstract control.
    * @returns The char.
    */
   private getChar(pattern: RegExp, control?: Control) {
-    return control?.value ? control.value.match(pattern) : undefined;
+    return control?.value ? control.value.match(pattern) : '';
   }
 
   /**
    * Gets ValidationErrors.
    * @param key - The error key.
-   * @returns ValidationErrors.
+   * @returns The ValidationErrors.
    */
-  private getErrorValue(key: string, char?: string): ValidationErrors {
+  private getErrorValue(key: string, char: string) {
     const text = this.getErrorText(key, char);
     return { [key]: text };
   }
@@ -146,47 +203,47 @@ export class InputValidator {
    * @param char - The char.
    * @returns The error text.
    */
-  private getErrorText(key: string, char?: string) {
+  private getErrorText(key: string, char: string) {
     const text = this.errors[key];
-    return char ? text + char : text;
+    return char ? `${text} "${char}"` : text;
   }
 
   /**
-   * Validates the character sequence within the input value.
+   * Validates the character sequence within an input value.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   sequence(pattern: RegExp): ValidatorFn {
-    return this.rejectPattern('sequence', pattern);
+    return this.getRejectorFn('sequence', pattern);
   }
 
   /**
    * Validates a name within an inut value.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   name(pattern: RegExp): ValidatorFn {
-    return this.acceptPattern('name', pattern);
+    return this.getAcceptorFn('name', pattern);
   }
 
   /**
    * Accepts an input value by an including pattern.
    * @param key - The error key.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
-  private acceptPattern(key: string, pattern: RegExp): ValidatorFn {
-    return (control: Control) => this.accept(control, key, pattern);
+  private getAcceptorFn(key: string, pattern: RegExp): ValidatorFn {
+    return (control: Control) => this.getAcceptionError(control, key, pattern);
   }
 
   /**
-   * Throws an error, if the including pattern mismatches the input value.
+   * Throws an error, if the including pattern mismatches an input value.
    * @param control - The abstract control.
    * @param key - The error key.
    * @param pattern - The test pattern.
-   * @returns ValidationErrors or null.
+   * @returns The ValidationErrors or null.
    */
-  private accept(control: Control, key: string, pattern: RegExp) {
+  private getAcceptionError(control: Control, key: string, pattern: RegExp) {
     const error = this.getError(key, pattern);
     return pattern.test(control.value) ? null : error.value;
   }
@@ -194,102 +251,146 @@ export class InputValidator {
   /**
    * Validates an email within an input value.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   email(pattern: RegExp): ValidatorFn {
-    return this.acceptPattern('email', pattern);
+    return this.getAcceptorFn('email', pattern);
   }
 
   /**
-   * Validates the existence of upper-case characters within the input value.
+   * Validates the existence of upper-case characters within an input value.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   upperCase(pattern: RegExp): ValidatorFn {
-    return this.acceptPattern('upperCase', pattern);
+    return this.getAcceptorFn('upperCase', pattern);
   }
 
   /**
-   * Validates the existence of lower-case characters within theinput value.
+   * Validates the existence of lower-case characters within an input value.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   lowerCase(pattern: RegExp): ValidatorFn {
-    return this.acceptPattern('lowerCase', pattern);
+    return this.getAcceptorFn('lowerCase', pattern);
   }
 
   /**
-   * Validates the existence of digits within the input value.
+   * Validates the existence of digits within an input value.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   digit(pattern: RegExp): ValidatorFn {
-    return this.acceptPattern('digit', pattern);
+    return this.getAcceptorFn('digit', pattern);
   }
 
   /**
-   * Validates the existence of special characters within the input value.
+   * Validates the existence of special characters within an input value.
    * @param pattern - The test pattern.
-   * @returns ValidatorFn.
+   * @returns The ValidatorFn.
    */
   specialChar(pattern: RegExp): ValidatorFn {
-    return this.acceptPattern('specialChar', pattern);
+    return this.getAcceptorFn('specialChar', pattern);
   }
 
-  // call it pattern or matchword?!
-  password(password: string) {
+  /**
+   * Validates the match between a password and a matchword.
+   * @param password - The password to match.
+   * @returns The ValidatorFn.
+   */
+  matchword(password: string): ValidatorFn {
     let pattern = new RegExp(`^${password}$`);
-    return this.acceptPattern('password', pattern);
+    return this.getAcceptorFn('matchword', pattern);
   }
 
+  /**
+   * Validates an input due date.
+   * @param pattern - The test pattern.
+   * @returns The ValidatorFn.
+   */
   dueDate(pattern: RegExp): ValidatorFn {
-    return this.acceptPattern('dueDate', pattern);
+    return this.getAcceptorFn('dueDate', pattern);
   }
 
+  /**
+   * Validates the invalidity of an input date.
+   * @param pattern - The test pattern.
+   * @returns The ValidatorFn.
+   */
   invalidDate(pattern: RegExp): ValidatorFn {
-    return (control: Control) => this.validateDate(control, pattern);
+    return (control: Control) => this.getInvalidDateError(control, pattern);
   }
 
-  validateDate(control: Control, pattern: RegExp): ValidationErrors | null {
-    let dateMatched = new RegExp(pattern).test(control.value);
-    if (dateMatched) {
-      let matchedDate = control.value.match(pattern);
-      if (matchedDate) {
-        let date = this.getDate(matchedDate);
-        let testDate = `${date.year}.${date.month}.${date.day}`;
-        if (new Date(testDate).toDateString() != 'Invalid Date') {
-          return null;
-        } else {
-          return { invalidDate: 'invalid date' };
-        }
-      }
-    }
-    return null;
+  /**
+   * Gets an invalidDate error.
+   * @param control - The abstract control.
+   * @param pattern - The test pattern.
+   * @returns The ValidationErrors or null.
+   */
+  private getInvalidDateError(control: Control, pattern: RegExp) {
+    let dateMatched = pattern.test(control.value);
+    return dateMatched ? this.getDateError(control) : null;
   }
 
-  getDate(result: RegExpMatchArray) {
-    return { day: result[1], month: result[2], year: result[3] };
+  /**
+   * Gets a date error.
+   * @param control - The abstract control.
+   * @returns The ValidationErrors or null.
+   */
+  private getDateError(control: Control) {
+    let date = this.dateFormatter.getCalendarDate(control.value);
+    let dateInvalid = this.isDateInvalid(date);
+    const error = this.invalidDateError;
+    return dateInvalid ? error : null;
   }
 
-  minDate(pattern: RegExp, minTime: number) {
-    return (control: Control) => this.limitDateRange(control, pattern, minTime);
+  /**
+   * Checks a date for invalidity.
+   * @param date - The date.
+   * @returns A boolean value.
+   */
+  private isDateInvalid(date: string) {
+    return new Date(date).toDateString() == 'Invalid Date';
   }
 
-  limitDateRange(control: Control, pattern: RegExp, minTime: number) {
-    let dateMatched = new RegExp(pattern).test(control.value);
-    if (dateMatched) {
-      let matchedDate = control.value.match(pattern);
-      if (matchedDate) {
-        let date = this.getDate(matchedDate);
-        let testDate = `${date.year}.${date.month}.${date.day}`;
+  /**
+   * Validates an input due date for being in range.
+   * @param pattern - The test pattern.
+   * @returns The ValidatorFn.
+   */
+  minDate(pattern: RegExp): ValidatorFn {
+    return (control: Control) => this.getMinDateError(control, pattern);
+  }
 
-        if (new Date(testDate).getTime() < minTime) {
-          return { minDate: 'Date out of range' };
-        } else {
-          return null;
-        }
-      }
-    }
-    return null;
+  /**
+   * Gets a minDate error.
+   * @param control - The abstract control.
+   * @param pattern - The test pattern.
+   * @returns The ValidationErrors or null.
+   */
+  private getMinDateError(control: Control, pattern: RegExp) {
+    let dateMatched = pattern.test(control.value);
+    return dateMatched ? this.getMinTimeError(control) : null;
+  }
+
+  /**
+   * Gets a minimum time error.
+   * @param control - The abstract control.
+   * @returns The ValidationErrors or null.
+   */
+  private getMinTimeError(control: Control) {
+    let date = this.dateFormatter.getCalendarDate(control.value);
+    let datePast = this.isDatePast(date);
+    const error = this.minDateError;
+    return datePast ? error : null;
+  }
+
+  /**
+   * Checks if a date has been exceeded.
+   * @param date - The date.
+   * @returns A boolean value.
+   */
+  private isDatePast(date: string) {
+    return new Date(date).getTime() < this.minTime;
   }
 }

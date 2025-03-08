@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { dueDatePatterns } from '../ts/pattern';
+import { getDayStartTime, getISODateString } from '../ts/global';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,15 @@ export class DateFormatterService {
    */
   constructor() {
     this.pattern = dueDatePatterns.dueDate;
+  }
+
+  /**
+   * Gets a minimum time (minimum date).
+   * @returns The minimum time (minimum date).
+   */
+  getMinTime() {
+    const minDate = getISODateString();
+    return getDayStartTime(minDate);
   }
 
   /**

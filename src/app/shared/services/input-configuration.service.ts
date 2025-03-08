@@ -60,7 +60,7 @@ export class InputConfigurationService {
       'required',
       'forbidden',
       'minLegnth',
-      'password',
+      'matchword',
       'maxLength',
     ],
   };

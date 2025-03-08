@@ -16,10 +16,6 @@ export class InputValidatorService {
   rejected: boolean = false;
   validator = new InputValidator();
 
-  // only for testing!!!
-  minDate = getISODateString();
-  minTime = getDayStartTime(this.minDate);
-
   // password pattern with 4 subpatterns ...
   // password() --> 4 suberrors ... ?!
 
@@ -64,7 +60,7 @@ export class InputValidatorService {
     this.validator.forbidden(dueDatePatterns.forbidden),
     this.validator.dueDate(dueDatePatterns.dueDate),
     this.validator.invalidDate(dueDatePatterns.dueDate),
-    this.validator.minDate(dueDatePatterns.dueDate, this.minTime),
+    this.validator.minDate(dueDatePatterns.dueDate),
   ];
 
   constructor() {}
@@ -78,7 +74,7 @@ export class InputValidatorService {
       this.validator.required(),
       this.validator.forbidden(passwordPatterns.forbidden),
       this.validator.minLength(8),
-      this.validator.password(value),
+      this.validator.matchword(value),
       this.validator.maxLength(127),
     ];
   }
