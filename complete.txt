@@ -9,6 +9,13 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+JoinDialog (DialogFormController)
+----------
+  - add add-task backlog logic ... !
+  - create a join component ... !!!
+  -   --> including form controller, join dialog, user getters and setters ...
+  - summary or sum card: format deadline ... !!!
+
 Fonts
 -----
   - add inter, poppins, open sans ... (0/3)

@@ -11,7 +11,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { CheckboxComponent } from '../../../shared/components/checkbox/checkbox.component';
 import { DeleteTaskDialogComponent } from '../delete-task-dialog/delete-task-dialog.component';
 import { dialogAnimation } from '../../../shared/animations/dialog.animation';
-import { JoinDialog } from '../../../shared/models/join-dialog';
+import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
 import { ButtonDataService } from '../../../shared/services/button-data.service';
 import { SummaryService } from '../../../shared/services/summary.service';
@@ -38,9 +38,12 @@ import { getCapitalized } from '../../../shared/ts/global';
 
 /**
  * Class representing a view-task dialog component.
- * @extends JoinDialog
+ * @extends DialogFormController
  */
-export class ViewTaskDialogComponent extends JoinDialog implements OnChanges {
+export class ViewTaskDialogComponent
+  extends DialogFormController
+  implements OnChanges
+{
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   summary: SummaryService = inject(SummaryService);

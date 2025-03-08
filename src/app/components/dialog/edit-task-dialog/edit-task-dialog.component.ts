@@ -19,7 +19,7 @@ import { AssignedToInputComponent } from '../../../shared/components/inputs/assi
 import { SubtasksInputComponent } from '../../../shared/components/inputs/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { dialogAnimation } from '../../../shared/animations/dialog.animation';
-import { JoinDialog } from '../../../shared/models/join-dialog';
+import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
 import { InputValidatorService } from '../../../shared/services/input-validator.service';
 import { DateFormatterService } from '../../../shared/services/date-formatter.service';
@@ -53,7 +53,10 @@ import { stop } from '../../../shared/ts/global';
  * Class representing an edit-task dialog component.
  * @extends FormController
  */
-export class EditTaskDialogComponent extends JoinDialog implements OnChanges {
+export class EditTaskDialogComponent
+  extends DialogFormController
+  implements OnChanges
+{
   join: JoinService = inject(JoinService);
   validators: InputValidatorService = inject(InputValidatorService);
   dateFormatter: DateFormatterService = inject(DateFormatterService);

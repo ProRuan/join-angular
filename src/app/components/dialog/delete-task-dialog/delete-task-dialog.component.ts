@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { fadeAnimation } from '../../../shared/animations/fade-animation';
-import { JoinDialog } from '../../../shared/models/join-dialog';
+import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
 import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
@@ -19,9 +19,9 @@ import { JoinButton } from '../../../shared/models/join-button';
 
 /**
  * Class representing a delete-task dialog component.
- * @extends JoinDialog
+ * @extends DialogFormController
  */
-export class DeleteTaskDialogComponent extends JoinDialog {
+export class DeleteTaskDialogComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
   summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { fadeAnimation } from '../../../shared/animations/fade-animation';
-import { JoinDialog } from '../../../shared/models/join-dialog';
+import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
 import { ContactService } from '../../../shared/services/contact.service';
 import { JoinButton } from '../../../shared/models/join-button';
@@ -19,9 +19,9 @@ import { JoinButton } from '../../../shared/models/join-button';
 
 /**
  * Class representing a delete-contact dialog component.
- * @extends JoinDialog
+ * @extends DialogFormController
  */
-export class DeleteContactDialogComponent extends JoinDialog {
+export class DeleteContactDialogComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
   viewer: ContactService = inject(ContactService);
 

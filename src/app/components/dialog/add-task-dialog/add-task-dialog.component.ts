@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { AddTaskComponent } from '../../add-task/add-task.component';
 import { BackLogComponent } from '../../../shared/components/back-log/back-log.component';
 import { dialogAnimation } from '../../../shared/animations/dialog.animation';
-import { JoinDialog } from '../../../shared/models/join-dialog';
+import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -16,9 +16,9 @@ import { JoinDialog } from '../../../shared/models/join-dialog';
 
 /**
  * Class representing an add-task dialog component.
- * @extends JoinDialog
+ * @extends DialogFormController
  */
-export class AddTaskDialogComponent extends JoinDialog {
+export class AddTaskDialogComponent extends DialogFormController {
   override id: string = 'addTask';
 
   /**

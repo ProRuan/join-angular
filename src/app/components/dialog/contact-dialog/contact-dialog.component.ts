@@ -11,7 +11,7 @@ import { JoinTitleComponent } from '../../../shared/components/join-title/join-t
 import { TextInputComponent } from '../../../shared/components/inputs/text-input/text-input.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { dialogAnimation } from '../../../shared/animations/dialog.animation';
-import { JoinDialog } from '../../../shared/models/join-dialog';
+import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
 import { InputConfigurationService } from '../../../shared/services/input-configuration.service';
 import { ContactService } from '../../../shared/services/contact.service';
@@ -37,10 +37,13 @@ import { getObjectArray, isDefaultString } from '../../../shared/ts/global';
 
 /**
  * Class representing a contact dialog component.
- * @extends JoinDialog
+ * @extends DialogFormController
  * @implements {OnChanges}
  */
-export class ContactDialogComponent extends JoinDialog implements OnChanges {
+export class ContactDialogComponent
+  extends DialogFormController
+  implements OnChanges
+{
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
   viewer: ContactService = inject(ContactService);

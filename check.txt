@@ -121,11 +121,12 @@ Models (4/?)
   - UserDoc ...
 
 
-Services (8/?)
+Services (9/?)
 --------
   - ButtonDataService - check
   - ContactService - check * rename to ContactViewerService?
   - DateFormatterService - check
+  - DialogFormController - check
   - DialogService - check
   - GlobalService ...
   - InputConfigurationService - check
