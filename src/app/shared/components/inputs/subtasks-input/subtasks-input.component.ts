@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { DialogService } from '../../../services/dialog.service';
 import { Subtask } from '../../../models/subtask';
-import { getTime, stop } from '../../../ts/global';
+import { getTime, IntervalId, stop } from '../../../ts/global';
 
 @Component({
   selector: 'app-subtasks-input',
@@ -34,7 +34,7 @@ export class SubtasksInputComponent extends ReactiveInput {
   dialogId: string = 'subtask';
   doubleClick: boolean = false;
   timestamp: number = 0;
-  clickTimeout?: ReturnType<typeof setTimeout>;
+  clickTimeout?: IntervalId;
 
   @Input() override control: AbstractControl<any, any> | null = null;
   @Input('subtasks') taskControl: AbstractControl | null = null;

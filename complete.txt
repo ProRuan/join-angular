@@ -11,6 +11,7 @@ Think about
 
 PasswordInputComponent
 ----------------------
+  // join logo z-index must be higher due to masked-input ... ?!
   // interface IntervalId ... ?
   // fix async init maskedValue ... ?
   // review set config input ... ?

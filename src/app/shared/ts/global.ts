@@ -256,3 +256,8 @@ export function setLocalItem(key: string, value: any) {
 export function stop(event: Event) {
   event.stopPropagation();
 }
+
+/**
+ * Type representing an interval id.
+ */
+export type IntervalId = ReturnType<typeof setTimeout>;

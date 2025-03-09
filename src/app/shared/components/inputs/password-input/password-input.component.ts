@@ -7,10 +7,9 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { InputConfig } from '../../../interfaces/input-config';
-import { stop } from '../../../ts/global';
+import { IntervalId, stop } from '../../../ts/global';
 
 type TextStyle = { [key: string]: string };
-type IntervalId = ReturnType<typeof setTimeout>;
 
 @Component({
   selector: 'app-password-input',
@@ -72,7 +71,7 @@ export class PasswordInputComponent extends ReactiveInput {
    */
   initMaskedValue() {
     this.intervalId = setInterval(() => this.setMaskedValue(), 100);
-    setTimeout(() => this.stopInterval(), 500);
+    setTimeout(() => this.stopInterval(), 3000);
   }
 
   /**

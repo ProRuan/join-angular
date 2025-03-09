@@ -3,7 +3,7 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DialogService } from '../../services/dialog.service';
 import { Subtask } from '../../models/subtask';
-import { getTime, stop } from '../../ts/global';
+import { getTime, IntervalId, stop } from '../../ts/global';
 
 @Component({
   selector: 'app-subtask',
@@ -27,7 +27,7 @@ export class SubtaskComponent {
   dialogId: string = 'subtask';
   doubleClick: boolean = false;
   timestamp: number = 0;
-  clickTimeout?: ReturnType<typeof setTimeout>;
+  clickTimeout?: IntervalId;
 
   @Output('edit') editSubtask = new EventEmitter<boolean>();
   @Output('delete') deleteSubtask = new EventEmitter<number>();
