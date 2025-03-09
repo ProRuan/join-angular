@@ -9,6 +9,61 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+PasswordInputComponent
+----------------------
+  // interface IntervalId ... ?
+  // fix async init maskedValue ... ?
+  // review set config input ... ?
+  // one app-input (at least for admin inputs) ... ?
+  
+  // sometimes no error update ...
+  // set validators A/B and errors a/b ...
+  // exclude black circle from forbidden characters ...
+
+  // SummaryComponent
+  // ----------------
+  // MainComponent ...
+  // Log out ...
+  // greetings (5x) ...
+  // -----------------
+
+  // update login and sign-up
+  // ------------------------
+  // registerUser() ...
+  // reject(): rename (also for login) ... !!!
+  // move log ... ?
+  // log reset wrong ... !
+  // remember me wrong ... !!!
+
+  // delete nameVal, emailVal, passwordVal and inputVal ... ?!
+  // improve extends (like FormController) ...
+  // set private methods ...
+  // fix matchword validation --> validation on focus (not on dirty) ... ?!
+  // 5 input values for inputs ... ?
+
+  // check list
+  // ----------
+  // PasswordInputComponent
+  // InputValidator.class.ts
+  // validate.ts
+  // InputValidatorService
+  // pattern.ts
+
+  // ReactiveInput
+  // global.ts
+
+  // JoinService
+  // -----------
+  // getUserBySid() ...
+  // getUserDoc() ...
+  // getSessionId() ...
+
+  // LoginComponent
+  // --------------
+  // logIn() --> sid ...
+  // rememberUser() ...
+  // onUserLogin() + onGuestLogin() ...
+
 JoinDialog (DialogFormController)
 ----------
   - add add-task backlog logic ... !

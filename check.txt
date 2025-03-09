@@ -84,7 +84,7 @@ Components (10/?) + await inputs ...
       - CategoryInputComponent - check
       - DescriptionInputComponent - check
       - DueDateInputComponent - check
-      - PasswordInputComponent ... *admin-inputs.scss?!
+      - PasswordInputComponent - check *admin-inputs.scss?!
       - PhoneInputComponent ...
       - PrioInputComponent - check
       - SubtasksInputComponent - check

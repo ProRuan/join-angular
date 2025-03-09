@@ -7,6 +7,10 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { InputConfig } from '../../../interfaces/input-config';
+import { stop } from '../../../ts/global';
+
+type TextStyle = { [key: string]: string };
+type IntervalId = ReturnType<typeof setTimeout>;
 
 @Component({
   selector: 'app-password-input',
@@ -25,90 +29,169 @@ import { InputConfig } from '../../../interfaces/input-config';
  * @extends ReactiveInput
  */
 export class PasswordInputComponent extends ReactiveInput {
+  maskedValue: string = '';
+  masked: boolean = true;
+  textStyle!: TextStyle;
+  counter: number = 0;
+  intervalId!: IntervalId;
+  intervalStopped: boolean = false;
+
   @Input() override control: AbstractControl | null = null;
-
-  // SummaryComponent
-  // ----------------
-  // MainComponent ...
-  // Log out ...
-  // greetings (5x) ...
-  // -----------------
-
-  // update login and sign-up
-  // ------------------------
-  // registerUser() ...
-  // reject(): rename (also for login) ... !!!
-  // move log ... ?
-  // log reset wrong ... !
-  // remember me wrong ... !!!
-
-  // delete nameVal, emailVal, passwordVal and inputVal ... ?!
-  // improve extends (like FormController) ...
-  // set private methods ...
-  // fix matchword validation --> validation on focus (not on dirty) ... ?!
-  // 5 input values for inputs ... ?
-
-  // check list
-  // ----------
-  // PasswordInputComponent
-  // InputValidator.class.ts
-  // validate.ts
-  // InputValidatorService
-  // pattern.ts
-
-  // ReactiveInput
-  // global.ts
-
-  @Input() set matchValue(value: string) {
-    if (value.length > 7) {
-      this.control?.setValidators(this.inputs.getMatchword(value));
-    } else {
-      this.control?.setValidators([]);
-    }
-    // sometimes no error update ...
-    // move to sign-up component ... ?!
-    this.control?.updateValueAndValidity();
-
-    const errors = [
-      'required',
-      'forbidden',
-      'minLength',
-      'upperCase',
-      'lowerCase',
-      'digit',
-      'specialChar',
-      'sequence',
-      'name',
-      'email',
-      'password',
-      'maxLength',
-    ];
-    this.error = '';
-    for (let i = 0; i < errors.length; i++) {
-      let error = errors[i];
-      if (this.control?.hasError(error)) {
-        this.error = this.control.getError(error);
-        break;
-      }
-    }
-    console.log('error: ', this.error);
-  }
-
-  // PasswordInputComponent: mask, button etc. ...
-
-  // JoinService
-  // -----------
-  // getUserBySid() ...
-  // getUserDoc() ...
-  // getSessionId() ...
-
-  // LoginComponent
-  // --------------
-  // logIn() --> sid ...
-  // rememberUser() ...
-  // onUserLogin() + onGuestLogin() ...
 
   @Input() set config(config: InputConfig) {
     this.set(config);
+  }
+
+  @Input() set matchValue(value: string) {
+    this.setValidators(value);
+    this.updateValueAndValidity();
+  }
+
+  /**
+   * Initializes a password input component.
+   */
+  ngOnInit() {
+    this.textStyle = this.getAltTextStyle();
+    this.initMaskedValue();
+  }
+
+  /**
+   * Gets an alternative text style.
+   * @returns The alternative text style.
+   */
+  getAltTextStyle() {
+    return {
+      color: 'white',
+      caretColor: 'black',
+      fontFamily: 'courier, monospace',
+    };
+  }
+
+  /**
+   * Initializes a masked value.
+   */
+  initMaskedValue() {
+    this.intervalId = setInterval(() => this.setMaskedValue(), 100);
+    setTimeout(() => this.stopInterval(), 500);
+  }
+
+  /**
+   * Stops an interval.
+   */
+  stopInterval() {
+    if (!this.intervalStopped) {
+      clearTimeout(this.intervalId);
+    }
+  }
+
+  /**
+   * Sets a masked value.
+   */
+  setMaskedValue() {
+    if (this.value != '') {
+      this.updateMaskedValue();
+      clearTimeout(this.intervalId);
+      this.intervalStopped = true;
+    }
+  }
+
+  /**
+   * Updates a password input on change.
+   */
+  override onChange(): void {
+    this.updateMaskedValue();
+    this.validateControl();
+  }
+
+  /**
+   * Updates a masked value.
+   */
+  updateMaskedValue() {
+    this.maskedValue = '';
+    for (let i = 0; i < this.value.length; i++) {
+      this.maskedValue += '\u25cf';
+    }
+  }
+
+  /**
+   * Gets the css class of a selection.
+   * @returns The css class of the selection.
+   */
+  getSelectionClass() {
+    return this.masked ? 'selection' : '';
+  }
+
+  /**
+   * Gets a text style.
+   * @returns The text style.
+   */
+  getTextStyle() {
+    return this.isMaskedAndFilled() ? this.textStyle : null;
+  }
+
+  /**
+   * Verifies the masked and filled state of an input.
+   * @returns A boolean value.
+   */
+  isMaskedAndFilled() {
+    return this.masked && this.isFilled();
+  }
+
+  /**
+   * Gets the css class of a button icon.
+   * @returns The css class of the button icon.
+   */
+  getIconClass() {
+    if (this.isMaskedAndFilled()) {
+      return 'vis-off';
+    } else if (this.isFilled()) {
+      return 'vis-on';
+    } else {
+      return 'lock';
+    }
+  }
+
+  /**
+   * Verifies the disabled state of a button.
+   * @returns A boolean value.
+   */
+  isDisabled() {
+    return !this.isFilled();
+  }
+
+  /**
+   * Toggles the visibility of a password on click.
+   */
+  onToggle() {
+    this.masked = !this.masked;
+  }
+
+  /**
+   * Disallows specified key combinations.
+   * @param event - The KeyboardEvent.
+   */
+  onDisallow(event: KeyboardEvent) {
+    if (this.isDisallowedKey(event)) {
+      stop(event);
+    }
+  }
+
+  /**
+   * Verifies a disallowed key.
+   * @param event - The KeyboardEvent.
+   * @returns A boolean value.
+   */
+  isDisallowedKey(event: KeyboardEvent) {
+    let ctrlKey = event.ctrlKey;
+    let key = event.key.toLowerCase();
+    return ctrlKey && (key == 'f' || key == 'g');
+  }
+
+  /**
+   * Prevents an event on copy or cut.
+   * @param event - The ClipboardEvent.
+   */
+  onPrevent(event: ClipboardEvent) {
+    event.preventDefault();
   }
 }

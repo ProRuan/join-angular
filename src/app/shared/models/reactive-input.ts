@@ -116,6 +116,10 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * Validates a control on change.
    */
   onChange() {
+    this.validateControl();
+  }
+
+  validateControl() {
     if (this.control) {
       this.validate(this.control);
     }
@@ -234,6 +238,14 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     if (config.possibleErrors) {
       this.possibleErrors = config.possibleErrors;
     }
+  }
+
+  setValidators(value: string) {
+    this.control?.setValidators(this.inputs.getMatchword(value));
+  }
+
+  updateValueAndValidity() {
+    this.control?.updateValueAndValidity();
   }
 
   isFilled() {
