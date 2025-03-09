@@ -5,13 +5,9 @@ import {
   FormBuilder,
   ValidationErrors,
   Validator,
-  ValidatorFn,
 } from '@angular/forms';
-
-// verify!!!
-import { InputValidator } from './input-validator';
-import { InputConfig } from '../interfaces/input-config';
 import { InputValidatorService } from '../services/input-validator.service';
+import { InputConfig } from '../interfaces/input-config';
 
 /**
  * Class representing a reactive input.
@@ -20,80 +16,46 @@ import { InputValidatorService } from '../services/input-validator.service';
  */
 export class ReactiveInput implements ControlValueAccessor, Validator {
   fb: FormBuilder = inject(FormBuilder);
-  inputs: InputValidatorService = inject(InputValidatorService);
-
-  // create one input component ... ?
-
-  // copy and compare
-  // ----------------
-  // - Class/Interface/Service/Component representing ...
-  // - private functions ... !
-  // - shortcut: { name, forbidden, sequence } ...
-
-  // tasks
-  // -----
-  // pattern specialChars inside of the methods (name, email, password) ...
-  // pattern.ts shorcuts: d, l, ...
-  // ReactiveInputComponent or TextInputComponent ... ?!
-  // global name + pattern  length ...
-  // onKeydown() ... ?
-  // email error: username@domain.tld ...
-
-  // create own requried/minLength/pattern validator with error object!
-
-  // password input, phone input etc.
-  // TextInputComponent
-  // build charSet A-Z ...
-  // export digitPattern ...
-  // /name/g ...?!
-
-  // class PasswordValidator ... !
-  // required()
-  // forbidden(param)
-  // set invalid + error text
-
-  // rename PasswordValidatorFn to InputValidator ...
-  // replace { [key: string]: any } with Record<stirng, any> ...
-  // replace class PasswordValidatorFn with InputValidator ...
-
-  // rename to InputValidatorFn!
+  validators: InputValidatorService = inject(InputValidatorService);
 
   control: AbstractControl | null = null;
-
-  focused: boolean = false;
-  error: string = ''; // errorText?!
-  possibleErrors: string[] = [];
-
   placeholder: string = '';
   img: string = '';
-
-  validators: ValidatorFn[] = [];
-  validator = new InputValidator();
-  valOff: boolean = false; // input value!!!
-  // update text input and password input for displayed error!!!
+  valOff: boolean = false;
+  focused: boolean = false;
+  error: string = '';
+  possibleErrors: string[] = [];
 
   /**
-   * Gets the current value of a control.
-   * @returns The current value of the control.
+   * Gets the current value of an input control.
+   * @returns The current value of the input control.
    */
   get value() {
     return this.control?.value;
   }
 
   /**
-   * Sets the current value of a control.
-   * @param value - The value to set.
+   * Gets the invalid state of an input control.
+   * @reutrns A boolean value.
    */
-  set value(value: string) {
-    this.control?.setValue(value);
-  }
-
   get invalid() {
     return this.control?.invalid;
   }
 
+  /**
+   * Gets the dirty state of an input control.
+   * @returns A boolean value.
+   */
   get dirty() {
     return this.control?.dirty;
+  }
+
+  /**
+   * Sets the current value of an input control.
+   * @param value - The value to set.
+   */
+  set value(value: string) {
+    this.control?.setValue(value);
   }
 
   /**
@@ -113,40 +75,43 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   }
 
   /**
-   * Validates a control on change.
+   * Validates an input control on change.
    */
   onChange() {
-    this.validateControl();
+    this.validateExistingControl();
   }
 
-  validateControl() {
+  /**
+   * Validates an existing input control.
+   */
+  validateExistingControl() {
     if (this.control) {
       this.validate(this.control);
     }
   }
 
+  /**
+   * Validates an input control.
+   * @param control - The input control.
+   * @returns The ValidationErrors or null.
+   */
   validate(control: AbstractControl): ValidationErrors | null {
-    const error = this.getValidationError(control);
-
-    this.error = '';
-    for (let error of this.possibleErrors) {
-      if (this.control?.hasError(error)) {
-        this.error = this.control.getError(error);
-        break;
-      }
-    }
-
-    return error;
+    this.error = this.getValidationError(control);
+    return control.errors;
   }
 
-  getValidationError(control: AbstractControl): ValidationErrors | null {
-    for (let validator of this.validators) {
-      const result = validator(control);
-      if (result) {
-        return result;
+  /**
+   * Gets a validation error.
+   * @param control - The input control.
+   * @returns The validation error.
+   */
+  getValidationError(control: AbstractControl): string {
+    for (let error of this.possibleErrors) {
+      if (control?.hasError(error)) {
+        return control.getError(error);
       }
     }
-    return null;
+    return '';
   }
 
   /**
@@ -162,7 +127,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   onInput(event: Event) {
     this.setInputValue(event);
     this.onChange();
-    this.control?.markAsDirty(); // verfiy this!!!
+    this.markAsDirty(this.control);
   }
 
   /**
@@ -172,6 +137,16 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   setInputValue(event: Event) {
     let input = event.target as HTMLInputElement;
     this.value = input.value;
+  }
+
+  /**
+   * Marks an input as dirty.
+   * @param control - The input control.
+   */
+  markAsDirty(control: AbstractControl | null) {
+    if (control?.pristine) {
+      control?.markAsDirty();
+    }
   }
 
   /**
@@ -188,10 +163,6 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     this.focused = false;
   }
 
-  isInvalid() {
-    return this.dirty && this.invalid;
-  }
-
   /**
    * Gets the css class of the component.
    * @returns The css class of the component.
@@ -205,14 +176,23 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The css class of the input.
    */
   getInputClass(): string {
-    let invalid =
-      (!this.valOff && this.dirty && this.invalid) || this.inputs.rejected; // clean?!
+    let invalid = this.isInvalid();
     return invalid ? 'invalid' : 'default';
   }
 
   /**
-   * Gets the source path of the icon.
-   * @returns The source path of the icon.
+   * Verifies the invalid state of an input.
+   * @returns A boolean value.
+   */
+  isInvalid() {
+    let invalid = !this.valOff && this.dirty && this.invalid;
+    let rejected = this.validators.rejected;
+    return invalid || rejected;
+  }
+
+  /**
+   * Gets the source path of an input icon.
+   * @returns The source path of the input icon.
    */
   getSrc() {
     return `/assets/img/input/${this.img}.png`;
@@ -226,36 +206,48 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
     return !this.valOff && this.focused && this.error;
   }
 
-  // rename isError() and isErrorPermanently()!!!
-  isErrorPermanently() {
+  /**
+   * Verifies the existence of a permanent error.
+   * @returns A boolean value.
+   */
+  isPermanentError() {
     return !this.control?.pristine && this.error;
   }
 
-  set(config: InputConfig) {
+  /**
+   * Sets an input configuration.
+   * @param config - The input configuration.
+   */
+  setInput(config: InputConfig) {
     this.placeholder = config.placeholder;
     this.img = config.img;
     this.valOff = config.valOff;
+    this.setPossibleErrors(config);
+  }
+
+  /**
+   * Sets possible errors.
+   * @param config - The input configuration.
+   */
+  setPossibleErrors(config: InputConfig) {
     if (config.possibleErrors) {
       this.possibleErrors = config.possibleErrors;
     }
   }
 
-  setValidators(value: string) {
-    this.control?.setValidators(this.inputs.getMatchword(value));
-  }
-
+  /**
+   * Updates control value and validity.
+   */
   updateValueAndValidity() {
     this.control?.updateValueAndValidity();
   }
 
+  /**
+   * Verifies the filled state of an input.
+   * @returns A boolean value.
+   */
   isFilled() {
     return this.value.length > 0;
-  }
-
-  markAsDirty(control: AbstractControl | null) {
-    if (control?.pristine) {
-      control?.markAsDirty();
-    }
   }
 }
 

@@ -8,7 +8,7 @@
             <img class="resizer" src="../../../assets/img/add-task/resizer.png" alt="resizer">
         </div>
 
-        <div *ngIf="isErrorPermanently()" class="error-cont">
+        <div *ngIf="isPermanentError()" class="error-cont">
             <span class="error">{{ error }}</span>
         </div>
     </div>

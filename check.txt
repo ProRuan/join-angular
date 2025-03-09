@@ -103,14 +103,14 @@ Interfaces (7/?)
   - Styles - check
   - UserData - check
 
-Models (4/?)
+Models (5/?)
 ------
   - Contact ...
   - FormController - check
   - InputValidator - check
   - JoinButton - check
   - JoinDialog ...
-  - ReactiveInput ... *class representing ...
+  - ReactiveInput - check
   - SessionId ... * delete!
   - Subtask ...
   - Summary ...

@@ -9,6 +9,44 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+ReactiveInput
+-------------
+// create one input component ... ?
+
+  // copy and compare
+  // ----------------
+  // - Class/Interface/Service/Component representing ...
+  // - private functions ... !
+  // - shortcut: { name, forbidden, sequence } ...
+
+  // tasks
+  // -----
+  // pattern specialChars inside of the methods (name, email, password) ...
+  // pattern.ts shorcuts: d, l, ...
+  // ReactiveInputComponent or TextInputComponent ... ?!
+  // global name + pattern  length ...
+  // onKeydown() ... ?
+  // email error: username@domain.tld ...
+
+  // create own requried/minLength/pattern validator with error object!
+
+  // password input, phone input etc.
+  // TextInputComponent
+  // build charSet A-Z ...
+  // export digitPattern ...
+  // /name/g ...?!
+
+  // class PasswordValidator ... !
+  // required()
+  // forbidden(param)
+  // set invalid + error text
+
+  // rename PasswordValidatorFn to InputValidator ...
+  // replace { [key: string]: any } with Record<stirng, any> ...
+  // replace class PasswordValidatorFn with InputValidator ...
+
+  // rename to InputValidatorFn!
+
 PasswordInputComponent
 ----------------------
   // join logo z-index must be higher due to masked-input ... ?!

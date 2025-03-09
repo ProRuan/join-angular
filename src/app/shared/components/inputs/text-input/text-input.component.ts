@@ -28,6 +28,6 @@ export class TextInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;
 
   @Input() set config(config: InputConfig) {
-    this.set(config);
+    this.setInput(config);
   }
 }

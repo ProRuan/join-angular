@@ -38,12 +38,21 @@ export class PasswordInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;
 
   @Input() set config(config: InputConfig) {
-    this.set(config);
+    this.setInput(config);
   }
 
   @Input() set matchValue(value: string) {
     this.setValidators(value);
     this.updateValueAndValidity();
+  }
+
+  /**
+   * Sets matchword validators.
+   * @param value - The match value.
+   */
+  setValidators(value: string) {
+    let validators = this.validators.getMatchword(value);
+    this.control?.setValidators(validators);
   }
 
   /**
@@ -99,7 +108,7 @@ export class PasswordInputComponent extends ReactiveInput {
    */
   override onChange(): void {
     this.updateMaskedValue();
-    this.validateControl();
+    this.validateExistingControl();
   }
 
   /**
