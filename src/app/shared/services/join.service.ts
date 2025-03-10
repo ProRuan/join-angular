@@ -13,7 +13,12 @@ import {
 import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
 import { UserDoc } from '../models/user-doc';
-import { DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
+import {
+  DocumentData,
+  DocumentSnapshot,
+  getDoc,
+  Unsubscribe,
+} from 'firebase/firestore';
 import { getObjectArray, loadUser, setLocalItem } from '../ts/global';
 import { Task } from '../models/task';
 import { UserData } from '../interfaces/user-data';
@@ -31,14 +36,19 @@ export class JoinService {
   sid: SessionIdService = inject(SessionIdService);
 
   // continue with get user doc ... !
+  // remove/add return type ... !
+  // setUserCollection() + subscribe() ... ?
+  // subscribe changes and get new user id from change ... ?!
 
   [key: string]: any;
   revealed: boolean;
   relocated: boolean;
 
   errors = {
+    getUserDocs: 'Error - Could not get user docs',
     addUser: 'Error - Could not add user',
     updateUser: 'Error - Could not update user',
+    getUser: 'Error - Could not get user',
   };
 
   // verify!!!
@@ -48,6 +58,9 @@ export class JoinService {
   userDocs: UserDoc[] = [];
 
   windowWidth: number = 0;
+
+  unsubscribeUserCollection: Unsubscribe = () => {};
+  unsubscribeUser: Unsubscribe = () => {};
 
   // subscribeUser() {
   //   let id = this.user.id;
@@ -83,6 +96,48 @@ export class JoinService {
       this.revealed = true;
       this.relocated = true;
     }
+  }
+
+  // for userDocs or users?
+  // one sub mehtod?!
+  subscribeUserCollection() {
+    const userCollectionRef = collection(this.firestore, 'users');
+    this.unsubscribeUserCollection = onSnapshot(
+      userCollectionRef,
+      (snapshot) => {
+        const docs = [...snapshot.docs];
+        this.users = docs.map((doc) => new User(doc.data()['data']));
+        console.log('Current users in collection:', this.users);
+      }
+    );
+  }
+
+  /**
+   * Gets user docs.
+   * @returns The user docs.
+   */
+  async getUserDocs() {
+    try {
+      return await this.getUserCollection();
+    } catch (error) {
+      return this.logError(this.errors.getUserDocs, error);
+    }
+  }
+
+  // check it again!
+  async getUserCollection() {
+    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
+    const docs = [...querySnapshot.docs];
+    this.userDocs = docs.map((doc) => new UserDoc(doc.data()));
+    return this.userDocs;
+  }
+
+  subscribeUser() {
+    this.unsubscribeUser = onSnapshot(
+      doc(this.firestore, 'users', this.user.id),
+      (userDoc) => console.log('subscribed user: ', userDoc.data()),
+      (error) => console.log('Error - Could not subscribe user: ', error)
+    );
   }
 
   /**
@@ -177,6 +232,26 @@ export class JoinService {
   }
 
   /**
+   * Gets a user.
+   * @param id - The user id.
+   * @returns The user.
+   */
+  async getUser(id: string) {
+    try {
+      return this.getUserDocNew(id);
+    } catch (error) {
+      return this.logError(this.errors.getUser, error);
+    }
+  }
+
+  // rename!!!
+  async getUserDocNew(id: string) {
+    const userRef = doc(this.firestore, 'users', id);
+    const user = await getDoc(userRef);
+    return user.exists() ? new UserDoc(user.data()) : undefined;
+  }
+
+  /**
    * Gets the user document.
    * @param email - The input email.
    * @param password - The input password.
@@ -184,7 +259,7 @@ export class JoinService {
    */
   async getUserDoc(email: string, password?: string) {
     let userDocs = await this.getUserDocs();
-    return userDocs.find((u) => this.isUserDoc(u.data, email, password));
+    return userDocs?.find((u) => this.isUserDoc(u.data, email, password));
   }
 
   /**
@@ -211,53 +286,9 @@ export class JoinService {
     return sid;
   }
 
-  // improve: e. g. add-task: log user tasks and perhaps user summary?!
-  subscribeUser() {
-    const unsubscribe = onSnapshot(
-      doc(this.firestore, 'users', this.user.id),
-      (userDoc) => console.log('subscribed user: ', userDoc.data()),
-      (error) => console.log('Error - Could not subscribe user: ', error)
-    );
-  }
-
-  // // jsdoc
-  // subscribeUser() {
-  //   const unsubscribe = onSnapshot(
-  //     doc(this.firestore, 'users', this.id),
-  //     (user) => this.updateUser(user),
-  //     (error) => this.logError(error)
-  //   );
-  // }
-
-  // // update userDoc - not user!!!
-  // updateUser(user: DocumentSnapshot) {
-  //   this.user['data'] = new User(user.data());
-  // }
-
-  // // jsdoc
-  // logError(error: FirestoreError) {
-  //   console.log('Error - Could not subscribe user: ', error);
-  // }
-
   setUser(user: User) {
     this.user = new User(user);
   }
-
-  // jsdoc
-  async getUser(id: string) {
-    const userRef = doc(this.firestore, 'users', id);
-    const user = await getDoc(userRef);
-    return user.exists() ? new UserDoc(user.data()) : undefined;
-    // this.verifyUser(user);
-  }
-
-  // // jsdoc
-  // async getUser(id: string) {
-  //   const userRef = doc(this.firestore, 'users', id);
-  //   const user = await getDoc(userRef);
-  //   return user.exists() ? new UserDoc(user.data()) : undefined;
-  //   // this.verifyUser(user);
-  // }
 
   // jsdoc
   verifyUser(user: DocumentSnapshot): DocumentData | void {
@@ -291,23 +322,9 @@ export class JoinService {
     });
   }
 
-  async getUserDocs() {
-    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
-    this.pushUserDocs(querySnapshot);
-    return this.userDocs;
-  }
-
-  pushUserDocs(querySnapshot: QuerySnapshot) {
-    this.userDocs = [];
-    querySnapshot.forEach((doc) => {
-      let userDoc = new UserDoc(doc.data());
-      this.userDocs.push(userDoc);
-    });
-  }
-
   async getUserBySid(sid: string) {
     let userDocs = await this.getUserDocs();
-    let userDoc = userDocs.find((u) => u.sid == sid);
+    let userDoc = userDocs?.find((u) => u.sid == sid);
     return userDoc ? new User(userDoc.data) : undefined;
   }
 
