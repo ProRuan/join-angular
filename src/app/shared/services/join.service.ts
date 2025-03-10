@@ -23,67 +23,25 @@ import { UserData } from '../interfaces/user-data';
 })
 
 /**
- * Represents a join service.
+ * Class representing a join service.
  */
 export class JoinService {
   firestore: Firestore = inject(Firestore);
+  // verify!!!!
   sid: SessionIdService = inject(SessionIdService);
 
-  // review all funtions due to local user!!!
-  //   --> save at least one parameter, e. g. this.id!!!
-
-  // ContactComponent
-  // ----------------
-  // delete-object-dialog ...
-  // delete-user-dialog ...
-
-  // DeleteContactComponent
-  // ----------------------
-  // reset/close contact viewer after deleting contact ...
-  // combine delete-task/delete-contact dialog ... ?
-
-  // ContactDialogComponent
-  // ----------------------
-  // getObjectArray(): remove front type ... !
-  // set contact complete (with initials) ... !!!
-  // set validators ... !
-  // review onSave() ... !
-  // check animation!!!
-  // rename inputConfig to input ...
-  // disable buttons ... ?!
-  // set alternative buttons for add-task dialog like at contact dialog ... ?
-
-  // input height: 50px ... ?
-  // InputConfigurationService --> set phone input ...
-  // CloseButtonComponent ... !
-  // imgClasses: 24, 32, 64 ...
-  // ProfileComponent with name and email ... ?
-
-  // transition ... !
-  // button validation ... (0/2)
-
-  // delete task (show task title) ...
-  // delete contact (show contact name or email) ...
-  // check asset folder: img, font and so on ...
-
-  // ContactViewerService extends DialogService ... ?
-
-  // set button h-25 for add-contact-btn ... !
-  // input h-50 ... ?
-
-  // rename contacts service to contact viewer service ... ?
-  // move viewable contact component to contact list ... ?
-
-  // ContactViewerComponent
-  // ----------------------
-  // show on opened-contact only ... !
-  // add contact viewer transition ...
-  // write set() on class Contacts (for contact viewer at least)!!!
-  // reset contact and cached contact!!!
+  // continue with get user doc ... !
 
   [key: string]: any;
   revealed: boolean;
   relocated: boolean;
+
+  errors = {
+    addUser: 'Error - Could not add user',
+    updateUser: 'Error - Could not update user',
+  };
+
+  // verify!!!
   temp: any;
   user: User = new User();
   users: User[] = [];
@@ -109,14 +67,16 @@ export class JoinService {
 
   // verify {} of update() ...
 
-  // edit!!!
+  /**
+   * Creates a join service.
+   */
   constructor() {
     this.revealed = false;
     this.relocated = false;
   }
 
   /**
-   * Sets the intro to done.
+   * Sets an intro to done.
    */
   setIntroDone() {
     if (!this.revealed) {
@@ -125,27 +85,23 @@ export class JoinService {
     }
   }
 
-  setWindowWidth(value: number) {
-    this.windowWidth = value;
-  }
-
   /**
-   * Adds the user.
-   * @param data - The signee data.
-   * @returns - The user id or void.
+   * Adds a user.
+   * @param data - The user data.
+   * @returns The user id or void.
    */
-  async addUser(data: UserData): Promise<string | void> {
+  async addUser(data: UserData): Promise<string | null> {
     try {
       return await this.addUserDoc(data);
     } catch (error) {
-      console.error('Error - Could not add user: ', error);
+      return this.logError(this.errors.addUser, error);
     }
   }
 
   /**
-   * Adds the user document.
-   * @param data - The signee data.
-   * @returns - The user id.
+   * Adds a user document.
+   * @param data - The user data.
+   * @returns The user id.
    */
   async addUserDoc(data: UserData) {
     const userRef = await this.addUserData(data);
@@ -153,18 +109,18 @@ export class JoinService {
   }
 
   /**
-   * Adds the user data.
-   * @param data - The signee data.
-   * @returns - The user reference.
+   * Adds user data.
+   * @param data - The user data.
+   * @returns The user reference.
    */
   async addUserData(data: UserData) {
     return await addDoc(collection(this.firestore, 'users'), data);
   }
 
   /**
-   * Adds the user id.
+   * Adds a user id.
    * @param userRef - The user reference.
-   * @returns - The user id.
+   * @returns The user id.
    */
   async addUserId(userRef: DocumentReference) {
     const id = userRef.id;
@@ -174,7 +130,7 @@ export class JoinService {
   }
 
   /**
-   * Updates the user.
+   * Updates a user.
    * @param id - The user id.
    * @param key - The property key.
    * @param value - the property value.
@@ -183,26 +139,48 @@ export class JoinService {
     try {
       await this.updateUserDoc(id, key, value);
     } catch (error) {
-      console.log('Error - Could not update user: ', error);
+      this.logError(this.errors.updateUser, error);
     }
   }
 
   /**
-   * Updates the user document.
+   * Updates a user document.
    * @param id - The user id.
    * @param key - The property key.
    * @param value - The property value.
    */
   async updateUserDoc(id: string, key: string, value: string | {}) {
     const userRef = doc(this.firestore, 'users', id);
-    await updateDoc(userRef, { [key]: value });
+    const property = this.getProperty(key, value);
+    await updateDoc(userRef, property);
   }
 
   /**
-   * Provides the user document.
+   * Gets a user property.
+   * @param key - The property key.
+   * @param value - The property value.
+   * @returns The user property.
+   */
+  getProperty(key: string, value: string | {}) {
+    return { [key]: value };
+  }
+
+  /**
+   * Logs an error.
+   * @param text - The error text.
+   * @param error - The error.
+   * @returns Null.
+   */
+  logError(text: string, error: unknown) {
+    console.error(`${text}: `, error);
+    return null;
+  }
+
+  /**
+   * Gets the user document.
    * @param email - The input email.
    * @param password - The input password.
-   * @returns - The user document or undefined.
+   * @returns The user document or undefined.
    */
   async getUserDoc(email: string, password?: string) {
     let userDocs = await this.getUserDocs();
@@ -214,7 +192,7 @@ export class JoinService {
    * @param user - The user object.
    * @param email - The email to match.
    * @param password - The password to match.
-   * @returns - A boolean value.
+   * @returns A boolean value.
    */
   isUserDoc(user: User, email: string, password?: string) {
     let emailExistent = user.email === email;
@@ -223,9 +201,9 @@ export class JoinService {
   }
 
   /**
-   * Provides the session id.
+   * Gets the session id.
    * @param id - The user id.
-   * @returns - The session id.
+   * @returns The session id.
    */
   async getSessionId(id: string) {
     let sid = this.sid.get();
@@ -414,6 +392,10 @@ export class JoinService {
    */
   deleteContact(index: number) {
     this.user.contacts.splice(index, 1);
+  }
+
+  setWindowWidth(value: number) {
+    this.windowWidth = value;
   }
 
   // add class UserDoc - check
