@@ -51,29 +51,15 @@ export class AppComponent {
         this.join.setWindowWidth(width);
       });
 
-    const startTime = new Date().getTime();
-    console.log('start time: ', startTime);
+    // const startTime = new Date().getTime();
+    // console.log('start time: ', startTime);
     this.join.subscribeUserCollection();
-    const endTime = new Date().getTime();
-    console.log('time diff: ', endTime - startTime);
+    // const endTime = new Date().getTime();
+    // console.log('time diff: ', endTime - startTime);
     // setTimeout(() => {
     //   this.join.unsubscribeUserCollection();
     //   console.log('user collection unsubscribed');
     // }, 5000);
-
-    // add user doc without delay an get id from change?!
-    // --------------------------------------------------
-    // const userCollectionRef = collection(this.firestore, 'users');
-
-    // onSnapshot(userCollectionRef, (snapshot) => {
-    //   snapshot.docChanges().forEach((change) => {
-    //     if (change.type === 'added') {
-    //       const newDoc = change.doc;
-    //       console.log('New document added with ID:', newDoc.id);
-    //       console.log('Document data:', newDoc.data());
-    //     }
-    //   });
-    // });
   }
 
   ngOnDestroy(): void {

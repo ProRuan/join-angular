@@ -35,6 +35,7 @@ export class JoinService {
   // verify!!!!
   sid: SessionIdService = inject(SessionIdService);
 
+  // remove async/await where possible ... !
   // continue with get user doc ... !
   // remove/add return type ... !
   // setUserCollection() + subscribe() ... ?
@@ -251,6 +252,16 @@ export class JoinService {
     return user.exists() ? new UserDoc(user.data()) : undefined;
   }
 
+  // new
+  getRegisteredUser(email: string, password?: string) {
+    return this.users.find((u) => u.email === email && u.password === password);
+  }
+
+  // new
+  getUserBySid(sid: string) {
+    return this.users.find((u) => u.sid === sid);
+  }
+
   /**
    * Gets the user document.
    * @param email - The input email.
@@ -284,6 +295,10 @@ export class JoinService {
     let sid = this.sid.get();
     await this.updateUser(id, 'sid', sid);
     return sid;
+  }
+
+  getSid() {
+    return this.sid.get();
   }
 
   setUser(user: User) {
@@ -322,11 +337,11 @@ export class JoinService {
     });
   }
 
-  async getUserBySid(sid: string) {
-    let userDocs = await this.getUserDocs();
-    let userDoc = userDocs?.find((u) => u.sid == sid);
-    return userDoc ? new User(userDoc.data) : undefined;
-  }
+  // async getUserBySid(sid: string) {
+  //   let userDocs = await this.getUserDocs();
+  //   let userDoc = userDocs?.find((u) => u.sid == sid);
+  //   return userDoc ? new User(userDoc.data) : undefined;
+  // }
 
   /**
    * Loads the user.

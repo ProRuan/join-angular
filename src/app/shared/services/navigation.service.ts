@@ -16,16 +16,16 @@ export class NavigationService {
   log: LogService = inject(LogService);
 
   /**
-   * Opens a new login session.
+   * Opens a login session.
    * @param id - The user id.
    * @param text - The log text.
    */
-  async openLoginSession(id: string, text: string) {
-    let sid = await this.join.getSessionId(id);
-    if (sid) {
-      this.log.setLog(true, text);
-      this.redirectsToCustomLogin(sid);
-    }
+  openLoginSession(id: string, text: string) {
+    let sid = this.join.getSid();
+    this.join.updateUser(id, 'sid', sid);
+    this.join.updateUser(id, 'data.sid', sid);
+    this.log.setLog(true, text);
+    this.redirectsToCustomLogin(sid);
   }
 
   /**

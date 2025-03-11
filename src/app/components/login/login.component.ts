@@ -16,15 +16,14 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 import { JoinService } from '../../shared/services/join.service';
 import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
+import { FormController } from '../../shared/models/form-controller';
+import { User } from '../../shared/models/user';
 import {
   getLocalItem,
   isDefaultString,
   removeLocalItem,
   setLocalItem,
 } from '../../shared/ts/global';
-import { User } from '../../shared/models/user';
-import { UserDoc } from '../../shared/models/user-doc';
-import { FormController } from '../../shared/models/form-controller';
 
 @Component({
   selector: 'app-login',
@@ -66,11 +65,11 @@ export class LoginComponent extends FormController {
   /**
    * Initializes a login component.
    */
-  async ngOnInit() {
+  ngOnInit() {
     this.setForm();
     this.setControls();
-    await this.setSigneeEmail();
-    await this.setRememberedUser();
+    this.setSigneeEmail();
+    this.setRememberedUser();
   }
 
   /**
@@ -84,58 +83,64 @@ export class LoginComponent extends FormController {
   /**
    * Sets form controls.
    */
-  setControls() {
+  private setControls() {
     this.email = this.get('email');
     this.password = this.get('password');
   }
 
   /**
-   * Sets the signee email.
+   * Sets a signee email.
    */
-  private async setSigneeEmail() {
+  private setSigneeEmail() {
     let sid = this.route.snapshot.paramMap.get('id');
     if (sid) {
-      await this.updateEmailControl(sid);
+      this.updateEmailControl(sid);
     }
   }
 
   /**
-   * Updates the value of the email form control.
+   * Updates the value of an email form control.
    * @param sid - The session id.
    */
-  private async updateEmailControl(sid: string) {
-    let user = await this.join.getUserBySid(sid);
+  private updateEmailControl(sid: string) {
+    let user = this.join.getUserBySid(sid);
     if (user) {
       this.setValue('email', user.email);
     }
   }
 
   /**
-   * Sets the remembered user.
+   * Sets a remembered user.
    */
-  private async setRememberedUser() {
-    let email = this.getValue('email');
-    if (isDefaultString(email)) {
-      let rememberedAsText = getLocalItem('remembered');
-      let userAsText = getLocalItem('user');
-      if (rememberedAsText && userAsText) {
-        let user = JSON.parse(userAsText);
-        await this.verifyLoadedUser(user);
-      }
+  private setRememberedUser() {
+    if (isDefaultString(this.email?.value)) {
+      this.loadRememberedUser();
     }
   }
 
   /**
-   * Verifies the loaded user.
-   * @param user - The loaded user.
+   * Loads a remembered user.
    */
-  private async verifyLoadedUser(user: User) {
-    let userExistent = await this.join.getUserDoc(user.email, user.password);
-    userExistent ? this.updateForm(user) : this.removeRememberedUser();
+  private loadRememberedUser() {
+    let rememberedAsText = getLocalItem('remembered');
+    let userAsText = getLocalItem('user');
+    if (rememberedAsText && userAsText) {
+      let user = JSON.parse(userAsText);
+      this.verifyRememberedUser(user);
+    }
   }
 
   /**
-   * Updates the form by the loaded user.
+   * Verifies a remembered user.
+   * @param user - The remembered user.
+   */
+  private verifyRememberedUser(user: User) {
+    let registeredUser = this.join.getRegisteredUser(user.email, user.password);
+    registeredUser ? this.updateForm(user) : this.removeRememberedUser();
+  }
+
+  /**
+   * Updates the form by a loaded user.
    * @param user - The loaded user.
    */
   private updateForm(user: User) {
@@ -145,7 +150,7 @@ export class LoginComponent extends FormController {
   }
 
   /**
-   * Removes the remembered user from the local storage.
+   * Removes a remembered user from the local storage.
    */
   private removeRememberedUser() {
     removeLocalItem('remembered');
@@ -153,35 +158,37 @@ export class LoginComponent extends FormController {
   }
 
   /**
-   * Logs the user in on submit.
+   * Logs a user in on submit.
    */
-  async onLogin() {
+  onLogin() {
     if (this.form.valid) {
       this.loggedIn = true;
-      let userDoc = await this.getUserDoc();
-      userDoc ? await this.logIn(userDoc) : this.reject();
+      let user = this.getRegisteredUser();
+      user ? this.logIn(user) : this.reject();
     }
   }
 
   /**
-   * Gets the user doc.
-   * @returns The user doc.
+   * Gets a registered user.
+   * @returns The registered user.
    */
-  private async getUserDoc() {
+  private getRegisteredUser() {
     let email = this.getValue('email');
     let password = this.getValue('password');
-    return await this.join.getUserDoc(email, password);
+    return this.join.getRegisteredUser(email, password);
   }
 
   /**
    * Logs a user in.
-   * @param userDoc - The user doc.
+   * @param user - The user.
    */
-  private async logIn(userDoc: UserDoc) {
+  private logIn(user: User) {
     this.validators.setRejected(false);
-    let sid = await this.join.getSessionId(userDoc.id);
+    let sid = this.join.getSid();
+    this.join.updateUser(user.id, 'sid', sid);
+    this.join.updateUser(user.id, 'data.sid', sid);
     this.rememberUser();
-    this.join.logUserIn(userDoc.data);
+    this.join.logUserIn(user);
     this.router.navigate(['main', sid, 'summary']);
   }
 

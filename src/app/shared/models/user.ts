@@ -9,6 +9,7 @@ import { getCustomArray, getObjectArray, getString } from '../ts/global';
  */
 export class User {
   id: string;
+  sid: string;
   initials: string;
   name: string;
   email: string;
@@ -23,6 +24,7 @@ export class User {
    */
   constructor(data?: DocumentData | User) {
     this.id = getString(data?.id);
+    this.sid = getString(data?.sid);
     this.initials = getString(data?.initials);
     this.name = getString(data?.name);
     this.email = getString(data?.email);
@@ -46,6 +48,7 @@ export class User {
   getObject() {
     return {
       id: this.id,
+      sid: this.sid,
       initials: this.initials,
       name: this.name,
       email: this.email,

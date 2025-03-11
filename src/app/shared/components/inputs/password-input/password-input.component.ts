@@ -7,7 +7,7 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { InputConfig } from '../../../interfaces/input-config';
-import { IntervalId, stop } from '../../../ts/global';
+import { stop } from '../../../ts/global';
 
 type TextStyle = { [key: string]: string };
 
@@ -31,9 +31,6 @@ export class PasswordInputComponent extends ReactiveInput {
   maskedValue: string = '';
   masked: boolean = true;
   textStyle!: TextStyle;
-  counter: number = 0;
-  intervalId!: IntervalId;
-  intervalStopped: boolean = false;
 
   @Input() override control: AbstractControl | null = null;
 
@@ -60,7 +57,7 @@ export class PasswordInputComponent extends ReactiveInput {
    */
   ngOnInit() {
     this.textStyle = this.getAltTextStyle();
-    this.initMaskedValue();
+    this.updateMaskedValue();
   }
 
   /**
@@ -73,34 +70,6 @@ export class PasswordInputComponent extends ReactiveInput {
       caretColor: 'black',
       fontFamily: 'courier, monospace',
     };
-  }
-
-  /**
-   * Initializes a masked value.
-   */
-  initMaskedValue() {
-    this.intervalId = setInterval(() => this.setMaskedValue(), 100);
-    setTimeout(() => this.stopInterval(), 3000);
-  }
-
-  /**
-   * Stops an interval.
-   */
-  stopInterval() {
-    if (!this.intervalStopped) {
-      clearTimeout(this.intervalId);
-    }
-  }
-
-  /**
-   * Sets a masked value.
-   */
-  setMaskedValue() {
-    if (this.value != '') {
-      this.updateMaskedValue();
-      clearTimeout(this.intervalId);
-      this.intervalStopped = true;
-    }
   }
 
   /**

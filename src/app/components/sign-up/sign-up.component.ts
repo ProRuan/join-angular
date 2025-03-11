@@ -14,6 +14,16 @@ import { TextInputComponent } from '../../shared/components/inputs/text-input/te
 import { PasswordInputComponent } from '../../shared/components/inputs/password-input/password-input.component';
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
+import {
+  collection,
+  DocumentChange,
+  DocumentData,
+  Firestore,
+  FirestoreError,
+  onSnapshot,
+  QuerySnapshot,
+  Unsubscribe,
+} from '@angular/fire/firestore';
 import { JoinService } from '../../shared/services/join.service';
 import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
@@ -24,7 +34,6 @@ import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
 import { sampleContacts } from '../../shared/ts/sample-contacts';
 import { Contact } from '../../shared/models/contact';
-import { UserData } from '../../shared/interfaces/user-data';
 
 @Component({
   selector: 'app-sign-up',
@@ -52,6 +61,7 @@ import { UserData } from '../../shared/interfaces/user-data';
  * @extends Formcontroller
  */
 export class SignUpComponent extends FormController {
+  firestore: Firestore = inject(Firestore);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
@@ -67,11 +77,14 @@ export class SignUpComponent extends FormController {
   matchword: AbstractControl | null = null;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
+  userAdded: boolean = false;
 
   texts = {
     rejected: 'Email already associated with account',
     registered: 'You signed up successfully',
   };
+
+  unsubscribe: Unsubscribe = () => {};
 
   /**
    * Initializes a sign-up component.
@@ -84,7 +97,7 @@ export class SignUpComponent extends FormController {
   /**
    * Sets a form.
    */
-  setForm() {
+  private setForm() {
     this.registerControl('name', '', this.validators.name);
     this.registerControl('email', '', this.validators.email);
     this.registerControl('password', '', this.validators.password);
@@ -94,7 +107,7 @@ export class SignUpComponent extends FormController {
   /**
    * Sets form controls.
    */
-  setControls() {
+  private setControls() {
     this.name = this.get('name');
     this.email = this.get('email');
     this.password = this.get('password');
@@ -104,26 +117,18 @@ export class SignUpComponent extends FormController {
   /**
    * Registers a user on submit.
    */
-  async onSignUp() {
+  onSignUp() {
     if (this.form.valid) {
       this.signedUp = true;
-      let userDoc = await this.getUserDoc();
-      userDoc ? this.reject() : this.signUp();
+      let user = this.join.getRegisteredUser(this.email?.value);
+      user ? this.reject() : this.signUp();
     }
-  }
-
-  /**
-   * Gets a user doc.
-   * @returns The user doc.
-   */
-  async getUserDoc() {
-    return await this.join.getUserDoc(this.email?.value);
   }
 
   /**
    * Rejects a form.
    */
-  reject() {
+  private reject() {
     let text = this.texts.rejected;
     this.log.setLog(true, text);
     this.rejectBelatedly();
@@ -132,27 +137,35 @@ export class SignUpComponent extends FormController {
   /**
    * Rejects a form belatedly.
    */
-  rejectBelatedly() {
+  private rejectBelatedly() {
     setTimeout(() => {
       this.log.setLog(false);
       this.signedUp = false;
-    }, 2000);
+    }, 900);
   }
 
   /**
    * Registers a user.
    */
-  async signUp() {
+  private signUp() {
+    this.updateUserData();
+    this.subscribeUserCollection();
+    let data = this.getUserData();
+    this.join.addUser(data);
+  }
+
+  /**
+   * Updates user data.
+   */
+  private updateUserData() {
     this.updateUser();
     this.updateUserContacts();
-    let data = this.getUserData();
-    await this.addUser(data);
   }
 
   /**
    * Udpates a user.
    */
-  updateUser() {
+  private updateUser() {
     this.user.name = this.getName();
     this.user.initials = this.getInitials(this.user.name);
     this.user.email = this.getValue('email');
@@ -163,7 +176,7 @@ export class SignUpComponent extends FormController {
    * Gets a user name.
    * @returns The user name.
    */
-  getName() {
+  private getName() {
     return this.nameFormatter.getFormattedName(this.name?.value);
   }
 
@@ -172,14 +185,14 @@ export class SignUpComponent extends FormController {
    * @param name - The user name.
    * @returns The user initials.
    */
-  getInitials(name: string) {
+  private getInitials(name: string) {
     return this.nameFormatter.getInitials(name);
   }
 
   /**
    * Updates user contacts.
    */
-  updateUserContacts() {
+  private updateUserContacts() {
     let contact = this.getContact(this.user);
     this.user.contacts.push(contact);
     this.user.contacts.push(...sampleContacts);
@@ -190,7 +203,7 @@ export class SignUpComponent extends FormController {
    * @param user - The user.
    * @returns The user as a contact.
    */
-  getContact(user: User) {
+  private getContact(user: User) {
     let contact = new Contact();
     contact.initials = user.initials;
     contact.bgc = 'lightblue';
@@ -200,24 +213,71 @@ export class SignUpComponent extends FormController {
   }
 
   /**
+   * Subscribes a user collection.
+   */
+  private subscribeUserCollection() {
+    this.unsubscribe = onSnapshot(
+      collection(this.firestore, 'users'),
+      (snapshot) => this.addUser(snapshot),
+      (error) => this.logError(error)
+    );
+  }
+
+  /**
    * Gets user data.
    * @returns The user data.
    */
-  getUserData() {
+  private getUserData() {
     let data = this.user.getObject();
     return { data };
   }
 
   /**
-   * Adds a user.
-   * @param data - The user data.
+   * Adds a user to the user collection.
+   * @param snapshot - The QuerySnapshot.
    */
-  async addUser(data: UserData): Promise<string | void> {
-    let id = await this.join.addUser(data);
-    if (id) {
-      let text = this.texts.registered;
-      await this.nav.openLoginSession(id, text);
+  private addUser(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
+    snapshot.docChanges().forEach((change) => this.completeSignUp(change));
+  }
+
+  /**
+   * Completes a sign-up.
+   * @param change - The DocumentChange.
+   */
+  private completeSignUp(change: DocumentChange<DocumentData, DocumentData>) {
+    if (this.isFirstChange(change)) {
+      const id = change.doc.id;
+      this.join.updateUser(id, 'id', id);
+      this.openLoginSession(id);
+      this.userAdded = true;
     }
+  }
+
+  /**
+   * Verifies a first user document change.
+   * @param change - The DocumentChange.
+   * @returns A boolean value.
+   */
+  private isFirstChange(change: DocumentChange<DocumentData, DocumentData>) {
+    return change.type === 'modified' && !this.userAdded;
+  }
+
+  /**
+   * Opens a login session.
+   * @param id - The user id.
+   */
+  private openLoginSession(id: string) {
+    let text = this.texts.registered;
+    this.nav.openLoginSession(id, text);
+  }
+
+  /**
+   * Logs a firestore error.
+   * @param error - The FirestoreError.
+   */
+  private logError(error: FirestoreError) {
+    const text = this.join.errors.addUser;
+    this.join.logError(text, error);
   }
 
   /**
@@ -234,5 +294,13 @@ export class SignUpComponent extends FormController {
    */
   isDisabled() {
     return this.form.invalid || !this.ppAccepted || this.signedUp;
+  }
+
+  /**
+   * Destroys a sign-up component.
+   */
+  ngOnDestroy() {
+    this.unsubscribe();
+    this.userAdded = false;
   }
 }

@@ -9,6 +9,26 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+LoginComponent
+--------------
+  - remember me not working anymore ...
+      --> property of user: user.remembered = true ... ?
+      --> rename setRegisteredUser() + setRememberedUser() ... !
+  - no sid update (data.sid) ...
+  - sid either for user doc or for user ...
+  - review logIn() ...
+
+SignUpComonent
+--------------
+  - signUp(): add updateUserTasks() ... !!!
+  - set new back log time out (animation) ... !
+  - async/await check for all components ... !
+  - place of subscribeUserCollection: init/reload ... !
+
+double updateUser(sid)
+----------------------
+  - navigation service: openLoginSession() ...
+
 JoinService
 -----------
   // review all funtions due to local user!!!
