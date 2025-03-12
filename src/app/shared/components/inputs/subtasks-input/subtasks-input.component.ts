@@ -68,6 +68,7 @@ export class SubtasksInputComponent extends ReactiveInput {
   onAdd() {
     if (this.isFilled()) {
       this.updateSubtasks();
+      this.updateSubtaskIds();
       this.clear();
     }
   }
@@ -88,6 +89,16 @@ export class SubtasksInputComponent extends ReactiveInput {
     let subtask = new Subtask();
     subtask.text = this.value;
     return subtask;
+  }
+
+  /**
+   * Updates subtask ids.
+   */
+  updateSubtaskIds() {
+    for (let i = 0; i < this.subtasks.length; i++) {
+      let subtask = this.subtasks[i];
+      subtask.id = i;
+    }
   }
 
   /**
@@ -202,10 +213,9 @@ export class SubtasksInputComponent extends ReactiveInput {
    * @param i - The subtask index.
    */
   delete(i: number) {
+    this.dialog.close(this.dialogId);
     this.subtasks.splice(i, 1);
-    if (this.dialog.isOpened(this.dialogId)) {
-      this.dialog.close(this.dialogId);
-    }
+    this.updateSubtaskIds();
   }
 
   /**
