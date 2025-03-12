@@ -14,6 +14,7 @@ import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
 import { UserDoc } from '../models/user-doc';
 import {
+  deleteDoc,
   DocumentChange,
   DocumentData,
   DocumentSnapshot,
@@ -48,18 +49,10 @@ export class JoinService {
   revealed: boolean;
   relocated: boolean;
 
-  errors = {
-    getUserDocs: 'Error - Could not get user docs',
-    addUser: 'Error - Could not add user',
-    updateUser: 'Error - Could not update user',
-    getUser: 'Error - Could not get user',
-  };
-
   // verify!!!
   temp: any;
   user: User = new User();
   users: User[] = [];
-  userDocs: UserDoc[] = [];
 
   windowWidth: number = 0;
 
@@ -84,12 +77,45 @@ export class JoinService {
 
   // verify {} of update() ...
 
-  /**
-   * Creates a join service.
-   */
+  // necessary after using browser animation?
+  // edit logo animation!
   constructor() {
     this.revealed = false;
     this.relocated = false;
+  }
+
+  /**
+   * Gets a user by session id.
+   * @param sid - The user session id.
+   * @returns The user.
+   */
+  getUserBySid(sid: string) {
+    return this.users.find((u) => u.sid === sid);
+  }
+
+  /**
+   * Gets a registered user.
+   * @param email - The user email.
+   * @param password - The user password.
+   * @returns The registered user.
+   */
+  getRegisteredUser(email: string, password?: string) {
+    return this.users.find((u) => this.isRegisteredUser(u, email, password));
+  }
+
+  /**
+   * Verifies a user by email and password.
+   * @param user - The user to compare.
+   * @param email - The email to verify.
+   * @param password - The password to verify.
+   * @returns A boolean value.
+   */
+  isRegisteredUser(user: User, email: string, password?: string) {
+    if (password) {
+      return user.email === email && user.password === password;
+    } else {
+      return user.email === email;
+    }
   }
 
   /**
@@ -107,6 +133,69 @@ export class JoinService {
   addUserId(id: string) {
     this.updateUser(id, 'id', id);
     this.updateUser(id, 'data.id', id);
+  }
+
+  /**
+   * Updates a user at the firestore.
+   * @param id - The user id.
+   * @param key - The property key.
+   * @param value - The property value.
+   */
+  updateUser(id: string, key: string, value: string | {}) {
+    const userRef = doc(this.firestore, 'users', id);
+    const property = this.getProperty(key, value);
+    updateDoc(userRef, property);
+  }
+
+  /**
+   * Gets a user property.
+   * @param key - The property key.
+   * @param value - The property value.
+   * @returns The user property.
+   */
+  getProperty(key: string, value: string | {}) {
+    return { [key]: value };
+  }
+
+  /**
+   * Logs an error.
+   * @param text - The error text.
+   * @param error - The error.
+   */
+  logError(text: string, error: unknown) {
+    console.error(`${text}: `, error);
+  }
+
+  /**
+   * Gets a session id.
+   * @returns - The session id.
+   */
+  getSid() {
+    return this.sid.get();
+  }
+
+  /**
+   * Deletes a user task.
+   * @param index - The task index.
+   */
+  deleteTask(index: number) {
+    this.user.tasks.splice(index, 1);
+  }
+
+  /**
+   * Deletes a user contact.
+   * @param index - The contact index.
+   */
+  deleteContact(index: number) {
+    this.user.contacts.splice(index, 1);
+  }
+
+  /**
+   * Deletes a user.
+   * @param id - The user id.
+   */
+  deleteUser(id: string) {
+    deleteDoc(doc(this.firestore, 'users', id));
   }
 
   // --- to verify --- to verify ---
@@ -136,26 +225,6 @@ export class JoinService {
     );
   }
 
-  /**
-   * Gets user docs.
-   * @returns The user docs.
-   */
-  async getUserDocs() {
-    try {
-      return await this.getUserCollection();
-    } catch (error) {
-      return this.logError(this.errors.getUserDocs, error);
-    }
-  }
-
-  // check it again!
-  async getUserCollection() {
-    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
-    const docs = [...querySnapshot.docs];
-    this.userDocs = docs.map((doc) => new UserDoc(doc.data()));
-    return this.userDocs;
-  }
-
   subscribeUser() {
     this.unsubscribeUser = onSnapshot(
       doc(this.firestore, 'users', this.user.id),
@@ -164,179 +233,16 @@ export class JoinService {
     );
   }
 
-  /**
-   * Updates a user.
-   * @param id - The user id.
-   * @param key - The property key.
-   * @param value - the property value.
-   */
-  async updateUser(id: string, key: string, value: string | {}) {
-    try {
-      await this.updateUserDoc(id, key, value);
-    } catch (error) {
-      this.logError(this.errors.updateUser, error);
-    }
-  }
-
-  /**
-   * Updates a user document.
-   * @param id - The user id.
-   * @param key - The property key.
-   * @param value - The property value.
-   */
-  async updateUserDoc(id: string, key: string, value: string | {}) {
-    const userRef = doc(this.firestore, 'users', id);
-    const property = this.getProperty(key, value);
-    await updateDoc(userRef, property);
-  }
-
-  /**
-   * Gets a user property.
-   * @param key - The property key.
-   * @param value - The property value.
-   * @returns The user property.
-   */
-  getProperty(key: string, value: string | {}) {
-    return { [key]: value };
-  }
-
-  /**
-   * Logs an error.
-   * @param text - The error text.
-   * @param error - The error.
-   * @returns Null.
-   */
-  logError(text: string, error: unknown) {
-    console.error(`${text}: `, error);
-    return null;
-  }
-
-  /**
-   * Gets a user.
-   * @param id - The user id.
-   * @returns The user.
-   */
-  async getUser(id: string) {
-    try {
-      return this.getUserDocNew(id);
-    } catch (error) {
-      return this.logError(this.errors.getUser, error);
-    }
-  }
-
-  // rename!!!
-  async getUserDocNew(id: string) {
-    const userRef = doc(this.firestore, 'users', id);
-    const user = await getDoc(userRef);
-    return user.exists() ? new UserDoc(user.data()) : undefined;
-  }
-
-  // new
-  getRegisteredUser(email: string, password?: string) {
-    return this.users.find((u) => this.isRegisteredUser(u, email, password));
-  }
-
-  // new
-  isRegisteredUser(user: User, email: string, password?: string) {
-    if (password) {
-      return user.email === email && user.password === password;
-    } else {
-      return user.email === email;
-    }
-  }
-
-  // new
-  getUserBySid(sid: string) {
-    return this.users.find((u) => u.sid === sid);
-  }
-
-  /**
-   * Gets the user document.
-   * @param email - The input email.
-   * @param password - The input password.
-   * @returns The user document or undefined.
-   */
-  async getUserDoc(email: string, password?: string) {
-    let userDocs = await this.getUserDocs();
-    return userDocs?.find((u) => this.isUserDoc(u.data, email, password));
-  }
-
-  /**
-   * Verifies the user document.
-   * @param user - The user object.
-   * @param email - The email to match.
-   * @param password - The password to match.
-   * @returns A boolean value.
-   */
-  isUserDoc(user: User, email: string, password?: string) {
-    let emailExistent = user.email === email;
-    let passwordExistent = user.password === password;
-    return password ? emailExistent && passwordExistent : emailExistent;
-  }
-
-  /**
-   * Gets the session id.
-   * @param id - The user id.
-   * @returns The session id.
-   */
-  async getSessionId(id: string) {
-    let sid = this.sid.get();
-    await this.updateUser(id, 'sid', sid);
-    return sid;
-  }
-
-  getSid() {
-    return this.sid.get();
-  }
-
   setUser(user: User) {
     this.user = new User(user);
   }
-
-  // jsdoc
-  verifyUser(user: DocumentSnapshot): DocumentData | void {
-    if (user.exists()) {
-      return new UserDoc(user.data());
-    } else {
-      console.log('User not existing!');
-    }
-  }
-
-  // // jsdoc
-  // async deleteUser() {
-  //   await deleteDoc(doc(this.firestore, 'users', this.id));
-  // }
-
-  async getUsers() {
-    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
-    this.pushUsers(querySnapshot);
-    return this.users;
-  }
-
-  pushUsers(querySnapshot: QuerySnapshot) {
-    this.users = [];
-    querySnapshot.forEach((doc) => {
-      let user = doc.data();
-      let userData = user['data'];
-      console.log('user data: ', userData);
-      let tempUser = new User(userData);
-      this.users.push(tempUser);
-      console.log('users: ', this.users);
-    });
-  }
-
-  // async getUserBySid(sid: string) {
-  //   let userDocs = await this.getUserDocs();
-  //   let userDoc = userDocs?.find((u) => u.sid == sid);
-  //   return userDoc ? new User(userDoc.data) : undefined;
-  // }
 
   /**
    * Loads the user.
    */
   async loadUser() {
     this.loadUserLocally();
-    await this.loadUserOnline();
+    this.loadUserOnline();
   }
 
   /**
@@ -349,13 +255,11 @@ export class JoinService {
     }
   }
 
-  /**
-   * Loads the user online.
-   */
-  async loadUserOnline() {
-    let userDoc = await this.getUser(this.user.id);
-    if (userDoc) {
-      this.setUser(userDoc.data);
+  // new - but still necessary???
+  loadUserOnline() {
+    let user = this.users.find((u) => u.id === this.user.id);
+    if (user) {
+      this.setUser(user);
     }
   }
 
@@ -398,27 +302,7 @@ export class JoinService {
     this.subscribeUser(); // necessary? --> app subscription!!!
   }
 
-  /**
-   * Deletes a user task.
-   * @param index - The task index.
-   */
-  deleteTask(index: number) {
-    this.user.tasks.splice(index, 1);
-  }
-
-  /**
-   * Deletes a user contact.
-   * @param index - The contact index.
-   */
-  deleteContact(index: number) {
-    this.user.contacts.splice(index, 1);
-  }
-
   setWindowWidth(value: number) {
     this.windowWidth = value;
   }
-
-  // add class UserDoc - check
-  // add class UserId ...
-  // add class UserData ...
 }

@@ -224,15 +224,6 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Gets user data.
-   * @returns The user data.
-   */
-  private getUserData() {
-    let data = this.user.getObject();
-    return { data };
-  }
-
-  /**
    * Adds a user to the user collection.
    * @param snapshot - The QuerySnapshot.
    */
@@ -276,8 +267,17 @@ export class SignUpComponent extends FormController {
    * @param error - The FirestoreError.
    */
   private logError(error: FirestoreError) {
-    const text = this.join.errors.addUser;
+    const text = 'Error - Could not add user';
     this.join.logError(text, error);
+  }
+
+  /**
+   * Gets user data.
+   * @returns The user data.
+   */
+  private getUserData() {
+    let data = this.user.getObject();
+    return { data };
   }
 
   /**
