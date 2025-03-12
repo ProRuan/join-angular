@@ -182,10 +182,9 @@ export class LoginComponent extends FormController {
    * @param user - The user.
    */
   private logIn(user: User) {
-    this.validators.setRejected(false);
     let sid = this.join.getSid();
-    this.join.updateUser(user.id, 'sid', sid);
-    this.join.updateUser(user.id, 'data.sid', sid);
+    this.validators.setRejected(false);
+    this.join.updateUserSid(user.id, sid);
     this.rememberUser();
     this.join.logUserIn(user);
     this.router.navigate(['main', sid, 'summary']);

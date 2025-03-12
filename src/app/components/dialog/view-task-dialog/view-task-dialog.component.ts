@@ -137,8 +137,7 @@ export class ViewTaskDialogComponent
    */
   onCheck(subtask: Subtask) {
     this.checkSubtask(subtask);
-    this.join.saveUserTasks();
-    this.join.saveUserLocally();
+    this.join.saveUser();
   }
 
   /**

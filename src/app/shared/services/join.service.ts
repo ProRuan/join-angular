@@ -9,13 +9,10 @@ import {
   Unsubscribe,
   updateDoc,
 } from '@angular/fire/firestore';
-
-// verify!!!
 import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
-import { getLocalItem, getObjectArray, setLocalItem } from '../ts/global';
-import { Task } from '../models/task';
 import { UserData } from '../interfaces/user-data';
+import { getLocalItem, setLocalItem } from '../ts/global';
 
 @Injectable({
   providedIn: 'root',
@@ -34,24 +31,39 @@ export class JoinService {
   // remove/add return type ... !
   // setUserCollection() + subscribe() ... ?
 
+  // saveUser()
+  // ----------
+  // join service: data.id ...
+  // join service: data.sid ...
+  // new password component: data.password ...
+
   [key: string]: any;
-  revealed: boolean;
-  relocated: boolean;
   user: User = new User();
   users: User[] = [];
-
-  // verify!!!
+  revealed: boolean;
+  relocated: boolean;
   windowWidth: number = 0;
 
-  // verify!!!
+  // verify + rename?!
   unsubscribeUserCollection: Unsubscribe = () => {};
   unsubscribeUser: Unsubscribe = () => {};
 
   // necessary after using browser animation?
   // edit logo animation!
+  // check setIntroToDone() after that!
   constructor() {
     this.revealed = false;
     this.relocated = false;
+  }
+
+  /**
+   * Sets an intro to done.
+   */
+  setIntroToDone() {
+    if (!this.revealed) {
+      this.revealed = true;
+      this.relocated = true;
+    }
   }
 
   /**
@@ -134,6 +146,16 @@ export class JoinService {
    */
   logError(text: string, error: unknown) {
     console.error(`${text}: `, error);
+  }
+
+  /**
+   * Updates a user session id.
+   * @param id - The user id.
+   * @param sid - The user session id.
+   */
+  updateUserSid(id: string, sid: string) {
+    this.updateUser(id, 'sid', sid);
+    this.updateUser(id, 'data.sid', sid);
   }
 
   /**
@@ -229,18 +251,16 @@ export class JoinService {
     setLocalItem('user', this.user);
   }
 
+  /**
+   * Sets a window width.
+   * @param value - The value to set.
+   */
+  setWindowWidth(value: number) {
+    this.windowWidth = value;
+  }
+
   // --- to verify --- to verify ---
   // -------------------------------
-
-  /**
-   * Sets an intro to done.
-   */
-  setIntroDone() {
-    if (!this.revealed) {
-      this.revealed = true;
-      this.relocated = true;
-    }
-  }
 
   // for userDocs or users?
   // one sub mehtod?!
@@ -264,22 +284,9 @@ export class JoinService {
     );
   }
 
-  /**
-   * Saves the user tasks.
-   */
-  async saveUserTasks() {
-    let id = this.user.id;
-    let tasks = getObjectArray<Task>(this.user.tasks, Task);
-    await this.updateUser(id, 'data.tasks', tasks);
-  }
-
   async logUserIn(user: User) {
     this.user.set(user);
     await this.saveUser();
     this.subscribeUser(); // necessary? --> app subscription!!!
-  }
-
-  setWindowWidth(value: number) {
-    this.windowWidth = value;
   }
 }

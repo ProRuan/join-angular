@@ -30,6 +30,6 @@ export class LoginArrowComponent {
    */
   backToLogin(url: string) {
     this.router.navigateByUrl(url);
-    this.join.setIntroDone();
+    this.join.setIntroToDone();
   }
 }

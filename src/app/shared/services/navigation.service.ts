@@ -22,8 +22,7 @@ export class NavigationService {
    */
   openLoginSession(id: string, text: string) {
     let sid = this.join.getSid();
-    this.join.updateUser(id, 'sid', sid);
-    this.join.updateUser(id, 'data.sid', sid);
+    this.join.updateUserSid(id, sid);
     this.log.setLog(true, text);
     this.redirectsToCustomLogin(sid);
   }
@@ -41,7 +40,7 @@ export class NavigationService {
    * @param url - The login url.
    */
   redirectsToLogin(url: string) {
-    this.join.setIntroDone();
+    this.join.setIntroToDone();
     this.router.navigateByUrl(url);
     this.log.setLog(false);
   }
