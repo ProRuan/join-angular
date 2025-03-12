@@ -5,24 +5,32 @@ import { Task } from './task';
 import { getCustomArray, getObjectArray, getString } from '../ts/global';
 
 /**
- * Represents a user.
+ * Class representing a user.
  */
 export class User {
-  id: string;
-  sid: string;
-  initials: string;
-  name: string;
-  email: string;
-  password: string;
-  summary: Summary;
-  tasks: Task[];
-  contacts: Contact[];
+  id: string = '';
+  sid: string = '';
+  initials: string = '';
+  name: string = '';
+  email: string = '';
+  password: string = '';
+  summary: Summary = new Summary();
+  tasks: Task[] = [];
+  contacts: Contact[] = [];
 
   /**
    * Creates a user.
    * @param data - The user data.
    */
   constructor(data?: DocumentData | User) {
+    this.assignValues(data);
+  }
+
+  /**
+   * Assigns property values.
+   * @param data - The user data.
+   */
+  assignValues(data?: DocumentData | User) {
     this.id = getString(data?.id);
     this.sid = getString(data?.sid);
     this.initials = getString(data?.initials);
@@ -35,15 +43,24 @@ export class User {
   }
 
   /**
-   * Provides the user summary.
+   * Sets a user.
+   * @param data - The user data.
+   */
+  set(data?: DocumentData | User) {
+    this.assignValues(data);
+  }
+
+  /**
+   * Gets a user summary.
+   * @returns The user summary.
    */
   getSummary(data: Summary) {
     return data ? new Summary(data) : new Summary();
   }
 
   /**
-   * Provides the user as object.
-   * @returns - The user as object.
+   * Gets a user as object.
+   * @returns The user as object.
    */
   getObject() {
     return {

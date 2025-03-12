@@ -113,7 +113,12 @@ export function getLastElement<T>(values: T[]) {
  * @returns The item.
  */
 export function getLocalItem(key: string) {
-  return localStorage.getItem(key);
+  let valueAsText = localStorage.getItem(key);
+  if (valueAsText) {
+    return JSON.parse(valueAsText);
+  } else {
+    return null;
+  }
 }
 
 /**
@@ -209,20 +214,6 @@ export function isExistent(value: any) {
  */
 export function isTrue(value: boolean | null) {
   return value ? true : false;
-}
-
-/**
- * Loads the user.
- * @returns - The user or undefined.
- */
-export function loadUser() {
-  let userAsText = localStorage.getItem('user');
-  if (userAsText) {
-    let user = JSON.parse(userAsText);
-    return new User(user);
-  } else {
-    return undefined;
-  }
 }
 
 /**

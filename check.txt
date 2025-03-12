@@ -92,18 +92,18 @@ Components (10/?) + await inputs ...
       - TitleInputComponent - check
 
 
-Interfaces (7/?)
+Interfaces (8/?)
 ----------
   - AnimationData - check
   - ButtonData - check
   - InputConfig - check
   - PrioButton - check
-  - Propertiess - check
+  - Properties - check
   - States - check
   - Styles - check
   - UserData - check
 
-Models (5/?)
+Models (6/?)
 ------
   - Contact ...
   - FormController - check
@@ -117,7 +117,7 @@ Models (5/?)
   - SummaryTask ...
   - Task
   - Transform - check * necessary?
-  - User ...
+  - User - check
   - UserDoc ...
 
 

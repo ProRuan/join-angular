@@ -122,10 +122,9 @@ export class LoginComponent extends FormController {
    * Loads a remembered user.
    */
   private loadRememberedUser() {
-    let rememberedAsText = getLocalItem('remembered');
-    let userAsText = getLocalItem('user');
-    if (rememberedAsText && userAsText) {
-      let user = JSON.parse(userAsText);
+    let remembered = getLocalItem('remembered');
+    let user = getLocalItem('user');
+    if (remembered && user) {
       this.verifyRememberedUser(user);
     }
   }

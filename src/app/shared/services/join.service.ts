@@ -2,26 +2,18 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
-  DocumentReference,
   Firestore,
-  getDocs,
   onSnapshot,
-  QuerySnapshot,
+  Unsubscribe,
   updateDoc,
 } from '@angular/fire/firestore';
+
+// verify!!!
 import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
-import { UserDoc } from '../models/user-doc';
-import {
-  deleteDoc,
-  DocumentChange,
-  DocumentData,
-  DocumentSnapshot,
-  getDoc,
-  Unsubscribe,
-} from 'firebase/firestore';
-import { getObjectArray, loadUser, setLocalItem } from '../ts/global';
+import { getLocalItem, getObjectArray, setLocalItem } from '../ts/global';
 import { Task } from '../models/task';
 import { UserData } from '../interfaces/user-data';
 
@@ -34,48 +26,26 @@ import { UserData } from '../interfaces/user-data';
  */
 export class JoinService {
   firestore: Firestore = inject(Firestore);
-  // verify!!!!
   sid: SessionIdService = inject(SessionIdService);
 
   // remove async/await where possible ... !
   // remove UserDoc ... !
   // remove id and sid (just work with data) ... !
-  // continue with get user doc ... !
   // remove/add return type ... !
   // setUserCollection() + subscribe() ... ?
-  // subscribe changes and get new user id from change ... ?!
 
   [key: string]: any;
   revealed: boolean;
   relocated: boolean;
-
-  // verify!!!
-  temp: any;
   user: User = new User();
   users: User[] = [];
 
+  // verify!!!
   windowWidth: number = 0;
 
+  // verify!!!
   unsubscribeUserCollection: Unsubscribe = () => {};
   unsubscribeUser: Unsubscribe = () => {};
-
-  // subscribeUser() {
-  //   let id = this.user.id;
-  //   const unsub = onSnapshot(doc(this.firestore, 'users', id), (doc) => {
-  //     console.log('Current data: ', doc.data());
-  //   });
-  // }
-
-  // jsdoc + rename name --> subname and username --> name!!!
-  // --> related to getUserName() and so on ...
-
-  // add loading screen (animation)?!?
-
-  // work with opacity and visibility!!!
-  // work with opacity and visibility for other things like
-  // logo animation, password mask etc.
-
-  // verify {} of update() ...
 
   // necessary after using browser animation?
   // edit logo animation!
@@ -198,6 +168,67 @@ export class JoinService {
     deleteDoc(doc(this.firestore, 'users', id));
   }
 
+  /**
+   * Loads a user.
+   */
+  loadUser() {
+    this.loadUserLocally();
+    this.loadUserOnline();
+  }
+
+  /**
+   * Loads a user locally.
+   */
+  loadUserLocally() {
+    let user = getLocalItem('user');
+    if (user) {
+      this.user.set(user);
+    }
+  }
+
+  /**
+   * Loads a user online.
+   */
+  loadUserOnline() {
+    let user = this.users.find((u) => this.isUserId(u));
+    if (user) {
+      this.user.set(user);
+    }
+  }
+
+  /**
+   * Verifies a user id.
+   * @param user - The user to compare.
+   * @returns A boolean value.
+   */
+  isUserId(user: User) {
+    return user.id === this.user.id;
+  }
+
+  /**
+   * Saves a user.
+   */
+  saveUser() {
+    this.saveUserOnline();
+    this.saveUserLocally();
+  }
+
+  /**
+   * Saves a user online.
+   */
+  saveUserOnline() {
+    const id = this.user.id;
+    const data = this.user.getObject();
+    this.updateUser(id, 'data', data);
+  }
+
+  /**
+   * Saves a user locally.
+   */
+  saveUserLocally() {
+    setLocalItem('user', this.user);
+  }
+
   // --- to verify --- to verify ---
   // -------------------------------
 
@@ -233,60 +264,6 @@ export class JoinService {
     );
   }
 
-  setUser(user: User) {
-    this.user = new User(user);
-  }
-
-  /**
-   * Loads the user.
-   */
-  async loadUser() {
-    this.loadUserLocally();
-    this.loadUserOnline();
-  }
-
-  /**
-   * Loads the user locally.
-   */
-  loadUserLocally() {
-    let user = loadUser();
-    if (user) {
-      this.setUser(user);
-    }
-  }
-
-  // new - but still necessary???
-  loadUserOnline() {
-    let user = this.users.find((u) => u.id === this.user.id);
-    if (user) {
-      this.setUser(user);
-    }
-  }
-
-  /**
-   * Saves the user.
-   */
-  async saveUser() {
-    await this.saveUserOnline();
-    this.saveUserLocally();
-  }
-
-  /**
-   * Saves the user online.
-   */
-  async saveUserOnline() {
-    let id = this.user.id;
-    let data = this.user.getObject();
-    await this.updateUser(id, 'data', data);
-  }
-
-  /**
-   * Saves the user locally.
-   */
-  saveUserLocally() {
-    setLocalItem('user', this.user);
-  }
-
   /**
    * Saves the user tasks.
    */
@@ -297,7 +274,7 @@ export class JoinService {
   }
 
   async logUserIn(user: User) {
-    this.setUser(user);
+    this.user.set(user);
     await this.saveUser();
     this.subscribeUser(); // necessary? --> app subscription!!!
   }
