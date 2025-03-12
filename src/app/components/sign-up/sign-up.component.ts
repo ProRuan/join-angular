@@ -245,21 +245,21 @@ export class SignUpComponent extends FormController {
    * @param change - The DocumentChange.
    */
   private completeSignUp(change: DocumentChange<DocumentData, DocumentData>) {
-    if (this.isFirstChange(change)) {
+    if (this.isUserAdded(change)) {
       const id = change.doc.id;
-      this.join.updateUser(id, 'id', id);
+      this.join.addUserId(id);
       this.openLoginSession(id);
       this.userAdded = true;
     }
   }
 
   /**
-   * Verifies a first user document change.
+   * Verifies a change on user added.
    * @param change - The DocumentChange.
    * @returns A boolean value.
    */
-  private isFirstChange(change: DocumentChange<DocumentData, DocumentData>) {
-    return change.type === 'modified' && !this.userAdded;
+  private isUserAdded(change: DocumentChange<DocumentData, DocumentData>) {
+    return change.type === 'added';
   }
 
   /**

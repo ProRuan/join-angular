@@ -6,8 +6,10 @@ import { Task } from '../models/task';
  * Interface representing user data.
  */
 export interface UserData {
+  [key: string]: any;
   data: {
     id: string;
+    sid: string;
     initials: string;
     name: string;
     email: string;

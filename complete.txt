@@ -9,6 +9,11 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+id/sid
+------
+  - think about task id: timeId: number ... ?!
+  - think about contacts id: string ... ?
+
 SubtasksInputComponent
 ----------------------
   - fix container/collector height ...

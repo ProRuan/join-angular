@@ -14,6 +14,7 @@ import { SessionIdService } from './session-id.service';
 import { User } from '../models/user';
 import { UserDoc } from '../models/user-doc';
 import {
+  DocumentChange,
   DocumentData,
   DocumentSnapshot,
   getDoc,
@@ -36,6 +37,8 @@ export class JoinService {
   sid: SessionIdService = inject(SessionIdService);
 
   // remove async/await where possible ... !
+  // remove UserDoc ... !
+  // remove id and sid (just work with data) ... !
   // continue with get user doc ... !
   // remove/add return type ... !
   // setUserCollection() + subscribe() ... ?
@@ -90,6 +93,26 @@ export class JoinService {
   }
 
   /**
+   * Adds a user document to the firestore.
+   * @param data - The user data.
+   */
+  addUser(data: UserData) {
+    addDoc(collection(this.firestore, 'users'), data);
+  }
+
+  /**
+   * Adds a user id to a user document at the firestore.
+   * @param id - The user id.
+   */
+  addUserId(id: string) {
+    this.updateUser(id, 'id', id);
+    this.updateUser(id, 'data.id', id);
+  }
+
+  // --- to verify --- to verify ---
+  // -------------------------------
+
+  /**
    * Sets an intro to done.
    */
   setIntroDone() {
@@ -139,50 +162,6 @@ export class JoinService {
       (userDoc) => console.log('subscribed user: ', userDoc.data()),
       (error) => console.log('Error - Could not subscribe user: ', error)
     );
-  }
-
-  /**
-   * Adds a user.
-   * @param data - The user data.
-   * @returns The user id or void.
-   */
-  async addUser(data: UserData): Promise<string | null> {
-    try {
-      return await this.addUserDoc(data);
-    } catch (error) {
-      return this.logError(this.errors.addUser, error);
-    }
-  }
-
-  /**
-   * Adds a user document.
-   * @param data - The user data.
-   * @returns The user id.
-   */
-  async addUserDoc(data: UserData) {
-    const userRef = await this.addUserData(data);
-    return await this.addUserId(userRef);
-  }
-
-  /**
-   * Adds user data.
-   * @param data - The user data.
-   * @returns The user reference.
-   */
-  async addUserData(data: UserData) {
-    return await addDoc(collection(this.firestore, 'users'), data);
-  }
-
-  /**
-   * Adds a user id.
-   * @param userRef - The user reference.
-   * @returns The user id.
-   */
-  async addUserId(userRef: DocumentReference) {
-    const id = userRef.id;
-    await this.updateUser(id, 'id', id);
-    await this.updateUser(id, 'data.id', id);
-    return id;
   }
 
   /**
