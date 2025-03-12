@@ -41,7 +41,7 @@ export class DeleteTaskDialogComponent extends DialogFormController {
   /**
    * Deletes a task on click.
    */
-  async onDelete() {
+  onDelete() {
     let index = this.getTaskIndex();
     if (index > -1) {
       this.deleteTask(index);
@@ -62,11 +62,11 @@ export class DeleteTaskDialogComponent extends DialogFormController {
    */
   deleteTask(index: number) {
     this.dialog.fadedOut = true;
-    setTimeout(async () => {
+    setTimeout(() => {
       this.closesDialogs();
       this.join.deleteTask(index);
       this.summary.update();
-      await this.join.saveUser();
+      this.join.saveUser();
       this.dialog.fadedOut = false;
     }, 0);
   }

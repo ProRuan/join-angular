@@ -77,11 +77,11 @@ export class ColumnComponent {
    * Updates a task on drop.
    * @param column - The targeted column.
    */
-  async onUpdateTask(column: string) {
+  onUpdateTask(column: string) {
     this.board.task.column = column;
     this.board.setDrag();
     this.summary.update();
-    await this.join.saveUser();
+    this.join.saveUser();
   }
 
   /**

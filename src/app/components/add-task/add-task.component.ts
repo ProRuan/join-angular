@@ -74,7 +74,7 @@ export class AddTaskComponent extends FormController {
   /**
    * Initializes an add-task component.
    */
-  async ngOnInit() {
+  ngOnInit() {
     this.contacts = this.join.user.contacts;
     this.setForm();
     this.updateVersion();
@@ -192,14 +192,14 @@ export class AddTaskComponent extends FormController {
    * Updates a create button.
    */
   updateCreateBtn() {
-    this.onCreate = async () => await this.addTask();
+    this.onCreate = () => this.addTask();
   }
 
   /**
    * Adds a task.
    */
-  async addTask() {
-    await this.createTask();
+  addTask() {
+    this.createTask();
     this.fadeDialogOut();
   }
 
@@ -246,14 +246,14 @@ export class AddTaskComponent extends FormController {
   /**
    * Creates a task on click.
    */
-  async onCreate() {
-    await this.createTask();
+  onCreate() {
+    this.createTask();
   }
 
   /**
    * Creates a task.
    */
-  async createTask() {
+  createTask() {
     if (this.form.valid) {
       this.task.set(this.form.value);
       this.join.user.tasks.push(this.task);

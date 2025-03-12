@@ -9,8 +9,19 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+async/await components
+----------------------
+  - contact-dialog ...
+  - join service ...
+      --> class UserDoc still necessary ... ?
+
+MainComponent
+-------------
+  - Remove async/await methods ...
+
 LoginComponent
 --------------
+  - use juse saveUser() ... ?
   - remember me not working anymore ...
       --> property of user: user.remembered = true ... ?
       --> rename setRegisteredUser() + setRememberedUser() ... !

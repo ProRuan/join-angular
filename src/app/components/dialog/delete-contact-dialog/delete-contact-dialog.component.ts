@@ -40,7 +40,7 @@ export class DeleteContactDialogComponent extends DialogFormController {
   /**
    * Deletes a contact on click.
    */
-  async onDelete() {
+  onDelete() {
     let index = this.getContactIndex();
     if (index > -1) {
       this.deleteContact(index);
@@ -61,10 +61,10 @@ export class DeleteContactDialogComponent extends DialogFormController {
    */
   deleteContact(index: number) {
     this.dialog.fadedOut = true;
-    setTimeout(async () => {
+    setTimeout(() => {
       this.closesDialogs();
       this.join.deleteContact(index);
-      await this.join.saveUser();
+      this.join.saveUser();
       this.dialog.fadedOut = false;
     }, 0);
   }

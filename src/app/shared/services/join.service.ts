@@ -254,7 +254,16 @@ export class JoinService {
 
   // new
   getRegisteredUser(email: string, password?: string) {
-    return this.users.find((u) => u.email === email && u.password === password);
+    return this.users.find((u) => this.isRegisteredUser(u, email, password));
+  }
+
+  // new
+  isRegisteredUser(user: User, email: string, password?: string) {
+    if (password) {
+      return user.email === email && user.password === password;
+    } else {
+      return user.email === email;
+    }
   }
 
   // new

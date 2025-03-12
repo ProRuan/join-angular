@@ -34,6 +34,8 @@ export class MainComponent {
   decData: DialogEditContactService = inject(DialogEditContactService);
   dacData: DialogAddContactService = inject(DialogAddContactService);
 
+  // remove async/await methods ... !!!
+
   // MenuComponent
   // -------------
   // Appearance of guest version ... !

@@ -191,11 +191,11 @@ export class EditTaskDialogComponent
   /**
    * Updates a board task on click.
    */
-  async onUpdate() {
+  onUpdate() {
     if (this.form.valid) {
       this.updateTask();
       this.summary.update();
-      await this.join.saveUser();
+      this.join.saveUser();
       this.fadeDialogOut();
     }
   }

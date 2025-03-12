@@ -19,7 +19,7 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
 import { LogService } from '../../shared/services/log.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
-import { UserDoc } from '../../shared/models/user-doc';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-new-password',
@@ -85,29 +85,21 @@ export class NewPasswordComponent extends FormController {
   /**
    * Continues a form on submit.
    */
-  async onContinue() {
+  onContinue() {
     if (this.form.valid) {
       this.submitted = true;
-      let userDoc = await this.getUserDoc();
-      userDoc ? this.continue(userDoc) : this.reject();
+      let user = this.join.getRegisteredUser(this.email?.value);
+      user ? this.continue(user) : this.reject();
     }
   }
 
   /**
-   * Gets a user doc.
-   * @returns The user doc.
-   */
-  async getUserDoc() {
-    return await this.join.getUserDoc(this.email?.value);
-  }
-
-  /**
    * Continues a form.
-   * @param userDoc - The user doc.
+   * @param user - The user.
    */
-  continue(userDoc: UserDoc) {
+  continue(user: User) {
     this.title = 'Password';
-    this.id = userDoc.id;
+    this.id = user.id;
     this.updateForm();
     this.updateControls();
     this.submitted = false;
@@ -150,26 +142,26 @@ export class NewPasswordComponent extends FormController {
   /**
    * Updates a user password on submit.
    */
-  async onUpdate() {
+  onUpdate() {
     if (this.form.valid) {
       this.submitted = true;
-      await this.updatePassword();
-      await this.openLoginSession();
+      this.updatePassword();
+      this.openLoginSession();
     }
   }
 
   /**
    * Updates a user password.
    */
-  async updatePassword() {
-    await this.join.updateUser(this.id, 'data.password', this.password?.value);
+  updatePassword() {
+    this.join.updateUser(this.id, 'data.password', this.password?.value);
   }
 
   /**
    * Opens a login session.
    */
-  async openLoginSession() {
+  openLoginSession() {
     let text = 'Password updated successfully';
-    await this.nav.openLoginSession(this.id, text);
+    this.nav.openLoginSession(this.id, text);
   }
 }
