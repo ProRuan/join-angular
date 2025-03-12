@@ -17,7 +17,7 @@ import { InputConfigurationService } from '../../../shared/services/input-config
 import { ContactService } from '../../../shared/services/contact.service';
 import { JoinButton } from '../../../shared/models/join-button';
 import { Contact } from '../../../shared/models/contact';
-import { getObjectArray, isDefaultString } from '../../../shared/ts/global';
+import { isDefaultString } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-contact-dialog',
@@ -147,32 +147,28 @@ export class ContactDialogComponent
   /**
    * Saves a contact on click.
    */
-  async onSave() {
+  onSave() {
     if (this.form.valid) {
       this.viewer.contact.set(this.form.value);
-      await this.saveUserContacts();
-      this.closeDialog();
+      this.saveUserContacts();
     }
   }
 
   /**
    * Saves user contacts.
    */
-  async saveUserContacts() {
-    let id = this.join.user.id;
-    let contacts = getObjectArray<Contact>(this.join.user.contacts, Contact);
-    await this.join.updateUser(id, 'data.contacts', contacts);
-    this.join.saveUserLocally();
+  saveUserContacts() {
+    this.join.saveUser();
+    setTimeout(() => this.closeDialog(), 0);
   }
 
   /**
    * Creates a contact on click.
    */
-  async onCreate() {
+  onCreate() {
     if (this.form.valid) {
       this.join.user.contacts.push(this.form.value);
-      await this.saveUserContacts();
-      this.closeDialog();
+      this.saveUserContacts();
     }
   }
 }

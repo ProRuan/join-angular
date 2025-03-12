@@ -9,15 +9,18 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
-async/await components
-----------------------
-  - contact-dialog ...
-  - join service ...
-      --> class UserDoc still necessary ... ?
+Templates
+---------
+  - use menu and header in each main component ...
+      --> no main component ... ?
+  - create add-contact-dialog ... ?
+  - create edit-contact-dialog ... ?
+      --> fix contact dialog ... !
 
-MainComponent
--------------
-  - Remove async/await methods ...
+AppComponent And App
+--------------------
+  - complete app component ...
+  - complete all other files and folders ...
 
 LoginComponent
 --------------

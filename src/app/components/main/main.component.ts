@@ -58,8 +58,8 @@ export class MainComponent {
   // users: User[] = [];
 
   // create own function!!!
-  async ngOnInit() {
-    await this.join.loadUser();
+  ngOnInit() {
+    this.join.loadUser();
     this.join.subscribeUser();
     // const sid = this.route.snapshot.paramMap.get('id');
     // console.log('main user sid: ', sid);
