@@ -135,7 +135,7 @@ export class ViewTaskDialogComponent
    * Checks a subtask on click.
    * @param subtask - The subtask to check.
    */
-  async onCheck(subtask: Subtask) {
+  onCheck(subtask: Subtask) {
     this.checkSubtask(subtask);
     this.join.saveUserTasks();
     this.join.saveUserLocally();
@@ -154,7 +154,7 @@ export class ViewTaskDialogComponent
   /**
    * Opens a delete-task dialog on click.
    */
-  async onDelete() {
+  onDelete() {
     this.dialog.open('deleteTask');
   }
 
