@@ -149,7 +149,7 @@ export class SignUpComponent extends FormController {
    */
   private signUp() {
     this.updateUserData();
-    this.subscribeUserCollection();
+    this.subscribeUserRegistration();
     let data = this.getUserData();
     this.join.addUser(data);
   }
@@ -213,9 +213,9 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Subscribes a user collection.
+   * Subscribes a user collection for the user registration.
    */
-  private subscribeUserCollection() {
+  private subscribeUserRegistration() {
     this.unsubscribe = onSnapshot(
       collection(this.firestore, 'users'),
       (snapshot) => this.addUser(snapshot),

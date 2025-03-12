@@ -4,8 +4,10 @@ import {
   collection,
   deleteDoc,
   doc,
+  DocumentData,
   Firestore,
   onSnapshot,
+  QuerySnapshot,
   Unsubscribe,
   updateDoc,
 } from '@angular/fire/firestore';
@@ -64,6 +66,46 @@ export class JoinService {
       this.revealed = true;
       this.relocated = true;
     }
+  }
+
+  /**
+   * Subscribes a user collection.
+   */
+  subscribeUserCollection() {
+    const text = 'Error - Could not get user collection';
+    this.unsubscribeUserCollection = onSnapshot(
+      collection(this.firestore, 'users'),
+      (snapshot) => this.getUserCollection(snapshot),
+      (error) => this.logError(text, error)
+    );
+  }
+
+  /**
+   * Gets a user collection.
+   * @param snapshot - The QuerySnapshot.
+   */
+  getUserCollection(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
+    const docs = this.getDocs(snapshot);
+    this.users = docs.map((doc) => this.getUser(doc.data()));
+  }
+
+  /**
+   * Gets documents from a snapshot.
+   * @param snapshot - The QuerySnapshot.
+   * @returns The documents.
+   */
+  getDocs(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
+    return [...snapshot.docs];
+  }
+
+  /**
+   * Gets a user from a user document.
+   * @param userDoc - The user document.
+   * @returns The user.
+   */
+  getUser(userDoc: DocumentData) {
+    let data = userDoc['data'];
+    return new User(data);
   }
 
   /**
@@ -261,20 +303,6 @@ export class JoinService {
 
   // --- to verify --- to verify ---
   // -------------------------------
-
-  // for userDocs or users?
-  // one sub mehtod?!
-  subscribeUserCollection() {
-    const userCollectionRef = collection(this.firestore, 'users');
-    this.unsubscribeUserCollection = onSnapshot(
-      userCollectionRef,
-      (snapshot) => {
-        const docs = [...snapshot.docs];
-        this.users = docs.map((doc) => new User(doc.data()['data']));
-        console.log('Current users in collection:', this.users);
-      }
-    );
-  }
 
   subscribeUser() {
     this.unsubscribeUser = onSnapshot(
