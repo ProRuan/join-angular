@@ -64,6 +64,7 @@ export class NewPasswordComponent extends FormController {
    * Initializes the new password component.
    */
   ngOnInit() {
+    this.join.subscribeUserCollection();
     this.setForm();
     this.setControls();
   }
@@ -163,5 +164,9 @@ export class NewPasswordComponent extends FormController {
   openLoginSession() {
     let text = 'Password updated successfully';
     this.nav.openLoginSession(this.id, text);
+  }
+
+  ngOnDestroy() {
+    this.join.unsubscribeUserCollection();
   }
 }

@@ -77,7 +77,6 @@ export class SignUpComponent extends FormController {
   matchword: AbstractControl | null = null;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
-  userAdded: boolean = false;
 
   texts = {
     rejected: 'Email already associated with account',
@@ -90,6 +89,7 @@ export class SignUpComponent extends FormController {
    * Initializes a sign-up component.
    */
   ngOnInit() {
+    this.join.subscribeUserCollection();
     this.setForm();
     this.setControls();
   }
@@ -240,7 +240,6 @@ export class SignUpComponent extends FormController {
       const id = change.doc.id;
       this.join.addUserId(id);
       this.openLoginSession(id);
-      this.userAdded = true;
     }
   }
 
@@ -301,6 +300,6 @@ export class SignUpComponent extends FormController {
    */
   ngOnDestroy() {
     this.unsubscribe();
-    this.userAdded = false;
+    this.join.unsubscribeUserCollection();
   }
 }

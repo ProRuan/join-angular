@@ -121,7 +121,7 @@ Models (6/?)
   - UserDoc ...
 
 
-Services (9/?)
+Services (11/?)
 --------
   - ButtonDataService - check
   - ContactService - check * rename to ContactViewerService?
@@ -131,6 +131,7 @@ Services (9/?)
   - GlobalService ...
   - InputConfigurationService - check
   - InputValidatorService - check
+  - JoinService - check
   - LogService - check
   - NameFormatterService - check * combine with DateFormatterService?!
   - NavigationService - check

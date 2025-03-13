@@ -66,6 +66,7 @@ export class LoginComponent extends FormController {
    * Initializes a login component.
    */
   ngOnInit() {
+    this.join.subscribeUserCollection();
     this.setForm();
     this.setControls();
     this.setSigneeEmail();
@@ -231,5 +232,6 @@ export class LoginComponent extends FormController {
    */
   ngOnDestroy() {
     this.validators.setRejected(false);
+    this.join.unsubscribeUserCollection();
   }
 }

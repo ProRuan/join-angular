@@ -34,6 +34,8 @@ export class MainComponent {
   decData: DialogEditContactService = inject(DialogEditContactService);
   dacData: DialogAddContactService = inject(DialogAddContactService);
 
+  // complete missing files like models ... !
+
   // remove async/await methods ... !!!
 
   // MenuComponent
@@ -95,5 +97,9 @@ export class MainComponent {
     if (this.board.dragStarted) {
       this.board.setDrag();
     }
+  }
+
+  ngOnDestroy() {
+    this.join.unsubscribeUser();
   }
 }

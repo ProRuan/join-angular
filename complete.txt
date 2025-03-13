@@ -9,6 +9,33 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+missing files
+-------------
+  - models ...
+  - main ...
+  - app ...
+  - folders ...
+
+FlipMenuComponent
+-----------------
+  - provide a logOut() ... !
+
+join service
+------------
+  // think about case "delete user" ...
+  //   --> subscribeUserDelete() ...
+
+  // join service constructor and back log animation
+  // ------------------------------------------------
+  // necessary after using browser animation?
+  // edit logo animation!
+  // check setIntroToDone() after that!
+
+cookies
+-------
+  - use them for the remember me function ... ?
+  - add cookies with cookie bot ... ?
+
 id/sid
 ------
   - think about task id: timeId: number ... ?!

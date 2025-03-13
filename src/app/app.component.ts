@@ -53,7 +53,7 @@ export class AppComponent {
 
     // const startTime = new Date().getTime();
     // console.log('start time: ', startTime);
-    this.join.subscribeUserCollection();
+    // this.join.subscribeUserCollection();
     // const endTime = new Date().getTime();
     // console.log('time diff: ', endTime - startTime);
     // setTimeout(() => {
@@ -66,7 +66,5 @@ export class AppComponent {
     if (this.resizeSubscription) {
       this.resizeSubscription.unsubscribe();
     }
-
-    this.join.unsubscribeUserCollection();
   }
 }

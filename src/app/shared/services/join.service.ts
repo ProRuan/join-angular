@@ -27,18 +27,6 @@ export class JoinService {
   firestore: Firestore = inject(Firestore);
   sid: SessionIdService = inject(SessionIdService);
 
-  // remove async/await where possible ... !
-  // remove UserDoc ... !
-  // remove id and sid (just work with data) ... !
-  // remove/add return type ... !
-  // setUserCollection() + subscribe() ... ?
-
-  // saveUser()
-  // ----------
-  // join service: data.id ...
-  // join service: data.sid ...
-  // new password component: data.password ...
-
   [key: string]: any;
   user: User = new User();
   users: User[] = [];
@@ -46,13 +34,12 @@ export class JoinService {
   relocated: boolean;
   windowWidth: number = 0;
 
-  // verify + rename?!
   unsubscribeUserCollection: Unsubscribe = () => {};
   unsubscribeUser: Unsubscribe = () => {};
 
-  // necessary after using browser animation?
-  // edit logo animation!
-  // check setIntroToDone() after that!
+  /**
+   * Creates a join service.
+   */
   constructor() {
     this.revealed = false;
     this.relocated = false;
@@ -110,7 +97,7 @@ export class JoinService {
 
   /**
    * Gets a user by session id.
-   * @param sid - The user session id.
+   * @param sid - The session id.
    * @returns The user.
    */
   getUserBySid(sid: string) {
@@ -155,7 +142,6 @@ export class JoinService {
    * @param id - The user id.
    */
   addUserId(id: string) {
-    this.updateUser(id, 'id', id);
     this.updateUser(id, 'data.id', id);
   }
 
@@ -196,7 +182,6 @@ export class JoinService {
    * @param sid - The user session id.
    */
   updateUserSid(id: string, sid: string) {
-    this.updateUser(id, 'sid', sid);
     this.updateUser(id, 'data.sid', sid);
   }
 
@@ -206,6 +191,39 @@ export class JoinService {
    */
   getSid() {
     return this.sid.get();
+  }
+
+  /**
+   * Logs a user in.
+   * @param user - The user.
+   */
+  logUserIn(user: User) {
+    this.user.set(user);
+    this.saveUser();
+  }
+
+  /**
+   * Subscribes a user.
+   */
+  subscribeUser() {
+    const id = this.user.id;
+    const text = 'Error - Could not subscribe user';
+    this.unsubscribeUser = onSnapshot(
+      doc(this.firestore, 'users', id),
+      (doc) => this.setChangedUser(doc.data()),
+      (error) => this.logError(text, error)
+    );
+  }
+
+  /**
+   * Sets a changed user.
+   * @param userDoc - The user document.
+   */
+  setChangedUser(userDoc?: DocumentData) {
+    if (userDoc) {
+      let data = userDoc['data'];
+      this.user.set(data);
+    }
   }
 
   /**
@@ -299,22 +317,5 @@ export class JoinService {
    */
   setWindowWidth(value: number) {
     this.windowWidth = value;
-  }
-
-  // --- to verify --- to verify ---
-  // -------------------------------
-
-  subscribeUser() {
-    this.unsubscribeUser = onSnapshot(
-      doc(this.firestore, 'users', this.user.id),
-      (userDoc) => console.log('subscribed user: ', userDoc.data()),
-      (error) => console.log('Error - Could not subscribe user: ', error)
-    );
-  }
-
-  async logUserIn(user: User) {
-    this.user.set(user);
-    await this.saveUser();
-    this.subscribeUser(); // necessary? --> app subscription!!!
   }
 }
