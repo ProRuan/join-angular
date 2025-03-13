@@ -8,21 +8,21 @@ import { getMonthName } from '../ts/global';
 })
 
 /**
- * Represents a summary service.
+ * Class representing a summary service.
  */
 export class SummaryService {
   join: JoinService = inject(JoinService);
 
   /**
-   * Provides the user tasks.
-   * @returns - The user tasks.
+   * Gets user tasks.
+   * @returns The user tasks.
    */
   get tasks() {
     return this.join.user.tasks;
   }
 
   /**
-   * Updates the user summary.
+   * Updates a user summary.
    */
   update() {
     this.updateSummaryTasksByColumns();
@@ -31,7 +31,7 @@ export class SummaryService {
   }
 
   /**
-   * Updates the summary tasks by columns.
+   * Updates summary tasks by columns.
    */
   updateSummaryTasksByColumns() {
     let tasks = this.getSummaryTasksByColumns();
@@ -42,8 +42,8 @@ export class SummaryService {
   }
 
   /**
-   * Provides the summary tasks by columns.
-   * @returns - The summary tasks.
+   * Gets summary tasks by columns.
+   * @returns The summary tasks.
    */
   getSummaryTasksByColumns() {
     return {
@@ -55,9 +55,9 @@ export class SummaryService {
   }
 
   /**
-   * Provides the amount of the summary tasks.
+   * Gets an amount of summary tasks.
    * @param column - The board column.
-   * @returns - The amount of the summary tasks.
+   * @returns The amount of the summary tasks.
    */
   getSummaryTasksAmount(column: string) {
     let filteredTasks = this.tasks.filter((t) => t.column == column);
@@ -65,7 +65,7 @@ export class SummaryService {
   }
 
   /**
-   * Sets the summary.
+   * Sets a summary.
    * @param task - The key of the summary task.
    * @param property - The property key of the summary task.
    * @param value - The property value of the summary tasks.
@@ -75,7 +75,7 @@ export class SummaryService {
   }
 
   /**
-   * Updates the summary tasks by total.
+   * Updates summary tasks by total.
    */
   updateSummaryTasksByTotal() {
     let amount = this.tasks.length;
@@ -83,7 +83,7 @@ export class SummaryService {
   }
 
   /**
-   * Updates the summary tasks by prio.
+   * Updates summary tasks by prio.
    */
   updateSummaryTasksByPrio() {
     let urgentTasks = this.getUrgentTasks();
@@ -93,8 +93,8 @@ export class SummaryService {
   }
 
   /**
-   * Provides the urgent tasks.
-   * @returns - The urgent tasks.
+   * Gets urgent tasks.
+   * @returns The urgent tasks.
    */
   getUrgentTasks() {
     let undoneTasks = this.tasks.filter((t) => t.category != 'done');
@@ -103,9 +103,9 @@ export class SummaryService {
   }
 
   /**
-   * Provides the deadline of the upcoming task.
+   * Gets the deadline of an upcoming task.
    * @param tasks - The urgent tasks.
-   * @returns - The deadline of the upcoming task.
+   * @returns The deadline of the upcoming task.
    */
   getUpcomingTaskDeadline(tasks: Task[]) {
     let index = this.getUpcomingTaskIndex(tasks);
@@ -114,9 +114,9 @@ export class SummaryService {
   }
 
   /**
-   * Provides the index of the upcoming task.
+   * Gets the index of an upcoming task.
    * @param - The urgent tasks.
-   * @returns - The index of the upcoming task.
+   * @returns The index of the upcoming task.
    */
   getUpcomingTaskIndex(tasks: Task[]) {
     let index = -1;
@@ -132,10 +132,10 @@ export class SummaryService {
   }
 
   /**
-   * Provides the upcoming deadline.
+   * Gets an upcoming deadline.
    * @param tasks - The urgent tasks.
    * @param index - The index of the upcoming task.
-   * @returns - The upcoming deadline.
+   * @returns The upcoming deadline.
    */
   getUpcomingDeadline(tasks: Task[], index: number) {
     let deadline = '';
@@ -148,9 +148,9 @@ export class SummaryService {
   }
 
   /**
-   * Provides the formatted deadline.
+   * Gets a formatted deadline.
    * @param dueDate - The due date.
-   * @returns - The formatted deadline.
+   * @returns The formatted deadline.
    */
   getFormattedDeadline(dueDate: string) {
     let date = this.getDateObject(dueDate);
@@ -159,9 +159,9 @@ export class SummaryService {
   }
 
   /**
-   * Provides the date object.
+   * Gets a date object.
    * @param dueDate - The due date.
-   * @returns - The date object.
+   * @returns The date object.
    */
   getDateObject(dueDate: string) {
     let date = dueDate.split('-');
@@ -169,9 +169,9 @@ export class SummaryService {
   }
 
   /**
-   * Provides the formatted month.
+   * Gets a formatted month.
    * @param month - The month.
-   * @returns - The formatted month.
+   * @returns The formatted month.
    */
   getFormattedMonth(month: string) {
     let index = parseInt(month);

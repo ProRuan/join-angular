@@ -6,7 +6,7 @@ import { Contact } from '../models/contact';
 })
 
 /**
- * Represents a contact service.
+ * Class representing a contact service.
  */
 export class ContactService {
   contact: Contact = new Contact();

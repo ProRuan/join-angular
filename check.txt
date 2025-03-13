@@ -33,6 +33,7 @@ Top Level Scripts
 -----------------
   - app ...
   - shared/interfaces - check
+  - shared/services - check * rename ContactViewerService?!
 
 Join (6/?)
 ----
@@ -116,6 +117,7 @@ Models (6/?)
   - FormController - check
   - InputValidator - check
   - JoinButton - check
+  - DialogFormController - check
   - JoinDialog ...
   - ReactiveInput - check
   - SessionId ... * delete!
@@ -128,22 +130,22 @@ Models (6/?)
   - UserDoc ...
 
 
-Services (12/?)
+Services (14/14)
 --------
+  - BoardService - check
   - ButtonDataService - check
-  - ContactService - check * rename to ContactViewerService?
+  - ContactService - check
   - DateFormatterService - check
-  - DialogFormController - check
   - DialogService - check
   - GlobalService - check
   - InputConfigurationService - check
   - InputValidatorService - check
   - JoinService - check
   - LogService - check
-  - NameFormatterService - check * combine with DateFormatterService?!
+  - NameFormatterService - check
   - NavigationService - check
-  - SessionIdService ... ?
-  - SummaryService ...
+  - SessionIdService - check
+  - SummaryService - check
       
 
 ts (2/?)

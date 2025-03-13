@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 
 /**
- * Represents a session id service.
+ * Class representing a session id service.
  */
 export class SessionIdService {
   sessionId: string = '';
@@ -19,8 +19,8 @@ export class SessionIdService {
   }
 
   /**
-   * Provides the session id.
-   * @returns - The session id.
+   * Gets a session id.
+   * @returns The session id.
    */
   get() {
     this.sessionId = '';
@@ -29,7 +29,7 @@ export class SessionIdService {
   }
 
   /**
-   * Sets the char codes.
+   * Sets char codes.
    */
   setCharCodes() {
     this.addCharCodeGroup(48, 10);
@@ -59,9 +59,9 @@ export class SessionIdService {
   }
 
   /**
-   * Provides a random index.
+   * Gets a random index.
    * @param i - The index of the session id.
-   * @returns - A random index.
+   * @returns A random index.
    */
   getRandomIndex(i: number) {
     if (i != 0) {

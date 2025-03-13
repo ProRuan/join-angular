@@ -6,7 +6,7 @@ import { Task } from '../models/task';
 })
 
 /**
- * Represents a board service.
+ * Class representing a board service.
  */
 export class BoardService {
   readonly columns: string[] = [
@@ -24,7 +24,7 @@ export class BoardService {
   targetedColumn: string = '';
 
   /**
-   * Sets the drag by task.
+   * Sets a drag by task.
    * @param task - The draggable task.
    */
   setDrag(task?: Task) {
@@ -34,7 +34,7 @@ export class BoardService {
   }
 
   /**
-   * Sets the neighbor columns.
+   * Sets neighbor columns.
    * @param column - The current column.
    */
   setNeighborColumns(column?: string) {
@@ -47,9 +47,9 @@ export class BoardService {
   }
 
   /**
-   * Provides the neighbor indices as object.
+   * Gets neighbor indices as object.
    * @param column - The current column.
-   * @returns - The neighbor indices.
+   * @returns The neighbor indices.
    */
   getIndices(column: string) {
     let index = this.columns.indexOf(column);
@@ -57,7 +57,7 @@ export class BoardService {
   }
 
   /**
-   * Adds the neighbor column.
+   * Adds a neighbor column.
    * @param index - The neighbor index.
    */
   addColumn(index: number) {
@@ -67,25 +67,25 @@ export class BoardService {
   }
 
   /**
-   * Verifies the neighbor index.
+   * Verifies a neighbor index.
    * @param index - The neighbor index.
-   * @returns - A boolean value.
+   * @returns A boolean value.
    */
   isIndex(index: number) {
     return -1 < index && index < this.columns.length;
   }
 
   /**
-   * Verifies the neighbor column.
+   * Verifies a neighbor column.
    * @param column - The neighbor column.
-   * @returns - A boolean value.
+   * @returns A boolean value.
    */
   isNeighborColumn(column: string) {
     return this.neighborColumns.includes(column);
   }
 
   /**
-   * Sets the task to the default task.
+   * Sets a task to the default task.
    */
   setDefaultTask() {
     this.task = this.defaultTask;

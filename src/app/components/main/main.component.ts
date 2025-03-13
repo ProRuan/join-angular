@@ -4,8 +4,6 @@ import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
-import { DialogEditContactService } from '../../shared/services/dialog-edit-contact.service';
-import { DialogAddContactService } from '../../shared/services/dialog-add-contact.service';
 import { JoinHeaderComponent } from '../../shared/components/join-header/join-header.component';
 import { DialogService } from '../../shared/services/dialog.service';
 import { BoardService } from '../../shared/services/board.service';
@@ -31,8 +29,6 @@ export class MainComponent {
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   dialog: DialogService = inject(DialogService);
-  decData: DialogEditContactService = inject(DialogEditContactService);
-  dacData: DialogAddContactService = inject(DialogAddContactService);
 
   // MenuComponent
   // -------------
