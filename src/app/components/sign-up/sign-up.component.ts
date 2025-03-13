@@ -71,6 +71,22 @@ export class SignUpComponent extends FormController {
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
+  // think about ContactService ...
+  // think about sample task values ... !
+  // fix subtask checkbox: save after close ... ?
+  // limit draggable-task text ... !
+  // fix add-task stop/close event ... !
+  // rename back log to backlog ... ?
+
+  // ---------------------
+  // check leading components ...
+
+  // check animations ...
+  // check components ...
+  // ---------------------
+
+  // check other missing files (folder by folder) ...
+
   user: User = new User();
   name: AbstractControl | null = null;
   email: AbstractControl | null = null;

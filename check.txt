@@ -32,10 +32,12 @@ Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 Top Level Scripts
 -----------------
   - app ...
-  - shared/interfaces - check (14)
+  - shared/animations ...
+  - shared/components ...
+  - shared/interfaces - check (16)
   - shared/models - check (12)
   - shared/services - check (13)
-  - shared/ts ...
+  - shared/ts - check (6)
 
 Join (6/?)
 ----
@@ -96,7 +98,7 @@ Components (10/?) + await inputs ...
       - TitleInputComponent - check
 
 
-Interfaces (14/14)
+Interfaces (16/16)
 ----------
   - AnimationData - check
   - ButtonData - check
@@ -110,7 +112,9 @@ Interfaces (14/14)
   - Register - check
   - States - check
   - Styles - check
+  - SubtaskData - check
   - SummaryTaskData - check
+  - TaskData - check
   - UserData - check
 
 Models (12/12)
@@ -146,14 +150,14 @@ Services (13/13)
   - SummaryService - check
       
 
-ts (5/6)
+ts (6/6)
 --
   - animate.ts - check
   - global.ts - check
   - identify.ts - check
   - pattern.ts - check
   - sample-conctacts.ts - check
-  - sample-tasks.ts ...
+  - sample-tasks.ts - check
 
 
 Styles

@@ -1,20 +1,8 @@
 import { TaskData } from '../interfaces/task-data';
+import { Contact } from '../models/contact';
+import { Subtask } from '../models/subtask';
 import { Task } from '../models/task';
-
-// think about ContactService ...
-// think about sample task values ... !
-// fix subtask checkbox: save after close ... ?
-// limit draggable-task text ... !
-// fix add-task stop/close event ... !
-
-// ---------------------
-// check leading components ...
-
-// check components ...
-// check scripts ...
-// ---------------------
-
-// check other missing files (folder by folder) ...
+import { getCustomArray } from './global';
 
 const SAMPLE_TASKS_DATA: TaskData[] = [
   {
@@ -220,8 +208,28 @@ function getSampleTasks() {
  * @param taskData - The task data.
  * @returns The task.
  */
-function getTask(taskData: any) {
-  return new Task(taskData);
+function getTask(taskData: TaskData) {
+  const task = new Task();
+  for (const [key, value] of Object.entries(taskData)) {
+    task[key] = getTaskProperty(key, value);
+  }
+  return task;
+}
+
+/**
+ * Gets a task property.
+ * @param key - The task property key.
+ * @param value - The task property value.
+ * @returns The task property.
+ */
+function getTaskProperty(key: string, value: any) {
+  if (key == 'assignedTo') {
+    return getCustomArray(value, Contact);
+  } else if (key == 'subtasks') {
+    return getCustomArray(value, Subtask);
+  } else {
+    return value;
+  }
 }
 
 export const sampleTasks = getSampleTasks();
