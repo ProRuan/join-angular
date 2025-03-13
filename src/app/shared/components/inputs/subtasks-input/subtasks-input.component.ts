@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { DialogService } from '../../../services/dialog.service';
 import { Subtask } from '../../../models/subtask';
-import { getTime, IntervalId, stop } from '../../../ts/global';
+import { getTime, IntervalId, stopPropagation } from '../../../ts/global';
 
 @Component({
   selector: 'app-subtasks-input',
@@ -128,7 +128,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    * @param event - The event.
    */
   onStop(event: Event) {
-    stop(event);
+    stopPropagation(event);
   }
 
   /**

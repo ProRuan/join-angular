@@ -1,12 +1,16 @@
 import { Converter } from '../interfaces/converter';
 import { Model } from '../interfaces/model';
-import { User } from '../models/user';
 import { getRandomId } from './identify';
 
-const DD: string = '(0[1-9]|[12][0-9]|3[01])';
-const MM: string = '(0[1-9]|1[0-2])';
-const YYYY: string = '([0-9]{4})';
-const calenderRawPat: string = `${YYYY}[\\/\\-]${MM}[\\/\\-]${DD}`;
+// check main components ...
+
+// check missing services ...
+// check missing models ...
+// check interfaces ...
+// check components ...
+// check scripts ...
+
+// check other missing files (folder by folder) ...
 
 const monthNames = [
   'January',
@@ -23,22 +27,20 @@ const monthNames = [
   'December',
 ];
 
-export const calenderPat: RegExp = new RegExp(calenderRawPat);
-
 /**
- * Provides a boolean.
- * @param value - The input boolean.
- * @param defaultValue - The default boolean.
- * @returns - A boolean.
+ * Gets a boolean value.
+ * @param value - The input boolean value.
+ * @param defaultValue - The default boolean value.
+ * @returns A boolean value.
  */
 export function getBoolean(value?: boolean, defaultValue: boolean = false) {
   return value ?? defaultValue;
 }
 
 /**
- * Provides the capitalized word.
+ * Gets a capitalized word.
  * @param word - The word to capitalize.
- * @returns - The capitalized word.
+ * @returns The capitalized word.
  */
 export function getCapitalized(word: string) {
   if (word.length > 1) {
@@ -51,19 +53,19 @@ export function getCapitalized(word: string) {
 }
 
 /**
- * Provides the custom array.
+ * Gets a custom array.
  * @param items - The input array.
  * @param Model - The custom class.
- * @returns - The custom array.
+ * @returns The custom array.
  */
 export function getCustomArray<T>(items: T[] = [], Model: Model<T>) {
   return items.map((item) => new Model(item));
 }
 
 /**
- * Provides the day start time as number.
+ * Gets a day start time as number.
  * @param date - The date as string.
- * @returns - The day start time as number.
+ * @returns The day start time as number.
  */
 export function getDayStartTime(date: string) {
   let dayStartTime = new Date(date).setHours(0, 0, 0, 0);
@@ -71,9 +73,9 @@ export function getDayStartTime(date: string) {
 }
 
 /**
- * Provides the verified id.
- * @param id - The id to verify.
- * @returns - The id.
+ * Gets a verified id.
+ * @param id - The id.
+ * @returns The verified id.
  */
 export function getId(id?: string) {
   const verified = id && id.length > 0;
@@ -81,7 +83,7 @@ export function getId(id?: string) {
 }
 
 /**
- * Gets the initial letter of a word.
+ * Gets an initial letter of a word.
  * @param word - The word.
  * @returns The initial letter.
  */
@@ -90,8 +92,8 @@ export function getInitial(word: string) {
 }
 
 /**
- * Provides the ISO date string.
- * @returns - The ISO date string.
+ * Gets an ISO date string.
+ * @returns The ISO date string.
  */
 export function getISODateString() {
   return new Date().toISOString().split('T')[0];
@@ -122,9 +124,9 @@ export function getLocalItem(key: string) {
 }
 
 /**
- * Provides the month name.
+ * Gets a month name.
  * @param month - The month as number.
- * @returns - The month name.
+ * @returns The month name.
  */
 export function getMonthName(month: number) {
   let index = month - 1;
@@ -132,88 +134,70 @@ export function getMonthName(month: number) {
 }
 
 /**
- * Provides a number.
+ * Gets a number.
  * @param value - The input number.
  * @param defaultValue - The default number.
- * @returns - A number.
+ * @returns A number.
  */
 export function getNumber(value?: number, defaultValue: number = 0) {
   return value ?? defaultValue;
 }
 
 /**
- * Provides the model as object.
+ * Gets a model as object.
  * @param model - The model to convert.
- * @returns - The model as object.
+ * @returns The model as object.
  */
 export function getObject<T>(model: T) {
   return { ...model };
 }
 
 /**
- * Provides the object array.
+ * Gets an object array.
  * @param items - The input array.
  * @param Converter - The converter class.
- * @returns - The object array.
+ * @returns The object array.
  */
 export function getObjectArray<T>(items: T[] = [], Converter: Converter<T>) {
   return items.map((item) => new Converter(item).getObject());
 }
 
 /**
- * Provides a string.
+ * Gets a string.
  * @param value - The input string.
  * @param defaultValue - The default string.
- * @returns - A string.
+ * @returns A string.
  */
 export function getString(value?: string, defaultValue: string = '') {
   return value ?? defaultValue;
 }
 
 /**
- * Provides the current time.
- * @returns - The current time.
+ * Gets a current time.
+ * @returns The current time.
  */
 export function getTime() {
   return new Date().getTime();
 }
 
 /**
- * Verifies the default array.
+ * Verifies a default array.
  * @param value - The array.
  * @param defaultValue - The default array.
- * @returns - A boolean value.
+ * @returns A boolean value.
  */
 export function isDefaultArray<T>(value: T[], defaultValue: T[] = []) {
   return value.length === defaultValue.length;
 }
 
 /**
- * Verifies the default string.
+ * Verifies a default string.
  * @param value - The string.
  * @param defaultValue - The default string.
- * @returns - A boolean value.
+ * @returns A boolean value.
  */
 export function isDefaultString(value: string, defaultValue: string = '') {
   return value === defaultValue;
-}
-
-/**
- * Verifies the existence of the value.
- * @param value - The value.
- * @returns - A boolean value.
- */
-export function isExistent(value: any) {
-  return value !== undefined;
-}
-
-/**
- * Checks the value for true.
- * @param value - The value.
- * @returns - A boolean value.
- */
-export function isTrue(value: boolean | null) {
-  return value ? true : false;
 }
 
 /**
@@ -222,13 +206,6 @@ export function isTrue(value: boolean | null) {
  */
 export function removeLocalItem(key: string) {
   localStorage.removeItem(key);
-}
-
-// in use + remove?!
-export function saveUser(data: User) {
-  let user = new User(data);
-  let userAsText = JSON.stringify(user);
-  localStorage.setItem('user', userAsText);
 }
 
 /**
@@ -241,11 +218,13 @@ export function setLocalItem(key: string, value: any) {
 }
 
 /**
- * Stops the event.
+ * Stops an event at the current object.
  * @param event - The event.
  */
-export function stop(event: Event) {
-  event.stopPropagation();
+export function stopPropagation(event?: Event) {
+  if (event) {
+    event.stopPropagation();
+  }
 }
 
 /**

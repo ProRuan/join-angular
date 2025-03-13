@@ -1,5 +1,5 @@
 /**
- * Represents a summary task data.
+ * Interface representing summary task data.
  */
 export interface SummaryTaskData {
   category: string;

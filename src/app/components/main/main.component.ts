@@ -34,10 +34,6 @@ export class MainComponent {
   decData: DialogEditContactService = inject(DialogEditContactService);
   dacData: DialogAddContactService = inject(DialogAddContactService);
 
-  // complete missing files like models ... !
-
-  // remove async/await methods ... !!!
-
   // MenuComponent
   // -------------
   // Appearance of guest version ... !
@@ -54,43 +50,10 @@ export class MainComponent {
   // destroy all children components for flipMenu at least ...
   // add user log out method ...
 
-  mainToken: any;
-  sid: any;
-  // user = new User();
-  // users: User[] = [];
-
   // create own function!!!
   ngOnInit() {
     this.join.loadUser();
     this.join.subscribeUser();
-    // const sid = this.route.snapshot.paramMap.get('id');
-    // console.log('main user sid: ', sid);
-    // new
-    // ---
-    // if (sid) {
-    //   let user = await this.join.getUserBySid(sid);
-    //   if (user) {
-    //     console.log('main user: ', user);
-    //   }
-    // }
-    // old
-    // ---
-    // if (sid) {
-    //   this.join.sid = sid;
-    //   // set user via UserService --> get/set user from join!!!
-    //   this.sid = sid;
-    //   let user = this.join.users.find((u) => u.sid == sid);
-    //   if (user) {
-    //     this.join.user = new User(user);
-    //     if (this.join.user.id) {
-    //       this.join.id = this.join.user.id;
-    //       this.join.subscribeUser();
-    //     }
-    //     console.log('main user: ', this.join.user);
-    //   }
-    // } else {
-    //   console.log('no main user');
-    // }
   }
 
   onDragend() {

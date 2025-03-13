@@ -4,7 +4,7 @@ import { BasicInput, getProvider } from '../../models/basic-input';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 import { DialogService } from '../../services/dialog.service';
-import { stop } from '../../ts/global';
+import { stopPropagation } from '../../ts/global';
 
 @Component({
   selector: 'app-category-input',
@@ -38,7 +38,7 @@ export class CategoryInputComponent extends BasicInput {
    */
   onHandleDialog(event: Event) {
     this.dialog.close('assignedTo');
-    stop(event);
+    stopPropagation(event);
   }
 
   /**

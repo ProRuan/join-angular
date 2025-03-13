@@ -1,5 +1,5 @@
 /**
- * Represents a char code group.
+ * Interface representing a char code group.
  */
 export interface CharCodeGroup {
   start: number;

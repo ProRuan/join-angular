@@ -27,7 +27,7 @@ import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { JoinButton } from '../../../shared/models/join-button';
 import { Task } from '../../../shared/models/task';
-import { stop } from '../../../shared/ts/global';
+import { stopPropagation } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -177,7 +177,7 @@ export class EditTaskDialogComponent
   onMenuClose(event: Event): void {
     this.dialog.close('assignedTo');
     this.search?.setValue('');
-    stop(event);
+    stopPropagation(event);
   }
 
   /**

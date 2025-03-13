@@ -10,7 +10,7 @@ import { LabelComponent } from '../../label/label.component';
 import { CheckboxComponent } from '../../checkbox/checkbox.component';
 import { DialogService } from '../../../services/dialog.service';
 import { Contact } from '../../../models/contact';
-import { stop } from '../../../ts/global';
+import { stopPropagation } from '../../../ts/global';
 
 @Component({
   selector: 'app-assigned-to-input',
@@ -66,7 +66,7 @@ export class AssignedToInputComponent extends ReactiveInput {
    */
   onHandle(event: Event) {
     this.dialog.close('category');
-    stop(event);
+    stopPropagation(event);
   }
 
   /**

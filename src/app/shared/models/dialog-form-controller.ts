@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { DialogService } from '../services/dialog.service';
 import { FormController } from './form-controller';
-import { stop } from '../ts/global';
+import { stopPropagation } from '../ts/global';
 
 /**
  * Class representing a dialog form controller.
@@ -43,9 +43,7 @@ export class DialogFormController extends FormController {
    */
   close(event?: Event) {
     this.dialog.close(this.id);
-    if (event) {
-      stop(event);
-    }
+    stopPropagation(event);
   }
 
   /**
@@ -53,6 +51,6 @@ export class DialogFormController extends FormController {
    * @param event - The event.
    */
   onStop(event: Event) {
-    stop(event);
+    stopPropagation(event);
   }
 }

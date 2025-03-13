@@ -6,7 +6,7 @@ import { LabelComponent } from '../label/label.component';
 import { AssignableContactComponent } from '../../../components/add-task/assignable-contact/assignable-contact.component';
 import { DialogService } from '../../services/dialog.service';
 import { Contact } from '../../models/contact';
-import { stop } from '../../ts/global';
+import { stopPropagation } from '../../ts/global';
 
 @Component({
   selector: 'app-assigned-to-input',
@@ -39,7 +39,7 @@ export class AssignedToInputComponent extends BasicInput {
    */
   onHandleDialog(event: Event) {
     this.dialog.close('category');
-    stop(event);
+    stopPropagation(event);
   }
 
   /**

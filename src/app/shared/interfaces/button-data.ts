@@ -1,5 +1,5 @@
 /**
- * Represents button data.
+ * Interface representing button data.
  */
 export interface ButtonData {
   [key: string]: any;

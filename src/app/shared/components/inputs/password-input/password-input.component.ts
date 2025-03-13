@@ -7,7 +7,7 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { InputConfig } from '../../../interfaces/input-config';
-import { stop } from '../../../ts/global';
+import { stopPropagation } from '../../../ts/global';
 
 type TextStyle = { [key: string]: string };
 
@@ -149,7 +149,7 @@ export class PasswordInputComponent extends ReactiveInput {
    */
   onDisallow(event: KeyboardEvent) {
     if (this.isDisallowedKey(event)) {
-      stop(event);
+      stopPropagation(event);
     }
   }
 

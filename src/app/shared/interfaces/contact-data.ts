@@ -1,5 +1,5 @@
 /**
- * Represents contact data.
+ * Interface representing contact data.
  */
 export interface ContactData {
   id: string;

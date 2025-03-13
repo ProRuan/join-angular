@@ -32,6 +32,7 @@ Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 Top Level Scripts
 -----------------
   - app ...
+  - shared/interfaces - check
 
 Join (6/?)
 ----
@@ -46,7 +47,7 @@ Join (6/?)
       - ContactDialogComponent - check
       - DeleteContactDialogComponent - check
       - DeleteUserDialogComponent ...
-      
+  - MainComponent ...
   - SummaryComponent - check
       - SumCardComponent - check
   - AddTaskComponent - check
@@ -92,15 +93,21 @@ Components (10/?) + await inputs ...
       - TitleInputComponent - check
 
 
-Interfaces (8/?)
+Interfaces (14/14)
 ----------
   - AnimationData - check
   - ButtonData - check
+  - CharCodeGroup - check
+  - ContactData - check
+  - Converter - check
   - InputConfig - check
+  - Model - check
   - PrioButton - check
   - Properties - check
+  - Register - check
   - States - check
   - Styles - check
+  - SummaryTaskData - check
   - UserData - check
 
 Models (6/?)
@@ -121,14 +128,14 @@ Models (6/?)
   - UserDoc ...
 
 
-Services (11/?)
+Services (12/?)
 --------
   - ButtonDataService - check
   - ContactService - check * rename to ContactViewerService?
   - DateFormatterService - check
   - DialogFormController - check
   - DialogService - check
-  - GlobalService ...
+  - GlobalService - check
   - InputConfigurationService - check
   - InputValidatorService - check
   - JoinService - check

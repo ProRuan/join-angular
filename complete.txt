@@ -323,7 +323,6 @@ MainComponent
   // remove transit-class to app-dialog classes ... (0/4)
   // fix delete-task dialog transition (bgc/box) ...
   // verfiy dialog and dialog comp transitions ... (0/5)
-  // rename stop() to stopEvent() or stopPropagation() ...
   // double style of dialogs ... (0/4)
   // double style of close button ... (0/4+)
 
@@ -473,7 +472,6 @@ MainComponent
 
   // View-Task Dialog Component
   // --------------------------
-  // rename stop() to stopPropagation() ... !
   // close-btn-comp ... ?
   // profile component?!
   // edit task button ...

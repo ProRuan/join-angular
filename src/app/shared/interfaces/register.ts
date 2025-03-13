@@ -1,7 +1,7 @@
 import { Contact } from '../models/contact';
 
 /**
- * Represents a register.
+ * Interface representing a register.
  */
 export interface Register {
   letter: string;

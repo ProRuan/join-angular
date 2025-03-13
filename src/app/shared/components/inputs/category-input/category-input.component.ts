@@ -8,7 +8,7 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { DialogService } from '../../../services/dialog.service';
-import { stop } from '../../../ts/global';
+import { stopPropagation } from '../../../ts/global';
 
 @Component({
   selector: 'app-category-input',
@@ -39,7 +39,7 @@ export class CategoryInputComponent extends ReactiveInput {
    */
   onHandle(event: Event) {
     this.dialog.close('assignedTo');
-    stop(event);
+    stopPropagation(event);
   }
 
   /**

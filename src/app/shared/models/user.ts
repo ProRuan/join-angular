@@ -38,8 +38,8 @@ export class User {
     this.email = getString(data?.email);
     this.password = getString(data?.password);
     this.summary = this.getSummary(data?.summary);
-    this.tasks = getCustomArray<Task>(data?.tasks, Task);
-    this.contacts = getCustomArray<Contact>(data?.contacts, Contact);
+    this.tasks = getCustomArray(data?.tasks, Task);
+    this.contacts = getCustomArray(data?.contacts, Contact);
   }
 
   /**
@@ -71,8 +71,8 @@ export class User {
       email: this.email,
       password: this.password,
       summary: this.summary.getObject(),
-      tasks: getObjectArray<Task>(this.tasks, Task),
-      contacts: getObjectArray<Contact>(this.contacts, Contact),
+      tasks: getObjectArray(this.tasks, Task),
+      contacts: getObjectArray(this.contacts, Contact),
     };
   }
 }
