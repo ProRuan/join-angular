@@ -2,7 +2,7 @@ import { TaskData } from '../interfaces/task-data';
 import { Task } from '../models/task';
 
 // think about ContactService ...
-// create 5 sample tasks via app ... ?
+// think about sample task values ... !
 // fix subtask checkbox: save after close ... ?
 // limit draggable-task text ... !
 // fix add-task stop/close event ... !

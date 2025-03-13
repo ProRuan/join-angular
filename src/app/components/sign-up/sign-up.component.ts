@@ -159,19 +159,12 @@ export class SignUpComponent extends FormController {
    * Updates user data.
    */
   private updateUserData() {
-    this.updateUser();
-    this.updateUserContacts();
-    this.updateUserTasks();
-  }
-
-  /**
-   * Udpates a user.
-   */
-  private updateUser() {
     this.user.name = this.getName();
     this.user.initials = this.getInitials(this.user.name);
     this.user.email = this.getValue('email');
     this.user.password = this.getValue('password');
+    this.user.contacts = this.getUserContacts();
+    this.user.tasks = this.getUserTasks();
   }
 
   /**
@@ -192,12 +185,12 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Updates user contacts.
+   * Gets user contacts.
+   * @returns The user contacts.
    */
-  private updateUserContacts() {
+  private getUserContacts() {
     let contact = this.getContact(this.user);
-    this.user.contacts.push(contact);
-    this.user.contacts.push(...sampleContacts);
+    return [contact, ...sampleContacts];
   }
 
   /**
@@ -215,10 +208,11 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Updates user tasks.
+   * Gets user tasks.
+   * @returns The user tasks.
    */
-  private updateUserTasks() {
-    this.user.tasks.push(...sampleTasks);
+  private getUserTasks() {
+    return [...sampleTasks];
   }
 
   /**
