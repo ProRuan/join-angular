@@ -8,7 +8,7 @@ const LOWERCASES: CharCodeGroup = { start: 97, amount: 26 };
 init();
 
 /**
- * Initializes the charCodes.
+ * Initializes charCodes.
  */
 function init() {
   addCharCodeGroup(DIGITS);
@@ -29,9 +29,9 @@ function addCharCodeGroup(group: CharCodeGroup) {
 }
 
 /**
- * Provides a random index.
+ * Gets a random index.
  * @param i - The index of the id.
- * @returns - A random index.
+ * @returns A random index.
  */
 function getRandomIndex(i: number) {
   if (i != 0) {
@@ -42,8 +42,8 @@ function getRandomIndex(i: number) {
 }
 
 /**
- * Provides a random id.
- * @returns - The random id.
+ * Gets a random id.
+ * @returns The random id.
  */
 export function getRandomId() {
   let id = '';

@@ -76,19 +76,21 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
   },
 ];
 
-const convertedSampleContacts: Contact[] = getSampleContacts();
-
 /**
- * Provides the sample contacts.
- * @returns - The sample contacts.
+ * Gets sample contacts from a sample contacts data array.
+ * @returns The sample contacts.
  */
 function getSampleContacts() {
-  let contacts: Contact[] = [];
-  SAMPLE_CONTACTS_DATA.forEach((contactData) => {
-    const contact = new Contact(contactData);
-    contacts.push(contact);
-  });
-  return contacts;
+  return SAMPLE_CONTACTS_DATA.map((contactData) => getContact(contactData));
 }
 
-export const sampleContacts = convertedSampleContacts;
+/**
+ * Gets a contact from contact data.
+ * @param contactData - The contact data.
+ * @returns The contact.
+ */
+function getContact(contactData: ContactData) {
+  return new Contact(contactData);
+}
+
+export const sampleContacts = getSampleContacts();

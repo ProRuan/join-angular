@@ -2,17 +2,6 @@ import { Converter } from '../interfaces/converter';
 import { Model } from '../interfaces/model';
 import { getRandomId } from './identify';
 
-// think about ContactService ...
-
-// ---------------------
-// check leading components ...
-
-// check components ...
-// check scripts ...
-// ---------------------
-
-// check other missing files (folder by folder) ...
-
 const monthNames = [
   'January',
   'February',

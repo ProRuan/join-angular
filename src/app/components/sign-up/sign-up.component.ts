@@ -34,6 +34,7 @@ import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
 import { sampleContacts } from '../../shared/ts/sample-contacts';
 import { Contact } from '../../shared/models/contact';
+import { sampleTasks } from '../../shared/ts/sample-tasks';
 
 @Component({
   selector: 'app-sign-up',
@@ -160,6 +161,7 @@ export class SignUpComponent extends FormController {
   private updateUserData() {
     this.updateUser();
     this.updateUserContacts();
+    this.updateUserTasks();
   }
 
   /**
@@ -210,6 +212,13 @@ export class SignUpComponent extends FormController {
     contact.name = `${user.name} (You)`;
     contact.email = user.email;
     return contact;
+  }
+
+  /**
+   * Updates user tasks.
+   */
+  private updateUserTasks() {
+    this.user.tasks.push(...sampleTasks);
   }
 
   /**
