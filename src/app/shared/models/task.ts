@@ -11,19 +11,19 @@ import { Contact } from './contact';
 import { Subtask } from './subtask';
 
 /**
- * Represents a task.
+ * Class representing a task.
  */
 export class Task {
   [key: string]: any;
-  id!: string;
-  title!: string;
-  description!: string;
-  assignedTo!: Contact[];
-  dueDate!: string;
-  prio!: string;
-  category!: string;
-  subtasks!: Subtask[];
-  column!: string;
+  id: string = '';
+  title: string = '';
+  description: string = '';
+  assignedTo: Contact[] = [];
+  dueDate: string = '';
+  prio: string = '';
+  category: string = '';
+  subtasks: Subtask[] = [];
+  column: string = '';
 
   /**
    * Creates a task.
@@ -34,7 +34,7 @@ export class Task {
   }
 
   /**
-   * Assigns the property values.
+   * Assigns property values.
    * @param data - The task data.
    */
   private assignValues(data?: Task) {
@@ -50,7 +50,7 @@ export class Task {
   }
 
   /**
-   * Sets the task data.
+   * Sets a task.
    * @param data - The task data.
    */
   set(data?: Task) {
@@ -58,8 +58,8 @@ export class Task {
   }
 
   /**
-   * Provides the task as object.
-   * @returns - The task as object.
+   * Gets a task as object.
+   * @returns The task as object.
    */
   getObject() {
     let task = getObject<Task>(this);
@@ -70,7 +70,7 @@ export class Task {
 
   /**
    * Verifies the default of a task.
-   * @returns - A boolean value.
+   * @returns A boolean value.
    */
   isDefault() {
     let defaultProperties = this.getDefaultProperties();
@@ -78,8 +78,8 @@ export class Task {
   }
 
   /**
-   * Provides the default properties as boolean array.
-   * @returns - An boolean array.
+   * Gets default properties as boolean array.
+   * @returns An boolean array.
    */
   getDefaultProperties() {
     let title = isDefaultString(this.title);

@@ -1,7 +1,7 @@
 import { SummaryTask } from './summary-task';
 
 /**
- * Represents a summary.
+ * Class representing a summary.
  */
 export class Summary {
   [key: string]: any;
@@ -31,10 +31,10 @@ export class Summary {
   }
 
   /**
-   * Provides the summary task.
+   * Gets a summary task.
    * @param category - The summary task category.
    * @param data - The summary task data.
-   * @returns - The summary task.
+   * @returns The summary task.
    */
   getSummaryTask(category: string, data?: SummaryTask) {
     if (data) {
@@ -45,18 +45,18 @@ export class Summary {
   }
 
   /**
-   * Provides the updated summary task.
+   * Gets an updated summary task.
    * @param data - The summary task data.
-   * @returns - The updated summary task.
+   * @returns The updated summary task.
    */
   getUpdatedSummaryTask(data: SummaryTask) {
     return new SummaryTask(data);
   }
 
   /**
-   * Provides the added summary task.
+   * Gets an added summary task.
    * @param category - The summary task category.
-   * @returns - The added summary task.
+   * @returns The added summary task.
    */
   getAddedSummaryTask(category: string) {
     const defaultTask = this.getDefaultSummaryTask(category);
@@ -64,9 +64,9 @@ export class Summary {
   }
 
   /**
-   * Provides the default summary task.
+   * Gets a default summary task.
    * @param category - The summary task category.
-   * @returns - The default summary task.
+   * @returns The default summary task.
    */
   getDefaultSummaryTask(category: string) {
     if (category == 'Urgent') {
@@ -77,8 +77,8 @@ export class Summary {
   }
 
   /**
-   * Provides the summary as object.
-   * @returns - The summary as object.
+   * Gets a summary as object.
+   * @returns The summary as object.
    */
   getObject() {
     return {

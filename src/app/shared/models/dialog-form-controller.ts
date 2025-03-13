@@ -21,7 +21,7 @@ export class DialogFormController extends FormController {
   }
 
   /**
-   * Gets the css class of the transit container.
+   * Gets the css class of a transit container.
    * @returns The css class of the transit container.
    */
   getTransitClass(): string {

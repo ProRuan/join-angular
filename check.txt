@@ -32,8 +32,9 @@ Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 Top Level Scripts
 -----------------
   - app ...
-  - shared/interfaces - check
-  - shared/services - check * rename ContactViewerService?!
+  - shared/interfaces - check (14)
+  - shared/models - check (12)
+  - shared/services - check (13)
 
 Join (6/?)
 ----
@@ -111,33 +112,29 @@ Interfaces (14/14)
   - SummaryTaskData - check
   - UserData - check
 
-Models (6/?)
+Models (12/12)
 ------
-  - Contact ...
+  - Contact - check
+  - DialogFormController - check
   - FormController - check
   - InputValidator - check
   - JoinButton - check
-  - DialogFormController - check
-  - JoinDialog ...
   - ReactiveInput - check
-  - SessionId ... * delete!
-  - Subtask ...
-  - Summary ...
-  - SummaryTask ...
-  - Task
-  - Transform - check * necessary?
+  - Subtask - check
+  - SummaryTask - check
+  - Summary - check
+  - Task - check
+  - Transform - check
   - User - check
-  - UserDoc ...
 
 
-Services (14/14)
+Services (13/13)
 --------
   - BoardService - check
   - ButtonDataService - check
   - ContactService - check
   - DateFormatterService - check
   - DialogService - check
-  - GlobalService - check
   - InputConfigurationService - check
   - InputValidatorService - check
   - JoinService - check
@@ -148,8 +145,9 @@ Services (14/14)
   - SummaryService - check
       
 
-ts (2/?)
+ts (3/?)
 --
+  - global.ts - check
   - pattern.ts check
   - validate.ts - check
   - ... ... ...

@@ -2,15 +2,15 @@ import { ContactData } from '../interfaces/contact-data';
 import { getId, getObject, getString } from '../ts/global';
 
 /**
- * Represents a contact.
+ * Class representing a contact.
  */
 export class Contact {
-  id!: string;
-  initials!: string;
-  bgc!: string;
-  name!: string;
-  email!: string;
-  phone!: string;
+  id: string = '';
+  initials: string = '';
+  bgc: string = '';
+  name: string = '';
+  email: string = '';
+  phone: string = '';
 
   /**
    * Creates a contact.
@@ -21,7 +21,7 @@ export class Contact {
   }
 
   /**
-   * Assigns the property values.
+   * Assigns property values.
    * @param data - The contact data.
    */
   private assignValues(data?: Contact | ContactData) {
@@ -34,7 +34,7 @@ export class Contact {
   }
 
   /**
-   * Sets the contact data.
+   * Sets a contact.
    * @param data - The contact data.
    */
   set(data?: Contact | ContactData) {
@@ -42,8 +42,8 @@ export class Contact {
   }
 
   /**
-   * Provides the contact as object.
-   * @returns - The contact as object.
+   * Gets a contact as object.
+   * @returns The contact as object.
    */
   getObject() {
     return getObject<Contact>(this);

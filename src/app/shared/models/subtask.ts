@@ -1,7 +1,7 @@
 import { getBoolean, getNumber, getObject, getString } from '../ts/global';
 
 /**
- * Represents a subtask.
+ * Class representing a subtask.
  */
 export class Subtask {
   id: number;
@@ -21,8 +21,8 @@ export class Subtask {
   }
 
   /**
-   * Provides the subtask as object.
-   * @returns - The subtask as object.
+   * Gets á subtask as object.
+   * @returns The subtask as object.
    */
   getObject() {
     return getObject<Subtask>(this);

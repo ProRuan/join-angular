@@ -2,7 +2,7 @@ import { SummaryTaskData } from '../interfaces/summary-task-data';
 import { getNumber, getObject, getString } from '../ts/global';
 
 /**
- * Represents a summary task.
+ * Class representing a summary task.
  */
 export class SummaryTask {
   category: string;
@@ -22,8 +22,8 @@ export class SummaryTask {
   }
 
   /**
-   * Provides the summary task as object.
-   * @returns - The summary task as object.
+   * Gets a summary task as object.
+   * @returns The summary task as object.
    */
   getObject() {
     return getObject<SummaryTask>(this);
