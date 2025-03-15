@@ -1,5 +1,5 @@
 import { SubtaskData } from '../interfaces/subtask-data';
-import { getBoolean, getNumber, getString } from '../ts/global';
+import { getBoolean, getNumber, getObjectData, getString } from '../ts/global';
 
 /**
  * Class representing a subtask.
@@ -25,12 +25,7 @@ export class Subtask {
    * Gets a subtask as object.
    * @returns The subtask as object.
    */
-  getObject(): SubtaskData {
-    return {
-      id: this.id,
-      text: this.text,
-      done: this.done,
-      focused: this.focused,
-    };
+  getObject() {
+    return getObjectData(this) as SubtaskData;
   }
 }

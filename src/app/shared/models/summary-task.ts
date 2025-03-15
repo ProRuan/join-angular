@@ -1,5 +1,5 @@
 import { SummaryTaskData } from '../interfaces/summary-task-data';
-import { getNumber, getString } from '../ts/global';
+import { getNumber, getObjectData, getString } from '../ts/global';
 
 /**
  * Class representing a summary task.
@@ -25,11 +25,7 @@ export class SummaryTask {
    * Gets a summary task as object.
    * @returns The summary task as object.
    */
-  getObject(): SummaryTaskData {
-    return {
-      category: this.category,
-      amount: this.amount,
-      deadline: this.deadline,
-    };
+  getObject() {
+    return getObjectData(this) as SummaryTaskData;
   }
 }

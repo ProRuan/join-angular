@@ -143,6 +143,15 @@ export function getNumber(value?: number, defaultValue: number = 0) {
 }
 
 /**
+ * Gets object data from a model.
+ * @param model - The model.
+ * @returns The object data.
+ */
+export function getObjectData<T>(model: T) {
+  return { ...model };
+}
+
+/**
  *Gets an object array from a custom array.
  * @param items - The custom array.
  * @returns The object array.

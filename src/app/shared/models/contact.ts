@@ -1,5 +1,5 @@
 import { ContactData } from '../interfaces/contact-data';
-import { getId, getString } from '../ts/global';
+import { getId, getObjectData, getString } from '../ts/global';
 
 /**
  * Class representing a contact.
@@ -45,14 +45,7 @@ export class Contact {
    * Gets a contact as object.
    * @returns The contact as object.
    */
-  getObject(): ContactData {
-    return {
-      id: this.id,
-      initials: this.initials,
-      bgc: this.bgc,
-      name: this.name,
-      email: this.email,
-      phone: this.phone,
-    };
+  getObject() {
+    return getObjectData(this) as ContactData;
   }
 }
