@@ -10,7 +10,8 @@ import {
 } from '@angular/forms';
 import { DialogService } from '../../../services/dialog.service';
 import { Subtask } from '../../../models/subtask';
-import { getTime, IntervalId, stopPropagation } from '../../../ts/global';
+import { getTime, stopPropagation } from '../../../ts/global';
+import { IntervalId } from '../../../ts/type';
 
 @Component({
   selector: 'app-subtasks-input',
@@ -137,7 +138,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    * @returns A boolean value.
    */
   isOpened(i: number) {
-    let focused = this.subtasks[i].focussed;
+    let focused = this.subtasks[i].focused;
     let opened = this.dialog.isOpened('subtask');
     return focused && opened;
   }
@@ -168,7 +169,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   openEditor(i: number) {
     this.resetFocus();
-    this.subtasks[i].focussed = true;
+    this.subtasks[i].focused = true;
     this.dialog.open(this.dialogId);
   }
 
@@ -177,7 +178,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   resetFocus() {
     this.subtasks.forEach((subtask) => {
-      subtask.focussed = false;
+      subtask.focused = false;
     });
   }
 
@@ -239,7 +240,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    * @param i - The subtask index.
    */
   save(i: number) {
-    this.subtasks[i].focussed = false;
+    this.subtasks[i].focused = false;
     this.dialog.close(this.dialogId);
   }
 }

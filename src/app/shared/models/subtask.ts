@@ -1,4 +1,5 @@
-import { getBoolean, getNumber, getObject, getString } from '../ts/global';
+import { SubtaskData } from '../interfaces/subtask-data';
+import { getBoolean, getNumber, getString } from '../ts/global';
 
 /**
  * Class representing a subtask.
@@ -7,24 +8,29 @@ export class Subtask {
   id: number;
   text: string;
   done: boolean;
-  focussed: boolean;
+  focused: boolean;
 
   /**
    * Creates a subtask.
    * @param data - The subtask data.
    */
-  constructor(data?: Subtask) {
+  constructor(data?: Subtask | SubtaskData) {
     this.id = getNumber(data?.id);
     this.text = getString(data?.text);
     this.done = getBoolean(data?.done);
-    this.focussed = getBoolean(data?.focussed);
+    this.focused = getBoolean(data?.focused);
   }
 
   /**
-   * Gets á subtask as object.
+   * Gets a subtask as object.
    * @returns The subtask as object.
    */
-  getObject() {
-    return getObject<Subtask>(this);
+  getObject(): SubtaskData {
+    return {
+      id: this.id,
+      text: this.text,
+      done: this.done,
+      focused: this.focused,
+    };
   }
 }

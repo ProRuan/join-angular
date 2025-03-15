@@ -80,7 +80,7 @@ export class ColumnComponent {
   onUpdateTask(column: string) {
     this.board.task.column = column;
     this.board.setDrag();
-    this.summary.update();
+    this.join.updateSummary();
     this.join.saveUser();
   }
 

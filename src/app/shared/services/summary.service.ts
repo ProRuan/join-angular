@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
-import { JoinService } from './join.service';
+import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
+import { Summary } from '../models/summary';
 import { getMonthName } from '../ts/global';
 
 @Injectable({
@@ -11,20 +11,27 @@ import { getMonthName } from '../ts/global';
  * Class representing a summary service.
  */
 export class SummaryService {
-  join: JoinService = inject(JoinService);
+  tasks: Task[] = [];
+  summary: Summary = new Summary();
+
+  // add property sum label ... ?
+  // rename to sum-card ... ?
 
   /**
-   * Gets user tasks.
-   * @returns The user tasks.
+   * Gets an updated summary.
+   * @param tasks - The user tasks.
+   * @returns The updated summary.
    */
-  get tasks() {
-    return this.join.user.tasks;
+  get(tasks: Task[]) {
+    this.tasks = tasks;
+    this.updateSummary();
+    return this.summary;
   }
 
   /**
-   * Updates a user summary.
+   * Updates a summary by user tasks.
    */
-  update() {
+  updateSummary() {
     this.updateSummaryTasksByColumns();
     this.updateSummaryTasksByTotal();
     this.updateSummaryTasksByPrio();
@@ -71,7 +78,7 @@ export class SummaryService {
    * @param value - The property value of the summary tasks.
    */
   setSummary<T>(task: string, property: string, value: T) {
-    this.join.user.summary[task][property] = value;
+    this.summary[task][property] = value;
   }
 
   /**
@@ -138,7 +145,7 @@ export class SummaryService {
    * @returns The upcoming deadline.
    */
   getUpcomingDeadline(tasks: Task[], index: number) {
-    let deadline = '';
+    let deadline = 'Month dd, YYYY';
     if (index > -1) {
       let upcomingTask = tasks[index];
       let dueDate = upcomingTask.dueDate;
@@ -164,8 +171,8 @@ export class SummaryService {
    * @returns The date object.
    */
   getDateObject(dueDate: string) {
-    let date = dueDate.split('-');
-    return { day: date[2], month: date[1], year: date[0] };
+    let date = dueDate.split('/');
+    return { day: date[0], month: date[1], year: date[2] };
   }
 
   /**

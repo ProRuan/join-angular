@@ -38,7 +38,7 @@ export class CategoryInputComponent extends ReactiveInput {
    * @param event - The event.
    */
   onHandle(event: Event) {
-    this.dialog.close('assignedTo');
+    this.dialog.resetAssignedTo();
     stopPropagation(event);
   }
 

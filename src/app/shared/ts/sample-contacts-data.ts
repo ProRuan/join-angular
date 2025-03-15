@@ -1,5 +1,4 @@
 import { ContactData } from '../interfaces/contact-data';
-import { Contact } from '../models/contact';
 
 const SAMPLE_CONTACTS_DATA: ContactData[] = [
   {
@@ -76,21 +75,4 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
   },
 ];
 
-/**
- * Gets sample contacts from a sample contacts data array.
- * @returns The sample contacts.
- */
-function getSampleContacts() {
-  return SAMPLE_CONTACTS_DATA.map((contactData) => getContact(contactData));
-}
-
-/**
- * Gets a contact from contact data.
- * @param contactData - The contact data.
- * @returns The contact.
- */
-function getContact(contactData: ContactData) {
-  return new Contact(contactData);
-}
-
-export const sampleContacts = getSampleContacts();
+export const sampleContactsData = SAMPLE_CONTACTS_DATA;

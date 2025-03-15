@@ -64,8 +64,8 @@ export class DeleteTaskDialogComponent extends DialogFormController {
     this.dialog.fadedOut = true;
     setTimeout(() => {
       this.closesDialogs();
-      this.join.deleteTask(index);
-      this.summary.update();
+      this.join.deleteUserItem('tasks', index);
+      this.join.updateSummary();
       this.join.saveUser();
       this.dialog.fadedOut = false;
     }, 0);

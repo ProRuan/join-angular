@@ -12,9 +12,12 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { SessionIdService } from './session-id.service';
+import { SummaryService } from './summary.service';
 import { User } from '../models/user';
+import { getArrayCopy, getLocalItem, setLocalItem } from '../ts/global';
 import { UserData } from '../interfaces/user-data';
-import { getLocalItem, setLocalItem } from '../ts/global';
+import { Task } from '../models/task';
+import { Contact } from '../models/contact';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +29,7 @@ import { getLocalItem, setLocalItem } from '../ts/global';
 export class JoinService {
   firestore: Firestore = inject(Firestore);
   sid: SessionIdService = inject(SessionIdService);
+  summary: SummaryService = inject(SummaryService);
 
   [key: string]: any;
   user: User = new User();
@@ -72,17 +76,8 @@ export class JoinService {
    * @param snapshot - The QuerySnapshot.
    */
   getUserCollection(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
-    const docs = this.getDocs(snapshot);
+    const docs = getArrayCopy(snapshot.docs);
     this.users = docs.map((doc) => this.getUser(doc.data()));
-  }
-
-  /**
-   * Gets documents from a snapshot.
-   * @param snapshot - The QuerySnapshot.
-   * @returns The documents.
-   */
-  getDocs(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
-    return [...snapshot.docs];
   }
 
   /**
@@ -91,8 +86,17 @@ export class JoinService {
    * @returns The user.
    */
   getUser(userDoc: DocumentData) {
-    let data = userDoc['data'];
+    let data = this.getUserData(userDoc);
     return new User(data);
+  }
+
+  /**
+   * Gets user data from a user document.
+   * @param userDoc - The user document.
+   * @returns The user data.
+   */
+  getUserData(userDoc: DocumentData): UserData {
+    return userDoc['data'];
   }
 
   /**
@@ -134,7 +138,7 @@ export class JoinService {
    * @param data - The user data.
    */
   addUser(data: UserData) {
-    addDoc(collection(this.firestore, 'users'), data);
+    addDoc(collection(this.firestore, 'users'), { data });
   }
 
   /**
@@ -221,25 +225,34 @@ export class JoinService {
    */
   setChangedUser(userDoc?: DocumentData) {
     if (userDoc) {
-      let data = userDoc['data'];
+      let data = this.getUserData(userDoc);
       this.user.set(data);
     }
   }
 
-  /**
-   * Deletes a user task.
-   * @param index - The task index.
+  /***
+   * Updates a user summary.
    */
-  deleteTask(index: number) {
-    this.user.tasks.splice(index, 1);
+  updateSummary() {
+    this.user.summary = this.summary.get(this.user.tasks);
   }
 
   /**
-   * Deletes a user contact.
-   * @param index - The contact index.
+   * Adds a user item.
+   * @param key - The property key.
+   * @param item - The item.
    */
-  deleteContact(index: number) {
-    this.user.contacts.splice(index, 1);
+  addUserItem(key: string, item: Task | Contact) {
+    this.user[key].push(item);
+  }
+
+  /**
+   * Deletes a user item.
+   * @param key - The property key.
+   * @param index - The item index.
+   */
+  deleteUserItem(key: string, index: number) {
+    this.user[key].splice(index, 1);
   }
 
   /**

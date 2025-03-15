@@ -8,6 +8,7 @@ import { ContactViewerComponent } from './contact-viewer/contact-viewer.componen
 import { JoinService } from '../../shared/services/join.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { Contact } from '../../shared/models/contact';
+import { getArrayCopy } from '../../shared/ts/global';
 
 @Component({
   selector: 'app-contacts',
@@ -39,7 +40,7 @@ export class ContactsComponent {
    * @returns The sorted contacts.
    */
   getSortedContacts() {
-    let contacts = [...this.join.user.contacts];
+    let contacts = getArrayCopy(this.join.user.contacts);
     return contacts.sort((a, b) => this.compareNames(a, b));
   }
 

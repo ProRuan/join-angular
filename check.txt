@@ -37,7 +37,7 @@ Top Level Scripts
   - shared/interfaces - check (16)
   - shared/models - check (12)
   - shared/services - check (13)
-  - shared/ts - check (6)
+  - shared/ts - check (7)
 
 Join (6/?)
 ----
@@ -104,7 +104,6 @@ Interfaces (16/16)
   - ButtonData - check
   - CharCodeGroup - check
   - ContactData - check
-  - Converter - check
   - InputConfig - check
   - Model - check
   - PrioButton - check
@@ -113,6 +112,7 @@ Interfaces (16/16)
   - States - check
   - Styles - check
   - SubtaskData - check
+  - SummaryData - check
   - SummaryTaskData - check
   - TaskData - check
   - UserData - check
@@ -150,14 +150,15 @@ Services (13/13)
   - SummaryService - check
       
 
-ts (6/6)
+ts (7/7)
 --
   - animate.ts - check
   - global.ts - check
   - identify.ts - check
   - pattern.ts - check
-  - sample-conctacts.ts - check
-  - sample-tasks.ts - check
+  - sample-conctacts-data.ts - check
+  - sample-tasks-data.ts - check
+  - type.ts - check
 
 
 Styles

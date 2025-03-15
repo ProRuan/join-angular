@@ -16,6 +16,10 @@ missing files
   - app ...
   - folders ...
 
+dialogs
+-------
+  - fix dialogs on dialogs (close, stop) ...
+
 FlipMenuComponent
 -----------------
   - provide a logOut() ... !

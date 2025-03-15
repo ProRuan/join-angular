@@ -1,7 +1,7 @@
+import { TaskData } from '../interfaces/task-data';
 import {
   getCustomArray,
   getId,
-  getObject,
   getObjectArray,
   getString,
   isDefaultArray,
@@ -29,7 +29,7 @@ export class Task {
    * Creates a task.
    * @param data - The task data.
    */
-  constructor(data?: Task) {
+  constructor(data?: Task | TaskData) {
     this.assignValues(data);
   }
 
@@ -37,7 +37,7 @@ export class Task {
    * Assigns property values.
    * @param data - The task data.
    */
-  private assignValues(data?: Task) {
+  private assignValues(data?: Task | TaskData) {
     this.id = getId(data?.id);
     this.title = getString(data?.title);
     this.description = getString(data?.description);
@@ -53,7 +53,7 @@ export class Task {
    * Sets a task.
    * @param data - The task data.
    */
-  set(data?: Task) {
+  set(data?: Task | TaskData) {
     this.assignValues(data);
   }
 
@@ -61,11 +61,18 @@ export class Task {
    * Gets a task as object.
    * @returns The task as object.
    */
-  getObject() {
-    let task = getObject<Task>(this);
-    task.assignedTo = getObjectArray(this.assignedTo, Contact);
-    task.subtasks = getObjectArray(this.subtasks, Subtask);
-    return task;
+  getObject(): TaskData {
+    return {
+      id: this.id,
+      title: this.title,
+      description: this.description,
+      assignedTo: getObjectArray(this.assignedTo),
+      dueDate: this.dueDate,
+      prio: this.prio,
+      category: this.category,
+      subtasks: getObjectArray(this.subtasks),
+      column: this.column,
+    };
   }
 
   /**
@@ -84,11 +91,11 @@ export class Task {
   getDefaultProperties() {
     let title = isDefaultString(this.title);
     let description = isDefaultString(this.description);
-    let assignedTo = isDefaultArray<Contact>(this.assignedTo);
+    let assignedTo = isDefaultArray(this.assignedTo);
     let dueDate = isDefaultString(this.dueDate);
     let prio = isDefaultString(this.prio, 'medium');
     let category = isDefaultString(this.category);
-    let subtasks = isDefaultArray<Subtask>(this.subtasks);
+    let subtasks = isDefaultArray(this.subtasks);
     return [title, description, assignedTo, dueDate, prio, category, subtasks];
   }
 }

@@ -167,7 +167,7 @@ export class ContactDialogComponent
    */
   onCreate() {
     if (this.form.valid) {
-      this.join.user.contacts.push(this.form.value);
+      this.join.addUserItem('contacts', this.form.value);
       this.saveUserContacts();
     }
   }

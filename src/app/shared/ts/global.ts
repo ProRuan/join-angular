@@ -1,6 +1,6 @@
-import { Converter } from '../interfaces/converter';
 import { Model } from '../interfaces/model';
 import { getRandomId } from './identify';
+import { ConvertableObject } from './type';
 
 const monthNames = [
   'January',
@@ -16,6 +16,15 @@ const monthNames = [
   'November',
   'December',
 ];
+
+/**
+ * Gets an array copy.
+ * @param array - The array.
+ * @returns The array copy.
+ */
+export function getArrayCopy<T>(array: T[]) {
+  return [...array];
+}
 
 /**
  * Gets a boolean value.
@@ -134,22 +143,12 @@ export function getNumber(value?: number, defaultValue: number = 0) {
 }
 
 /**
- * Gets a model as object.
- * @param model - The model to convert.
- * @returns The model as object.
- */
-export function getObject<T>(model: T) {
-  return { ...model };
-}
-
-/**
- * Gets an object array.
- * @param items - The input array.
- * @param Converter - The converter class.
+ *Gets an object array from a custom array.
+ * @param items - The custom array.
  * @returns The object array.
  */
-export function getObjectArray<T>(items: T[] = [], Converter: Converter<T>) {
-  return items.map((item) => new Converter(item).getObject());
+export function getObjectArray<T extends ConvertableObject<T>>(items: T[]) {
+  return items.map((item) => item.getObject());
 }
 
 /**
@@ -216,8 +215,3 @@ export function stopPropagation(event?: Event) {
     event.stopPropagation();
   }
 }
-
-/**
- * Type representing an interval id.
- */
-export type IntervalId = ReturnType<typeof setTimeout>;

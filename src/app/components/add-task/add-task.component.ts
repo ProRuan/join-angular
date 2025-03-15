@@ -95,7 +95,7 @@ export class AddTaskComponent extends FormController {
     this.registerControl('title', '', this.validators.required);
     this.registerControl('description', '');
     this.registerControl('assignedTo', []);
-    this.registerControl('dueDate', '', this.validators.dueDate);
+    this.registerControl('dueDate', '', this.validators.getDueDate(true));
     this.registerControl('prio', 'medium');
     this.registerControl('category', '', this.validators.required);
     this.registerControl('subtasks', []);
@@ -256,8 +256,8 @@ export class AddTaskComponent extends FormController {
   createTask() {
     if (this.form.valid) {
       this.task.set(this.form.value);
-      this.join.user.tasks.push(this.task);
-      this.summary.update();
+      this.join.addUserItem('tasks', this.task);
+      this.join.updateSummary();
       this.join.saveUser();
       this.navigateToBoard();
     }

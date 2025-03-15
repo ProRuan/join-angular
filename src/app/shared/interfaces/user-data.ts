@@ -1,28 +1,18 @@
-import { Contact } from '../models/contact';
-import { SummaryTask } from '../models/summary-task';
-import { Task } from '../models/task';
+import { ContactData } from './contact-data';
+import { SummaryData } from './summary-data';
+import { TaskData } from './task-data';
 
 /**
  * Interface representing user data.
  */
 export interface UserData {
-  [key: string]: any;
-  data: {
-    id: string;
-    sid: string;
-    initials: string;
-    name: string;
-    email: string;
-    password: string;
-    summary: {
-      toDo: SummaryTask;
-      done: SummaryTask;
-      urgent: SummaryTask;
-      inBoard: SummaryTask;
-      inProgress: SummaryTask;
-      awaitingFeedback: SummaryTask;
-    };
-    tasks: Task[];
-    contacts: Contact[];
-  };
+  id: string;
+  sid: string;
+  initials: string;
+  name: string;
+  email: string;
+  password: string;
+  summary: SummaryData;
+  tasks: TaskData[];
+  contacts: ContactData[];
 }

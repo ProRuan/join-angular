@@ -82,9 +82,10 @@ export class DialogService {
   }
 
   /**
-   * Resets an assigned-to input value.
+   * Resets an assigned-to input.
    */
   resetAssignedTo() {
+    this.close('assignedTo');
     this.search?.setValue('');
   }
 }

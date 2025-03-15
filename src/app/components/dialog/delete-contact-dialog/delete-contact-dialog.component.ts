@@ -63,7 +63,7 @@ export class DeleteContactDialogComponent extends DialogFormController {
     this.dialog.fadedOut = true;
     setTimeout(() => {
       this.closesDialogs();
-      this.join.deleteContact(index);
+      this.join.deleteUserItem('contacts', index);
       this.join.saveUser();
       this.dialog.fadedOut = false;
     }, 0);

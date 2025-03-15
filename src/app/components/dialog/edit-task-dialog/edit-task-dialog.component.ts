@@ -136,7 +136,7 @@ export class EditTaskDialogComponent
   setTaskControls() {
     this.registerControl('title', '', this.validators.required);
     this.registerControl('description', '');
-    this.registerControl('dueDate', '', this.validators.dueDate);
+    this.registerControl('dueDate', '', this.validators.getDueDate());
     this.registerControl('prio', 'medium');
     this.registerControl('assignedTo', []);
     this.registerControl('subtasks', []);
@@ -175,8 +175,8 @@ export class EditTaskDialogComponent
    * @param event - The event.
    */
   onMenuClose(event: Event): void {
-    this.dialog.close('assignedTo');
-    this.search?.setValue('');
+    this.dialog.resetAssignedTo();
+    this.dialog.close('category');
     stopPropagation(event);
   }
 
@@ -194,7 +194,7 @@ export class EditTaskDialogComponent
   onUpdate() {
     if (this.form.valid) {
       this.updateTask();
-      this.summary.update();
+      this.join.updateSummary();
       this.join.saveUser();
       this.fadeDialogOut();
     }

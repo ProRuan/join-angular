@@ -1,13 +1,15 @@
-import { DocumentData } from 'firebase/firestore';
+import { SummaryData } from '../interfaces/summary-data';
+import { UserData } from '../interfaces/user-data';
+import { getCustomArray, getObjectArray, getString } from '../ts/global';
 import { Contact } from './contact';
 import { Summary } from './summary';
 import { Task } from './task';
-import { getCustomArray, getObjectArray, getString } from '../ts/global';
 
 /**
  * Class representing a user.
  */
 export class User {
+  [key: string]: any;
   id: string = '';
   sid: string = '';
   initials: string = '';
@@ -22,7 +24,7 @@ export class User {
    * Creates a user.
    * @param data - The user data.
    */
-  constructor(data?: DocumentData | User) {
+  constructor(data?: User | UserData) {
     this.assignValues(data);
   }
 
@@ -30,7 +32,7 @@ export class User {
    * Assigns property values.
    * @param data - The user data.
    */
-  assignValues(data?: DocumentData | User) {
+  assignValues(data?: User | UserData) {
     this.id = getString(data?.id);
     this.sid = getString(data?.sid);
     this.initials = getString(data?.initials);
@@ -46,7 +48,7 @@ export class User {
    * Sets a user.
    * @param data - The user data.
    */
-  set(data?: DocumentData | User) {
+  set(data?: User | UserData) {
     this.assignValues(data);
   }
 
@@ -54,7 +56,7 @@ export class User {
    * Gets a user summary.
    * @returns The user summary.
    */
-  getSummary(data: Summary) {
+  getSummary(data?: Summary | SummaryData) {
     return data ? new Summary(data) : new Summary();
   }
 
@@ -62,7 +64,7 @@ export class User {
    * Gets a user as object.
    * @returns The user as object.
    */
-  getObject() {
+  getObject(): UserData {
     return {
       id: this.id,
       sid: this.sid,
@@ -71,8 +73,8 @@ export class User {
       email: this.email,
       password: this.password,
       summary: this.summary.getObject(),
-      tasks: getObjectArray(this.tasks, Task),
-      contacts: getObjectArray(this.contacts, Contact),
+      tasks: getObjectArray(this.tasks),
+      contacts: getObjectArray(this.contacts),
     };
   }
 }

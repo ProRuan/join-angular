@@ -4,6 +4,7 @@ import { AddTaskComponent } from '../../add-task/add-task.component';
 import { BackLogComponent } from '../../../shared/components/back-log/back-log.component';
 import { dialogAnimation } from '../../../shared/animations/dialog.animation';
 import { DialogFormController } from '../../../shared/models/dialog-form-controller';
+import { stopPropagation } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -26,5 +27,15 @@ export class AddTaskDialogComponent extends DialogFormController {
    */
   onClose() {
     this.close();
+  }
+
+  /**
+   * Stops an event on click.
+   * @param event - The event.
+   */
+  override onStop(event: Event) {
+    this.dialog.resetAssignedTo();
+    this.dialog.close('category');
+    stopPropagation(event);
   }
 }

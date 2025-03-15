@@ -5,5 +5,5 @@ export interface SubtaskData {
   id: number;
   text: string;
   done: boolean;
-  focussed: boolean;
+  focused: boolean;
 }

@@ -1,8 +1,4 @@
 import { TaskData } from '../interfaces/task-data';
-import { Contact } from '../models/contact';
-import { Subtask } from '../models/subtask';
-import { Task } from '../models/task';
-import { getCustomArray } from './global';
 
 const SAMPLE_TASKS_DATA: TaskData[] = [
   {
@@ -47,8 +43,8 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     prio: 'urgent',
     category: 'User Story',
     subtasks: [
-      { id: 0, text: 'Create your app', done: true, focussed: false },
-      { id: 1, text: 'Ask for feedback', done: false, focussed: false },
+      { id: 0, text: 'Create your app', done: true, focused: false },
+      { id: 1, text: 'Ask for feedback', done: false, focused: false },
     ],
     column: 'in-progress',
   },
@@ -79,9 +75,9 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     prio: 'medium',
     category: 'Technical Task',
     subtasks: [
-      { id: 0, text: 'Animate logo', done: true, focussed: false },
-      { id: 1, text: 'Animate dialogs', done: true, focussed: false },
-      { id: 2, text: 'Animate back log', done: true, focussed: false },
+      { id: 0, text: 'Animate logo', done: true, focused: false },
+      { id: 1, text: 'Animate dialogs', done: true, focused: false },
+      { id: 2, text: 'Animate back log', done: true, focused: false },
     ],
     column: 'done',
   },
@@ -111,14 +107,14 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     prio: 'medium',
     category: 'Technical Task',
     subtasks: [
-      { id: 0, text: 'Implement login form', done: true, focussed: false },
-      { id: 1, text: 'Implement sign-up form', done: true, focussed: false },
-      { id: 2, text: 'Implement add-task form', done: true, focussed: false },
+      { id: 0, text: 'Implement login form', done: true, focused: false },
+      { id: 1, text: 'Implement sign-up form', done: true, focused: false },
+      { id: 2, text: 'Implement add-task form', done: true, focused: false },
       {
         id: 3,
         text: 'implement add-contact form',
         done: true,
-        focussed: false,
+        focused: false,
       },
     ],
     column: 'done',
@@ -149,8 +145,8 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     prio: 'medium',
     category: 'Technical Task',
     subtasks: [
-      { id: 0, text: 'Subscribe user collection', done: true, focussed: false },
-      { id: 1, text: 'Subscribe user', done: true, focussed: false },
+      { id: 0, text: 'Subscribe user collection', done: true, focused: false },
+      { id: 1, text: 'Subscribe user', done: true, focused: false },
     ],
     column: 'await-feedback',
   },
@@ -188,48 +184,11 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     prio: 'low',
     category: 'User Story',
     subtasks: [
-      { id: 0, text: 'Create app', done: false, focussed: false },
-      { id: 1, text: 'Ask for feedback', done: false, focussed: false },
+      { id: 0, text: 'Create app', done: false, focused: false },
+      { id: 1, text: 'Ask for feedback', done: false, focused: false },
     ],
     column: 'to-do',
   },
 ];
 
-/**
- * Gets sample tasks from a sample task data array.
- * @returns The sample tasks.
- */
-function getSampleTasks() {
-  return SAMPLE_TASKS_DATA.map((taskData) => getTask(taskData));
-}
-
-/**
- * Gets a task from task data.
- * @param taskData - The task data.
- * @returns The task.
- */
-function getTask(taskData: TaskData) {
-  const task = new Task();
-  for (const [key, value] of Object.entries(taskData)) {
-    task[key] = getTaskProperty(key, value);
-  }
-  return task;
-}
-
-/**
- * Gets a task property.
- * @param key - The task property key.
- * @param value - The task property value.
- * @returns The task property.
- */
-function getTaskProperty(key: string, value: any) {
-  if (key == 'assignedTo') {
-    return getCustomArray(value, Contact);
-  } else if (key == 'subtasks') {
-    return getCustomArray(value, Subtask);
-  } else {
-    return value;
-  }
-}
-
-export const sampleTasks = getSampleTasks();
+export const sampleTasksData = SAMPLE_TASKS_DATA;

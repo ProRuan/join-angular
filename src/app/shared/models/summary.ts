@@ -1,3 +1,5 @@
+import { SummaryData } from '../interfaces/summary-data';
+import { SummaryTaskData } from '../interfaces/summary-task-data';
 import { SummaryTask } from './summary-task';
 
 /**
@@ -15,7 +17,7 @@ export class Summary {
   /**
    * Creates a summary.
    */
-  constructor(data?: Summary) {
+  constructor(data?: Summary | SummaryData) {
     this.toDo = this.getSummaryTask('To-do', data?.toDo);
     this.done = this.getSummaryTask('Done', data?.done);
     this.urgent = this.getSummaryTask('Urgent', data?.urgent);
@@ -36,7 +38,7 @@ export class Summary {
    * @param data - The summary task data.
    * @returns The summary task.
    */
-  getSummaryTask(category: string, data?: SummaryTask) {
+  getSummaryTask(category: string, data?: SummaryTask | SummaryTaskData) {
     if (data) {
       return this.getUpdatedSummaryTask(data);
     } else {
@@ -49,7 +51,7 @@ export class Summary {
    * @param data - The summary task data.
    * @returns The updated summary task.
    */
-  getUpdatedSummaryTask(data: SummaryTask) {
+  getUpdatedSummaryTask(data: SummaryTask | SummaryTaskData) {
     return new SummaryTask(data);
   }
 
@@ -80,7 +82,7 @@ export class Summary {
    * Gets a summary as object.
    * @returns The summary as object.
    */
-  getObject() {
+  getObject(): SummaryData {
     return {
       toDo: this.toDo.getObject(),
       done: this.done.getObject(),

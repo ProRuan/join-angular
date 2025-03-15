@@ -6,6 +6,7 @@ import {
   namePatterns,
   passwordPatterns,
 } from '../ts/pattern';
+import { getArrayCopy } from '../ts/global';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +55,6 @@ export class InputValidatorService {
     this.validator.forbidden(dueDatePatterns.forbidden),
     this.validator.dueDate(dueDatePatterns.dueDate),
     this.validator.invalidDate(dueDatePatterns.dueDate),
-    this.validator.minDate(dueDatePatterns.dueDate),
   ];
 
   /**
@@ -66,9 +66,9 @@ export class InputValidatorService {
   }
 
   /**
-   * Gets a ValidatorFn array for a matchword input.
+   * Gets a validator function array for a matchword input.
    * @param password - The password to match.
-   * @returns The ValidatorFn array for the matchword input.
+   * @returns The validator function array for the matchword input.
    */
   getMatchword(password: string) {
     return [
@@ -78,5 +78,29 @@ export class InputValidatorService {
       this.validator.matchword(password),
       this.validator.maxLength(127),
     ];
+  }
+
+  /**
+   * Gets a validator function array for a due date input.
+   * @param extended - A boolean value.
+   * @returns The validator function array for the due date input.
+   */
+  getDueDate(extended: boolean = false) {
+    let validators = getArrayCopy(this.dueDate);
+    if (extended) {
+      let validator = this.getMinDate();
+      validators.push(validator);
+      return validators;
+    } else {
+      return validators;
+    }
+  }
+
+  /**
+   * Gets a minimum date validator function.
+   * @returns The minimum date validator function.
+   */
+  getMinDate() {
+    return this.validator.minDate(dueDatePatterns.dueDate);
   }
 }

@@ -25,6 +25,7 @@ import {
   Unsubscribe,
 } from '@angular/fire/firestore';
 import { JoinService } from '../../shared/services/join.service';
+import { SummaryService } from '../../shared/services/summary.service';
 import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { NameFormatterService } from '../../shared/services/name-formatter.service';
@@ -32,9 +33,9 @@ import { LogService } from '../../shared/services/log.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
-import { sampleContacts } from '../../shared/ts/sample-contacts';
 import { Contact } from '../../shared/models/contact';
-import { sampleTasks } from '../../shared/ts/sample-tasks';
+import { sampleContactsData } from '../../shared/ts/sample-contacts-data';
+import { sampleTasksData } from '../../shared/ts/sample-tasks-data';
 
 @Component({
   selector: 'app-sign-up',
@@ -65,11 +66,29 @@ export class SignUpComponent extends FormController {
   firestore: Firestore = inject(Firestore);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  summary: SummaryService = inject(SummaryService);
   config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
   nameFormatter: NameFormatterService = inject(NameFormatterService);
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
+
+  // improve getMatchword() ...
+  // improve getDueDate() ...
+  // improve resetAssignedTo()/resetAddTaskMenus() ...
+
+  // getArrayCopy() from sampleContacts, subtasks ... (0/2)
+  // set return type for getCustomArray() and getObjectArray() ... ?!
+  //   --> getObjectArray(): task.ts, user.ts ... (0/2)
+  //   --> getCustomArray(): task.ts, user.ts, sample-tasks.ts ... (0/3)
+  //   --> sampleContacts: no need to convert ... ?
+  //   --> sampleTasks: no need to convert ... ?
+
+  // fix edit-task deadline minDate validator ...
+  // fix summary deadline (default, done) ... (0/2)
+  // add join.updateSummary() ...
+  // fix summary categories (own property) ... ?!
+  // optional: smart default task deadlines ...
 
   // think about ContactService ...
   // think about sample task values ... !
@@ -165,22 +184,20 @@ export class SignUpComponent extends FormController {
    * Registers a user.
    */
   private signUp() {
-    this.updateUserData();
+    this.updateUser();
     this.subscribeUserRegistration();
     let data = this.getUserData();
     this.join.addUser(data);
   }
 
   /**
-   * Updates user data.
+   * Updates a user.
    */
-  private updateUserData() {
+  private updateUser() {
     this.user.name = this.getName();
     this.user.initials = this.getInitials(this.user.name);
     this.user.email = this.getValue('email');
     this.user.password = this.getValue('password');
-    this.user.contacts = this.getUserContacts();
-    this.user.tasks = this.getUserTasks();
   }
 
   /**
@@ -198,37 +215,6 @@ export class SignUpComponent extends FormController {
    */
   private getInitials(name: string) {
     return this.nameFormatter.getInitials(name);
-  }
-
-  /**
-   * Gets user contacts.
-   * @returns The user contacts.
-   */
-  private getUserContacts() {
-    let contact = this.getContact(this.user);
-    return [contact, ...sampleContacts];
-  }
-
-  /**
-   * Gets a user as a contact.
-   * @param user - The user.
-   * @returns The user as a contact.
-   */
-  private getContact(user: User) {
-    let contact = new Contact();
-    contact.initials = user.initials;
-    contact.bgc = 'lightblue';
-    contact.name = `${user.name} (You)`;
-    contact.email = user.email;
-    return contact;
-  }
-
-  /**
-   * Gets user tasks.
-   * @returns The user tasks.
-   */
-  private getUserTasks() {
-    return [...sampleTasks];
   }
 
   /**
@@ -295,7 +281,51 @@ export class SignUpComponent extends FormController {
    */
   private getUserData() {
     let data = this.user.getObject();
-    return { data };
+    data.contacts = this.getUserContactsData();
+    data.tasks = this.getUserTasksData();
+    data.summary = this.getUserSummaryData();
+    return data;
+  }
+
+  /**
+   * Gets user contacts data.
+   * @returns The user contacts data.
+   */
+  private getUserContactsData() {
+    let contact = this.getContact(this.user);
+    let contactData = contact.getObject();
+    return [contactData, ...sampleContactsData];
+  }
+
+  /**
+   * Gets a user as a contact.
+   * @param user - The user.
+   * @returns The user as a contact.
+   */
+  private getContact(user: User) {
+    let contact = new Contact();
+    contact.initials = user.initials;
+    contact.bgc = 'lightblue';
+    contact.name = `${user.name} (You)`;
+    contact.email = user.email;
+    return contact;
+  }
+
+  /**
+   * Gets user task data.
+   * @returns The user task data.
+   */
+  private getUserTasksData() {
+    return sampleTasksData;
+  }
+
+  /**
+   * Gets user summary data.
+   * @returns The user summary data.
+   */
+  private getUserSummaryData() {
+    let summary = this.summary.get(this.user.tasks);
+    return summary.getObject();
   }
 
   /**
