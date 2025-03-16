@@ -1,6 +1,7 @@
 import { SummaryData } from '../interfaces/summary-data';
 import { SummaryTaskData } from '../interfaces/summary-task-data';
 import { SummaryTask } from './summary-task';
+import { getObjectData } from '../ts/global';
 
 /**
  * Class representing a summary.
@@ -82,14 +83,19 @@ export class Summary {
    * Gets a summary as object.
    * @returns The summary as object.
    */
-  getObject(): SummaryData {
-    return {
-      toDo: this.toDo.getObject(),
-      done: this.done.getObject(),
-      urgent: this.urgent.getObject(),
-      inBoard: this.inBoard.getObject(),
-      inProgress: this.inProgress.getObject(),
-      awaitingFeedback: this.awaitingFeedback.getObject(),
-    };
+  getObject() {
+    let data = getObjectData(this);
+    this.convertObjectData(data);
+    return data as SummaryData;
+  }
+
+  /**
+   * Converts object data.
+   * @param data - The object data.
+   */
+  convertObjectData(data: this) {
+    for (const [key, value] of Object.entries(data)) {
+      data[key] = value.getObject();
+    }
   }
 }

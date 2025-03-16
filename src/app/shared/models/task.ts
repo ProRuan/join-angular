@@ -3,6 +3,7 @@ import {
   getCustomArray,
   getId,
   getObjectArray,
+  getObjectData,
   getString,
   isDefaultArray,
   isDefaultString,
@@ -61,18 +62,11 @@ export class Task {
    * Gets a task as object.
    * @returns The task as object.
    */
-  getObject(): TaskData {
-    return {
-      id: this.id,
-      title: this.title,
-      description: this.description,
-      assignedTo: getObjectArray(this.assignedTo),
-      dueDate: this.dueDate,
-      prio: this.prio,
-      category: this.category,
-      subtasks: getObjectArray(this.subtasks),
-      column: this.column,
-    };
+  getObject() {
+    let data = getObjectData(this) as TaskData;
+    data.assignedTo = getObjectArray(this.assignedTo);
+    data.subtasks = getObjectArray(this.subtasks);
+    return data;
   }
 
   /**

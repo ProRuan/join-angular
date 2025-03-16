@@ -17,8 +17,6 @@ export class SummaryService {
   // add property sum label ... ?
   // rename to sum-card ... ?
 
-  // apply getObjectData() as ??? for User, Task and Summary ...
-
   /**
    * Gets an updated summary.
    * @param tasks - The user tasks.

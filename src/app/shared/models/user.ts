@@ -1,6 +1,11 @@
 import { SummaryData } from '../interfaces/summary-data';
 import { UserData } from '../interfaces/user-data';
-import { getCustomArray, getObjectArray, getString } from '../ts/global';
+import {
+  getCustomArray,
+  getObjectArray,
+  getObjectData,
+  getString,
+} from '../ts/global';
 import { Contact } from './contact';
 import { Summary } from './summary';
 import { Task } from './task';
@@ -64,17 +69,11 @@ export class User {
    * Gets a user as object.
    * @returns The user as object.
    */
-  getObject(): UserData {
-    return {
-      id: this.id,
-      sid: this.sid,
-      initials: this.initials,
-      name: this.name,
-      email: this.email,
-      password: this.password,
-      summary: this.summary.getObject(),
-      tasks: getObjectArray(this.tasks),
-      contacts: getObjectArray(this.contacts),
-    };
+  getObject() {
+    let data = getObjectData(this) as UserData;
+    data.summary = this.summary.getObject();
+    data.tasks = getObjectArray(this.tasks);
+    data.contacts = getObjectArray(this.contacts);
+    return data;
   }
 }
