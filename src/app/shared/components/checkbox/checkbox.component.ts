@@ -22,13 +22,9 @@ export class CheckboxComponent {
    * @returns The css class of the checkbox.
    */
   getClass() {
-    if (this.checked && this.bright) {
-      return 'checked-white';
-    } else if (this.checked) {
-      return 'checked';
-    } else {
-      return 'check';
-    }
+    if (this.checked && this.bright) return 'checked-white';
+    else if (this.checked) return 'checked';
+    else return 'check';
   }
 
   /**

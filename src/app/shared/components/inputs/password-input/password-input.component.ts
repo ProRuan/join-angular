@@ -119,13 +119,9 @@ export class PasswordInputComponent extends ReactiveInput {
    * @returns The css class of the button icon.
    */
   getIconClass() {
-    if (this.isMaskedAndFilled()) {
-      return 'vis-off';
-    } else if (this.isFilled()) {
-      return 'vis-on';
-    } else {
-      return 'lock';
-    }
+    if (this.isMaskedAndFilled()) return 'vis-off';
+    else if (this.isFilled()) return 'vis-on';
+    else return 'lock';
   }
 
   /**

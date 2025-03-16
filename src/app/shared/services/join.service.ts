@@ -95,8 +95,8 @@ export class JoinService {
    * @param userDoc - The user document.
    * @returns The user data.
    */
-  getUserData(userDoc: DocumentData): UserData {
-    return userDoc['data'];
+  getUserData(userDoc: DocumentData) {
+    return userDoc['data'] as UserData;
   }
 
   /**

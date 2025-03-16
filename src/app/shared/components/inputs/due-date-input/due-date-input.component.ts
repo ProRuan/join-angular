@@ -68,13 +68,9 @@ export class DueDateInputComponent extends ReactiveInput {
    * @returns The css class of the input border.
    */
   getBorderClass() {
-    if (this.isInvalid()) {
-      return 'invalid';
-    } else if (this.focused) {
-      return 'focus';
-    } else {
-      return 'default';
-    }
+    if (this.isInvalid()) return 'invalid';
+    else if (this.focused) return 'focus';
+    else return 'default';
   }
 
   /**

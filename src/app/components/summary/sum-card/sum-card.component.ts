@@ -37,13 +37,9 @@ export class SumCardComponent {
    * @returns The task icon.
    */
   getIcon() {
-    if (this.isCategory('Urgent')) {
-      return 'urgent';
-    } else if (this.isCategory('Done')) {
-      return 'done';
-    } else {
-      return 'to_do';
-    }
+    if (this.isCategory('Urgent')) return 'urgent';
+    else if (this.isCategory('Done')) return 'done';
+    else return 'to_do';
   }
 
   /**
