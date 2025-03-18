@@ -15,9 +15,17 @@ export class SummaryTask {
    */
   constructor(data?: SummaryTask | SummaryTaskData) {
     this.category = getString(data?.category);
-    this.amount = getNumber(data?.amount);
-    if (data?.deadline) {
-      this.deadline = getString(data?.deadline);
+    this.amount = getNumber(data?.amount, 0);
+    this.setDeadline(data?.deadline);
+  }
+
+  /**
+   * Sets an upcoming deadline.
+   * @param deadline - The deadline to set.
+   */
+  setDeadline(deadline?: string) {
+    if (deadline) {
+      this.deadline = getString(deadline, 'No');
     }
   }
 
