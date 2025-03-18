@@ -1,103 +1,70 @@
 import { SummaryData } from '../interfaces/summary-data';
-import { SummaryTaskData } from '../interfaces/summary-task-data';
 import { SummaryTask } from './summary-task';
 import { getObjectData } from '../ts/global';
+
+type Data = Summary | SummaryData;
 
 /**
  * Class representing a summary.
  */
 export class Summary {
   [key: string]: any;
-  toDo: SummaryTask;
-  done: SummaryTask;
-  urgent: SummaryTask;
-  inBoard: SummaryTask;
-  inProgress: SummaryTask;
-  awaitingFeedback: SummaryTask;
-
-  // requiredValidator with this.rejected ...
-
-  // add property sum label ... ?
-  // rename to sum-card ... ?
-  // summary deadline with column (not category) ... !
-  // fix summary update after sign-up - check?
-
-  // string with dash or not ... ? (check side of summary task)
-
-  // to-do, done, in-progress, await-feedback, in-board ... (5/6)
-  //   --> task column (not category) ... !
-
-  // reset urgent summary task ...
-
-  // update deadline default: "No" ...
-
-  // notes
-  // -----
-  // task.column: string with "-" ...
-  // check await feedback or awaiting feedback ...
+  toDo = new SummaryTask();
+  done = new SummaryTask();
+  urgent = new SummaryTask();
+  inBoard = new SummaryTask();
+  inProgress = new SummaryTask();
+  awaitingFeedback = new SummaryTask();
 
   /**
    * Creates a summary.
    */
-  constructor(data?: Summary | SummaryData) {
-    this.toDo = this.getSummaryTask('To-do', data?.toDo);
-    this.done = this.getSummaryTask('Done', data?.done);
-    this.urgent = this.getSummaryTask('Urgent', data?.urgent);
-    this.inBoard = this.getSummaryTask('Tasks In Board', data?.inBoard);
-    this.inProgress = this.getSummaryTask(
-      'Tasks In Progress',
-      data?.inProgress
-    );
-    this.awaitingFeedback = this.getSummaryTask(
-      'Awaiting Feedback',
-      data?.awaitingFeedback
-    );
+  constructor(data?: Data) {
+    this.setSummaryTask('To-do', 'toDo', data);
+    this.setSummaryTask('Done', 'done', data);
+    this.setSummaryTask('Urgent', 'urgent', data);
+    this.setSummaryTask('Tasks In Board', 'inBoard', data);
+    this.setSummaryTask('Tasks In Progress', 'inProgress', data);
+    this.setSummaryTask('Awaiting Feedback', 'awaitingFeedback', data);
   }
 
   /**
-   * Gets a summary task.
+   * Sets a summary task.
    * @param category - The summary task category.
-   * @param data - The summary task data.
-   * @returns The summary task.
+   * @param key - The summary property key.
+   * @param data - The summary data.
    */
-  private getSummaryTask(
-    category: string,
-    data?: SummaryTask | SummaryTaskData
-  ) {
-    if (data) {
-      return this.getUpdatedSummaryTask(data);
-    } else {
-      return this.getAddedSummaryTask(category);
-    }
+  private setSummaryTask(category: string, key: string, data?: Data) {
+    data ? this.setByData(key, data) : this.setByCategory(category, key);
   }
 
   /**
-   * Gets an updated summary task.
-   * @param data - The summary task data.
-   * @returns The updated summary task.
+   * Sets a summary task by data.
+   * @param key - The summary property key.
+   * @param data - The summary data.
    */
-  private getUpdatedSummaryTask(data: SummaryTask | SummaryTaskData) {
-    return new SummaryTask(data);
+  private setByData(key: string, data: Data) {
+    this[key] = new SummaryTask(data[key]);
   }
 
   /**
-   * Gets an added summary task.
+   * Sets a summary task by category.
    * @param category - The summary task category.
-   * @returns The added summary task.
+   * @param key - The summary property key.
    */
-  private getAddedSummaryTask(category: string) {
-    const defaultTask = this.getDefaultSummaryTask(category);
-    return new SummaryTask(defaultTask);
+  private setByCategory(category: string, key: string) {
+    let data = this.getSummaryTaskData(category);
+    this[key] = new SummaryTask(data);
   }
 
   /**
-   * Gets a default summary task.
+   * Gets summary task data.
    * @param category - The summary task category.
-   * @returns The default summary task.
+   * @returns The summary task data.
    */
-  private getDefaultSummaryTask(category: string) {
+  private getSummaryTaskData(category: string) {
     if (category == 'Urgent') {
-      return { category: category, amount: 0, deadline: 'none' };
+      return { category: category, amount: 0, deadline: 'No' };
     } else {
       return { category: category, amount: 0 };
     }

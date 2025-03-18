@@ -77,6 +77,29 @@ export class SignUpComponent extends FormController {
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
+  // requiredValidator with this.rejected ...
+
+  // add property sum label ... ?
+  // rename to sum-card ... ?
+  // summary deadline with column (not category) ... !
+  // fix summary update after sign-up - check?
+
+  // string with dash or not ... ? (check side of summary task)
+
+  // to-do, done, in-progress, await-feedback, in-board ... (5/6)
+  //   --> task column (not category) ... !
+
+  // reset urgent summary task ...
+
+  // update deadline default: "No" ...
+
+  // notes
+  // -----
+  // task.column: string with "-" ...
+  // check await feedback or awaiting feedback ...
+
+  // ----------
+
   // improve getMatchword() ...
   // improve getDueDate() ...
   // improve resetAssignedTo()/resetAddTaskMenus() ...
