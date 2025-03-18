@@ -81,7 +81,7 @@ export class InputValidator {
    * @returns A boolean value.
    */
   private isTooShort(control: Control, minLength: number) {
-    return control.value.length < minLength ? true : false;
+    return control.value.length < minLength;
   }
 
   /**
@@ -121,7 +121,7 @@ export class InputValidator {
    * @returns A boolean value.
    */
   private isTooLong(control: Control, maxLength: Number) {
-    return control.value.length > maxLength ? true : false;
+    return control.value.length > maxLength;
   }
 
   /**

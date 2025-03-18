@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { DraggableTaskComponent } from '../draggable-task/draggable-task.component';
 import { JoinService } from '../../../shared/services/join.service';
-import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { Task } from '../../../shared/models/task';
@@ -20,7 +19,6 @@ import { Task } from '../../../shared/models/task';
  */
 export class ColumnComponent {
   join: JoinService = inject(JoinService);
-  summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
 
@@ -44,7 +42,7 @@ export class ColumnComponent {
    * @returns The column id.
    */
   private getId() {
-    return this.name.toLowerCase().replace(' ', '-');
+    return this.name.toLowerCase().replaceAll(' ', '-');
   }
 
   /**

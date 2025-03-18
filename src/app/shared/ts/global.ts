@@ -1,3 +1,4 @@
+import { SimpleChanges } from '@angular/core';
 import { Model } from '../interfaces/model';
 import { getRandomId } from './identify';
 import { ConvertableObject } from './type';
@@ -49,6 +50,16 @@ export function getCapitalized(word: string) {
   } else {
     return word;
   }
+}
+
+/**
+ * Gets the current value of a changed property.
+ * @param changes - The changes.
+ * @param key - The property key.
+ * @returns The current value.
+ */
+export function getCurrentValue<T>(changes: SimpleChanges, key: string) {
+  return changes[key]?.currentValue as T;
 }
 
 /**

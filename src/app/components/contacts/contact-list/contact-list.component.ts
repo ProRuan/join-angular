@@ -12,7 +12,11 @@ import { DialogService } from '../../../shared/services/dialog.service';
 import { Contact } from '../../../shared/models/contact';
 import { Register } from '../../../shared/interfaces/register';
 import { JoinButton } from '../../../shared/models/join-button';
-import { getCapitalized, getInitial } from '../../../shared/ts/global';
+import {
+  getCapitalized,
+  getCurrentValue,
+  getInitial,
+} from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-contact-list',
@@ -24,6 +28,7 @@ import { getCapitalized, getInitial } from '../../../shared/ts/global';
 
 /**
  * Class representing a contact list component.
+ * @implements {OnChanges}
  */
 export class ContactListComponent implements OnChanges {
   viewer: ContactService = inject(ContactService);
@@ -41,7 +46,7 @@ export class ContactListComponent implements OnChanges {
    * @param changes - The changes.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    let contacts = changes['contacts'].currentValue;
+    let contacts = getCurrentValue<Contact[]>(changes, 'contacts');
     this.updateRegisterLetters(contacts);
     this.updateRegister();
   }

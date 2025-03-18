@@ -17,7 +17,7 @@ import { InputConfigurationService } from '../../../shared/services/input-config
 import { ContactService } from '../../../shared/services/contact.service';
 import { JoinButton } from '../../../shared/models/join-button';
 import { Contact } from '../../../shared/models/contact';
-import { isDefaultString } from '../../../shared/ts/global';
+import { getCurrentValue, isDefaultString } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-contact-dialog',
@@ -70,7 +70,7 @@ export class ContactDialogComponent
    * @param changes - The changes.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    this.id = changes['dialogId'].currentValue;
+    this.id = getCurrentValue<string>(changes, 'dialogId');
     if (this.isEditContactDialog()) {
       this.form.patchValue(this.contact);
     } else {

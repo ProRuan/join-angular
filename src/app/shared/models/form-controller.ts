@@ -102,7 +102,6 @@ export class FormController {
    * @returns A boolean value.
    */
   isControl(name: string) {
-    let control = this.get(name);
-    return control ? true : false;
+    return !!this.get(name);
   }
 }

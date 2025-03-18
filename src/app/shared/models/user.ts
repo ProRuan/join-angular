@@ -1,3 +1,4 @@
+import { ContactData } from '../interfaces/contact-data';
 import { SummaryData } from '../interfaces/summary-data';
 import { UserData } from '../interfaces/user-data';
 import {
@@ -37,7 +38,7 @@ export class User {
    * Assigns property values.
    * @param data - The user data.
    */
-  assignValues(data?: User | UserData) {
+  private assignValues(data?: User | UserData) {
     this.id = getString(data?.id);
     this.sid = getString(data?.sid);
     this.initials = getString(data?.initials);
@@ -61,7 +62,7 @@ export class User {
    * Gets a user summary.
    * @returns The user summary.
    */
-  getSummary(data?: Summary | SummaryData) {
+  private getSummary(data?: Summary | SummaryData) {
     return data ? new Summary(data) : new Summary();
   }
 
@@ -75,5 +76,29 @@ export class User {
     data.tasks = getObjectArray(this.tasks);
     data.contacts = getObjectArray(this.contacts);
     return data;
+  }
+
+  /**
+   * Gets a user as contact.
+   * @returns The user as contact.
+   */
+  getContact() {
+    let data = this.getContactData();
+    return new Contact(data);
+  }
+
+  /**
+   * Gets a user as contact data.
+   * @returns The user as contact data.
+   */
+  private getContactData() {
+    return {
+      id: this.id,
+      initials: this.initials,
+      bgc: 'lightblue',
+      name: this.name,
+      email: this.email,
+      phone: '',
+    } as ContactData;
   }
 }

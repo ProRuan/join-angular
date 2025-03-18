@@ -15,6 +15,27 @@ export class Summary {
   inProgress: SummaryTask;
   awaitingFeedback: SummaryTask;
 
+  // requiredValidator with this.rejected ...
+
+  // add property sum label ... ?
+  // rename to sum-card ... ?
+  // summary deadline with column (not category) ... !
+  // fix summary update after sign-up - check?
+
+  // string with dash or not ... ? (check side of summary task)
+
+  // to-do, done, in-progress, await-feedback, in-board ... (5/6)
+  //   --> task column (not category) ... !
+
+  // reset urgent summary task ...
+
+  // update deadline default: "No" ...
+
+  // notes
+  // -----
+  // task.column: string with "-" ...
+  // check await feedback or awaiting feedback ...
+
   /**
    * Creates a summary.
    */
@@ -39,7 +60,10 @@ export class Summary {
    * @param data - The summary task data.
    * @returns The summary task.
    */
-  getSummaryTask(category: string, data?: SummaryTask | SummaryTaskData) {
+  private getSummaryTask(
+    category: string,
+    data?: SummaryTask | SummaryTaskData
+  ) {
     if (data) {
       return this.getUpdatedSummaryTask(data);
     } else {
@@ -52,7 +76,7 @@ export class Summary {
    * @param data - The summary task data.
    * @returns The updated summary task.
    */
-  getUpdatedSummaryTask(data: SummaryTask | SummaryTaskData) {
+  private getUpdatedSummaryTask(data: SummaryTask | SummaryTaskData) {
     return new SummaryTask(data);
   }
 
@@ -61,7 +85,7 @@ export class Summary {
    * @param category - The summary task category.
    * @returns The added summary task.
    */
-  getAddedSummaryTask(category: string) {
+  private getAddedSummaryTask(category: string) {
     const defaultTask = this.getDefaultSummaryTask(category);
     return new SummaryTask(defaultTask);
   }
@@ -71,7 +95,7 @@ export class Summary {
    * @param category - The summary task category.
    * @returns The default summary task.
    */
-  getDefaultSummaryTask(category: string) {
+  private getDefaultSummaryTask(category: string) {
     if (category == 'Urgent') {
       return { category: category, amount: 0, deadline: 'none' };
     } else {
@@ -93,7 +117,7 @@ export class Summary {
    * Converts object data.
    * @param data - The object data.
    */
-  convertObjectData(data: this) {
+  private convertObjectData(data: this) {
     for (const [key, value] of Object.entries(data)) {
       data[key] = value.getObject();
     }

@@ -82,7 +82,7 @@ export class Task {
    * Gets default properties as boolean array.
    * @returns An boolean array.
    */
-  getDefaultProperties() {
+  private getDefaultProperties() {
     let title = isDefaultString(this.title);
     let description = isDefaultString(this.description);
     let assignedTo = isDefaultArray(this.assignedTo);

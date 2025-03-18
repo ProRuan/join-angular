@@ -1,10 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { JoinService } from '../../../shared/services/join.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { Task } from '../../../shared/models/task';
-import { isDefaultArray } from '../../../shared/ts/global';
+import { getCurrentValue, isDefaultArray } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-draggable-task',
@@ -15,9 +21,10 @@ import { isDefaultArray } from '../../../shared/ts/global';
 })
 
 /**
- * Class representing a draggable-task component.
+ * Class representing a draggable task component.
+ * @implements {OnChanges}
  */
-export class DraggableTaskComponent {
+export class DraggableTaskComponent implements OnChanges {
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
@@ -47,6 +54,27 @@ export class DraggableTaskComponent {
    */
   get alt() {
     return `prio_${this.task.prio}`;
+  }
+
+  /**
+   * Updates a draggable task component on changes.
+   * @param changes - The changes.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    let changedTask = getCurrentValue<Task>(changes, 'task');
+    if (this.isBoardTask(changedTask)) {
+      this.task.set(changedTask);
+      this.board.task = this.task;
+    }
+  }
+
+  /**
+   * Verifies a task cached at the board service.
+   * @param changedTask - The changed task.
+   * @returns A boolean value.
+   */
+  isBoardTask(changedTask: Task) {
+    return changedTask.id == this.board.task.id;
   }
 
   /**

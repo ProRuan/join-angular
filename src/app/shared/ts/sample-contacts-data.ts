@@ -2,7 +2,7 @@ import { ContactData } from '../interfaces/contact-data';
 
 const SAMPLE_CONTACTS_DATA: ContactData[] = [
   {
-    id: '',
+    id: 'DIRFv5TNFmpSoDqJ8H6A',
     initials: 'AM',
     bgc: 'orange',
     name: 'Anton Mayer',
@@ -10,7 +10,7 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
     phone: '+49 1111 111 11 1',
   },
   {
-    id: '',
+    id: 'tdwNk9K7bknXIzGuH58T',
     initials: 'AS',
     bgc: 'purple',
     name: 'Anja Schulz',
@@ -18,7 +18,7 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
     phone: '+49 2222 222 22 2',
   },
   {
-    id: '',
+    id: 'leEeuqQPcyk3Gk9H2Lli',
     initials: 'BZ',
     bgc: 'blue',
     name: 'Benedikt Ziegler',
@@ -26,7 +26,7 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
     phone: '+49 3333 333 33 3',
   },
   {
-    id: '',
+    id: 'X84jRXMNPbWMparRcUO7',
     initials: 'DE',
     bgc: 'magenta',
     name: 'David Eisenberg',
@@ -34,7 +34,7 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
     phone: '+49 4444 444 44 4',
   },
   {
-    id: '',
+    id: 'g81A8pSrM5FXwa3C6t8P',
     initials: 'EF',
     bgc: 'yellow',
     name: 'Eva Fischer',
@@ -42,7 +42,7 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
     phone: '+49 5555 555 55 5',
   },
   {
-    id: '',
+    id: 'u8G4BlpT6KiQfXuHYShJ',
     initials: 'EM',
     bgc: 'green',
     name: 'Emmanuel Mauer',
@@ -50,7 +50,7 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
     phone: '+49 6666 666 66 6',
   },
   {
-    id: '',
+    id: 'B8PWxavUMNKgccHkaPfi',
     initials: 'MB',
     bgc: 'dark-blue',
     name: 'Marcel Bauer',
@@ -58,7 +58,7 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
     phone: '+49 7777 777 77 7',
   },
   {
-    id: '',
+    id: 'mj9NjizyCjV7npjB95Ae',
     initials: 'SM',
     bgc: 'cyan',
     name: 'Sofia Müller',
@@ -66,7 +66,7 @@ const SAMPLE_CONTACTS_DATA: ContactData[] = [
     phone: '+49 8888 888 88 8',
   },
   {
-    id: '',
+    id: 'YpiPMbOaCklSoanhQMiH',
     initials: 'TW',
     bgc: 'red',
     name: 'Tatjana Wolf',

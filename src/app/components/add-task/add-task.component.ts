@@ -19,7 +19,6 @@ import { Router } from '@angular/router';
 import { JoinService } from '../../shared/services/join.service';
 import { ButtonDataService } from '../../shared/services/button-data.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
-import { SummaryService } from '../../shared/services/summary.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { Contact } from '../../shared/models/contact';
 import { Task } from '../../shared/models/task';
@@ -55,7 +54,6 @@ export class AddTaskComponent extends FormController {
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   validators: InputValidatorService = inject(InputValidatorService);
-  summary: SummaryService = inject(SummaryService);
   dialog: DialogService = inject(DialogService);
 
   @Input() original: boolean = true;

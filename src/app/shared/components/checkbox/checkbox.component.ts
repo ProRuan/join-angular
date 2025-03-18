@@ -31,7 +31,7 @@ export class CheckboxComponent {
    * Checks the checkbox on click.
    */
   onCheck() {
-    this.checked = !this.checked ? true : false;
+    this.checked = !this.checked;
     this.check.emit(this.checked);
   }
 }

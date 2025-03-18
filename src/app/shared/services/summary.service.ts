@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { DateFormatterService } from './date-formatter.service';
 import { Task } from '../models/task';
 import { Summary } from '../models/summary';
-import { getMonthName } from '../ts/global';
+import { getArrayCopy, getMonthName } from '../ts/global';
 
 @Injectable({
   providedIn: 'root',
@@ -11,14 +12,13 @@ import { getMonthName } from '../ts/global';
  * Class representing a summary service.
  */
 export class SummaryService {
+  dateFormatter: DateFormatterService = inject(DateFormatterService);
+
   tasks: Task[] = [];
   summary: Summary = new Summary();
 
-  // add property sum label ... ?
-  // rename to sum-card ... ?
-
   /**
-   * Gets an updated summary.
+   * Gets an updated summary by user tasks.
    * @param tasks - The user tasks.
    * @returns The updated summary.
    */
@@ -29,7 +29,7 @@ export class SummaryService {
   }
 
   /**
-   * Updates a summary by user tasks.
+   * Updates a summary.
    */
   updateSummary() {
     this.updateSummaryTasksByColumns();
@@ -41,7 +41,7 @@ export class SummaryService {
    * Updates summary tasks by columns.
    */
   updateSummaryTasksByColumns() {
-    let tasks = this.getSummaryTasksByColumns();
+    let tasks = this.getSummaryTasks();
     this.setSummary('toDo', 'amount', tasks.toDo);
     this.setSummary('done', 'amount', tasks.done);
     this.setSummary('inProgress', 'amount', tasks.inProgress);
@@ -49,33 +49,32 @@ export class SummaryService {
   }
 
   /**
-   * Gets summary tasks by columns.
+   * Gets summary tasks.
    * @returns The summary tasks.
    */
-  getSummaryTasksByColumns() {
+  getSummaryTasks() {
     return {
-      toDo: this.getSummaryTasksAmount('to-do'),
-      done: this.getSummaryTasksAmount('done'),
-      inProgress: this.getSummaryTasksAmount('in progress'),
-      awaitingFeedback: this.getSummaryTasksAmount('awaiting feedback'),
+      toDo: this.getSummaryTaskAmount('to-do'),
+      done: this.getSummaryTaskAmount('done'),
+      inProgress: this.getSummaryTaskAmount('in-progress'),
+      awaitingFeedback: this.getSummaryTaskAmount('await-feedback'),
     };
   }
 
   /**
-   * Gets an amount of summary tasks.
+   * Gets a summary task amount.
    * @param column - The board column.
-   * @returns The amount of the summary tasks.
+   * @returns The summary task amount.
    */
-  getSummaryTasksAmount(column: string) {
-    let filteredTasks = this.tasks.filter((t) => t.column == column);
-    return filteredTasks.length;
+  getSummaryTaskAmount(column: string) {
+    return this.tasks.filter((t) => t.column == column).length;
   }
 
   /**
    * Sets a summary.
-   * @param task - The key of the summary task.
-   * @param property - The property key of the summary task.
-   * @param value - The property value of the summary tasks.
+   * @param task - The summary task key.
+   * @param property - The summary task property key.
+   * @param value - The summary task property value.
    */
   setSummary<T>(task: string, property: string, value: T) {
     this.summary[task][property] = value;
@@ -94,7 +93,7 @@ export class SummaryService {
    */
   updateSummaryTasksByPrio() {
     let urgentTasks = this.getUrgentTasks();
-    let deadline = this.getUpcomingTaskDeadline(urgentTasks);
+    let deadline = this.getUpcomingDeadline(urgentTasks);
     this.setSummary('urgent', 'amount', urgentTasks.length);
     this.setSummary('urgent', 'deadline', deadline);
   }
@@ -104,54 +103,71 @@ export class SummaryService {
    * @returns The urgent tasks.
    */
   getUrgentTasks() {
-    let undoneTasks = this.tasks.filter((t) => t.category != 'done');
-    let urgentTasks = undoneTasks.filter((t) => t.prio == 'urgent');
-    return urgentTasks;
+    return this.tasks.filter((t) => t.prio == 'urgent');
   }
 
   /**
-   * Gets the deadline of an upcoming task.
-   * @param tasks - The urgent tasks.
-   * @returns The deadline of the upcoming task.
-   */
-  getUpcomingTaskDeadline(tasks: Task[]) {
-    let index = this.getUpcomingTaskIndex(tasks);
-    let deadline = this.getUpcomingDeadline(tasks, index);
-    return deadline;
-  }
-
-  /**
-   * Gets the index of an upcoming task.
-   * @param - The urgent tasks.
-   * @returns The index of the upcoming task.
-   */
-  getUpcomingTaskIndex(tasks: Task[]) {
-    let index = -1;
-    let upcomingTime = 0;
-    tasks.forEach((task, i) => {
-      let time = new Date(task.dueDate).getTime();
-      if (upcomingTime == 0 || time < upcomingTime) {
-        index = i;
-        upcomingTime = time;
-      }
-    });
-    return index;
-  }
-
-  /**
-   * Gets an upcoming deadline.
-   * @param tasks - The urgent tasks.
-   * @param index - The index of the upcoming task.
+   * Gets an upcoming deadline by urgent tasks.
+   * @param urgentTasks - The urgent tasks.
    * @returns The upcoming deadline.
    */
-  getUpcomingDeadline(tasks: Task[], index: number) {
-    let deadline = 'Month dd, YYYY';
-    if (index > -1) {
-      let upcomingTask = tasks[index];
-      let dueDate = upcomingTask.dueDate;
-      deadline = this.getFormattedDeadline(dueDate);
-    }
-    return deadline;
+  getUpcomingDeadline(urgentTasks: Task[]) {
+    let upcomingTask = this.getUpcomingTask(urgentTasks);
+    return this.getFormattedDeadline(upcomingTask?.dueDate);
+  }
+
+  /**
+   * Gets an upcoming task.
+   * @param urgentTasks - The urgent tasks.
+   * @returns The upcoming task.
+   */
+  getUpcomingTask(urgentTasks: Task[]) {
+    let undoneTasks = urgentTasks.filter((t) => t.column != 'done');
+    let upcomingTasks = undoneTasks.filter((t) => this.isUpcomingTask(t));
+    let sortedTasks = this.getSortedTasks(upcomingTasks);
+    return sortedTasks.at(0);
+  }
+
+  /**
+   * Verifies an upcoming task.
+   * @param task - The task to verify.
+   * @returns A boolean value.
+   */
+  isUpcomingTask(task: Task) {
+    let date = this.dateFormatter.getCalendarDate(task.dueDate);
+    return this.dateFormatter.isCurrentDate(date);
+  }
+
+  /**
+   * Gets sorted tasks.
+   * @param upcomingTasks - The upcoming tasks.
+   * @returns The sorted tasks.
+   */
+  getSortedTasks(upcomingTasks: Task[]) {
+    let tasks = getArrayCopy(upcomingTasks);
+    return tasks.sort((a, b) => this.compareTasks(a, b));
+  }
+
+  /**
+   * Compares tasks.
+   * @param a - The task a.
+   * @param b - The task b.
+   * @returns A comparable figure.
+   */
+  compareTasks(a: Task, b: Task) {
+    let timeA = this.getTaskDueTime(a);
+    let timeB = this.getTaskDueTime(b);
+    return timeA - timeB;
+  }
+
+  /**
+   * Gets a task due time.
+   * @param task - The task.
+   * @returns The task due time.
+   */
+  getTaskDueTime(task: Task) {
+    let date = this.dateFormatter.getCalendarDate(task.dueDate);
+    return new Date(date).getTime();
   }
 
   /**
@@ -159,7 +175,16 @@ export class SummaryService {
    * @param dueDate - The due date.
    * @returns The formatted deadline.
    */
-  getFormattedDeadline(dueDate: string) {
+  getFormattedDeadline(dueDate?: string) {
+    return dueDate ? this.getFormattedDate(dueDate) : 'No';
+  }
+
+  /**
+   * Gets a formatted date.
+   * @param dueDate - The due date.
+   * @returns The formatted date.
+   */
+  getFormattedDate(dueDate: string) {
     let date = this.getDateObject(dueDate);
     date.month = this.getFormattedMonth(date.month);
     return `${date.month} ${date.day}, ${date.year}`;
@@ -182,7 +207,6 @@ export class SummaryService {
    */
   getFormattedMonth(month: string) {
     let index = parseInt(month);
-    let monthName = getMonthName(index);
-    return monthName;
+    return getMonthName(index);
   }
 }

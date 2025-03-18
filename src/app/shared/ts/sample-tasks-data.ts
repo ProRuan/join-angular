@@ -7,15 +7,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     description: 'Create your own Join Frontend as Angular App.',
     assignedTo: [
       {
-        id: 'pADfjSRNHYdJZOyrEiXl',
-        initials: 'JA',
-        bgc: 'lightblue',
-        name: 'Join Admin (You)',
-        email: 'admin@mail.com',
-        phone: '',
-      },
-      {
-        id: 'tQ0rTKIGUrcrCCjWDmYu',
+        id: 'g81A8pSrM5FXwa3C6t8P',
         initials: 'EF',
         bgc: 'yellow',
         name: 'Eva Fischer',
@@ -23,7 +15,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 5555 555 55 5',
       },
       {
-        id: '7MimBaQNd4cmekxpVGbi',
+        id: 'u8G4BlpT6KiQfXuHYShJ',
         initials: 'EM',
         bgc: 'green',
         name: 'Emmanuel Mauer',
@@ -31,7 +23,15 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 6666 666 66 6',
       },
       {
-        id: '8yc0YqZWEsE1taivpKub',
+        id: 'B8PWxavUMNKgccHkaPfi',
+        initials: 'MB',
+        bgc: 'dark-blue',
+        name: 'Marcel Bauer',
+        email: 'marcel.bauer@gmail.com',
+        phone: '+49 7777 777 77 7',
+      },
+      {
+        id: 'YpiPMbOaCklSoanhQMiH',
         initials: 'TW',
         bgc: 'red',
         name: 'Tatjana Wolf',
@@ -55,7 +55,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
       'Implement animations by the Angular Browser Animation Module.',
     assignedTo: [
       {
-        id: 'tuUfjWZv2VAbUxJYSKgk',
+        id: 'DIRFv5TNFmpSoDqJ8H6A',
         initials: 'AM',
         bgc: 'orange',
         name: 'Anton Mayer',
@@ -63,7 +63,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 1111 111 11 1',
       },
       {
-        id: 'I4wQRBkO5rah9aWDxHhg',
+        id: 'tdwNk9K7bknXIzGuH58T',
         initials: 'AS',
         bgc: 'purple',
         name: 'Anja Schulz',
@@ -87,7 +87,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     description: 'Implement reactive forms by the Reactive Form Module.',
     assignedTo: [
       {
-        id: 'Xt2PGmFqm7etX5xhJoGe',
+        id: 'leEeuqQPcyk3Gk9H2Lli',
         initials: 'BZ',
         bgc: 'blue',
         name: 'Benedikt Ziegler',
@@ -95,7 +95,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 3333 333 33 3',
       },
       {
-        id: '7MimBaQNd4cmekxpVGbi',
+        id: 'u8G4BlpT6KiQfXuHYShJ',
         initials: 'EM',
         bgc: 'green',
         name: 'Emmanuel Mauer',
@@ -110,12 +110,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
       { id: 0, text: 'Implement login form', done: true, focused: false },
       { id: 1, text: 'Implement sign-up form', done: true, focused: false },
       { id: 2, text: 'Implement add-task form', done: true, focused: false },
-      {
-        id: 3,
-        text: 'implement add-contact form',
-        done: true,
-        focused: false,
-      },
+      { id: 3, text: 'implement add-contact form', done: true, focused: false },
     ],
     column: 'done',
   },
@@ -125,7 +120,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     description: 'Enable real-time data exchange by using Firestore Snapshots.',
     assignedTo: [
       {
-        id: 'tQ0rTKIGUrcrCCjWDmYu',
+        id: 'g81A8pSrM5FXwa3C6t8P',
         initials: 'EF',
         bgc: 'yellow',
         name: 'Eva Fischer',
@@ -133,7 +128,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 5555 555 55 5',
       },
       {
-        id: 'IuPuSlnNvu7zcVQEHSQ3',
+        id: 'mj9NjizyCjV7npjB95Ae',
         initials: 'SM',
         bgc: 'cyan',
         name: 'Sofia Müller',
@@ -156,7 +151,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     description: 'Create your own Join Backend as Djange App.',
     assignedTo: [
       {
-        id: 'Xt2PGmFqm7etX5xhJoGe',
+        id: 'leEeuqQPcyk3Gk9H2Lli',
         initials: 'BZ',
         bgc: 'blue',
         name: 'Benedikt Ziegler',
@@ -164,7 +159,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 3333 333 33 3',
       },
       {
-        id: 'Aoh2cKnEPVoOmfjYSn53',
+        id: 'X84jRXMNPbWMparRcUO7',
         initials: 'DE',
         bgc: 'magenta',
         name: 'David Eisenberg',
@@ -172,7 +167,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 4444 444 44 4',
       },
       {
-        id: '7MimBaQNd4cmekxpVGbi',
+        id: 'u8G4BlpT6KiQfXuHYShJ',
         initials: 'EM',
         bgc: 'green',
         name: 'Emmanuel Mauer',

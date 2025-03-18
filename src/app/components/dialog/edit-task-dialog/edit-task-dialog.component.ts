@@ -23,11 +23,10 @@ import { DialogFormController } from '../../../shared/models/dialog-form-control
 import { JoinService } from '../../../shared/services/join.service';
 import { InputValidatorService } from '../../../shared/services/input-validator.service';
 import { DateFormatterService } from '../../../shared/services/date-formatter.service';
-import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { JoinButton } from '../../../shared/models/join-button';
 import { Task } from '../../../shared/models/task';
-import { stopPropagation } from '../../../shared/ts/global';
+import { getCurrentValue, stopPropagation } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-edit-task-dialog',
@@ -52,6 +51,7 @@ import { stopPropagation } from '../../../shared/ts/global';
 /**
  * Class representing an edit-task dialog component.
  * @extends FormController
+ * @implements {OnChanges}
  */
 export class EditTaskDialogComponent
   extends DialogFormController
@@ -60,7 +60,6 @@ export class EditTaskDialogComponent
   join: JoinService = inject(JoinService);
   validators: InputValidatorService = inject(InputValidatorService);
   dateFormatter: DateFormatterService = inject(DateFormatterService);
-  summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
 
   calendar: AbstractControl | null = null;
@@ -84,18 +83,9 @@ export class EditTaskDialogComponent
    * @param changes - The changes.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    let task = this.getTask(changes);
+    let task = getCurrentValue<Task>(changes, 'task');
     this.updateForm(task);
     this.updateCalendar(task.dueDate);
-  }
-
-  /**
-   * Gets a task.
-   * @param changes - The changes.
-   * @returns The task.
-   */
-  getTask(changes: SimpleChanges) {
-    return changes['task'].currentValue;
   }
 
   /**

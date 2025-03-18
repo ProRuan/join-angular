@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { getProvider, ReactiveInput } from '../../../models/reactive-input';
 import {
   AbstractControl,
@@ -8,9 +14,10 @@ import {
 } from '@angular/forms';
 import { LabelComponent } from '../../label/label.component';
 import { CheckboxComponent } from '../../checkbox/checkbox.component';
+import { JoinService } from '../../../services/join.service';
 import { DialogService } from '../../../services/dialog.service';
 import { Contact } from '../../../models/contact';
-import { stopPropagation } from '../../../ts/global';
+import { getCurrentValue, stopPropagation } from '../../../ts/global';
 
 @Component({
   selector: 'app-assigned-to-input',
@@ -27,15 +34,21 @@ import { stopPropagation } from '../../../ts/global';
 /**
  * Class representing an assigned-to input component.
  * @extends ReactiveInput
+ * @implements {OnChanges}
  */
-export class AssignedToInputComponent extends ReactiveInput {
+export class AssignedToInputComponent
+  extends ReactiveInput
+  implements OnChanges
+{
+  join: JoinService = inject(JoinService);
   dialog: DialogService = inject(DialogService);
 
   dialogId: string = 'assignedTo';
+  assignableContacts: Contact[] = [];
 
   @Input() override control: AbstractControl | null = null;
   @Input('assignedContacts') taskControl: AbstractControl | null = null;
-  @Input('contacts') assignableContacts: Contact[] = [];
+  @Input() contacts: Contact[] = [];
 
   /**
    * Gets assigned contacts.
@@ -58,6 +71,49 @@ export class AssignedToInputComponent extends ReactiveInput {
    */
   override onChange() {
     this.markAsDirty(this.taskControl);
+  }
+
+  /**
+   * Updates an assigned-to input component on changes.
+   * @param changes - The changes.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    this.updateAssignableContacts(changes);
+    this.updateAssignedContacts();
+  }
+
+  /**
+   * Updates assignable contacts.
+   * @param changes - The changes.
+   */
+  updateAssignableContacts(changes: SimpleChanges) {
+    let contact = this.join.user.getContact();
+    let contacts = getCurrentValue<Contact[]>(changes, 'contacts');
+    this.assignableContacts = [contact, ...contacts];
+  }
+
+  /**
+   * Updates assigned contacts.
+   */
+  updateAssignedContacts() {
+    this.assignedContacts = this.getAssignedContacts();
+  }
+
+  /**
+   * Gets assigned contacts.
+   * @returns The assigned contacts.
+   */
+  getAssignedContacts() {
+    return this.assignableContacts.filter((c) => this.isAssigned(c));
+  }
+
+  /**
+   * Verifies the assigned state of a contact.
+   * @param contact - The assignable contact.
+   * @returns A boolean value.
+   */
+  isAssigned(contact: Contact) {
+    return !!this.assignedContacts.find((c) => c.id == contact.id);
   }
 
   /**
@@ -148,7 +204,7 @@ export class AssignedToInputComponent extends ReactiveInput {
    */
   onAssign(i: number) {
     this.setContactAssigned(i);
-    this.updateAssignedCocntacts();
+    this.updateAssignedContacts();
   }
 
   /**
@@ -159,15 +215,6 @@ export class AssignedToInputComponent extends ReactiveInput {
     let contact = this.assignableContacts[i];
     let contactAssigned = this.isAssigned(contact);
     !contactAssigned ? this.addContact(contact) : this.removeContact(contact);
-  }
-
-  /**
-   * Verifies the assigned state of a contact.
-   * @param contact - The assignable contact.
-   * @returns A boolean value.
-   */
-  isAssigned(contact: Contact) {
-    return !!this.assignedContacts.find((c) => c.id == contact.id);
   }
 
   /**
@@ -191,25 +238,10 @@ export class AssignedToInputComponent extends ReactiveInput {
   }
 
   /**
-   * Updates assigned contacts.
-   */
-  updateAssignedCocntacts() {
-    this.assignedContacts = this.getAssignedContacts();
-  }
-
-  /**
-   * Gets assigned contacts.
-   * @returns The assigned contacts.
-   */
-  getAssignedContacts() {
-    return this.assignableContacts.filter((c) => this.isAssigned(c));
-  }
-
-  /**
    * Verifies assigned contacts.
    * @returns A boolean value.
    */
   isAnyContactAssigned() {
-    return this.assignedContacts.length > 0 ? true : false;
+    return this.assignedContacts.length > 0;
   }
 }

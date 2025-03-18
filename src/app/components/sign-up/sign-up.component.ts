@@ -37,6 +37,10 @@ import { Contact } from '../../shared/models/contact';
 import { sampleContactsData } from '../../shared/ts/sample-contacts-data';
 import { sampleTasksData } from '../../shared/ts/sample-tasks-data';
 
+// update!!!
+import { getArrayCopy, getCustomArray } from '../../shared/ts/global';
+import { Task } from '../../shared/models/task';
+
 @Component({
   selector: 'app-sign-up',
   standalone: true,
@@ -77,22 +81,15 @@ export class SignUpComponent extends FormController {
   // improve getDueDate() ...
   // improve resetAssignedTo()/resetAddTaskMenus() ...
 
-  // getArrayCopy() from sampleContacts, subtasks ... (0/2)
-  // set return type for getCustomArray() and getObjectArray() ... ?!
-  //   --> getObjectArray(): task.ts, user.ts ... (0/2)
-  //   --> getCustomArray(): task.ts, user.ts, sample-tasks.ts ... (0/3)
-  //   --> sampleContacts: no need to convert ... ?
-  //   --> sampleTasks: no need to convert ... ?
-
   // fix edit-task deadline minDate validator ...
   // fix summary deadline (default, done) ... (0/2)
-  // add join.updateSummary() ...
+
   // fix summary categories (own property) ... ?!
   // optional: smart default task deadlines ...
 
   // think about ContactService ...
   // think about sample task values ... !
-  // fix subtask checkbox: save after close ... ?
+
   // limit draggable-task text ... !
   // fix add-task stop/close event ... !
   // rename back log to backlog ... ?
@@ -126,8 +123,44 @@ export class SignUpComponent extends FormController {
    */
   ngOnInit() {
     this.join.subscribeUserCollection();
+    this.setUser();
     this.setForm();
     this.setControls();
+  }
+
+  /**
+   * Sets a user.
+   */
+  private setUser() {
+    this.user.contacts = this.getUserContacts();
+    this.user.tasks = this.getUserTasks();
+    this.user.summary = this.getUserSummary();
+  }
+
+  /**
+   * Gets user contacts.
+   * @returns The user contacts.
+   */
+  private getUserContacts() {
+    let contactsData = getArrayCopy(sampleContactsData);
+    return getCustomArray(contactsData, Contact);
+  }
+
+  /**
+   * Gets user tasks.
+   * @returns The user tasks.
+   */
+  private getUserTasks() {
+    let tasksData = getArrayCopy(sampleTasksData);
+    return getCustomArray(tasksData, Task);
+  }
+
+  /**
+   * Gets a user summary.
+   * @returns The user summary.
+   */
+  private getUserSummary() {
+    return this.summary.get(this.user.tasks);
   }
 
   /**
@@ -280,52 +313,7 @@ export class SignUpComponent extends FormController {
    * @returns The user data.
    */
   private getUserData() {
-    let data = this.user.getObject();
-    data.contacts = this.getUserContactsData();
-    data.tasks = this.getUserTasksData();
-    data.summary = this.getUserSummaryData();
-    return data;
-  }
-
-  /**
-   * Gets user contacts data.
-   * @returns The user contacts data.
-   */
-  private getUserContactsData() {
-    let contact = this.getContact(this.user);
-    let contactData = contact.getObject();
-    return [contactData, ...sampleContactsData];
-  }
-
-  /**
-   * Gets a user as a contact.
-   * @param user - The user.
-   * @returns The user as a contact.
-   */
-  private getContact(user: User) {
-    let contact = new Contact();
-    contact.initials = user.initials;
-    contact.bgc = 'lightblue';
-    contact.name = `${user.name} (You)`;
-    contact.email = user.email;
-    return contact;
-  }
-
-  /**
-   * Gets user task data.
-   * @returns The user task data.
-   */
-  private getUserTasksData() {
-    return sampleTasksData;
-  }
-
-  /**
-   * Gets user summary data.
-   * @returns The user summary data.
-   */
-  private getUserSummaryData() {
-    let summary = this.summary.get(this.user.tasks);
-    return summary.getObject();
+    return this.user.getObject();
   }
 
   /**

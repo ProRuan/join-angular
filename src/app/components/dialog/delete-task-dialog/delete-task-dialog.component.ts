@@ -4,7 +4,6 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { fadeAnimation } from '../../../shared/animations/fade-animation';
 import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
-import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { JoinButton } from '../../../shared/models/join-button';
 
@@ -23,7 +22,6 @@ import { JoinButton } from '../../../shared/models/join-button';
  */
 export class DeleteTaskDialogComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
-  summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
 
   noBtn = new JoinButton('clearBtn', 'No');

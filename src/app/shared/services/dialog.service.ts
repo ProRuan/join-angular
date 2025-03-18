@@ -24,7 +24,6 @@ export class DialogService {
     deleteContact: false,
   };
 
-  task: Task = new Task();
   search: AbstractControl | null = new FormControl('');
 
   submitted: boolean = false;

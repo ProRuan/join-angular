@@ -27,7 +27,7 @@ import { getCapitalized } from '../../../ts/global';
  * @extends ReactiveInput
  */
 export class PrioInputComponent extends ReactiveInput {
-  @Input() override control: AbstractControl<any, any> | null = null;
+  @Input() override control: AbstractControl | null = null;
 
   prios: string[] = ['urgent', 'medium', 'low'];
   buttons: PrioButton[] = [];
@@ -36,7 +36,6 @@ export class PrioInputComponent extends ReactiveInput {
    * Initializes a prio input component.
    */
   ngOnInit() {
-    this.value = 'medium';
     this.setButtons();
   }
 

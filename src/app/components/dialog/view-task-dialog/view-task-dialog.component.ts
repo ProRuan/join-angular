@@ -14,12 +14,11 @@ import { dialogAnimation } from '../../../shared/animations/dialog.animation';
 import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
 import { ButtonDataService } from '../../../shared/services/button-data.service';
-import { SummaryService } from '../../../shared/services/summary.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { Task } from '../../../shared/models/task';
 import { JoinButton } from '../../../shared/models/join-button';
 import { Subtask } from '../../../shared/models/subtask';
-import { getCapitalized } from '../../../shared/ts/global';
+import { getCapitalized, getCurrentValue } from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-view-task-dialog',
@@ -39,6 +38,7 @@ import { getCapitalized } from '../../../shared/ts/global';
 /**
  * Class representing a view-task dialog component.
  * @extends DialogFormController
+ * @implements {OnChanges}
  */
 export class ViewTaskDialogComponent
   extends DialogFormController
@@ -46,7 +46,6 @@ export class ViewTaskDialogComponent
 {
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
-  summary: SummaryService = inject(SummaryService);
   board: BoardService = inject(BoardService);
 
   @Input() task = new Task();
@@ -71,8 +70,8 @@ export class ViewTaskDialogComponent
    * @param changes - The changes.
    */
   updateTask(changes: SimpleChanges) {
-    let value = changes['task'].currentValue;
-    this.task.set(value);
+    let task = getCurrentValue<Task>(changes, 'task');
+    this.task.set(task);
   }
 
   /**
@@ -120,6 +119,7 @@ export class ViewTaskDialogComponent
    * Closes a dialog on click.
    */
   onClose() {
+    this.join.saveUser();
     this.close();
   }
 
@@ -137,7 +137,6 @@ export class ViewTaskDialogComponent
    */
   onCheck(subtask: Subtask) {
     this.checkSubtask(subtask);
-    this.join.saveUser();
   }
 
   /**
@@ -146,7 +145,7 @@ export class ViewTaskDialogComponent
    */
   checkSubtask(subtask: Subtask) {
     let id = subtask.id;
-    let done = !subtask.done ? true : false;
+    let done = !subtask.done;
     this.task.subtasks[id].done = done;
   }
 
@@ -154,6 +153,7 @@ export class ViewTaskDialogComponent
    * Opens a delete-task dialog on click.
    */
   onDelete() {
+    this.join.saveUser();
     this.dialog.open('deleteTask');
   }
 
@@ -161,8 +161,15 @@ export class ViewTaskDialogComponent
    * Opens an edit-task dialog on click.
    */
   onEdit() {
+    this.join.saveUser();
+    this.openEditTaskDialog();
+  }
+
+  /**
+   * Opens an edit-task dialog.
+   */
+  openEditTaskDialog() {
     this.dialog.fadedOut = true;
-    this.dialog.task.set(this.board.task);
     this.dialog.open('editTask');
     setTimeout(() => {
       this.dialog.fadedOut = false;

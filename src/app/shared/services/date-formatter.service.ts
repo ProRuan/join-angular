@@ -45,4 +45,15 @@ export class DateFormatterService {
   getInputDate(date: string) {
     return date.split('-').reverse().join('/');
   }
+
+  /**
+   * Verifies a current date.
+   * @param date - The date to verify.
+   * @returns A boolean value.
+   */
+  isCurrentDate(date: string) {
+    let time = new Date(date).getTime();
+    let minTime = this.getMinTime();
+    return time >= minTime;
+  }
 }
