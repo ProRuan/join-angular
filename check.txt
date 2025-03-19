@@ -70,12 +70,12 @@ Animations (2/?)
   - DialogAnimation - check
   - FadeAnimation - check
 
-Components (10/?) + await inputs ...
+Components (10/?) + await inputs ... + resp(3/?)
 ----------
   - BackLogComponente - check *replace LogComponent with BackLogComponent!
-  - CheckboxComponent - check
+  - CheckboxComponent - check + responsive
   - FlipMenuComponent - check
-  - FooterComponent - check
+  - FooterComponent - check + responsive
   - HeaderComponent - check
   - JoinHeaderComponent - check
   - JoinTitleComponent - check
@@ -83,7 +83,7 @@ Components (10/?) + await inputs ...
   - LogComponent - check *replace with BackLogComponent!
   - LogoComponent - check
   - MenuComponent - check
-  - TitleComponent - check
+  - TitleComponent - check + responsive
   - inputs ... (8/?) ? = 10?
     ------
       - AssignedToInputComponent - check

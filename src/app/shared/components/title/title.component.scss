@@ -14,3 +14,13 @@
   border-bottom: 3px solid $lightblue;
   border-radius: 3px;
 }
+
+@media (max-width: 428px) {
+  .title {
+    @include size($w: fit-content, $h: fit-content);
+  }
+
+  .border {
+    width: 88px;
+  }
+}

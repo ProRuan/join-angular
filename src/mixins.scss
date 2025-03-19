@@ -27,12 +27,18 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   padding: $p;
 }
 
-@mixin background-images($d, $h) {
+@mixin background-images($d, $h, $a: null) {
   background-image: url($d);
 
   &:hover,
   &:focus-visible {
     background-image: url($h);
+  }
+
+  @if $a {
+    &:active {
+      background-image: url($a);
+    }
   }
 }
 
@@ -75,16 +81,6 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   font-size: $fs;
   font-weight: $fw;
   line-height: $lh;
-}
-
-// background-images instead?!
-// version with default, hover, active???
-@mixin img-content($src1, $src2) {
-  content: url($src1);
-
-  &:hover {
-    content: url($src2);
-  }
 }
 
 @mixin max-size($w, $h) {

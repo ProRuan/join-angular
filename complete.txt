@@ -19,6 +19,11 @@ SignOutComponent
 EditTaskComponent: do not reset board task ... ?
   --> empty task after change: board-summary-board edit-task ... !
 
+Responsiveness
+--------------
+  - PasswordInputComponent: VisButton:hover && :active ...
+  - CheckboxComponent: checkbox:hover ...
+
 summary service / sign-up
 -------------------------
   // requiredValidator with this.rejected ...

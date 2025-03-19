@@ -27,3 +27,22 @@
 .w-125 {
   width: 125px;
 }
+
+@media (max-width: 428px) {
+  .footer {
+    @include box-padding($p: 24px 16px);
+  }
+
+  .legal-link {
+    &:hover,
+    &:focus-visible {
+      font-weight: 400;
+      color: $darkgray;
+    }
+
+    &:active {
+      font-weight: 700;
+      color: $lightblue;
+    }
+  }
+}

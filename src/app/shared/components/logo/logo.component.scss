@@ -29,3 +29,17 @@ $top: calc(calc(100vh - 335px) / 2);
   @include position($pos: relative, $l: $left, $t: $top);
   width: 274px;
 }
+
+@media (max-width: 428px) {
+  .bg-color {
+    background-color: $dark;
+  }
+
+  .logo {
+    width: 64px;
+  }
+
+  .pos-top-left {
+    @include position($pos: relative, $l: 38px, $t: 37px);
+  }
+}
