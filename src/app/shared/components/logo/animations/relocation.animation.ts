@@ -16,6 +16,6 @@ const properties: Properties = {
   },
 };
 
-const timings: string = '500ms 300ms ease-in-out';
+const timings: string = '500ms 200ms ease-in-out';
 
 export const relocation = new Transform(name, properties, timings);

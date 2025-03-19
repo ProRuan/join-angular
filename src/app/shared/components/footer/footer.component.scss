@@ -30,7 +30,7 @@
 
 @media (max-width: 428px) {
   .footer {
-    @include box-padding($p: 24px 16px);
+    @include box-padding($p: 22px 16px);
   }
 
   .legal-link {

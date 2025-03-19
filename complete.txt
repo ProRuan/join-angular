@@ -22,7 +22,7 @@ EditTaskComponent: do not reset board task ... ?
 Responsiveness
 --------------
   - PasswordInputComponent: VisButton:hover && :active ...
-  - CheckboxComponent: checkbox:hover ...
+  - LoginComponent: when does it need min-height 926px ... ?
 
 summary service / sign-up
 -------------------------
