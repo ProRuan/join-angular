@@ -34,12 +34,14 @@ import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
 import { Contact } from '../../shared/models/contact';
+import { Task } from '../../shared/models/task';
+import { getArrayCopy, getCustomArray } from '../../shared/ts/global';
 import { sampleContactsData } from '../../shared/ts/sample-contacts-data';
 import { sampleTasksData } from '../../shared/ts/sample-tasks-data';
+import { Model } from '../../shared/interfaces/model';
 
-// update!!!
-import { getArrayCopy, getCustomArray } from '../../shared/ts/global';
-import { Task } from '../../shared/models/task';
+type Snapshot = QuerySnapshot<DocumentData, DocumentData>;
+type DocChange = DocumentChange<DocumentData, DocumentData>;
 
 @Component({
   selector: 'app-sign-up',
@@ -77,55 +79,6 @@ export class SignUpComponent extends FormController {
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
-  // requiredValidator with this.rejected ...
-
-  // add property sum label ... ?
-  // rename to sum-card ... ?
-  // summary deadline with column (not category) ... !
-  // fix summary update after sign-up - check?
-
-  // string with dash or not ... ? (check side of summary task)
-
-  // to-do, done, in-progress, await-feedback, in-board ... (5/6)
-  //   --> task column (not category) ... !
-
-  // reset urgent summary task ...
-
-  // update deadline default: "No" ...
-
-  // notes
-  // -----
-  // task.column: string with "-" ...
-  // check await feedback or awaiting feedback ...
-
-  // ----------
-
-  // improve getMatchword() ...
-  // improve getDueDate() ...
-  // improve resetAssignedTo()/resetAddTaskMenus() ...
-
-  // fix edit-task deadline minDate validator ...
-  // fix summary deadline (default, done) ... (0/2)
-
-  // fix summary categories (own property) ... ?!
-  // optional: smart default task deadlines ...
-
-  // think about ContactService ...
-  // think about sample task values ... !
-
-  // limit draggable-task text ... !
-  // fix add-task stop/close event ... !
-  // rename back log to backlog ... ?
-
-  // ---------------------
-  // check leading components ...
-
-  // check animations ...
-  // check components ...
-  // ---------------------
-
-  // check other missing files (folder by folder) ...
-
   user: User = new User();
   name: AbstractControl | null = null;
   email: AbstractControl | null = null;
@@ -146,46 +99,30 @@ export class SignUpComponent extends FormController {
    */
   ngOnInit() {
     this.join.subscribeUserCollection();
-    this.setUser();
+    this.setUserSamples();
     this.setForm();
     this.setControls();
   }
 
   /**
-   * Sets a user.
+   * Sets user samples.
    */
-  private setUser() {
-    this.user.contacts = this.getUserContacts();
-    this.user.tasks = this.getUserTasks();
-    this.user.summary = this.getUserSummary();
+  private setUserSamples() {
+    this.user.contacts = this.getUserProperty(sampleContactsData, Contact);
+    this.user.tasks = this.getUserProperty(sampleTasksData, Task);
+    this.user.summary = this.summary.get(this.user.tasks);
   }
 
   /**
-   * Gets user contacts.
-   * @returns The user contacts.
+   * Gets a user property as custom array.
+   * @param data - The sample data.
+   * @param Model - The custom class.
+   * @returns The user property as custom array.
    */
-  private getUserContacts() {
-    let contactsData = getArrayCopy(sampleContactsData);
-    return getCustomArray(contactsData, Contact);
+  private getUserProperty<T>(data: T[], Model: Model<T>) {
+    let items = getArrayCopy(data);
+    return getCustomArray(items, Model);
   }
-
-  /**
-   * Gets user tasks.
-   * @returns The user tasks.
-   */
-  private getUserTasks() {
-    let tasksData = getArrayCopy(sampleTasksData);
-    return getCustomArray(tasksData, Task);
-  }
-
-  /**
-   * Gets a user summary.
-   * @returns The user summary.
-   */
-  private getUserSummary() {
-    return this.summary.get(this.user.tasks);
-  }
-
   /**
    * Sets a form.
    */
@@ -286,17 +223,17 @@ export class SignUpComponent extends FormController {
 
   /**
    * Adds a user to the user collection.
-   * @param snapshot - The QuerySnapshot.
+   * @param snapshot - The snapshot.
    */
-  private addUser(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
+  private addUser(snapshot: Snapshot) {
     snapshot.docChanges().forEach((change) => this.completeSignUp(change));
   }
 
   /**
    * Completes a sign-up.
-   * @param change - The DocumentChange.
+   * @param change - The document change.
    */
-  private completeSignUp(change: DocumentChange<DocumentData, DocumentData>) {
+  private completeSignUp(change: DocChange) {
     if (this.isUserAdded(change)) {
       const id = change.doc.id;
       this.join.addUserId(id);
@@ -306,10 +243,10 @@ export class SignUpComponent extends FormController {
 
   /**
    * Verifies a change on user added.
-   * @param change - The DocumentChange.
+   * @param change - The document change.
    * @returns A boolean value.
    */
-  private isUserAdded(change: DocumentChange<DocumentData, DocumentData>) {
+  private isUserAdded(change: DocChange) {
     return change.type === 'added';
   }
 
