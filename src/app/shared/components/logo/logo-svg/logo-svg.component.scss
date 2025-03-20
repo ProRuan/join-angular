@@ -9,7 +9,13 @@
   fill: $dark;
 }
 
-@media (max-width: 428px) {
+@media (min-width: 1921px) {
+  .logo {
+    left: calc(50% - 883px);
+  }
+}
+
+@media (max-width: 1180px) {
   .logo {
     @include size($w: 64px, $h: 78px);
     @include position($pos: absolute, $l: 38px, $t: 37px);

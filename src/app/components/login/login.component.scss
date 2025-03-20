@@ -3,11 +3,7 @@
 .login {
   @include display-column($jc: space-between, $ai: center);
   height: 100vh;
-}
-
-.form-cont {
-  @include display-row($jc: center);
-  width: 100%;
+  min-height: 840px;
 }
 
 .form {
@@ -64,11 +60,13 @@
   height: 48px;
 }
 
-@media (max-width: 428px) {
-  .login {
-    min-height: 926px;
+@media (max-width: 1180px) {
+  .form {
+    padding: 48px 48px;
   }
+}
 
+@media (max-width: 768px) {
   .form {
     box-sizing: border-box;
     padding: 32px 16px;
@@ -103,5 +101,11 @@
     @include box-padding($p: 16px 24px);
     @include size($w: 180px, $h: fit-content);
     @include font($fs: 16px, $fw: 700, $lh: 19.2px);
+  }
+}
+
+@media (max-width: 424px) {
+  .form {
+    width: 292px;
   }
 }

@@ -9,8 +9,8 @@ const logoStartProperties = [
     width: '101px',
     height: '122px',
     position: 'absolute',
-    left: 'calc(calc(100% - 101px) / 2)',
-    top: 'calc(calc(100vh - 122px) / 2)',
+    left: 'calc(50% - 50.5px)',
+    top: 'calc(50vh - 61px)',
   },
 ];
 const logoEndProperties = [

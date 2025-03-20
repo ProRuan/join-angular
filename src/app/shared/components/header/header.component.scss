@@ -28,15 +28,42 @@
   max-height: 49px;
 }
 
-@media (max-width: 428px) {
+@media (min-width: 1921px) {
+  .header {
+    box-sizing: unset;
+    padding-left: calc(50% - 883px);
+    padding-right: calc(50% - 883px);
+    width: 1766px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .login {
+    @include box-padding($p: 37px 38px 0 38px);
+  }
+}
+
+@media (max-width: 568px) {
   .login {
     @include box-padding($p: 80px 16px 0 16px);
     @include display-row($jc: center);
   }
 
   .sign-up-cont {
-    @include position($pos: absolute, $l: 0, $b: 70px);
+    @include position($pos: absolute, $l: 0, $t: 778px);
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 568px) and (min-height: 841px) {
+  .sign-up-cont {
+    @include position($pos: absolute, $l: 0, $t: calc(50% + 300px));
+  }
+}
+
+@media (max-width: 568px) and (max-height: 840px) {
+  .sign-up-cont {
+    @include position($pos: absolute, $l: 0, $t: 720px);
   }
 }

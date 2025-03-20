@@ -3,6 +3,7 @@ body {
   @include color-set($c: $black, $bgc: #f6f7f8);
   margin: 0;
   font-family: $inter;
+  overflow-x: hidden;
 }
 
 button {

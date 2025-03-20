@@ -101,11 +101,13 @@
   background-color: #1fd7c1;
 }
 
-@media (max-width: 428px) {
+@media (max-width: 768px) {
   .headline-2 {
     @include font($fs: 47px, $fw: 700, $lh: 56.4px);
   }
+}
 
+@media (max-width: 428px) {
   .prim-btn {
     &:hover,
     &:focus-visible {

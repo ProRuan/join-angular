@@ -28,11 +28,13 @@
   width: 125px;
 }
 
-@media (max-width: 428px) {
+@media (max-width: 1180px) {
   .footer {
-    @include box-padding($p: 22px 16px);
+    @include box-padding($p: 25px 38px);
   }
+}
 
+@media (max-width: 768px) {
   .legal-link {
     &:hover,
     &:focus-visible {
@@ -44,5 +46,11 @@
       font-weight: 700;
       color: $lightblue;
     }
+  }
+}
+
+@media (max-width: 568px) {
+  .footer {
+    @include box-padding($p: 22px 16px);
   }
 }

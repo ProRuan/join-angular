@@ -15,7 +15,7 @@
   border-radius: 3px;
 }
 
-@media (max-width: 428px) {
+@media (max-width: 768px) {
   .title {
     @include size($w: fit-content, $h: fit-content);
   }

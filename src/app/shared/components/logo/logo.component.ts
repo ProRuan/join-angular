@@ -23,7 +23,7 @@ function getLogoAnimation() {
  * @returns The responsive animation.
  */
 function getResponsiveAnimation() {
-  return window.innerWidth < 429 ? mobileLogoAnimation : desktopLogoAnimation;
+  return window.innerWidth < 1180 ? mobileLogoAnimation : desktopLogoAnimation;
 }
 
 @Component({
