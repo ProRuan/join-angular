@@ -1,3 +1,7 @@
-<div [@revelation]="revealApp()" [ngStyle]="getPointerEventStyle()" class="logo-cont" [ngClass]="getBgcClass()">
-    <img [@relocation]="relocateLogo()" class="logo" [ngClass]="getPosClass()" [src]="logo" alt="logo">
+@if (join.introDone) {
+<app-logo-svg></app-logo-svg>
+} @else {
+<div [@logoAnimation] [@.disabled]="isDisabled()" (@logoAnimation.done)="setIntroToDone()" class="logo-cont">
+    <app-logo-svg></app-logo-svg>
 </div>
+}

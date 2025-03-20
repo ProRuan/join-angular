@@ -21,15 +21,6 @@ export class LoginArrowComponent {
    * Redirects to the login on click.
    */
   onBack() {
-    this.backToLogin('login');
-  }
-
-  /**
-   * Redirects to the login.
-   * @param url - The url of the component.
-   */
-  backToLogin(url: string) {
-    this.router.navigateByUrl(url);
-    this.join.setIntroToDone();
+    this.router.navigateByUrl('login');
   }
 }

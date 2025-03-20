@@ -1,45 +1,8 @@
 @import "../../../../mixins.scss";
 
-$left: calc(calc(100% - 274px) / 2);
-$top: calc(calc(100vh - 335px) / 2);
-
 .logo-cont {
   @include size($w: 100%, $h: 100vh);
-  @include position($pos: absolute, $l: 0, $t: 0);
-  z-index: 1;
-}
-
-.bg-transparent {
+  @include position($pos: fixed, $l: 0, $t: 0);
   background-color: transparent;
-}
-
-.bg-color {
-  background-color: $lightgray;
-}
-
-.logo {
-  width: 100px;
-}
-
-.pos-top-left {
-  @include position($pos: relative, $l: 77px, $t: 80px);
-}
-
-.pos-center {
-  @include position($pos: relative, $l: $left, $t: $top);
-  width: 274px;
-}
-
-@media (max-width: 428px) {
-  .bg-color {
-    background-color: $dark;
-  }
-
-  .logo {
-    width: 64px;
-  }
-
-  .pos-top-left {
-    @include position($pos: relative, $l: 38px, $t: 37px);
-  }
+  z-index: 10;
 }

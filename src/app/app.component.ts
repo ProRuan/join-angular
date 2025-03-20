@@ -42,6 +42,12 @@ export class AppComponent {
   resizeSubscription!: Subscription;
 
   ngOnInit(): void {
+    let test = this.join.overflowY$.subscribe({
+      next: (value) => (document.body.style.overflowY = value),
+      error: (error) => console.log('error: ', error),
+      complete: () => console.log('complete'),
+    });
+    // test.unsubscribe();
     this.resizeSubscription = fromEvent(window, 'resize')
       .pipe(
         map(() => window.innerWidth),

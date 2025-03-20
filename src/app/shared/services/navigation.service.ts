@@ -40,7 +40,6 @@ export class NavigationService {
    * @param url - The login url.
    */
   redirectsToLogin(url: string) {
-    this.join.setIntroToDone();
     this.router.navigateByUrl(url);
     this.log.setLog(false);
   }

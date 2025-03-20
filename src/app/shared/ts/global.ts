@@ -125,12 +125,17 @@ export function getLastElement<T>(values: T[]) {
  * @returns The item.
  */
 export function getLocalItem(key: string) {
-  let valueAsText = localStorage.getItem(key);
-  if (valueAsText) {
-    return JSON.parse(valueAsText);
-  } else {
-    return null;
-  }
+  let value = localStorage.getItem(key);
+  return getParsedValue(value);
+}
+
+/**
+ * Gets a parsed value.
+ * @param value - The value to parse.
+ * @returns The parsed value.
+ */
+function getParsedValue(value: string | null) {
+  return value ? JSON.parse(value) : null;
 }
 
 /**
@@ -169,6 +174,16 @@ export function getObjectData<T>(model: T) {
  */
 export function getObjectArray<T extends ConvertableObject<T>>(items: T[]) {
   return items.map((item) => item.getObject());
+}
+
+/**
+ * Gets an item from the session storage.
+ * @param key - The item key.
+ * @returns The item.
+ */
+export function getSessionalItem(key: string) {
+  let value = sessionStorage.getItem(key);
+  return getParsedValue(value);
 }
 
 /**
@@ -224,6 +239,15 @@ export function removeLocalItem(key: string) {
  */
 export function setLocalItem(key: string, value: any) {
   localStorage.setItem(key, JSON.stringify(value));
+}
+
+/**
+ * Sets an item at the session storage.
+ * @param key - The item key.
+ * @param value - The item value.
+ */
+export function setSessionalItem(key: string, value: any) {
+  sessionStorage.setItem(key, JSON.stringify(value));
 }
 
 /**

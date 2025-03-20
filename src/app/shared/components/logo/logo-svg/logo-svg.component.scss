@@ -1,0 +1,17 @@
+@import "../../../../../mixins.scss";
+
+.logo {
+  @include size($w: 101px, $h: 122px);
+  @include position($pos: absolute, $l: 77px, $t: 80px);
+}
+
+.path {
+  fill: $dark;
+}
+
+@media (max-width: 428px) {
+  .logo {
+    @include size($w: 64px, $h: 78px);
+    @include position($pos: absolute, $l: 38px, $t: 37px);
+  }
+}

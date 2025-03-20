@@ -11,10 +11,16 @@ import {
   Unsubscribe,
   updateDoc,
 } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 import { SessionIdService } from './session-id.service';
 import { SummaryService } from './summary.service';
 import { User } from '../models/user';
-import { getArrayCopy, getLocalItem, setLocalItem } from '../ts/global';
+import {
+  getArrayCopy,
+  getLocalItem,
+  setLocalItem,
+  setSessionalItem,
+} from '../ts/global';
 import { UserData } from '../interfaces/user-data';
 import { Task } from '../models/task';
 import { Contact } from '../models/contact';
@@ -34,29 +40,32 @@ export class JoinService {
   [key: string]: any;
   user: User = new User();
   users: User[] = [];
-  revealed: boolean;
-  relocated: boolean;
+  introDone: boolean = false;
   windowWidth: number = 0;
+  overflowYSubject = new BehaviorSubject<string>('hidden');
+  overflowY$ = this.overflowYSubject.asObservable();
 
   unsubscribeUserCollection: Unsubscribe = () => {};
   unsubscribeUser: Unsubscribe = () => {};
 
   /**
-   * Creates a join service.
-   */
-  constructor() {
-    this.revealed = false;
-    this.relocated = false;
-  }
-
-  /**
    * Sets an intro to done.
    */
   setIntroToDone() {
-    if (!this.revealed) {
-      this.revealed = true;
-      this.relocated = true;
+    if (!this.introDone) {
+      this.introDone = true;
+      setSessionalItem('introDone', true);
+      this.setOverflowY('auto');
     }
+  }
+
+  /**
+   * Sets the overflow-y property of a document body.
+   * @param value - The value to set.
+   */
+  setOverflowY(value: string): void {
+    this.overflowYSubject.next(value);
+    this.overflowYSubject.complete();
   }
 
   /**

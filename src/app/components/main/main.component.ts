@@ -50,6 +50,7 @@ export class MainComponent {
   ngOnInit() {
     this.join.loadUser();
     this.join.subscribeUser();
+    this.join.setIntroToDone();
   }
 
   onDragend() {
