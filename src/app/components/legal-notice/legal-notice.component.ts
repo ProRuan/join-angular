@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
+import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 
 @Component({
   selector: 'app-legal-notice',
   standalone: true,
-  imports: [],
+  imports: [JoinTitleComponent],
   templateUrl: './legal-notice.component.html',
-  styleUrl: './legal-notice.component.scss'
+  styleUrl: './legal-notice.component.scss',
 })
-export class LegalNoticeComponent {
 
-}
+/**
+ * Class representing a legal notice component.
+ */
+export class LegalNoticeComponent {}
