@@ -14,9 +14,8 @@ missing files
 
 login Responsiveness
 --------------------
-  - think about sign-up errors (display state, height/position) ... (0/2)
-  - new password: responsiveness login-arrow ...
-  - remove form-containter for login, sign-up, new-password ... (2/3)
+  - think about error text: login, sign-up, new-password ... (0/3)
+  - backlog responsiveness: sign-up, new-password ... (0/2)
   - favicon ...
 
 subscribtion

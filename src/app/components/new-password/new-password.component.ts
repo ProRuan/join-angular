@@ -51,7 +51,6 @@ export class NewPasswordComponent extends FormController {
   log: LogService = inject(LogService);
   nav: NavigationService = inject(NavigationService);
 
-  title: string = 'Email';
   id: string = '';
   email: AbstractControl | null = null;
   password: AbstractControl | null = null;
@@ -99,7 +98,6 @@ export class NewPasswordComponent extends FormController {
    * @param user - The user.
    */
   continue(user: User) {
-    this.title = 'Password';
     this.id = user.id;
     this.updateForm();
     this.updateControls();

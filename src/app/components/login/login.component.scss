@@ -104,7 +104,7 @@
 
   .login-btn {
     @include box-padding($p: 16px 24px);
-    @include size($w: 180px, $h: fit-content);
+    @include size($w: 180px, $h: 51px);
     @include font($fs: 16px, $fw: 700, $lh: 19.2px);
   }
 }

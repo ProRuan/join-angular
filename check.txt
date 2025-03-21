@@ -39,11 +39,11 @@ Top Level Scripts
   - shared/services - check (13)
   - shared/ts - check (7)
 
-Join (6/?) + responsive (1/?)
+Join (6/?) + responsive (3/?)
 ----
   - LoginComponent - check + responsive *logInUser() and rememberUser()
-  - NewPasswordComponent - check
-  - SignUpComponent - check
+  - NewPasswordComponent - check + responsive
+  - SignUpComponent - check + responsive
   - DialogComponent ...
       - AddTaskDialogComponent - check * animation outside from back log compenent?
       - ViewTaskDialogComponent - check * think about close()?!
