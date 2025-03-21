@@ -3,32 +3,33 @@
 <section class="sign-up">
     <app-header type="sign-up"></app-header>
 
-    <div class="form-cont">
-        <form [formGroup]="form" class="form" (submit)="onSignUp()">
-            <app-login-arrow></app-login-arrow>
-            <app-title title="Sign up"></app-title>
+    <form [formGroup]="form" class="form" (submit)="onSignUp()">
+        <app-login-arrow class="login-arrow"></app-login-arrow>
+        <app-title title="Sign up"></app-title>
 
-            <div class="input-checkbox-cont">
-                <div class="input-group">
-                    <app-text-input [control]="name" [config]="config.name"></app-text-input>
-                    <app-text-input [control]="email" [config]="config.email"></app-text-input>
-                    <app-password-input [control]="password" [config]="config.password"></app-password-input>
-                    <app-password-input [control]="matchword" [config]="config.matchword"
-                        [matchValue]="password?.value"></app-password-input>
-                </div>
-
-                <div class="privacy-policy-cont">
-                    <app-checkbox (check)="onAccept($event)"></app-checkbox>
-                    <div class="privacy-policy-text">
-                        <span>I accept the </span>
-                        <a routerLink="/main/privacy-policy" class="privacy-policy-link">Privacy Policy</a>
-                    </div>
-                </div>
+        <div class="input-checkbox-cont">
+            <div class="input-group">
+                <app-text-input [control]="name" [config]="config.name"></app-text-input>
+                <app-text-input [control]="email" [config]="config.email"></app-text-input>
+                <app-password-input [control]="password" [config]="config.password"></app-password-input>
+                <app-password-input [control]="matchword" [config]="config.matchword"
+                    [matchValue]="password?.value"></app-password-input>
             </div>
 
+            <div class="privacy-policy-cont">
+                <app-checkbox (check)="onAccept($event)"></app-checkbox>
+                <div class="privacy-policy-text">
+                    <span>I accept the </span>
+                    <a routerLink="/main/privacy-policy" class="privacy-policy-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <app-login-arrow class="login-arrow-mobile"></app-login-arrow>
             <button [disabled]="isDisabled()" class="prim-btn sign-up-btn">Sign up</button>
-        </form>
-    </div>
+        </div>
+    </form>
 
     <app-footer></app-footer>
 </section>
