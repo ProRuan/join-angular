@@ -14,11 +14,8 @@ missing files
 
 login Responsiveness
 --------------------
-  - rename logoAnimation.ts and mobileLogoAnimation.ts ...
   - remove form-containter for login, sign-up, new-password ... (1/3)
-  - hover und active ... !
-  - center input error text ... !
-  - check responsiveness for login ... !
+  - mixins ...
 
 subscribtion
 ------------

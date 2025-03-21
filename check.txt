@@ -39,9 +39,9 @@ Top Level Scripts
   - shared/services - check (13)
   - shared/ts - check (7)
 
-Join (6/?)
+Join (6/?) + responsive (1/?)
 ----
-  - LoginComponent - check *logInUser() and rememberUser()
+  - LoginComponent - check + responsive *logInUser() and rememberUser()
   - NewPasswordComponent - check
   - SignUpComponent - check
   - DialogComponent ...

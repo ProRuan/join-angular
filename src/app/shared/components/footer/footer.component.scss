@@ -32,9 +32,7 @@
   .footer {
     @include box-padding($p: 25px 38px);
   }
-}
 
-@media (max-width: 768px) {
   .legal-link {
     &:hover,
     &:focus-visible {

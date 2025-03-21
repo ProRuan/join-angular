@@ -29,7 +29,7 @@ $checkedHoverWhite: "/assets/img/add-task/checked_white.png";
   @include background-images($d: $checkedWhite, $h: $checkedHoverWhite);
 }
 
-@media (max-width: 428px) {
+@media (max-width: 1180px) {
   .check {
     @include background-images($d: $check, $h: $check, $a: $checkHover);
   }
