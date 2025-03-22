@@ -63,6 +63,7 @@ Join (6/?) + responsive (3/?)
   - ContactsComponent - check
       - ContactListComponent - check
       - ContactViewerComponent - check
+  - LegalNoticeComponent - check
 
 
 Animations (2/?)
