@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
+import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 
 @Component({
   selector: 'app-privacy-policy',
   standalone: true,
-  imports: [],
+  imports: [JoinTitleComponent],
   templateUrl: './privacy-policy.component.html',
-  styleUrl: './privacy-policy.component.scss'
+  styleUrl: './privacy-policy.component.scss',
 })
-export class PrivacyPolicyComponent {
 
-}
+/**
+ * Class representing a privacy policy component.
+ */
+export class PrivacyPolicyComponent {}

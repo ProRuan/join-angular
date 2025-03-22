@@ -7,35 +7,12 @@
   color: $black;
 }
 
-.content {
-  @include display-column($g: 24px);
-}
-
 .imprint {
   @include display-column($g: 16px);
 }
 
-.headline-3 {
-  @include font($fs: 27px, $fw: 700, $lh: 32.4px);
-  color: $black;
-}
-
 .address {
   font-style: normal;
-}
-
-.link {
-  text-decoration: none;
-  color: $lightblue;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-.headline-5 {
-  @include font($fs: 16px, $fw: 700, $lh: 19.2px);
-  color: $black;
 }
 
 .c-lightblue {

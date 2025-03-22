@@ -1,0 +1,36 @@
+@import "../../../mixins.scss";
+
+.privacy-policy {
+  @include box-padding($p: 110px 96px);
+  @include display-column($g: 32px);
+  min-height: calc(100vh - 96px);
+  color: $black;
+}
+
+.copyright {
+  @include display-row($jc: space-between);
+  margin-top: 15px;
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 1180px) {
+  .privacy-policy {
+    padding: 48px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .privacy-policy {
+    padding: 48px 24px;
+  }
+}
+
+@media (max-width: 568px) {
+  .privacy-policy {
+    padding: 48px 16px;
+  }
+
+  .copyright {
+    @include display-column($g: 4px);
+  }
+}
