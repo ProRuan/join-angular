@@ -76,3 +76,28 @@
   display: flex;
   overflow-x: hidden;
 }
+
+// only temporary!!!
+.mobile-menu {
+  height: 80px;
+  background-color: $dark;
+  display: none;
+}
+
+@media (max-width: 1180px) {
+  .menu {
+    display: none;
+  }
+
+  .content {
+    width: unset;
+  }
+
+  .main {
+    height: calc(100vh - 160px);
+  }
+
+  .mobile-menu {
+    display: block;
+  }
+}

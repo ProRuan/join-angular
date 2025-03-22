@@ -13,6 +13,11 @@
   color: $black;
 }
 
+.logo {
+  @include size($w: 32px, $h: 40px);
+  display: none;
+}
+
 .button-group {
   @include display-row($jc: center, $ai: center, $g: 16px);
 }
@@ -48,4 +53,31 @@
 .initials {
   @include font($fs: 20px, $fw: 700, $lh: 24px);
   color: $lightblue;
+}
+
+@media (max-width: 1180px) {
+  .header {
+    padding: 20px 32px;
+    min-height: 80px;
+  }
+
+  .title {
+    display: none;
+  }
+
+  .logo {
+    display: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 568px) {
+  .header {
+    padding: 20px 16px;
+  }
 }

@@ -41,3 +41,21 @@
 .c-lightblue {
   color: $lightblue;
 }
+
+@media (max-width: 1180px) {
+  .legal-notice {
+    padding: 48px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .legal-notice {
+    padding: 48px 24px;
+  }
+}
+
+@media (max-width: 568px) {
+  .legal-notice {
+    padding: 48px 16px;
+  }
+}

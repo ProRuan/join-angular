@@ -1,6 +1,6 @@
 <div class="user-interface" (click)="dialog.resetAssignedTo(); dialog.close('category'); dialog.close('subtask')"
     (dragend)="onDragend()">
-    <app-menu class=" menu"></app-menu>
+    <app-menu class="menu"></app-menu>
     <div class="content">
         <app-join-header></app-join-header>
         <main class="main pos-relative">
@@ -8,5 +8,7 @@
             <app-flip-menu></app-flip-menu>
             <router-outlet></router-outlet>
         </main>
+        <!-- add mobile menu!!! -->
+        <div class="mobile-menu"></div>
     </div>
 </div>
