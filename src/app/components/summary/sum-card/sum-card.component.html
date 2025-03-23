@@ -3,7 +3,7 @@
         (mousedown)="setPath(false)" (mouseup)="setPath(true)">
         <div class="urgent-task-cont">
             <div *ngIf="!isIconlessCategory()" [ngClass]="getIconClass('card-icon-cont')">
-                <img [ngClass]="getIconClass('card-icon')" [src]="currentPath" [alt]="icon">
+                <img class="card-icon" [src]="currentPath" [alt]="icon">
             </div>
             <div class="task-info" [ngClass]="getMaxWidthClass()">
                 <span class="counter">{{ task.amount }}</span>

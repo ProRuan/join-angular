@@ -1,5 +1,7 @@
 <section class="summary">
-    <app-join-title [title]="title" [subtitle]="subtitle"></app-join-title>
+    <!-- check desktop and mobile!! -->
+    <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
+    <app-join-title class="mobile" [title]="title" [subtitle]="subtitle" [dark]="true" [mobile]="true"></app-join-title>
 
     <div class="content">
         <div class="overview">

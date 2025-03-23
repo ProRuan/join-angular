@@ -12,6 +12,10 @@
   @include display-column($g: 8px);
 }
 
+.black {
+  color: $black;
+}
+
 .white {
   color: $white;
 }

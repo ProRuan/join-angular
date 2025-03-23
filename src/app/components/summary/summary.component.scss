@@ -1,10 +1,14 @@
 @import "../../../mixins.scss";
 
+// check desktop and mobile ... !
+
 .summary {
   @include box-padding($p: 110px 96px);
-  @include size($w: 100%, $h: calc(100vh - 96px));
-  @include display-column($g: 36px);
-  overflow-y: scroll;
+  @include display-column($g: 56px);
+}
+
+.mobile {
+  display: none;
 }
 
 .content {
@@ -31,4 +35,34 @@
 .user {
   @include font($fs: 64px, $fw: 700, $lh: 76.8px);
   color: $lightblue;
+}
+
+@media (max-width: 1180px) {
+  .summary {
+    padding: 48px 16px;
+    min-height: 100%;
+    gap: 40px;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: unset;
+  }
+
+  .content {
+    justify-content: center;
+  }
+
+  .overview {
+    width: 100%;
+    max-width: 396px;
+    gap: 24px;
+  }
+
+  .greeting-cont {
+    display: none;
+  }
 }

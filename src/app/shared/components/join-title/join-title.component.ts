@@ -14,6 +14,7 @@ import { Component, Input } from '@angular/core';
  */
 export class JoinTitleComponent {
   @Input() dark: boolean = false;
+  @Input() mobile: boolean = false;
   @Input() title: string = '';
   @Input() subtitle?: string;
 
@@ -22,7 +23,7 @@ export class JoinTitleComponent {
    * @returns The css class of the title container.
    */
   getTitleClass() {
-    return this.dark ? 'title-cont-dark' : '';
+    return this.dark || this.mobile ? 'title-cont-dark' : '';
   }
 
   /**
@@ -30,12 +31,14 @@ export class JoinTitleComponent {
    * @returns The css class of the text color.
    */
   getColorClass() {
-    return this.dark ? 'white' : '';
+    if (this.mobile) return 'black';
+    else if (this.dark) return 'white';
+    else return '';
   }
 
   /**
-   * Verifies the dark theme.
-   * @param value - A boolean value.
+   * Verifies the state of a dark theme.
+   * @param value - The value to verify.
    * @returns A boolean value.
    */
   isDarkTheme(value: boolean = false) {

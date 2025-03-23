@@ -30,10 +30,13 @@ legal-notice
 responsiveness
 --------------
   - summary ...
+  - summary greetings (mobile) ...
   - main min/max/width/height ... (0/4)
+  - join-header: help + profile (mobile) ... (0/2)
   - think about error text: login, sign-up, new-password ... (0/3)
   - backlog responsiveness: sign-up, new-password ... (0/2)
   - scroll to top after router link (on small devices) ...
+  - fix focus-visible ... !
   - favicon ...
 
 subscribtion

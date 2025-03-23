@@ -188,6 +188,11 @@
     @include font($fs: 47px, $fw: 700, $lh: 56.4px);
   }
 
+  .subheadline-2 {
+    @include font($fs: 20px, $fw: 400, $lh: 24px);
+    color: $dark;
+  }
+
   .other-component {
     padding: 48px 24px;
   }

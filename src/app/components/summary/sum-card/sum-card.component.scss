@@ -1,5 +1,9 @@
 @import "../../../../mixins.scss";
 
+// set hover/active (mobile) ... !
+//   --> icons (to-do, done) ...
+//   --> setPath() mobile ...
+
 .card-cont {
   @include display-flex();
   cursor: pointer;
@@ -21,7 +25,7 @@
   @include color-set($c: $dark, $bgc: $white);
   border-radius: 30px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  transition: all 80ms ease-in-out;
+  transition: all 100ms ease-in-out;
 
   &:hover {
     @include color-set($c: $white, $bgc: $dark);
@@ -35,7 +39,6 @@
 }
 
 .card-large {
-  @include box-padding($p: 28px 48px);
   @include min-size($w: 560px, $h: 168px);
   @include display-row($jc: center, $ai: center, $g: 61px);
 
@@ -45,7 +48,6 @@
 }
 
 .card-medium {
-  @include box-padding($p: 38px 19px);
   @include min-size($w: 264px, $h: 168px);
   @include display-row($jc: center, $ai: center, $g: 18px);
 
@@ -55,9 +57,8 @@
 }
 
 .card-small {
-  @include box-padding($p: 25px 0);
   @include min-size($w: 168px, $h: 168px);
-  @include display-row($jc: center, $ai: center, $g: 13px);
+  @include display-row($jc: center, $ai: center);
 
   &:hover {
     @include min-size($w: 184px, $h: 184px);
@@ -76,14 +77,8 @@
   @include size($w: 69px, $h: 69px);
 }
 
-.card-icon-urgent {
-  @include size($w: 60px, $h: 60px);
-  object-fit: contain;
-}
-
 .card-icon {
-  @include size($w: 69px, $h: 69px);
-  object-fit: contain;
+  @include size($w: 100%, $h: 100%);
 }
 
 .task-info {
@@ -132,4 +127,173 @@
 
 .deadline {
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+}
+
+@media (max-width: 1180px) {
+  .card-cont-large {
+    @include max-size($w: 396px, $h: 110px);
+  }
+
+  .card-cont-medium {
+    @include max-size($w: 186px, $h: 110px);
+  }
+
+  .card-cont-small {
+    @include max-size($w: 116px, $h: 116px);
+  }
+
+  .card {
+    @include color-set($c: $dark, $bgc: $white);
+    border-radius: 20px;
+
+    &:hover {
+      @include color-set($c: $dark, $bgc: $white);
+    }
+
+    &:active {
+      @include color-set($c: $white, $bgc: $dark);
+    }
+  }
+
+  .card-large {
+    @include min-size($w: 396px, $h: 110px);
+    gap: 20px;
+
+    &:hover {
+      @include min-size($w: 396px, $h: 110px);
+    }
+
+    &:active {
+      @include min-size($w: 396px, $h: 120px);
+    }
+  }
+
+  .card-medium {
+    @include min-size($w: 186px, $h: 110px);
+    gap: 10px;
+
+    &:hover {
+      @include min-size($w: 186px, $h: 110px);
+    }
+
+    &:active {
+      @include min-size($w: 194px, $h: 120px);
+    }
+  }
+
+  .card-small {
+    @include min-size($w: 116px, $h: 116px);
+    gap: 10px;
+
+    &:hover {
+      @include min-size($w: 116px, $h: 116px);
+    }
+
+    &:active {
+      @include min-size($w: 124px, $h: 124px);
+    }
+  }
+
+  .card-icon-cont-urgent {
+    @include size($w: 40px, $h: 40px);
+    @include max-size($w: 40px, $h: 40px);
+    @include display-flex();
+  }
+
+  .card-icon-cont {
+    @include size($w: 40px, $h: 40px);
+    @include max-size($w: 40px, $h: 40px);
+    @include display-flex();
+  }
+
+  .card-icon {
+    @include size($w: 40px, $h: 40px);
+    transition: all 100ms ease-in-out;
+
+    .card-cont-large:active &,
+    .card-cont-medium:active & {
+      @include size($w: 50px, $h: 50px);
+    }
+  }
+
+  .counter {
+    @include font($fs: 47px, $fw: 600, $lh: 56.4px);
+
+    .card:hover & {
+      color: $black;
+    }
+
+    .card:active & {
+      color: $white;
+    }
+  }
+
+  .category-urgent {
+    @include font($fs: 14px, $fw: 400, $lh: 16.8px);
+  }
+
+  .category {
+    @include font($fs: 14px, $fw: 400, $lh: 16.8px);
+  }
+
+  .border {
+    height: 68px;
+  }
+
+  .date-deadline-cont {
+    @include display-column($g: 8px);
+  }
+
+  .deadline {
+    @include font($fs: 14px, $fw: 400, $lh: 16.8px);
+  }
+}
+
+@media (max-width: 320px) {
+  .card-cont-large {
+    @include max-size($w: 288px, $h: 110px);
+  }
+
+  .card-cont-medium {
+    @include max-size($w: 138px, $h: 110px);
+  }
+
+  .card-cont-small {
+    @include max-size($w: 88px, $h: 116px);
+  }
+
+  .card-large {
+    @include min-size($w: 288px, $h: 110px);
+    gap: 12px;
+
+    &:hover {
+      @include min-size($w: 296px, $h: 118px);
+    }
+  }
+
+  .card-medium {
+    @include min-size($w: 138px, $h: 110px);
+    gap: 10px;
+
+    &:hover {
+      @include min-size($w: 146px, $h: 118px);
+    }
+  }
+
+  .card-small {
+    @include min-size($w: 88px, $h: 116px);
+    gap: 10px;
+
+    &:hover {
+      @include min-size($w: 96px, $h: 124px);
+    }
+  }
+
+  .date {
+    @include font($fs: 16px, $fw: 700, $lh: 19.2px);
+  }
+
+  .deadline {
+    @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  }
 }
