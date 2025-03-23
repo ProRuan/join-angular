@@ -17,6 +17,10 @@ images
   - all images within container ...
   - all images with width + object-fit ...
 
+input validation (login, sign-up, new-password)
+----------------
+  - form.errors instead of input.errors ... ?
+
 legal-notice
 ------------
   - set exploring the board e-mail (from guest login) ...
@@ -29,6 +33,7 @@ responsiveness
   - main min/max/width/height ... (0/4)
   - think about error text: login, sign-up, new-password ... (0/3)
   - backlog responsiveness: sign-up, new-password ... (0/2)
+  - scroll to top after router link (on small devices) ...
   - favicon ...
 
 subscribtion

@@ -7,6 +7,16 @@
   color: $black;
 }
 
+h3 {
+  @include font($fs: 27px, $fw: 700, $lh: 32.4px);
+  color: $black;
+}
+
+h4 {
+  @include font($fs: 20px, $fw: 700, $lh: 24px);
+  color: $black;
+}
+
 .copyright {
   @include display-row($jc: space-between);
   margin-top: 15px;

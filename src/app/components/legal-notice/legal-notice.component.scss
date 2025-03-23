@@ -11,12 +11,18 @@
   @include display-column($g: 16px);
 }
 
+h3 {
+  @include font($fs: 27px, $fw: 700, $lh: 32.4px);
+  color: $black;
+}
+
 .address {
   font-style: normal;
 }
 
-.c-lightblue {
-  color: $lightblue;
+h4 {
+  @include font($fs: 20px, $fw: 700, $lh: 24px);
+  color: $black;
 }
 
 @media (max-width: 1180px) {
