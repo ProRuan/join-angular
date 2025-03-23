@@ -1,12 +1,5 @@
 @import "../../../mixins.scss";
 
-.legal-notice {
-  @include box-padding($p: 110px 96px);
-  @include display-column($g: 32px);
-  min-height: calc(100vh - 96px);
-  color: $black;
-}
-
 .imprint {
   @include display-column($g: 16px);
 }
@@ -23,22 +16,4 @@ h3 {
 h4 {
   @include font($fs: 20px, $fw: 700, $lh: 24px);
   color: $black;
-}
-
-@media (max-width: 1180px) {
-  .legal-notice {
-    padding: 48px 32px;
-  }
-}
-
-@media (max-width: 768px) {
-  .legal-notice {
-    padding: 48px 24px;
-  }
-}
-
-@media (max-width: 568px) {
-  .legal-notice {
-    padding: 48px 16px;
-  }
 }

@@ -109,6 +109,13 @@
   background-color: #1fd7c1;
 }
 
+.other-component {
+  @include box-padding($p: 110px 96px);
+  @include display-column($g: 32px);
+  min-height: calc(100vh - 96px);
+  color: $black;
+}
+
 .important-link {
   text-decoration: none;
   color: $lightblue;
@@ -170,10 +177,24 @@
   .error {
     text-align: center;
   }
+
+  .other-component {
+    padding: 48px 32px;
+  }
 }
 
 @media (max-width: 768px) {
   .headline-2 {
     @include font($fs: 47px, $fw: 700, $lh: 56.4px);
+  }
+
+  .other-component {
+    padding: 48px 24px;
+  }
+}
+
+@media (max-width: 568px) {
+  .other-component {
+    padding: 48px 16px;
   }
 }

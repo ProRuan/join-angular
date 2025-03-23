@@ -1,12 +1,5 @@
 @import "../../../mixins.scss";
 
-.help {
-  @include box-padding($p: 110px 96px);
-  @include display-column($g: 32px);
-  min-height: calc(100vh - 96px);
-  color: $black;
-}
-
 h3 {
   @include font($fs: 27px, $fw: 700, $lh: 32.4px);
   color: $black;
