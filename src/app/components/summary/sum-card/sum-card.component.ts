@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { ToDoSvgComponent } from '../../../shared/components/svg/to-do-svg/to-do-svg.component';
+import { DoneSvgComponent } from '../../../shared/components/svg/done-svg/done-svg.component';
 import { RouterLink } from '@angular/router';
 import { SummaryTask } from '../../../shared/models/summary-task';
 
 @Component({
   selector: 'app-sum-card',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, ToDoSvgComponent, DoneSvgComponent, RouterLink],
   templateUrl: './sum-card.component.html',
   styleUrl: './sum-card.component.scss',
 })
@@ -17,17 +19,11 @@ import { SummaryTask } from '../../../shared/models/summary-task';
 export class SumCardComponent {
   cardContClass: string = '';
   cardClass: string = '';
+  iconContained: boolean = false;
   iconContClass: string = '';
-  icon: string = '';
-  iconClass: string = '';
-  iconless: boolean = false;
   taskInfoClass: string = '';
   categoryClass: string = '';
-  urgent: boolean = false;
-
-  // check html, css, ts ...
-  // complete responsiveness ...
-  // fix icon transition (svg or visibility?) ...
+  categoryUrgent: boolean = false;
 
   @Input() task: SummaryTask = new SummaryTask();
 
@@ -37,13 +33,11 @@ export class SumCardComponent {
   ngOnInit() {
     this.cardContClass = this.getCardClass('card-cont');
     this.cardClass = this.getCardClass('card');
+    this.iconContained = this.isIconContained();
     this.iconContClass = this.getIconContClass();
-    this.icon = this.getIcon();
-    this.iconClass = this.getIconClass();
-    this.iconless = this.isIconlessCategory();
     this.taskInfoClass = this.getTaskInfoClass();
     this.categoryClass = this.getCategoryClass();
-    this.urgent = this.isCategory('Urgent');
+    this.categoryUrgent = this.isCategory('Urgent');
   }
 
   /**
@@ -71,6 +65,17 @@ export class SumCardComponent {
   }
 
   /**
+   * Verifies a card containing an icon.
+   * @returns A boolean value.
+   */
+  isIconContained() {
+    let toDo = this.isCategory('To-do');
+    let done = this.isCategory('Done');
+    let urgent = this.isCategory('Urgent');
+    return toDo || done || urgent;
+  }
+
+  /**
    * Gets the css class of an icon container.
    * @param className - The class name.
    * @returns The css class of the icon container.
@@ -81,40 +86,11 @@ export class SumCardComponent {
   }
 
   /**
-   * Gets a task icon.
-   * @returns The task icon.
-   */
-  getIcon() {
-    if (this.isCategory('Urgent')) return 'urgent';
-    else if (this.isCategory('Done')) return 'done';
-    else return 'to-do';
-  }
-
-  /**
-   * Gets the css class of an icon.
-   * @returns The css class of the icon.
-   */
-  getIconClass() {
-    return `${this.icon}-icon`;
-  }
-
-  /**
-   * Verifies a iconless category.
-   * @returns A boolean value.
-   */
-  isIconlessCategory() {
-    let taskInBoard = this.isCategory('Tasks In Board');
-    let taskInProgress = this.isCategory('Tasks In Progress');
-    let awaitingFeedback = this.isCategory('Awaiting Feedback');
-    return taskInBoard || taskInProgress || awaitingFeedback;
-  }
-
-  /**
    * Gets the css class of a task info.
    * @returns The css class of the task info.
    */
   getTaskInfoClass() {
-    return this.isIconlessCategory() ? `mw-80` : '';
+    return !this.isIconContained() ? `mw-80` : '';
   }
 
   /**

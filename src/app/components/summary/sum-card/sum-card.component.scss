@@ -1,11 +1,5 @@
 @import "../../../../mixins.scss";
 
-$toDoPath: "/assets/img/summary/to_do.png";
-$toDoHoverPath: "/assets/img/summary/to_do_hover.png";
-$donePath: "/assets/img/summary/done.png";
-$doneHoverPath: "/assets/img/summary/done_hover.png";
-$urgentPath: "/assets/img/summary/urgent.png";
-
 .card-cont {
   @include display-flex();
   cursor: pointer;
@@ -21,23 +15,6 @@ $urgentPath: "/assets/img/summary/urgent.png";
 
 .card-cont-small {
   @include max-size($w: 168px, $h: 168px);
-}
-
-.card {
-  @include color-set($c: $dark, $bgc: $white);
-  border-radius: 30px;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-  transition: all 100ms ease-in-out;
-
-  &:hover {
-    @include color-set($c: $white, $bgc: $dark);
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  }
-
-  &:active {
-    @include color-set($c: $dark, $bgc: #f9f9f9);
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  }
 }
 
 .card-large {
@@ -76,31 +53,11 @@ $urgentPath: "/assets/img/summary/urgent.png";
 }
 
 .card-icon-cont {
-  @include size($w: 69px, $h: 69px);
-}
-
-.card-icon {
-  @include size($w: 100%, $h: 100%);
-}
-
-.to-do-icon {
-  content: url($toDoPath);
-
-  .card-medium:hover & {
-    content: url($toDoHoverPath);
-  }
-}
-
-.done-icon {
-  content: url($donePath);
-
-  .card-medium:hover & {
-    content: url($doneHoverPath);
-  }
+  @include size($w: 70px, $h: 70px);
 }
 
 .urgent-icon {
-  content: url($urgentPath);
+  @include size($w: 100%, $h: 100%);
 }
 
 .task-info {
@@ -115,6 +72,7 @@ $urgentPath: "/assets/img/summary/urgent.png";
 .counter {
   @include font($fs: 64px, $fw: 600, $lh: 76.8px);
   color: $black;
+  transition: all 100ms ease-in-out;
 
   .card:hover & {
     color: $white;
@@ -162,21 +120,6 @@ $urgentPath: "/assets/img/summary/urgent.png";
 
   .card-cont-small {
     @include max-size($w: 116px, $h: 116px);
-  }
-
-  .card {
-    @include color-set($c: $dark, $bgc: $white);
-    border-radius: 20px;
-
-    &:hover {
-      @include color-set($c: $dark, $bgc: $white);
-      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-    }
-
-    &:active {
-      @include color-set($c: $white, $bgc: $dark);
-      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-    }
   }
 
   .card-large {
@@ -230,37 +173,13 @@ $urgentPath: "/assets/img/summary/urgent.png";
     @include display-flex();
   }
 
-  .card-icon {
+  .urgent-icon {
     @include size($w: 40px, $h: 40px);
     transition: all 100ms ease-in-out;
 
     .card-large:active &,
     .card-medium:active & {
-      @include size($w: 50px, $h: 50px);
-    }
-  }
-
-  .to-do-icon {
-    content: url($toDoPath);
-
-    .card-medium:hover & {
-      content: url($toDoPath);
-    }
-
-    .card-medium:active & {
-      content: url($toDoHoverPath);
-    }
-  }
-
-  .done-icon {
-    content: url($donePath);
-
-    .card-medium:hover & {
-      content: url($donePath);
-    }
-
-    .card-medium:active & {
-      content: url($doneHoverPath);
+      transform: scale(1.25);
     }
   }
 
@@ -321,7 +240,6 @@ $urgentPath: "/assets/img/summary/urgent.png";
 
   .card-medium {
     @include min-size($w: 138px, $h: 110px);
-    gap: 10px;
 
     &:hover {
       @include min-size($w: 146px, $h: 118px);
@@ -330,7 +248,6 @@ $urgentPath: "/assets/img/summary/urgent.png";
 
   .card-small {
     @include min-size($w: 88px, $h: 116px);
-    gap: 10px;
 
     &:hover {
       @include min-size($w: 96px, $h: 124px);

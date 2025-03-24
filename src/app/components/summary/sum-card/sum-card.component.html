@@ -1,16 +1,22 @@
 <div routerLink="../board" class="card-cont" [class]="cardContClass">
     <div class="card" [class]="cardClass">
         <div class="urgent-task-cont">
-            <div *ngIf="!iconless" [class]="iconContClass">
-                <img class="card-icon" [class]="iconClass" [alt]="icon">
+            <div *ngIf="iconContained" [class]="iconContClass">
+                @if (isCategory('To-do')) {
+                <app-to-do-svg></app-to-do-svg>
+                } @else if (isCategory('Done')) {
+                <app-done-svg></app-done-svg>
+                } @else {
+                <img class="urgent-icon" src="/assets/img/summary/urgent.png" alt="urgent">
+                }
             </div>
             <div class="task-info" [class]="taskInfoClass">
                 <span class="counter">{{ task.amount }}</span>
                 <span [class]="categoryClass">{{ task.category }}</span>
             </div>
         </div>
-        <div *ngIf="urgent" class="border"></div>
-        <div *ngIf="urgent" class="date-deadline-cont">
+        <div *ngIf="categoryUrgent" class="border"></div>
+        <div *ngIf="categoryUrgent" class="date-deadline-cont">
             <span class="date">{{ task.deadline }}</span>
             <span class="deadline">Upcoming Deadline</span>
         </div>
