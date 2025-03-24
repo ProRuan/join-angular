@@ -15,7 +15,9 @@
                 <span [class]="categoryClass">{{ task.category }}</span>
             </div>
         </div>
+
         <div *ngIf="categoryUrgent" class="border"></div>
+
         <div *ngIf="categoryUrgent" class="date-deadline-cont">
             <span class="date">{{ task.deadline }}</span>
             <span class="deadline">Upcoming Deadline</span>

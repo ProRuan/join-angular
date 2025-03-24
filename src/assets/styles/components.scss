@@ -21,3 +21,9 @@ app-delete-contact-dialog {
 app-checkbox {
   @include size($w: 24px, $h: 24px);
 }
+
+@media (max-width: 1180px) {
+  app-summary {
+    @include display-row($jc: center);
+  }
+}

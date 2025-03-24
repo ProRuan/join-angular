@@ -216,7 +216,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 427px) {
   .card-cont-large {
     @include max-size($w: 288px, $h: 110px);
   }
@@ -234,6 +234,10 @@
     gap: 12px;
 
     &:hover {
+      @include min-size($w: 288px, $h: 110px);
+    }
+
+    &:active {
       @include min-size($w: 296px, $h: 118px);
     }
   }
@@ -242,6 +246,10 @@
     @include min-size($w: 138px, $h: 110px);
 
     &:hover {
+      @include min-size($w: 138px, $h: 110px);
+    }
+
+    &:active {
       @include min-size($w: 146px, $h: 118px);
     }
   }
@@ -250,6 +258,10 @@
     @include min-size($w: 88px, $h: 116px);
 
     &:hover {
+      @include min-size($w: 88px, $h: 116px);
+    }
+
+    &:active {
       @include min-size($w: 96px, $h: 124px);
     }
   }
