@@ -15,10 +15,19 @@ import { SummaryTask } from '../../../shared/models/summary-task';
  * Class representing a sum card component.
  */
 export class SumCardComponent {
+  cardContClass: string = '';
+  cardClass: string = '';
+  iconContClass: string = '';
   icon: string = '';
-  defaultPath: string = '';
-  hoverPath: string = '';
-  currentPath: string = '';
+  iconClass: string = '';
+  iconless: boolean = false;
+  taskInfoClass: string = '';
+  categoryClass: string = '';
+  urgent: boolean = false;
+
+  // check html, css, ts ...
+  // complete responsiveness ...
+  // fix icon transition (svg or visibility?) ...
 
   @Input() task: SummaryTask = new SummaryTask();
 
@@ -26,20 +35,30 @@ export class SumCardComponent {
    * Initializes a sum card component.
    */
   ngOnInit() {
+    this.cardContClass = this.getCardClass('card-cont');
+    this.cardClass = this.getCardClass('card');
+    this.iconContClass = this.getIconContClass();
     this.icon = this.getIcon();
-    this.defaultPath = this.getPath();
-    this.hoverPath = this.getPath('hover');
-    this.currentPath = this.defaultPath;
+    this.iconClass = this.getIconClass();
+    this.iconless = this.isIconlessCategory();
+    this.taskInfoClass = this.getTaskInfoClass();
+    this.categoryClass = this.getCategoryClass();
+    this.urgent = this.isCategory('Urgent');
   }
 
   /**
-   * Gets a task icon.
-   * @returns The task icon.
+   * Gets the css class of a card.
+   * @param className - The class name.
+   * @returns The css class of the card.
    */
-  getIcon() {
-    if (this.isCategory('Urgent')) return 'urgent';
-    else if (this.isCategory('Done')) return 'done';
-    else return 'to_do';
+  getCardClass(className: string) {
+    if (this.isCategory('Urgent')) {
+      return `${className}-large`;
+    } else if (this.isCategory('To-do') || this.isCategory('Done')) {
+      return `${className}-medium`;
+    } else {
+      return `${className}-small`;
+    }
   }
 
   /**
@@ -52,38 +71,31 @@ export class SumCardComponent {
   }
 
   /**
-   * Gets a source path.
-   * @param hover - A boolean value.
-   * @returns The source path.
+   * Gets the css class of an icon container.
+   * @param className - The class name.
+   * @returns The css class of the icon container.
    */
-  getPath(hover?: string) {
-    if (hover && !this.isCategory('Urgent')) {
-      return `./assets/img/summary/${this.icon}_${hover}.png`;
-    } else {
-      return `./assets/img/summary/${this.icon}.png`;
-    }
+  getIconContClass() {
+    let className = 'card-icon-cont';
+    return this.isCategory('Urgent') ? `${className}-urgent` : className;
   }
 
   /**
-   * Gets the css class of a card.
-   * @returns The css class of the card.
+   * Gets a task icon.
+   * @returns The task icon.
    */
-  getCardClass(element: string) {
-    if (this.isCategory('Urgent')) {
-      return `${element}-large`;
-    } else if (this.isCategory('To-do') || this.isCategory('Done')) {
-      return `${element}-medium`;
-    } else {
-      return `${element}-small`;
-    }
+  getIcon() {
+    if (this.isCategory('Urgent')) return 'urgent';
+    else if (this.isCategory('Done')) return 'done';
+    else return 'to-do';
   }
 
   /**
-   * Sets the current path of an icon.
-   * @param logical - A boolean value.
+   * Gets the css class of an icon.
+   * @returns The css class of the icon.
    */
-  setPath(logical: boolean) {
-    this.currentPath = logical ? this.hoverPath : this.defaultPath;
+  getIconClass() {
+    return `${this.icon}-icon`;
   }
 
   /**
@@ -98,18 +110,10 @@ export class SumCardComponent {
   }
 
   /**
-   * Gets the css class of an icon.
-   * @returns The css class of the icon.
+   * Gets the css class of a task info.
+   * @returns The css class of the task info.
    */
-  getIconClass(element: string) {
-    return this.isCategory('Urgent') ? `${element}-urgent` : element;
-  }
-
-  /**
-   * Gets the css class for the max-width.
-   * @returns The css class for the max-width.
-   */
-  getMaxWidthClass() {
+  getTaskInfoClass() {
     return this.isIconlessCategory() ? `mw-80` : '';
   }
 

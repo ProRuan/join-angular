@@ -1,8 +1,10 @@
 @import "../../../../mixins.scss";
 
-// set hover/active (mobile) ... !
-//   --> icons (to-do, done) ...
-//   --> setPath() mobile ...
+$toDoPath: "/assets/img/summary/to_do.png";
+$toDoHoverPath: "/assets/img/summary/to_do_hover.png";
+$donePath: "/assets/img/summary/done.png";
+$doneHoverPath: "/assets/img/summary/done_hover.png";
+$urgentPath: "/assets/img/summary/urgent.png";
 
 .card-cont {
   @include display-flex();
@@ -81,6 +83,26 @@
   @include size($w: 100%, $h: 100%);
 }
 
+.to-do-icon {
+  content: url($toDoPath);
+
+  .card-medium:hover & {
+    content: url($toDoHoverPath);
+  }
+}
+
+.done-icon {
+  content: url($donePath);
+
+  .card-medium:hover & {
+    content: url($doneHoverPath);
+  }
+}
+
+.urgent-icon {
+  content: url($urgentPath);
+}
+
 .task-info {
   @include display-column($ai: center);
   text-align: center;
@@ -148,10 +170,12 @@
 
     &:hover {
       @include color-set($c: $dark, $bgc: $white);
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
     }
 
     &:active {
       @include color-set($c: $white, $bgc: $dark);
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     }
   }
 
@@ -210,9 +234,33 @@
     @include size($w: 40px, $h: 40px);
     transition: all 100ms ease-in-out;
 
-    .card-cont-large:active &,
-    .card-cont-medium:active & {
+    .card-large:active &,
+    .card-medium:active & {
       @include size($w: 50px, $h: 50px);
+    }
+  }
+
+  .to-do-icon {
+    content: url($toDoPath);
+
+    .card-medium:hover & {
+      content: url($toDoPath);
+    }
+
+    .card-medium:active & {
+      content: url($toDoHoverPath);
+    }
+  }
+
+  .done-icon {
+    content: url($donePath);
+
+    .card-medium:hover & {
+      content: url($donePath);
+    }
+
+    .card-medium:active & {
+      content: url($doneHoverPath);
     }
   }
 
