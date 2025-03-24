@@ -109,8 +109,7 @@
   background-color: #1fd7c1;
 }
 
-// think about name ...
-.card {
+.sum-card {
   @include color-set($c: $dark, $bgc: $white);
   border-radius: 30px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
@@ -127,67 +126,47 @@
   }
 }
 
-// think about structure ... (2x)
-.to-do-icon {
+.svg-icon {
   @include size($w: 100%, $h: 100%);
   display: block;
+}
 
-  circle {
-    fill: $dark;
-    transition: all 100ms ease-in-out;
+.svg-circle {
+  fill: $dark;
+  transition: all 100ms ease-in-out;
 
-    .card:hover & {
-      fill: $white;
-    }
-
-    .card:active & {
-      fill: $dark;
-    }
+  .sum-card:hover & {
+    fill: $white;
   }
 
-  path {
-    fill: $white;
-    transition: all 100ms ease-in-out;
-
-    .card:hover & {
-      fill: $dark;
-    }
-
-    .card:active & {
-      fill: $white;
-    }
+  .sum-card:active & {
+    fill: $dark;
   }
 }
 
-// think about structure ... (2x)
-.done-icon {
-  @include size($w: 100%, $h: 100%);
-  display: block;
+.svg-path-fill {
+  fill: $white;
+  transition: all 100ms ease-in-out;
 
-  circle {
+  .sum-card:hover & {
     fill: $dark;
-    transition: all 100ms ease-in-out;
-
-    .card:hover & {
-      fill: $white;
-    }
-
-    .card:active & {
-      fill: $dark;
-    }
   }
 
-  path {
+  .sum-card:active & {
+    fill: $white;
+  }
+}
+
+.svg-path-stroke {
+  stroke: $white;
+  transition: all 100ms ease-in-out;
+
+  .sum-card:hover & {
+    stroke: $dark;
+  }
+
+  .sum-card:active & {
     stroke: $white;
-    transition: all 100ms ease-in-out;
-
-    .card:hover & {
-      stroke: $dark;
-    }
-
-    .card:active & {
-      stroke: $white;
-    }
   }
 }
 
@@ -260,7 +239,7 @@
     text-align: center;
   }
 
-  .card {
+  .sum-card {
     @include color-set($c: $dark, $bgc: $white);
     border-radius: 20px;
 
@@ -275,59 +254,41 @@
     }
   }
 
-  .to-do-icon {
+  .svg-icon {
     transition: all 100ms ease-in-out;
 
-    circle {
-      .card:hover & {
-        fill: $dark;
-      }
-
-      .card:active & {
-        fill: $white;
-      }
-    }
-
-    path {
-      .card:hover & {
-        fill: $white;
-      }
-
-      .card:active & {
-        fill: $dark;
-      }
-    }
-
-    .card:active & {
+    .sum-card:active & {
       transform: scale(1.25);
     }
   }
 
-  .done-icon {
-    transition: all 100ms ease-in-out;
-
-    circle {
-      .card:hover & {
-        fill: $dark;
-      }
-
-      .card:active & {
-        fill: $white;
-      }
+  .svg-circle {
+    .sum-card:hover & {
+      fill: $dark;
     }
 
-    path {
-      .card:hover & {
-        stroke: $white;
-      }
+    .sum-card:active & {
+      fill: $white;
+    }
+  }
 
-      .card:active & {
-        stroke: $dark;
-      }
+  .svg-path-fill {
+    .sum-card:hover & {
+      fill: $white;
     }
 
-    .card:active & {
-      transform: scale(1.25);
+    .sum-card:active & {
+      fill: $dark;
+    }
+  }
+
+  .svg-path-stroke {
+    .sum-card:hover & {
+      stroke: $white;
+    }
+
+    .sum-card:active & {
+      stroke: $dark;
     }
   }
 
