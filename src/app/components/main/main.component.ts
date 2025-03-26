@@ -8,6 +8,7 @@ import { JoinHeaderComponent } from '../../shared/components/join-header/join-he
 import { DialogService } from '../../shared/services/dialog.service';
 import { BoardService } from '../../shared/services/board.service';
 import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.component';
+import { MobileMenuComponent } from '../../shared/components/mobile-menu/mobile-menu.component';
 
 @Component({
   selector: 'app-main',
@@ -18,6 +19,7 @@ import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.c
     JoinHeaderComponent,
     CommonModule,
     FlipMenuComponent,
+    MobileMenuComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

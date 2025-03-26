@@ -2,7 +2,6 @@
 
 .summary {
   @include box-padding($p: 110px 96px);
-  @include display-column($g: 56px);
 }
 
 .mobile {
@@ -10,6 +9,10 @@
 }
 
 .content {
+  @include display-column($g: 56px);
+}
+
+.overview-greeting-cont {
   @include display-row($ai: center, $g: 80px);
 }
 
@@ -37,9 +40,9 @@
 
 @media (max-width: 1180px) {
   .summary {
+    @include display-row($jc: center);
     padding: 48px 16px;
     min-height: 100%;
-    gap: 40px;
   }
 
   .desktop {
@@ -51,7 +54,8 @@
   }
 
   .content {
-    justify-content: center;
+    max-width: 396px;
+    gap: 40px;
   }
 
   .overview {

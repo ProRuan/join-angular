@@ -1,26 +1,29 @@
 <section class="summary">
-    <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
-    <app-join-title class="mobile" [title]="title" [subtitle]="subtitle" [dark]="true" [mobile]="true"></app-join-title>
-
     <div class="content">
-        <div class="overview">
-            <div class="task-row">
-                <app-sum-card [task]="summary.toDo"></app-sum-card>
-                <app-sum-card [task]="summary.done"></app-sum-card>
-            </div>
-            <div class="task-row">
-                <app-sum-card [task]="summary.urgent"></app-sum-card>
-            </div>
-            <div class="task-row">
-                <app-sum-card [task]="summary.inBoard"></app-sum-card>
-                <app-sum-card [task]="summary.inProgress"></app-sum-card>
-                <app-sum-card [task]="summary.awaitingFeedback"></app-sum-card>
-            </div>
-        </div>
+        <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
+        <app-join-title class="mobile" [title]="title" [subtitle]="subtitle" [dark]="true"
+            [mobile]="true"></app-join-title>
 
-        <div class="greeting-cont">
-            <span class="greeting">Good morning,</span>
-            <span class="user">{{ join.user.name }}</span>
+        <div class="overview-greeting-cont">
+            <div class="overview">
+                <div class="task-row">
+                    <app-sum-card [task]="summary.toDo"></app-sum-card>
+                    <app-sum-card [task]="summary.done"></app-sum-card>
+                </div>
+                <div class="task-row">
+                    <app-sum-card [task]="summary.urgent"></app-sum-card>
+                </div>
+                <div class="task-row">
+                    <app-sum-card [task]="summary.inBoard"></app-sum-card>
+                    <app-sum-card [task]="summary.inProgress"></app-sum-card>
+                    <app-sum-card [task]="summary.awaitingFeedback"></app-sum-card>
+                </div>
+            </div>
+
+            <div class="greeting-cont">
+                <span class="greeting">Good morning,</span>
+                <span class="user">{{ join.user.name }}</span>
+            </div>
         </div>
     </div>
 </section>
