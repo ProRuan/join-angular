@@ -1,7 +1,7 @@
 @import "../../../../mixins.scss";
 
 .column {
-  @include display-column($ai: center, $g: 8px);
+  @include display-column($ai: center, $g: 16px);
 }
 
 .head {
@@ -36,12 +36,14 @@
 .body {
   @include display-column($g: 16px);
   height: 668px;
+  overflow-y: auto;
 }
 
 .placeholder {
   @include size($w: 100%, $h: 48px);
   @include round-border($b: 1px dotted $darkgray, $br: 10px);
   @include display-flex();
+  box-sizing: border-box;
   min-width: 252px;
   background-color: #e7e7e7;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
@@ -63,4 +65,36 @@
 
 .bgc {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 1180px) {
+  .head-text {
+    @include font($fs: 27px, $fw: 700, $lh: 32.4px);
+  }
+
+  .add-btn {
+    @include size($w: 30px, $h: 30px);
+    background-size: 30px 30px;
+
+    &:hover {
+      background-image: url("/assets/img/board/add_framed.png");
+    }
+
+    &:active {
+      background-image: url("/assets/img/board/add_framed_hover.png");
+    }
+  }
+
+  .body {
+    @include size($w: 100%, $h: unset);
+    @include display-row($g: 16px);
+    overflow-x: auto;
+    overflow-y: unset;
+  }
+
+  .feedback {
+    @include min-size($w: 250px, $h: 263px);
+    height: 263px;
+    border-radius: 24px;
+  }
 }

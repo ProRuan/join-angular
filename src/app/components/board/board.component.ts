@@ -12,6 +12,7 @@ import { JoinService } from '../../shared/services/join.service';
 import { ButtonDataService } from '../../shared/services/button-data.service';
 import { BoardService } from '../../shared/services/board.service';
 import { DialogService } from '../../shared/services/dialog.service';
+import { NavigationService } from '../../shared/services/navigation.service';
 import { JoinButton } from '../../shared/models/join-button';
 import { Task } from '../../shared/models/task';
 
@@ -41,6 +42,13 @@ export class BoardComponent {
   buttons: ButtonDataService = inject(ButtonDataService);
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
+  nav: NavigationService = inject(NavigationService);
+
+  // review onAdd() ...
+  // add isMobileWidth() to join service ...
+
+  // add responsiveness for board ...
+  // add responsiveness for dialogs ...
 
   title: string = 'Board';
   addTaskBtn = new JoinButton('addTaskBtn');
@@ -72,7 +80,11 @@ export class BoardComponent {
    * Opens an add-task dialog on click.
    */
   onAdd() {
-    this.dialog.open('addTask');
+    if (this.join.windowWidth < 1180 + 1) {
+      this.nav.navigateByLink('add-task');
+    } else {
+      this.dialog.open('addTask');
+    }
   }
 
   /**

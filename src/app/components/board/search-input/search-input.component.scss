@@ -48,3 +48,20 @@
     background-image: url("/assets/img/board/search_active.png");
   }
 }
+
+@media (max-width: 1180px) {
+  .input-cont {
+    width: 100%;
+    max-width: 396px;
+  }
+
+  .button {
+    &:hover {
+      background-image: url("/assets/img/board/search.png");
+    }
+
+    &:active {
+      background-image: url("/assets/img/board/search_active.png");
+    }
+  }
+}
