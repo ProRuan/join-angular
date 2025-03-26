@@ -120,6 +120,15 @@ export function getLastElement<T>(values: T[]) {
 }
 
 /**
+ * Gets a last index from an array.
+ * @param values - The array.
+ * @returns The last index.
+ */
+export function getLastIndex<T>(values: T[]) {
+  return values.length - 1;
+}
+
+/**
  * Gets an item from the local storage.
  * @param key - The item key.
  * @returns The item.

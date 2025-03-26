@@ -1,49 +1,11 @@
 <nav class="mobile-menu">
-    <button class="button" [disabled]="isDisabled('summary')" (click)="onNavigate('summary')">
-        <div class="icon-text-cont">
-            <div class="icon-cont">
-                <img class="icon" src="/assets/img/menu/summary_icon.png" alt="summary_icon">
+    <div class="button-group">
+        <button *ngFor="let link of links" class="button" [disabled]="isDisabled(link.id)"
+            (click)="onNavigate(link.id)">
+            <div class="icon-text-cont">
+                <img class="icon" [src]="getSrc(link.img)" [alt]="link.img">
+                <span class="text">{{ link.text }}</span>
             </div>
-
-            <div>
-                <span class="text">Summary</span>
-            </div>
-        </div>
-    </button>
-
-    <button class="button" [disabled]="isDisabled('board')" (click)="onNavigate('board')">
-        <div class="icon-text-cont">
-            <div class="icon-cont">
-                <img class="icon" src="/assets/img/menu/board_icon.png" alt="board_icon">
-            </div>
-
-            <div>
-                <span class="text">Board</span>
-            </div>
-        </div>
-    </button>
-
-    <button class="button" [disabled]="isDisabled('add-task')" (click)="onNavigate('add-task')">
-        <div class="icon-text-cont">
-            <div class="icon-cont">
-                <img class="icon" src="/assets/img/menu/task_icon.png" alt="task_icon">
-            </div>
-
-            <div>
-                <span class="text">Add Tasks</span>
-            </div>
-        </div>
-    </button>
-
-    <button class="button" [disabled]="isDisabled('contacts')" (click)="onNavigate('contacts')">
-        <div class="icon-text-cont">
-            <div class="icon-cont">
-                <img class="icon" src="/assets/img/menu/contacts_icon.png" alt="contacts_icon">
-            </div>
-
-            <div>
-                <span class="text">Contacts</span>
-            </div>
-        </div>
-    </button>
+        </button>
+    </div>
 </nav>

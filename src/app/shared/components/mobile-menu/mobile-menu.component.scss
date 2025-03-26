@@ -1,15 +1,16 @@
 @import "../../../../mixins.scss";
 
-// check style ...
-// set opacity 0.8 ...
-// set opacity 1 if disabled (selected) ...
-// add router links ...
-
 .mobile-menu {
-  @include display-row($jc: space-between, $ai: center);
+  @include display-row($jc: center, $ai: center);
   padding: 2px 16px;
   background-color: $dark;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+  @include display-row($jc: space-between, $ai: center);
+  width: 100%;
+  max-width: 396px;
 }
 
 .button {
@@ -34,16 +35,22 @@
   @include display-column($jc: center, $ai: center, $g: 10px);
 }
 
-.icon-cont {
-  @include size($w: 24px, $h: 24px);
-}
-
 .icon {
-  @include size($w: 100%, $h: 100%);
+  @include size($w: 24px, $h: 24px);
 }
 
 .text {
   @include font($fs: 14px, $fw: 400, $lh: 16.8px);
   font-family: $openSans;
   color: $white;
+}
+
+@media (max-width: 360px) {
+  .button {
+    width: 70px;
+  }
+
+  .text {
+    @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  }
 }

@@ -87,6 +87,7 @@ Components (10/?) + await inputs ... + resp(3/?)
   - LogoComponent - check
       - LogoSvgComponent - check
   - MenuComponent - check
+  - MobileMenuComponent - check
   - TitleComponent - check + responsive
   - inputs ... (8/?) ? = 10?
     ------

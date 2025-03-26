@@ -15,6 +15,9 @@ missing files
 menu
 ----
   - store current menu link (also for mobile menu) ...
+  - check all routes/routers ...
+  - set nav: login timeout:1000ms to ? ...
+  - user RouterLink or navigateByLink() ... ?
 
 content container
 -----------------

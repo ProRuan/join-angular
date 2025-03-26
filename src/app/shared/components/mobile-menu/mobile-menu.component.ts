@@ -1,41 +1,51 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { getLastElement, setSessionalItem } from '../../ts/global';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-mobile-menu',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './mobile-menu.component.html',
   styleUrl: './mobile-menu.component.scss',
 })
+
+/**
+ * Class representing a mobile menu component.
+ */
 export class MobileMenuComponent {
-  // router: global double code?
-  router: Router = inject(Router);
+  nav: NavigationService = inject(NavigationService);
 
-  // add link object ...
-  // link object on service ...
-  // save current link during login session ...
+  links = [
+    { id: 'summary', img: 'summary_icon', text: 'Summary' },
+    { id: 'board', img: 'board_icon', text: 'Board' },
+    { id: 'add-task', img: 'task_icon', text: 'Add Tasks' },
+    { id: 'contacts', img: 'contacts_icon', text: 'Contacts' },
+  ];
 
-  // double code
-  onNavigate(id: string) {
-    let url = this.getUrl();
-    url.push(id);
-    console.log('url: ', url);
-
-    this.router.navigate(url);
-    // setSessionalItem('route', id);
-  }
-
-  // getLastIndex as global function!
-  getUrl() {
-    let url = this.router.url.split('/');
-    let lastIndex = url.length - 1;
-    return url.slice(0, lastIndex);
-  }
-
-  // double code
+  /**
+   * Verifies the disabled state of a link.
+   * @param id - The link id.
+   * @returns A boolean value.
+   */
   isDisabled(id: string) {
-    return this.router.url.endsWith(id);
+    return this.nav.isLinkActivated(id);
+  }
+
+  /**
+   * Navigates to a component by link id.
+   * @param id - The link id.
+   */
+  onNavigate(id: string) {
+    this.nav.navigateByLink(id);
+  }
+
+  /**
+   * Gets the source path of an icon.
+   * @param img - The image name.
+   * @returns The source path of the icon.
+   */
+  getSrc(img: string) {
+    return this.nav.getMenuSrc(img);
   }
 }

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-menu',
@@ -14,7 +15,7 @@ import { Router, RouterLink } from '@angular/router';
  * Class representing a menu component.
  */
 export class MenuComponent {
-  router: Router = inject(Router);
+  nav: NavigationService = inject(NavigationService);
 
   mainLinks = [
     { id: 'summary', img: 'summary_icon', text: 'Summary' },
@@ -34,7 +35,7 @@ export class MenuComponent {
    * @returns The source path of the link icon.
    */
   getSrc(img: string) {
-    return `./assets/img/menu/${img}.png`;
+    return this.nav.getMenuSrc(img);
   }
 
   /**
@@ -43,6 +44,6 @@ export class MenuComponent {
    * @returns A boolean value.
    */
   isDisabled(id: string) {
-    return this.router.url.endsWith(id);
+    return this.nav.isLinkActivated(id);
   }
 }
