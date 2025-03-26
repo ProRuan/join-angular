@@ -5,7 +5,7 @@
         <button *ngFor="let button of buttons" class="button" [ngClass]="button.id" type="button"
             [disabled]="isDisabled(button.id)" (click)="onClick(button.id)">
             <span class="text">{{ button.name }}</span>
-            <img [src]="button.src" [alt]="button.img">
+            <img class="icon" [src]="button.src" [alt]="button.img">
         </button>
     </div>
 </div>

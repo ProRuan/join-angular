@@ -166,3 +166,13 @@
     content: unset;
   }
 }
+
+@media (max-width: 360px) {
+  .clear-btn-img {
+    display: none;
+  }
+
+  .create-btn-img {
+    display: none;
+  }
+}

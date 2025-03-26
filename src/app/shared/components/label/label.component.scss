@@ -8,3 +8,9 @@
 .star {
   color: #ff8190;
 }
+
+@media (max-width: 1180px) {
+  .label {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+}

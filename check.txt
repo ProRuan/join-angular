@@ -39,7 +39,7 @@ Top Level Scripts
   - shared/services - check (13)
   - shared/ts - check (7)
 
-Join (7/?) + responsive (7/?)
+Join (8/?) + responsive (8/?)
 ----
   - LoginComponent - check + responsive *logInUser() and rememberUser()
   - NewPasswordComponent - check + responsive
@@ -55,7 +55,7 @@ Join (7/?) + responsive (7/?)
   - MainComponent ...
   - SummaryComponent - check + responsive
       - SumCardComponent - check
-  - AddTaskComponent - check
+  - AddTaskComponent - check + responsive
   - BoardComponent - check
       - SearchInputComponent - check
       - ColumnComponent - check

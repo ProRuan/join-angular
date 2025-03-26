@@ -37,3 +37,19 @@
 .resizer {
   object-fit: contain;
 }
+
+@media (max-width: 1180px) {
+  .input-hint-cont {
+    min-height: 104px;
+  }
+
+  .textarea {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    padding: 17px 20px;
+    height: 88px;
+  }
+
+  .resizer-cont {
+    display: none;
+  }
+}

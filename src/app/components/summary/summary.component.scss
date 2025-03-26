@@ -1,7 +1,5 @@
 @import "../../../mixins.scss";
 
-// check desktop and mobile ... !
-
 .summary {
   @include box-padding($p: 110px 96px);
   @include display-column($g: 56px);

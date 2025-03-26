@@ -29,3 +29,14 @@
 .invalid {
   border: 1px solid $error;
 }
+
+@media (max-width: 1180px) {
+  .input-hint-cont {
+    min-height: 56px;
+  }
+
+  .input {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    padding: 9px 20px;
+  }
+}

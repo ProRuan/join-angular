@@ -6,5 +6,6 @@
         <span class="subheadline-2" [ngClass]="getColorClass()">{{ subtitle }}</span>
         }
     </div>
-    <div *ngIf="isDarkTheme(true)" class="border-dark"></div>
+    <!-- review! -->
+    <div *ngIf="isDarkTheme(true) && subtitle" class="border-dark"></div>
 </div>

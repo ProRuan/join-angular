@@ -1,9 +1,5 @@
 @import "../../../mixins.scss";
 
-.add-task {
-  @include size($w: 100%, $h: calc(100vh - 96px));
-}
-
 .padding-desktop {
   @include box-padding($p: 110px 96px);
 }
@@ -13,8 +9,8 @@
 }
 
 .content {
-  @include size($w: 1016px, $h: 100%);
-  @include display-column($jc: space-between, $g: 32px);
+  @include size($w: 977px, $h: 100%);
+  @include display-column($jc: space-between, $g: 48px);
 }
 
 .column-desktop {
@@ -23,6 +19,10 @@
 
 .column-dialog {
   @include display-column($g: 32px);
+}
+
+.mobile {
+  display: none;
 }
 
 .form {
@@ -58,4 +58,88 @@
 
 .button-group {
   @include display-row($jc: flex-end, $ai: center, $g: 16px);
+}
+
+@media (max-width: 1439px) {
+  .add-task {
+    height: calc(100vh - 96px);
+  }
+
+  .padding-desktop {
+    padding: 64px 48px;
+  }
+
+  .content {
+    width: 100%;
+    max-width: 977px;
+  }
+
+  .form {
+    gap: 30px;
+  }
+
+  .left-fieldset {
+    width: 100%;
+    max-width: 440px;
+  }
+
+  .right-fieldset {
+    width: 100%;
+    max-width: 440px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .add-task {
+    @include display-column($ai: center);
+    padding: 0;
+    height: fit-content;
+  }
+
+  .content {
+    width: 100%;
+    max-width: 428px;
+    height: fit-content;
+    gap: 32px;
+  }
+
+  .column-desktop {
+    padding: 48px 16px 16px 16px;
+    gap: 32px;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: unset;
+  }
+
+  .form {
+    @include display-column($g: 16px);
+  }
+
+  .left-fieldset {
+    width: 100%;
+  }
+
+  .border {
+    display: none;
+  }
+
+  .right-fieldset {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .hint-button-cont {
+    @include position($pos: sticky, $l: 0, $b: 0);
+    box-sizing: border-box;
+    padding: 11px 16px 19px 16px;
+    width: 100%;
+    background-color: $lightgray;
+    justify-content: flex-end;
+    z-index: 10;
+  }
 }

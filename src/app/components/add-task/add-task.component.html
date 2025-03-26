@@ -1,29 +1,34 @@
 <section class="add-task" [ngClass]="paddingClass">
     <div class="content">
         <div [ngClass]="columnClass">
-            <app-join-title [title]="title"></app-join-title>
+            <app-join-title class="desktop" [title]="title"></app-join-title>
+            <app-join-title class="mobile" [title]="title" [dark]="true" [mobile]="true"></app-join-title>
 
             <form [formGroup]="form" class="form">
                 <fieldset class="left-fieldset">
                     <app-title-input [control]="get('title')"></app-title-input>
                     <app-description-input [control]="get('description')"></app-description-input>
-                    <app-assigned-to-input [control]="search" [assignedContacts]="get('assignedTo')"
-                        [contacts]="contacts"></app-assigned-to-input>
+                    <app-due-date-input [control]="get('dueDate')" [calendar]="calendar"></app-due-date-input>
                 </fieldset>
 
                 <div class="border"></div>
 
                 <fieldset class="right-fieldset">
-                    <app-due-date-input [control]="get('dueDate')" [calendar]="calendar"></app-due-date-input>
                     <app-prio-input [control]="get('prio')"></app-prio-input>
+                    <app-assigned-to-input [control]="search" [assignedContacts]="get('assignedTo')"
+                        [contacts]="contacts"></app-assigned-to-input>
                     <app-category-input [control]="get('category')"></app-category-input>
                     <app-subtasks-input [control]="subtask" [subtasks]="get('subtasks')"></app-subtasks-input>
                 </fieldset>
+
+                <div class="hint-cont mobile">
+                    <span class="star">*</span><span>This field is required</span>
+                </div>
             </form>
         </div>
 
         <div class="hint-button-cont">
-            <div class="hint-cont">
+            <div class="hint-cont desktop">
                 <span class="star">*</span><span>This field is required</span>
             </div>
 

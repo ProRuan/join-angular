@@ -51,3 +51,25 @@
     cursor: pointer;
   }
 }
+
+@media (max-width: 1180px) {
+  .input-hint-cont {
+    min-height: 56px;
+  }
+
+  .input {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    padding: 9px 20px;
+  }
+
+  .calender {
+    top: 8px;
+    right: 21px;
+  }
+
+  .due-date-input {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    top: 8px;
+    right: 21px;
+  }
+}

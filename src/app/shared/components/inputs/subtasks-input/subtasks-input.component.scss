@@ -119,3 +119,48 @@
   border-bottom: 1px solid #005dff;
   border-right: none;
 }
+
+@media (max-width: 1180px) {
+  .input {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    padding: 13px 49px 13px 15px;
+  }
+
+  .button {
+    &:hover {
+      background-color: transparent;
+      border-radius: 0;
+    }
+
+    &:active {
+      background-color: #eeeeee;
+      border-radius: 50px;
+    }
+  }
+
+  .list {
+    gap: 4px;
+  }
+
+  .item-cont {
+    padding: 14px 16px 14px 40px;
+    height: 48px;
+
+    .editor-button-bar {
+      display: flex;
+    }
+
+    &:hover {
+      background-color: unset;
+    }
+  }
+
+  .editor-button-bar {
+    top: 12px;
+  }
+
+  .editor {
+    padding: 14px 16px 13px 16px;
+    height: 48px;
+  }
+}

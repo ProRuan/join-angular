@@ -33,6 +33,10 @@
   }
 }
 
+.icon {
+  width: 20px;
+}
+
 .urgent {
   @include prio-disabled($bgc: $urgent, $path: $urgent_white);
 }
@@ -43,4 +47,42 @@
 
 .low {
   @include prio-disabled($bgc: $low, $path: $low_white);
+}
+
+@media (max-width: 1180px) {
+  .button-group {
+    height: 61px;
+  }
+
+  .button {
+    padding: 11px 10px;
+
+    &:hover {
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    &:disabled {
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .text {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    height: 19px;
+
+    .button:disabled & {
+      @include font($fs: 16px, $fw: 700, $lh: 19.2px);
+      height: 19px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .icon {
+    display: none;
+  }
 }
