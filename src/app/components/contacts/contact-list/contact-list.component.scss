@@ -107,3 +107,46 @@
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   color: #007cee;
 }
+
+@media (max-width: 1180px) {
+  .contact-list {
+    @include size($w: 100%, $h: fit-content);
+    padding: unset;
+    max-width: 400px;
+    background-color: unset;
+    box-shadow: unset;
+    overflow-y: unset;
+  }
+
+  .head {
+    display: none;
+  }
+
+  .collector {
+    padding: 24px;
+  }
+
+  .contact {
+    &:hover {
+      background: unset;
+    }
+
+    &:active {
+      background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+    }
+  }
+
+  .selected {
+    background-color: unset;
+
+    &:hover {
+      background: unset;
+    }
+  }
+
+  .name {
+    .selected & {
+      color: $black;
+    }
+  }
+}

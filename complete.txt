@@ -12,6 +12,10 @@ missing files
   - app ...
   - folders ...
 
+contacts
+--------
+  - review contact-list style of desktop version ...
+
 board
 -----
   - column: hide scrollbar x + y ...
@@ -81,6 +85,7 @@ responsiveness
   - summary greetings (mobile + desktop as of 1280px) ... (0/2)
   - main min/max/width/height ... (0/4)
   - mobile menu ... !
+  - board: board.ts, view-task and edit-task ... (0/3)
   - join-header: help + profile (mobile) ... (0/2)
   - think about error text: login, sign-up, new-password ... (0/3)
   - backlog responsiveness: sign-up, new-password ... (0/2)
@@ -88,6 +93,7 @@ responsiveness
   - rename header login and sign-up classes ...
   - move logo svg component to svg folder ... ?
   - fix focus-visible ... !
+  - check app-checkbox style ...
   - favicon ...
 
 subscribtion

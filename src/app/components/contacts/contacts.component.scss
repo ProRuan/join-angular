@@ -9,3 +9,25 @@
   @include display-column($g: 32px);
   flex: 1;
 }
+
+@media (max-width: 1180px) {
+  .contacts {
+    justify-content: center;
+  }
+
+  .contact-list {
+    @include display-row($jc: center);
+    width: 100%;
+    max-width: 428px;
+    background-color: $white;
+    box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .title-viewer-cont {
+    display: none;
+
+    // @include box-padding($p: 110px 55px);
+    // @include display-column($g: 32px);
+    // flex: 1;
+  }
+}
