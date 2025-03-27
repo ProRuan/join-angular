@@ -7,7 +7,6 @@
 
 .headline-2 {
   @include font($fs: 61px, $fw: 700, $lh: 73.2px);
-  margin: 0;
   color: $black;
 }
 

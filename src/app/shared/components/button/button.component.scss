@@ -167,6 +167,44 @@
   }
 }
 
+@media (max-width: 1180px) {
+  .prio-btn-text {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+
+  .settings-btn-text {
+    .settings-btn:hover & {
+      font-weight: 400;
+      color: $dark;
+    }
+
+    .settings-btn:active & {
+      font-weight: 700;
+      color: $lightblue;
+    }
+  }
+
+  .edit {
+    .settings-btn:hover & {
+      content: url("/assets/img/contacts/edit.png");
+    }
+
+    .settings-btn:active & {
+      content: url("/assets/img/contacts/edit_blue.png");
+    }
+  }
+
+  .delete {
+    .settings-btn:hover & {
+      content: url("/assets/img/contacts/delete.png");
+    }
+
+    .settings-btn:active & {
+      content: url("/assets/img/contacts/delete_blue.png");
+    }
+  }
+}
+
 @media (max-width: 360px) {
   .clear-btn-img {
     display: none;

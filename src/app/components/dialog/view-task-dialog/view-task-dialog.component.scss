@@ -15,13 +15,18 @@
 
 .category {
   padding: 4px 24px;
-  height: 28px;
+  height: fit-content;
   border-radius: 8px;
 }
 
 .category-text {
   @include font($fs: 23px, $fw: 400, $lh: 27.6px);
   color: $white;
+}
+
+.title {
+  @include font($fs: 61px, $fw: 700, $lh: 73.2px);
+  color: $black;
 }
 
 .description {
@@ -101,4 +106,57 @@
 
 .border {
   border-right: 1px solid $gray;
+}
+
+@media (max-width: 1180px) {
+  .dialog-box {
+    margin: 16px;
+    padding: 32px 24px;
+    width: 100%;
+    max-width: 396px;
+    gap: 16px;
+  }
+
+  .category {
+    padding: 4px 16px;
+  }
+
+  .category-text {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+
+  .title {
+    @include font($fs: 36px, $fw: 700, $lh: 43.2px);
+  }
+
+  .description {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+
+  .property {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+
+  .assigned-to-cont {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+
+  .name {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+    font-family: $inter;
+  }
+
+  .subtasks-head {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+
+  .subtask {
+    &:hover {
+      background-color: unset;
+    }
+
+    &:active {
+      background-color: #eeeeee;
+    }
+  }
 }

@@ -30,3 +30,15 @@
     background-image: url("/assets/img/board/close_default.png");
   }
 }
+
+@media (max-width: 1180px) {
+  .close-btn {
+    &:hover {
+      background-image: url("/assets/img/board/close_default.png");
+    }
+
+    &:active {
+      background-image: url("/assets/img/board/close_hover.png");
+    }
+  }
+}

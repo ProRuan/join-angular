@@ -4,6 +4,7 @@ import { DraggableTaskComponent } from '../draggable-task/draggable-task.compone
 import { JoinService } from '../../../shared/services/join.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { DialogService } from '../../../shared/services/dialog.service';
+import { NavigationService } from '../../../shared/services/navigation.service';
 import { Task } from '../../../shared/models/task';
 
 @Component({
@@ -21,6 +22,9 @@ export class ColumnComponent {
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
   dialog: DialogService = inject(DialogService);
+  nav: NavigationService = inject(NavigationService);
+
+  // review onAddTask() --> double code ...
 
   @Input() name: string = 'To do';
   @Input() tasks: Task[] = [];
@@ -57,7 +61,12 @@ export class ColumnComponent {
    * Adds a task on click.
    */
   onAddTask() {
-    this.dialog.open(this.dialogId);
+    if (this.join.windowWidth < 1180 + 1) {
+      this.nav.navigateByLink('add-task');
+    } else {
+      this.dialog.open(this.dialogId);
+    }
+    // this.dialog.open(this.dialogId);
   }
 
   /**
