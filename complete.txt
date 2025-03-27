@@ -16,6 +16,7 @@ board
 -----
   - column: hide scrollbar x + y ...
   - fix drag and drop for mobile (dialog) ... ?
+  - complete board.ts --> responsiveness ... !
 
 menu
 ----

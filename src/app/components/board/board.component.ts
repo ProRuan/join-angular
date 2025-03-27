@@ -61,8 +61,6 @@ export class BoardComponent {
   // not selectable/touchable elements/text ... ?
   // add responsiveness for board max-height ...
   //   --> get height from top elements + bottom padding ... !
-  // add responsiveness for dialogs (add/view/edit/delete) ... (2/4)
-  //   --> delete-task: use mobile button design ... !
 
   title: string = 'Board';
   addTaskBtn = new JoinButton('addTaskBtn');
