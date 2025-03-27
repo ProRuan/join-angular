@@ -110,6 +110,7 @@ export class EditTaskDialogComponent
    */
   ngOnInit() {
     this.setForm();
+    this.setOkBtn();
   }
 
   /**
@@ -139,6 +140,13 @@ export class EditTaskDialogComponent
     this.calendar = this.getControl('');
     this.search = this.getControl('');
     this.subtask = this.getControl('');
+  }
+
+  /**
+   * Sets an ok button.
+   */
+  setOkBtn() {
+    this.okBtn.buttonClass += ' ok-btn';
   }
 
   /**

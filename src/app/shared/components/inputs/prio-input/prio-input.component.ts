@@ -28,6 +28,7 @@ import { getCapitalized } from '../../../ts/global';
  */
 export class PrioInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;
+  @Input() mobile: boolean = false;
 
   prios: string[] = ['urgent', 'medium', 'low'];
   buttons: PrioButton[] = [];
@@ -85,6 +86,14 @@ export class PrioInputComponent extends ReactiveInput {
    */
   getSource(prio: string) {
     return `/assets/img/add-task/prio_${prio}.png`;
+  }
+
+  /**
+   * Gets the css class of a button group.
+   * @returns The css class of the button group.
+   */
+  getHeightClass() {
+    return this.mobile ? 'h-fit' : 'h-61';
   }
 
   /**

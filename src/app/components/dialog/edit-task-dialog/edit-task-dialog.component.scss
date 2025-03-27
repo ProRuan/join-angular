@@ -26,3 +26,25 @@
 .bottom-fieldset {
   @include display-column($g: 24px);
 }
+
+@media (max-width: 1180px) {
+  .dialog-box {
+    padding: 32px 24px;
+    margin: 16px;
+    width: 100%;
+    max-width: 396px;
+    gap: 16px;
+  }
+
+  .form {
+    gap: 8px;
+  }
+
+  .top-fieldset {
+    gap: 8px;
+  }
+
+  .bottom-fieldset {
+    gap: 16px;
+  }
+}

@@ -50,8 +50,12 @@
 }
 
 @media (max-width: 1180px) {
-  .button-group {
+  .h-61 {
     height: 61px;
+  }
+
+  .h-fit {
+    height: fit-content;
   }
 
   .button {
