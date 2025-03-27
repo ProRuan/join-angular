@@ -7,7 +7,27 @@
 .title-viewer-cont {
   @include box-padding($p: 110px 55px);
   @include display-column($g: 32px);
-  flex: 1;
+  width: 100%;
+}
+
+.title-button-cont {
+  display: none;
+}
+
+.back-arrow {
+  @include size($w: 32px, $h: 32px);
+  @include round-border($b: none, $br: 3px);
+  padding: 0;
+  background-color: transparent;
+  background-image: url("/assets/img/sign-up/left_arrow.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  &:active,
+  &:focus-visible {
+    background-image: url("/assets/img/sign-up/left_arrow_hover.png");
+  }
 }
 
 @media (max-width: 1180px) {
@@ -24,10 +44,18 @@
   }
 
   .title-viewer-cont {
-    display: none;
+    @include size($w: 100%, $h: 100%);
+    @include position($pos: absolute, $l: 0, $t: 0);
+    padding: 48px 16px;
+    background-color: $lightgray;
+    gap: 48px;
+  }
 
-    // @include box-padding($p: 110px 55px);
-    // @include display-column($g: 32px);
-    // flex: 1;
+  .desktop {
+    display: none;
+  }
+
+  .title-button-cont {
+    @include display-row($jc: space-between);
   }
 }

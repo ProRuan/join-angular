@@ -2,10 +2,14 @@
 <app-delete-contact-dialog></app-delete-contact-dialog>
 
 <section class="contacts">
-    <app-contact-list [contacts]="getSortedContacts()" class="contact-list"></app-contact-list>
+    <app-contact-list *ngIf="isDisplayed()" [contacts]="getSortedContacts()" class="contact-list"></app-contact-list>
 
-    <div class="title-viewer-cont">
-        <app-join-title [title]="title" [subtitle]="subtitle"></app-join-title>
+    <div *ngIf="isOpened()" class="title-viewer-cont">
+        <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
+        <div class="title-button-cont">
+            <app-join-title [title]="title" [subtitle]="subtitle" [dark]="true" [mobile]="true"></app-join-title>
+            <button class="back-arrow" (click)="onClose()"></button>
+        </div>
         <app-contact-viewer></app-contact-viewer>
     </div>
 </section>

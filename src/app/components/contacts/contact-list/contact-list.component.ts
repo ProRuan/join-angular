@@ -155,7 +155,9 @@ export class ContactListComponent implements OnChanges {
   onView(contact: Contact) {
     if (!this.isSelected(contact)) {
       this.viewer.setContact(contact);
+      this.dialog.open('viewContact');
     } else {
+      this.dialog.close('viewContact');
       this.viewer.setContact();
     }
   }

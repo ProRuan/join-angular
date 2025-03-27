@@ -12,6 +12,10 @@ missing files
   - app ...
   - folders ...
 
+box-shadows
+-----------
+  - check all box-shadows due to app-containers ... !!!
+
 contacts
 --------
   - review contact-list style of desktop version ...
@@ -42,7 +46,7 @@ max-size
 
 join-title
 ----------
-  - summary, add-task (desktop/mobile) ... ?!
+  - summary, add-task, board, contacts (desktop/mobile) ... (0/4)
   - desktop/mobile as global style ... ?!
 
 add-task

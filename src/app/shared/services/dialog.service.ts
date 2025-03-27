@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Task } from '../models/task';
 import { AbstractControl, FormControl } from '@angular/forms';
 
 @Injectable({
@@ -20,6 +19,7 @@ export class DialogService {
     editTask: false,
     deleteTask: false,
     addContact: false,
+    viewContact: false,
     editContact: false,
     deleteContact: false,
   };

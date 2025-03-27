@@ -70,3 +70,40 @@
 .phone {
   color: $black;
 }
+
+@media (max-width: 1180px) {
+  .head {
+    gap: 20px;
+  }
+
+  .profile {
+    @include min-size($w: 80px, $h: 80px);
+    @include max-size($w: 80px, $h: 80px);
+  }
+
+  .initials {
+    @include font($fs: 27px, $fw: 400, $lh: 32.4px);
+  }
+
+  .name {
+    @include font($fs: 36px, $fw: 700, $lh: 43.2px);
+  }
+
+  .settings-button-group {
+    display: none;
+  }
+
+  .info {
+    @include size($w: unset, $h: unset);
+  }
+
+  .detail-data {
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:active {
+      text-decoration: underline;
+    }
+  }
+}

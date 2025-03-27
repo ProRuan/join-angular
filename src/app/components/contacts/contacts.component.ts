@@ -6,6 +6,7 @@ import { ContactListComponent } from './contact-list/contact-list.component';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { ContactViewerComponent } from './contact-viewer/contact-viewer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { ContactService } from '../../shared/services/contact.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { Contact } from '../../shared/models/contact';
 import { getArrayCopy } from '../../shared/ts/global';
@@ -30,10 +31,38 @@ import { getArrayCopy } from '../../shared/ts/global';
  */
 export class ContactsComponent {
   join: JoinService = inject(JoinService);
+  viewer: ContactService = inject(ContactService);
   dialog: DialogService = inject(DialogService);
+
+  // responsiveness: add/edit/delete contact ... (0/3)
 
   title: string = 'Contacts';
   subtitle: string = 'Better with a team';
+  dialogId: string = 'viewContact';
+
+  /**
+   * Verifies the display state of a contact list.
+   * @returns A boolean value.
+   */
+  isDisplayed() {
+    return !this.isContactListHidden();
+  }
+
+  /**
+   * Verifies the hidden state of a contact list.
+   * @returns A boolean value.
+   */
+  isContactListHidden() {
+    return this.join.windowWidth < 1180 + 1 && this.isOpened();
+  }
+
+  /**
+   * Verifies the opened state of a contact viewer.
+   * @returns A boolean value.
+   */
+  isOpened() {
+    return this.dialog.isOpened(this.dialogId);
+  }
 
   /**
    * Gets sorted contacts.
@@ -75,5 +104,13 @@ export class ContactsComponent {
     let firstInitial = names[0].charAt(0);
     let lastName = names[1];
     return firstInitial + lastName;
+  }
+
+  /**
+   * Closes a contact viewer on click.
+   */
+  onClose() {
+    this.dialog.close(this.dialogId);
+    this.viewer.setContact();
   }
 }
