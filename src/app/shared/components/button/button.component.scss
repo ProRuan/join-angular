@@ -168,6 +168,24 @@
 }
 
 @media (max-width: 1180px) {
+  .create-btn {
+    &:hover {
+      background-color: $dark;
+      box-shadow: unset;
+    }
+
+    &:active {
+      background-color: $lightblue;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    &:disabled {
+      background-color: $dark;
+      box-shadow: unset;
+      opacity: 0.5;
+    }
+  }
+
   .prio-btn-text {
     @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   }

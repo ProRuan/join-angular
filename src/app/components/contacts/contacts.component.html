@@ -11,5 +11,21 @@
             <button class="back-arrow" (click)="onClose()"></button>
         </div>
         <app-contact-viewer></app-contact-viewer>
+
+        <!-- move to contact viewer! -->
+        <button class="settings-btn"></button>
+
+        <!-- use app-button?! -->
+        <div class="settings-dialog">
+            <button class="settings-dialog-btn" (click)="onEdit()">
+                <img class="button-img" src="/assets/img/contacts/edit.png" alt="edit">
+                <span class="button-text">Edit</span>
+            </button>
+
+            <button class="settings-dialog-btn" (click)="onDelete()">
+                <img class="button-img" src="/assets/img/contacts/delete.png" alt="delete">
+                <span class="button-text">Delete</span>
+            </button>
+        </div>
     </div>
 </section>

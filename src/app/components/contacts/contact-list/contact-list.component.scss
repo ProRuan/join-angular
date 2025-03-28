@@ -108,6 +108,25 @@
   color: #007cee;
 }
 
+.add-btn {
+  @include box-padding($p: 12px);
+  @include size($w: 56px, $h: 56px);
+  @include round-border($b: none, $br: 46px);
+  @include position($pos: sticky, $l: calc(100% - 16px), $b: 32px);
+  background-color: $dark;
+  background-image: url("/assets/img/contacts/add_new_contact.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  display: none;
+  transition: all 100ms ease-in;
+
+  &:active {
+    background-color: $lightblue;
+  }
+}
+
 @media (max-width: 1180px) {
   .contact-list {
     @include size($w: 100%, $h: fit-content);
@@ -148,5 +167,9 @@
     .selected & {
       color: $black;
     }
+  }
+
+  .add-btn {
+    display: unset;
   }
 }

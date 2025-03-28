@@ -5,6 +5,7 @@ import { DeleteContactDialogComponent } from '../dialog/delete-contact-dialog/de
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { ContactViewerComponent } from './contact-viewer/contact-viewer.component';
+// import { ButtonComponent } from '../../shared/components/button/button.component';
 import { JoinService } from '../../shared/services/join.service';
 import { ContactService } from '../../shared/services/contact.service';
 import { DialogService } from '../../shared/services/dialog.service';
@@ -21,6 +22,7 @@ import { getArrayCopy } from '../../shared/ts/global';
     ContactListComponent,
     JoinTitleComponent,
     ContactViewerComponent,
+    // ButtonComponent,
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
@@ -34,7 +36,8 @@ export class ContactsComponent {
   viewer: ContactService = inject(ContactService);
   dialog: DialogService = inject(DialogService);
 
-  // responsiveness: add/edit/delete contact ... (0/3)
+  // move onEdit() and onDelete() to contact viewer ...
+  // user join button ... ?!
 
   title: string = 'Contacts';
   subtitle: string = 'Better with a team';
@@ -112,5 +115,24 @@ export class ContactsComponent {
   onClose() {
     this.dialog.close(this.dialogId);
     this.viewer.setContact();
+  }
+
+  // double code + set data!!!
+  // set dialog animation!
+  // keep viewer on closing dialog!
+  onEdit() {
+    // this.viewer.setContact(contact);
+    this.viewer.cachedContact = new Contact(this.viewer.contact);
+    console.log('contact: ', this.viewer.cachedContact);
+
+    // this.viewer.cachedContact = new Contact(this.contact);
+    this.dialog.id = this.dialogId;
+    this.dialog.title = 'Edit contact';
+    this.dialog.open(this.dialogId);
+  }
+
+  // double code!!!
+  onDelete() {
+    this.dialog.open('deleteContact');
   }
 }

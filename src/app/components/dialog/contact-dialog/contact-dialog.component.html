@@ -1,13 +1,17 @@
 <div *ngIf="isOpened()" @dialogAnimation class="dialog">
     <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
-        <section class="add-contact" (click)="onStop($event)">
+        <section class="add-contact pos-relative" (click)="onStop($event)">
+            <!-- set mobile + desktop +++ pos-relative above?! -->
+            <button class="close-btn top-right mobile" (click)="onClose()"></button>
+
             <div class="dark-cont">
                 <img class="logo" src="/assets/img/menu/menu_logo.png" alt="menu-logo">
                 <app-join-title [title]="dialog.title" [subtitle]="dialog.subtitle" [dark]="true"></app-join-title>
             </div>
 
             <div class="light-cont">
-                <button class="close-btn top-right" (click)="onClose()"></button>
+                <!-- desktop -->
+                <button class="close-btn top-right desktop" (click)="onClose()"></button>
 
                 <div class="profile-form-cont">
                     <div class="profile-cont">
@@ -32,7 +36,8 @@
                             <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
                             <app-button [button]="saveBtn" (click)="onSave()"></app-button>
                             } @else {
-                            <app-button [button]="cancelBtn" (click)="onClose()"></app-button>
+                            <!-- desktop -->
+                            <app-button [button]="cancelBtn" class="desktop" (click)="onClose()"></app-button>
                             <app-button [button]="createBtn" (click)="onCreate()"></app-button>
                             }
                         </div>

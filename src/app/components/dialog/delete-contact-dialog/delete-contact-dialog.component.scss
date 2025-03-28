@@ -26,3 +26,20 @@
 .button-group-cont {
   @include display-row($g: 64px);
 }
+
+@media (max-width: 1180px) {
+  .dialog-box {
+    padding: 32px 24px;
+    width: calc(100% - 64px);
+    max-width: 364px;
+    gap: 16px;
+  }
+
+  .choice-cont {
+    gap: 16px;
+  }
+
+  .button-group-cont {
+    gap: 24px;
+  }
+}
