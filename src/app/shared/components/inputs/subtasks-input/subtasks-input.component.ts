@@ -37,7 +37,7 @@ export class SubtasksInputComponent extends ReactiveInput {
   timestamp: number = 0;
   clickTimeout?: IntervalId;
 
-  @Input() override control: AbstractControl<any, any> | null = null;
+  @Input() override control: AbstractControl | null = null;
   @Input('subtasks') taskControl: AbstractControl | null = null;
 
   /**

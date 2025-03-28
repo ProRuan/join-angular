@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ContactDialogComponent } from '../dialog/contact-dialog/contact-dialog.component';
-import { DeleteContactDialogComponent } from '../dialog/delete-contact-dialog/delete-contact-dialog.component';
+import { ContactDialogComponent } from '../../shared/components/dialogs/contact-dialog/contact-dialog.component';
+import { DeleteContactDialogComponent } from '../../shared/components/dialogs/delete-contact-dialog/delete-contact-dialog.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { ContactViewerComponent } from './contact-viewer/contact-viewer.component';

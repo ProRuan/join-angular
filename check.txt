@@ -95,11 +95,11 @@ Components (10/?) + await inputs ... + resp(3/?)
       - CategoryInputComponent - check
       - DescriptionInputComponent - check
       - DueDateInputComponent - check
-      - PasswordInputComponent - check *admin-inputs.scss?!
+      - PasswordInputComponent - check
       - PhoneInputComponent ...
       - PrioInputComponent - check
       - SubtasksInputComponent - check
-      - TextInputComponent - check *admin-inputs.scss?!
+      - TextInputComponent - check
       - TitleInputComponent - check
   - svg ... (2/?)
       - DoneSvgComponent - check
@@ -175,7 +175,6 @@ Styles
   - styles.scss - check
   - styles/
     -------
-      - admin-inputs.scss - check * review?!
       - background-colors.scss - check
       - components.scss - check * update legal notice and so on!
       - dialogs.scss - check

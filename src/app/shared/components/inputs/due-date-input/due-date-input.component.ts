@@ -37,7 +37,7 @@ export class DueDateInputComponent extends ReactiveInput {
 
   override possibleErrors: string[] = this.config.dueDate.possibleErrors;
 
-  @Input() override control: AbstractControl<any, any> | null = null;
+  @Input() override control: AbstractControl | null = null;
   @Input() calendar: AbstractControl | null = null;
 
   /**

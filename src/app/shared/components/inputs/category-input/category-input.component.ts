@@ -31,7 +31,7 @@ export class CategoryInputComponent extends ReactiveInput {
 
   dialogId: string = 'category';
 
-  @Input() override control: AbstractControl<any, any> | null = null;
+  @Input() override control: AbstractControl | null = null;
 
   /**
    * Handles a dialog on click.

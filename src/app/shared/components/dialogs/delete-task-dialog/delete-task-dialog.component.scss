@@ -1,0 +1,45 @@
+@import "../../../../../mixins.scss";
+
+.dialog-box {
+  @include box-padding($p: 48px 40px);
+  @include display-column($g: 24px);
+  width: 400px;
+  background-color: $white;
+  border-radius: 30px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
+}
+
+.close-btn-cont {
+  @include display-row($jc: flex-end);
+}
+
+.choice-cont {
+  @include display-column($ai: center, $g: 24px);
+}
+
+.text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  text-align: center;
+  color: $black;
+}
+
+.button-group-cont {
+  @include display-row($g: 64px);
+}
+
+@media (max-width: 1180px) {
+  .dialog-box {
+    padding: 32px 24px;
+    width: calc(100% - 64px);
+    max-width: 364px;
+    gap: 16px;
+  }
+
+  .choice-cont {
+    gap: 16px;
+  }
+
+  .button-group-cont {
+    gap: 24px;
+  }
+}

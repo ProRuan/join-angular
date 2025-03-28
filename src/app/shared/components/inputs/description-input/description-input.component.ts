@@ -25,5 +25,5 @@ import {
  * @extends ReactiveInput
  */
 export class DescriptionInputComponent extends ReactiveInput {
-  @Input() override control: AbstractControl<any, any> | null = null;
+  @Input() override control: AbstractControl | null = null;
 }

@@ -63,7 +63,6 @@ add-task
   - global class desktop and mobile ... !
       --> or: use windowWidth ... ?
   - set input hover/active ...
-  - remove basic inputs ... !
   - check calendar position (left, center, right) ...
   - fix z-indices (subtasks) ...
   - fix width of desktop version ...
@@ -462,10 +461,6 @@ MainComponent
   // ------
   // save user summary at local storage (until log out)!!!
 
-  // no admin-input.scss ... ?
-  // move dialog to related components ...
-  // avoid any type ...
-
   // move log texts from comp to service!!!
 
   // Options
@@ -474,17 +469,16 @@ MainComponent
 
   // ---------------------------------------------------------
 
-  // Task for later
-  // --------------
-  // fix input length login/sign-up/new password!!!
-  // sign-up with overflow-y
-  //      --> think about height ... !
-
   // fix guest login ...
   // create guest user (database) ...
 
-  // change page animation (gray, 100-200ms) ... ?
+-------------------------------------------------
+-------------------------------------------------
 
-  // fix error on portfolio ("Here ist ...") ...
-// -------
-// -------
+ideas
+-----
+  - page change animation: gray, 100-200 ms ...
+
+next step
+---------
+  - fix error on portfolio ("Here ist ...") ...

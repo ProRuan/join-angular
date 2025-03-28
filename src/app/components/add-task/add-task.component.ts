@@ -60,7 +60,7 @@ export class AddTaskComponent extends FormController {
 
   title: string = 'Add Task';
   contacts: Contact[] = [];
-  task: Task = new Task(); // necessary???
+  task: Task = new Task();
   search: AbstractControl | null = null;
   calendar: AbstractControl | null = null;
   subtask: AbstractControl | null = null;
