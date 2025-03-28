@@ -7,7 +7,7 @@
 
         <div class="column-8">
             <h5 class="title">{{ task.title }}</h5>
-            <p class="description">{{ task.description }}</p>
+            <p class="description">{{ descriptionPreview }}</p>
         </div>
 
         <div *ngIf="areSubtasksExistent()" class="subtasks">

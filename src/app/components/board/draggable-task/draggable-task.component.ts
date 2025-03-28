@@ -30,6 +30,8 @@ export class DraggableTaskComponent implements OnChanges {
   dialog: DialogService = inject(DialogService);
 
   @Input() task: Task = new Task();
+  descriptionPreview: string = '';
+  tempText: string = '';
   rotated: boolean = false;
 
   /**
@@ -62,6 +64,14 @@ export class DraggableTaskComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     let changedTask = getCurrentValue<Task>(changes, 'task');
+    this.updateTask(changedTask);
+    this.updateDescriptionPreview();
+  }
+
+  /**
+   * Updates a draggable task.
+   */
+  updateTask(changedTask: Task) {
     if (this.isBoardTask(changedTask)) {
       this.task.set(changedTask);
       this.board.task = this.task;
@@ -75,6 +85,44 @@ export class DraggableTaskComponent implements OnChanges {
    */
   isBoardTask(changedTask: Task) {
     return changedTask.id == this.board.task.id;
+  }
+
+  /**
+   * Updates a task description preview.
+   */
+  updateDescriptionPreview() {
+    this.tempText = '';
+    this.descriptionPreview = this.getDescriptionPreview();
+  }
+
+  /**
+   * Gets a task description preview.
+   * @returns The task description preview.
+   */
+  getDescriptionPreview() {
+    let text = this.task.description;
+    if (text.length > 50) {
+      let texts = text.split(' ');
+      this.setTempText(texts);
+      return `${this.tempText} ...`;
+    } else {
+      return text;
+    }
+  }
+
+  /**
+   * Sets a temporary text.
+   * @param texts - The text portions.
+   */
+  setTempText(texts: string[]) {
+    for (let t of texts) {
+      let textPreview = this.tempText + ` ${t}`;
+      if (textPreview.length > 46) {
+        break;
+      } else {
+        this.tempText += ` ${t}`;
+      }
+    }
   }
 
   /**

@@ -449,9 +449,9 @@ MainComponent
   // set subtask cont height limit ...
   //   --> set fix height for join app ... ?
 
-  // DraggableTaskComponent
-  // ----------------------
-  // cut to long descriptions ...
+  DraggableTaskComponent
+  ----------------------
+    - move getters to ngOnChanges() ... ?
 
   // Routing
   // -------
@@ -462,10 +462,6 @@ MainComponent
   // save user summary at local storage (until log out)!!!
 
   // move log texts from comp to service!!!
-
-  // Options
-  // -------
-  // CloseButtonComponent ...
 
   // ---------------------------------------------------------
 
@@ -478,6 +474,7 @@ MainComponent
 ideas
 -----
   - page change animation: gray, 100-200 ms ...
+  - CloseButtonComponent: dialogId, left, top ...
 
 next step
 ---------
