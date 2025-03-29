@@ -63,5 +63,6 @@ export class MainComponent {
 
   ngOnDestroy() {
     this.join.unsubscribeUser();
+    this.join.user.set();
   }
 }

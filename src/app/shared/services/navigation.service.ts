@@ -64,7 +64,7 @@ export class NavigationService {
   }
 
   /**
-   * Navigates by a menu link.
+   * Navigates by menu link.
    * @param id - The menu link id.
    */
   navigateByLink(id: string) {

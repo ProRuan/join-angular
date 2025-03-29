@@ -1,6 +1,17 @@
-<div class="flip-menu" [ngClass]="getClass()">
-    <a *ngIf="isDisplayed()" routerLink="help" class="link"><span class="text">Help</span></a>
-    <a routerLink="legal-notice" class="link"><span class="text">Legal Notice</span></a>
-    <a routerLink="privacy-policy" class="link"><span class="text">Privacy Policy</span></a>
-    <a routerLink="../../login" class="link"><span class="text">Log out</span></a>
+<div class="flip-menu" [ngClass]="getClass()" (click)="onStop($event)">
+    <button *ngIf="isDisplayed()" class="button" (click)="onNavigate('help')">
+        <span class="text">Help</span>
+    </button>
+
+    <button class="button" (click)="onNavigate('legal-notice')">
+        <span class="text">Legal Notice</span>
+    </button>
+
+    <button class="button" (click)="onNavigate('privacy-policy')">
+        <span class="text">Privacy Policy</span>
+    </button>
+
+    <button class="button" (click)="onLogOut()">
+        <span class="text">Log out</span>
+    </button>
 </div>

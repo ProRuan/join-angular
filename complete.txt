@@ -377,31 +377,9 @@ MainComponent
 
   // improve logo animation ... !!!
 
-  // AddTaskDialogComponent
-  // ----------------------
-  // close flip-menu on click ... !
-
   // BoardComponent
   // --------------
-  // style column-4/20/24 ... ?
   // set board column body height ... !
-
-  // replace error with control?.errors ...
-
-  // SubtasksInputComponent
-  // ----------------------
-  // replace hint with error ...
-  // delete empty and edited subtasks ... ?
-
-  // CategoryInputComponent
-  // ----------------------
-  // fix focus over button ... (2x)
-  // arrow button (also for assigned-to) ...
-
-  // DueDateInputComponent
-  // ---------------------
-  // pattern test instead of value match ... !
-  //   --> improve name formatter ... !
 
   // Input Components
   // ----------------
@@ -410,6 +388,15 @@ MainComponent
   // SummaryComponent
   // ----------------
   // greetings methods ... (0/5)
+
+  flip menu
+  ---------
+    - move to join header ...
+
+  name formatter
+  --------------
+    - improve patterns ...
+    - use pattern.test(value) only ...
 
   button component
   ----------------
@@ -430,20 +417,7 @@ MainComponent
     - set guest login ...
     - create guest user (database) ...
 
--------------------------------------------------
--------------------------------------------------
 
-information
------------
-  routing
-  -------
-    - https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
-
-ideas
------
-  - page change animation: gray, 100-200 ms ...
-  - CloseButtonComponent: dialogId, left, top ...
-
-next step
----------
-  - fix error on portfolio ("Here ist ...") ...
+optional
+--------
+  - replace error with control?.errors ...
