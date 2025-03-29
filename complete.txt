@@ -381,22 +381,12 @@ MainComponent
   // ----------------------
   // close flip-menu on click ... !
 
-  // fix all icons with size + object-fit ... !
-
   // BoardComponent
   // --------------
   // style column-4/20/24 ... ?
   // set board column body height ... !
 
   // replace error with control?.errors ...
-
-  // AddTaskComponent
-  // ----------------
-  // Think about bottom padding ... !
-  // review button component ... !
-  // review max-width container ... !
-  // delete interface Simple ... !
-  // delete isTrue() ... ?!
 
   // SubtasksInputComponent
   // ----------------------
@@ -413,15 +403,6 @@ MainComponent
   // pattern test instead of value match ... !
   //   --> improve name formatter ... !
 
-  // delete old add-task input components ... !
-  // delete AssignableContactComponent ... !
-
-  // set all control types (not any) ... !
-
-  // MenuComponent
-  // -------------
-  // fix current link after reload ... !
-
   // Input Components
   // ----------------
   // input [config]="config" --> short and flexible ... ?
@@ -430,31 +411,33 @@ MainComponent
   // ----------------
   // greetings methods ... (0/5)
 
-  // AddTaskComponent
-  // ----------------
-  // remove/set transition of all inputs (especially drop-down menu)!!!!
-  // redirect to board ... !
-  // title-button-cont with gap 30-100px ... ?!
-  // rename variable "first" to "origin" ... ?
-  // is onSumbit() necessary (working) ... ?!
+  button component
+  ----------------
+    - review button component ...
+    - global button styles ... ?
 
-  // Routing
-  // -------
-  // https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
+  add-task Component
+  ------------------
+    - add backlog (then redirect to board) ...
+    - height tranistion due to assigned-to, category and subtasks ... (0/3)
 
-  // Logout
-  // ------
-  // save user summary at local storage (until log out)!!!
+  back log text
+  -------------
+    - move text from component to service ...
 
-  // move log texts from comp to service!!!
-
-  // ---------------------------------------------------------
-
-  // fix guest login ...
-  // create guest user (database) ...
+  Guest Login
+  -----------
+    - set guest login ...
+    - create guest user (database) ...
 
 -------------------------------------------------
 -------------------------------------------------
+
+information
+-----------
+  routing
+  -------
+    - https://www.tektutorialshub.com/angular/angular-passing-parameters-to-route/
 
 ideas
 -----
