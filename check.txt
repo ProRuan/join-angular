@@ -68,10 +68,11 @@ Join (8/?) + responsive (8/?)
   - LegalNoticeComponent - check + responsive
 
 
-Animations (2/?)
+Animations (3/?)
 ----------
   - DialogAnimation - check
   - FadeAnimation - check
+  - FlipMenuAnimation - check
 
 Components (10/?) + await inputs ... + resp(3/?)
 ----------

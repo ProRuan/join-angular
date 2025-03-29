@@ -1,5 +1,12 @@
 @import "../../../../mixins.scss";
 
+.dialog {
+  @include size($w: 100%, $h: 100vh);
+  @include position($pos: fixed, $l: 0, $t: 0);
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 10;
+}
+
 .flip-menu {
   @include display-column();
   padding: 10px;

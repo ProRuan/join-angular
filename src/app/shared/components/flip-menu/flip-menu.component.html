@@ -1,17 +1,18 @@
-<div class="flip-menu" [ngClass]="getClass()" (click)="onStop($event)">
-    <button *ngIf="isDisplayed()" class="button" (click)="onNavigate('help')">
-        <span class="text">Help</span>
-    </button>
+<div *ngIf="isOpened()" @flipMenuAnimation class="dialog" (click)="onClose()">
 
-    <button class="button" (click)="onNavigate('legal-notice')">
-        <span class="text">Legal Notice</span>
-    </button>
+    <div class="flip-menu slide" [ngClass]="getClass()" (click)="onStop($event)">
+        <button *ngIf="isDisplayed()" class="button" (click)="onNavigate('help')">
+            <span class="text">Help</span>
+        </button>
+        <button class="button" (click)="onNavigate('legal-notice')">
+            <span class="text">Legal Notice</span>
+        </button>
+        <button class="button" (click)="onNavigate('privacy-policy')">
+            <span class="text">Privacy Policy</span>
+        </button>
+        <button class="button" (click)="onLogOut()">
+            <span class="text">Log out</span>
+        </button>
+    </div>
 
-    <button class="button" (click)="onNavigate('privacy-policy')">
-        <span class="text">Privacy Policy</span>
-    </button>
-
-    <button class="button" (click)="onLogOut()">
-        <span class="text">Log out</span>
-    </button>
 </div>

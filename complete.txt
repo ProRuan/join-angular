@@ -381,10 +381,6 @@ MainComponent
   // ----------------
   // greetings methods ... (0/5)
 
-  flip menu
-  ---------
-    - close on click on anywhere ...
-
   name formatter
   --------------
     - improve patterns ...

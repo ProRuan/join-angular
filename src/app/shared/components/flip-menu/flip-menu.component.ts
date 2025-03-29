@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { flipMenuAnimation } from '../../animations/flip-menu.animation';
+import { DialogFormController } from '../../models/dialog-form-controller';
 import { JoinService } from '../../services/join.service';
 import { NavigationService } from '../../services/navigation.service';
-import { DialogFormController } from '../../models/dialog-form-controller';
 
 @Component({
   selector: 'app-flip-menu',
@@ -11,6 +12,7 @@ import { DialogFormController } from '../../models/dialog-form-controller';
   imports: [CommonModule],
   templateUrl: './flip-menu.component.html',
   styleUrl: './flip-menu.component.scss',
+  animations: [flipMenuAnimation],
 })
 
 /**
@@ -23,6 +25,13 @@ export class FlipMenuComponent extends DialogFormController {
   nav: NavigationService = inject(NavigationService);
 
   override id: string = 'flipMenu';
+
+  /**
+   * Closes a flip menu on click.
+   */
+  onClose() {
+    this.close();
+  }
 
   /**
    * Gets the css class of a flip menu.
