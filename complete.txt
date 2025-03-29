@@ -377,10 +377,6 @@ MainComponent
   // ----------------
   // input [config]="config" --> short and flexible ... ?
 
-  // SummaryComponent
-  // ----------------
-  // greetings methods ... (0/5)
-
   name formatter
   --------------
     - improve patterns ...

@@ -148,7 +148,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
   {
     id: 'OiVQS2rB17CgOrNhvnC9',
     title: 'Join Backend',
-    description: 'Create your own Join Backend as Djange App.',
+    description: 'Create your own Join Backend as Django App.',
     assignedTo: [
       {
         id: 'leEeuqQPcyk3Gk9H2Lli',
