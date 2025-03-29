@@ -10,11 +10,11 @@
 }
 
 .flip-in {
-  @include position($pos: absolute, $t: 0px, $r: -152px);
+  @include position($pos: absolute, $t: 96px, $r: -152px);
 }
 
 .flip-out {
-  @include position($pos: absolute, $t: 0px, $r: 24px);
+  @include position($pos: absolute, $t: 96px, $r: 24px);
 }
 
 .button {
@@ -35,6 +35,15 @@
 }
 
 @media (max-width: 1180px) {
+  .flip-in {
+    top: 80px;
+  }
+
+  .flip-out {
+    top: 80px;
+    right: 8px;
+  }
+
   .button {
     &:hover {
       background-color: transparent;

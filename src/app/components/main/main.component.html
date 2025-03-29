@@ -1,13 +1,15 @@
 <div class="user-interface" (click)="dialog.resetAssignedTo(); dialog.close('category'); dialog.close('subtask')"
     (dragend)="onDragend()">
     <app-menu class="menu"></app-menu>
+
     <div class="content">
         <app-join-header></app-join-header>
-        <main class="main pos-relative">
-            <!-- z-index + move to header?! -->
-            <app-flip-menu></app-flip-menu>
+        <app-flip-menu></app-flip-menu>
+
+        <main class="main">
             <router-outlet></router-outlet>
         </main>
+
         <app-mobile-menu class="mobile-menu"></app-mobile-menu>
     </div>
 </div>

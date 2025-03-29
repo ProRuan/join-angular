@@ -35,7 +35,7 @@ Top Level Scripts
   - shared/animations ...
   - shared/components ...
   - shared/interfaces - check (16)
-  - shared/models - check (12)
+  - shared/models - check (11)
   - shared/services - check (13)
   - shared/ts - check (7)
 
@@ -125,7 +125,7 @@ Interfaces (16/16)
   - TaskData - check
   - UserData - check
 
-Models (12/12)
+Models (11/11)
 ------
   - Contact - check
   - DialogFormController - check
@@ -137,7 +137,6 @@ Models (12/12)
   - SummaryTask - check
   - Summary - check
   - Task - check
-  - Transform - check
   - User - check
 
 

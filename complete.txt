@@ -118,12 +118,6 @@ subscribtion
   //   - use dark logo in logo component (if-else) for main component ...
   //       --> no need to set intro to done then ... ?
 
-Transform (Animation)
----------
-  - remove class Transform ...
-  - remove revelation ...
-  - remove relocation ...
-
 SignOutComponent
 ----------------
   --> see also: login, sign-up, new-password ...
@@ -375,8 +369,6 @@ MainComponent
   // rename this.dialog to this.dialogs ...
   // app back log or component back logs ... ?
 
-  // improve logo animation ... !!!
-
   // BoardComponent
   // --------------
   // set board column body height ... !
@@ -391,7 +383,7 @@ MainComponent
 
   flip menu
   ---------
-    - move to join header ...
+    - close on click on anywhere ...
 
   name formatter
   --------------

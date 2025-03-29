@@ -1,8 +1,8 @@
 import { trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { mobileLogoAnimation } from '../../animations/mobile-logo.animation';
 import { desktopLogoAnimation } from '../../animations/desktop-logo.animation';
+import { mobileLogoAnimation } from '../../animations/mobile-logo.animation';
 import { LogoSvgComponent } from './logo-svg/logo-svg.component';
 import { JoinService } from '../../services/join.service';
 import { getSessionalItem } from '../../ts/global';
@@ -23,7 +23,7 @@ function getLogoAnimation() {
  * @returns The responsive animation.
  */
 function getResponsiveAnimation() {
-  return window.innerWidth < 1180 ? mobileLogoAnimation : desktopLogoAnimation;
+  return window.innerWidth > 1180 ? desktopLogoAnimation : mobileLogoAnimation;
 }
 
 @Component({
