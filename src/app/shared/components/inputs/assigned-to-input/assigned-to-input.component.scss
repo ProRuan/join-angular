@@ -42,16 +42,20 @@
   cursor: pointer;
 }
 
-.assignable-contacts-list {
-  @include display-column($g: 2px);
+.assignable-contacts-list-cont {
   @include position($pos: absolute, $l: 0, $t: 0);
   padding-top: 48px;
   width: 100%;
-  max-height: 230px;
   background-color: $white;
   border-radius: 10px;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
   z-index: 5;
+}
+
+.assignable-contacts-list {
+  @include display-column($g: 2px);
+  width: 100%;
+  max-height: 230px;
   overflow-y: auto;
 }
 

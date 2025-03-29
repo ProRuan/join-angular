@@ -244,11 +244,6 @@ id/sid
 ------
   - think about contacts id: string ... ?
 
-SubtasksInputComponent
-----------------------
-  - fix container/collector height ...
-  - fix z-index of collector ...
-
 BoardComponent
 --------------
   - fix add-task back log position ...
@@ -410,7 +405,6 @@ MainComponent
 
   // CategoryInputComponent
   // ----------------------
-  // fix height (body overflow-y) of assigned-to list ...
   // fix focus over button ... (2x)
   // arrow button (also for assigned-to) ...
 
@@ -443,15 +437,6 @@ MainComponent
   // title-button-cont with gap 30-100px ... ?!
   // rename variable "first" to "origin" ... ?
   // is onSumbit() necessary (working) ... ?!
-
-  // SubtasksInputComponent
-  // ----------------------
-  // set subtask cont height limit ...
-  //   --> set fix height for join app ... ?
-
-  DraggableTaskComponent
-  ----------------------
-    - move getters to ngOnChanges() ... ?
 
   // Routing
   // -------

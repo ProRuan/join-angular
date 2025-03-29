@@ -66,6 +66,8 @@
   @include display-column($g: 8px);
   margin: 0;
   padding-inline-start: 0;
+  max-height: 152px;
+  overflow-y: auto;
 }
 
 .item-cont {

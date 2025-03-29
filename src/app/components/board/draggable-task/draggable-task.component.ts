@@ -32,6 +32,8 @@ export class DraggableTaskComponent implements OnChanges {
   @Input() task: Task = new Task();
   descriptionPreview: string = '';
   tempText: string = '';
+  max: number = 0;
+  alt: string = 'prio_medium';
   rotated: boolean = false;
 
   /**
@@ -43,22 +45,6 @@ export class DraggableTaskComponent implements OnChanges {
   }
 
   /**
-   * Gets a maximum amount of subtasks to do.
-   * @returns The maximum amount of subtasks to do.
-   */
-  get max() {
-    return this.task.subtasks.length;
-  }
-
-  /**
-   * Gets an alternative text.
-   * @returns The alternative text.
-   */
-  get alt() {
-    return `prio_${this.task.prio}`;
-  }
-
-  /**
    * Updates a draggable task component on changes.
    * @param changes - The changes.
    */
@@ -66,6 +52,7 @@ export class DraggableTaskComponent implements OnChanges {
     let changedTask = getCurrentValue<Task>(changes, 'task');
     this.updateTask(changedTask);
     this.updateDescriptionPreview();
+    this.updateTaskSettings();
   }
 
   /**
@@ -123,6 +110,30 @@ export class DraggableTaskComponent implements OnChanges {
         this.tempText += ` ${t}`;
       }
     }
+  }
+
+  /**
+   * Updates task settings.
+   */
+  updateTaskSettings() {
+    this.max = this.getMax();
+    this.alt = this.getAlt();
+  }
+
+  /**
+   * Gets a maximum amount of subtasks to do.
+   * @returns The maximum amount of subtasks to do.
+   */
+  getMax() {
+    return this.task.subtasks.length;
+  }
+
+  /**
+   * Gets an alternative text.
+   * @returns The alternative text.
+   */
+  getAlt() {
+    return `prio_${this.task.prio}`;
   }
 
   /**
