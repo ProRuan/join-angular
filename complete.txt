@@ -296,13 +296,11 @@ JoinService
   // delete contact (show contact name or email) ...
   // check asset folder: img, font and so on ...
 
-  // ContactViewerService extends DialogService ... ?
-
   // rename contacts service to contact viewer service ... ?
 
   // ContactViewerComponent
   // ----------------------
-  // show on opened-contact only ... !
+  // center contact viewer for mobile ...
   // add contact viewer transition ...
   // write set() on class Contacts (for contact viewer at least)!!!
   // reset contact and cached contact!!!
@@ -330,7 +328,6 @@ PasswordInputComponent
 
   // LoginComponent
   // --------------
-  // logIn() --> sid ...
   // rememberUser() ...
   // onUserLogin() + onGuestLogin() ...
 
@@ -341,6 +338,7 @@ JoinDialog (DialogFormController)
 logo animation
 --------------
   - not animateable fill ... !
+  - change background or work with timeout after animation start ... ?
 
 Styles
 ------

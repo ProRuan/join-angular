@@ -8,7 +8,6 @@
   @include box-padding($p: 110px 55px);
   @include display-column($g: 32px);
   width: 100%;
-  max-width: 428px;
 }
 
 .title-button-cont {
@@ -94,6 +93,7 @@
     @include size($w: 100%, $h: 100%);
     @include position($pos: absolute, $l: 0, $t: 0);
     padding: 48px 16px;
+    max-width: 428px;
     background-color: $lightgray;
     gap: 48px;
   }

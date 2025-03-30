@@ -17,7 +17,7 @@
 }
 
 .flip-in {
-  @include position($pos: absolute, $t: 96px, $r: -152px);
+  @include position($pos: absolute, $t: 96px, $r: -158px);
 }
 
 .flip-out {
@@ -26,7 +26,7 @@
 
 .button {
   @include box-padding($p: 8px 16px);
-  @include size($w: 132px, $h: 46px);
+  @include size($w: 138px, $h: 46px);
   @include round-border($b: none, $br: 8px);
   @include display-row($ai: center);
   background-color: transparent;

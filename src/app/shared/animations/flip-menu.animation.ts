@@ -4,7 +4,7 @@ import { getAnimation } from '../ts/animate';
 const defaultTimings = '100ms ease-in-out';
 const parentStartProperties = [{ backgroundColor: 'transparent' }];
 const parentEndProperties = [{ backgroundColor: 'rgba(0, 0, 0, 0)' }];
-const slideStartProperties = [{ transform: 'translateX(176px)' }];
+const slideStartProperties = [{ transform: 'translateX(198px)' }];
 const slideEndProperties = [{ transform: 'translateX(0)' }];
 const optional = { optional: true };
 
