@@ -1,7 +1,8 @@
 @if (join.introDone) {
-<app-logo-svg></app-logo-svg>
+<app-logo-svg [changed]="true"></app-logo-svg>
 } @else {
-<div [@logoAnimation] [@.disabled]="isDisabled()" (@logoAnimation.done)="setIntroToDone()" class="logo-cont">
-    <app-logo-svg></app-logo-svg>
+<div [@logoAnimation] [@.disabled]="isDisabled()" (@logoAnimation.start)="setStarted()"
+    (@logoAnimation.done)="setDone()" class="logo-cont">
+    <app-logo-svg [changed]="started"></app-logo-svg>
 </div>
 }

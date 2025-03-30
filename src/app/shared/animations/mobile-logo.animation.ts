@@ -22,8 +22,6 @@ const logoEndProperties = [
     top: '37px',
   },
 ];
-const pathStartProperties = [{ fill: '#ffffff' }];
-const pathEndProperties = [{ fill: '#2a3647' }];
 const optional = { optional: true };
 
 const NAME = 'mobileLogoAnimation';
@@ -45,15 +43,6 @@ const DATA: AnimationData[] = [
         properties: {
           start: logoStartProperties,
           end: logoEndProperties,
-        },
-        options: optional,
-      },
-      {
-        selector: '.path',
-        timings: defaultTimings,
-        properties: {
-          start: pathStartProperties,
-          end: pathEndProperties,
         },
         options: optional,
       },

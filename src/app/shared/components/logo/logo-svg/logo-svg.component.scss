@@ -6,7 +6,15 @@
 }
 
 .path {
+  transition: fill 800ms 200ms ease-in-out;
+}
+
+.dark-fill {
   fill: $dark;
+}
+
+.white-fill {
+  fill: $white;
 }
 
 @media (min-width: 1921px) {

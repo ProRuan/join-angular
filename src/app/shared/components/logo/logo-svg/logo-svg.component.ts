@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-logo-svg',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './logo-svg.component.html',
   styleUrl: './logo-svg.component.scss',
 })
@@ -11,4 +12,14 @@ import { Component } from '@angular/core';
 /**
  * Class representing a logo svg component.
  */
-export class LogoSvgComponent {}
+export class LogoSvgComponent {
+  @Input() changed: boolean = false;
+
+  /**
+   * Gets the css class of a svg path.
+   * @returns The css class of the svg path.
+   */
+  getClass() {
+    return this.changed ? 'dark-fill' : 'white-fill';
+  }
+}

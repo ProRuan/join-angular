@@ -44,6 +44,7 @@ export class LogoComponent {
   @Input() animated: boolean = true;
 
   logo: string = '../../../assets/img/login/logo.png';
+  started: boolean = false;
 
   /**
    * Initializes a logo component.
@@ -51,7 +52,7 @@ export class LogoComponent {
   ngOnInit() {
     let introDone = getSessionalItem('introDone');
     if (introDone) {
-      this.setIntroToDone();
+      this.setDone();
     }
   }
 
@@ -64,9 +65,18 @@ export class LogoComponent {
   }
 
   /**
+   * Sets an intro to started.
+   */
+  setStarted() {
+    setTimeout(() => {
+      this.started = true;
+    }, 0);
+  }
+
+  /**
    * Sets an intro to done.
    */
-  setIntroToDone() {
+  setDone() {
     this.join.setIntroToDone();
   }
 }
