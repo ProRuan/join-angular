@@ -1,4 +1,4 @@
-<section class="summary">
+<section class="summary pos-relative">
     <div class="content">
         <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
         <app-join-title class="mobile" [title]="title" [subtitle]="subtitle" [dark]="true"
@@ -20,9 +20,12 @@
                 </div>
             </div>
 
-            <div class="greeting-cont">
-                <span class="greeting">{{ greeting }},</span>
-                <span class="user">{{ join.user.name }}</span>
+            <div @greetingAnimation [ngStyle]="getStyle()" class="greeting-animation" [@.disabled]="isDisabled()"
+                (@greetingAnimation.done)="setDone()">
+                <div class="greeting-cont">
+                    <span class="greeting">{{ greeting }},</span>
+                    <span class="user">{{ join.user.name }}</span>
+                </div>
             </div>
         </div>
     </div>

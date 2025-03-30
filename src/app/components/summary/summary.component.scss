@@ -39,6 +39,13 @@
 }
 
 @media (max-width: 1180px) {
+  .greeting-animation {
+    @include size($w: 100%, $h: 100%);
+    @include display-column($jc: center, $ai: center);
+    @include position($pos: absolute, $l: 0, $t: 0);
+    background-color: $lightgray;
+  }
+
   .summary {
     @include display-row($jc: center);
     padding: 48px 16px;
@@ -65,7 +72,15 @@
   }
 
   .greeting-cont {
-    display: none;
+    align-items: center;
+  }
+
+  .greeting {
+    @include font($fs: 36px, $fw: 400, $lh: 43.2px);
+  }
+
+  .user {
+    @include font($fs: 47px, $fw: 700, $lh: 56.4px);
   }
 }
 

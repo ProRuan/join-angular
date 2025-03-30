@@ -9,6 +9,7 @@ import { DialogService } from '../../shared/services/dialog.service';
 import { BoardService } from '../../shared/services/board.service';
 import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.component';
 import { MobileMenuComponent } from '../../shared/components/mobile-menu/mobile-menu.component';
+import { NavigationService } from '../../shared/services/navigation.service';
 
 @Component({
   selector: 'app-main',
@@ -31,6 +32,7 @@ export class MainComponent {
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   dialog: DialogService = inject(DialogService);
+  nav: NavigationService = inject(NavigationService);
 
   // MenuComponent
   // -------------
@@ -50,9 +52,27 @@ export class MainComponent {
 
   // create own function!!!
   ngOnInit() {
+    this.setGreetingToDone();
     this.join.loadUser();
     this.join.subscribeUser();
     this.join.setIntroToDone();
+  }
+
+  /**
+   * Sets a greeting to done.
+   */
+  setGreetingToDone() {
+    if (!this.isSummary()) {
+      this.join.setGreetingToDone();
+    }
+  }
+
+  /**
+   * Verifies a summary component.
+   * @returns A boolean value.
+   */
+  isSummary() {
+    return this.nav.isLinkActivated('summary');
   }
 
   onDragend() {

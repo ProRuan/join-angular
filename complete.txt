@@ -377,6 +377,11 @@ MainComponent
   // ----------------
   // input [config]="config" --> short and flexible ... ?
 
+  summary
+  -------
+    - review getGreeting() ...
+    - review windowWidth ...
+
   name formatter
   --------------
     - improve patterns ...

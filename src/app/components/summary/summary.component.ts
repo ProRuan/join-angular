@@ -2,8 +2,10 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { SumCardComponent } from './sum-card/sum-card.component';
+import { greetingAnimation } from '../../shared/animations/greeting.animation';
 import { JoinService } from '../../shared/services/join.service';
 import { Summary } from '../../shared/models/summary';
+import { getSessionalItem, setSessionalItem } from '../../shared/ts/global';
 
 @Component({
   selector: 'app-summary',
@@ -11,6 +13,7 @@ import { Summary } from '../../shared/models/summary';
   imports: [CommonModule, JoinTitleComponent, SumCardComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss',
+  animations: [greetingAnimation],
 })
 
 /**
@@ -22,14 +25,41 @@ export class SummaryComponent {
   title: string = 'Join 360';
   subtitle: string = 'Key Metrics at a Glance';
   greeting: string = 'Good morning';
+  greetingDone: boolean = false;
   summary: Summary = new Summary();
 
   /**
    * Initializes a summary component.
    */
   ngOnInit() {
-    this.summary = this.join.user.summary;
+    this.loadGreetingState();
+    this.setSummary();
+  }
+
+  /**
+   * Loads a greeting state from the session storage.
+   */
+  loadGreetingState() {
+    let greetingDone = getSessionalItem('greetingDone');
+    if (greetingDone) {
+      this.setDone();
+    }
+  }
+
+  /**
+   * Sets a greeting to done.
+   */
+  setDone() {
+    this.greetingDone = true;
+    setSessionalItem('greetingDone', true);
+  }
+
+  /**
+   * Sets a summary.
+   */
+  setSummary() {
     this.greeting = this.getGreeting();
+    this.summary = this.join.user.summary;
   }
 
   /**
@@ -39,10 +69,10 @@ export class SummaryComponent {
   getGreeting() {
     let hours = this.getHours();
     if (hours < 6) return 'Good night';
-    else if (hours < 9) return 'Good morning';
-    else if (hours < 12) return 'Hello';
-    else if (hours < 17) return 'Good afternoon';
-    else return 'Good evening';
+    if (hours < 9) return 'Good morning';
+    if (hours < 12) return 'Hello';
+    if (hours < 17) return 'Good afternoon';
+    return 'Good evening';
   }
 
   /**
@@ -51,5 +81,22 @@ export class SummaryComponent {
    */
   getHours() {
     return new Date().getHours();
+  }
+
+  /**
+   * Gets the style of a greeting animation element.
+   * @returns The style of the greeting animation element.
+   */
+  getStyle() {
+    let mobile = this.join.windowWidth < 1180 + 1;
+    return this.greetingDone && mobile ? { display: 'none' } : null;
+  }
+
+  /**
+   * Verifies the disabled state of a greeting animation.
+   * @returns A boolean value.
+   */
+  isDisabled() {
+    return this.greetingDone || this.join.windowWidth > 1180;
   }
 }

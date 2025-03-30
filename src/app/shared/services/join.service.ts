@@ -41,6 +41,7 @@ export class JoinService {
   user: User = new User();
   users: User[] = [];
   introDone: boolean = false;
+  greetingDone: boolean = false;
   windowWidth: number = 0;
   overflowYSubject = new BehaviorSubject<string>('hidden');
   overflowY$ = this.overflowYSubject.asObservable();
@@ -53,10 +54,18 @@ export class JoinService {
    */
   setIntroToDone() {
     if (!this.introDone) {
-      this.introDone = true;
-      setSessionalItem('introDone', true);
+      this.setDone('introDone');
       this.setOverflowY('auto');
     }
+  }
+
+  /**
+   * Sets a boolean property to true.
+   * @param key - The property key.
+   */
+  setDone(key: string) {
+    this[key] = true;
+    setSessionalItem(key, true);
   }
 
   /**
@@ -66,6 +75,15 @@ export class JoinService {
   setOverflowY(value: string): void {
     this.overflowYSubject.next(value);
     this.overflowYSubject.complete();
+  }
+
+  /**
+   * Sets a greeting to done.
+   */
+  setGreetingToDone() {
+    if (!this.greetingDone) {
+      this.setDone('greetingDone');
+    }
   }
 
   /**
