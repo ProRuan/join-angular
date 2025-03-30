@@ -338,9 +338,9 @@ JoinDialog (DialogFormController)
 ----------
   - add add-task backlog logic ... !
 
-Fonts
------
-  - add inter, poppins, open sans ... (0/3)
+logo animation
+--------------
+  - not animateable fill ... !
 
 Styles
 ------
