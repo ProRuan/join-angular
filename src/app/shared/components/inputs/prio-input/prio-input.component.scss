@@ -38,15 +38,15 @@
 }
 
 .urgent {
-  @include prio-disabled($bgc: $urgent, $path: $urgent_white);
+  @include prio-disabled($bgc: $urgent, $path: $urgentWhite);
 }
 
 .medium {
-  @include prio-disabled($bgc: $medium, $path: $medium_white);
+  @include prio-disabled($bgc: $medium, $path: $mediumWhite);
 }
 
 .low {
-  @include prio-disabled($bgc: $low, $path: $low_white);
+  @include prio-disabled($bgc: $low, $path: $lowWhite);
 }
 
 @media (max-width: 1180px) {

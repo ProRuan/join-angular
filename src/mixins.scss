@@ -1,3 +1,9 @@
+// fonts
+$inter: "Inter", Arial, Helvetica, sans-serif;
+$openSans: "Open Sans", Arial, Helvetica, sans-serif;
+$poppins: "Poppins", Arial, Helvetica, sans-serif;
+
+// colors
 $black: #000000;
 $dark: #2a3647;
 $darker: #091931;
@@ -5,22 +11,17 @@ $darkgray: #a8a8a8;
 $gray: #d1d1d1;
 $lightgray: #f6f7f8;
 $lightblue: #29abe2;
-$error: #ff001f; // rename to ???
-$hint: #ff8190; // rename to error
+$error: #ff001f;
+$hint: #ff8190;
 $white: #ffffff;
 $urgent: #ff3d00;
 $medium: #ffa800;
 $low: #7ae229;
 
-$inter: "Inter", Arial, Helvetica, sans-serif;
-$openSans: "Open Sans", Arial, Helvetica, sans-serif;
-$poppins: "Poppins", Arial, Helvetica, sans-serif;
-
-// rename to camelCase!!!
-$urgent_white: "/assets/img/add-task/prio_urgent_white.png";
-$medium_white: "/assets/img/add-task/prio_medium_white.png";
-$low_white: "/assets/img/add-task/prio_low_white.png";
-// move variabels!!!
+// image paths
+$urgentWhite: "/assets/img/add-task/prio_urgent_white.png";
+$mediumWhite: "/assets/img/add-task/prio_medium_white.png";
+$lowWhite: "/assets/img/add-task/prio_low_white.png";
 
 @mixin box-padding($p) {
   box-sizing: border-box;
@@ -47,7 +48,6 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   background-color: $bgc;
 }
 
-// move gap to mixin (in files)!!!
 @mixin display-column($jc: flex-start, $ai: normal, $g: normal normal) {
   display: flex;
   flex-direction: column;
@@ -60,12 +60,6 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   display: flex;
   justify-content: $jc;
   align-items: $ai;
-  gap: $g;
-}
-
-@mixin display-horiz($g) {
-  display: flex;
-  align-items: center;
   gap: $g;
 }
 
@@ -120,6 +114,3 @@ $low_white: "/assets/img/add-task/prio_low_white.png";
   width: $w;
   height: $h;
 }
-
-// review mixins!!!
-// check global and local mixins!!!

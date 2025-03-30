@@ -121,6 +121,7 @@ subscribtion
 SignOutComponent
 ----------------
   --> see also: login, sign-up, new-password ...
+  - add to components.scss ...
 
 EditTaskComponent: do not reset board task ... ?
   --> empty task after change: board-summary-board edit-task ... !
@@ -343,12 +344,7 @@ Fonts
 
 Styles
 ------
-  - updates components.scss ...
-  - add missing components!
-  - legal notice, privacy policy, help etc.
-  - delete-user-dialog ...
   - enable scrollbars.scss ... ?
-  - review mixins.scss ... !
 
 
 InputConfigurationService
@@ -399,3 +395,4 @@ optional
 --------
   - summary greetings with object and for loop ...
   - replace error with control?.errors ...
+  - replace mixin display-flex with display-? ...
