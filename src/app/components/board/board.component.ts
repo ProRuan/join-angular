@@ -41,7 +41,7 @@ export class BoardComponent {
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   board: BoardService = inject(BoardService);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
   // edit-task dialog: think about height + overflow-y ...
@@ -95,7 +95,7 @@ export class BoardComponent {
     if (this.join.windowWidth < 1180 + 1) {
       this.nav.navigateByLink('add-task');
     } else {
-      this.dialog.open('addTask');
+      this.dialogs.open('addTask');
     }
   }
 

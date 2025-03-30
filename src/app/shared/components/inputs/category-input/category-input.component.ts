@@ -27,7 +27,7 @@ import { stopPropagation } from '../../../ts/global';
  * @extends ReactiveInput
  */
 export class CategoryInputComponent extends ReactiveInput {
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   dialogId: string = 'category';
 
@@ -38,7 +38,7 @@ export class CategoryInputComponent extends ReactiveInput {
    * @param event - The event.
    */
   onHandle(event: Event) {
-    this.dialog.resetAssignedTo();
+    this.dialogs.resetAssignedTo();
     stopPropagation(event);
   }
 
@@ -46,7 +46,7 @@ export class CategoryInputComponent extends ReactiveInput {
    * Switches a category menu on click.
    */
   onSwitch() {
-    this.dialog.switch(this.dialogId);
+    this.dialogs.switch(this.dialogId);
   }
 
   /**
@@ -54,7 +54,7 @@ export class CategoryInputComponent extends ReactiveInput {
    * @returns The source path of the arrow.
    */
   getArrowSrc() {
-    return this.dialog.getArrowSrc(this.dialogId);
+    return this.dialogs.getArrowSrc(this.dialogId);
   }
 
   /**
@@ -62,7 +62,7 @@ export class CategoryInputComponent extends ReactiveInput {
    * @returns A boolean value.
    */
   isOpened() {
-    return this.dialog.isOpened(this.dialogId);
+    return this.dialogs.isOpened(this.dialogId);
   }
 
   /**
@@ -71,7 +71,7 @@ export class CategoryInputComponent extends ReactiveInput {
    */
   onSelect(element: HTMLDivElement) {
     this.value = element.innerText;
-    this.dialog.close(this.dialogId);
+    this.dialogs.close(this.dialogId);
     this.markAsDirty(this.control);
   }
 }

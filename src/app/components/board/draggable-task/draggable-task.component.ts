@@ -27,7 +27,7 @@ import { getCurrentValue, isDefaultArray } from '../../../shared/ts/global';
 export class DraggableTaskComponent implements OnChanges {
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   @Input() task: Task = new Task();
   descriptionPreview: string = '';
@@ -164,7 +164,7 @@ export class DraggableTaskComponent implements OnChanges {
    */
   onView() {
     this.board.task = this.task;
-    this.dialog.open('viewTask');
+    this.dialogs.open('viewTask');
   }
 
   /**

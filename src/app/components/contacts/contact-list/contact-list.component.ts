@@ -32,7 +32,7 @@ import {
  */
 export class ContactListComponent implements OnChanges {
   viewer: ContactService = inject(ContactService);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   @Input() contacts: Contact[] = [];
 
@@ -122,10 +122,10 @@ export class ContactListComponent implements OnChanges {
    * Opens an add-contact dialog on click.
    */
   onAdd() {
-    this.dialog.id = this.dialogId;
-    this.dialog.title = 'Add contact';
-    this.dialog.subtitle = 'Tasks are better with a team!';
-    this.dialog.open(this.dialogId);
+    this.dialogs.id = this.dialogId;
+    this.dialogs.title = 'Add contact';
+    this.dialogs.subtitle = 'Tasks are better with a team!';
+    this.dialogs.open(this.dialogId);
   }
 
   /**
@@ -155,9 +155,9 @@ export class ContactListComponent implements OnChanges {
   onView(contact: Contact) {
     if (!this.isSelected(contact)) {
       this.viewer.setContact(contact);
-      this.dialog.open('viewContact');
+      this.dialogs.open('viewContact');
     } else {
-      this.dialog.close('viewContact');
+      this.dialogs.close('viewContact');
       this.viewer.setContact();
     }
   }

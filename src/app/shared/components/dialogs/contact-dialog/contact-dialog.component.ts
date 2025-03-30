@@ -131,9 +131,9 @@ export class ContactDialogComponent
    * Closes a dialog.
    */
   closeDialog() {
-    this.dialog.close(this.dialogId);
-    this.dialog.title = '';
-    this.dialog.subtitle = '';
+    this.dialogs.close(this.dialogId);
+    this.dialogs.title = '';
+    this.dialogs.subtitle = '';
     this.viewer.cachedContact = new Contact();
   }
 
@@ -141,7 +141,7 @@ export class ContactDialogComponent
    * Opens a delete-contact dialog on click.
    */
   onDelete() {
-    this.dialog.open('deleteContact');
+    this.dialogs.open('deleteContact');
   }
 
   /**

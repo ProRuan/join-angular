@@ -16,7 +16,7 @@ import { DialogService } from '../../services/dialog.service';
  */
 export class JoinHeaderComponent {
   router: Router = inject(Router);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   src: string = '../../../../assets/img/header/help.png';
   dialogId: string = 'flipMenu';
@@ -52,6 +52,6 @@ export class JoinHeaderComponent {
    * Switches a menu on click.
    */
   onSwitch() {
-    this.dialog.switch(this.dialogId);
+    this.dialogs.switch(this.dialogId);
   }
 }

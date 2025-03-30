@@ -152,7 +152,7 @@ export class ViewTaskDialogComponent
    */
   onDelete() {
     this.join.saveUser();
-    this.dialog.open('deleteTask');
+    this.dialogs.open('deleteTask');
   }
 
   /**
@@ -167,10 +167,10 @@ export class ViewTaskDialogComponent
    * Opens an edit-task dialog.
    */
   openEditTaskDialog() {
-    this.dialog.fadedOut = true;
-    this.dialog.open('editTask');
+    this.dialogs.fadedOut = true;
+    this.dialogs.open('editTask');
     setTimeout(() => {
-      this.dialog.fadedOut = false;
+      this.dialogs.fadedOut = false;
     }, 0);
   }
 }

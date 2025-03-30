@@ -16,7 +16,7 @@ import { DialogService } from '../../services/dialog.service';
  * Class representing a back log component.
  */
 export class BackLogComponent {
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   @Input() text: string = 'Back log text';
   @Input() img?: string;

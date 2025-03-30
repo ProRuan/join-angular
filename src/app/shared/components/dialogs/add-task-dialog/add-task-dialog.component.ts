@@ -34,8 +34,8 @@ export class AddTaskDialogComponent extends DialogFormController {
    * @param event - The event.
    */
   override onStop(event: Event) {
-    this.dialog.resetAssignedTo();
-    this.dialog.close('category');
+    this.dialogs.resetAssignedTo();
+    this.dialogs.close('category');
     stopPropagation(event);
   }
 }

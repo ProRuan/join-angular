@@ -34,7 +34,7 @@ import { getArrayCopy } from '../../shared/ts/global';
 export class ContactsComponent {
   join: JoinService = inject(JoinService);
   viewer: ContactService = inject(ContactService);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   // move onEdit() and onDelete() to contact viewer ...
   // user join button ... ?!
@@ -64,7 +64,7 @@ export class ContactsComponent {
    * @returns A boolean value.
    */
   isOpened() {
-    return this.dialog.isOpened(this.dialogId);
+    return this.dialogs.isOpened(this.dialogId);
   }
 
   /**
@@ -113,7 +113,7 @@ export class ContactsComponent {
    * Closes a contact viewer on click.
    */
   onClose() {
-    this.dialog.close(this.dialogId);
+    this.dialogs.close(this.dialogId);
     this.viewer.setContact();
   }
 
@@ -126,13 +126,13 @@ export class ContactsComponent {
     console.log('contact: ', this.viewer.cachedContact);
 
     // this.viewer.cachedContact = new Contact(this.contact);
-    this.dialog.id = this.dialogId;
-    this.dialog.title = 'Edit contact';
-    this.dialog.open(this.dialogId);
+    this.dialogs.id = this.dialogId;
+    this.dialogs.title = 'Edit contact';
+    this.dialogs.open(this.dialogId);
   }
 
   // double code!!!
   onDelete() {
-    this.dialog.open('deleteContact');
+    this.dialogs.open('deleteContact');
   }
 }

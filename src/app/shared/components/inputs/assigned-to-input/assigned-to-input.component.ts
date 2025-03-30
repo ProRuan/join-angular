@@ -41,7 +41,7 @@ export class AssignedToInputComponent
   implements OnChanges
 {
   join: JoinService = inject(JoinService);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   dialogId: string = 'assignedTo';
   assignableContacts: Contact[] = [];
@@ -121,7 +121,7 @@ export class AssignedToInputComponent
    * @param event - The event.
    */
   onHandle(event: Event) {
-    this.dialog.close('category');
+    this.dialogs.close('category');
     stopPropagation(event);
   }
 
@@ -130,7 +130,7 @@ export class AssignedToInputComponent
    * @returns The css class the input focus.
    */
   getFocusClass() {
-    return this.dialog.isOpened(this.dialogId) ? 'focus' : '';
+    return this.dialogs.isOpened(this.dialogId) ? 'focus' : '';
   }
 
   /**
@@ -138,7 +138,7 @@ export class AssignedToInputComponent
    * @returns The placeholder.
    */
   getPlaceholder() {
-    let opened = this.dialog.isOpened(this.dialogId);
+    let opened = this.dialogs.isOpened(this.dialogId);
     return !opened ? 'Select contacts to assign' : '';
   }
 
@@ -146,8 +146,8 @@ export class AssignedToInputComponent
    * Opens a drop-down menu.
    */
   onOpen() {
-    this.dialog.close('category');
-    this.dialog.open(this.dialogId);
+    this.dialogs.close('category');
+    this.dialogs.open(this.dialogId);
   }
 
   /**
@@ -155,14 +155,14 @@ export class AssignedToInputComponent
    * @returns The source path of the arrow.
    */
   getArrowSrc() {
-    return this.dialog.getArrowSrc(this.dialogId);
+    return this.dialogs.getArrowSrc(this.dialogId);
   }
 
   /**
    * Switches a drop-down menu on click.
    */
   onSwitch() {
-    this.dialog.switch(this.dialogId);
+    this.dialogs.switch(this.dialogId);
   }
 
   /**
@@ -170,7 +170,7 @@ export class AssignedToInputComponent
    * @returns The css class of the contact list.
    */
   getListClass() {
-    return this.dialog.isOpened(this.dialogId) ? 'show' : 'hide';
+    return this.dialogs.isOpened(this.dialogId) ? 'show' : 'hide';
   }
 
   /**

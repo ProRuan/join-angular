@@ -154,7 +154,7 @@ export class EditTaskDialogComponent
    */
   onClose() {
     this.close();
-    this.dialog.close('viewTask');
+    this.dialogs.close('viewTask');
     this.board.setDefaultTask();
     this.resetAssistantControls();
   }
@@ -173,8 +173,8 @@ export class EditTaskDialogComponent
    * @param event - The event.
    */
   onMenuClose(event: Event): void {
-    this.dialog.resetAssignedTo();
-    this.dialog.close('category');
+    this.dialogs.resetAssignedTo();
+    this.dialogs.close('category');
     stopPropagation(event);
   }
 
@@ -222,10 +222,10 @@ export class EditTaskDialogComponent
    * Fades a dialog out.
    */
   fadeDialogOut() {
-    this.dialog.fadedOut = true;
+    this.dialogs.fadedOut = true;
     setTimeout(() => {
-      this.dialog.close(this.id);
-      this.dialog.fadedOut = false;
+      this.dialogs.close(this.id);
+      this.dialogs.fadedOut = false;
       this.resetAssistantControls();
     }, 0);
   }

@@ -21,7 +21,7 @@ import { Contact } from '../../../shared/models/contact';
 export class ContactViewerComponent {
   join: JoinService = inject(JoinService);
   viewer: ContactService = inject(ContactService);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   dialogId: string = 'editContact';
   editBtn = new JoinButton('editBtn');
@@ -40,15 +40,15 @@ export class ContactViewerComponent {
    */
   onEdit() {
     this.viewer.cachedContact = new Contact(this.contact);
-    this.dialog.id = this.dialogId;
-    this.dialog.title = 'Edit contact';
-    this.dialog.open(this.dialogId);
+    this.dialogs.id = this.dialogId;
+    this.dialogs.title = 'Edit contact';
+    this.dialogs.open(this.dialogId);
   }
 
   /**
    * Opens a delete-contact dialog on click.
    */
   onDelete() {
-    this.dialog.open('deleteContact');
+    this.dialogs.open('deleteContact');
   }
 }

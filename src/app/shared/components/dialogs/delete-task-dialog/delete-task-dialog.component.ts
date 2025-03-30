@@ -59,13 +59,13 @@ export class DeleteTaskDialogComponent extends DialogFormController {
    * @param index - The task index.
    */
   deleteTask(index: number) {
-    this.dialog.fadedOut = true;
+    this.dialogs.fadedOut = true;
     setTimeout(() => {
       this.closesDialogs();
       this.join.deleteUserItem('tasks', index);
       this.join.updateSummary();
       this.join.saveUser();
-      this.dialog.fadedOut = false;
+      this.dialogs.fadedOut = false;
     }, 0);
   }
 
@@ -74,6 +74,6 @@ export class DeleteTaskDialogComponent extends DialogFormController {
    */
   closesDialogs() {
     this.close();
-    this.dialog.close('viewTask');
+    this.dialogs.close('viewTask');
   }
 }

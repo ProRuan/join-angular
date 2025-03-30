@@ -8,7 +8,7 @@ import { stopPropagation } from '../ts/global';
  * @extends FormController
  */
 export class DialogFormController extends FormController {
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   id: string = '';
 
@@ -17,7 +17,7 @@ export class DialogFormController extends FormController {
    * @returns A boolean value.
    */
   isOpened() {
-    return this.dialog.isOpened(this.id);
+    return this.dialogs.isOpened(this.id);
   }
 
   /**
@@ -34,7 +34,7 @@ export class DialogFormController extends FormController {
    * @returns A boolean value.
    */
   isFadeClass() {
-    return this.dialog.submitted || this.dialog.fadedOut;
+    return this.dialogs.submitted || this.dialogs.fadedOut;
   }
 
   /**
@@ -42,7 +42,7 @@ export class DialogFormController extends FormController {
    * @param event - The event.
    */
   close(event?: Event) {
-    this.dialog.close(this.id);
+    this.dialogs.close(this.id);
     stopPropagation(event);
   }
 

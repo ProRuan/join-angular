@@ -362,25 +362,13 @@ MainComponent
   - AppComponent ...
   - routes ...
 
-  // DialogComponent
-  // ---------------
-  // move dialogs to other folder ...
-  // delete dialog component ...
-  // rename this.dialog to this.dialogs ...
-  // app back log or component back logs ... ?
-
-  // BoardComponent
-  // --------------
-  // set board column body height ... !
-
-  // Input Components
-  // ----------------
-  // input [config]="config" --> short and flexible ... ?
-
-  summary
+  Backlog
   -------
-    - review getGreeting() ...
-    - review windowWidth ...
+    - app backlog or component backlogs ... ?
+
+  board
+  -----
+    - set column body height ...
 
   name formatter
   --------------
@@ -409,4 +397,5 @@ MainComponent
 
 optional
 --------
+  - summary greetings with object and for loop ...
   - replace error with control?.errors ...

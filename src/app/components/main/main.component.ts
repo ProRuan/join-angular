@@ -31,7 +31,7 @@ export class MainComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
   // MenuComponent

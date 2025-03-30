@@ -30,7 +30,7 @@ import { IntervalId } from '../../../ts/type';
  * @extends ReactiveInput
  */
 export class SubtasksInputComponent extends ReactiveInput {
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   dialogId: string = 'subtask';
   doubleClick: boolean = false;
@@ -139,7 +139,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   isOpened(i: number) {
     let focused = this.subtasks[i].focused;
-    let opened = this.dialog.isOpened('subtask');
+    let opened = this.dialogs.isOpened('subtask');
     return focused && opened;
   }
 
@@ -170,7 +170,7 @@ export class SubtasksInputComponent extends ReactiveInput {
   openEditor(i: number) {
     this.resetFocus();
     this.subtasks[i].focused = true;
-    this.dialog.open(this.dialogId);
+    this.dialogs.open(this.dialogId);
   }
 
   /**
@@ -214,7 +214,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    * @param i - The subtask index.
    */
   delete(i: number) {
-    this.dialog.close(this.dialogId);
+    this.dialogs.close(this.dialogId);
     this.subtasks.splice(i, 1);
     this.updateSubtaskIds();
   }
@@ -241,6 +241,6 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   save(i: number) {
     this.subtasks[i].focused = false;
-    this.dialog.close(this.dialogId);
+    this.dialogs.close(this.dialogId);
   }
 }

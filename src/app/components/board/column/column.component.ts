@@ -21,7 +21,7 @@ import { Task } from '../../../shared/models/task';
 export class ColumnComponent {
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
   // review onAddTask() --> double code ...
@@ -64,9 +64,9 @@ export class ColumnComponent {
     if (this.join.windowWidth < 1180 + 1) {
       this.nav.navigateByLink('add-task');
     } else {
-      this.dialog.open(this.dialogId);
+      this.dialogs.open(this.dialogId);
     }
-    // this.dialog.open(this.dialogId);
+    // this.dialogs.open(this.dialogId);
   }
 
   /**

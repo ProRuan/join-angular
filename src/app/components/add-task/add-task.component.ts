@@ -54,7 +54,7 @@ export class AddTaskComponent extends FormController {
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   validators: InputValidatorService = inject(InputValidatorService);
-  dialog: DialogService = inject(DialogService);
+  dialogs: DialogService = inject(DialogService);
 
   @Input() original: boolean = true;
 
@@ -103,7 +103,7 @@ export class AddTaskComponent extends FormController {
    * Sets a form control for each assistant input.
    */
   setAssistantControls() {
-    this.search = this.dialog.search;
+    this.search = this.dialogs.search;
     this.calendar = this.getControl('');
     this.subtask = this.getControl('');
   }
@@ -148,7 +148,7 @@ export class AddTaskComponent extends FormController {
    * Closes and clears an add-task dialog.
    */
   cancel() {
-    this.dialog.close('addTask');
+    this.dialogs.close('addTask');
     this.clearForm();
   }
 
@@ -205,7 +205,7 @@ export class AddTaskComponent extends FormController {
    * Fades an add-task dialog out.
    */
   fadeDialogOut() {
-    this.dialog.submitted = true;
+    this.dialogs.submitted = true;
     setTimeout(() => this.resetDialog(), 1000);
   }
 
@@ -213,9 +213,9 @@ export class AddTaskComponent extends FormController {
    * Resets an add-task dialog.
    */
   resetDialog() {
-    this.dialog.close('addTask');
+    this.dialogs.close('addTask');
     this.clearForm();
-    this.dialog.submitted = false;
+    this.dialogs.submitted = false;
   }
 
   /**
