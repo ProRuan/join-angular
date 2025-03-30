@@ -5,7 +5,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
@@ -16,6 +16,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 import { JoinService } from '../../shared/services/join.service';
 import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
+import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
 import {
@@ -50,11 +51,11 @@ import {
  * @extends FormController
  */
 export class LoginComponent extends FormController {
-  route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
+  nav: NavigationService = inject(NavigationService);
 
   email: AbstractControl | null = null;
   password: AbstractControl | null = null;
@@ -93,7 +94,7 @@ export class LoginComponent extends FormController {
    * Sets a signee email.
    */
   private setSigneeEmail() {
-    let sid = this.route.snapshot.paramMap.get('id');
+    let sid = this.nav.getParam('id');
     if (sid) {
       this.updateEmailControl(sid);
     }

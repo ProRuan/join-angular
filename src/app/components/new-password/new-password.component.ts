@@ -5,7 +5,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -44,7 +43,6 @@ import { User } from '../../shared/models/user';
  * Class representing a new password component.
  */
 export class NewPasswordComponent extends FormController {
-  router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);

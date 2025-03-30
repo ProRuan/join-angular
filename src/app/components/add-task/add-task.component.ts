@@ -15,11 +15,11 @@ import { CategoryInputComponent } from '../../shared/components/inputs/category-
 import { SubtasksInputComponent } from '../../shared/components/inputs/subtasks-input/subtasks-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormController } from '../../shared/models/form-controller';
-import { Router } from '@angular/router';
 import { JoinService } from '../../shared/services/join.service';
 import { ButtonDataService } from '../../shared/services/button-data.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { DialogService } from '../../shared/services/dialog.service';
+import { NavigationService } from '../../shared/services/navigation.service';
 import { Contact } from '../../shared/models/contact';
 import { Task } from '../../shared/models/task';
 import { JoinButton } from '../../shared/models/join-button';
@@ -50,11 +50,11 @@ import { JoinButton } from '../../shared/models/join-button';
  * @extends FormController
  */
 export class AddTaskComponent extends FormController {
-  router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   validators: InputValidatorService = inject(InputValidatorService);
   dialogs: DialogService = inject(DialogService);
+  nav: NavigationService = inject(NavigationService);
 
   @Input() original: boolean = true;
 
@@ -265,7 +265,6 @@ export class AddTaskComponent extends FormController {
    * Navigates to a board.
    */
   navigateToBoard() {
-    let url = this.router.url.replace('add-task', 'board');
-    this.router.navigateByUrl(url);
+    this.nav.navigateByLink('board');
   }
 }

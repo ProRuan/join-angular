@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { DialogService } from '../../services/dialog.service';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'app-join-header',
@@ -15,8 +16,8 @@ import { DialogService } from '../../services/dialog.service';
  * Class representing a join header component.
  */
 export class JoinHeaderComponent {
-  router: Router = inject(Router);
   dialogs: DialogService = inject(DialogService);
+  nav: NavigationService = inject(NavigationService);
 
   src: string = '../../../../assets/img/header/help.png';
   dialogId: string = 'flipMenu';
@@ -37,7 +38,7 @@ export class JoinHeaderComponent {
    * @returns A boolean value.
    */
   isLink(id: string) {
-    return this.router.url.endsWith(id);
+    return this.nav.isLinkActivated(id);
   }
 
   /**

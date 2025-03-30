@@ -27,13 +27,6 @@ board
   - fix drag and drop for mobile (dialog) ... ?
   - complete board.ts --> responsiveness ... !
 
-menu
-----
-  - store current menu link (also for mobile menu) ...
-  - check all routes/routers ...
-  - set nav: login timeout:1000ms to ? ...
-  - user RouterLink or navigateByLink() ... ?
-
 content container
 -----------------
   - min-height: full main container ...
@@ -250,10 +243,6 @@ LoginComponent
   - no sid update (data.sid) ...
   - review logIn() ...
 
-SignUpComonent
---------------
-  - set new back log time out (animation) ... !
-
 JoinService
 -----------
   // review all funtions due to local user!!!
@@ -293,7 +282,6 @@ JoinService
 
 PasswordInputComponent
 ----------------------
-  // join logo z-index must be higher due to masked-input ... ?!
   // review set config input ... ?
   // one app-input (at least for admin inputs) ... ?
   
@@ -305,7 +293,6 @@ PasswordInputComponent
   // ------------------------
   // registerUser() ...
   // reject(): rename (also for login) ... !!!
-  // move log ... ?
   // log reset wrong ... !
   // remember me wrong ... !!!
 
@@ -344,6 +331,8 @@ MainComponent
   Backlog
   -------
     - app backlog or component backlogs ... ?
+    - set nav: login timeout:1000ms to ? ...
+    - after sign-up: set new backlog timeout (animation) ... !
 
   board
   -----

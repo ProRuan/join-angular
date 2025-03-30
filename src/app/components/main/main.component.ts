@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinService } from '../../shared/services/join.service';
 import { Firestore } from '@angular/fire/firestore';
@@ -28,8 +28,6 @@ import { NavigationService } from '../../shared/services/navigation.service';
 export class MainComponent {
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
-  route: ActivatedRoute = inject(ActivatedRoute);
-  router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
@@ -46,7 +44,6 @@ export class MainComponent {
   // check routes.ts ...
   // check dialog.service.ts ...
 
-  // set currentLink (this.router.url) ...
   // destroy all children components for flipMenu at least ...
   // add user log out method ...
 

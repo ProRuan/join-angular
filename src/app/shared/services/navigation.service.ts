@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JoinService } from './join.service';
 import { LogService } from './log.service';
 import { getLastIndex } from '../ts/global';
@@ -12,9 +12,19 @@ import { getLastIndex } from '../ts/global';
  * Class representing a navigation service.
  */
 export class NavigationService {
+  route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   log: LogService = inject(LogService);
+
+  /**
+   * Gets a route parameter.
+   * @param name - The parameter name.
+   * @returns The route parameter.
+   */
+  getParam(name: string) {
+    return this.route.snapshot.paramMap.get(name);
+  }
 
   /**
    * Opens a login session.

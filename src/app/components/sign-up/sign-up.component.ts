@@ -5,7 +5,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -70,7 +70,6 @@ type DocChange = DocumentChange<DocumentData, DocumentData>;
  */
 export class SignUpComponent extends FormController {
   firestore: Firestore = inject(Firestore);
-  router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   summary: SummaryService = inject(SummaryService);
   config: InputConfigurationService = inject(InputConfigurationService);
