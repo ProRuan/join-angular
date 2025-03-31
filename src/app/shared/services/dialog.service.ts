@@ -22,6 +22,7 @@ export class DialogService {
     viewContact: false,
     editContact: false,
     deleteContact: false,
+    contactSettings: false,
   };
 
   search: AbstractControl | null = new FormControl('');

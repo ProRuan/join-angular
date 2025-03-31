@@ -4,10 +4,16 @@
   @include display-row();
 }
 
+.contact-viewer-dialog {
+  @include size($w: 100%, $h: calc(100vh - 96px));
+  @include display-row();
+}
+
 .title-viewer-cont {
   @include box-padding($p: 110px 55px);
+  @include size($w: 100%, $h: 100%);
   @include display-column($g: 32px);
-  width: 100%;
+  position: relative;
 }
 
 .title-button-cont {
@@ -31,32 +37,12 @@
 }
 
 // move to contact viewer!
-// only for mobile!
 .settings-btn {
-  @include box-padding($p: 12px);
-  @include size($w: 56px, $h: 56px);
-  @include round-border($b: none, $br: 46px);
-  @include position($pos: absolute, $r: 16px, $b: 32px);
-  background-color: $dark;
-  background-image: url("/assets/img/contacts/settings.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  transition: all 100ms ease-in;
-
-  &:active {
-    background-color: $lightblue;
-  }
+  display: none;
 }
 
 .settings-dialog {
-  @include display-column();
-  @include position($pos: absolute, $r: 8px, $b: 16px);
-  padding: 10px;
-  background-color: $white;
-  border-radius: 20px 20px 0 20px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  display: none;
 }
 
 .settings-dialog-btn {
@@ -89,9 +75,14 @@
     box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
   }
 
+  .contact-viewer-dialog {
+    height: calc(100vh - 160px);
+    justify-content: center;
+  }
+
   .title-viewer-cont {
     @include size($w: 100%, $h: 100%);
-    @include position($pos: absolute, $l: 0, $t: 0);
+    // @include position($pos: absolute, $l: 0, $t: 0);
     padding: 48px 16px;
     max-width: 428px;
     background-color: $lightgray;
@@ -100,5 +91,33 @@
 
   .title-button-cont {
     @include display-row($jc: space-between);
+  }
+
+  .settings-btn {
+    @include box-padding($p: 12px);
+    @include size($w: 56px, $h: 56px);
+    @include round-border($b: none, $br: 46px);
+    @include position($pos: absolute, $r: 16px, $b: 32px);
+    background-color: $dark;
+    background-image: url("/assets/img/contacts/settings.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    transition: all 100ms ease-in;
+    display: flex;
+
+    &:active {
+      background-color: $lightblue;
+    }
+  }
+
+  .settings-dialog {
+    @include display-column();
+    @include position($pos: absolute, $r: 8px, $b: 96px);
+    padding: 10px;
+    background-color: $white;
+    border-radius: 20px 20px 0 20px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   }
 }

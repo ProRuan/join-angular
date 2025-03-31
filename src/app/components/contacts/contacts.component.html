@@ -4,28 +4,20 @@
 <section class="contacts">
     <app-contact-list *ngIf="isDisplayed()" [contacts]="getSortedContacts()" class="contact-list"></app-contact-list>
 
-    <div *ngIf="isOpened()" class="title-viewer-cont">
-        <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
-        <div class="title-button-cont">
-            <app-join-title [title]="title" [subtitle]="subtitle" [dark]="true" [mobile]="true"></app-join-title>
-            <button class="back-arrow" (click)="onClose()"></button>
-        </div>
-        <app-contact-viewer></app-contact-viewer>
+    <div *ngIf="isOpened()" class="contact-viewer-dialog">
+        <div class="title-viewer-cont">
+            <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
+            <div class="title-button-cont">
+                <app-join-title [title]="title" [subtitle]="subtitle" [dark]="true" [mobile]="true"></app-join-title>
+                <button class="back-arrow" (click)="onClose()"></button>
+            </div>
+            <app-contact-viewer></app-contact-viewer>
 
-        <!-- move to contact viewer! -->
-        <button class="settings-btn"></button>
+            <!-- move to contact viewer! -->
+            <button class="settings-btn" (click)="onSet()"></button>
 
-        <!-- use app-button?! -->
-        <div class="settings-dialog">
-            <button class="settings-dialog-btn" (click)="onEdit()">
-                <img class="button-img" src="/assets/img/contacts/edit.png" alt="edit">
-                <span class="button-text">Edit</span>
-            </button>
-
-            <button class="settings-dialog-btn" (click)="onDelete()">
-                <img class="button-img" src="/assets/img/contacts/delete.png" alt="delete">
-                <span class="button-text">Delete</span>
-            </button>
+            <!-- move to other dialogs? -->
+            <app-contact-settings-dialog></app-contact-settings-dialog>
         </div>
     </div>
 </section>

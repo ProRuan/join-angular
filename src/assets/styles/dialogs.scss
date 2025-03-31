@@ -6,6 +6,10 @@
   z-index: 10;
 }
 
+.rgba-0 {
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .transit-cont {
   @include size($w: 100%, $h: 100vh);
   @include display-flex();

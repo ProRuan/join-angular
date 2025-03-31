@@ -29,6 +29,7 @@ board
 
 content container
 -----------------
+  - main: max-height + min-height ... (0/2)
   - min-height: full main container ...
       --> summary, add-task, board, contacts ... (0/4)
 
@@ -66,20 +67,19 @@ legal-notice
 ------------
   - set exploring the board e-mail (from guest login) ...
       --> prepare guest login ... !
+      --> prepare menu of guest login ... !
   - user profile if logged in ... !
 
 responsiveness
 --------------
   - summary: min-height ...
   - summary greetings (mobile + desktop as of 1280px) ... (0/2)
-  - main min/max/width/height ... (0/4)
   - board: board.ts, view-task and edit-task ... (0/3)
   - join-header: help + profile (mobile) ... (0/2)
   - think about error text: login, sign-up, new-password ... (0/3)
   - backlog responsiveness: sign-up, new-password ... (0/2)
   - scroll to top after router link (on small devices) ...
   - rename header login and sign-up classes ...
-  - move logo svg component to svg folder ... ?
   - fix focus-visible ... !
   - check app-checkbox style ...
   - favicon ...
@@ -87,12 +87,6 @@ responsiveness
 subscribtion
 ------------
   - complete it manually and subscribe it again ... ?
-
-  // logo animation
-  // --------------
-  //   - set responsive animation (not 429px) ...
-  //   - use dark logo in logo component (if-else) for main component ...
-  //       --> no need to set intro to done then ... ?
 
 SignOutComponent
 ----------------
@@ -156,8 +150,6 @@ summary service / sign-up
   // check components ...
   // ---------------------
 
-  // check other missing files (folder by folder) ...
-
 summary service
 ---------------
   // ViewTaskDialogComponent
@@ -208,6 +200,7 @@ join service
 
 cookies
 -------
+  - remember me with user id or sid only ... ?
   - use them for the remember me function ... ?
   - add cookies with cookie bot ... ?
 
@@ -224,11 +217,6 @@ Templates
   - create add-contact-dialog ... ?
   - create edit-contact-dialog ... ?
       --> fix contact dialog ... !
-
-AppComponent And App
---------------------
-  - complete app component ...
-  - complete all other files and folders ...
 
 LoginComponent
 --------------
@@ -265,7 +253,6 @@ JoinService
   // InputConfigurationService --> set phone input ...
 
   // delete contact (show contact name or email) ...
-  // check asset folder: img, font and so on ...
 
   // rename contacts service to contact viewer service ... ?
 
@@ -279,7 +266,6 @@ JoinService
 PasswordInputComponent
 ----------------------
   // review set config input ... ?
-  // one app-input (at least for admin inputs) ... ?
   
   // sometimes no error update ...
   // set validators A/B and errors a/b ...
@@ -300,10 +286,6 @@ PasswordInputComponent
   // rememberUser() ...
   // onUserLogin() + onGuestLogin() ...
 
-missing files and folders
--------------------------
-  - count and review all missing files and folders ...
-
 JoinDialog (DialogFormController)
 ----------
   - add add-task backlog logic ... !
@@ -317,12 +299,6 @@ InputConfigurationService
 -------------------------
   - contact-dialog component: add phone config ...
   - add phone input component ...
-
-MainComponent
--------------
-  - MainComponent ...
-  - AppComponent ...
-  - routes ...
 
   Backlog
   -------
@@ -358,9 +334,17 @@ MainComponent
     - set guest login ...
     - create guest user (database) ...
 
+  folders and files
+  -----------------
+    - count and review missing folders and files (step by step) ...
+    - check assets/styles ...
+
 
 optional
 --------
+  - rename MainComponent to JoinComponent ...
+  - add PageNotFoundComponent (also for children) ...
   - summary greetings with object and for loop ...
   - replace error with control?.errors ...
-  - replace mixin display-flex with display-? ...
+  - replace mixin display-flex with display-column or display-row ...
+  - review assets/img ...

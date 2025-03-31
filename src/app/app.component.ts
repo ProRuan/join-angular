@@ -1,18 +1,12 @@
-import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { JoinService } from './shared/services/join.service';
 import { LogComponent } from './shared/components/log/log.component';
+import { Firestore } from '@angular/fire/firestore';
+import { JoinService } from './shared/services/join.service';
 import { LogService } from './shared/services/log.service';
-// testing!!!
-import { fromEvent, Subscription } from 'rxjs';
+import { fromEvent, Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import {
-  collection,
-  Firestore,
-  onSnapshot,
-  Unsubscribe,
-} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -22,55 +16,81 @@ import {
   styleUrl: './app.component.scss',
 })
 
-// verify!!!
+/**
+ * Class representing an app component.
+ */
 export class AppComponent {
   firestore: Firestore = inject(Firestore);
+  join: JoinService = inject(JoinService);
   log: LogService = inject(LogService);
 
-  // set respWidth for desktop, tablet and mobile ... (1/3)
-
-  // try delay without subscribed collection ...
-  // try delay withoud saveUser() ...
-  // subscribe logged user ...
-  // save logged id ...
-  // subscribe valueChanges ...s
-
   title = 'join';
-
-  join: JoinService = inject(JoinService);
-
+  bodySubscription!: Subscription;
   resizeSubscription!: Subscription;
 
+  /**
+   * Initializes an app component.
+   */
   ngOnInit(): void {
-    let test = this.join.overflowY$.subscribe({
-      next: (value) => (document.body.style.overflowY = value),
-      error: (error) => console.log('error: ', error),
-      complete: () => console.log('complete'),
-    });
-    // test.unsubscribe();
-    this.resizeSubscription = fromEvent(window, 'resize')
-      .pipe(
-        map(() => window.innerWidth),
-        startWith(window.innerWidth) // Emit the initial width value
-      )
-      .subscribe((width) => {
-        this.join.setWindowWidth(width);
-      });
-
-    // const startTime = new Date().getTime();
-    // console.log('start time: ', startTime);
-    // this.join.subscribeUserCollection();
-    // const endTime = new Date().getTime();
-    // console.log('time diff: ', endTime - startTime);
-    // setTimeout(() => {
-    //   this.join.unsubscribeUserCollection();
-    //   console.log('user collection unsubscribed');
-    // }, 5000);
+    this.bodySubscription = this.getBodySubscription();
+    this.resizeSubscription = this.getResizeSubscription();
   }
 
+  /**
+   * Gets a body subscription.
+   * @returns The body subscription.
+   */
+  getBodySubscription() {
+    return this.join.overflowY$.subscribe({
+      next: (value) => (document.body.style.overflowY = value),
+      error: (error) => console.log('error: ', error),
+    });
+  }
+
+  /**
+   * Gets a resize subscription.
+   * @returns The resize subscription.
+   */
+  getResizeSubscription() {
+    let event = this.getResizeEvent();
+    let value = this.getWindowWidth(event);
+    return this.getSubscription(value);
+  }
+
+  /**
+   * Gets an observable as resize event.
+   * @returns - The observable as resize event.
+   */
+  getResizeEvent() {
+    return fromEvent(window, 'resize');
+  }
+
+  /**
+   * Gets a window width.
+   * @param event - The event.
+   * @returns The window width.
+   */
+  getWindowWidth(event: Observable<Event>) {
+    return event.pipe(
+      map(() => window.innerWidth),
+      startWith(window.innerWidth)
+    );
+  }
+
+  /**
+   * Gets a subscription.
+   * @param number - The window width.
+   * @returns The subscription.
+   */
+  getSubscription(number: Observable<number>) {
+    return number.subscribe((value) => this.join.setWindowWidth(value));
+  }
+
+  /**
+   * Destroys an app component.
+   */
   ngOnDestroy(): void {
-    if (this.resizeSubscription) {
-      this.resizeSubscription.unsubscribe();
-    }
+    this.bodySubscription.unsubscribe();
+    this.resizeSubscription.unsubscribe();
   }
 }

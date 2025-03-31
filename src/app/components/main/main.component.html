@@ -1,5 +1,4 @@
-<div class="user-interface" (click)="dialogs.resetAssignedTo(); dialogs.close('category'); dialogs.close('subtask')"
-    (dragend)="onDragend()">
+<div class="user-interface" (click)="closeAddTaskMenus()" (dragend)="onDragend()">
     <app-menu class="menu"></app-menu>
 
     <div class="content">

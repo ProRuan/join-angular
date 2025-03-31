@@ -11,6 +11,7 @@ import { ContactService } from '../../shared/services/contact.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { Contact } from '../../shared/models/contact';
 import { getArrayCopy } from '../../shared/ts/global';
+import { ContactSettingsDialogComponent } from '../../shared/components/dialogs/contact-settings-dialog/contact-settings-dialog.component';
 
 @Component({
   selector: 'app-contacts',
@@ -22,6 +23,7 @@ import { getArrayCopy } from '../../shared/ts/global';
     ContactListComponent,
     JoinTitleComponent,
     ContactViewerComponent,
+    ContactSettingsDialogComponent,
     // ButtonComponent,
   ],
   templateUrl: './contacts.component.html',
@@ -117,22 +119,8 @@ export class ContactsComponent {
     this.viewer.setContact();
   }
 
-  // double code + set data!!!
-  // set dialog animation!
-  // keep viewer on closing dialog!
-  onEdit() {
-    // this.viewer.setContact(contact);
-    this.viewer.cachedContact = new Contact(this.viewer.contact);
-    console.log('contact: ', this.viewer.cachedContact);
-
-    // this.viewer.cachedContact = new Contact(this.contact);
-    this.dialogs.id = this.dialogId;
-    this.dialogs.title = 'Edit contact';
-    this.dialogs.open(this.dialogId);
-  }
-
-  // double code!!!
-  onDelete() {
-    this.dialogs.open('deleteContact');
+  // jsdoc
+  onSet() {
+    this.dialogs.open('contactSettings');
   }
 }

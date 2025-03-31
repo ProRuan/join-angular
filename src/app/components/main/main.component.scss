@@ -1,61 +1,7 @@
 @import "../../../mixins.scss";
 
-.dialog-add-task {
-  @include size($w: 100%, $h: 100vh);
-  @include display-flex();
-  background-color: rgba(0, 0, 0, 0.25);
-  position: fixed;
-  z-index: 10;
-}
-
-.closed {
-  display: none;
-}
-
-// double code!!!
-.dialog-view-task {
-  @include size($w: 100%, $h: 100vh);
-  @include display-flex();
-  background-color: rgba(0, 0, 0, 0.25);
-  position: fixed;
-  z-index: 10;
-}
-
-// double code!!!
-.view-closed {
-  display: none;
-}
-
-// double code!!!
-.dialog-edit-contact {
-  @include size($w: 100%, $h: 100vh);
-  @include display-flex();
-  background-color: rgba(0, 0, 0, 0.25);
-  position: fixed;
-  z-index: 10;
-}
-
-// double code!!!
-.edit-closed {
-  display: none;
-}
-
-// double code!!!
-.dialog-add-contact {
-  @include size($w: 100%, $h: 100vh);
-  @include display-flex();
-  background-color: rgba(0, 0, 0, 0.25);
-  position: fixed;
-  z-index: 10;
-}
-
-// double code!!!
-.add-closed {
-  display: none;
-}
-
 .user-interface {
-  display: flex;
+  @include display-row($jc: center);
 }
 
 .menu {
@@ -68,19 +14,18 @@
 
 .content {
   width: calc(100% - 232px);
+  max-width: 1688px;
 }
 
 .main {
   height: calc(100vh - 96px);
-  color: #2a3647;
+  color: $dark;
   display: flex;
+  position: relative;
   overflow-x: hidden;
 }
 
 .mobile-menu {
-  // only for testing
-  height: 80px;
-  background-color: $dark;
   display: none;
 }
 
@@ -98,6 +43,8 @@
   }
 
   .mobile-menu {
+    height: 80px;
+    background-color: $dark;
     display: block;
   }
 }

@@ -1,14 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
-import { JoinService } from '../../shared/services/join.service';
-import { Firestore } from '@angular/fire/firestore';
-import { CommonModule } from '@angular/common';
 import { JoinHeaderComponent } from '../../shared/components/join-header/join-header.component';
-import { DialogService } from '../../shared/services/dialog.service';
-import { BoardService } from '../../shared/services/board.service';
 import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.component';
 import { MobileMenuComponent } from '../../shared/components/mobile-menu/mobile-menu.component';
+import { Firestore } from '@angular/fire/firestore';
+import { JoinService } from '../../shared/services/join.service';
+import { BoardService } from '../../shared/services/board.service';
+import { DialogService } from '../../shared/services/dialog.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 
 @Component({
@@ -25,29 +25,20 @@ import { NavigationService } from '../../shared/services/navigation.service';
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
+
+/**
+ * Class representing a main component.
+ */
 export class MainComponent {
+  firestore: Firestore = inject(Firestore);
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
-  firestore: Firestore = inject(Firestore);
   dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
-  // MenuComponent
-  // -------------
-  // Appearance of guest version ... !
-
-  // FlipMenuComponent
-  // -----------------
-  // rename task-icon to add-task-icon ... ?
-  // set links with target:_blank ... (1-3)
-
-  // check routes.ts ...
-  // check dialog.service.ts ...
-
-  // destroy all children components for flipMenu at least ...
-  // add user log out method ...
-
-  // create own function!!!
+  /**
+   * Initializes a main component.
+   */
   ngOnInit() {
     this.setGreetingToDone();
     this.join.loadUser();
@@ -72,12 +63,27 @@ export class MainComponent {
     return this.nav.isLinkActivated('summary');
   }
 
+  /**
+   * Closes all add-task menus on click.
+   */
+  closeAddTaskMenus() {
+    this.dialogs.resetAssignedTo();
+    this.dialogs.close('category');
+    this.dialogs.close('subtask');
+  }
+
+  /**
+   * Ends a task drag on dragend.
+   */
   onDragend() {
     if (this.board.dragStarted) {
       this.board.setDrag();
     }
   }
 
+  /**
+   * Destroys a main component.
+   */
   ngOnDestroy() {
     this.join.unsubscribeUser();
     this.join.user.set();

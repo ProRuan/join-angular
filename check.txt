@@ -41,6 +41,13 @@ Top Level Scripts
 
 Join (8/?) + responsive (8/?)
 ----
+
+AppComponent - check
+app.config.ts - check
+app.routes.ts - check
+
+Components
+----------
   - LoginComponent - check + responsive *logInUser() and rememberUser()
   - NewPasswordComponent - check + responsive
   - SignUpComponent - check + responsive
@@ -52,7 +59,7 @@ Join (8/?) + responsive (8/?)
       - ContactDialogComponent - check
       - DeleteContactDialogComponent - check
       - DeleteUserDialogComponent ...
-  - MainComponent ...
+  - MainComponent - check
   - SummaryComponent - check + responsive
       - SumCardComponent - check
   - AddTaskComponent - check + responsive
@@ -183,7 +190,21 @@ Styles
       - tags.scss - check
       - ... ... ...
 
+assets/fonts - check (3/3)
+------------
+  - inter - check
+  - open-sans - check
+  - poppins - check
 
+
+assets/img ... (1/?) * optional
+----------
+  - menu - check
+  - summary - check
+
+
+assets/styles ...
+-------------
 
 
 <form [formGroup]="signUpForm" (submit)="logName()">
