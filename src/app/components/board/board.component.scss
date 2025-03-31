@@ -39,10 +39,6 @@
   }
 }
 
-.mobile {
-  display: none;
-}
-
 .column-group {
   @include display-row($jc: space-between);
 }
@@ -74,14 +70,6 @@
 
   .search-input {
     width: 100%;
-  }
-
-  .desktop {
-    display: none;
-  }
-
-  .mobile {
-    display: unset;
   }
 
   .column-group {

@@ -194,6 +194,10 @@
   color: $lightblue;
 }
 
+.mobile {
+  display: none;
+}
+
 @media (max-width: 1180px) {
   .headline-2 {
     @include font($fs: 47px, $fw: 700, $lh: 56.4px);
@@ -308,6 +312,14 @@
 
   .other-component {
     padding: 48px 32px;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: unset;
   }
 }
 

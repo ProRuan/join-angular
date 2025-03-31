@@ -4,10 +4,6 @@
   @include box-padding($p: 110px 96px);
 }
 
-.mobile {
-  display: none;
-}
-
 .content {
   @include display-column($g: 56px);
 }
@@ -50,14 +46,6 @@
     @include display-row($jc: center);
     padding: 48px 16px;
     min-height: 100%;
-  }
-
-  .desktop {
-    display: none;
-  }
-
-  .mobile {
-    display: unset;
   }
 
   .content {

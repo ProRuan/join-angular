@@ -21,10 +21,6 @@
   @include display-column($g: 32px);
 }
 
-.mobile {
-  display: none;
-}
-
 .form {
   @include display-row($jc: space-between, $g: 48px);
 }
@@ -106,14 +102,6 @@
   .column-desktop {
     padding: 48px 16px 16px 16px;
     gap: 32px;
-  }
-
-  .desktop {
-    display: none;
-  }
-
-  .mobile {
-    display: unset;
   }
 
   .form {

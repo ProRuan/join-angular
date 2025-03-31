@@ -28,11 +28,6 @@
   @include position($pos: absolute, $t: 48px, $r: 48px);
 }
 
-// think about this!
-.mobile {
-  display: none;
-}
-
 .profile-form-cont {
   @include display-row($g: 72px);
 }
@@ -102,14 +97,6 @@
 
   .top-right {
     @include position($pos: absolute, $t: 24px, $r: 16px);
-  }
-
-  .desktop {
-    display: none;
-  }
-
-  .mobile {
-    display: unset;
   }
 
   .profile-form-cont {

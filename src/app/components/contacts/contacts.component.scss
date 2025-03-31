@@ -98,10 +98,6 @@
     gap: 48px;
   }
 
-  .desktop {
-    display: none;
-  }
-
   .title-button-cont {
     @include display-row($jc: space-between);
   }

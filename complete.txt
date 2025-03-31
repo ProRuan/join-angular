@@ -41,11 +41,9 @@ max-size
 join-title
 ----------
   - summary, add-task, board, contacts (desktop/mobile) ... (0/4)
-  - desktop/mobile as global style ... ?!
 
 add-task
 --------
-  - global class desktop and mobile ... !
   - set input hover/active ...
   - check calendar position (left, center, right) ...
   - fix z-indices (subtasks) ...
@@ -75,7 +73,6 @@ responsiveness
   - summary: min-height ...
   - summary greetings (mobile + desktop as of 1280px) ... (0/2)
   - main min/max/width/height ... (0/4)
-  - mobile menu ... !
   - board: board.ts, view-task and edit-task ... (0/3)
   - join-header: help + profile (mobile) ... (0/2)
   - think about error text: login, sign-up, new-password ... (0/3)
