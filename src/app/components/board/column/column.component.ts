@@ -61,7 +61,7 @@ export class ColumnComponent {
    * Adds a task on click.
    */
   onAddTask() {
-    if (this.join.windowWidth < 1180 + 1) {
+    if (this.join.isMobile()) {
       this.nav.navigateByLink('add-task');
     } else {
       this.dialogs.open(this.dialogId);

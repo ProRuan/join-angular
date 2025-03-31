@@ -88,8 +88,15 @@ export class SummaryComponent {
    * @returns The style of the greeting animation element.
    */
   getStyle() {
-    let mobile = this.join.windowWidth < 1180 + 1;
-    return this.greetingDone && mobile ? { display: 'none' } : null;
+    return this.isMobileStyle() ? { display: 'none' } : null;
+  }
+
+  /**
+   * Verifies a mobile style.
+   * @returns A boolean value.
+   */
+  isMobileStyle() {
+    return this.greetingDone && this.join.isMobile();
   }
 
   /**
@@ -97,6 +104,6 @@ export class SummaryComponent {
    * @returns A boolean value.
    */
   isDisabled() {
-    return this.greetingDone || this.join.windowWidth > 1180;
+    return this.greetingDone || !this.join.isMobile();
   }
 }

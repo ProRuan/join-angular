@@ -92,7 +92,7 @@ export class BoardComponent {
    * Opens an add-task dialog on click.
    */
   onAdd() {
-    if (this.join.windowWidth < 1180 + 1) {
+    if (this.join.isMobile()) {
       this.nav.navigateByLink('add-task');
     } else {
       this.dialogs.open('addTask');

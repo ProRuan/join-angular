@@ -56,7 +56,7 @@ export class ContactsComponent {
    * @returns A boolean value.
    */
   isContactListHidden() {
-    return this.join.windowWidth < 1180 + 1 && this.isOpened();
+    return this.isOpened() && this.join.isMobile();
   }
 
   /**

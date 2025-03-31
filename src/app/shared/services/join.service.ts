@@ -358,4 +358,12 @@ export class JoinService {
   setWindowWidth(value: number) {
     this.windowWidth = value;
   }
+
+  /**
+   * Verifies a mobile device.
+   * @returns A boolean value.
+   */
+  isMobile() {
+    return this.windowWidth < 1180 + 1;
+  }
 }

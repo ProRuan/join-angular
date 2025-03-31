@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { JoinService } from '../../../services/join.service';
 
 @Component({
   selector: 'app-logo-svg',
@@ -13,6 +14,8 @@ import { Component, Input } from '@angular/core';
  * Class representing a logo svg component.
  */
 export class LogoSvgComponent {
+  join: JoinService = inject(JoinService);
+
   @Input() changed: boolean = false;
 
   /**
@@ -20,6 +23,14 @@ export class LogoSvgComponent {
    * @returns The css class of the svg path.
    */
   getClass() {
-    return this.changed ? 'dark-fill' : 'white-fill';
+    return this.isDarkFill() ? 'dark-fill' : 'white-fill';
+  }
+
+  /**
+   * Verifies the dark mode of a logo.
+   * @returns A boolean value.
+   */
+  isDarkFill() {
+    return this.changed || !this.join.isMobile();
   }
 }
