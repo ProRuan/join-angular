@@ -46,11 +46,31 @@ AppComponent - check
 app.config.ts - check
 app.routes.ts - check
 
-Components
+mixins.scss - check
+styles.scss - check
+
+Components (10/10) + (8/10)
 ----------
   - LoginComponent - check + responsive *logInUser() and rememberUser()
-  - NewPasswordComponent - check + responsive
   - SignUpComponent - check + responsive
+  - NewPasswordComponent - check + responsive
+  - MainComponent - check + responsive
+  - SummaryComponent - check + responsive
+      - SumCardComponent - check
+  - AddTaskComponent - check + responsive
+  - BoardComponent - check + ...
+      - SearchInputComponent - check
+      - ColumnComponent - check
+      - DraggableTaskComponent - check
+  - ContactsComponent - check + ...
+      - ContactListComponent - check
+      - ContactViewerComponent - check
+  - HelpComponent - check + responsive
+  - PrivacyPolicyComponent - check + responsive
+  - LegalNoticeComponent - check + responsive
+
+dialogs
+-------
   - DialogComponent ...
       - AddTaskDialogComponent - check * animation outside from back log compenent?
       - ViewTaskDialogComponent - check * think about close()?!
@@ -58,33 +78,22 @@ Components
       - DeleteTaskDialogComponent - check * think about close()?!
       - ContactDialogComponent - check
       - DeleteContactDialogComponent - check
-      - DeleteUserDialogComponent ...
-  - MainComponent - check
-  - SummaryComponent - check + responsive
-      - SumCardComponent - check
-  - AddTaskComponent - check + responsive
-  - BoardComponent - check
-      - SearchInputComponent - check
-      - ColumnComponent - check
-      - DraggableTaskComponent - check
-  - ContactsComponent - check
-      - ContactListComponent - check
-      - ContactViewerComponent - check
-  - HelpComponent - check + responsive
-  - PrivacyPolicyComponent - check + responsive
-  - LegalNoticeComponent - check + responsive
+      - ContactSettingsDialogComponent ...
 
 
-Animations (4/?)
+Animations (6/6)
 ----------
+  - DesktopLogoAnimation - check
   - DialogAnimation - check
   - FadeAnimation - check
   - FlipMenuAnimation - check
   - GreetingAnimation - check
+  - MobileLogoAnimation - check
 
-Components (10/?) + await inputs ... + resp(3/?)
+Components (15/15) + await inputs ... + resp(3/?)
 ----------
   - BackLogComponente - check *replace LogComponent with BackLogComponent!
+  - ButtonComponent - check* are all buttons covered?
   - CheckboxComponent - check + responsive
   - FlipMenuComponent - check
   - FooterComponent - check + responsive
@@ -93,12 +102,12 @@ Components (10/?) + await inputs ... + resp(3/?)
   - JoinTitleComponent - check
   - LabelComponent - check
   - LogComponent - check *replace with BackLogComponent!
+  - LoginArrowComponent - check
   - LogoComponent - check
-      - LogoSvgComponent - check
   - MenuComponent - check
   - MobileMenuComponent - check
   - TitleComponent - check + responsive
-  - inputs ... (8/?) ? = 10?
+  - inputs ... (9/10)
     ------
       - AssignedToInputComponent - check
       - CategoryInputComponent - check
@@ -110,8 +119,9 @@ Components (10/?) + await inputs ... + resp(3/?)
       - SubtasksInputComponent - check
       - TextInputComponent - check
       - TitleInputComponent - check
-  - svg ... (2/?)
+  - svg - check (3/3)
       - DoneSvgComponent - check
+      - LogoSvgComponent - check
       - ToDoSvgComponent - check
 
 
@@ -197,14 +207,23 @@ assets/fonts - check (3/3)
   - poppins - check
 
 
-assets/img ... (1/?) * optional
+assets/img ... (2/?) * optional
 ----------
   - menu - check
   - summary - check
 
 
-assets/styles ...
+assets/styles (3/5)
 -------------
+  - background-colors.scss - check
+  - components.scss ...
+  - dialogs.scss - check
+  - scrollbars.scss ...
+  - tags.scss - check
+
+favicon
+-------
+  - add favicon ...
 
 
 <form [formGroup]="signUpForm" (submit)="logName()">

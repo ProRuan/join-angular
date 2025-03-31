@@ -4,6 +4,33 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+components
+----------
+  - BoardComponent ...
+  - ContactsComponent ...
+
+dialogs
+-------
+  - ContactSettingsDialogComponent ... !
+  - ContactDialogComponent for add-contact and edit-contact ... ?
+  - DeleteDialog for tasks and contacts ... ?
+
+img
+---
+  - think about img folder structure (optional) ...
+
+styles
+------
+  - review components.scss ...
+  - review and enable scrollbars.scss ...
+
+favicon
+-------
+   - add favicon ...
+
+-------------------------------------------------
+-------------------------------------------------
+
 box-shadows
 -----------
   - check all box-shadows due to app-containers ... !!!
@@ -82,7 +109,6 @@ responsiveness
   - rename header login and sign-up classes ...
   - fix focus-visible ... !
   - check app-checkbox style ...
-  - favicon ...
 
 subscribtion
 ------------
@@ -179,10 +205,6 @@ summary service
   // add user property phone ... !
   // improve user method getUserAsContact (for loop) ... !
 
-dialogs
--------
-  - fix dialogs on dialogs (close, stop) ...
-
 FlipMenuComponent
 -----------------
   - provide a logOut() ... !
@@ -212,12 +234,6 @@ BoardComponent
 --------------
   - fix add-task back log position ...
 
-Templates
----------
-  - create add-contact-dialog ... ?
-  - create edit-contact-dialog ... ?
-      --> fix contact dialog ... !
-
 LoginComponent
 --------------
   - use juse saveUser() ... ?
@@ -231,10 +247,6 @@ JoinService
 -----------
   // review all funtions due to local user!!!
   //   --> save at least one parameter, e. g. this.id!!!
-
-  // ContactComponent
-  // ----------------
-  // delete-user-dialog ...
 
   // DeleteContactComponent
   // ----------------------
@@ -290,10 +302,6 @@ JoinDialog (DialogFormController)
 ----------
   - add add-task backlog logic ... !
 
-Styles
-------
-  - enable scrollbars.scss ... ?
-
 
 InputConfigurationService
 -------------------------
@@ -334,11 +342,6 @@ InputConfigurationService
     - set guest login ...
     - create guest user (database) ...
 
-  folders and files
-  -----------------
-    - count and review missing folders and files (step by step) ...
-    - check assets/styles ...
-
 
 optional
 --------
@@ -347,4 +350,3 @@ optional
   - summary greetings with object and for loop ...
   - replace error with control?.errors ...
   - replace mixin display-flex with display-column or display-row ...
-  - review assets/img ...
