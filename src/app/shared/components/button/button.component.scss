@@ -135,13 +135,13 @@
 
 .edit {
   .settings-btn:hover & {
-    content: url("/assets/img/contacts/edit_blue.png");
+    content: url("/assets/img/button/edit_blue.png");
   }
 }
 
 .delete {
   .settings-btn:hover & {
-    content: url("/assets/img/contacts/delete_blue.png");
+    content: url("/assets/img/button/delete_blue.png");
   }
 }
 
@@ -155,11 +155,11 @@
   @include size($w: 24px, $h: 24px);
 
   .clear-btn:hover & {
-    content: url("/assets/img/contacts/delete_blue.png");
+    content: url("/assets/img/button/delete_blue.png");
   }
 
   .clear-btn:active & {
-    content: url("/assets/img/contacts/delete.png");
+    content: url("/assets/img/button/delete.png");
   }
 
   .clear-btn:disabled & {
@@ -204,21 +204,21 @@
 
   .edit {
     .settings-btn:hover & {
-      content: url("/assets/img/contacts/edit.png");
+      content: url("/assets/img/button/edit.png");
     }
 
     .settings-btn:active & {
-      content: url("/assets/img/contacts/edit_blue.png");
+      content: url("/assets/img/button/edit_blue.png");
     }
   }
 
   .delete {
     .settings-btn:hover & {
-      content: url("/assets/img/contacts/delete.png");
+      content: url("/assets/img/button/delete.png");
     }
 
     .settings-btn:active & {
-      content: url("/assets/img/contacts/delete_blue.png");
+      content: url("/assets/img/button/delete_blue.png");
     }
   }
 

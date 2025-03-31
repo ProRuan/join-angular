@@ -25,14 +25,14 @@
   @include round-border($b: none, $br: 3px);
   padding: 0;
   background-color: transparent;
-  background-image: url("/assets/img/sign-up/left_arrow.png");
+  background-image: url("/assets/img/button/left_arrow.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 
   &:active,
   &:focus-visible {
-    background-image: url("/assets/img/sign-up/left_arrow_hover.png");
+    background-image: url("/assets/img/button/left_arrow_hover.png");
   }
 }
 

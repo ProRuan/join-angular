@@ -43,7 +43,7 @@ export class LogoComponent {
 
   @Input() animated: boolean = true;
 
-  logo: string = '../../../assets/img/login/logo.png';
+  logo: string = '../../../assets/img/logo/logo.png';
   started: boolean = false;
 
   /**

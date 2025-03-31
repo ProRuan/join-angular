@@ -4,6 +4,8 @@ Think about
   - firebase init test (online test) ...
   - sorted contacts: for assigned-to menu and contact list ...
 
+next: folders and files, component backlog, remember me by sid ... (0/3)
+
 components
 ----------
   - BoardComponent ...
@@ -14,10 +16,6 @@ dialogs
   - ContactSettingsDialogComponent ... !
   - ContactDialogComponent for add-contact and edit-contact ... ?
   - DeleteDialog for tasks and contacts ... ?
-
-img
----
-  - think about img folder structure (optional) ...
 
 styles
 ------

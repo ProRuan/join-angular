@@ -207,8 +207,15 @@ assets/fonts - check (3/3)
   - poppins - check
 
 
-assets/img ... (2/?) * optional
+assets/img - check (9/9)
 ----------
+  - add-task - check
+  - board - check
+  - button - check
+  - contacts - check
+  - header - check
+  - input - check
+  - logo - check
   - menu - check
   - summary - check
 
