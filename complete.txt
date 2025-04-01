@@ -9,8 +9,7 @@ Think about
 // all dialogs with *ngIf ...
 // updatc contact bgc ...
 // prevent double contacts (add/edit) ... (0/2)
-// check add/edit/delete for contact-settings-dialog ... (0/3)
-// is cachedContact necessary due to form ... ?
+// check add/edit/deleteA/deleteB for multiple save() ... !
 
 next: folders and files, component backlog, remember me by sid ... (0/3)
 

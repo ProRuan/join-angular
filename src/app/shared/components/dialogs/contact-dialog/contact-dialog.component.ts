@@ -152,8 +152,11 @@ export class ContactDialogComponent extends DialogFormController {
    * Updates a contact.
    */
   updateContact() {
-    let contactData = this.getContactData();
-    this.viewer.contact.set(contactData);
+    let contact = this.viewer.contact; // update cached contact as well?!?
+    contact.name = this.getValue('name');
+    contact.email = this.getValue('email');
+    contact.phone = this.getValue('phone');
+    contact.initials = this.nameFormatter.getInitials(contact.name);
   }
 
   /**
@@ -189,7 +192,7 @@ export class ContactDialogComponent extends DialogFormController {
    * Adds a contact.
    */
   addContact() {
-    let contactData = this.getContactData();
+    let contactData = this.getContactData(); // check this again!!!
     let contact = new Contact(contactData);
     this.join.addUserItem('contacts', contact);
     this.viewer.setContact(contact);
