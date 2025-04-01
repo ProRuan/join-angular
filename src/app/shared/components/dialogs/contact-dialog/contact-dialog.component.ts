@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  inject,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JoinTitleComponent } from '../../join-title/join-title.component';
 import { TextInputComponent } from '../../inputs/text-input/text-input.component';
@@ -15,9 +9,11 @@ import { DialogFormController } from '../../../models/dialog-form-controller';
 import { JoinService } from '../../../services/join.service';
 import { InputConfigurationService } from '../../../services/input-configuration.service';
 import { ContactService } from '../../../services/contact.service';
+import { NameFormatterService } from '../../../services/name-formatter.service';
 import { JoinButton } from '../../../models/join-button';
 import { Contact } from '../../../models/contact';
-import { getCurrentValue, isDefaultString } from '../../../ts/global';
+import { ContactData } from '../../../interfaces/contact-data';
+import { isDefaultString } from '../../../ts/global';
 
 @Component({
   selector: 'app-contact-dialog',
@@ -40,22 +36,22 @@ import { getCurrentValue, isDefaultString } from '../../../ts/global';
  * @extends DialogFormController
  * @implements {OnChanges}
  */
-export class ContactDialogComponent
-  extends DialogFormController
-  implements OnChanges
-{
+export class ContactDialogComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
   viewer: ContactService = inject(ContactService);
+  nameFormatter: NameFormatterService = inject(NameFormatterService);
 
-  @Input() dialogId: string = 'addContact';
+  @Input() override id: string = '';
 
-  defaultValue = { name: '', email: '', phone: '' };
-
+  title: string = '';
+  subtitle: string = '';
   cancelBtn = new JoinButton('clearBtn');
   createBtn = new JoinButton('createBtn');
   deleteBtn = new JoinButton('deleteContactBtn');
   saveBtn = new JoinButton('createBtn', 'Save');
+
+  defaultValue = { name: '', email: '', phone: '' };
 
   /**
    * Gets a contact to edit.
@@ -66,24 +62,24 @@ export class ContactDialogComponent
   }
 
   /**
-   * Updates a contact dialog component on changes.
-   * @param changes - The changes.
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    this.id = getCurrentValue<string>(changes, 'dialogId');
-    if (this.isEditContactDialog()) {
-      this.form.patchValue(this.contact);
-    } else {
-      this.form.reset(this.defaultValue);
-    }
-  }
-
-  /**
    * Initializes a contact dialog component.
    */
   ngOnInit() {
+    this.setDialog();
     this.setForm();
+    if (this.isEditContactDialog()) {
+      this.form.patchValue(this.contact); // to clean!!!
+    }
     this.setButtonTexts();
+  }
+
+  setDialog() {
+    if (this.isEditContactDialog()) {
+      this.title = 'Edit contact';
+    } else {
+      this.title = 'Add contact';
+      this.subtitle = 'Tasks are better with a team!';
+    }
   }
 
   /**
@@ -131,10 +127,8 @@ export class ContactDialogComponent
    * Closes a dialog.
    */
   closeDialog() {
-    this.dialogs.close(this.dialogId);
-    this.dialogs.title = '';
-    this.dialogs.subtitle = '';
-    this.viewer.cachedContact = new Contact();
+    this.close();
+    this.viewer.cachedContact.set();
   }
 
   /**
@@ -149,9 +143,28 @@ export class ContactDialogComponent
    */
   onSave() {
     if (this.form.valid) {
-      this.viewer.contact.set(this.form.value);
+      this.updateContact();
       this.saveUserContacts();
     }
+  }
+
+  /**
+   * Updates a contact.
+   */
+  updateContact() {
+    let contactData = this.getContactData();
+    this.viewer.contact.set(contactData);
+  }
+
+  /**
+   * Gets contact data.
+   * @returns The contact data.
+   */
+  getContactData() {
+    let contactData = this.form.value as ContactData;
+    contactData.name = this.nameFormatter.getFormattedName(contactData.name);
+    contactData.initials = this.nameFormatter.getInitials(contactData.name);
+    return contactData;
   }
 
   /**
@@ -167,8 +180,19 @@ export class ContactDialogComponent
    */
   onCreate() {
     if (this.form.valid) {
-      this.join.addUserItem('contacts', this.form.value);
+      this.addContact();
       this.saveUserContacts();
     }
+  }
+
+  /**
+   * Adds a contact.
+   */
+  addContact() {
+    let contactData = this.getContactData();
+    let contact = new Contact(contactData);
+    this.join.addUserItem('contacts', contact);
+    this.viewer.setContact(contact);
+    this.dialogs.open('viewContact');
   }
 }

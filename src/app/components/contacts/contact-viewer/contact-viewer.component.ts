@@ -5,7 +5,6 @@ import { JoinService } from '../../../shared/services/join.service';
 import { ContactService } from '../../../shared/services/contact.service';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { JoinButton } from '../../../shared/models/join-button';
-import { Contact } from '../../../shared/models/contact';
 
 @Component({
   selector: 'app-contact-viewer',
@@ -39,9 +38,7 @@ export class ContactViewerComponent {
    * Opens an edit-contact dialog on click.
    */
   onEdit() {
-    this.viewer.cachedContact = new Contact(this.contact);
-    this.dialogs.id = this.dialogId;
-    this.dialogs.title = 'Edit contact';
+    this.viewer.cachedContact.set(this.contact);
     this.dialogs.open(this.dialogId);
   }
 

@@ -1,17 +1,13 @@
-<div *ngIf="isOpened()" class="dialog rgba-0" (click)="onClose()">
+<div *ngIf="isOpened()" @settingsMenuAnimation class="dialog rgba-0" (click)="onClose()">
     <div class="transit-cont">
         <div class="content">
-            <div class="settings-dialog" (click)="onStop($event)">
-                <button class="settings-dialog-btn" (click)="onEdit()">
-                    <img class="button-img" src="/assets/img/button/edit.png" alt="edit">
-                    <span class="button-text">Edit</span>
-                </button>
 
-                <button class="settings-dialog-btn" (click)="onDelete()">
-                    <img class="button-img" src="/assets/img/button/delete.png" alt="delete">
-                    <span class="button-text">Delete</span>
-                </button>
+            <div class="settings-dialog slide" (click)="onStop($event)">
+                <app-button [button]="editBtn" [selected]="isSelected('editContact')" (click)="onEdit()"></app-button>
+                <app-button [button]="deleteBtn" [selected]="isSelected('deleteContact')"
+                    (click)="onDelete()"></app-button>
             </div>
+
         </div>
     </div>
 </div>

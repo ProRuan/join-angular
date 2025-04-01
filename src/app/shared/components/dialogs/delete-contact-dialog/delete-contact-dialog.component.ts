@@ -75,5 +75,6 @@ export class DeleteContactDialogComponent extends DialogFormController {
   closesDialogs() {
     this.close();
     this.dialogs.close('editContact');
+    this.dialogs.close('viewContact');
   }
 }

@@ -30,10 +30,6 @@ export class DialogService {
   submitted: boolean = false;
   fadedOut: boolean = false;
 
-  id: string = 'addContact';
-  title: string = '';
-  subtitle: string = '';
-
   /**
    * Opens a dialog.
    * @param id - The dialog id.

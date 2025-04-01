@@ -1,4 +1,4 @@
-<button [className]="button.buttonClass" [disabled]="disabled">
-    <span [className]="button.textClass">{{ button.text }}</span>
-    <img [className]="button.imgClass" [src]="button.src" [alt]="button.alt">
+<button [className]="button.buttonClass" [ngClass]="getBgcClass()" [disabled]="disabled">
+    <span [ngClass]="getTextClass()">{{ button.text }}</span>
+    <img [ngClass]="getImageClass()" [src]="button.src" [alt]="button.alt">
 </button>

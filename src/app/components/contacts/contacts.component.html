@@ -1,4 +1,7 @@
-<app-contact-dialog [dialogId]="dialogs.id"></app-contact-dialog>
+<!-- add *ngIf and check animation ... -->
+<app-contact-settings-dialog></app-contact-settings-dialog>
+<app-contact-dialog *ngIf="dialogs.isOpened('addContact')" id="addContact"></app-contact-dialog>
+<app-contact-dialog *ngIf="dialogs.isOpened('editContact')" id="editContact"></app-contact-dialog>
 <app-delete-contact-dialog></app-delete-contact-dialog>
 
 <section class="contacts">
@@ -15,9 +18,6 @@
 
             <!-- move to contact viewer! -->
             <button class="settings-btn" (click)="onSet()"></button>
-
-            <!-- move to other dialogs? -->
-            <app-contact-settings-dialog></app-contact-settings-dialog>
         </div>
     </div>
 </section>
