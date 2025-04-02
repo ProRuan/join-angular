@@ -34,7 +34,7 @@ function addCharCodeGroup(group: CharCodeGroup) {
  * @returns A random index.
  */
 function getRandomIndex(i: number) {
-  if (i != 0) {
+  if (i !== 0) {
     return Math.round(Math.random() * 61);
   } else {
     return Math.round(1 + Math.random() * 60);

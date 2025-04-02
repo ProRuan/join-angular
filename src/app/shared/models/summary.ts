@@ -63,7 +63,7 @@ export class Summary {
    * @returns The summary task data.
    */
   private getSummaryTaskData(category: string) {
-    if (category == 'Urgent') {
+    if (category === 'Urgent') {
       return { category: category, amount: 0, deadline: 'No' };
     } else {
       return { category: category, amount: 0 };

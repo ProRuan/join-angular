@@ -102,7 +102,7 @@ export class PrioInputComponent extends ReactiveInput {
    * @returns A boolean value.
    */
   isDisabled(prio: string) {
-    return prio == this.value;
+    return prio === this.value;
   }
 
   /**

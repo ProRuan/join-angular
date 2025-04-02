@@ -105,7 +105,7 @@ export class ContactListComponent implements OnChanges {
    */
   isFiltered(contact: Contact, letter: string) {
     let initial = getInitial(contact.name);
-    return initial == letter;
+    return initial === letter;
   }
 
   /**
@@ -142,7 +142,7 @@ export class ContactListComponent implements OnChanges {
    */
   isSelected(contact: Contact) {
     let selectedContact = this.viewer.contact;
-    return contact.email == selectedContact.email;
+    return contact.email === selectedContact.email;
   }
 
   /**

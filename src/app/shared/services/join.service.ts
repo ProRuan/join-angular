@@ -6,12 +6,13 @@ import {
   doc,
   DocumentData,
   Firestore,
+  getDoc,
   onSnapshot,
   QuerySnapshot,
   Unsubscribe,
   updateDoc,
 } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, from, of } from 'rxjs';
 import { SessionIdService } from './session-id.service';
 import { SummaryService } from './summary.service';
 import { User } from '../models/user';
@@ -50,6 +51,12 @@ export class JoinService {
 
   unsubscribeUserCollection: Unsubscribe = () => {};
   unsubscribeUser: Unsubscribe = () => {};
+
+  // new - testing
+  getUserNew(id: string) {
+    let userDoc = getDoc(doc(this.firestore, 'users', id));
+    return from(userDoc);
+  }
 
   /**
    * Sets an intro to done.
@@ -130,13 +137,9 @@ export class JoinService {
     return userDoc['data'] as UserData;
   }
 
-  /**
-   * Gets a user by session id.
-   * @param sid - The session id.
-   * @returns The user.
-   */
-  getUserBySid(sid: string) {
-    return this.users.find((u) => u.sid === sid);
+  // review!
+  getUserById(id: string) {
+    return this.users.find((u) => u.id === id);
   }
 
   /**
@@ -167,17 +170,11 @@ export class JoinService {
   /**
    * Adds a user document to the firestore.
    * @param data - The user data.
+   * @returns An observable as document reference.
    */
   addUser(data: UserData) {
-    addDoc(collection(this.firestore, 'users'), { data });
-  }
-
-  /**
-   * Adds a user id to a user document at the firestore.
-   * @param id - The user id.
-   */
-  addUserId(id: string) {
-    this.updateUser(id, 'data.id', id);
+    const userRef = addDoc(collection(this.firestore, 'users'), { data });
+    return from(userRef);
   }
 
   /**
@@ -185,11 +182,13 @@ export class JoinService {
    * @param id - The user id.
    * @param key - The property key.
    * @param value - The property value.
+   * @returns An observable as void.
    */
   updateUser(id: string, key: string, value: string | {}) {
     const userRef = doc(this.firestore, 'users', id);
     const property = this.getProperty(key, value);
-    updateDoc(userRef, property);
+    const response = updateDoc(userRef, property);
+    return from(response);
   }
 
   /**
@@ -209,15 +208,6 @@ export class JoinService {
    */
   logError(text: string, error: unknown) {
     console.error(`${text}: `, error);
-  }
-
-  /**
-   * Updates a user session id.
-   * @param id - The user id.
-   * @param sid - The user session id.
-   */
-  updateUserSid(id: string, sid: string) {
-    this.updateUser(id, 'data.sid', sid);
   }
 
   /**
@@ -295,20 +285,14 @@ export class JoinService {
     deleteDoc(doc(this.firestore, 'users', id));
   }
 
-  /**
-   * Loads a user.
-   * @param sid - The user session id.
-   */
-  loadUser(sid?: string | null) {
-    sid ? this.loadUserOnline(sid) : this.loadUserLocally();
+  // review + think about saveUser()!
+  loadUser(id?: string | null) {
+    id ? this.loadUserOnline(id) : this.loadUserLocally();
   }
 
-  /**
-   * Loads a user online.
-   * @param sid - The user session id.
-   */
-  loadUserOnline(sid: string) {
-    let user = this.getUserBySid(sid);
+  // review + think about saveUser()!
+  loadUserOnline(id: string) {
+    let user = this.getUserById(id);
     if (user) {
       this.user.set(user);
       this.saveUser();

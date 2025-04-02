@@ -71,7 +71,7 @@ export class DraggableTaskComponent implements OnChanges {
    * @returns A boolean value.
    */
   isBoardTask(changedTask: Task) {
-    return changedTask.id == this.board.task.id;
+    return changedTask.id === this.board.task.id;
   }
 
   /**

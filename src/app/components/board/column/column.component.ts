@@ -54,7 +54,7 @@ export class ColumnComponent {
    * @returns A boolean value.
    */
   private isButtonDisplayed() {
-    return this.id != 'done';
+    return this.id !== 'done';
   }
 
   /**
@@ -106,7 +106,7 @@ export class ColumnComponent {
    * @returns A boolean value.
    */
   private isColumnEmpty() {
-    return !this.tasks.some((t) => t.column == this.id);
+    return !this.tasks.some((t) => t.column === this.id);
   }
 
   /**
@@ -144,6 +144,6 @@ export class ColumnComponent {
    * @returns The css class of the feedback background color.
    */
   getBgcClass() {
-    return this.board.targetedColumn == this.id ? 'bgc' : '';
+    return this.board.targetedColumn === this.id ? 'bgc' : '';
   }
 }

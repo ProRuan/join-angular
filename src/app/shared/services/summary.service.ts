@@ -67,7 +67,7 @@ export class SummaryService {
    * @returns The summary task amount.
    */
   getSummaryTaskAmount(column: string) {
-    return this.tasks.filter((t) => t.column == column).length;
+    return this.tasks.filter((t) => t.column === column).length;
   }
 
   /**
@@ -103,7 +103,7 @@ export class SummaryService {
    * @returns The urgent tasks.
    */
   getUrgentTasks() {
-    return this.tasks.filter((t) => t.prio == 'urgent');
+    return this.tasks.filter((t) => t.prio === 'urgent');
   }
 
   /**
@@ -122,7 +122,7 @@ export class SummaryService {
    * @returns The upcoming task.
    */
   getUpcomingTask(urgentTasks: Task[]) {
-    let undoneTasks = urgentTasks.filter((t) => t.column != 'done');
+    let undoneTasks = urgentTasks.filter((t) => t.column !== 'done');
     let upcomingTasks = undoneTasks.filter((t) => this.isUpcomingTask(t));
     let sortedTasks = this.getSortedTasks(upcomingTasks);
     return sortedTasks.at(0);

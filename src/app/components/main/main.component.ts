@@ -39,7 +39,7 @@ export class MainComponent {
   dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
-  loadingSubscription: Subscription | null = null;
+  loadingSubscription?: Subscription;
 
   /**
    * Initializes a main component.
@@ -78,8 +78,8 @@ export class MainComponent {
   loadLoggedInUser(loaded: boolean) {
     if (loaded) {
       this.join.unsubscribeUserCollection();
-      let sid = this.route.snapshot.paramMap.get('id');
-      this.join.loadUser(sid);
+      let id = this.route.snapshot.paramMap.get('id');
+      this.join.loadUser(id);
     }
   }
 

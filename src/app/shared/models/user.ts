@@ -17,7 +17,6 @@ import { Task } from './task';
 export class User {
   [key: string]: any;
   id: string = '';
-  sid: string = '';
   initials: string = '';
   name: string = '';
   email: string = '';
@@ -40,7 +39,6 @@ export class User {
    */
   private assignValues(data?: User | UserData) {
     this.id = getString(data?.id);
-    this.sid = getString(data?.sid);
     this.initials = getString(data?.initials);
     this.name = getString(data?.name);
     this.email = getString(data?.email);

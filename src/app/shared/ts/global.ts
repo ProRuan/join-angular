@@ -274,9 +274,8 @@ export function stopPropagation(event?: Event) {
  * Unsubscribes a subscription.
  * @param subscription - The subscription.
  */
-export function unsubscribe(subscription: Subscription | null) {
-  if (subscription) {
+export function unsubscribe(subscription?: Subscription) {
+  if (subscription && !subscription.closed) {
     subscription.unsubscribe();
-    subscription = null;
   }
 }

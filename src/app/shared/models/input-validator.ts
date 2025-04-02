@@ -350,7 +350,7 @@ export class InputValidator {
    * @returns A boolean value.
    */
   private isDateInvalid(date: string) {
-    return new Date(date).toDateString() == 'Invalid Date';
+    return new Date(date).toDateString() === 'Invalid Date';
   }
 
   /**

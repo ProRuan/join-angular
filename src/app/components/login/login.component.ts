@@ -25,6 +25,7 @@ import {
   removeLocalItem,
   setLocalItem,
 } from '../../shared/ts/global';
+import { DocumentData, DocumentSnapshot } from 'firebase/firestore';
 
 @Component({
   selector: 'app-login',
@@ -75,8 +76,34 @@ export class LoginComponent extends FormController {
     this.setForm();
     this.setControls();
 
+    this.route.paramMap.subscribe((params) => {
+      let id = params.get('id'); // Read the user ID from the URL
+      if (id) {
+        console.log('id: ', id);
+
+        // test
+        let userDoc = this.join.getUserNew(id).subscribe({
+          next: (value) => this.getSuperTest(value),
+        });
+        // test
+
+        let user = this.join.getUserById(id);
+        if (user) {
+          this.setValue('email', user.email);
+        }
+      }
+    });
+
     // this.setSigneeEmail();
     // this.setRememberedUser();
+  }
+
+  getSuperTest(value: DocumentSnapshot<DocumentData, DocumentData>) {
+    if (value.exists()) {
+      let userDoc = value.data();
+      let userData = userDoc['data'];
+      console.log('user data new: ', userData);
+    }
   }
 
   setEmailByHttp(value: boolean) {
@@ -85,14 +112,14 @@ export class LoginComponent extends FormController {
       console.log('loaded: ', value);
       // this.setValue('email', 'r@x.at');
 
-      let sid = this.route.snapshot.paramMap.get('id');
-      if (sid) {
-        console.log('sid: ', sid);
+      let id = this.route.snapshot.paramMap.get('id');
+      if (id) {
         console.log('users: ', this.join.users);
-        let user = this.join.users.find((u) => u.sid == sid);
+        let user = this.join.users.find((u) => u.id === id);
         if (user) {
           console.log('registered user: ', user);
           this.setValue('email', user.email);
+          this.form.updateValueAndValidity();
         }
       }
     }
@@ -118,18 +145,14 @@ export class LoginComponent extends FormController {
    * Sets a signee email.
    */
   private setSigneeEmail() {
-    let sid = this.nav.getParam('id');
-    if (sid) {
-      this.updateEmailControl(sid);
+    let id = this.nav.getParam('id');
+    if (id) {
+      this.updateEmailControl(id);
     }
   }
 
-  /**
-   * Updates the value of an email form control.
-   * @param sid - The session id.
-   */
-  private updateEmailControl(sid: string) {
-    let user = this.join.getUserBySid(sid);
+  private updateEmailControl(id: string) {
+    let user = this.join.getUserById(id);
     if (user) {
       this.setValue('email', user.email);
     }
@@ -208,12 +231,10 @@ export class LoginComponent extends FormController {
    * @param user - The user.
    */
   private logIn(user: User) {
-    let sid = this.join.getSid();
     this.validators.setRejected(false);
-    this.join.updateUserSid(user.id, sid);
     this.rememberUser();
     this.join.logUserIn(user);
-    this.router.navigate(['main', sid, 'summary']);
+    this.router.navigate(['main', user.id, 'summary']);
   }
 
   /**

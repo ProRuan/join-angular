@@ -26,8 +26,8 @@ export class AppComponent {
   log: LogService = inject(LogService);
 
   title = 'join';
-  bodySubscription: Subscription | null = null;
-  resizeSubscription: Subscription | null = null;
+  bodySubscription?: Subscription;
+  resizeSubscription?: Subscription;
 
   /**
    * Initializes an app component.

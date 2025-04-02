@@ -105,6 +105,6 @@ export class BoardComponent {
    * @returns The tasks of the column.
    */
   getTasks(column: string) {
-    return this.tasks.filter((t) => t.column == column);
+    return this.tasks.filter((t) => t.column === column);
   }
 }

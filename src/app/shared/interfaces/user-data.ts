@@ -7,7 +7,6 @@ import { TaskData } from './task-data';
  */
 export interface UserData {
   id: string;
-  sid: string;
   initials: string;
   name: string;
   email: string;

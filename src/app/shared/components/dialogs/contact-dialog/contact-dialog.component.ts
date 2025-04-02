@@ -113,7 +113,7 @@ export class ContactDialogComponent extends DialogFormController {
    * @returns A boolean value.
    */
   isEditContactDialog() {
-    return this.id == 'editContact';
+    return this.id === 'editContact';
   }
 
   /**

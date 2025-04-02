@@ -12,7 +12,10 @@ Think about
 // check add/edit/deleteA/deleteB for multiple save() ... !
 //   --> subscribe on purpose ... !!!
 // check getParam() --> use route instead ... !
-// remove sid ... !!!
+// subscribe router param ... !
+// subscribe firestore methods + saveUser() ... (1/10) + (0/?)
+//   --> sign-up ...
+// getUserById Observable ... !
 
 next: folders and files, component backlog, remember me by sid ... (0/3)
 

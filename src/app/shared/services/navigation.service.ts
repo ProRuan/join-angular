@@ -32,18 +32,12 @@ export class NavigationService {
    * @param text - The log text.
    */
   openLoginSession(id: string, text: string) {
-    let sid = this.join.getSid();
-    this.join.updateUserSid(id, sid);
     this.log.setLog(true, text);
-    this.redirectsToCustomLogin(sid);
+    this.redirectsToCustomLogin(id);
   }
 
-  /**
-   * Redirects to a custom login.
-   * @param sid - The session id.
-   */
-  redirectsToCustomLogin(sid: string) {
-    setTimeout(() => this.redirectsToLogin(`login/${sid}`), 1000);
+  redirectsToCustomLogin(id: string) {
+    setTimeout(() => this.redirectsToLogin(`login/${id}`), 1000);
   }
 
   /**

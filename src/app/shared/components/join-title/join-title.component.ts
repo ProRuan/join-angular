@@ -42,6 +42,6 @@ export class JoinTitleComponent {
    * @returns A boolean value.
    */
   isDarkTheme(value: boolean = false) {
-    return value == this.dark;
+    return value === this.dark;
   }
 }

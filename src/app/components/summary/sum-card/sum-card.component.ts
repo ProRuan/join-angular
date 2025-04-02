@@ -61,7 +61,7 @@ export class SumCardComponent {
    * @returns A boolean value.
    */
   isCategory(category: string) {
-    return this.task.category == category;
+    return this.task.category === category;
   }
 
   /**

@@ -157,7 +157,7 @@ export class PasswordInputComponent extends ReactiveInput {
   isDisallowedKey(event: KeyboardEvent) {
     let ctrlKey = event.ctrlKey;
     let key = event.key.toLowerCase();
-    return ctrlKey && (key == 'f' || key == 'g');
+    return ctrlKey && (key === 'f' || key === 'g');
   }
 
   /**

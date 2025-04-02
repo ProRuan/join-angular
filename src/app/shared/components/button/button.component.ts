@@ -58,7 +58,7 @@ export class ButtonComponent {
    * @returns A boolean value.
    */
   isButtonSelected(text: string) {
-    return this.button.text == text && this.selected;
+    return this.button.text === text && this.selected;
   }
 
   /**

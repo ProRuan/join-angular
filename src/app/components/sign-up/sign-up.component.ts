@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -15,14 +16,9 @@ import { PasswordInputComponent } from '../../shared/components/inputs/password-
 import { CheckboxComponent } from '../../shared/components/checkbox/checkbox.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import {
-  collection,
-  DocumentChange,
   DocumentData,
+  DocumentReference,
   Firestore,
-  FirestoreError,
-  onSnapshot,
-  QuerySnapshot,
-  Unsubscribe,
 } from '@angular/fire/firestore';
 import { JoinService } from '../../shared/services/join.service';
 import { SummaryService } from '../../shared/services/summary.service';
@@ -35,13 +31,15 @@ import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
 import { Contact } from '../../shared/models/contact';
 import { Task } from '../../shared/models/task';
-import { getArrayCopy, getCustomArray } from '../../shared/ts/global';
+import {
+  getArrayCopy,
+  getCustomArray,
+  unsubscribe,
+} from '../../shared/ts/global';
 import { sampleContactsData } from '../../shared/ts/sample-contacts-data';
 import { sampleTasksData } from '../../shared/ts/sample-tasks-data';
 import { Model } from '../../shared/interfaces/model';
-
-type Snapshot = QuerySnapshot<DocumentData, DocumentData>;
-type DocChange = DocumentChange<DocumentData, DocumentData>;
+import { UserData } from '../../shared/interfaces/user-data';
 
 @Component({
   selector: 'app-sign-up',
@@ -85,13 +83,12 @@ export class SignUpComponent extends FormController {
   matchword: AbstractControl | null = null;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
+  subscription?: Subscription;
 
   texts = {
     rejected: 'Email already associated with account',
     registered: 'You signed up successfully',
   };
-
-  unsubscribe: Unsubscribe = () => {};
 
   /**
    * Initializes a sign-up component.
@@ -176,16 +173,15 @@ export class SignUpComponent extends FormController {
    * Registers a user.
    */
   private signUp() {
-    this.updateUser();
-    this.subscribeUserRegistration();
+    this.formatUser();
     let data = this.getUserData();
-    this.join.addUser(data);
+    this.addUser(data);
   }
 
   /**
-   * Updates a user.
+   * Formats a user.
    */
-  private updateUser() {
+  private formatUser() {
     this.user.name = this.getName();
     this.user.initials = this.getInitials(this.user.name);
     this.user.email = this.getValue('email');
@@ -210,43 +206,43 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Subscribes a user collection for the user registration.
+   * Gets user data.
+   * @returns The user data.
    */
-  private subscribeUserRegistration() {
-    this.unsubscribe = onSnapshot(
-      collection(this.firestore, 'users'),
-      (snapshot) => this.addUser(snapshot),
-      (error) => this.logError(error)
-    );
+  private getUserData() {
+    return this.user.getObject();
   }
 
   /**
-   * Adds a user to the user collection.
-   * @param snapshot - The snapshot.
+   * Adds a user to the firestore.
+   * @param data - The user data.
    */
-  private addUser(snapshot: Snapshot) {
-    snapshot.docChanges().forEach((change) => this.completeSignUp(change));
+  private addUser(data: UserData) {
+    this.subscription = this.join.addUser(data).subscribe({
+      next: (userRef) => this.addUserId(userRef),
+      error: (error) => console.log('Error - Could not add user: ', error),
+    });
   }
 
   /**
-   * Completes a sign-up.
-   * @param change - The document change.
+   * Adds an id to the registered user.
+   * @param userRef - The user document reference.
    */
-  private completeSignUp(change: DocChange) {
-    if (this.isUserAdded(change)) {
-      const id = change.doc.id;
-      this.join.addUserId(id);
-      this.openLoginSession(id);
-    }
+  addUserId(userRef: DocumentReference<DocumentData, DocumentData>) {
+    unsubscribe(this.subscription);
+    const id = userRef.id;
+    this.updateUser(id);
   }
 
   /**
-   * Verifies a change on user added.
-   * @param change - The document change.
-   * @returns A boolean value.
+   * Updates the registered user with an id.
+   * @param id - The user id.
    */
-  private isUserAdded(change: DocChange) {
-    return change.type === 'added';
+  updateUser(id: string) {
+    this.subscription = this.join.updateUser(id, 'data.id', id).subscribe({
+      next: (response) => this.openLoginSession(id),
+      error: (error) => console.log('Error - Could not add user id: ', error),
+    });
   }
 
   /**
@@ -254,25 +250,9 @@ export class SignUpComponent extends FormController {
    * @param id - The user id.
    */
   private openLoginSession(id: string) {
+    unsubscribe(this.subscription);
     let text = this.texts.registered;
     this.nav.openLoginSession(id, text);
-  }
-
-  /**
-   * Logs a firestore error.
-   * @param error - The FirestoreError.
-   */
-  private logError(error: FirestoreError) {
-    const text = 'Error - Could not add user';
-    this.join.logError(text, error);
-  }
-
-  /**
-   * Gets user data.
-   * @returns The user data.
-   */
-  private getUserData() {
-    return this.user.getObject();
   }
 
   /**
@@ -295,7 +275,7 @@ export class SignUpComponent extends FormController {
    * Destroys a sign-up component.
    */
   ngOnDestroy() {
-    this.unsubscribe();
+    unsubscribe(this.subscription);
     this.join.unsubscribeUserCollection();
   }
 }

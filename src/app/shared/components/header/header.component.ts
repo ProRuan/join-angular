@@ -32,7 +32,7 @@ export class HeaderComponent {
    * @returns A boolean value.
    */
   isType(type: string) {
-    return this.type == type;
+    return this.type === type;
   }
 
   /**

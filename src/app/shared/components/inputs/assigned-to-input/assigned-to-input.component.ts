@@ -113,7 +113,7 @@ export class AssignedToInputComponent
    * @returns A boolean value.
    */
   isAssigned(contact: Contact) {
-    return !!this.assignedContacts.find((c) => c.id == contact.id);
+    return !!this.assignedContacts.find((c) => c.id === contact.id);
   }
 
   /**
