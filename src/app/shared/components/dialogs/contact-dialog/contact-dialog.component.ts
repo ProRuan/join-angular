@@ -192,7 +192,7 @@ export class ContactDialogComponent extends DialogFormController {
    * Adds a contact.
    */
   addContact() {
-    let contactData = this.getContactData(); // check this again!!!
+    let contactData = this.getContactData();
     let contact = new Contact(contactData);
     this.join.addUserItem('contacts', contact);
     this.viewer.setContact(contact);

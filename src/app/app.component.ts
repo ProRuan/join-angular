@@ -7,6 +7,7 @@ import { JoinService } from './shared/services/join.service';
 import { LogService } from './shared/services/log.service';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { unsubscribe } from './shared/ts/global';
 
 @Component({
   selector: 'app-root',
@@ -25,8 +26,8 @@ export class AppComponent {
   log: LogService = inject(LogService);
 
   title = 'join';
-  bodySubscription!: Subscription;
-  resizeSubscription!: Subscription;
+  bodySubscription: Subscription | null = null;
+  resizeSubscription: Subscription | null = null;
 
   /**
    * Initializes an app component.
@@ -90,7 +91,7 @@ export class AppComponent {
    * Destroys an app component.
    */
   ngOnDestroy(): void {
-    this.bodySubscription.unsubscribe();
-    this.resizeSubscription.unsubscribe();
+    unsubscribe(this.bodySubscription);
+    unsubscribe(this.resizeSubscription);
   }
 }

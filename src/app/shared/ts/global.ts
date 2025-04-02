@@ -2,6 +2,7 @@ import { SimpleChanges } from '@angular/core';
 import { Model } from '../interfaces/model';
 import { getRandomId } from './identify';
 import { ConvertableObject } from './type';
+import { Subscription } from 'rxjs';
 
 const monthNames = [
   'January',
@@ -266,5 +267,16 @@ export function setSessionalItem(key: string, value: any) {
 export function stopPropagation(event?: Event) {
   if (event) {
     event.stopPropagation();
+  }
+}
+
+/**
+ * Unsubscribes a subscription.
+ * @param subscription - The subscription.
+ */
+export function unsubscribe(subscription: Subscription | null) {
+  if (subscription) {
+    subscription.unsubscribe();
+    subscription = null;
   }
 }

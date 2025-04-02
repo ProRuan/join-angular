@@ -26,7 +26,23 @@ export class SummaryComponent {
   subtitle: string = 'Key Metrics at a Glance';
   greeting: string = 'Good morning';
   greetingDone: boolean = false;
-  summary: Summary = new Summary();
+  currentSummary: Summary = new Summary();
+
+  /**
+   * Gets a user summary.
+   * @returns The user summary.
+   */
+  get summary() {
+    return this.join.user.summary;
+  }
+
+  /**
+   * Sets a user summary.
+   * @param value - The summary to set.
+   */
+  set summary(summary: Summary) {
+    this.currentSummary = summary;
+  }
 
   /**
    * Initializes a summary component.

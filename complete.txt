@@ -7,9 +7,12 @@ Think about
 // new contacts task
 // -----------------
 // all dialogs with *ngIf ...
-// updatc contact bgc ...
+// update contact bgc ...
 // prevent double contacts (add/edit) ... (0/2)
 // check add/edit/deleteA/deleteB for multiple save() ... !
+//   --> subscribe on purpose ... !!!
+// check getParam() --> use route instead ... !
+// remove sid ... !!!
 
 next: folders and files, component backlog, remember me by sid ... (0/3)
 

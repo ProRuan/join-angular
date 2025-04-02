@@ -23,6 +23,7 @@ import { NavigationService } from '../../shared/services/navigation.service';
 import { Contact } from '../../shared/models/contact';
 import { Task } from '../../shared/models/task';
 import { JoinButton } from '../../shared/models/join-button';
+import { TaskData } from '../../shared/interfaces/task-data';
 
 @Component({
   selector: 'app-add-task',
@@ -253,12 +254,20 @@ export class AddTaskComponent extends FormController {
    */
   createTask() {
     if (this.form.valid) {
-      this.task.set(this.form.value);
-      this.join.addUserItem('tasks', this.task);
+      this.pushTask();
       this.join.updateSummary();
       this.join.saveUser();
       this.navigateToBoard();
     }
+  }
+
+  /**
+   * Pushes a task to a user object.
+   */
+  pushTask() {
+    let taskData = this.form.value as TaskData;
+    this.task.set(taskData);
+    this.join.addUserItem('tasks', this.task);
   }
 
   /**

@@ -5,7 +5,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
@@ -51,6 +51,7 @@ import {
  * @extends FormController
  */
 export class LoginComponent extends FormController {
+  route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
@@ -67,11 +68,34 @@ export class LoginComponent extends FormController {
    * Initializes a login component.
    */
   ngOnInit() {
+    this.join.loaded$.subscribe({
+      next: (value) => this.setEmailByHttp(value),
+    });
     this.join.subscribeUserCollection();
     this.setForm();
     this.setControls();
-    this.setSigneeEmail();
-    this.setRememberedUser();
+
+    // this.setSigneeEmail();
+    // this.setRememberedUser();
+  }
+
+  setEmailByHttp(value: boolean) {
+    if (value) {
+      this.join.subscribeUserCollection();
+      console.log('loaded: ', value);
+      // this.setValue('email', 'r@x.at');
+
+      let sid = this.route.snapshot.paramMap.get('id');
+      if (sid) {
+        console.log('sid: ', sid);
+        console.log('users: ', this.join.users);
+        let user = this.join.users.find((u) => u.sid == sid);
+        if (user) {
+          console.log('registered user: ', user);
+          this.setValue('email', user.email);
+        }
+      }
+    }
   }
 
   /**

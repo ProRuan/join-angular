@@ -38,6 +38,8 @@ export class JoinService {
   summary: SummaryService = inject(SummaryService);
 
   [key: string]: any;
+  loadedSubject = new BehaviorSubject<boolean>(false);
+  loaded$ = this.loadedSubject.asObservable();
   user: User = new User();
   users: User[] = [];
   introDone: boolean = false;
@@ -105,6 +107,8 @@ export class JoinService {
   getUserCollection(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
     const docs = getArrayCopy(snapshot.docs);
     this.users = docs.map((doc) => this.getUser(doc.data()));
+    this.loadedSubject.next(true);
+    this.loadedSubject.complete();
   }
 
   /**
@@ -254,6 +258,7 @@ export class JoinService {
     if (userDoc) {
       let data = this.getUserData(userDoc);
       this.user.set(data);
+      this.unsubscribeUser();
     }
   }
 
@@ -292,10 +297,22 @@ export class JoinService {
 
   /**
    * Loads a user.
+   * @param sid - The user session id.
    */
-  loadUser() {
-    this.loadUserLocally();
-    this.loadUserOnline();
+  loadUser(sid?: string | null) {
+    sid ? this.loadUserOnline(sid) : this.loadUserLocally();
+  }
+
+  /**
+   * Loads a user online.
+   * @param sid - The user session id.
+   */
+  loadUserOnline(sid: string) {
+    let user = this.getUserBySid(sid);
+    if (user) {
+      this.user.set(user);
+      this.saveUser();
+    }
   }
 
   /**
@@ -303,16 +320,6 @@ export class JoinService {
    */
   loadUserLocally() {
     let user = getLocalItem('user');
-    if (user) {
-      this.user.set(user);
-    }
-  }
-
-  /**
-   * Loads a user online.
-   */
-  loadUserOnline() {
-    let user = this.users.find((u) => this.isUserId(u));
     if (user) {
       this.user.set(user);
     }
@@ -331,6 +338,7 @@ export class JoinService {
    * Saves a user.
    */
   saveUser() {
+    this.subscribeUser();
     this.saveUserOnline();
     this.saveUserLocally();
   }
