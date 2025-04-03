@@ -5,6 +5,7 @@ import {
   deleteDoc,
   doc,
   DocumentData,
+  DocumentSnapshot,
   Firestore,
   getDoc,
   onSnapshot,
@@ -12,7 +13,7 @@ import {
   Unsubscribe,
   updateDoc,
 } from '@angular/fire/firestore';
-import { BehaviorSubject, from, of } from 'rxjs';
+import { BehaviorSubject, from, Subscription } from 'rxjs';
 import { SessionIdService } from './session-id.service';
 import { SummaryService } from './summary.service';
 import { User } from '../models/user';
@@ -39,8 +40,6 @@ export class JoinService {
   summary: SummaryService = inject(SummaryService);
 
   [key: string]: any;
-  loadedSubject = new BehaviorSubject<boolean>(false);
-  loaded$ = this.loadedSubject.asObservable();
   user: User = new User();
   users: User[] = [];
   introDone: boolean = false;
@@ -51,12 +50,6 @@ export class JoinService {
 
   unsubscribeUserCollection: Unsubscribe = () => {};
   unsubscribeUser: Unsubscribe = () => {};
-
-  // new - testing
-  getUserNew(id: string) {
-    let userDoc = getDoc(doc(this.firestore, 'users', id));
-    return from(userDoc);
-  }
 
   /**
    * Sets an intro to done.
@@ -114,8 +107,6 @@ export class JoinService {
   getUserCollection(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
     const docs = getArrayCopy(snapshot.docs);
     this.users = docs.map((doc) => this.getUser(doc.data()));
-    this.loadedSubject.next(true);
-    this.loadedSubject.complete();
   }
 
   /**
@@ -135,11 +126,6 @@ export class JoinService {
    */
   getUserData(userDoc: DocumentData) {
     return userDoc['data'] as UserData;
-  }
-
-  // review!
-  getUserById(id: string) {
-    return this.users.find((u) => u.id === id);
   }
 
   /**
@@ -202,6 +188,31 @@ export class JoinService {
   }
 
   /**
+   * Gets a user by user id.
+   * @param id - The user id.
+   * @returns The user.
+   */
+  getUserById(id: string) {
+    let userSnap = getDoc(doc(this.firestore, 'users', id));
+    return from(userSnap);
+  }
+
+  /**
+   * Gets user data by a user document snapshot.
+   * @param userSnap - The user document snapshot.
+   * @returns The user data.
+   */
+  getUserDataBySnap(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+    if (userSnap.exists()) {
+      let userDoc = userSnap.data();
+      let userData = userDoc['data'];
+      return userData as UserData;
+    } else {
+      return undefined;
+    }
+  }
+
+  /**
    * Logs an error.
    * @param text - The error text.
    * @param error - The error.
@@ -210,10 +221,6 @@ export class JoinService {
     console.error(`${text}: `, error);
   }
 
-  /**
-   * Gets a session id.
-   * @returns - The session id.
-   */
   getSid() {
     return this.sid.get();
   }
@@ -224,12 +231,9 @@ export class JoinService {
    */
   logUserIn(user: User) {
     this.user.set(user);
-    this.saveUser();
+    // this.saveUser();
   }
 
-  /**
-   * Subscribes a user.
-   */
   subscribeUser() {
     const id = this.user.id;
     const text = 'Error - Could not subscribe user';
@@ -292,11 +296,11 @@ export class JoinService {
 
   // review + think about saveUser()!
   loadUserOnline(id: string) {
-    let user = this.getUserById(id);
-    if (user) {
-      this.user.set(user);
-      this.saveUser();
-    }
+    // let user = this.getUserById(id);
+    // if (user) {
+    //   this.user.set(user);
+    //   this.saveUser();
+    // }
   }
 
   /**
@@ -349,6 +353,15 @@ export class JoinService {
    */
   setWindowWidth(value: number) {
     this.windowWidth = value;
+  }
+
+  /**
+   * Unsubscribes a subscription.
+   */
+  unsubscribe(sub?: Subscription) {
+    if (sub && !sub.closed) {
+      sub.unsubscribe();
+    }
   }
 
   /**

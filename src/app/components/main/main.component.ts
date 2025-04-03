@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, ParamMap, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinHeaderComponent } from '../../shared/components/join-header/join-header.component';
 import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.component';
 import { MobileMenuComponent } from '../../shared/components/mobile-menu/mobile-menu.component';
-import { Firestore } from '@angular/fire/firestore';
+import {
+  DocumentData,
+  DocumentSnapshot,
+  Firestore,
+} from '@angular/fire/firestore';
 import { JoinService } from '../../shared/services/join.service';
 import { BoardService } from '../../shared/services/board.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { NavigationService } from '../../shared/services/navigation.service';
-import { unsubscribe } from '../../shared/ts/global';
 
 @Component({
   selector: 'app-main',
@@ -39,48 +42,54 @@ export class MainComponent {
   dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
-  loadingSubscription?: Subscription;
+  routeSubscription?: Subscription;
+  userSubscription?: Subscription;
 
   /**
    * Initializes a main component.
    */
   ngOnInit() {
-    this.join.loadUser();
-    this.loadUsers();
+    this.setLoggedInUser();
     this.setGreetingToDone();
     this.join.setIntroToDone();
   }
 
   /**
-   * Loads users.
+   * Sets a logged in user.
    */
-  loadUsers() {
-    if (this.join.users.length < 1) {
-      this.loadUserCollection();
-      this.join.subscribeUserCollection();
-    }
+  setLoggedInUser() {
+    this.routeSubscription = this.route.paramMap.subscribe((params) =>
+      this.updateUser(params)
+    );
   }
 
   /**
-   * Loads a user collection.
+   * Updates a user.
+   * @param params - The param map.
    */
-  loadUserCollection() {
-    this.join.loaded$.subscribe({
-      next: (loaded) => this.loadLoggedInUser(loaded),
-      error: (error) => console.log('Error - Could not load users: ', error),
+  updateUser(params: ParamMap) {
+    let id = params.get('id');
+    if (id) this.setUserById(id);
+  }
+
+  /**
+   * Sets a user by user id.
+   * @param id - The user id.
+   */
+  setUserById(id: string) {
+    this.join.unsubscribe(this.userSubscription);
+    this.userSubscription = this.join.getUserById(id).subscribe({
+      next: (userSnap) => this.setUser(userSnap),
     });
   }
 
   /**
-   * Loads a logged in user.
-   * @param loaded - A boolean value.
+   * Sets a user.
+   * @param userSnap - The user document snapshot.
    */
-  loadLoggedInUser(loaded: boolean) {
-    if (loaded) {
-      this.join.unsubscribeUserCollection();
-      let id = this.route.snapshot.paramMap.get('id');
-      this.join.loadUser(id);
-    }
+  setUser(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+    let data = this.join.getUserDataBySnap(userSnap);
+    if (data) this.join.user.set(data);
   }
 
   /**
@@ -122,8 +131,8 @@ export class MainComponent {
    * Destroys a main component.
    */
   ngOnDestroy() {
-    unsubscribe(this.loadingSubscription);
-    this.join.unsubscribeUser();
     this.join.user.set();
+    this.join.unsubscribe(this.routeSubscription);
+    this.join.unsubscribe(this.userSubscription);
   }
 }

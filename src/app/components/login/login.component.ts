@@ -19,13 +19,8 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
-import {
-  getLocalItem,
-  isDefaultString,
-  removeLocalItem,
-  setLocalItem,
-} from '../../shared/ts/global';
 import { DocumentData, DocumentSnapshot } from 'firebase/firestore';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -59,70 +54,24 @@ export class LoginComponent extends FormController {
   validators: InputValidatorService = inject(InputValidatorService);
   nav: NavigationService = inject(NavigationService);
 
+  // fix remember me method ... !
+
   email: AbstractControl | null = null;
   password: AbstractControl | null = null;
   remembered: boolean = false;
   loggedIn: boolean = false;
+  routeSubscription?: Subscription;
+  userSubscription?: Subscription;
   error = 'Check your email and password. Please try again.';
 
   /**
    * Initializes a login component.
    */
   ngOnInit() {
-    this.join.loaded$.subscribe({
-      next: (value) => this.setEmailByHttp(value),
-    });
-    this.join.subscribeUserCollection();
     this.setForm();
     this.setControls();
-
-    this.route.paramMap.subscribe((params) => {
-      let id = params.get('id'); // Read the user ID from the URL
-      if (id) {
-        console.log('id: ', id);
-
-        // test
-        let userDoc = this.join.getUserNew(id).subscribe({
-          next: (value) => this.getSuperTest(value),
-        });
-        // test
-
-        let user = this.join.getUserById(id);
-        if (user) {
-          this.setValue('email', user.email);
-        }
-      }
-    });
-
-    // this.setSigneeEmail();
-    // this.setRememberedUser();
-  }
-
-  getSuperTest(value: DocumentSnapshot<DocumentData, DocumentData>) {
-    if (value.exists()) {
-      let userDoc = value.data();
-      let userData = userDoc['data'];
-      console.log('user data new: ', userData);
-    }
-  }
-
-  setEmailByHttp(value: boolean) {
-    if (value) {
-      this.join.subscribeUserCollection();
-      console.log('loaded: ', value);
-      // this.setValue('email', 'r@x.at');
-
-      let id = this.route.snapshot.paramMap.get('id');
-      if (id) {
-        console.log('users: ', this.join.users);
-        let user = this.join.users.find((u) => u.id === id);
-        if (user) {
-          console.log('registered user: ', user);
-          this.setValue('email', user.email);
-          this.form.updateValueAndValidity();
-        }
-      }
-    }
+    this.setLoginEmail();
+    this.join.subscribeUserCollection();
   }
 
   /**
@@ -142,67 +91,33 @@ export class LoginComponent extends FormController {
   }
 
   /**
-   * Sets a signee email.
+   * Sets the login email of a registered user.
    */
-  private setSigneeEmail() {
-    let id = this.nav.getParam('id');
-    if (id) {
-      this.updateEmailControl(id);
-    }
-  }
-
-  private updateEmailControl(id: string) {
-    let user = this.join.getUserById(id);
-    if (user) {
-      this.setValue('email', user.email);
-    }
+  private setLoginEmail() {
+    this.routeSubscription = this.route.paramMap.subscribe((params) => {
+      let id = params.get('id');
+      if (id) this.updateEmailInput(id);
+    });
   }
 
   /**
-   * Sets a remembered user.
+   * Updates an email input by user id.
+   * @param id - The user id.
    */
-  private setRememberedUser() {
-    if (isDefaultString(this.email?.value)) {
-      this.loadRememberedUser();
-    }
+  private updateEmailInput(id: string) {
+    this.join.unsubscribe(this.userSubscription);
+    this.userSubscription = this.join.getUserById(id).subscribe({
+      next: (userSnap) => this.setEmail(userSnap),
+    });
   }
 
   /**
-   * Loads a remembered user.
+   * Sets an email value.
+   * @param userSnap - The user document snapshot.
    */
-  private loadRememberedUser() {
-    let remembered = getLocalItem('remembered');
-    let user = getLocalItem('user');
-    if (remembered && user) {
-      this.verifyRememberedUser(user);
-    }
-  }
-
-  /**
-   * Verifies a remembered user.
-   * @param user - The remembered user.
-   */
-  private verifyRememberedUser(user: User) {
-    let registeredUser = this.join.getRegisteredUser(user.email, user.password);
-    registeredUser ? this.updateForm(user) : this.removeRememberedUser();
-  }
-
-  /**
-   * Updates the form by a loaded user.
-   * @param user - The loaded user.
-   */
-  private updateForm(user: User) {
-    this.setValue('email', user.email);
-    this.setValue('password', user.password);
-    this.remembered = true;
-  }
-
-  /**
-   * Removes a remembered user from the local storage.
-   */
-  private removeRememberedUser() {
-    removeLocalItem('remembered');
-    removeLocalItem('user');
+  private setEmail(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+    let data = this.join.getUserDataBySnap(userSnap);
+    if (data) this.setValue('email', data.email);
   }
 
   /**
@@ -232,20 +147,8 @@ export class LoginComponent extends FormController {
    */
   private logIn(user: User) {
     this.validators.setRejected(false);
-    this.rememberUser();
     this.join.logUserIn(user);
     this.router.navigate(['main', user.id, 'summary']);
-  }
-
-  /**
-   * Remembers a user.
-   */
-  private rememberUser() {
-    if (this.remembered) {
-      setLocalItem('remembered', true);
-    } else {
-      this.removeRememberedUser();
-    }
   }
 
   /**
@@ -278,6 +181,8 @@ export class LoginComponent extends FormController {
    */
   ngOnDestroy() {
     this.validators.setRejected(false);
+    this.join.unsubscribe(this.routeSubscription);
+    this.join.unsubscribe(this.userSubscription);
     this.join.unsubscribeUserCollection();
   }
 }

@@ -15,7 +15,9 @@ Think about
 // subscribe router param ... !
 // subscribe firestore methods + saveUser() ... (1/10) + (0/?)
 //   --> sign-up ...
-// getUserById Observable ... !
+// pipe addUser() and updateUser() ... ?
+// set timeout of backlog and login session ... !
+// move backlog ...
 
 next: folders and files, component backlog, remember me by sid ... (0/3)
 

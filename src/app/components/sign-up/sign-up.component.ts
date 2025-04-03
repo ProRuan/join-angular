@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { concatMap, Observable, Subscription, tap } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -31,11 +31,7 @@ import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
 import { Contact } from '../../shared/models/contact';
 import { Task } from '../../shared/models/task';
-import {
-  getArrayCopy,
-  getCustomArray,
-  unsubscribe,
-} from '../../shared/ts/global';
+import { getArrayCopy, getCustomArray } from '../../shared/ts/global';
 import { sampleContactsData } from '../../shared/ts/sample-contacts-data';
 import { sampleTasksData } from '../../shared/ts/sample-tasks-data';
 import { Model } from '../../shared/interfaces/model';
@@ -94,10 +90,10 @@ export class SignUpComponent extends FormController {
    * Initializes a sign-up component.
    */
   ngOnInit() {
-    this.join.subscribeUserCollection();
     this.setUserSamples();
     this.setForm();
     this.setControls();
+    this.join.subscribeUserCollection();
   }
 
   /**
@@ -175,7 +171,8 @@ export class SignUpComponent extends FormController {
   private signUp() {
     this.formatUser();
     let data = this.getUserData();
-    this.addUser(data);
+    let response = this.registerUser(data);
+    this.subscribeUserRegistration(response);
   }
 
   /**
@@ -214,35 +211,42 @@ export class SignUpComponent extends FormController {
   }
 
   /**
-   * Adds a user to the firestore.
+   * Registers a user.
    * @param data - The user data.
+   * @returns An observable as void.
    */
-  private addUser(data: UserData) {
-    this.subscription = this.join.addUser(data).subscribe({
-      next: (userRef) => this.addUserId(userRef),
-      error: (error) => console.log('Error - Could not add user: ', error),
-    });
+  private registerUser(data: UserData) {
+    let userRef = this.join.addUser(data);
+    return userRef.pipe(concatMap((userRef) => this.updateUserId(userRef)));
   }
 
   /**
-   * Adds an id to the registered user.
+   * Updates a user id.
    * @param userRef - The user document reference.
+   * @returns An observable as void.
    */
-  addUserId(userRef: DocumentReference<DocumentData, DocumentData>) {
-    unsubscribe(this.subscription);
-    const id = userRef.id;
-    this.updateUser(id);
+  private updateUserId(userRef: DocumentReference<DocumentData, DocumentData>) {
+    let id = userRef.id;
+    let response = this.join.updateUser(id, 'data.id', id);
+    return response.pipe(tap(() => this.openLoginSession(id)));
   }
 
   /**
-   * Updates the registered user with an id.
-   * @param id - The user id.
+   * Subscribes a user registration.
+   * @param response - The firestore response.
    */
-  updateUser(id: string) {
-    this.subscription = this.join.updateUser(id, 'data.id', id).subscribe({
-      next: (response) => this.openLoginSession(id),
-      error: (error) => console.log('Error - Could not add user id: ', error),
+  private subscribeUserRegistration(response: Observable<void>) {
+    this.subscription = response.subscribe({
+      error: (error) => this.logRegistrationError(error),
     });
+  }
+
+  /**
+   * Logs a registration error.
+   * @param error - The error.
+   */
+  private logRegistrationError(error: any) {
+    console.log('Error - Could not complete user registration: ', error);
   }
 
   /**
@@ -250,7 +254,6 @@ export class SignUpComponent extends FormController {
    * @param id - The user id.
    */
   private openLoginSession(id: string) {
-    unsubscribe(this.subscription);
     let text = this.texts.registered;
     this.nav.openLoginSession(id, text);
   }
@@ -275,7 +278,7 @@ export class SignUpComponent extends FormController {
    * Destroys a sign-up component.
    */
   ngOnDestroy() {
-    unsubscribe(this.subscription);
+    this.join.unsubscribe(this.subscription);
     this.join.unsubscribeUserCollection();
   }
 }

@@ -7,7 +7,6 @@ import { JoinService } from './shared/services/join.service';
 import { LogService } from './shared/services/log.service';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { unsubscribe } from './shared/ts/global';
 
 @Component({
   selector: 'app-root',
@@ -91,7 +90,7 @@ export class AppComponent {
    * Destroys an app component.
    */
   ngOnDestroy(): void {
-    unsubscribe(this.bodySubscription);
-    unsubscribe(this.resizeSubscription);
+    this.join.unsubscribe(this.bodySubscription);
+    this.join.unsubscribe(this.resizeSubscription);
   }
 }
