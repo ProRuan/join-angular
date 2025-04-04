@@ -39,6 +39,9 @@ export class JoinService {
   sid: SessionIdService = inject(SessionIdService);
   summary: SummaryService = inject(SummaryService);
 
+  // think about load methods ...
+  // think about save mehtods ...
+
   [key: string]: any;
   user: User = new User();
   users: User[] = [];
@@ -226,15 +229,6 @@ export class JoinService {
 
   getSid() {
     return this.sid.get();
-  }
-
-  /**
-   * Logs a user in.
-   * @param user - The user.
-   */
-  logUserIn(user: User) {
-    this.user.set(user);
-    // this.saveUser();
   }
 
   subscribeUser() {

@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
@@ -19,9 +20,8 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
 import { CookieService } from '../../shared/services/cookie.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
-import { User } from '../../shared/models/user';
 import { DocumentData, DocumentSnapshot } from 'firebase/firestore';
-import { Subscription } from 'rxjs';
+import { User } from '../../shared/models/user';
 
 @Component({
   selector: 'app-login',
@@ -56,15 +56,14 @@ export class LoginComponent extends FormController {
   cookies: CookieService = inject(CookieService);
   nav: NavigationService = inject(NavigationService);
 
-  // check login subscriptions ... !
-
-  token: string = '';
   email: AbstractControl | null = null;
   password: AbstractControl | null = null;
   remembered: boolean = false;
   loggedIn: boolean = false;
+  loadSubscription?: Subscription;
+  memorySubscription?: Subscription;
   routeSubscription?: Subscription;
-  userSubscription?: Subscription;
+  emailSubscription?: Subscription;
   error = 'Check your email and password. Please try again.';
 
   /**
@@ -73,39 +72,9 @@ export class LoginComponent extends FormController {
   ngOnInit() {
     this.setForm();
     this.setControls();
-    this.setLoginEmail();
-
-    // clean!
-    this.join.loaded$.subscribe({
-      next: (value) => this.rememberToken(value),
-    });
-
+    this.setRememberedUser();
+    this.setRegisteredEmail();
     this.join.subscribeUserCollection();
-  }
-
-  // clean!
-  rememberToken(value: boolean) {
-    if (value) {
-      const token = this.cookies.getCookie('token');
-      if (token) {
-        this.token = token;
-        console.log('remembered token: ', this.token);
-        let user = this.join.getUserById(token).subscribe({
-          next: (userSnap) => this.logInDirectly(userSnap),
-        });
-      }
-    }
-  }
-
-  // clean!
-  logInDirectly(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
-    let data = this.join.getUserDataBySnap(userSnap);
-    if (data) {
-      this.setValue('email', data.email);
-      this.setValue('password', data.password);
-      this.remembered = true;
-      // this.onLogin();
-    }
   }
 
   /**
@@ -125,9 +94,53 @@ export class LoginComponent extends FormController {
   }
 
   /**
+   * Sets a remembered user.
+   */
+  private setRememberedUser() {
+    this.loadSubscription = this.join.loaded$.subscribe({
+      next: (loaded) => this.rememberUserByCookie(loaded),
+    });
+  }
+
+  /**
+   * Remembers a user by cookie.
+   * @param loaded - A boolean value.
+   */
+  private rememberUserByCookie(loaded: boolean) {
+    if (loaded) {
+      const token = this.cookies.getCookie('token');
+      if (token) this.updateLoginForm(token);
+    }
+  }
+
+  /**
+   * Updates a login form.
+   * @param token - The user token.
+   */
+  private updateLoginForm(token: string) {
+    this.join.unsubscribe(this.memorySubscription);
+    this.memorySubscription = this.join.getUserById(token).subscribe({
+      next: (userSnap) => this.setLoginForm(userSnap),
+    });
+  }
+
+  /**
+   * Sets a login form.
+   * @param userSnap - The user documment snapshot.
+   */
+  private setLoginForm(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+    let data = this.join.getUserDataBySnap(userSnap);
+    if (data) {
+      this.setValue('email', data.email);
+      this.setValue('password', data.password);
+      this.remembered = true;
+    }
+  }
+
+  /**
    * Sets the login email of a registered user.
    */
-  private setLoginEmail() {
+  private setRegisteredEmail() {
     this.routeSubscription = this.route.paramMap.subscribe((params) => {
       let id = params.get('id');
       if (id) this.updateEmailInput(id);
@@ -139,8 +152,8 @@ export class LoginComponent extends FormController {
    * @param id - The user id.
    */
   private updateEmailInput(id: string) {
-    this.join.unsubscribe(this.userSubscription);
-    this.userSubscription = this.join.getUserById(id).subscribe({
+    this.join.unsubscribe(this.emailSubscription);
+    this.emailSubscription = this.join.getUserById(id).subscribe({
       next: (userSnap) => this.setEmail(userSnap),
     });
   }
@@ -155,7 +168,7 @@ export class LoginComponent extends FormController {
   }
 
   /**
-   * Logs a user in on submit.
+   * Logs in a user on submit.
    */
   onLogin() {
     if (this.form.valid) {
@@ -181,25 +194,30 @@ export class LoginComponent extends FormController {
    */
   private logIn(user: User) {
     this.validators.setRejected(false);
+    this.join.user.set(user);
+    this.manageCookies(user.id);
+    this.router.navigate(['main', user.id, 'summary']);
+  }
 
-    // clean!
+  /**
+   * Manages cookies.
+   * @param id - The user id.
+   */
+  manageCookies(id: string) {
     if (this.remembered) {
-      this.cookies.setCookie('token', user.id, 7);
+      this.cookies.setCookie('token', id, 30);
     } else {
       this.cookies.deleteCookie('token');
     }
-
-    this.join.logUserIn(user);
-    this.router.navigate(['main', user.id, 'summary']);
   }
 
   /**
    * Rejects a form.
    */
   private reject() {
-    this.setValue('password', '');
     this.validators.setRejected(true);
     this.cookies.deleteCookie('token');
+    this.setValue('password', '');
     this.loggedIn = false;
   }
 
@@ -224,8 +242,10 @@ export class LoginComponent extends FormController {
    */
   ngOnDestroy() {
     this.validators.setRejected(false);
+    this.join.unsubscribe(this.loadSubscription);
+    this.join.unsubscribe(this.memorySubscription);
     this.join.unsubscribe(this.routeSubscription);
-    this.join.unsubscribe(this.userSubscription);
+    this.join.unsubscribe(this.emailSubscription);
     this.join.unsubscribeUserCollection();
   }
 }

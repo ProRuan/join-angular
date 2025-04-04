@@ -13,11 +13,14 @@ Think about
 //   --> subscribe on purpose ... !!!
 // check getParam() --> use route instead ... !
 // subscribe router param ... !
-// subscribe firestore methods + saveUser() ... (1/10) + (0/?)
-//   --> sign-up ...
+// subscribe firestore methods + saveUser() ... (2/10) + (2/?)
+//   --> sign-up, login ...
 // pipe addUser() and updateUser() ... ?
 // set timeout of backlog and login session ... !
 // move backlog ...
+
+// do I need user collection in login, sign-up, main ... (0/3)
+// create doc interaces ... ?
 
 components
 ----------
