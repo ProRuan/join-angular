@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { getProvider, ReactiveInput } from '../../../models/reactive-input';
 import {
   AbstractControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { JoinService } from '../../../services/join.service';
 import { InputConfig } from '../../../interfaces/input-config';
 import { stopPropagation } from '../../../ts/global';
 
@@ -28,9 +30,12 @@ type TextStyle = { [key: string]: string };
  * @extends ReactiveInput
  */
 export class PasswordInputComponent extends ReactiveInput {
+  join: JoinService = inject(JoinService);
+
   maskedValue: string = '';
   masked: boolean = true;
   textStyle!: TextStyle;
+  subscription?: Subscription;
 
   @Input() override control: AbstractControl | null = null;
 
@@ -57,7 +62,7 @@ export class PasswordInputComponent extends ReactiveInput {
    */
   ngOnInit() {
     this.textStyle = this.getAltTextStyle();
-    this.updateMaskedValue();
+    this.updateMask();
   }
 
   /**
@@ -73,11 +78,12 @@ export class PasswordInputComponent extends ReactiveInput {
   }
 
   /**
-   * Updates a password input on change.
+   * Updates a mask.
    */
-  override onChange(): void {
-    this.updateMaskedValue();
-    this.validateExistingControl();
+  updateMask() {
+    this.subscription = this.control?.valueChanges.subscribe({
+      next: () => this.updateMaskedValue(),
+    });
   }
 
   /**
@@ -166,5 +172,12 @@ export class PasswordInputComponent extends ReactiveInput {
    */
   onPrevent(event: ClipboardEvent) {
     event.preventDefault();
+  }
+
+  /**
+   * Destroys a password input component.
+   */
+  ngOnDestroy() {
+    this.join.unsubscribe(this.subscription);
   }
 }

@@ -57,7 +57,6 @@ export class LoginComponent extends FormController {
   nav: NavigationService = inject(NavigationService);
 
   // check login subscriptions ... !
-  // subscribe masked password for value changes ... !
 
   token: string = '';
   email: AbstractControl | null = null;

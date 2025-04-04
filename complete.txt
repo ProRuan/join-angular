@@ -19,8 +19,6 @@ Think about
 // set timeout of backlog and login session ... !
 // move backlog ...
 
-next: folders and files, component backlog, remember me by sid ... (0/3)
-
 components
 ----------
   - BoardComponent ...
@@ -233,12 +231,6 @@ join service
   // edit logo animation!
   // check setIntroToDone() after that!
 
-cookies
--------
-  - remember me with user id or sid only ... ?
-  - use them for the remember me function ... ?
-  - add cookies with cookie bot ... ?
-
 id/sid
 ------
   - think about contacts id: string ... ?
@@ -249,11 +241,7 @@ BoardComponent
 
 LoginComponent
 --------------
-  - use juse saveUser() ... ?
-  - remember me not working anymore ...
-      --> property of user: user.remembered = true ... ?
-      --> rename setRegisteredUser() + setRememberedUser() ... !
-  - no sid update (data.sid) ...
+  - use juse saveUser() ... ?.
   - review logIn() ...
 
 JoinService
@@ -301,14 +289,12 @@ PasswordInputComponent
   // registerUser() ...
   // reject(): rename (also for login) ... !!!
   // log reset wrong ... !
-  // remember me wrong ... !!!
 
   // fix matchword validation --> validation on focus (not on dirty) ... ?!
   // 5 input values for inputs ... ?
 
   // LoginComponent
   // --------------
-  // rememberUser() ...
   // onUserLogin() + onGuestLogin() ...
 
 JoinDialog (DialogFormController)
