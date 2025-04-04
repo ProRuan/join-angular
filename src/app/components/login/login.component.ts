@@ -20,8 +20,8 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
 import { CookieService } from '../../shared/services/cookie.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
-import { DocumentData, DocumentSnapshot } from 'firebase/firestore';
 import { User } from '../../shared/models/user';
+import { DocSnap } from '../../shared/ts/type';
 
 @Component({
   selector: 'app-login',
@@ -128,7 +128,7 @@ export class LoginComponent extends FormController {
    * Sets a login form.
    * @param userSnap - The user documment snapshot.
    */
-  private setLoginForm(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+  private setLoginForm(userSnap: DocSnap) {
     let data = this.join.getUserDataBySnap(userSnap);
     if (data) {
       this.setValue('email', data.email);
@@ -162,7 +162,7 @@ export class LoginComponent extends FormController {
    * Sets an email value.
    * @param userSnap - The user document snapshot.
    */
-  private setEmail(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+  private setEmail(userSnap: DocSnap) {
     let data = this.join.getUserDataBySnap(userSnap);
     if (data) this.setValue('email', data.email);
   }

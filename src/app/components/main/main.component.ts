@@ -6,15 +6,12 @@ import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { JoinHeaderComponent } from '../../shared/components/join-header/join-header.component';
 import { FlipMenuComponent } from '../../shared/components/flip-menu/flip-menu.component';
 import { MobileMenuComponent } from '../../shared/components/mobile-menu/mobile-menu.component';
-import {
-  DocumentData,
-  DocumentSnapshot,
-  Firestore,
-} from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { JoinService } from '../../shared/services/join.service';
 import { BoardService } from '../../shared/services/board.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { NavigationService } from '../../shared/services/navigation.service';
+import { DocSnap } from '../../shared/ts/type';
 
 @Component({
   selector: 'app-main',
@@ -87,7 +84,7 @@ export class MainComponent {
    * Sets a user.
    * @param userSnap - The user document snapshot.
    */
-  setUser(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+  setUser(userSnap: DocSnap) {
     let data = this.join.getUserDataBySnap(userSnap);
     if (data) this.join.user.set(data);
   }

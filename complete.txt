@@ -19,9 +19,6 @@ Think about
 // set timeout of backlog and login session ... !
 // move backlog ...
 
-// do I need user collection in login, sign-up, main ... (0/3)
-// create doc interaces ... ?
-
 components
 ----------
   - BoardComponent ...
@@ -139,7 +136,6 @@ EditTaskComponent: do not reset board task ... ?
 Responsiveness
 --------------
   - PasswordInputComponent: VisButton:hover && :active ...
-  - LoginComponent: when does it need min-height 926px ... ?
 
 summary service / sign-up
 -------------------------
@@ -241,11 +237,6 @@ id/sid
 BoardComponent
 --------------
   - fix add-task back log position ...
-
-LoginComponent
---------------
-  - use juse saveUser() ... ?.
-  - review logIn() ...
 
 JoinService
 -----------

@@ -5,7 +5,6 @@ import {
   deleteDoc,
   doc,
   DocumentData,
-  DocumentSnapshot,
   Firestore,
   getDoc,
   onSnapshot,
@@ -26,6 +25,7 @@ import {
 import { UserData } from '../interfaces/user-data';
 import { Task } from '../models/task';
 import { Contact } from '../models/contact';
+import { DocSnap } from '../ts/type';
 
 @Injectable({
   providedIn: 'root',
@@ -208,7 +208,7 @@ export class JoinService {
    * @param userSnap - The user document snapshot.
    * @returns The user data.
    */
-  getUserDataBySnap(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+  getUserDataBySnap(userSnap: DocSnap) {
     if (userSnap.exists()) {
       let userDoc = userSnap.data();
       let userData = userDoc['data'];
