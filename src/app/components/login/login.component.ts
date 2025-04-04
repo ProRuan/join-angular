@@ -16,6 +16,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 import { JoinService } from '../../shared/services/join.service';
 import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
+import { CookieService } from '../../shared/services/cookie.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
@@ -52,10 +53,13 @@ export class LoginComponent extends FormController {
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
+  cookies: CookieService = inject(CookieService);
   nav: NavigationService = inject(NavigationService);
 
-  // fix remember me method ... !
+  // check login subscriptions ... !
+  // subscribe masked password for value changes ... !
 
+  token: string = '';
   email: AbstractControl | null = null;
   password: AbstractControl | null = null;
   remembered: boolean = false;
@@ -71,7 +75,38 @@ export class LoginComponent extends FormController {
     this.setForm();
     this.setControls();
     this.setLoginEmail();
+
+    // clean!
+    this.join.loaded$.subscribe({
+      next: (value) => this.rememberToken(value),
+    });
+
     this.join.subscribeUserCollection();
+  }
+
+  // clean!
+  rememberToken(value: boolean) {
+    if (value) {
+      const token = this.cookies.getCookie('token');
+      if (token) {
+        this.token = token;
+        console.log('remembered token: ', this.token);
+        let user = this.join.getUserById(token).subscribe({
+          next: (userSnap) => this.logInDirectly(userSnap),
+        });
+      }
+    }
+  }
+
+  // clean!
+  logInDirectly(userSnap: DocumentSnapshot<DocumentData, DocumentData>) {
+    let data = this.join.getUserDataBySnap(userSnap);
+    if (data) {
+      this.setValue('email', data.email);
+      this.setValue('password', data.password);
+      this.remembered = true;
+      // this.onLogin();
+    }
   }
 
   /**
@@ -147,6 +182,14 @@ export class LoginComponent extends FormController {
    */
   private logIn(user: User) {
     this.validators.setRejected(false);
+
+    // clean!
+    if (this.remembered) {
+      this.cookies.setCookie('token', user.id, 7);
+    } else {
+      this.cookies.deleteCookie('token');
+    }
+
     this.join.logUserIn(user);
     this.router.navigate(['main', user.id, 'summary']);
   }
@@ -155,9 +198,10 @@ export class LoginComponent extends FormController {
    * Rejects a form.
    */
   private reject() {
-    this.loggedIn = false;
     this.setValue('password', '');
     this.validators.setRejected(true);
+    this.cookies.deleteCookie('token');
+    this.loggedIn = false;
   }
 
   /**

@@ -45,7 +45,9 @@ export class JoinService {
   introDone: boolean = false;
   greetingDone: boolean = false;
   windowWidth: number = 0;
+  loadedSubject = new BehaviorSubject<boolean>(false);
   overflowYSubject = new BehaviorSubject<string>('hidden');
+  loaded$ = this.loadedSubject.asObservable();
   overflowY$ = this.overflowYSubject.asObservable();
 
   unsubscribeUserCollection: Unsubscribe = () => {};
@@ -107,6 +109,7 @@ export class JoinService {
   getUserCollection(snapshot: QuerySnapshot<DocumentData, DocumentData>) {
     const docs = getArrayCopy(snapshot.docs);
     this.users = docs.map((doc) => this.getUser(doc.data()));
+    this.loadedSubject.next(true);
   }
 
   /**
@@ -370,5 +373,13 @@ export class JoinService {
    */
   isMobile() {
     return this.windowWidth < 1180 + 1;
+  }
+
+  /**
+   * Destroys a join service.
+   */
+  ngOnDestroy() {
+    this.loadedSubject.unsubscribe();
+    this.overflowYSubject.unsubscribe();
   }
 }

@@ -26,6 +26,7 @@ import { InputConfigurationService } from '../../shared/services/input-configura
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { NameFormatterService } from '../../shared/services/name-formatter.service';
 import { LogService } from '../../shared/services/log.service';
+import { CookieService } from '../../shared/services/cookie.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
@@ -70,6 +71,7 @@ export class SignUpComponent extends FormController {
   validators: InputValidatorService = inject(InputValidatorService);
   nameFormatter: NameFormatterService = inject(NameFormatterService);
   log: LogService = inject(LogService);
+  cookies: CookieService = inject(CookieService);
   nav: NavigationService = inject(NavigationService);
 
   user: User = new User();
@@ -254,8 +256,8 @@ export class SignUpComponent extends FormController {
    * @param id - The user id.
    */
   private openLoginSession(id: string) {
-    let text = this.texts.registered;
-    this.nav.openLoginSession(id, text);
+    this.cookies.deleteCookie('token');
+    this.nav.openLoginSession(id, this.texts.registered);
   }
 
   /**

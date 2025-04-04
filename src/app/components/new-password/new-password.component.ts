@@ -16,6 +16,7 @@ import { JoinService } from '../../shared/services/join.service';
 import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { LogService } from '../../shared/services/log.service';
+import { CookieService } from '../../shared/services/cookie.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
@@ -47,6 +48,7 @@ export class NewPasswordComponent extends FormController {
   config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
   log: LogService = inject(LogService);
+  cookies: CookieService = inject(CookieService);
   nav: NavigationService = inject(NavigationService);
 
   id: string = '';
@@ -56,6 +58,7 @@ export class NewPasswordComponent extends FormController {
   submitted: boolean = false;
   rejected: boolean = false;
   error: string = 'Email unknown.';
+  backlogText: string = 'Password updated successfully';
 
   /**
    * Initializes the new password component.
@@ -158,8 +161,8 @@ export class NewPasswordComponent extends FormController {
    * Opens a login session.
    */
   openLoginSession() {
-    let text = 'Password updated successfully';
-    this.nav.openLoginSession(this.id, text);
+    this.cookies.deleteCookie('token');
+    this.nav.openLoginSession(this.id, this.backlogText);
   }
 
   ngOnDestroy() {

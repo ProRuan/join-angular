@@ -36,7 +36,7 @@ Top Level Scripts
   - shared/components ...
   - shared/interfaces - check (16)
   - shared/models - check (11)
-  - shared/services - check (13)
+  - shared/services - check (14)
   - shared/ts - check (7)
 
 Join (8/?) + responsive (8/?)
@@ -159,11 +159,12 @@ Models (11/11)
   - User - check
 
 
-Services (13/13)
+Services (14/14)
 --------
   - BoardService - check
   - ButtonDataService - check
   - ContactService - check
+  - CookieService - check
   - DateFormatterService - check
   - DialogService - check
   - InputConfigurationService - check
