@@ -5,6 +5,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -57,6 +58,7 @@ export class NewPasswordComponent extends FormController {
   matchword: AbstractControl | null = null;
   submitted: boolean = false;
   rejected: boolean = false;
+  subscription?: Subscription;
   error: string = 'Email unknown.';
   backlogText: string = 'Password updated successfully';
 
@@ -64,9 +66,9 @@ export class NewPasswordComponent extends FormController {
    * Initializes the new password component.
    */
   ngOnInit() {
-    this.join.subscribeUserCollection();
     this.setForm();
     this.setControls();
+    this.join.subscribeUserCollection();
   }
 
   /**
@@ -146,7 +148,6 @@ export class NewPasswordComponent extends FormController {
     if (this.form.valid) {
       this.submitted = true;
       this.updatePassword();
-      this.openLoginSession();
     }
   }
 
@@ -154,7 +155,20 @@ export class NewPasswordComponent extends FormController {
    * Updates a user password.
    */
   updatePassword() {
-    this.join.updateUser(this.id, 'data.password', this.password?.value);
+    const response = this.updatePasswordAtFirestore();
+    this.subscription = response.subscribe({
+      next: () => this.openLoginSession(),
+      error: (error) =>
+        console.log('Error - Could not update password: ', error),
+    });
+  }
+
+  /**
+   * Updates a user password at firestore.
+   * @returns An observable as void.
+   */
+  updatePasswordAtFirestore() {
+    return this.join.updateUser(this.id, 'data.password', this.password?.value);
   }
 
   /**
@@ -166,6 +180,7 @@ export class NewPasswordComponent extends FormController {
   }
 
   ngOnDestroy() {
+    this.join.unsubscribe(this.subscription);
     this.join.unsubscribeUserCollection();
   }
 }
