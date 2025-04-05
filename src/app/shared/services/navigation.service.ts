@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { JoinService } from './join.service';
 import { LogService } from './log.service';
 import { getLastIndex } from '../ts/global';
@@ -12,19 +12,9 @@ import { getLastIndex } from '../ts/global';
  * Class representing a navigation service.
  */
 export class NavigationService {
-  route: ActivatedRoute = inject(ActivatedRoute);
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   log: LogService = inject(LogService);
-
-  /**
-   * Gets a route parameter.
-   * @param name - The parameter name.
-   * @returns The route parameter.
-   */
-  getParam(name: string) {
-    return this.route.snapshot.paramMap.get(name);
-  }
 
   /**
    * Opens a login session.
@@ -33,18 +23,14 @@ export class NavigationService {
    */
   openLoginSession(id: string, text: string) {
     this.log.setLog(true, text);
-    this.redirectsToCustomLogin(id);
-  }
-
-  redirectsToCustomLogin(id: string) {
-    setTimeout(() => this.redirectsToLogin(`login/${id}`), 1000);
+    setTimeout(() => this.redirectToLogin(`login/${id}`), 1000);
   }
 
   /**
    * Redirects to a login.
    * @param url - The login url.
    */
-  redirectsToLogin(url: string) {
+  redirectToLogin(url: string) {
     this.router.navigateByUrl(url);
     this.log.setLog(false);
   }
@@ -79,7 +65,7 @@ export class NavigationService {
 
   /**
    * Gets url fragments from a current url.
-   * @returns The url fragments of the current link.
+   * @returns The url fragments of the current url.
    */
   getUrlFragments() {
     let urls = this.router.url.split('/');

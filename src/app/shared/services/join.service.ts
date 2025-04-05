@@ -13,18 +13,12 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject, from, Subscription } from 'rxjs';
-import { SessionIdService } from './session-id.service';
 import { SummaryService } from './summary.service';
 import { User } from '../models/user';
-import {
-  getArrayCopy,
-  getLocalItem,
-  setLocalItem,
-  setSessionalItem,
-} from '../ts/global';
-import { UserData } from '../interfaces/user-data';
 import { Task } from '../models/task';
 import { Contact } from '../models/contact';
+import { UserData } from '../interfaces/user-data';
+import { getArrayCopy, setSessionalItem } from '../ts/global';
 import { DocSnap } from '../ts/type';
 
 @Injectable({
@@ -36,11 +30,7 @@ import { DocSnap } from '../ts/type';
  */
 export class JoinService {
   firestore: Firestore = inject(Firestore);
-  sid: SessionIdService = inject(SessionIdService);
   summary: SummaryService = inject(SummaryService);
-
-  // think about load methods ...
-  // think about save mehtods ...
 
   [key: string]: any;
   user: User = new User();
@@ -54,7 +44,6 @@ export class JoinService {
   overflowY$ = this.overflowYSubject.asObservable();
 
   unsubscribeUserCollection: Unsubscribe = () => {};
-  unsubscribeUser: Unsubscribe = () => {};
 
   /**
    * Sets an intro to done.
@@ -132,6 +121,15 @@ export class JoinService {
    */
   getUserData(userDoc: DocumentData) {
     return userDoc['data'] as UserData;
+  }
+
+  /**
+   * Logs an error.
+   * @param text - The error text.
+   * @param error - The error.
+   */
+  logError(text: string, error: unknown) {
+    console.error(`${text}: `, error);
   }
 
   /**
@@ -218,43 +216,6 @@ export class JoinService {
     }
   }
 
-  /**
-   * Logs an error.
-   * @param text - The error text.
-   * @param error - The error.
-   */
-  logError(text: string, error: unknown) {
-    console.error(`${text}: `, error);
-  }
-
-  getSid() {
-    return this.sid.get();
-  }
-
-  subscribeUser() {
-    const id = this.user.id;
-    const text = 'Error - Could not subscribe user';
-    this.unsubscribeUser = onSnapshot(
-      doc(this.firestore, 'users', id),
-      (doc) => this.setChangedUser(doc.data()),
-      (error) => this.logError(text, error)
-    );
-  }
-
-  /**
-   * Sets a changed user.
-   * @param userDoc - The user document.
-   */
-  setChangedUser(userDoc?: DocumentData) {
-    if (userDoc) {
-      let data = this.getUserData(userDoc);
-      this.user.set(data);
-      console.log('saved user: ', this.user); // remove!!!
-
-      this.unsubscribeUser(); // remove ?!?
-    }
-  }
-
   /***
    * Updates a user summary.
    */
@@ -288,44 +249,10 @@ export class JoinService {
     deleteDoc(doc(this.firestore, 'users', id));
   }
 
-  // review + think about saveUser()!
-  loadUser(id?: string | null) {
-    id ? this.loadUserOnline(id) : this.loadUserLocally();
-  }
-
-  // review + think about saveUser()!
-  loadUserOnline(id: string) {
-    // let user = this.getUserById(id);
-    // if (user) {
-    //   this.user.set(user);
-    //   this.saveUser();
-    // }
-  }
-
-  /**
-   * Loads a user locally.
-   */
-  loadUserLocally() {
-    let user = getLocalItem('user');
-    if (user) {
-      this.user.set(user);
-    }
-  }
-
-  /**
-   * Verifies a user id.
-   * @param user - The user to compare.
-   * @returns A boolean value.
-   */
-  isUserId(user: User) {
-    return user.id === this.user.id;
-  }
-
   /**
    * Saves a user.
    */
   saveUser(fn?: () => void) {
-    // this.subscribeUser() // remove?!?
     this.saveUserOnline().subscribe({
       next: () => fn,
       error: (error) => console.log('Error - Could not save user: ', error),
@@ -342,18 +269,19 @@ export class JoinService {
   }
 
   /**
-   * Saves a user locally.
-   */
-  saveUserLocally() {
-    setLocalItem('user', this.user);
-  }
-
-  /**
    * Sets a window width.
    * @param value - The value to set.
    */
   setWindowWidth(value: number) {
     this.windowWidth = value;
+  }
+
+  /**
+   * Verifies a mobile device.
+   * @returns A boolean value.
+   */
+  isMobile() {
+    return this.windowWidth < 1180 + 1;
   }
 
   /**
@@ -363,14 +291,6 @@ export class JoinService {
     if (sub && !sub.closed) {
       sub.unsubscribe();
     }
-  }
-
-  /**
-   * Verifies a mobile device.
-   * @returns A boolean value.
-   */
-  isMobile() {
-    return this.windowWidth < 1180 + 1;
   }
 
   /**

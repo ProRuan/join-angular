@@ -4,10 +4,8 @@ import { getAnimation } from '../ts/animate';
 const defaultTimings = '300ms ease-out';
 const parentStartProperties = [{ backgroundColor: 'transparent' }];
 const parentEndProperties = [{ backgroundColor: 'rgba(0, 0, 0, 0)' }];
-const slideStartProperties = [{ transform: 'translateX(120px)' }];
+const slideStartProperties = [{ transform: 'translateX(128px)' }];
 const slideEndProperties = [{ transform: 'translateX(0)' }];
-// const fadeStartProperties = [{ opacity: 0 }]; // style button here?
-// const fadeEndProperties = [{ opacity: 1 }]; // style button here?
 const optional = { optional: true };
 
 const NAME = 'settingsMenuAnimation';
@@ -32,15 +30,6 @@ const DATA: AnimationData[] = [
         },
         options: optional,
       },
-      //   {
-      //     selector: '.fade',
-      //     timings: defaultTimings,
-      //     properties: {
-      //       start: fadeStartProperties,
-      //       end: fadeEndProperties,
-      //     },
-      //     options: optional,
-      //   },
     ],
   },
   {
@@ -62,15 +51,6 @@ const DATA: AnimationData[] = [
         },
         options: optional,
       },
-      //   {
-      //     selector: '.fade',
-      //     timings: defaultTimings,
-      //     properties: {
-      //       start: fadeEndProperties,
-      //       end: fadeStartProperties,
-      //     },
-      //     options: optional,
-      //   },
     ],
   },
 ];
