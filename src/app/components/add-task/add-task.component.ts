@@ -20,7 +20,6 @@ import { ButtonDataService } from '../../shared/services/button-data.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { NavigationService } from '../../shared/services/navigation.service';
-import { Contact } from '../../shared/models/contact';
 import { Task } from '../../shared/models/task';
 import { JoinButton } from '../../shared/models/join-button';
 import { TaskData } from '../../shared/interfaces/task-data';
@@ -60,7 +59,6 @@ export class AddTaskComponent extends FormController {
   @Input() original: boolean = true;
 
   title: string = 'Add Task';
-  contacts: Contact[] = [];
   task: Task = new Task();
   search: AbstractControl | null = null;
   calendar: AbstractControl | null = null;
@@ -71,10 +69,17 @@ export class AddTaskComponent extends FormController {
   columnClass: string = 'column-desktop';
 
   /**
+   * Gets user contacts.
+   * @returns The user contacts.
+   */
+  get contacts() {
+    return this.join.user.contacts;
+  }
+
+  /**
    * Initializes an add-task component.
    */
   ngOnInit() {
-    this.contacts = this.join.user.contacts;
     this.setForm();
     this.updateVersion();
   }
@@ -116,7 +121,6 @@ export class AddTaskComponent extends FormController {
     if (!this.original) {
       this.updateCSSClasses();
       this.updateClearBtn();
-      this.updateCreateBtn();
     }
   }
 
@@ -188,29 +192,6 @@ export class AddTaskComponent extends FormController {
   }
 
   /**
-   * Updates a create button.
-   */
-  updateCreateBtn() {
-    this.onCreate = () => this.addTask();
-  }
-
-  /**
-   * Adds a task.
-   */
-  addTask() {
-    this.createTask();
-    this.fadeDialogOut();
-  }
-
-  /**
-   * Fades an add-task dialog out.
-   */
-  fadeDialogOut() {
-    this.dialogs.submitted = true;
-    setTimeout(() => this.resetDialog(), 1000);
-  }
-
-  /**
    * Resets an add-task dialog.
    */
   resetDialog() {
@@ -254,26 +235,33 @@ export class AddTaskComponent extends FormController {
    */
   createTask() {
     if (this.form.valid) {
-      this.pushTask();
-      this.join.updateSummary();
-      this.join.saveUser();
-      this.navigateToBoard();
+      this.updateTasks();
+      this.join.saveUser(() => this.navigateToBoard);
     }
   }
 
   /**
-   * Pushes a task to a user object.
+   * Updates user tasks.
    */
-  pushTask() {
+  updateTasks() {
     let taskData = this.form.value as TaskData;
     this.task.set(taskData);
     this.join.addUserItem('tasks', this.task);
+    this.join.updateSummary();
   }
 
   /**
    * Navigates to a board.
    */
   navigateToBoard() {
-    this.nav.navigateByLink('board');
+    this.original ? this.nav.navigateByLink('board') : this.fadeOutDialog();
+  }
+
+  /**
+   * Fades out an add-task dialog.
+   */
+  fadeOutDialog() {
+    this.dialogs.submitted = true;
+    setTimeout(() => this.resetDialog(), 1000);
   }
 }

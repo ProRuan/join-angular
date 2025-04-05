@@ -13,11 +13,15 @@ Think about
 //   --> subscribe on purpose ... !!!
 // check getParam() --> use route instead ... !
 // subscribe router param ... !
-// subscribe firestore methods + saveUser() ... (3/10) + (3/?)
-//   --> sign-up, login, new-password ...
 // pipe addUser() and updateUser() ... ?
 // set timeout of backlog and login session ... !
 // move backlog ...
+
+// think about add-task timeout ...
+// remove subscription if you use subscribe() ... !!!
+//   --> find them by using "this.join.unsubscribe" ...
+
+// review join service at the end ... !
 
 components
 ----------

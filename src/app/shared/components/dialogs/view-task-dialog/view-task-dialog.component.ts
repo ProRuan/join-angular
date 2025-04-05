@@ -117,7 +117,6 @@ export class ViewTaskDialogComponent
    * Closes a dialog on click.
    */
   onClose() {
-    this.join.saveUser();
     this.close();
   }
 
@@ -135,6 +134,7 @@ export class ViewTaskDialogComponent
    */
   onCheck(subtask: Subtask) {
     this.checkSubtask(subtask);
+    this.join.saveUser();
   }
 
   /**
@@ -151,7 +151,6 @@ export class ViewTaskDialogComponent
    * Opens a delete-task dialog on click.
    */
   onDelete() {
-    this.join.saveUser();
     this.dialogs.open('deleteTask');
   }
 
@@ -159,7 +158,6 @@ export class ViewTaskDialogComponent
    * Opens an edit-task dialog on click.
    */
   onEdit() {
-    this.join.saveUser();
     this.openEditTaskDialog();
   }
 

@@ -193,8 +193,7 @@ export class EditTaskDialogComponent
     if (this.form.valid) {
       this.updateTask();
       this.join.updateSummary();
-      this.join.saveUser();
-      this.fadeDialogOut();
+      this.join.saveUser(() => this.fadeOutDialog());
     }
   }
 
@@ -219,9 +218,9 @@ export class EditTaskDialogComponent
   }
 
   /**
-   * Fades a dialog out.
+   * Fades out a dialog.
    */
-  fadeDialogOut() {
+  fadeOutDialog() {
     this.dialogs.fadedOut = true;
     setTimeout(() => {
       this.dialogs.close(this.id);

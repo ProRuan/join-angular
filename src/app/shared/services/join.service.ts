@@ -249,7 +249,9 @@ export class JoinService {
     if (userDoc) {
       let data = this.getUserData(userDoc);
       this.user.set(data);
-      this.unsubscribeUser();
+      console.log('saved user: ', this.user); // remove!!!
+
+      this.unsubscribeUser(); // remove ?!?
     }
   }
 
@@ -322,10 +324,12 @@ export class JoinService {
   /**
    * Saves a user.
    */
-  saveUser() {
-    this.subscribeUser();
-    this.saveUserOnline();
-    this.saveUserLocally();
+  saveUser(fn?: () => void) {
+    // this.subscribeUser() // remove?!?
+    this.saveUserOnline().subscribe({
+      next: () => fn,
+      error: (error) => console.log('Error - Could not save user: ', error),
+    });
   }
 
   /**
@@ -334,7 +338,7 @@ export class JoinService {
   saveUserOnline() {
     const id = this.user.id;
     const data = this.user.getObject();
-    this.updateUser(id, 'data', data);
+    return this.updateUser(id, 'data', data);
   }
 
   /**
