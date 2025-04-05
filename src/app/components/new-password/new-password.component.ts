@@ -5,7 +5,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -58,7 +57,6 @@ export class NewPasswordComponent extends FormController {
   matchword: AbstractControl | null = null;
   submitted: boolean = false;
   rejected: boolean = false;
-  subscription?: Subscription;
   error: string = 'Email unknown.';
   backlogText: string = 'Password updated successfully';
 
@@ -155,19 +153,17 @@ export class NewPasswordComponent extends FormController {
    * Updates a user password.
    */
   updatePassword() {
-    const response = this.updatePasswordAtFirestore();
-    this.subscription = response.subscribe({
+    this.updateUser().subscribe({
       next: () => this.openLoginSession(),
-      error: (error) =>
-        console.log('Error - Could not update password: ', error),
+      error: (error) => console.log('Error - Could not update user: ', error),
     });
   }
 
   /**
-   * Updates a user password at firestore.
+   * Updates a user.
    * @returns An observable as void.
    */
-  updatePasswordAtFirestore() {
+  updateUser() {
     return this.join.updateUser(this.id, 'data.password', this.password?.value);
   }
 
@@ -180,7 +176,6 @@ export class NewPasswordComponent extends FormController {
   }
 
   ngOnDestroy() {
-    this.join.unsubscribe(this.subscription);
     this.join.unsubscribeUserCollection();
   }
 }

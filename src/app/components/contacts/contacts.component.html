@@ -1,8 +1,7 @@
-<!-- add *ngIf and check animation ... -->
-<app-contact-settings-dialog></app-contact-settings-dialog>
+<app-contact-settings-dialog *ngIf="dialogs.isOpened('contactSettings')"></app-contact-settings-dialog>
 <app-contact-dialog *ngIf="dialogs.isOpened('addContact')" id="addContact"></app-contact-dialog>
 <app-contact-dialog *ngIf="dialogs.isOpened('editContact')" id="editContact"></app-contact-dialog>
-<app-delete-contact-dialog></app-delete-contact-dialog>
+<app-delete-contact-dialog *ngIf="dialogs.isOpened('deleteContact')"></app-delete-contact-dialog>
 
 <section class="contacts">
     <app-contact-list *ngIf="isDisplayed()" [contacts]="getSortedContacts()" class="contact-list"></app-contact-list>

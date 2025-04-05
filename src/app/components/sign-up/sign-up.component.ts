@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { concatMap, Observable, Subscription, tap } from 'rxjs';
+import { concatMap, Observable, tap } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
@@ -81,7 +81,6 @@ export class SignUpComponent extends FormController {
   matchword: AbstractControl | null = null;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
-  subscription?: Subscription;
 
   texts = {
     rejected: 'Email already associated with account',
@@ -172,8 +171,8 @@ export class SignUpComponent extends FormController {
    */
   private signUp() {
     this.formatUser();
-    let data = this.getUserData();
-    let response = this.registerUser(data);
+    const data = this.getUserData();
+    const response = this.registerUser(data);
     this.subscribeUserRegistration(response);
   }
 
@@ -218,7 +217,7 @@ export class SignUpComponent extends FormController {
    * @returns An observable as void.
    */
   private registerUser(data: UserData) {
-    let userRef = this.join.addUser(data);
+    const userRef = this.join.addUser(data);
     return userRef.pipe(concatMap((userRef) => this.updateUserId(userRef)));
   }
 
@@ -228,8 +227,8 @@ export class SignUpComponent extends FormController {
    * @returns An observable as void.
    */
   private updateUserId(userRef: DocumentReference<DocumentData, DocumentData>) {
-    let id = userRef.id;
-    let response = this.join.updateUser(id, 'data.id', id);
+    const id = userRef.id;
+    const response = this.join.updateUser(id, 'data.id', id);
     return response.pipe(tap(() => this.openLoginSession(id)));
   }
 
@@ -238,7 +237,7 @@ export class SignUpComponent extends FormController {
    * @param response - The firestore response.
    */
   private subscribeUserRegistration(response: Observable<void>) {
-    this.subscription = response.subscribe({
+    response.subscribe({
       error: (error) => this.logRegistrationError(error),
     });
   }
@@ -280,7 +279,6 @@ export class SignUpComponent extends FormController {
    * Destroys a sign-up component.
    */
   ngOnDestroy() {
-    this.join.unsubscribe(this.subscription);
     this.join.unsubscribeUserCollection();
   }
 }

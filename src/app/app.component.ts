@@ -25,26 +25,33 @@ export class AppComponent {
   log: LogService = inject(LogService);
 
   title = 'join';
-  bodySubscription?: Subscription;
-  resizeSubscription?: Subscription;
+  subscription?: Subscription;
 
   /**
    * Initializes an app component.
    */
   ngOnInit(): void {
-    this.bodySubscription = this.getBodySubscription();
-    this.resizeSubscription = this.getResizeSubscription();
+    this.subscription = this.getResizeSubscription();
+    this.updateBodyOverflowY();
   }
 
   /**
-   * Gets a body subscription.
-   * @returns The body subscription.
+   * Updates a body overflow-y.
    */
-  getBodySubscription() {
-    return this.join.overflowY$.subscribe({
-      next: (value) => (document.body.style.overflowY = value),
-      error: (error) => console.log('error: ', error),
+  updateBodyOverflowY() {
+    this.join.overflowY$.subscribe({
+      next: (value) => this.setOverflowY(value),
+      error: (error) =>
+        console.log('Error - Could not update body style: ', error),
     });
+  }
+
+  /**
+   * Sets an overflow y value.
+   * @param value - The value to set.
+   */
+  setOverflowY(value: string) {
+    document.body.style.overflowY = value;
   }
 
   /**
@@ -90,7 +97,6 @@ export class AppComponent {
    * Destroys an app component.
    */
   ngOnDestroy(): void {
-    this.join.unsubscribe(this.bodySubscription);
-    this.join.unsubscribe(this.resizeSubscription);
+    this.join.unsubscribe(this.subscription);
   }
 }

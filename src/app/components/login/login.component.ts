@@ -61,9 +61,7 @@ export class LoginComponent extends FormController {
   remembered: boolean = false;
   loggedIn: boolean = false;
   loadSubscription?: Subscription;
-  memorySubscription?: Subscription;
   routeSubscription?: Subscription;
-  emailSubscription?: Subscription;
   error = 'Check your email and password. Please try again.';
 
   /**
@@ -118,8 +116,7 @@ export class LoginComponent extends FormController {
    * @param token - The user token.
    */
   private updateLoginForm(token: string) {
-    this.join.unsubscribe(this.memorySubscription);
-    this.memorySubscription = this.join.getUserById(token).subscribe({
+    this.join.getUserById(token).subscribe({
       next: (userSnap) => this.setLoginForm(userSnap),
     });
   }
@@ -152,8 +149,7 @@ export class LoginComponent extends FormController {
    * @param id - The user id.
    */
   private updateEmailInput(id: string) {
-    this.join.unsubscribe(this.emailSubscription);
-    this.emailSubscription = this.join.getUserById(id).subscribe({
+    this.join.getUserById(id).subscribe({
       next: (userSnap) => this.setEmail(userSnap),
     });
   }
@@ -243,9 +239,7 @@ export class LoginComponent extends FormController {
   ngOnDestroy() {
     this.validators.setRejected(false);
     this.join.unsubscribe(this.loadSubscription);
-    this.join.unsubscribe(this.memorySubscription);
     this.join.unsubscribe(this.routeSubscription);
-    this.join.unsubscribe(this.emailSubscription);
     this.join.unsubscribeUserCollection();
   }
 }
