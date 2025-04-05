@@ -1,30 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { ContactSettingsDialogComponent } from '../../shared/components/dialogs/contact-settings-dialog/contact-settings-dialog.component';
 import { ContactDialogComponent } from '../../shared/components/dialogs/contact-dialog/contact-dialog.component';
 import { DeleteContactDialogComponent } from '../../shared/components/dialogs/delete-contact-dialog/delete-contact-dialog.component';
 import { ContactListComponent } from './contact-list/contact-list.component';
-import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { ContactViewerComponent } from './contact-viewer/contact-viewer.component';
-// import { ButtonComponent } from '../../shared/components/button/button.component';
 import { JoinService } from '../../shared/services/join.service';
-import { ContactService } from '../../shared/services/contact.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { Contact } from '../../shared/models/contact';
 import { getArrayCopy } from '../../shared/ts/global';
-import { ContactSettingsDialogComponent } from '../../shared/components/dialogs/contact-settings-dialog/contact-settings-dialog.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
   imports: [
     CommonModule,
+    ContactSettingsDialogComponent,
     ContactDialogComponent,
     DeleteContactDialogComponent,
     ContactListComponent,
-    JoinTitleComponent,
     ContactViewerComponent,
-    ContactSettingsDialogComponent,
-    // ButtonComponent,
   ],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss',
@@ -35,15 +30,16 @@ import { ContactSettingsDialogComponent } from '../../shared/components/dialogs/
  */
 export class ContactsComponent {
   join: JoinService = inject(JoinService);
-  viewer: ContactService = inject(ContactService);
   dialogs: DialogService = inject(DialogService);
 
-  // move onEdit() and onDelete() to contact viewer ...
-  // user join button ... ?!
-
-  title: string = 'Contacts';
-  subtitle: string = 'Better with a team';
-  dialogId: string = 'viewContact';
+  /**
+   * Verifies the opened state of a dialog.
+   * @param id - The dialog id.
+   * @returns A boolean value.
+   */
+  isOpened(id: string) {
+    return this.dialogs.isOpened(id);
+  }
 
   /**
    * Verifies the display state of a contact list.
@@ -58,15 +54,7 @@ export class ContactsComponent {
    * @returns A boolean value.
    */
   isContactListHidden() {
-    return this.isOpened() && this.join.isMobile();
-  }
-
-  /**
-   * Verifies the opened state of a contact viewer.
-   * @returns A boolean value.
-   */
-  isOpened() {
-    return this.dialogs.isOpened(this.dialogId);
+    return this.isOpened('viewContact') && this.join.isMobile();
   }
 
   /**
@@ -109,18 +97,5 @@ export class ContactsComponent {
     let firstInitial = names[0].charAt(0);
     let lastName = names[1];
     return firstInitial + lastName;
-  }
-
-  /**
-   * Closes a contact viewer on click.
-   */
-  onClose() {
-    this.dialogs.close(this.dialogId);
-    this.viewer.setContact();
-  }
-
-  // jsdoc
-  onSet() {
-    this.dialogs.open('contactSettings');
   }
 }

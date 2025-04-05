@@ -1,29 +1,40 @@
-<div class="contact-viewer">
-    <div class="head">
-        <div class="profile" [ngClass]="contact.bgc">
-            <span class="initials">{{ contact.initials }}</span>
+<div class="title-viewer-cont">
+    <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
+    <div class="title-button-cont">
+        <app-join-title [title]="title" [subtitle]="subtitle" [dark]="true" [mobile]="true"></app-join-title>
+        <button class="back-arrow" (click)="onClose()"></button>
+    </div>
+
+    <div class="contact-viewer">
+        <div class="head">
+            <div class="profile" [ngClass]="contact.bgc">
+                <span class="initials">{{ contact.initials }}</span>
+            </div>
+            <div class="column-8">
+                <span class="name">{{ contact.name }}</span>
+                <div class="settings-button-group">
+                    <app-button [button]="editBtn" (click)="onEdit()"></app-button>
+                    <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
+                </div>
+            </div>
         </div>
-        <div class="column-8">
-            <span class="name">{{ contact.name }}</span>
-            <div class="settings-button-group">
-                <app-button [button]="editBtn" (click)="onEdit()"></app-button>
-                <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
+
+        <div class="info">
+            <span class="info-text">Contact Information</span>
+        </div>
+
+        <div class="detail-group">
+            <div class="detail">
+                <span class="detail-head">Email</span>
+                <a href="mailto:{{ contact.email }}" class="detail-data email">{{ contact.email }}</a>
+            </div>
+            <div class="detail">
+                <span class="detail-head">Phone</span>
+                <a href="tel:+{{ contact.phone }}" class="detail-data phone">{{ contact.phone }}</a>
             </div>
         </div>
     </div>
 
-    <div class="info">
-        <span class="info-text">Contact Information</span>
-    </div>
-
-    <div class="detail-group">
-        <div class="detail">
-            <span class="detail-head">Email</span>
-            <a href="mailto:{{ contact.email }}" class="detail-data email">{{ contact.email }}</a>
-        </div>
-        <div class="detail">
-            <span class="detail-head">Phone</span>
-            <a href="tel:+{{ contact.phone }}" class="detail-data phone">{{ contact.phone }}</a>
-        </div>
-    </div>
+    <!-- move to contact viewer! -->
+    <button class="settings-btn" (click)="onSet()"></button>
 </div>
