@@ -1,6 +1,6 @@
 <div class="title-viewer-cont">
     <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
-    <div class="title-button-cont">
+    <div class="mobile-title-cont">
         <app-join-title [title]="title" [subtitle]="subtitle" [dark]="true" [mobile]="true"></app-join-title>
         <button class="back-arrow" (click)="onClose()"></button>
     </div>
@@ -35,6 +35,5 @@
         </div>
     </div>
 
-    <!-- move to contact viewer! -->
     <button class="settings-btn" (click)="onSet()"></button>
 </div>

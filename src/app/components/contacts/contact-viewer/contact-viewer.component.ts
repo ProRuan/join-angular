@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
 import { ContactService } from '../../../shared/services/contact.service';
-import { DialogService } from '../../../shared/services/dialog.service';
 import { JoinButton } from '../../../shared/models/join-button';
-import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 
 @Component({
   selector: 'app-contact-viewer',
@@ -24,9 +23,6 @@ export class ContactViewerComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
   viewer: ContactService = inject(ContactService);
 
-  // check responsiveness ...
-  // check logic ...
-
   override id: string = 'viewContact';
 
   title: string = 'Contacts';
@@ -42,8 +38,12 @@ export class ContactViewerComponent extends DialogFormController {
     return this.viewer.contact;
   }
 
+  /**
+   * Closes a dialog on click.
+   */
   onClose() {
     this.close();
+    this.viewer.setContact();
   }
 
   /**
@@ -61,7 +61,9 @@ export class ContactViewerComponent extends DialogFormController {
     this.dialogs.open('deleteContact');
   }
 
-  // jsdoc
+  /**
+   * Opens a contact settings dialog on click.
+   */
   onSet() {
     this.dialogs.open('contactSettings');
   }
