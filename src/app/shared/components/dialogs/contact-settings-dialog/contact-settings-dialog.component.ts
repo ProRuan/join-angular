@@ -63,11 +63,7 @@ export class ContactSettingsDialogComponent extends DialogFormController {
    * Opens an edit-contact dialog on click.
    */
   onEdit() {
-    console.log('viewer contact: ', this.viewer.contact);
-    // is not working completely
     this.viewer.cachedContact.set(this.viewer.contact);
-    console.log('cached contact: ', this.viewer.contact);
-
     this.dialogs.open('editContact');
   }
 

@@ -67,12 +67,13 @@ export class ContactDialogComponent extends DialogFormController {
   ngOnInit() {
     this.setDialog();
     this.setForm();
-    if (this.isEditContactDialog()) {
-      this.form.patchValue(this.contact); // to clean!!!
-    }
+    this.setInputs();
     this.setButtonTexts();
   }
 
+  /**
+   * Sets a contact dialog.
+   */
   setDialog() {
     if (this.isEditContactDialog()) {
       this.title = 'Edit contact';
@@ -80,6 +81,14 @@ export class ContactDialogComponent extends DialogFormController {
       this.title = 'Add contact';
       this.subtitle = 'Tasks are better with a team!';
     }
+  }
+
+  /**
+   * Verifies an edit-contact dialog.
+   * @returns A boolean value.
+   */
+  isEditContactDialog() {
+    return this.id === 'editContact';
   }
 
   /**
@@ -92,28 +101,20 @@ export class ContactDialogComponent extends DialogFormController {
   }
 
   /**
+   * Sets form inputs.
+   */
+  setInputs() {
+    if (this.isEditContactDialog()) {
+      this.form.patchValue(this.contact);
+    }
+  }
+
+  /**
    * Sets the button texts.
    */
   setButtonTexts() {
     this.cancelBtn.text = 'Cancel';
     this.createBtn.text = 'Create contact';
-  }
-
-  /**
-   * Gets the css class of a profile background-color.
-   * @returns The css class of the profile background-color.
-   */
-  getBgcClass() {
-    let empty = isDefaultString(this.contact.bgc);
-    return !empty ? this.contact.bgc : 'bgc-gray';
-  }
-
-  /**
-   * Verifies an edit-contact dialog.
-   * @returns A boolean value.
-   */
-  isEditContactDialog() {
-    return this.id === 'editContact';
   }
 
   /**
@@ -129,6 +130,15 @@ export class ContactDialogComponent extends DialogFormController {
   closeDialog() {
     this.close();
     this.viewer.cachedContact.set();
+  }
+
+  /**
+   * Gets the css class of a profile background-color.
+   * @returns The css class of the profile background-color.
+   */
+  getBgcClass() {
+    let empty = isDefaultString(this.contact.bgc);
+    return !empty ? this.contact.bgc : 'bgc-gray';
   }
 
   /**
@@ -152,22 +162,11 @@ export class ContactDialogComponent extends DialogFormController {
    * Updates a contact.
    */
   updateContact() {
-    let contact = this.viewer.contact; // update cached contact as well?!?
+    let contact = this.viewer.contact;
     contact.name = this.getValue('name');
     contact.email = this.getValue('email');
     contact.phone = this.getValue('phone');
     contact.initials = this.nameFormatter.getInitials(contact.name);
-  }
-
-  /**
-   * Gets contact data.
-   * @returns The contact data.
-   */
-  getContactData() {
-    let contactData = this.form.value as ContactData;
-    contactData.name = this.nameFormatter.getFormattedName(contactData.name);
-    contactData.initials = this.nameFormatter.getInitials(contactData.name);
-    return contactData;
   }
 
   /**
@@ -197,5 +196,16 @@ export class ContactDialogComponent extends DialogFormController {
     this.join.addUserItem('contacts', contact);
     this.viewer.setContact(contact);
     this.dialogs.open('viewContact');
+  }
+
+  /**
+   * Gets contact data.
+   * @returns The contact data.
+   */
+  getContactData() {
+    let contactData = this.form.value as ContactData;
+    contactData.name = this.nameFormatter.getFormattedName(contactData.name);
+    contactData.initials = this.nameFormatter.getInitials(contactData.name);
+    return contactData;
   }
 }

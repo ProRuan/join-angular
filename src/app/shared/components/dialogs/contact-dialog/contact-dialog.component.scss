@@ -6,6 +6,10 @@
   background-color: $white;
 }
 
+.flexible-close-btn {
+  @include position($pos: absolute, $t: 48px, $r: 48px);
+}
+
 .dark-cont {
   @include box-padding($p: 154px 48px 66px 48px);
   @include size($w: fit-content, $h: 592px);
@@ -20,12 +24,7 @@
 
 .light-cont {
   @include box-padding($p: 138px 48px 48px 84px);
-  border-radius: 0 30px 30px 0; // necessary???
   position: relative;
-}
-
-.top-right {
-  @include position($pos: absolute, $t: 48px, $r: 48px);
 }
 
 .profile-form-cont {
@@ -75,9 +74,20 @@
 @media (max-width: 1180px) {
   .add-contact {
     @include display-column();
-    // fix box-shadow!
-    // add box-shadow to destkop css!
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .flexible-close-btn {
+    @include position($pos: absolute, $t: 24px, $r: 16px);
+    background-image: url("/assets/img/contacts/close_white.png");
+
+    &:hover {
+      background-image: url("/assets/img/contacts/close_white.png");
+    }
+
+    &:active {
+      background-image: url("/assets/img/contacts/close_lightblue.png");
+    }
   }
 
   .dark-cont {
@@ -93,10 +103,6 @@
 
   .light-cont {
     padding: 92px 16px 62px 16px;
-  }
-
-  .top-right {
-    @include position($pos: absolute, $t: 24px, $r: 16px);
   }
 
   .profile-form-cont {
