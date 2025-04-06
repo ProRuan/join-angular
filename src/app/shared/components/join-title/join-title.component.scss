@@ -1,6 +1,6 @@
 @import "../../../../mixins.scss";
 
-.dark-theme {
+.mobile-theme {
   @include display-column($g: 13px);
 }
 
@@ -8,7 +8,7 @@
   @include display-row($ai: center, $g: 30px);
 }
 
-.title-cont-dark {
+.mobile-title-cont {
   @include display-column($g: 8px);
 }
 
@@ -26,7 +26,7 @@
   border-radius: 3px;
 }
 
-.border-dark {
+.alternative-border {
   width: 90px;
   border-bottom: 3px solid $lightblue;
   border-radius: 3px;

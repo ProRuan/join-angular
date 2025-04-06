@@ -7,8 +7,8 @@
   position: relative;
 }
 
-.mobile-title-cont {
-  display: none;
+.mobile-button-cont {
+  @include display-row($jc: space-between);
 }
 
 .back-arrow {
@@ -109,10 +109,6 @@
     max-width: 428px;
     background-color: $lightgray;
     gap: 48px;
-  }
-
-  .mobile-title-cont {
-    @include display-row($jc: space-between);
   }
 
   .head {

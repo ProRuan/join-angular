@@ -1,8 +1,7 @@
 <div class="title-viewer-cont">
-    <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
-    <div class="mobile-title-cont">
-        <app-join-title [title]="title" [subtitle]="subtitle" [dark]="true" [mobile]="true"></app-join-title>
-        <button class="back-arrow" (click)="onClose()"></button>
+    <div class="mobile-button-cont">
+        <app-join-title [title]="title" [subtitle]="subtitle" [mobile]="join.isMobile()"></app-join-title>
+        <button class="back-arrow mobile" (click)="onClose()"></button>
     </div>
 
     <div class="contact-viewer">

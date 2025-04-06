@@ -13,17 +13,17 @@ import { Component, Input } from '@angular/core';
  * Class representing a join title component.
  */
 export class JoinTitleComponent {
-  @Input() dark: boolean = false;
-  @Input() mobile: boolean = false;
   @Input() title: string = '';
   @Input() subtitle?: string;
+  @Input() mobile: boolean = false;
+  @Input() dark: boolean = false;
 
   /**
    * Gets the css class of a title container.
    * @returns The css class of the title container.
    */
   getTitleClass() {
-    return this.dark || this.mobile ? 'title-cont-dark' : '';
+    return this.mobile ? 'mobile-title-cont' : '';
   }
 
   /**
@@ -31,17 +31,16 @@ export class JoinTitleComponent {
    * @returns The css class of the text color.
    */
   getColorClass() {
-    if (this.mobile) return 'black';
-    else if (this.dark) return 'white';
+    if (this.dark) return 'white';
+    else if (this.mobile) return 'black';
     else return '';
   }
 
   /**
-   * Verifies the state of a dark theme.
-   * @param value - The value to verify.
+   * Verifies the display state of an alternative border.
    * @returns A boolean value.
    */
-  isDarkTheme(value: boolean = false) {
-    return value === this.dark;
+  isAlternativeBorder() {
+    return (this.mobile && this.subtitle) || this.dark;
   }
 }

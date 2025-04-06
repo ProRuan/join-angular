@@ -1,8 +1,6 @@
 <section class="summary pos-relative">
     <div class="content">
-        <app-join-title class="desktop" [title]="title" [subtitle]="subtitle"></app-join-title>
-        <app-join-title class="mobile" [title]="title" [subtitle]="subtitle" [dark]="true"
-            [mobile]="true"></app-join-title>
+        <app-join-title [title]="title" [subtitle]="subtitle" [mobile]="join.isMobile()"></app-join-title>
 
         <div class="overview-greeting-cont">
             <div class="overview">

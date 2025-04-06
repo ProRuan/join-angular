@@ -4,9 +4,10 @@
         <section class="add-contact pos-relative" (click)="onStop($event)">
             <button class="close-btn flexible-close-btn" (click)="onClose()"></button>
 
+            <!-- fix logo-title gap!!! -->
             <div class="dark-cont">
                 <img class="logo" src="/assets/img/menu/menu_logo.png" alt="menu-logo">
-                <app-join-title [title]="title" [subtitle]="subtitle" [dark]="true"></app-join-title>
+                <app-join-title [title]="title" [subtitle]="subtitle" [mobile]="true" [dark]="true"></app-join-title>
             </div>
 
             <div class="light-cont">

@@ -1,11 +1,10 @@
-<div class="dark-theme">
+<div class="mobile-theme">
     <div class="title-cont" [ngClass]="getTitleClass()">
         <h2 class="headline-2" [ngClass]="getColorClass()">{{ title }}</h2>
         @if(subtitle) {
-        <div *ngIf="isDarkTheme(false)" class="border"></div>
+        <div *ngIf="!mobile" class="border"></div>
         <span class="subheadline-2" [ngClass]="getColorClass()">{{ subtitle }}</span>
         }
     </div>
-    <!-- review! -->
-    <div *ngIf="isDarkTheme(true) && subtitle" class="border-dark"></div>
+    <div *ngIf="isAlternativeBorder()" class="alternative-border"></div>
 </div>
