@@ -133,6 +133,14 @@ export class ContactDialogComponent extends DialogFormController {
   }
 
   /**
+   * Gets the css class of a dark container gap.
+   * @returns The css class of the dark container gap.
+   */
+  getGapClass() {
+    return this.isEditContactDialog() ? 'g-32' : '';
+  }
+
+  /**
    * Gets the css class of a profile background-color.
    * @returns The css class of the profile background-color.
    */

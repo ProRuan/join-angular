@@ -24,8 +24,6 @@ export class ColumnComponent {
   dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
-  // review onAddTask() --> double code ...
-
   @Input() name: string = 'To do';
   @Input() tasks: Task[] = [];
 
@@ -58,7 +56,7 @@ export class ColumnComponent {
   }
 
   /**
-   * Adds a task on click.
+   * Opens an add-task dialog on click.
    */
   onAddTask() {
     if (this.join.isMobile()) {
@@ -66,7 +64,6 @@ export class ColumnComponent {
     } else {
       this.dialogs.open(this.dialogId);
     }
-    // this.dialogs.open(this.dialogId);
   }
 
   /**
