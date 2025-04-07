@@ -41,6 +41,9 @@
 
 .column-group {
   @include display-row($jc: space-between);
+  height: calc(100vh - 417px);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @media (max-width: 1180px) {
@@ -74,5 +77,8 @@
 
   .column-group {
     @include display-column($g: 26px);
+    height: unset;
+    overflow-x: auto;
+    overflow-y: unset;
   }
 }

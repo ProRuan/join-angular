@@ -32,26 +32,7 @@ export class AppComponent {
    */
   ngOnInit(): void {
     this.subscription = this.getResizeSubscription();
-    this.updateBodyOverflowY();
-  }
-
-  /**
-   * Updates a body overflow-y.
-   */
-  updateBodyOverflowY() {
-    this.join.overflowY$.subscribe({
-      next: (value) => this.setOverflowY(value),
-      error: (error) =>
-        console.log('Error - Could not update body style: ', error),
-    });
-  }
-
-  /**
-   * Sets an overflow y value.
-   * @param value - The value to set.
-   */
-  setOverflowY(value: string) {
-    document.body.style.overflowY = value;
+    this.updateBodyStyle();
   }
 
   /**
@@ -91,6 +72,25 @@ export class AppComponent {
    */
   getSubscription(number: Observable<number>) {
     return number.subscribe((value) => this.join.setWindowWidth(value));
+  }
+
+  /**
+   * Updates a body style.
+   */
+  updateBodyStyle() {
+    this.join.overflowY$.subscribe({
+      next: (value) => this.setOverflowY(value),
+      error: (error) =>
+        console.log('Error - Could not update body style: ', error),
+    });
+  }
+
+  /**
+   * Sets an overflow y value.
+   * @param value - The value to set.
+   */
+  setOverflowY(value: string) {
+    document.body.style.overflowY = value;
   }
 
   /**

@@ -84,7 +84,10 @@ export class MainComponent {
    */
   setUser(userSnap: DocSnap) {
     let data = this.join.getUserDataBySnap(userSnap);
-    if (data) this.join.user.set(data);
+    if (data) {
+      this.join.user.set(data);
+      this.join.loadedSubject.next(true);
+    }
   }
 
   /**

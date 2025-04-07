@@ -7,12 +7,11 @@ import { EditTaskDialogComponent } from '../../shared/components/dialogs/edit-ta
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { BoardHeadComponent } from './board-head/board-head.component';
 import { ColumnComponent } from './column/column.component';
 import { JoinService } from '../../shared/services/join.service';
 import { ButtonDataService } from '../../shared/services/button-data.service';
 import { BoardService } from '../../shared/services/board.service';
-import { DialogService } from '../../shared/services/dialog.service';
-import { NavigationService } from '../../shared/services/navigation.service';
 import { JoinButton } from '../../shared/models/join-button';
 import { Task } from '../../shared/models/task';
 
@@ -28,6 +27,7 @@ import { Task } from '../../shared/models/task';
     JoinTitleComponent,
     SearchInputComponent,
     ButtonComponent,
+    BoardHeadComponent,
     ColumnComponent,
   ],
   templateUrl: './board.component.html',
@@ -41,8 +41,10 @@ export class BoardComponent {
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   board: BoardService = inject(BoardService);
-  dialogs: DialogService = inject(DialogService);
-  nav: NavigationService = inject(NavigationService);
+
+  // rename boad to board head component ... ?
+  // column padding 10px + board gap 6px ... !
+  // fix board/column/body padding due to box-shadow ... !
 
   // edit-task dialog: think about height + overflow-y ...
   //   --> fix from 360px til 320px: scrollbar in empty padding ...
@@ -82,6 +84,27 @@ export class BoardComponent {
   }
 
   /**
+   * Initializes a board component.
+   */
+  ngOnInit() {
+    this.join.loaded$.subscribe({
+      next: (value) => this.updateHeightFactor(value),
+      error: (error) => console.log('Error - Could not load user: ', error),
+    });
+  }
+
+  /**
+   * Updates the height factor needed to calculate a board minimum height.
+   * @param loaded - A boolean value.
+   */
+  updateHeightFactor(loaded: boolean) {
+    if (loaded) {
+      this.board.setHeightFactor(this.tasks);
+      this.join.loadedSubject.complete();
+    }
+  }
+
+  /**
    * Resets a targeted column on dragleave.
    */
   onReset() {
@@ -89,14 +112,10 @@ export class BoardComponent {
   }
 
   /**
-   * Opens an add-task dialog on click.
+   * Opens an add-task form on click.
    */
   onAdd() {
-    if (this.join.isMobile()) {
-      this.nav.navigateByLink('add-task');
-    } else {
-      this.dialogs.open('addTask');
-    }
+    this.board.onAdd();
   }
 
   /**

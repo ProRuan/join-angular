@@ -1,10 +1,10 @@
 <div [id]="id" class="column">
-    <div class="head">
+    <div *ngIf="join.isMobile()" class="head">
         <span class="head-text">{{ name }}</span>
-        <button *ngIf="displayed" class="add-btn" (click)="onAddTask()"></button>
+        <button *ngIf="displayed" class="board-add-btn" (click)="onAddTask()"></button>
     </div>
 
-    <div class="body" (dragover)="onSetTarget($event)" (drop)="onUpdateTask(id)">
+    <div class="body" [ngStyle]="getStyle()" (dragover)="onSetTarget($event)" (drop)="onUpdateTask(id)">
         <div *ngIf="isPlaceholderDisplayed()" class="placeholder">
             <span class="placeholder-text">No tasks {{ name }}</span>
         </div>

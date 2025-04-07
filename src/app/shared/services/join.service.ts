@@ -292,12 +292,4 @@ export class JoinService {
       sub.unsubscribe();
     }
   }
-
-  /**
-   * Destroys a join service.
-   */
-  ngOnDestroy() {
-    this.loadedSubject.unsubscribe();
-    this.overflowYSubject.unsubscribe();
-  }
 }

@@ -3,8 +3,6 @@ import { Component, inject, Input } from '@angular/core';
 import { DraggableTaskComponent } from '../draggable-task/draggable-task.component';
 import { JoinService } from '../../../shared/services/join.service';
 import { BoardService } from '../../../shared/services/board.service';
-import { DialogService } from '../../../shared/services/dialog.service';
-import { NavigationService } from '../../../shared/services/navigation.service';
 import { Task } from '../../../shared/models/task';
 
 @Component({
@@ -21,8 +19,6 @@ import { Task } from '../../../shared/models/task';
 export class ColumnComponent {
   join: JoinService = inject(JoinService);
   board: BoardService = inject(BoardService);
-  dialogs: DialogService = inject(DialogService);
-  nav: NavigationService = inject(NavigationService);
 
   @Input() name: string = 'To do';
   @Input() tasks: Task[] = [];
@@ -30,6 +26,9 @@ export class ColumnComponent {
   id: string = '';
   dialogId: string = 'addTask';
   displayed: boolean = true;
+  cardHeight: number = 244;
+  columnGap: number = 16;
+  shadowConst: number = 3;
 
   /**
    * Initializes a column component.
@@ -56,14 +55,36 @@ export class ColumnComponent {
   }
 
   /**
-   * Opens an add-task dialog on click.
+   * Gets a board style.
+   * @returns The board style.
+   */
+  getStyle() {
+    if (!this.join.isMobile()) {
+      let value = this.getBoardHeight();
+      return { minHeight: `${value}px` };
+    } else {
+      return null;
+    }
+  }
+
+  /**
+   * Gets a board height
+   * @returns The board height.
+   */
+  private getBoardHeight() {
+    let factor = this.board.heightFactor;
+    return (
+      this.cardHeight * (factor + 1) +
+      this.columnGap * factor +
+      this.shadowConst
+    );
+  }
+
+  /**
+   * Opens an add-task form on click.
    */
   onAddTask() {
-    if (this.join.isMobile()) {
-      this.nav.navigateByLink('add-task');
-    } else {
-      this.dialogs.open(this.dialogId);
-    }
+    this.board.onAdd();
   }
 
   /**
@@ -86,6 +107,7 @@ export class ColumnComponent {
     this.board.setDrag();
     this.join.updateSummary();
     this.join.saveUser();
+    this.board.setHeightFactor(this.join.user.tasks);
   }
 
   /**

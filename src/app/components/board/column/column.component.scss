@@ -2,6 +2,7 @@
 
 .column {
   @include display-column($ai: center, $g: 16px);
+  padding: 10px 0;
 }
 
 .head {
@@ -15,28 +16,8 @@
   @include font($fs: 20px, $fw: 700, $lh: 24px);
 }
 
-.add-btn {
-  @include size($w: 24px, $h: 24px);
-  padding: 0;
-  background-image: url("/assets/img/board/add_framed.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 24px 24px;
-  border: none;
-
-  &:hover {
-    background-image: url("/assets/img/board/add_framed_hover.png");
-  }
-
-  &:active {
-    background-image: url("/assets/img/board/add_framed_active.png");
-  }
-}
-
 .body {
   @include display-column($g: 16px);
-  height: 688px;
-  overflow-y: auto;
 }
 
 .placeholder {
@@ -68,11 +49,15 @@
 }
 
 @media (max-width: 1180px) {
+  .column {
+    padding: unset;
+  }
+
   .head-text {
     @include font($fs: 27px, $fw: 700, $lh: 32.4px);
   }
 
-  .add-btn {
+  .board-add-btn {
     @include size($w: 30px, $h: 30px);
     background-size: 30px 30px;
 
@@ -88,6 +73,7 @@
   .body {
     @include size($w: 100%, $h: unset);
     @include display-row($g: 16px);
+    padding: 10px 0;
     overflow-x: auto;
     overflow-y: unset;
   }

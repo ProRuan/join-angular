@@ -1,0 +1,6 @@
+<div class="head-group">
+    <div *ngFor="let head of heads" class="head">
+        <span class="text">{{ head }}</span>
+        <button *ngIf="isDisplayed(head)" class="board-add-btn" (click)="onAdd()"></button>
+    </div>
+</div>

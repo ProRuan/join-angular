@@ -16,11 +16,15 @@
             </div>
         </div>
 
-        <div class="column-group">
-            <app-column name="To do" [tasks]="getTasks('to-do')"></app-column>
-            <app-column name="In progress" [tasks]="getTasks('in-progress')"></app-column>
-            <app-column name="Await feedback" [tasks]="getTasks('await-feedback')"></app-column>
-            <app-column name="Done" [tasks]="getTasks('done')"></app-column>
+        <div class="column-16">
+            <app-board-head *ngIf="!join.isMobile()"></app-board-head>
+
+            <div class="column-group">
+                <app-column name="To do" [tasks]="getTasks('to-do')"></app-column>
+                <app-column name="In progress" [tasks]="getTasks('in-progress')"></app-column>
+                <app-column name="Await feedback" [tasks]="getTasks('await-feedback')"></app-column>
+                <app-column name="Done" [tasks]="getTasks('done')"></app-column>
+            </div>
         </div>
     </div>
 </section>

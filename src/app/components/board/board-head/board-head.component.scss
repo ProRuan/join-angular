@@ -1,0 +1,16 @@
+@import "../../../../mixins.scss";
+
+.head-group {
+  @include display-row($jc: space-between, $g: 24px);
+}
+
+.head {
+  @include box-padding($p: 0 4px);
+  @include display-flex($jc: space-between);
+  width: 100%;
+  color: #42526e;
+}
+
+.text {
+  @include font($fs: 20px, $fw: 700, $lh: 24px);
+}

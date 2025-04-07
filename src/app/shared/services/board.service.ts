@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { JoinService } from './join.service';
+import { DialogService } from './dialog.service';
+import { NavigationService } from './navigation.service';
 import { Task } from '../models/task';
 
 @Injectable({
@@ -9,6 +12,10 @@ import { Task } from '../models/task';
  * Class representing a board service.
  */
 export class BoardService {
+  join: JoinService = inject(JoinService);
+  dialogs: DialogService = inject(DialogService);
+  nav: NavigationService = inject(NavigationService);
+
   readonly columns: string[] = [
     'to-do',
     'in-progress',
@@ -16,12 +23,65 @@ export class BoardService {
     'done',
   ];
 
-  filter: string = '';
   task: Task = new Task();
   defaultTask = new Task();
-  dragStarted: boolean = false;
-  neighborColumns: string[] = [];
+  heightFactor: number = 0;
+  filter: string = '';
   targetedColumn: string = '';
+  neighborColumns: string[] = [];
+  dragStarted: boolean = false;
+
+  /**
+   * Sets the height factor needed to calculate a board minimum height.
+   * @param tasks - The board tasks.
+   */
+  setHeightFactor(tasks: Task[]) {
+    this.heightFactor = 0;
+    let numbers = this.getTaskNumbers(tasks);
+    this.setHighestFactor(numbers);
+  }
+
+  /**
+   * Gets task numbers.
+   * @param tasks - The board tasks.
+   * @returns The task numbers.
+   */
+  getTaskNumbers(tasks: Task[]) {
+    return this.columns.map((c) => this.getTaskAmount(tasks, c));
+  }
+
+  /**
+   * Gets a task amount by column.
+   * @param tasks - The board tasks.
+   * @param column - The column id.
+   * @returns The task amount.
+   */
+  getTaskAmount(tasks: Task[], column: string) {
+    return tasks.filter((t) => t.column === column).length;
+  }
+
+  /**
+   * Sets the highest task number as board height factor.
+   * @param numbers - The task numbers.
+   */
+  setHighestFactor(numbers: number[]) {
+    for (let n of numbers) {
+      if (n > this.heightFactor) {
+        this.heightFactor = n;
+      }
+    }
+  }
+
+  /**
+   * Opens an add-task form on click.
+   */
+  onAdd() {
+    if (this.join.isMobile()) {
+      this.nav.navigateByLink('add-task');
+    } else {
+      this.dialogs.open('addTask');
+    }
+  }
 
   /**
    * Sets a drag by task.

@@ -59,6 +59,7 @@ Components (10/10) + (8/10)
       - SumCardComponent - check
   - AddTaskComponent - check + responsive
   - BoardComponent - check + ...
+      - BoardHeadComponent - check
       - SearchInputComponent - check
       - ColumnComponent - check
       - DraggableTaskComponent - check
