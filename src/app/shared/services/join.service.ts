@@ -242,6 +242,16 @@ export class JoinService {
   }
 
   /**
+   * Gets contacts including the user contact.
+   * @returns The contacts.
+   */
+  getContacts() {
+    let contact = this.user.getContact();
+    let contacts = this.user.contacts;
+    return [contact, ...contacts];
+  }
+
+  /**
    * Deletes a user.
    * @param id - The user id.
    */

@@ -2,7 +2,11 @@ Think about
 -----------
   - Finalize name validation --> pattern.test instead of match.pattern ...
   - firebase init test (online test) ...
-  - sorted contacts: for assigned-to menu and contact list ...
+
+contacts
+--------
+  - edit user (name, email, phone) ...
+  - delete user (account) ...
 
 // new contacts task
 // -----------------
@@ -193,8 +197,6 @@ summary service
 
   // edit-task dialog: prio is reseted --> why ... ?
   // test for past date after editing ... !
-
-  // set contact list (user + contacts + sort()) ... !
 
   // add user as contact only in assigned-to input and in contact list ... ?!
   // add user property phone ... !

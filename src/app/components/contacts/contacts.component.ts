@@ -62,8 +62,7 @@ export class ContactsComponent {
    * @returns The sorted contacts.
    */
   getSortedContacts() {
-    let contacts = getArrayCopy(this.join.user.contacts);
-    return contacts.sort((a, b) => this.compareNames(a, b));
+    return this.join.getContacts().sort((a, b) => this.compareNames(a, b));
   }
 
   /**
