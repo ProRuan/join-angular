@@ -71,7 +71,7 @@ export class AppComponent {
    * @returns The subscription.
    */
   getSubscription(number: Observable<number>) {
-    return number.subscribe((value) => this.join.setWindowWidth(value));
+    return number.subscribe((value) => this.join.updateJoinSettings(value));
   }
 
   /**

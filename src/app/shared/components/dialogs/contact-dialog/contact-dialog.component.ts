@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JoinTitleComponent } from '../../join-title/join-title.component';
 import { TextInputComponent } from '../../inputs/text-input/text-input.component';
 import { ButtonComponent } from '../../button/button.component';
-import { dialogAnimation } from '../../../animations/dialog.animation';
+import { contactDialogAnimation } from '../../../animations/contact-dialog.animation';
 import { DialogFormController } from '../../../models/dialog-form-controller';
 import { JoinService } from '../../../services/join.service';
 import { InputConfigurationService } from '../../../services/input-configuration.service';
@@ -28,7 +28,7 @@ import { isDefaultString } from '../../../ts/global';
   ],
   templateUrl: './contact-dialog.component.html',
   styleUrl: './contact-dialog.component.scss',
-  animations: [dialogAnimation],
+  animations: [contactDialogAnimation],
 })
 
 /**
@@ -118,18 +118,57 @@ export class ContactDialogComponent extends DialogFormController {
   }
 
   /**
-   * Closes a dialog on click.
+   * Closes dialogs on click.
    */
   onClose() {
-    this.closeDialog();
+    this.closeDialogs();
   }
 
   /**
-   * Closes a dialog.
+   * Closes dialogs.
    */
-  closeDialog() {
-    this.close();
-    this.viewer.cachedContact.set();
+  closeDialogs(saved: boolean = false) {
+    let ids = this.getDialogIds(saved);
+    if (saved) {
+      this.dialogs.setFadeAnimation(true);
+      this.closeAndReset(ids, 100);
+      this.dialogs.setFadeAnimation(false);
+    } else {
+      this.closeAndReset(ids, 300);
+    }
+  }
+
+  /**
+   * Closes and resets dialogs.
+   * @param ids - The dialog ids.
+   * @param ms - The timeout in milliseconds.
+   */
+  closeAndReset(ids: string[], ms: number) {
+    setTimeout(() => ids.forEach((id) => this.dialogs.close(id)), 0);
+    setTimeout(() => this.viewer.cachedContact.set(), ms);
+  }
+
+  /**
+   * Gets dialog ids.
+   * @param saved - A boolean value.
+   * @returns The dialog ids.
+   */
+  getDialogIds(saved: boolean) {
+    return saved ? [this.id, 'contactSettings'] : [this.id];
+  }
+
+  /**
+   * Gets the css class of a transit container.
+   * @returns The css class of the transit container.
+   */
+  override getTransitClass(): string {
+    if (this.isFadeClass()) {
+      return 'fade';
+    } else if (this.join.isMobile()) {
+      return 'slide-y';
+    } else {
+      return 'slide-x';
+    }
   }
 
   /**
@@ -162,7 +201,7 @@ export class ContactDialogComponent extends DialogFormController {
   onSave() {
     if (this.form.valid) {
       this.updateContact();
-      this.saveUserContacts();
+      this.saveUserContacts(true);
     }
   }
 
@@ -180,10 +219,10 @@ export class ContactDialogComponent extends DialogFormController {
   /**
    * Saves user contacts.
    */
-  saveUserContacts() {
+  saveUserContacts(saved: boolean) {
     this.viewer.updateContacts();
     this.join.saveUser();
-    setTimeout(() => this.closeDialog(), 0);
+    this.closeDialogs(saved);
   }
 
   /**
@@ -192,7 +231,7 @@ export class ContactDialogComponent extends DialogFormController {
   onCreate() {
     if (this.form.valid) {
       this.addContact();
-      this.saveUserContacts();
+      this.saveUserContacts(true);
     }
   }
 

@@ -84,4 +84,24 @@ export class DialogService {
     this.close('assignedTo');
     this.search?.setValue('');
   }
+
+  /**
+   * Sets a fade animation.
+   * @param value - A boolean value.
+   */
+  setFadeAnimation(value: boolean) {
+    if (value) {
+      this.setFadedOut(true);
+    } else {
+      setTimeout(() => this.setFadedOut(false), 100);
+    }
+  }
+
+  /**
+   * Set fadedOut by value.
+   * @param value - The value to set.
+   */
+  setFadedOut(value: boolean) {
+    this.fadedOut = value;
+  }
 }

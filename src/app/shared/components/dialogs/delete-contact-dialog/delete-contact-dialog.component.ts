@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
-import { fadeAnimation } from '../../../animations/fade-animation';
+import { dialogAnimation } from '../../../animations/dialog.animation';
 import { DialogFormController } from '../../../models/dialog-form-controller';
 import { JoinService } from '../../../services/join.service';
 import { ContactService } from '../../../services/contact.service';
@@ -14,7 +14,7 @@ import { JoinButton } from '../../../models/join-button';
   templateUrl: './delete-contact-dialog.component.html',
 
   styleUrl: './delete-contact-dialog.component.scss',
-  animations: [fadeAnimation],
+  animations: [dialogAnimation],
 })
 
 /**
@@ -60,13 +60,21 @@ export class DeleteContactDialogComponent extends DialogFormController {
    * @param index - The contact index.
    */
   deleteContact(index: number) {
-    this.dialogs.fadedOut = true;
+    this.dialogs.setFadeAnimation(true);
+    this.deleteAndSave(index);
+    this.dialogs.setFadeAnimation(false);
+  }
+
+  /**
+   * Deletes a contact and updates the user.
+   * @param index - The contact index.
+   */
+  deleteAndSave(index: number) {
     setTimeout(() => {
       this.closesDialogs();
       this.join.deleteUserItem('contacts', index);
       this.viewer.updateContacts();
       this.join.saveUser();
-      this.dialogs.fadedOut = false;
     }, 0);
   }
 
@@ -74,8 +82,15 @@ export class DeleteContactDialogComponent extends DialogFormController {
    * Closes all open dialogs.
    */
   closesDialogs() {
-    this.close();
-    this.dialogs.close('editContact');
-    this.dialogs.close('viewContact');
+    let ids = this.getDialogIds();
+    ids.forEach((id) => this.dialogs.close(id));
+  }
+
+  /**
+   * Gets dialog ids.
+   * @returns The dialog ids.
+   */
+  private getDialogIds() {
+    return [this.id, 'editContact', 'contactSettings', 'viewContact'];
   }
 }

@@ -51,6 +51,22 @@ export class ContactSettingsDialogComponent extends DialogFormController {
   }
 
   /**
+   * Gets the css class of a transit container.
+   * @returns The css class of the transit container.
+   */
+  override getTransitClass(): string {
+    return this.dialogs.fadedOut ? 'fade' : '';
+  }
+
+  /**
+   * Gets the css class of a settings dialog.
+   * @returns The css class of the settings dialog.
+   */
+  getDialogClass() {
+    return this.dialogs.fadedOut ? '' : 'slide';
+  }
+
+  /**
    * Verifies the selected state of a settings button.
    * @param id - The dialog id.
    * @returns A boolean value.

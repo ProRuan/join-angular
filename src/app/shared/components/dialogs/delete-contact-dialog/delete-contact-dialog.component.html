@@ -1,5 +1,6 @@
-<div *ngIf="isOpened()" @fadeAnimation class="dialog">
-    <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose($event)">
+<div *ngIf="isOpened()" @dialogAnimation class="dialog">
+    <div class="transit-cont fade" (click)="onClose($event)">
+
         <section class="dialog-box" (click)="onStop($event)">
             <div class="close-btn-cont">
                 <button class="close-btn" (click)="onClose($event)"></button>
@@ -13,5 +14,6 @@
                 </div>
             </div>
         </section>
+
     </div>
 </div>

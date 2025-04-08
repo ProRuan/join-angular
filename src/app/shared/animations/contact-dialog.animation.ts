@@ -4,14 +4,16 @@ import { getAnimation } from '../ts/animate';
 const defaultTimings = '300ms ease-out';
 const fadeOutTimings = '100ms ease-in-out';
 const parentStartProperties = [{ backgroundColor: 'transparent' }];
-const parentEndProperties = [{ backgroundColor: 'rgba(0, 0, 0, 0)' }];
-const slideStartProperties = [{ transform: 'translateX(128px)' }];
-const slideEndProperties = [{ transform: 'translateX(0)' }];
+const parentEndProperties = [{ backgroundColor: 'rgba(0, 0, 0, 0.25)' }];
+const desktopStartProperties = [{ transform: 'translateX(100%)' }];
+const desktopEndProperties = [{ transform: 'translateX(0%)' }];
+const mobileStartProperties = [{ transform: 'translateY(100%)' }];
+const mobileEndProperties = [{ transform: 'translateY(0%)' }];
 const fadeStartProperties = [{ opacity: 0 }];
 const fadeEndProperties = [{ opacity: 1 }];
 const optional = { optional: true };
 
-const NAME = 'settingsMenuAnimation';
+const NAME = 'contactDialogAnimation';
 
 const DATA: AnimationData[] = [
   {
@@ -25,11 +27,20 @@ const DATA: AnimationData[] = [
     },
     children: [
       {
-        selector: '.slide',
+        selector: '.slide-x',
         timings: defaultTimings,
         properties: {
-          start: slideStartProperties,
-          end: slideEndProperties,
+          start: desktopStartProperties,
+          end: desktopEndProperties,
+        },
+        options: optional,
+      },
+      {
+        selector: '.slide-y',
+        timings: defaultTimings,
+        properties: {
+          start: mobileStartProperties,
+          end: mobileEndProperties,
         },
         options: optional,
       },
@@ -55,11 +66,20 @@ const DATA: AnimationData[] = [
     },
     children: [
       {
-        selector: '.slide',
+        selector: '.slide-x',
         timings: defaultTimings,
         properties: {
-          start: slideEndProperties,
-          end: slideStartProperties,
+          start: desktopEndProperties,
+          end: desktopStartProperties,
+        },
+        options: optional,
+      },
+      {
+        selector: '.slide-y',
+        timings: defaultTimings,
+        properties: {
+          start: mobileEndProperties,
+          end: mobileStartProperties,
         },
         options: optional,
       },
@@ -76,4 +96,4 @@ const DATA: AnimationData[] = [
   },
 ];
 
-export const settingsMenuAnimation = getAnimation(NAME, DATA);
+export const contactDialogAnimation = getAnimation(NAME, DATA);

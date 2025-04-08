@@ -13,6 +13,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject, from, Subscription } from 'rxjs';
+import { DialogService } from './dialog.service';
 import { SummaryService } from './summary.service';
 import { User } from '../models/user';
 import { Task } from '../models/task';
@@ -31,6 +32,7 @@ import { DocSnap } from '../ts/type';
 export class JoinService {
   firestore: Firestore = inject(Firestore);
   summary: SummaryService = inject(SummaryService);
+  dialogs: DialogService = inject(DialogService);
 
   [key: string]: any;
   user: User = new User();
@@ -279,11 +281,29 @@ export class JoinService {
   }
 
   /**
+   * Updates join settings on resize.
+   * @param value - The value to set.
+   */
+  updateJoinSettings(value: number) {
+    this.setWindowWidth(value);
+    this.closeSettingsMenu();
+  }
+
+  /**
    * Sets a window width.
    * @param value - The value to set.
    */
   setWindowWidth(value: number) {
     this.windowWidth = value;
+  }
+
+  /**
+   * Closes a settings menu.
+   */
+  closeSettingsMenu() {
+    if (!this.isMobile()) {
+      this.dialogs.close('contactSettings');
+    }
   }
 
   /**
