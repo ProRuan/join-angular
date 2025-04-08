@@ -181,6 +181,7 @@ export class ContactDialogComponent extends DialogFormController {
    * Saves user contacts.
    */
   saveUserContacts() {
+    this.viewer.updateContacts();
     this.join.saveUser();
     setTimeout(() => this.closeDialog(), 0);
   }

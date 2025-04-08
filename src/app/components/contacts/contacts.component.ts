@@ -6,9 +6,8 @@ import { DeleteContactDialogComponent } from '../../shared/components/dialogs/de
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactViewerComponent } from './contact-viewer/contact-viewer.component';
 import { JoinService } from '../../shared/services/join.service';
+import { ContactService } from '../../shared/services/contact.service';
 import { DialogService } from '../../shared/services/dialog.service';
-import { Contact } from '../../shared/models/contact';
-import { getArrayCopy } from '../../shared/ts/global';
 
 @Component({
   selector: 'app-contacts',
@@ -30,6 +29,7 @@ import { getArrayCopy } from '../../shared/ts/global';
  */
 export class ContactsComponent {
   join: JoinService = inject(JoinService);
+  viewer: ContactService = inject(ContactService);
   dialogs: DialogService = inject(DialogService);
 
   /**
@@ -62,39 +62,7 @@ export class ContactsComponent {
    * @returns The sorted contacts.
    */
   getSortedContacts() {
-    return this.join.getContacts().sort((a, b) => this.compareNames(a, b));
-  }
-
-  /**
-   * Compares names.
-   * @param a - The name of contact a.
-   * @param b - The name of contact b.
-   * @returns A comparable figure.
-   */
-  compareNames(a: Contact, b: Contact) {
-    let nameA = this.getComparableName(a.name);
-    let nameB = this.getComparableName(b.name);
-    return nameA.localeCompare(nameB);
-  }
-
-  /**
-   * Gets a comparable name.
-   * @param name - The contact name.
-   * @returns The comparable name.
-   */
-  getComparableName(name: string) {
-    return name.includes(' ') ? this.getSortableName(name) : name;
-  }
-
-  /**
-   * Gets a sortable name.
-   * @param name - The contact name.
-   * @returns The sortable name.
-   */
-  getSortableName(name: string) {
-    let names = name.split(' ');
-    let firstInitial = names[0].charAt(0);
-    let lastName = names[1];
-    return firstInitial + lastName;
+    let contacts = this.join.getContacts();
+    return this.viewer.getSortedContacts(contacts);
   }
 }

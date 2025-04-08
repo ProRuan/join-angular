@@ -135,7 +135,6 @@ summary service / sign-up
   // requiredValidator with this.rejected ...
 
   // add property sum label ... ?
-  // rename to sum-card ... ?
   // summary deadline with column (not category) ... !
   // fix summary update after sign-up - check?
 
@@ -267,8 +266,6 @@ PasswordInputComponent
 
   // update login and sign-up
   // ------------------------
-  // registerUser() ...
-  // reject(): rename (also for login) ... !!!
   // log reset wrong ... !
 
   // fix matchword validation --> validation on focus (not on dirty) ... ?!
