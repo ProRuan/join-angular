@@ -4,6 +4,6 @@
 <app-delete-contact-dialog *ngIf="isOpened('deleteContact')"></app-delete-contact-dialog>
 
 <section class="contacts">
-    <app-contact-list *ngIf="isDisplayed()" [contacts]="getSortedContacts()" class="contact-list"></app-contact-list>
-    <app-contact-viewer *ngIf="isOpened('viewContact')" class="contact-viewer"></app-contact-viewer>
+    <app-contact-list *ngIf="isListDisplayed()" [contacts]="getContacts()" class="contact-list"></app-contact-list>
+    <app-contact-viewer *ngIf="isViewerDisplayed()" class="contact-viewer"></app-contact-viewer>
 </section>

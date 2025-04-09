@@ -65,7 +65,7 @@ Components (10/10) + (8/10)
       - DraggableTaskComponent - check
   - ContactsComponent - check + ...
       - ContactListComponent - check
-      - ContactViewerComponent - check
+      - ContactViewerComponent - check + animation
   - HelpComponent - check + responsive
   - PrivacyPolicyComponent - check + responsive
   - LegalNoticeComponent - check + responsive
@@ -77,9 +77,9 @@ dialogs
       - ViewTaskDialogComponent - check * think about close()?!
       - EditTaskDialogComponent - check * think about close()?!
       - DeleteTaskDialogComponent - check * think about close()?!
-      - ContactDialogComponent - check
-      - DeleteContactDialogComponent - check
-      - ContactSettingsDialogComponent ...
+      - ContactDialogComponent - check + animation
+      - DeleteContactDialogComponent - check + animation
+      - ContactSettingsDialogComponent - check + animation
 
 
 Animations (6/6)

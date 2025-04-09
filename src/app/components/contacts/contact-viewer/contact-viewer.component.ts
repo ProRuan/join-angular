@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { contactViewerAnimation } from '../../../shared/animations/contact-viewer.animation';
 import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
 import { ContactService } from '../../../shared/services/contact.service';
@@ -13,6 +14,7 @@ import { JoinButton } from '../../../shared/models/join-button';
   imports: [CommonModule, JoinTitleComponent, ButtonComponent],
   templateUrl: './contact-viewer.component.html',
   styleUrl: './contact-viewer.component.scss',
+  animations: [contactViewerAnimation],
 })
 
 /**
@@ -44,6 +46,22 @@ export class ContactViewerComponent extends DialogFormController {
   onClose() {
     this.close();
     this.viewer.setContact();
+  }
+
+  /**
+   * Verifies a mobile device.
+   * @returns A boolean value.
+   */
+  isMobile() {
+    return this.join.isMobile();
+  }
+
+  /**
+   * Gets the css class of a contact viewer.
+   * @returns The css class of the contact viewer.
+   */
+  getViewerClass() {
+    return this.join.isMobile() ? 'fade' : 'slide';
   }
 
   /**

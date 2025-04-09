@@ -73,7 +73,7 @@ export class DeleteContactDialogComponent extends DialogFormController {
     setTimeout(() => {
       this.closesDialogs();
       this.join.deleteUserItem('contacts', index);
-      this.viewer.updateContacts();
+      this.viewer.reset();
       this.join.saveUser();
     }, 0);
   }

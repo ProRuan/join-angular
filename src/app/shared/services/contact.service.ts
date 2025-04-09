@@ -108,4 +108,13 @@ export class ContactService {
     let index = i % this.bgColors.length;
     return this.bgColors[index];
   }
+
+  /**
+   * Resets a contact viewer.
+   */
+  reset() {
+    this.setContact();
+    this.cachedContact.set();
+    this.updateContacts();
+  }
 }

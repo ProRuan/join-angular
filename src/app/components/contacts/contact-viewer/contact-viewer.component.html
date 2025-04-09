@@ -4,7 +4,8 @@
         <button class="back-arrow mobile" (click)="onClose()"></button>
     </div>
 
-    <div class="contact-viewer">
+    <div *ngIf="isOpened()" @contactViewerAnimation [@.disabled]="isMobile()" class="contact-viewer"
+        [ngClass]="getViewerClass()">
         <div class="head">
             <div class="profile" [ngClass]="contact.bgc">
                 <span class="initials">{{ contact.initials }}</span>

@@ -8,17 +8,14 @@ contacts
   - edit user (name, email, phone) ...
   - delete user (account) ...
 
-dialog animations (4/?)
------------------
-  - contacts (4/?) ...
+Animations
+----------
+  - count and review files ... !
 
-contact animations (4/?)
-------------------
-  --> addContact: desktop (4/4) + mobile (4/4) - check
-  --> editContact: desktop (4/4) + mobile (4/4) - check
-  --> deleteContact: desktop (4/4) + mobile (4/4) - check
-  --> viewContact: ...
-  --> contactSettings: default (4/4) + save (1/1) + delete (1/1) - check
+dialog animations (1/?)
+-----------------
+  - board ...
+  - contacts (5/5) - check
 
 // new contacts task
 // -----------------

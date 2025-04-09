@@ -45,23 +45,23 @@ export class ContactsComponent {
    * Verifies the display state of a contact list.
    * @returns A boolean value.
    */
-  isDisplayed() {
-    return !this.isContactListHidden();
+  isListDisplayed() {
+    return !this.isOpened('viewContact') || !this.join.isMobile();
   }
 
   /**
-   * Verifies the hidden state of a contact list.
+   * Verifies the display state of a contact viewer.
    * @returns A boolean value.
    */
-  isContactListHidden() {
-    return this.isOpened('viewContact') && this.join.isMobile();
+  isViewerDisplayed() {
+    return this.isOpened('viewContact') || !this.join.isMobile();
   }
 
   /**
-   * Gets sorted contacts.
-   * @returns The sorted contacts.
+   * Gets sorted user contacts.
+   * @returns The sorted user contacts.
    */
-  getSortedContacts() {
+  getContacts() {
     let contacts = this.join.getContacts();
     return this.viewer.getSortedContacts(contacts);
   }
