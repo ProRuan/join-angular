@@ -60,9 +60,7 @@ export class DeleteContactDialogComponent extends DialogFormController {
    * @param index - The contact index.
    */
   deleteContact(index: number) {
-    this.dialogs.setFadeAnimation(true);
-    this.deleteAndSave(index);
-    this.dialogs.setFadeAnimation(false);
+    this.dialogs.fadeOut(() => this.deleteAndSave(index));
   }
 
   /**
@@ -70,12 +68,10 @@ export class DeleteContactDialogComponent extends DialogFormController {
    * @param index - The contact index.
    */
   deleteAndSave(index: number) {
-    setTimeout(() => {
-      this.closesDialogs();
-      this.join.deleteUserItem('contacts', index);
-      this.viewer.reset();
-      this.join.saveUser();
-    }, 0);
+    this.closesDialogs();
+    this.join.deleteUserItem('contacts', index);
+    this.viewer.reset();
+    this.join.saveUser();
   }
 
   /**

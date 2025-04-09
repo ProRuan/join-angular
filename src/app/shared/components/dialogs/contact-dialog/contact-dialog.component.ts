@@ -130,11 +130,9 @@ export class ContactDialogComponent extends DialogFormController {
   closeDialogs(saved: boolean = false) {
     let ids = this.getDialogIds(saved);
     if (saved) {
-      this.dialogs.setFadeAnimation(true);
-      this.closeAndReset(ids, 100);
-      this.dialogs.setFadeAnimation(false);
+      this.dialogs.fadeOut(() => this.closeAndReset(ids, 100));
     } else {
-      this.closeAndReset(ids, 300);
+      setTimeout(() => this.closeAndReset(ids, 300), 0);
     }
   }
 
@@ -144,7 +142,7 @@ export class ContactDialogComponent extends DialogFormController {
    * @param ms - The timeout in milliseconds.
    */
   closeAndReset(ids: string[], ms: number) {
-    setTimeout(() => ids.forEach((id) => this.dialogs.close(id)), 0);
+    ids.forEach((id) => this.dialogs.close(id));
     setTimeout(() => this.viewer.cachedContact.set(), ms);
   }
 

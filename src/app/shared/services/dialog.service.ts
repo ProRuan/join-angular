@@ -86,22 +86,20 @@ export class DialogService {
   }
 
   /**
-   * Sets a fade animation.
-   * @param value - A boolean value.
+   * Fades out a dialog..
+   * @param fn - The next function to be called.
    */
-  setFadeAnimation(value: boolean) {
-    if (value) {
-      this.setFadedOut(true);
-    } else {
-      setTimeout(() => this.setFadedOut(false), 100);
-    }
+  fadeOut(fn: () => void = () => {}) {
+    this.setFadedOut(true);
+    setTimeout(() => fn(), 0);
+    setTimeout(() => this.setFadedOut(false), 100);
   }
 
   /**
    * Set fadedOut by value.
    * @param value - The value to set.
    */
-  setFadedOut(value: boolean) {
+  private setFadedOut(value: boolean) {
     this.fadedOut = value;
   }
 }

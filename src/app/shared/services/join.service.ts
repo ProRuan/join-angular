@@ -264,9 +264,9 @@ export class JoinService {
   /**
    * Saves a user.
    */
-  saveUser(fn?: () => void) {
+  saveUser(fn: () => void = () => {}) {
     this.saveUserOnline().subscribe({
-      next: () => fn,
+      next: () => fn(),
       error: (error) => console.log('Error - Could not save user: ', error),
     });
   }

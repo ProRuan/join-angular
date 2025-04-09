@@ -236,7 +236,7 @@ export class AddTaskComponent extends FormController {
   createTask() {
     if (this.form.valid) {
       this.updateTasks();
-      this.join.saveUser(() => this.navigateToBoard);
+      this.join.saveUser(() => this.navigateToBoard());
     }
   }
 

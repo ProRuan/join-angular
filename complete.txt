@@ -11,15 +11,21 @@ contacts
 Animations
 ----------
   - count and review files ... !
+  - check saveUser(fn) ... !!!
 
 dialog animations (1/?)
 -----------------
-  - board ...
+  - board (3/?) ...
+      - addTask: desktop(4/4) - check
+      - viewTask: desktop(4/4) + mobile (4/4) - check
+      - editTask: desktop(3/3) + mobile (3/3) - check
+      - deleteTask: desktop(0/4) + mobile (0/4) ... * check animation!
+      - taskSettings: desktop(0/4) + mobile (0/4) ...
   - contacts (5/5) - check
 
 // new contacts task
 // -----------------
-// all dialogs with *ngIf ...
+// all dialogs with *ngIf: board + contacts (1/2) ...
 // update contact bgc ...
 // prevent double contacts (add/edit) ... (0/2)
 // set timeout of backlog and login session ... !
