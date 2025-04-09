@@ -68,7 +68,7 @@ export class DeleteContactDialogComponent extends DialogFormController {
    * @param index - The contact index.
    */
   deleteAndSave(index: number) {
-    this.closesDialogs();
+    this.closeAllDialogs();
     this.join.deleteUserItem('contacts', index);
     this.viewer.reset();
     this.join.saveUser();
@@ -77,7 +77,7 @@ export class DeleteContactDialogComponent extends DialogFormController {
   /**
    * Closes all open dialogs.
    */
-  closesDialogs() {
+  closeAllDialogs() {
     let ids = this.getDialogIds();
     ids.forEach((id) => this.dialogs.close(id));
   }

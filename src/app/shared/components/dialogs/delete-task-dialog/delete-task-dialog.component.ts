@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
-import { fadeAnimation } from '../../../animations/fade-animation';
+import { dialogAnimation } from '../../../animations/dialog.animation';
 import { DialogFormController } from '../../../models/dialog-form-controller';
 import { JoinService } from '../../../services/join.service';
 import { BoardService } from '../../../services/board.service';
@@ -13,7 +13,7 @@ import { JoinButton } from '../../../models/join-button';
   imports: [CommonModule, ButtonComponent],
   templateUrl: './delete-task-dialog.component.html',
   styleUrl: './delete-task-dialog.component.scss',
-  animations: [fadeAnimation],
+  animations: [dialogAnimation],
 })
 
 /**
@@ -59,20 +59,24 @@ export class DeleteTaskDialogComponent extends DialogFormController {
    * @param index - The task index.
    */
   deleteTask(index: number) {
-    this.dialogs.fadedOut = true;
-    setTimeout(() => {
-      this.closesDialogs();
-      this.join.deleteUserItem('tasks', index);
-      this.join.updateSummary();
-      this.join.saveUser();
-      this.dialogs.fadedOut = false;
-    }, 0);
+    this.dialogs.fadeOut(() => this.deleteAndSave(index));
+  }
+
+  /**
+   * Deletes a task and updates the user.
+   * @param index - The task index.
+   */
+  deleteAndSave(index: number) {
+    this.closeAllDialogs();
+    this.join.deleteUserItem('tasks', index);
+    this.join.updateSummary();
+    this.join.saveUser();
   }
 
   /**
    * Closes all open dialogs.
    */
-  closesDialogs() {
+  closeAllDialogs() {
     this.close();
     this.dialogs.close('viewTask');
   }

@@ -13,13 +13,13 @@ Animations
   - count and review files ... !
   - check saveUser(fn) ... !!!
 
-dialog animations (1/?)
+dialog animations (5/?)
 -----------------
-  - board (3/?) ...
+  - board (4/?) ...
       - addTask: desktop(4/4) - check
       - viewTask: desktop(4/4) + mobile (4/4) - check
       - editTask: desktop(3/3) + mobile (3/3) - check
-      - deleteTask: desktop(0/4) + mobile (0/4) ... * check animation!
+      - deleteTask: desktop(4/4) + mobile (4/4) - check
       - taskSettings: desktop(0/4) + mobile (0/4) ...
   - contacts (5/5) - check
 
