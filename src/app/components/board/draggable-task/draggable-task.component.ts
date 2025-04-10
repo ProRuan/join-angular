@@ -36,9 +36,6 @@ export class DraggableTaskComponent implements OnChanges {
   board: BoardService = inject(BoardService);
   dialogs: DialogService = inject(DialogService);
 
-  // check imports ...
-  // check onSet() ...
-
   @ViewChild('settingsBtn') settingsBtnRef!: ElementRef<HTMLButtonElement>;
   @Input() task: Task = new Task();
 
@@ -204,26 +201,50 @@ export class DraggableTaskComponent implements OnChanges {
     return this.task.category.toLowerCase().replace(' ', '-');
   }
 
+  /**
+   * Opens a task settings dialog on click.
+   * @param event - The event.
+   */
   onSet(event: Event) {
-    const settingsBtn = this.settingsBtnRef.nativeElement;
-
-    const rect = settingsBtn.getBoundingClientRect();
-    const top = rect.top + window.scrollY;
-    const left = rect.left + window.scrollX;
-
-    const flexibleLeft = this.getLeft(left);
-    const felxibleTop = this.getTop(top);
-
-    this.dialogs.posStyles = {
-      position: 'absoulte',
-      left: `${flexibleLeft}px`,
-      top: `${felxibleTop}px`,
-      zIndex: '10',
-    };
-
     this.board.task = this.task;
+    this.dialogs.posStyles = this.getDialogStyle();
     this.dialogs.open('taskSettings');
     stopPropagation(event);
+  }
+
+  /**
+   * Gets a dialog style.
+   * @returns - The dialog style.
+   */
+  private getDialogStyle() {
+    const settingsBtn = this.settingsBtnRef.nativeElement;
+    const rect = this.getRect(settingsBtn);
+    const position = this.getPosition(rect.top, rect.left);
+    return this.getPosStyle(position.left, position.top);
+  }
+
+  /**
+   * Gets a position-left and a position-top value from the settings button.
+   * @param settingsBtn - The settings button.
+   * @returns The position-left and the position-top value.
+   */
+  private getRect(settingsBtn: HTMLButtonElement) {
+    const rect = settingsBtn.getBoundingClientRect();
+    const left = rect.left + window.scrollX;
+    const top = rect.top + window.scrollY;
+    return { left, top };
+  }
+
+  /**
+   * Gets position by left and top values.
+   * @param top - The position-top value.
+   * @param left - The position-left value.
+   * @returns The position.
+   */
+  private getPosition(top: number, left: number) {
+    const modifiedLeft = this.getModifiedLeft(left);
+    const modifiedTop = this.getModifiedTop(top);
+    return { left: modifiedLeft, top: modifiedTop };
   }
 
   /**
@@ -231,7 +252,7 @@ export class DraggableTaskComponent implements OnChanges {
    * @param left - The position-left value.
    * @returns The modified position-left value.
    */
-  private getLeft(left: number) {
+  private getModifiedLeft(left: number) {
     if (window.innerWidth - 159 < left) {
       return left - 194;
     } else if (left + 30 < 46) {
@@ -246,7 +267,7 @@ export class DraggableTaskComponent implements OnChanges {
    * @param top - The position-top value.
    * @returns The modified position-top value.
    */
-  private getTop(top: number) {
+  private getModifiedTop(top: number) {
     if (window.innerHeight - 199 < top) {
       return top - 119;
     } else if (top + 28 < 108) {
@@ -254,6 +275,21 @@ export class DraggableTaskComponent implements OnChanges {
     } else {
       return top;
     }
+  }
+
+  /**
+   * Gets a position style object.
+   * @param left - The position-left value.
+   * @param top - The position-top value.
+   * @returns The position style object.
+   */
+  private getPosStyle(left: number, top: number) {
+    return {
+      position: 'absoulte',
+      left: `${left}px`,
+      top: `${top}px`,
+      zIndex: '1',
+    };
   }
 
   /**
