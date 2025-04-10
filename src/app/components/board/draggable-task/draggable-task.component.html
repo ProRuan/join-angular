@@ -1,8 +1,13 @@
 <div class="draggable-task" [ngClass]="getRotationClass()" draggable="true" (dragstart)="onDragStart()"
     (dragend)="onDragEnd()" (click)="onView()">
     <div [ngClass]="getTaskClass()">
-        <div class="category" [ngClass]="getCategoryClass()">
-            <span class="text">{{ task.category }}</span>
+        <div class="category-button-cont">
+            <div class="category" [ngClass]="getCategoryClass()">
+                <span class="text">{{ task.category }}</span>
+            </div>
+            <button #settingsBtn class="task-settings-btn mobile" (click)="onSet($event)">
+                <app-bi-arrow class="bi-arrow"></app-bi-arrow>
+            </button>
         </div>
 
         <div class="column-8">

@@ -21,6 +21,10 @@
   @include display-column($g: 20px);
 }
 
+.category-button-cont {
+  @include display-row($jc: space-between);
+}
+
 .category {
   padding: 4px 16px;
   width: fit-content;
@@ -30,6 +34,11 @@
 .text {
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   color: $white;
+}
+
+.bi-arrow {
+  @include size($w: 20px, $h: 20px);
+  display: block;
 }
 
 .title {

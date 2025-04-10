@@ -286,7 +286,7 @@ export class JoinService {
    */
   updateJoinSettings(value: number) {
     this.setWindowWidth(value);
-    this.closeSettingsMenu();
+    this.closeSettingsMenus();
   }
 
   /**
@@ -298,10 +298,11 @@ export class JoinService {
   }
 
   /**
-   * Closes a settings menu.
+   * Closes settings menus.
    */
-  closeSettingsMenu() {
+  closeSettingsMenus() {
     if (!this.isMobile()) {
+      this.dialogs.close('taskSettings');
       this.dialogs.close('contactSettings');
     }
   }

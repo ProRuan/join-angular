@@ -77,6 +77,7 @@ dialogs
       - ViewTaskDialogComponent - check * think about close()?!
       - EditTaskDialogComponent - check * think about close()?!
       - DeleteTaskDialogComponent - check * think about close()?!
+      - TaskSettingsDialogComponent - check
       - ContactDialogComponent - check + animation
       - DeleteContactDialogComponent - check + animation
       - ContactSettingsDialogComponent - check + animation
@@ -120,7 +121,8 @@ Components (15/15) + await inputs ... + resp(3/?)
       - SubtasksInputComponent - check
       - TextInputComponent - check
       - TitleInputComponent - check
-  - svg - check (3/3)
+  - svg - check (4/4)
+      - BiArrowSvgComponent - check
       - DoneSvgComponent - check
       - LogoSvgComponent - check
       - ToDoSvgComponent - check

@@ -192,6 +192,25 @@
   }
 }
 
+.task-settings-btn {
+  @include size($w: 26px, $h: 24px);
+  @include round-border($b: 2px solid $dark, $br: 6px);
+  padding: 0px 1px;
+  background-color: transparent;
+
+  &:active {
+    border-color: $lightblue;
+  }
+}
+
+.bi-arrow-path {
+  fill: $dark;
+
+  .task-settings-btn:active & {
+    fill: $lightblue;
+  }
+}
+
 .other-component {
   @include box-padding($p: 110px 96px);
   @include display-column($g: 32px);

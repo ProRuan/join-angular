@@ -1,0 +1,47 @@
+@import "../../../../../mixins.scss";
+
+.settings-dialog {
+  @include display-column($g: 16px);
+  @include color-set($c: $white, $bgc: $dark);
+  @include position($pos: absolute, $l: 0, $t: 0);
+  padding: 6px 8px 16px 8px;
+  border-radius: 0 20px 20px 20px;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.04);
+}
+
+.head {
+  @include box-padding($p: 9px 0 0 9px);
+  @include size($w: 90px, $h: 27px);
+}
+
+.head-text {
+  @include font($fs: 16px, $fw: 700, $lh: 19.2px);
+}
+
+.button-group {
+  @include display-column($g: 4px);
+}
+
+.button {
+  @include box-padding($p: 4px 5px 4px 2px);
+  @include round-border($b: none, $br: 8px);
+  @include display-row($ai: center, $g: 8px);
+  background-color: transparent;
+
+  &:active {
+    background-color: $darker;
+  }
+}
+
+.h-18 {
+  height: 18px;
+}
+
+.button-img {
+  @include size($w: 20px, $h: 20px);
+}
+
+.button-text {
+  @include font($fs: 14px, $fw: 500, $lh: 16.8px);
+  color: $white;
+}

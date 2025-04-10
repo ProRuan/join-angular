@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TaskSettingsDialogComponent } from '../../shared/components/dialogs/task-settings-dialog/task-settings-dialog.component';
 import { AddTaskDialogComponent } from '../../shared/components/dialogs/add-task-dialog/add-task-dialog.component';
 import { ViewTaskDialogComponent } from '../../shared/components/dialogs/view-task-dialog/view-task-dialog.component';
 import { EditTaskDialogComponent } from '../../shared/components/dialogs/edit-task-dialog/edit-task-dialog.component';
@@ -12,6 +13,7 @@ import { ColumnComponent } from './column/column.component';
 import { JoinService } from '../../shared/services/join.service';
 import { ButtonDataService } from '../../shared/services/button-data.service';
 import { BoardService } from '../../shared/services/board.service';
+import { DialogService } from '../../shared/services/dialog.service';
 import { JoinButton } from '../../shared/models/join-button';
 import { Task } from '../../shared/models/task';
 
@@ -21,6 +23,7 @@ import { Task } from '../../shared/models/task';
   imports: [
     CommonModule,
     FormsModule,
+    TaskSettingsDialogComponent,
     AddTaskDialogComponent,
     ViewTaskDialogComponent,
     EditTaskDialogComponent,
@@ -41,6 +44,7 @@ export class BoardComponent {
   join: JoinService = inject(JoinService);
   buttons: ButtonDataService = inject(ButtonDataService);
   board: BoardService = inject(BoardService);
+  dialogs: DialogService = inject(DialogService);
 
   // rename boad to board head component ... ?
   // column padding 10px + board gap 6px ... !
@@ -102,6 +106,11 @@ export class BoardComponent {
       this.board.setHeightFactor(this.tasks);
       this.join.loadedSubject.complete();
     }
+  }
+
+  // new
+  isOpened(id: string) {
+    this.dialogs.isOpened(id);
   }
 
   /**

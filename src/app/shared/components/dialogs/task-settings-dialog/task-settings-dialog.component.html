@@ -1,0 +1,21 @@
+<div class="dialog rgba-0">
+    <div class="transit-cont" (click)="onClose()">
+
+        <section @fadeAnimation [ngStyle]="dialogs.posStyles" class="settings-dialog" (click)="onStop($event)">
+            <div class="head">
+                <span class="head-text">Move to</span>
+            </div>
+
+            <div class="button-group">
+                <button *ngIf="isPrevious()" class="button h-18" (click)="onMoveUp()">
+                    <img class="button-img" src="/assets/img/board/arrow_upward.png" alt="arrow_upward">
+                    <span class="button-text">{{ previousColumn }}</span>
+                </button>
+                <button *ngIf="isNext()" class="button" (click)="onMoveDown()">
+                    <img class="button-img" src="/assets/img/board/arrow_downward.png" alt="arrow_downward">
+                    <span class="button-text">{{ nextColumn }}</span>
+                </button>
+            </div>
+        </section>
+    </div>
+</div>

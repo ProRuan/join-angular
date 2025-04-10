@@ -18,6 +18,7 @@ export class DialogService {
     viewTask: false,
     editTask: false,
     deleteTask: false,
+    taskSettings: false,
     addContact: false,
     viewContact: false,
     editContact: false,
@@ -26,9 +27,9 @@ export class DialogService {
   };
 
   search: AbstractControl | null = new FormControl('');
-
   submitted: boolean = false;
   fadedOut: boolean = false;
+  posStyles = {};
 
   /**
    * Opens a dialog.

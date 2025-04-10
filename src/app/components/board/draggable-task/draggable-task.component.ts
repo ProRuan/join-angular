@@ -1,21 +1,28 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  ElementRef,
   inject,
   Input,
   OnChanges,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
+import { BiArrowComponent } from '../../../shared/components/svg/bi-arrow/bi-arrow.component';
 import { JoinService } from '../../../shared/services/join.service';
 import { BoardService } from '../../../shared/services/board.service';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { Task } from '../../../shared/models/task';
-import { getCurrentValue, isDefaultArray } from '../../../shared/ts/global';
+import {
+  getCurrentValue,
+  isDefaultArray,
+  stopPropagation,
+} from '../../../shared/ts/global';
 
 @Component({
   selector: 'app-draggable-task',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BiArrowComponent],
   templateUrl: './draggable-task.component.html',
   styleUrl: './draggable-task.component.scss',
 })
@@ -29,7 +36,12 @@ export class DraggableTaskComponent implements OnChanges {
   board: BoardService = inject(BoardService);
   dialogs: DialogService = inject(DialogService);
 
+  // check imports ...
+  // check onSet() ...
+
+  @ViewChild('settingsBtn') settingsBtnRef!: ElementRef<HTMLButtonElement>;
   @Input() task: Task = new Task();
+
   descriptionPreview: string = '';
   tempText: string = '';
   max: number = 0;
@@ -190,6 +202,58 @@ export class DraggableTaskComponent implements OnChanges {
    */
   getCategoryClass() {
     return this.task.category.toLowerCase().replace(' ', '-');
+  }
+
+  onSet(event: Event) {
+    const settingsBtn = this.settingsBtnRef.nativeElement;
+
+    const rect = settingsBtn.getBoundingClientRect();
+    const top = rect.top + window.scrollY;
+    const left = rect.left + window.scrollX;
+
+    const flexibleLeft = this.getLeft(left);
+    const felxibleTop = this.getTop(top);
+
+    this.dialogs.posStyles = {
+      position: 'absoulte',
+      left: `${flexibleLeft}px`,
+      top: `${felxibleTop}px`,
+      zIndex: '10',
+    };
+
+    this.board.task = this.task;
+    this.dialogs.open('taskSettings');
+    stopPropagation(event);
+  }
+
+  /**
+   * Gets a modified position-left value.
+   * @param left - The position-left value.
+   * @returns The modified position-left value.
+   */
+  private getLeft(left: number) {
+    if (window.innerWidth - 159 < left) {
+      return left - 194;
+    } else if (left + 30 < 46) {
+      return left + 30;
+    } else {
+      return left;
+    }
+  }
+
+  /**
+   * Gets a modified position-top value.
+   * @param top - The position-top value.
+   * @returns The modified position-top value.
+   */
+  private getTop(top: number) {
+    if (window.innerHeight - 199 < top) {
+      return top - 119;
+    } else if (top + 28 < 108) {
+      return top + 28;
+    } else {
+      return top;
+    }
   }
 
   /**

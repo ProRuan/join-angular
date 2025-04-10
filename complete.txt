@@ -13,15 +13,10 @@ Animations
   - count and review files ... !
   - check saveUser(fn) ... !!!
 
-dialog animations (5/?)
------------------
-  - board (4/?) ...
-      - addTask: desktop(4/4) - check
-      - viewTask: desktop(4/4) + mobile (4/4) - check
-      - editTask: desktop(3/3) + mobile (3/3) - check
-      - deleteTask: desktop(4/4) + mobile (4/4) - check
-      - taskSettings: desktop(0/4) + mobile (0/4) ...
-  - contacts (5/5) - check
+dialogs
+-------
+  - review ngIf inside and outside of components (0/10) ...
+  - task-settings-dialog: add font mullish + update width ... ?
 
 // new contacts task
 // -----------------
@@ -347,6 +342,8 @@ optional
   - replace error with control?.errors ...
   - replace mixin display-flex with display-column or display-row ...
   - review value: Model = new Model() ...
+
+  - review ngIf inside and outside of dialog components (0/10) ...
 
 
 auto-login
