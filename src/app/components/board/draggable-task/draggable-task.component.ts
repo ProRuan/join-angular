@@ -253,7 +253,7 @@ export class DraggableTaskComponent implements OnChanges {
    * @returns The modified position-left value.
    */
   private getModifiedLeft(left: number) {
-    if (window.innerWidth - 159 < left) {
+    if (window.innerWidth - 150 < left) {
       return left - 194;
     } else if (left + 30 < 46) {
       return left + 30;

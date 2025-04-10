@@ -3,6 +3,10 @@ Think about
   - Finalize name validation --> pattern.test instead of match.pattern ...
   - firebase init test (online test) ...
 
+responsiveness
+--------------
+  - summary, add-task, board, contacts (0/4) ...
+
 contacts
 --------
   - edit user (name, email, phone) ...
@@ -13,34 +17,14 @@ Animations
   - count and review files ... !
   - check saveUser(fn) ... !!!
 
-dialogs
--------
-  - review ngIf inside and outside of components (0/10) ...
-  - task-settings-dialog: add font mullish + update width ... ?
-
 // new contacts task
 // -----------------
-// all dialogs with *ngIf: board + contacts (1/2) ...
 // update contact bgc ...
 // prevent double contacts (add/edit) ... (0/2)
 // set timeout of backlog and login session ... !
 // move backlog ...
 
 // think about add-task timeout ...
-// check all dialogs for *ngIf + animation ...
-
-// review join service at the end ... !
-
-components
-----------
-  - BoardComponent ...
-  - ContactsComponent ...
-
-dialogs
--------
-  - ContactSettingsDialogComponent ... !
-  - ContactDialogComponent for add-contact and edit-contact ... ?
-  - DeleteDialog for tasks and contacts ... ?
 
 styles
 ------
@@ -60,18 +44,9 @@ box-shadows
 
 contacts
 --------
-  - complete contacts ...
-  - complete contacts dialog ...
-  - white close button ...
   - fix dialog button sizes (height: 51px) ...
   - fix input height ...
       --> fix input height globally ... !
-
-board
------
-  - column: hide scrollbar x + y ...
-  - fix drag and drop for mobile (dialog) ... ?
-  - complete board.ts --> responsiveness ... !
 
 content container
 -----------------
@@ -90,7 +65,6 @@ add-task
   - set input hover/active ...
   - check calendar position (left, center, right) ...
   - fix z-indices (subtasks) ...
-  - fix width of desktop version ...
   - fix add-task form-button gap ...
 
 summary
@@ -124,17 +98,10 @@ responsiveness
   - fix focus-visible ... !
   - check app-checkbox style ...
 
-subscribtion
-------------
-  - complete it manually and subscribe it again ... ?
-
 SignOutComponent
 ----------------
   --> see also: login, sign-up, new-password ...
   - add to components.scss ...
-
-EditTaskComponent: do not reset board task ... ?
-  --> empty task after change: board-summary-board edit-task ... !
 
 Responsiveness
 --------------
@@ -344,6 +311,7 @@ optional
   - review value: Model = new Model() ...
 
   - review ngIf inside and outside of dialog components (0/10) ...
+  - DeleteDialog for tasks and contacts ...
 
 
 auto-login
