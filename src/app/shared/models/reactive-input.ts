@@ -168,7 +168,11 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    * @returns The css class of the component.
    */
   getCompClass() {
-    return this.valOff ? 'h-48' : 'h-70';
+    if (this.isError() && !this.valOff) {
+      return 'h-70';
+    } else {
+      return 'h-48';
+    }
   }
 
   /**

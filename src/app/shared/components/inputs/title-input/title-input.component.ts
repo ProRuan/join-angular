@@ -22,8 +22,10 @@ import { LabelComponent } from '../../label/label.component';
 
 /**
  * Class representing a title input component.
- * @extends ReactiveFormsModule
+ * @extends ReactiveInput
  */
 export class TitleInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;
+
+  override possibleErrors: string[] = ['required'];
 }

@@ -27,16 +27,17 @@
                         <div class="input-group">
                             <app-text-input [control]="get('name')" [config]="config.name"></app-text-input>
                             <app-text-input [control]="get('email')" [config]="config.email"></app-text-input>
-                            <app-text-input [control]="get('phone')" [config]="config.name"></app-text-input>
+                            <app-text-input [control]="get('phone')" [config]="config.phone"></app-text-input>
                         </div>
 
                         <div class="button-group">
                             @if(isEditContactDialog()) {
                             <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
-                            <app-button [button]="saveBtn" (click)="onSave()"></app-button>
+                            <app-button [button]="saveBtn" [disabled]="isIncomplete()" (click)="onSave()"></app-button>
                             } @else {
                             <app-button [button]="cancelBtn" class="desktop" (click)="onClose()"></app-button>
-                            <app-button [button]="createBtn" (click)="onCreate()"></app-button>
+                            <app-button [button]="createBtn" [disabled]="isIncomplete()"
+                                (click)="onCreate()"></app-button>
                             }
                         </div>
                     </form>

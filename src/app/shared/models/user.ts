@@ -20,6 +20,7 @@ export class User {
   initials: string = '';
   name: string = '';
   email: string = '';
+  phone: string = '';
   password: string = '';
   summary: Summary = new Summary();
   tasks: Task[] = [];
@@ -42,6 +43,7 @@ export class User {
     this.initials = getString(data?.initials);
     this.name = getString(data?.name);
     this.email = getString(data?.email);
+    this.phone = getString(data?.phone);
     this.password = getString(data?.password);
     this.summary = this.getSummary(data?.summary);
     this.tasks = getCustomArray(data?.tasks, Task);
@@ -96,7 +98,7 @@ export class User {
       bgc: 'lightblue',
       name: this.name,
       email: this.email,
-      phone: '',
+      phone: this.phone,
     } as ContactData;
   }
 }

@@ -10,6 +10,7 @@ export interface UserData {
   initials: string;
   name: string;
   email: string;
+  phone: string;
   password: string;
   summary: SummaryData;
   tasks: TaskData[];

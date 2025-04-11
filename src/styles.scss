@@ -66,6 +66,14 @@
   }
 }
 
+.h-48 {
+  height: 48px;
+}
+
+.h-70 {
+  height: 70px;
+}
+
 .error-cont {
   @include display-row($ai: center);
   height: 14px;
@@ -287,11 +295,6 @@
 
   .error-cont {
     height: 12px;
-    justify-content: center;
-  }
-
-  .error {
-    text-align: center;
   }
 
   .sum-card {

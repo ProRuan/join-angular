@@ -5,6 +5,7 @@ import {
   emailPatterns,
   namePatterns,
   passwordPatterns,
+  phonePatterns,
 } from '../ts/pattern';
 import { getArrayCopy } from '../ts/global';
 
@@ -55,6 +56,12 @@ export class InputValidatorService {
     this.validator.forbidden(dueDatePatterns.forbidden),
     this.validator.dueDate(dueDatePatterns.dueDate),
     this.validator.invalidDate(dueDatePatterns.dueDate),
+  ];
+
+  phone = [
+    this.validator.forbidden(phonePatterns.forbidden),
+    this.validator.phone(phonePatterns.phone),
+    this.validator.maxLength(30),
   ];
 
   /**

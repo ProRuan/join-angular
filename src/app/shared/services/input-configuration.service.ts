@@ -86,4 +86,11 @@ export class InputConfigurationService {
       'minDate',
     ],
   };
+
+  phone: InputConfig = {
+    placeholder: 'Phone',
+    img: 'phone',
+    valOff: false,
+    possibleErrors: ['forbidden', 'phone', 'maxLength'],
+  };
 }

@@ -8,6 +8,7 @@ import { contactDialogAnimation } from '../../../animations/contact-dialog.anima
 import { DialogFormController } from '../../../models/dialog-form-controller';
 import { JoinService } from '../../../services/join.service';
 import { InputConfigurationService } from '../../../services/input-configuration.service';
+import { InputValidatorService } from '../../../services/input-validator.service';
 import { ContactService } from '../../../services/contact.service';
 import { NameFormatterService } from '../../../services/name-formatter.service';
 import { JoinButton } from '../../../models/join-button';
@@ -39,6 +40,7 @@ import { isDefaultString } from '../../../ts/global';
 export class ContactDialogComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
+  validators: InputValidatorService = inject(InputValidatorService);
   viewer: ContactService = inject(ContactService);
   nameFormatter: NameFormatterService = inject(NameFormatterService);
 
@@ -95,9 +97,9 @@ export class ContactDialogComponent extends DialogFormController {
    * Sets a form.
    */
   setForm() {
-    this.registerControl('name', '');
-    this.registerControl('email', '');
-    this.registerControl('phone', '');
+    this.registerControl('name', '', this.validators.name);
+    this.registerControl('email', '', this.validators.email);
+    this.registerControl('phone', '', this.validators.phone);
   }
 
   /**
@@ -191,6 +193,14 @@ export class ContactDialogComponent extends DialogFormController {
    */
   onDelete() {
     this.dialogs.open('deleteContact');
+  }
+
+  /**
+   * Verifies the incompleteness of a form.
+   * @returns A boolean value.
+   */
+  isIncomplete() {
+    return this.form.invalid;
   }
 
   /**

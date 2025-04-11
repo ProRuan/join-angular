@@ -24,7 +24,7 @@
 }
 
 .input-group {
-  @include display-column($g: 2px);
+  @include display-column($g: 24px);
   width: 422px;
 }
 
@@ -63,6 +63,10 @@
 @media (max-width: 1180px) {
   .form {
     padding: 48px 48px;
+  }
+
+  .input-checkbox-cont {
+    @include display-column($g: 32px);
   }
 
   .privacy-policy-link {

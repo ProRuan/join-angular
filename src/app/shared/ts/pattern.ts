@@ -174,3 +174,31 @@ function getDueDateForbiddenPattern() {
 }
 
 export const dueDatePatterns = getDueDatePatterns();
+
+/**
+ * Gets phone patterns.
+ * @returns The phone patterns.
+ */
+function getPhonePatterns() {
+  const phone = getPhonePattern();
+  const forbidden = getPhoneForbiddenPattern();
+  return { phone, forbidden };
+}
+
+/**
+ * Gets a phone pattern.
+ * @returns The phone pattern.
+ */
+function getPhonePattern() {
+  return getPattern(`^$|^(?=.*\\d)\\+?[${DIGITS}\\s]+$`);
+}
+
+/**
+ * Gets a phone forbidden pattern.
+ * @returns The phone forbidden pattern.
+ */
+function getPhoneForbiddenPattern() {
+  return getPattern(`[^\\+${DIGITS}\\s]`);
+}
+
+export const phonePatterns = getPhonePatterns();

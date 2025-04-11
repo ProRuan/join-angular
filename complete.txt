@@ -15,7 +15,6 @@ contacts
 Animations
 ----------
   - count and review files ... !
-  - check saveUser(fn) ... !!!
 
 // new contacts task
 // -----------------
@@ -72,11 +71,6 @@ summary
   - add one resp-step more ... ?
   - set max-width for help, privaciy policy and legal notice ...
   - think about close flip-menu logic (for all components) ...
-
-input validation (login, sign-up, new-password)
-----------------
-  - form.errors instead of input.errors ... ?
-  - height check du to error height: 12px ... !
 
 legal-notice
 ------------
@@ -174,10 +168,6 @@ summary service
   // edit-task dialog: prio is reseted --> why ... ?
   // test for past date after editing ... !
 
-  // add user as contact only in assigned-to input and in contact list ... ?!
-  // add user property phone ... !
-  // improve user method getUserAsContact (for loop) ... !
-
 FlipMenuComponent
 -----------------
   - provide a logOut() ... !
@@ -213,16 +203,7 @@ JoinService
 
   // ContactDialogComponent
   // ----------------------
-  // set contact complete (with initials) ... !!!
-  // check animation!!!
-  // rename inputConfig to input ...
-  // disable buttons ... ?!
-  // set alternative buttons for add-task dialog like at contact dialog ... ?
-
   // input height: 50px ... ?
-  // InputConfigurationService --> set phone input ...
-
-  // delete contact (show contact name or email) ...
 
   // rename contacts service to contact viewer service ... ?
 
@@ -246,7 +227,6 @@ PasswordInputComponent
   // log reset wrong ... !
 
   // fix matchword validation --> validation on focus (not on dirty) ... ?!
-  // 5 input values for inputs ... ?
 
   // LoginComponent
   // --------------
@@ -255,12 +235,6 @@ PasswordInputComponent
 JoinDialog (DialogFormController)
 ----------
   - add add-task backlog logic ... !
-
-
-InputConfigurationService
--------------------------
-  - contact-dialog component: add phone config ...
-  - add phone input component ...
 
   Backlog
   -------
@@ -312,6 +286,7 @@ optional
 
   - review ngIf inside and outside of dialog components (0/10) ...
   - DeleteDialog for tasks and contacts ...
+  - format phone number before submit and on get ...
 
 
 auto-login
