@@ -36,7 +36,7 @@ Top Level Scripts
   - shared/components ...
   - shared/interfaces - check (16)
   - shared/models - check (12)
-  - shared/services - check (14)
+  - shared/services - check (13)
   - shared/ts - check (7)
 
 Join (8/?) + responsive (8/?)
@@ -92,9 +92,9 @@ Animations (6/6)
   - GreetingAnimation - check
   - MobileLogoAnimation - check
 
-Components (15/15) + await inputs ... + resp(3/?)
+Components (14/14) + await inputs ... + resp(3/?)
 ----------
-  - BackLogComponente - check *replace LogComponent with BackLogComponent!
+  - BacklogComponent - check
   - ButtonComponent - check* are all buttons covered?
   - CheckboxComponent - check + responsive
   - FlipMenuComponent - check
@@ -103,7 +103,6 @@ Components (15/15) + await inputs ... + resp(3/?)
   - JoinHeaderComponent - check
   - JoinTitleComponent - check
   - LabelComponent - check
-  - LogComponent - check *replace with BackLogComponent!
   - LoginArrowComponent - check
   - LogoComponent - check
   - MenuComponent - check
@@ -163,7 +162,7 @@ Models (12/12)
   - User - check
 
 
-Services (14/14)
+Services (13/13)
 --------
   - BoardService - check
   - ButtonDataService - check
@@ -174,7 +173,6 @@ Services (14/14)
   - InputConfigurationService - check
   - InputValidatorService - check
   - JoinService - check
-  - LogService - check
   - NameFormatterService - check
   - NavigationService - check
   - SessionIdService - check

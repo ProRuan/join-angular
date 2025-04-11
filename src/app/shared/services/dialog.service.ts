@@ -10,6 +10,7 @@ import { AbstractControl, FormControl } from '@angular/forms';
  */
 export class DialogService {
   opened: { [key: string]: boolean } = {
+    backlog: false,
     flipMenu: false,
     assignedTo: false,
     category: false,
@@ -54,6 +55,30 @@ export class DialogService {
    */
   isOpened(id: string) {
     return this.opened[id];
+  }
+
+  /**
+   * Verifies the display state of a backlog.
+   * @returns A boolean value.
+   */
+  isLogged() {
+    return this.isOpened('backlog');
+  }
+
+  /**
+   * Gets the css class of a backlog container.
+   * @returns The css class of the backlog container.
+   */
+  getBacklogContClass() {
+    return this.isLogged() ? 'backlog-visible' : 'backlog-hidden';
+  }
+
+  /**
+   * Gets the css class of a backlog.
+   * @returns The css class of a backlog.
+   */
+  getBacklogClass() {
+    return this.isLogged() ? 'backlog-in' : 'backlog-out';
   }
 
   /**

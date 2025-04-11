@@ -1,3 +1,7 @@
+<div *ngIf="original" class="backlog-cont" [ngClass]="getBacklogContClass()">
+    <app-backlog [text]="backlogText" [img]="backlogImage" class="backlog" [ngClass]="getBacklogClass()"></app-backlog>
+</div>
+
 <section class="add-task" [ngClass]="paddingClass">
     <div class="content">
         <div [ngClass]="columnClass">

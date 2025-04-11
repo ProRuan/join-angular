@@ -1,3 +1,7 @@
+<div class="backlog-cont" [ngClass]="getBacklogContClass()">
+    <app-backlog [text]="backlogText" class="contact-backlog" [ngClass]="getBacklogClass()"></app-backlog>
+</div>
+
 <div class="title-viewer-cont">
     <div class="mobile-button-cont">
         <app-join-title [title]="title" [subtitle]="subtitle" [mobile]="join.isMobile()"></app-join-title>

@@ -10,6 +10,37 @@
 @import "./assets/styles/scrollbars.scss";
 @import "./assets/styles/tags.scss";
 
+.backlog-cont {
+  @include size($w: 100%, $h: 100vh);
+  @include display-flex();
+  @include position($pos: fixed, $l: 0, $t: 0);
+  z-index: 15;
+  transition: all 200ms ease-in-out;
+}
+
+// review!!!
+.backlog-visible {
+  background-color: rgba(0, 0, 0, 0.25); // only for sign-up and new-password?
+  visibility: visible;
+}
+
+.backlog-hidden {
+  background-color: transparent;
+  visibility: hidden;
+}
+
+.backlog {
+  transition: all 200ms ease-in-out;
+}
+
+.backlog-in {
+  transform: translateY(0);
+}
+
+.backlog-out {
+  transform: translateY(calc(50vh + 53px));
+}
+
 .headline-2 {
   @include font($fs: 61px, $fw: 700, $lh: 73.2px);
   color: $black;
@@ -111,14 +142,6 @@
 
 .pos-relative {
   position: relative;
-}
-
-.user-story {
-  background-color: #0038ff;
-}
-
-.technical-task {
-  background-color: #1fd7c1;
 }
 
 .sum-card {

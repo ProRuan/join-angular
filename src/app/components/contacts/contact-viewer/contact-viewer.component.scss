@@ -1,5 +1,20 @@
 @import "../../../../mixins.scss";
 
+.contact-backlog {
+  position: absolute;
+  bottom: 110px;
+  z-index: 15;
+  transition: all 200ms ease-in-out;
+}
+
+.contact-backlog-in {
+  left: 743px;
+}
+
+.contact-backlog-out {
+  left: calc(100% + 55px);
+}
+
 .title-viewer-cont {
   @include box-padding($p: 110px 55px);
   @include size($w: 100%, $h: 100%);
@@ -103,6 +118,18 @@
 }
 
 @media (max-width: 1180px) {
+  .contact-backlog {
+    left: calc(50% - 163px);
+  }
+
+  .contact-backlog-in {
+    bottom: 190px;
+  }
+
+  .contact-backlog-out {
+    bottom: -90px;
+  }
+
   .title-viewer-cont {
     @include size($w: 100%, $h: 100%);
     padding: 48px 16px;

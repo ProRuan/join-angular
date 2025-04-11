@@ -1,0 +1,31 @@
+@import "../../../../mixins.scss";
+
+.backlog {
+  @include display-row($jc: center, $ai: center, $g: 35px);
+  padding: 25px;
+  background-color: $dark;
+  border-radius: 20px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(0 0 4px 0 rgba(0, 0, 0, 0.15));
+}
+
+.text {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  text-align: center;
+  color: $white;
+}
+
+.img {
+  @include size($w: 30px, $h: 30px);
+  object-fit: contain;
+}
+
+@media (max-width: 360px) {
+  .backlog {
+    padding: 20px;
+  }
+
+  .text {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+}

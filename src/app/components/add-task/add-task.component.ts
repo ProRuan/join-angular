@@ -5,6 +5,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { BacklogComponent } from '../../shared/components/backlog/backlog.component';
 import { JoinTitleComponent } from '../../shared/components/join-title/join-title.component';
 import { TitleInputComponent } from '../../shared/components/inputs/title-input/title-input.component';
 import { DescriptionInputComponent } from '../../shared/components/inputs/description-input/description-input.component';
@@ -31,6 +32,7 @@ import { TaskData } from '../../shared/interfaces/task-data';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    BacklogComponent,
     JoinTitleComponent,
     TitleInputComponent,
     DescriptionInputComponent,
@@ -67,6 +69,8 @@ export class AddTaskComponent extends FormController {
   createBtn = new JoinButton('createBtn');
   paddingClass: string = 'padding-desktop';
   columnClass: string = 'column-desktop';
+  backlogText: string = 'Task added to board';
+  backlogImage: string = 'board_icon';
 
   /**
    * Gets user contacts.
@@ -195,9 +199,26 @@ export class AddTaskComponent extends FormController {
    * Resets an add-task dialog.
    */
   resetDialog() {
+    this.dialogs.close('backlog');
     this.dialogs.close('addTask');
     this.clearForm();
     this.dialogs.submitted = false;
+  }
+
+  /**
+   * Gets the css class of a backlog container.
+   * @returns The css class of the backlog container.
+   */
+  getBacklogContClass() {
+    return this.dialogs.getBacklogContClass();
+  }
+
+  /**
+   * Gets the css class of a backlog.
+   * @returns The css class of a backlog.
+   */
+  getBacklogClass() {
+    return this.dialogs.getBacklogClass();
   }
 
   /**
@@ -236,7 +257,7 @@ export class AddTaskComponent extends FormController {
   createTask() {
     if (this.form.valid) {
       this.updateTasks();
-      this.join.saveUser(() => this.navigateToBoard());
+      this.join.saveUser(() => this.leaveForm());
     }
   }
 
@@ -251,10 +272,21 @@ export class AddTaskComponent extends FormController {
   }
 
   /**
+   * Leaves an add-task form.
+   */
+  leaveForm() {
+    this.original ? this.navigateToBoard() : this.fadeOutDialog();
+  }
+
+  /**
    * Navigates to a board.
    */
   navigateToBoard() {
-    this.original ? this.nav.navigateByLink('board') : this.fadeOutDialog();
+    this.dialogs.open('backlog');
+    setTimeout(() => {
+      this.nav.navigateByLink('board');
+      this.dialogs.close('backlog');
+    }, 1000);
   }
 
   /**
@@ -262,6 +294,7 @@ export class AddTaskComponent extends FormController {
    */
   fadeOutDialog() {
     this.dialogs.submitted = true;
+    this.dialogs.open('backlog');
     setTimeout(() => this.resetDialog(), 1000);
   }
 }

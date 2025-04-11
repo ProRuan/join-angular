@@ -8,6 +8,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { concatMap, Observable, tap } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
+import { BacklogComponent } from '../../shared/components/backlog/backlog.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
@@ -25,8 +26,8 @@ import { SummaryService } from '../../shared/services/summary.service';
 import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
 import { NameFormatterService } from '../../shared/services/name-formatter.service';
-import { LogService } from '../../shared/services/log.service';
 import { CookieService } from '../../shared/services/cookie.service';
+import { DialogService } from '../../shared/services/dialog.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
@@ -47,6 +48,7 @@ import { UserData } from '../../shared/interfaces/user-data';
     ReactiveFormsModule,
     RouterLink,
     LogoComponent,
+    BacklogComponent,
     HeaderComponent,
     LoginArrowComponent,
     TitleComponent,
@@ -70,8 +72,8 @@ export class SignUpComponent extends FormController {
   config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
   nameFormatter: NameFormatterService = inject(NameFormatterService);
-  log: LogService = inject(LogService);
   cookies: CookieService = inject(CookieService);
+  dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
   user: User = new User();
@@ -81,9 +83,10 @@ export class SignUpComponent extends FormController {
   matchword: AbstractControl | null = null;
   ppAccepted: boolean = false;
   signedUp: boolean = false;
+  backlogText: string = '';
 
   texts = {
-    rejected: 'Email already associated with account',
+    rejected: 'Email already assigned',
     registered: 'You signed up successfully',
   };
 
@@ -137,6 +140,22 @@ export class SignUpComponent extends FormController {
   }
 
   /**
+   * Gets the css class of a backlog container.
+   * @returns The css class of the backlog container.
+   */
+  getBacklogContClass() {
+    return this.dialogs.getBacklogContClass();
+  }
+
+  /**
+   * Gets the css class of a backlog.
+   * @returns The css class of a backlog.
+   */
+  getBacklogClass() {
+    return this.dialogs.getBacklogClass();
+  }
+
+  /**
    * Registers a user on submit.
    */
   onSignUp() {
@@ -151,8 +170,8 @@ export class SignUpComponent extends FormController {
    * Rejects a form.
    */
   private reject() {
-    let text = this.texts.rejected;
-    this.log.setLog(true, text);
+    this.backlogText = this.texts.rejected;
+    this.dialogs.open('backlog');
     this.rejectBelatedly();
   }
 
@@ -161,9 +180,9 @@ export class SignUpComponent extends FormController {
    */
   private rejectBelatedly() {
     setTimeout(() => {
-      this.log.setLog(false);
+      this.dialogs.close('backlog');
       this.signedUp = false;
-    }, 900);
+    }, 1000);
   }
 
   /**
@@ -255,8 +274,9 @@ export class SignUpComponent extends FormController {
    * @param id - The user id.
    */
   private openLoginSession(id: string) {
+    this.backlogText = this.texts.registered;
     this.cookies.deleteCookie('token');
-    this.nav.openLoginSession(id, this.texts.registered);
+    this.nav.openLoginSession(id);
   }
 
   /**

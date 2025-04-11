@@ -1,5 +1,9 @@
 <app-logo [animated]="false"></app-logo>
 
+<div class="backlog-cont" [ngClass]="getBacklogContClass()">
+    <app-backlog [text]="backlogText" class="backlog" [ngClass]="getBacklogClass()"></app-backlog>
+</div>
+
 <section class="sign-up">
     <app-header type="sign-up"></app-header>
 

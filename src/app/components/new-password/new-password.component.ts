@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
+import { BacklogComponent } from '../../shared/components/backlog/backlog.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
@@ -15,7 +16,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 import { JoinService } from '../../shared/services/join.service';
 import { InputConfigurationService } from '../../shared/services/input-configuration.service';
 import { InputValidatorService } from '../../shared/services/input-validator.service';
-import { LogService } from '../../shared/services/log.service';
+import { DialogService } from '../../shared/services/dialog.service';
 import { CookieService } from '../../shared/services/cookie.service';
 import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
@@ -29,6 +30,7 @@ import { User } from '../../shared/models/user';
     FormsModule,
     ReactiveFormsModule,
     LogoComponent,
+    BacklogComponent,
     HeaderComponent,
     LoginArrowComponent,
     TitleComponent,
@@ -47,7 +49,7 @@ export class NewPasswordComponent extends FormController {
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
-  log: LogService = inject(LogService);
+  dialogs: DialogService = inject(DialogService);
   cookies: CookieService = inject(CookieService);
   nav: NavigationService = inject(NavigationService);
 
@@ -81,6 +83,22 @@ export class NewPasswordComponent extends FormController {
    */
   setControls() {
     this.email = this.get('email');
+  }
+
+  /**
+   * Gets the css class of a backlog container.
+   * @returns The css class of the backlog container.
+   */
+  getBacklogContClass() {
+    return this.dialogs.getBacklogContClass();
+  }
+
+  /**
+   * Gets the css class of a backlog.
+   * @returns The css class of a backlog.
+   */
+  getBacklogClass() {
+    return this.dialogs.getBacklogClass();
   }
 
   /**
@@ -172,7 +190,7 @@ export class NewPasswordComponent extends FormController {
    */
   openLoginSession() {
     this.cookies.deleteCookie('token');
-    this.nav.openLoginSession(this.id, this.backlogText);
+    this.nav.openLoginSession(this.id);
   }
 
   ngOnDestroy() {

@@ -252,6 +252,15 @@ export class ContactDialogComponent extends DialogFormController {
     this.join.addUserItem('contacts', contact);
     this.viewer.setContact(contact);
     this.dialogs.open('viewContact');
+    this.timeBacklog();
+  }
+
+  /**
+   * Times a backlog display time.
+   */
+  timeBacklog() {
+    setTimeout(() => this.dialogs.open('backlog'), 100);
+    setTimeout(() => this.dialogs.close('backlog'), 1100);
   }
 
   /**

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JoinService } from './join.service';
-import { LogService } from './log.service';
+import { DialogService } from './dialog.service';
 import { getLastIndex } from '../ts/global';
 
 @Injectable({
@@ -14,15 +14,14 @@ import { getLastIndex } from '../ts/global';
 export class NavigationService {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
-  log: LogService = inject(LogService);
+  dialogs: DialogService = inject(DialogService);
 
   /**
    * Opens a login session.
    * @param id - The user id.
-   * @param text - The log text.
    */
-  openLoginSession(id: string, text: string) {
-    this.log.setLog(true, text);
+  openLoginSession(id: string) {
+    this.dialogs.open('backlog');
     setTimeout(() => this.redirectToLogin(`login/${id}`), 1000);
   }
 
@@ -32,7 +31,7 @@ export class NavigationService {
    */
   redirectToLogin(url: string) {
     this.router.navigateByUrl(url);
-    this.log.setLog(false);
+    this.dialogs.close('backlog');
   }
 
   /**

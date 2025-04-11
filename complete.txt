@@ -1,8 +1,3 @@
-Think about
------------
-  - Finalize name validation --> pattern.test instead of match.pattern ...
-  - firebase init test (online test) ...
-
 responsiveness
 --------------
   - summary, add-task, board, contacts (0/4) ...
@@ -20,10 +15,6 @@ Animations
 // -----------------
 // update contact bgc ...
 // prevent double contacts (add/edit) ... (0/2)
-// set timeout of backlog and login session ... !
-// move backlog ...
-
-// think about add-task timeout ...
 
 styles
 ------
@@ -105,23 +96,9 @@ summary service / sign-up
 -------------------------
   // requiredValidator with this.rejected ...
 
-  // add property sum label ... ?
-  // summary deadline with column (not category) ... !
   // fix summary update after sign-up - check?
-
-  // string with dash or not ... ? (check side of summary task)
-
-  // to-do, done, in-progress, await-feedback, in-board ... (5/6)
-  //   --> task column (not category) ... !
-
   // reset urgent summary task ...
-
   // update deadline default: "No" ...
-
-  // notes
-  // -----
-  // task.column: string with "-" ...
-  // check await feedback or awaiting feedback ...
 
   // ----------
 
@@ -132,22 +109,8 @@ summary service / sign-up
   // fix edit-task deadline minDate validator ...
   // fix summary deadline (default, done) ... (0/2)
 
-  // fix summary categories (own property) ... ?!
-  // optional: smart default task deadlines ...
-
   // think about ContactService ...
   // think about sample task values ... !
-
-  // limit draggable-task text ... !
-  // fix add-task stop/close event ... !
-  // rename back log to backlog ... ?
-
-  // ---------------------
-  // check leading components ...
-
-  // check animations ...
-  // check components ...
-  // ---------------------
 
 summary service
 ---------------
@@ -177,47 +140,16 @@ join service
   // think about case "delete user" ...
   //   --> subscribeUserDelete() ...
 
-  // join service constructor and back log animation
-  // ------------------------------------------------
-  // necessary after using browser animation?
-  // edit logo animation!
-  // check setIntroToDone() after that!
-
-id/sid
-------
-  - think about contacts id: string ... ?
-
-BoardComponent
---------------
-  - fix add-task back log position ...
-
 JoinService
 -----------
-  // review all funtions due to local user!!!
-  //   --> save at least one parameter, e. g. this.id!!!
-
-  // DeleteContactComponent
-  // ----------------------
-  // reset/close contact viewer after deleting contact ...
-  // combine delete-task/delete-contact dialog ... ?
-
   // ContactDialogComponent
   // ----------------------
   // input height: 50px ... ?
 
   // rename contacts service to contact viewer service ... ?
 
-  // ContactViewerComponent
-  // ----------------------
-  // center contact viewer for mobile ...
-  // add contact viewer transition ...
-  // write set() on class Contacts (for contact viewer at least)!!!
-  // reset contact and cached contact!!!
-
 PasswordInputComponent
-----------------------
-  // review set config input ... ?
-  
+----------------------  
   // sometimes no error update ...
   // set validators A/B and errors a/b ...
   // exclude black circle from forbidden characters ...
@@ -234,23 +166,6 @@ PasswordInputComponent
 
 JoinDialog (DialogFormController)
 ----------
-  - add add-task backlog logic ... !
-
-  Backlog
-  -------
-    - app backlog or component backlogs ... ?
-    - set nav: login timeout:1000ms to ? ...
-    - after sign-up: set new backlog timeout (animation) ... !
-
-  board
-  -----
-    - set column body height ...
-
-  name formatter
-  --------------
-    - improve patterns ...
-    - use pattern.test(value) only ...
-
   button component
   ----------------
     - review button component ...
@@ -258,12 +173,7 @@ JoinDialog (DialogFormController)
 
   add-task Component
   ------------------
-    - add backlog (then redirect to board) ...
     - height tranistion due to assigned-to, category and subtasks ... (0/3)
-
-  back log text
-  -------------
-    - move text from component to service ...
 
   Guest Login
   -----------
@@ -271,8 +181,16 @@ JoinDialog (DialogFormController)
     - create guest user (database) ...
 
 
+if there is still time
+----------------------
+  - format phone number before submit and on get ...
+
+
 optional
 --------
+  - finalize name validation --> pattern.test instead of match.pattern ...
+  - firebase init test (online test) ...
+
   - rename MainComponent to JoinComponent ...
   - add PageNotFoundComponent (also for children) ...
   - route guard ...
@@ -286,7 +204,8 @@ optional
 
   - review ngIf inside and outside of dialog components (0/10) ...
   - DeleteDialog for tasks and contacts ...
-  - format phone number before submit and on get ...
+
+  - summary: smart sample task deadlines ...
 
 
 auto-login

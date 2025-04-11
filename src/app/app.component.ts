@@ -1,17 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LogComponent } from './shared/components/log/log.component';
 import { Firestore } from '@angular/fire/firestore';
 import { JoinService } from './shared/services/join.service';
-import { LogService } from './shared/services/log.service';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, LogComponent],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -22,7 +20,6 @@ import { map, startWith } from 'rxjs/operators';
 export class AppComponent {
   firestore: Firestore = inject(Firestore);
   join: JoinService = inject(JoinService);
-  log: LogService = inject(LogService);
 
   title = 'join';
   subscription?: Subscription;

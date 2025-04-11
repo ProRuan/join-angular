@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { BacklogComponent } from '../../../shared/components/backlog/backlog.component';
 import { JoinTitleComponent } from '../../../shared/components/join-title/join-title.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { contactViewerAnimation } from '../../../shared/animations/contact-viewer.animation';
@@ -11,7 +12,12 @@ import { JoinButton } from '../../../shared/models/join-button';
 @Component({
   selector: 'app-contact-viewer',
   standalone: true,
-  imports: [CommonModule, JoinTitleComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    BacklogComponent,
+    JoinTitleComponent,
+    ButtonComponent,
+  ],
   templateUrl: './contact-viewer.component.html',
   styleUrl: './contact-viewer.component.scss',
   animations: [contactViewerAnimation],
@@ -31,6 +37,7 @@ export class ContactViewerComponent extends DialogFormController {
   subtitle: string = 'Better with a team';
   editBtn = new JoinButton('editBtn');
   deleteBtn = new JoinButton('deleteBtn');
+  backlogText: string = 'Contact successfully created';
 
   /**
    * Gets a contact to view.
@@ -38,6 +45,26 @@ export class ContactViewerComponent extends DialogFormController {
    */
   get contact() {
     return this.viewer.contact;
+  }
+
+  /**
+   * Gets the css class of a backlog container.
+   * @returns The css class of the backlog container.
+   */
+  getBacklogContClass() {
+    return this.dialogs.getBacklogContClass();
+  }
+
+  /**
+   * Gets the css class of a backlog.
+   * @returns The css class of a backlog.
+   */
+  getBacklogClass() {
+    if (this.dialogs.isLogged()) {
+      return 'contact-backlog-in';
+    } else {
+      return 'contact-backlog-out';
+    }
   }
 
   /**
