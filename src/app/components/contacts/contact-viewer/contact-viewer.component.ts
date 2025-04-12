@@ -6,7 +6,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { contactViewerAnimation } from '../../../shared/animations/contact-viewer.animation';
 import { DialogFormController } from '../../../shared/models/dialog-form-controller';
 import { JoinService } from '../../../shared/services/join.service';
-import { ContactService } from '../../../shared/services/contact.service';
+import { ContactViewerService } from '../../../shared/services/contact-viewer.service';
 import { JoinButton } from '../../../shared/models/join-button';
 
 @Component({
@@ -29,7 +29,7 @@ import { JoinButton } from '../../../shared/models/join-button';
  */
 export class ContactViewerComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
-  viewer: ContactService = inject(ContactService);
+  viewer: ContactViewerService = inject(ContactViewerService);
 
   override id: string = 'viewContact';
 

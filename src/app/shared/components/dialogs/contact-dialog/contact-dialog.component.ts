@@ -9,7 +9,7 @@ import { DialogFormController } from '../../../models/dialog-form-controller';
 import { JoinService } from '../../../services/join.service';
 import { InputConfigurationService } from '../../../services/input-configuration.service';
 import { InputValidatorService } from '../../../services/input-validator.service';
-import { ContactService } from '../../../services/contact.service';
+import { ContactViewerService } from '../../../services/contact-viewer.service';
 import { NameFormatterService } from '../../../services/name-formatter.service';
 import { PhoneFormatterService } from '../../../services/phone-formatter.service';
 import { JoinButton } from '../../../models/join-button';
@@ -42,7 +42,7 @@ export class ContactDialogComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
   config: InputConfigurationService = inject(InputConfigurationService);
   validators: InputValidatorService = inject(InputValidatorService);
-  viewer: ContactService = inject(ContactService);
+  viewer: ContactViewerService = inject(ContactViewerService);
   nameFormatter: NameFormatterService = inject(NameFormatterService);
   phoneFormatter: PhoneFormatterService = inject(PhoneFormatterService);
 

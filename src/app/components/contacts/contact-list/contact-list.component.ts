@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ContactService } from '../../../shared/services/contact.service';
+import { ContactViewerService } from '../../../shared/services/contact-viewer.service';
 import { DialogService } from '../../../shared/services/dialog.service';
 import { Contact } from '../../../shared/models/contact';
 import { Register } from '../../../shared/interfaces/register';
@@ -31,7 +31,7 @@ import {
  * @implements {OnChanges}
  */
 export class ContactListComponent implements OnChanges {
-  viewer: ContactService = inject(ContactService);
+  viewer: ContactViewerService = inject(ContactViewerService);
   dialogs: DialogService = inject(DialogService);
 
   @Input() contacts: Contact[] = [];

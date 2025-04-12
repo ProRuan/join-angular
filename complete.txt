@@ -145,8 +145,6 @@ JoinService
   // ----------------------
   // input height: 50px ... ?
 
-  // rename contacts service to contact viewer service ... ?
-
 PasswordInputComponent
 ----------------------  
   // sometimes no error update ...

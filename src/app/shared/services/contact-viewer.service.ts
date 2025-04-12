@@ -7,9 +7,9 @@ import { Contact } from '../models/contact';
 })
 
 /**
- * Class representing a contact service.
+ * Class representing a contact viewer service.
  */
-export class ContactService {
+export class ContactViewerService {
   join: JoinService = inject(JoinService);
 
   contact: Contact = new Contact();

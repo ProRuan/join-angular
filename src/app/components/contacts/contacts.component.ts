@@ -6,7 +6,7 @@ import { DeleteContactDialogComponent } from '../../shared/components/dialogs/de
 import { ContactListComponent } from './contact-list/contact-list.component';
 import { ContactViewerComponent } from './contact-viewer/contact-viewer.component';
 import { JoinService } from '../../shared/services/join.service';
-import { ContactService } from '../../shared/services/contact.service';
+import { ContactViewerService } from '../../shared/services/contact-viewer.service';
 import { DialogService } from '../../shared/services/dialog.service';
 
 @Component({
@@ -29,7 +29,7 @@ import { DialogService } from '../../shared/services/dialog.service';
  */
 export class ContactsComponent {
   join: JoinService = inject(JoinService);
-  viewer: ContactService = inject(ContactService);
+  viewer: ContactViewerService = inject(ContactViewerService);
   dialogs: DialogService = inject(DialogService);
 
   /**

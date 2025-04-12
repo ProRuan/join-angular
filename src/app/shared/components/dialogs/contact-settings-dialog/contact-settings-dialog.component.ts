@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { settingsMenuAnimation } from '../../../animations/settings-menu.animation';
 import { DialogFormController } from '../../../models/dialog-form-controller';
-import { ContactService } from '../../../services/contact.service';
+import { ContactViewerService } from '../../../services/contact-viewer.service';
 import { JoinButton } from '../../../models/join-button';
 
 @Component({
@@ -20,7 +20,7 @@ import { JoinButton } from '../../../models/join-button';
  * @extends {DialogFormController}
  */
 export class ContactSettingsDialogComponent extends DialogFormController {
-  viewer: ContactService = inject(ContactService);
+  viewer: ContactViewerService = inject(ContactViewerService);
 
   override id: string = 'contactSettings';
 

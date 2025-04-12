@@ -166,7 +166,7 @@ Services (14/14)
 --------
   - BoardService - check
   - ButtonDataService - check
-  - ContactService - check
+  - ContactViewerService - check
   - CookieService - check
   - DateFormatterService - check
   - DialogService - check

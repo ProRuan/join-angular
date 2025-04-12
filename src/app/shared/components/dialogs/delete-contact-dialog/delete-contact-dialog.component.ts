@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../button/button.component';
 import { dialogAnimation } from '../../../animations/dialog.animation';
 import { DialogFormController } from '../../../models/dialog-form-controller';
 import { JoinService } from '../../../services/join.service';
-import { ContactService } from '../../../services/contact.service';
+import { ContactViewerService } from '../../../services/contact-viewer.service';
 import { JoinButton } from '../../../models/join-button';
 
 @Component({
@@ -23,7 +23,7 @@ import { JoinButton } from '../../../models/join-button';
  */
 export class DeleteContactDialogComponent extends DialogFormController {
   join: JoinService = inject(JoinService);
-  viewer: ContactService = inject(ContactService);
+  viewer: ContactViewerService = inject(ContactViewerService);
 
   noBtn = new JoinButton('clearBtn', 'No');
   yesBtn = new JoinButton('createBtn', 'Yes');
