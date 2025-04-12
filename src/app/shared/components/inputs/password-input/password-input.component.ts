@@ -6,7 +6,7 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { JoinService } from '../../../services/join.service';
 import { InputConfig } from '../../../interfaces/input-config';
 import { stopPropagation } from '../../../ts/global';
@@ -35,6 +35,8 @@ export class PasswordInputComponent extends ReactiveInput {
   maskedValue: string = '';
   masked: boolean = true;
   textStyle!: TextStyle;
+  matchValueSubject = new BehaviorSubject<string>(this.value);
+  matchValue$ = this.matchValueSubject.asObservable();
   subscription?: Subscription;
 
   @Input() override control: AbstractControl | null = null;
@@ -44,8 +46,7 @@ export class PasswordInputComponent extends ReactiveInput {
   }
 
   @Input() set matchValue(value: string) {
-    this.setValidators(value);
-    this.updateValueAndValidity();
+    this.matchValueSubject.next(value);
   }
 
   /**
@@ -63,6 +64,7 @@ export class PasswordInputComponent extends ReactiveInput {
   ngOnInit() {
     this.textStyle = this.getAltTextStyle();
     this.updateMask();
+    this.updateValidation();
   }
 
   /**
@@ -93,6 +95,28 @@ export class PasswordInputComponent extends ReactiveInput {
     this.maskedValue = '';
     for (let i = 0; i < this.value.length; i++) {
       this.maskedValue += '\u25cf';
+    }
+  }
+
+  /**
+   * Updates a password validation.
+   */
+  updateValidation() {
+    this.matchValue$.subscribe({
+      next: (value) => this.updateValidationState(value),
+      error: (error) => console.log('Error - Could not update value: ', error),
+    });
+  }
+
+  /**
+   * Updates a password validation state.
+   * @param value - The match value.
+   */
+  updateValidationState(value: string) {
+    if (value) {
+      this.setValidators(value);
+      this.updateValueAndValidity();
+      this.validateExistingControl();
     }
   }
 
