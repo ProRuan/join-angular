@@ -7,10 +7,6 @@ contacts
   - edit user (name, email, phone) ...
   - delete user (account) ...
 
-Animations
-----------
-  - count and review files ... !
-
 // new contacts task
 // -----------------
 // prevent double contacts (add/edit) ... (0/2)

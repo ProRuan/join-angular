@@ -32,7 +32,7 @@ Final Check (I. CC, II. Resp, III. I-PP-H, IV. Check list)
 Top Level Scripts
 -----------------
   - app ...
-  - shared/animations ...
+  - shared/animations - check (8)
   - shared/components ...
   - shared/interfaces - check (16)
   - shared/models - check (12)
@@ -83,14 +83,17 @@ dialogs
       - ContactSettingsDialogComponent - check + animation
 
 
-Animations (6/6)
+Animations (8/8)
 ----------
+  - ContactDialogAnimation - check
+  - ContactViewerAnimation - check
   - DesktopLogoAnimation - check
   - DialogAnimation - check
   - FadeAnimation - check
   - FlipMenuAnimation - check
   - GreetingAnimation - check
   - MobileLogoAnimation - check
+  - SettingsMenuAnimation - check
 
 Components (14/14) + await inputs ... + resp(3/?)
 ----------
