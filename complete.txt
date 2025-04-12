@@ -72,7 +72,6 @@ responsiveness
   - board: board.ts, view-task and edit-task ... (0/3)
   - join-header: help + profile (mobile) ... (0/2)
   - think about error text: login, sign-up, new-password ... (0/3)
-  - backlog responsiveness: sign-up, new-password ... (0/2)
   - scroll to top after router link (on small devices) ...
   - rename header login and sign-up classes ...
   - fix focus-visible ... !
@@ -141,21 +140,9 @@ JoinService
   // ----------------------
   // input height: 50px ... ?
 
-PasswordInputComponent
-----------------------  
-  // sometimes no error update ...
-  // set validators A/B and errors a/b ...
-  // exclude black circle from forbidden characters ...
-
-  // update login and sign-up
-  // ------------------------
-  // log reset wrong ... !
-
-  // fix matchword validation --> validation on focus (not on dirty) ... ?!
-
-  // LoginComponent
-  // --------------
-  // onUserLogin() + onGuestLogin() ...
+LoginComponent
+--------------
+  - onUserLogin() + onGuestLogin() ...
 
 JoinDialog (DialogFormController)
 ----------

@@ -82,6 +82,10 @@ export class InputValidatorService {
       this.validator.required(),
       this.validator.forbidden(passwordPatterns.forbidden),
       this.validator.minLength(8),
+      this.validator.upperCase(passwordPatterns.upperCase),
+      this.validator.lowerCase(passwordPatterns.lowerCase),
+      this.validator.digit(passwordPatterns.digit),
+      this.validator.specialChar(passwordPatterns.specialChar),
       this.validator.matchword(password),
       this.validator.maxLength(127),
     ];

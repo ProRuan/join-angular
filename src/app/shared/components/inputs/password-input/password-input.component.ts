@@ -116,7 +116,7 @@ export class PasswordInputComponent extends ReactiveInput {
     if (value) {
       this.setValidators(value);
       this.updateValueAndValidity();
-      this.validateExistingControl();
+      if (this.isFilled()) this.validateExistingControl();
     }
   }
 

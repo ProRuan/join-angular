@@ -126,7 +126,7 @@ export class SignUpComponent extends FormController {
     this.registerControl('name', '', this.validators.name);
     this.registerControl('email', '', this.validators.email);
     this.registerControl('password', '', this.validators.password);
-    this.registerControl('matchword', '');
+    this.registerControl('matchword', '', this.validators.getMatchword(''));
   }
 
   /**
