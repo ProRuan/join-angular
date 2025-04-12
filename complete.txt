@@ -13,7 +13,6 @@ Animations
 
 // new contacts task
 // -----------------
-// update contact bgc ...
 // prevent double contacts (add/edit) ... (0/2)
 
 styles
@@ -179,11 +178,6 @@ JoinDialog (DialogFormController)
   -----------
     - set guest login ...
     - create guest user (database) ...
-
-
-if there is still time
-----------------------
-  - format phone number before submit and on get ...
 
 
 optional

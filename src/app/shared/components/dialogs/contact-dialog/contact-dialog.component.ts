@@ -11,6 +11,7 @@ import { InputConfigurationService } from '../../../services/input-configuration
 import { InputValidatorService } from '../../../services/input-validator.service';
 import { ContactService } from '../../../services/contact.service';
 import { NameFormatterService } from '../../../services/name-formatter.service';
+import { PhoneFormatterService } from '../../../services/phone-formatter.service';
 import { JoinButton } from '../../../models/join-button';
 import { Contact } from '../../../models/contact';
 import { ContactData } from '../../../interfaces/contact-data';
@@ -43,6 +44,7 @@ export class ContactDialogComponent extends DialogFormController {
   validators: InputValidatorService = inject(InputValidatorService);
   viewer: ContactService = inject(ContactService);
   nameFormatter: NameFormatterService = inject(NameFormatterService);
+  phoneFormatter: PhoneFormatterService = inject(PhoneFormatterService);
 
   @Input() override id: string = '';
 
@@ -218,10 +220,48 @@ export class ContactDialogComponent extends DialogFormController {
    */
   updateContact() {
     let contact = this.viewer.contact;
-    contact.name = this.getValue('name');
-    contact.email = this.getValue('email');
-    contact.phone = this.getValue('phone');
-    contact.initials = this.nameFormatter.getInitials(contact.name);
+    contact.name = this.getFormattedName();
+    contact.initials = this.getInitials(contact.name);
+    contact.email = this.getEmail();
+    contact.phone = this.getFormattedPhone();
+  }
+
+  /**
+   * Gets a formatted contact name.
+   * @param name - The contact.
+   * @returns The formatted contact name.
+   */
+  private getFormattedName(contact?: ContactData) {
+    let name = contact ? contact.name : this.getValue('name');
+    return this.nameFormatter.getFormattedName(name);
+  }
+
+  /**
+   * Gets contact initials.
+   * @param name - The contact name.
+   * @returns The contact initials.
+   */
+  private getInitials(name: string) {
+    return this.nameFormatter.getInitials(name);
+  }
+
+  /**
+   * Gets a contact email.
+   * @param email - The contact.
+   * @returns The contact email.
+   */
+  private getEmail(contact?: ContactData) {
+    return contact ? contact.email : this.getValue('email');
+  }
+
+  /**
+   * Gets a formatted phone number.
+   * @param contact - The contact.
+   * @returns The formatted phone number.
+   */
+  private getFormattedPhone(contact?: ContactData) {
+    let phone = contact ? contact.phone : this.getValue('phone');
+    return this.phoneFormatter.getFormattedPhone(phone);
   }
 
   /**
@@ -252,15 +292,7 @@ export class ContactDialogComponent extends DialogFormController {
     this.join.addUserItem('contacts', contact);
     this.viewer.setContact(contact);
     this.dialogs.open('viewContact');
-    this.timeBacklog();
-  }
-
-  /**
-   * Times a backlog display time.
-   */
-  timeBacklog() {
-    setTimeout(() => this.dialogs.open('backlog'), 100);
-    setTimeout(() => this.dialogs.close('backlog'), 1100);
+    this.manageBacklog();
   }
 
   /**
@@ -269,8 +301,18 @@ export class ContactDialogComponent extends DialogFormController {
    */
   getContactData() {
     let contactData = this.form.value as ContactData;
-    contactData.name = this.nameFormatter.getFormattedName(contactData.name);
-    contactData.initials = this.nameFormatter.getInitials(contactData.name);
+    contactData.name = this.getFormattedName(contactData);
+    contactData.initials = this.getInitials(contactData.name);
+    contactData.email = this.getEmail(contactData);
+    contactData.phone = this.getFormattedPhone(contactData);
     return contactData;
+  }
+
+  /**
+   * Manages a backlog.
+   */
+  manageBacklog() {
+    setTimeout(() => this.dialogs.open('backlog'), 100);
+    setTimeout(() => this.dialogs.close('backlog'), 1100);
   }
 }
