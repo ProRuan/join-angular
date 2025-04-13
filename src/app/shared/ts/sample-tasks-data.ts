@@ -77,7 +77,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     subtasks: [
       { id: 0, text: 'Animate logo', done: true, focused: false },
       { id: 1, text: 'Animate dialogs', done: true, focused: false },
-      { id: 2, text: 'Animate back log', done: true, focused: false },
+      { id: 2, text: 'Animate backlog', done: true, focused: false },
     ],
     column: 'done',
   },
@@ -109,8 +109,8 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
     subtasks: [
       { id: 0, text: 'Implement login form', done: true, focused: false },
       { id: 1, text: 'Implement sign-up form', done: true, focused: false },
-      { id: 2, text: 'Implement add-task form', done: true, focused: false },
-      { id: 3, text: 'implement add-contact form', done: true, focused: false },
+      { id: 2, text: 'Implement task forms', done: true, focused: false },
+      { id: 3, text: 'Implement contact forms', done: true, focused: false },
     ],
     column: 'done',
   },

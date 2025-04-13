@@ -22,6 +22,7 @@ import { NavigationService } from '../../shared/services/navigation.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
 import { DocSnap } from '../../shared/ts/type';
+import { GUEST_DATA } from '../../shared/ts/guest-data';
 
 @Component({
   selector: 'app-login',
@@ -63,6 +64,7 @@ export class LoginComponent extends FormController {
   loadSubscription?: Subscription;
   routeSubscription?: Subscription;
   error = 'Check your email and password. Please try again.';
+  guest = new User(GUEST_DATA);
 
   /**
    * Initializes a login component.
@@ -231,6 +233,15 @@ export class LoginComponent extends FormController {
    */
   isDisabled() {
     return this.form.invalid || this.loggedIn;
+  }
+
+  /**
+   * Logs in a guest on click.
+   */
+  onGuestLogin() {
+    this.validators.setRejected(false);
+    this.join.user.set(this.guest);
+    this.router.navigate(['main', this.guest.id, 'summary']);
   }
 
   /**

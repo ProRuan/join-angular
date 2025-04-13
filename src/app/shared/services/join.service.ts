@@ -21,6 +21,7 @@ import { Contact } from '../models/contact';
 import { UserData } from '../interfaces/user-data';
 import { getArrayCopy, setSessionalItem } from '../ts/global';
 import { DocSnap } from '../ts/type';
+import { GUEST_DATA } from '../ts/guest-data';
 
 @Injectable({
   providedIn: 'root',
@@ -265,10 +266,22 @@ export class JoinService {
    * Saves a user.
    */
   saveUser(fn: () => void = () => {}) {
-    this.saveUserOnline().subscribe({
-      next: () => fn(),
-      error: (error) => console.log('Error - Could not save user: ', error),
-    });
+    if (this.isGuestAccount()) {
+      fn();
+    } else {
+      this.saveUserOnline().subscribe({
+        next: () => fn(),
+        error: (error) => console.log('Error - Could not save user: ', error),
+      });
+    }
+  }
+
+  /**
+   * Verifies a guest account.
+   * @returns A boolean value.
+   */
+  isGuestAccount() {
+    return this.user.id === GUEST_DATA.id;
   }
 
   /**

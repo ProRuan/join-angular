@@ -37,7 +37,7 @@ Top Level Scripts
   - shared/interfaces - check (16)
   - shared/models - check (12)
   - shared/services - check (14)
-  - shared/ts - check (7)
+  - shared/ts - check (8)
 
 Join (8/?) + responsive (8/?)
 ----
@@ -183,10 +183,11 @@ Services (14/14)
   - SummaryService - check
       
 
-ts (7/7)
+ts (8/8)
 --
   - animate.ts - check
   - global.ts - check
+  - guest-data.ts - check
   - identify.ts - check
   - pattern.ts - check
   - sample-conctacts-data.ts - check

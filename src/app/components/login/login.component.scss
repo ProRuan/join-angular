@@ -109,7 +109,11 @@
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 364px) {
+  .input-error-cont {
+    height: 84px;
+  }
+
   .error-cont {
     height: 28px;
   }

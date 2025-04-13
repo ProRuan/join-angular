@@ -1,3 +1,11 @@
+Guest Login
+-----------
+  - smart sample tasks due to upcoming deadline ...
+      --> update guest user tasks (deadline) ... !
+  - check submit on submit (not on click) ...
+      --> check login and guest login (right login) ... !
+  - guest login: email still required ... ?
+
 responsiveness
 --------------
   - summary, add-task, board, contacts (0/4) ...
@@ -71,7 +79,6 @@ responsiveness
   - summary greetings (mobile + desktop as of 1280px) ... (0/2)
   - board: board.ts, view-task and edit-task ... (0/3)
   - join-header: help + profile (mobile) ... (0/2)
-  - think about error text: login, sign-up, new-password ... (0/3)
   - scroll to top after router link (on small devices) ...
   - rename header login and sign-up classes ...
   - fix focus-visible ... !
@@ -103,9 +110,6 @@ summary service / sign-up
   // fix edit-task deadline minDate validator ...
   // fix summary deadline (default, done) ... (0/2)
 
-  // think about ContactService ...
-  // think about sample task values ... !
-
 summary service
 ---------------
   // ViewTaskDialogComponent
@@ -124,10 +128,6 @@ summary service
 
   // edit-task dialog: prio is reseted --> why ... ?
   // test for past date after editing ... !
-
-FlipMenuComponent
------------------
-  - provide a logOut() ... !
 
 join service
 ------------
