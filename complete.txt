@@ -1,7 +1,5 @@
 Guest Login
 -----------
-  - smart sample tasks due to upcoming deadline ...
-      --> update guest user tasks as well (deadline) ... !
   - check submit on submit (not on click) ...
       --> check login and guest login (right login) ... !
 
@@ -171,8 +169,6 @@ optional
 
   - review ngIf inside and outside of dialog components (0/10) ...
   - DeleteDialog for tasks and contacts ...
-
-  - summary: smart sample task deadlines ...
 
 
 auto-login

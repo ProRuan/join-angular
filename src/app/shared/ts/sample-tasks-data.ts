@@ -1,4 +1,9 @@
 import { TaskData } from '../interfaces/task-data';
+import { getMonthName } from './global';
+
+const urgentDay: number = 25;
+const month: string = getMonth();
+const year: string = getYear();
 
 const SAMPLE_TASKS_DATA: TaskData[] = [
   {
@@ -39,7 +44,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 9999 999 99 9',
       },
     ],
-    dueDate: '28/03/2025',
+    dueDate: getDueDate(urgentDay),
     prio: 'urgent',
     category: 'User Story',
     subtasks: [
@@ -71,7 +76,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 2222 222 22 2',
       },
     ],
-    dueDate: '18/03/2025',
+    dueDate: getDueDate(20),
     prio: 'medium',
     category: 'Technical Task',
     subtasks: [
@@ -103,7 +108,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 6666 666 66 6',
       },
     ],
-    dueDate: '20/03/2025',
+    dueDate: getDueDate(16),
     prio: 'medium',
     category: 'Technical Task',
     subtasks: [
@@ -136,7 +141,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 8888 888 88 8',
       },
     ],
-    dueDate: '26/03/2025',
+    dueDate: getDueDate(23),
     prio: 'medium',
     category: 'Technical Task',
     subtasks: [
@@ -175,7 +180,7 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
         phone: '+49 6666 666 66 6',
       },
     ],
-    dueDate: '31/03/2025',
+    dueDate: getDueDate(28),
     prio: 'low',
     category: 'User Story',
     subtasks: [
@@ -186,4 +191,40 @@ const SAMPLE_TASKS_DATA: TaskData[] = [
   },
 ];
 
+/**
+ * Gets an up-to-date month.
+ * @returns The month.
+ */
+function getMonth() {
+  let m = new Date().getMonth() + 1;
+  return m < 10 ? `0${m}` : m.toString();
+}
+
+/**
+ * Gets an up-to-date year.
+ * @returns The year.
+ */
+function getYear() {
+  return new Date().getFullYear().toString();
+}
+
+/**
+ * Gets a due date.
+ * @param day - The day to set.
+ * @returns The due date.
+ */
+function getDueDate(day: number) {
+  return `${day}/${month}/${year}`;
+}
+
 export const sampleTasksData = SAMPLE_TASKS_DATA;
+
+/**
+ * Gets an upcoming deadline.
+ * @returns The upcoming deadline.
+ */
+export function getDeadline() {
+  let m = parseInt(month);
+  let monthName = getMonthName(m);
+  return `${monthName} ${urgentDay}, ${year}`;
+}
