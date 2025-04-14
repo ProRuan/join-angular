@@ -55,8 +55,17 @@ export class MainComponent {
    */
   setLoggedInUser() {
     this.subscription = this.route.paramMap.subscribe((params) =>
-      this.updateUser(params)
+      this.updateContent(params)
     );
+  }
+
+  /**
+   * Updates the content to be displayed.
+   * @param params - The param map.
+   */
+  updateContent(params: ParamMap) {
+    this.updateUser(params);
+    this.nav.updateLoginState();
   }
 
   /**

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { JoinService } from '../../services/join.service';
 import { NavigationService } from '../../services/navigation.service';
 
 @Component({
@@ -15,6 +16,7 @@ import { NavigationService } from '../../services/navigation.service';
  * Class representing a menu component.
  */
 export class MenuComponent {
+  join: JoinService = inject(JoinService);
   nav: NavigationService = inject(NavigationService);
 
   mainLinks = [
@@ -23,6 +25,8 @@ export class MenuComponent {
     { id: 'board', img: 'board_icon', text: 'Board' },
     { id: 'contacts', img: 'contacts_icon', text: 'Contacts' },
   ];
+
+  altLinks = [{ id: 'login', img: 'login_icon', text: 'Log In' }];
 
   legalLinks = [
     { id: 'privacy-policy', text: 'Privacy Policy' },
@@ -36,6 +40,23 @@ export class MenuComponent {
    */
   getSrc(img: string) {
     return this.nav.getMenuSrc(img);
+  }
+
+  /**
+   * Gets a link array.
+   * @returns The link array.
+   */
+  getLinks() {
+    return this.join.loggedIn ? this.mainLinks : this.altLinks;
+  }
+
+  /**
+   * Gets a router link.
+   * @param id - The link id.
+   * @returns The router link.
+   */
+  getRouterLink(id: string) {
+    return id === 'login' ? `/${id}` : id;
   }
 
   /**

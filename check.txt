@@ -34,7 +34,7 @@ Top Level Scripts
   - app ...
   - shared/animations - check (8)
   - shared/components ...
-  - shared/interfaces - check (16)
+  - shared/interfaces - check (17)
   - shared/models - check (12)
   - shared/services - check (14)
   - shared/ts - check (8)
@@ -95,7 +95,7 @@ Animations (8/8)
   - MobileLogoAnimation - check
   - SettingsMenuAnimation - check
 
-Components (14/14) + await inputs ... + resp(3/?)
+Components (15/15) + await inputs ... + resp(3/?)
 ----------
   - BacklogComponent - check
   - ButtonComponent - check* are all buttons covered?
@@ -110,6 +110,7 @@ Components (14/14) + await inputs ... + resp(3/?)
   - LogoComponent - check
   - MenuComponent - check
   - MobileMenuComponent - check
+  - NavButtonComponent - check
   - TitleComponent - check + responsive
   - inputs ... (9/10)
     ------
@@ -130,7 +131,7 @@ Components (14/14) + await inputs ... + resp(3/?)
       - ToDoSvgComponent - check
 
 
-Interfaces (16/16)
+Interfaces (17/17)
 ----------
   - AnimationData - check
   - ButtonData - check
@@ -138,6 +139,7 @@ Interfaces (16/16)
   - ContactData - check
   - InputConfig - check
   - Model - check
+  - NavButton - check
   - PrioButton - check
   - Properties - check
   - Register - check

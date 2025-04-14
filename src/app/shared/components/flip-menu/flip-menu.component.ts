@@ -46,9 +46,7 @@ export class FlipMenuComponent extends DialogFormController {
    * @returns - A boolean value.
    */
   isDisplayed() {
-    let mobile = this.join.isMobile();
-    let help = this.nav.isLinkActivated('help');
-    return mobile && !help;
+    return this.join.isMobile();
   }
 
   /**

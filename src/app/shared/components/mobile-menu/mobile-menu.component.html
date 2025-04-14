@@ -1,11 +1,9 @@
 <nav class="mobile-menu">
     <div class="button-group">
-        <button *ngFor="let link of links" class="button" [disabled]="isDisabled(link.id)"
-            (click)="onNavigate(link.id)">
-            <div class="icon-text-cont">
-                <img class="icon" [src]="getSrc(link.img)" [alt]="link.img">
-                <span class="text">{{ link.text }}</span>
-            </div>
-        </button>
+        @if (join.loggedIn) {
+        <app-nav-button *ngFor="let link of mainLinks" [button]="link"></app-nav-button>
+        } @else {
+        <app-nav-button *ngFor="let link of altLinks" [button]="link"></app-nav-button>
+        }
     </div>
 </nav>

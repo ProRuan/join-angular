@@ -1,9 +1,9 @@
 export const GUEST_DATA = {
   id: 'l3o4VwUX3iIzxDz4kdbR',
-  initials: 'AG',
-  name: 'Alex Guest',
-  email: 'alex.guest@sample.com',
-  phone: '',
+  initials: 'G',
+  name: 'Guest',
+  email: 'guest@sample.com',
+  phone: '+49 6789 345 12 0',
   password: 'Guest12!',
   summary: {
     toDo: { category: 'To-do', amount: 1 },

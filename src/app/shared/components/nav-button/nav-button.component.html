@@ -1,0 +1,6 @@
+<button [ngClass]="getClass()" [disabled]="isDisabled(button.id)" (click)="onNavigate(button.id)">
+    <div *ngIf="!isDummyButton()" class="icon-text-cont">
+        <img *ngIf="button.img" class="icon" [src]="getSrc(button.img)" [alt]="button.img">
+        <span class="text">{{ button.text }}</span>
+    </div>
+</button>

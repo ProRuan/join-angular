@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { JoinService } from '../../services/join.service';
 import { DialogService } from '../../services/dialog.service';
 import { NavigationService } from '../../services/navigation.service';
 
@@ -16,6 +17,7 @@ import { NavigationService } from '../../services/navigation.service';
  * Class representing a join header component.
  */
 export class JoinHeaderComponent {
+  join: JoinService = inject(JoinService);
   dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
@@ -27,9 +29,17 @@ export class JoinHeaderComponent {
    * @returns A boolean value.
    */
   isButtonGroupDisplayed() {
-    let privacyPolicy = this.isLink('privacy-policy');
-    let legalNotice = this.isLink('legal-notice');
-    return !(privacyPolicy || legalNotice);
+    let mobile = this.join.loggedIn && this.join.isMobile();
+    let desktop = !this.isLegalTextComponent();
+    return mobile || desktop;
+  }
+
+  /**
+   * Verifies a legal text component.
+   * @returns A boolean value.
+   */
+  isLegalTextComponent() {
+    return this.isLink('legal-notice') || this.isLink('privacy-policy');
   }
 
   /**
@@ -42,11 +52,11 @@ export class JoinHeaderComponent {
   }
 
   /**
-   * Verifies the display state of a help page.
+   * Verifies the display state of a help component.
    * @returns A boolean value.
    */
   isHelpDisplayed() {
-    return !this.isLink('help');
+    return !this.join.isMobile() && !this.isLink('help');
   }
 
   /**

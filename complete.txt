@@ -1,10 +1,15 @@
 Guest Login
 -----------
   - smart sample tasks due to upcoming deadline ...
-      --> update guest user tasks (deadline) ... !
+      --> update guest user tasks as well (deadline) ... !
   - check submit on submit (not on click) ...
       --> check login and guest login (right login) ... !
-  - guest login: email still required ... ?
+
+  - fix guest differences ... !
+  - fix guest reload ... !
+  - fix guest login form submission error ... !
+  - add help go-back button ... !
+  
 
 responsiveness
 --------------

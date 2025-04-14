@@ -17,6 +17,14 @@ export class NavigationService {
   dialogs: DialogService = inject(DialogService);
 
   /**
+   * Updates a login state.
+   */
+  updateLoginState() {
+    const urlSplit = this.router.url.split('/');
+    this.join.loggedIn = urlSplit.length > 3 ? true : false;
+  }
+
+  /**
    * Opens a login session.
    * @param id - The user id.
    */

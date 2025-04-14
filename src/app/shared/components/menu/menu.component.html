@@ -2,8 +2,8 @@
     <img class="logo" [src]="getSrc('menu_logo')" alt="menu_logo">
 
     <div class="main-link-group">
-        @for (link of mainLinks; track link.id) {
-        <button [routerLink]="link.id" class="main-link" [disabled]="isDisabled(link.id)">
+        @for (link of getLinks(); track link.id) {
+        <button [routerLink]="getRouterLink(link.id)" class="main-link" [disabled]="isDisabled(link.id)">
             <img class="opacity" [src]="getSrc(link.img)" [alt]="link.img">
             <span class="opacity">{{ link.text }}</span>
         </button>

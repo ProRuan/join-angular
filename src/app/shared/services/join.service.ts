@@ -40,6 +40,7 @@ export class JoinService {
   users: User[] = [];
   introDone: boolean = false;
   greetingDone: boolean = false;
+  loggedIn: boolean = false;
   windowWidth: number = 0;
   loadedSubject = new BehaviorSubject<boolean>(false);
   overflowYSubject = new BehaviorSubject<string>('hidden');
