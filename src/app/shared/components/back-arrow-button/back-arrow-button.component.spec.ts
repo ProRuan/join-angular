@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginArrowComponent } from './login-arrow.component';
+import { BackArrowButtonComponent } from './back-arrow-button.component';
 
-describe('LoginArrowComponent', () => {
-  let component: LoginArrowComponent;
-  let fixture: ComponentFixture<LoginArrowComponent>;
+describe('BackArrowButtonComponent', () => {
+  let component: BackArrowButtonComponent;
+  let fixture: ComponentFixture<BackArrowButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginArrowComponent]
+      imports: [BackArrowButtonComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(LoginArrowComponent);
+    fixture = TestBed.createComponent(BackArrowButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -5,7 +5,14 @@ Guest Login
   - check submit on submit (not on click) ...
       --> check login and guest login (right login) ... !
 
+  - my previousUrl or angular last route ...
+  - disable current menu link (flip-menu) ...
+  - route guard check ids ...
+
   - add help go-back button ... !
+      --> isLoggedIn(): use url startsWidth ... !
+
+  - replace back-arrow buttons: contact viewer ... !
   
 
 responsiveness

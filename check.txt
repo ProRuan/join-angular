@@ -97,6 +97,7 @@ Animations (8/8)
 
 Components (15/15) + await inputs ... + resp(3/?)
 ----------
+  - BackArrowButtonComponent - check
   - BacklogComponent - check
   - ButtonComponent - check* are all buttons covered?
   - CheckboxComponent - check + responsive
@@ -106,7 +107,6 @@ Components (15/15) + await inputs ... + resp(3/?)
   - JoinHeaderComponent - check
   - JoinTitleComponent - check
   - LabelComponent - check
-  - LoginArrowComponent - check
   - LogoComponent - check
   - MenuComponent - check
   - MobileMenuComponent - check

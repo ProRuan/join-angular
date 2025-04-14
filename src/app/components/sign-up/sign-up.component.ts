@@ -10,7 +10,7 @@ import { concatMap, Observable, tap } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { BacklogComponent } from '../../shared/components/backlog/backlog.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
-import { LoginArrowComponent } from '../../shared/components/login-arrow/login-arrow.component';
+import { BackArrowButtonComponent } from '../../shared/components/back-arrow-button/back-arrow-button.component';
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { TextInputComponent } from '../../shared/components/inputs/text-input/text-input.component';
 import { PasswordInputComponent } from '../../shared/components/inputs/password-input/password-input.component';
@@ -50,7 +50,7 @@ import { UserData } from '../../shared/interfaces/user-data';
     LogoComponent,
     BacklogComponent,
     HeaderComponent,
-    LoginArrowComponent,
+    BackArrowButtonComponent,
     TitleComponent,
     TextInputComponent,
     PasswordInputComponent,

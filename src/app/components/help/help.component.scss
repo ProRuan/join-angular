@@ -1,5 +1,9 @@
 @import "../../../mixins.scss";
 
+.title-arrow-cont {
+  @include display-row($jc: space-between, $ai: center);
+}
+
 h3 {
   @include font($fs: 27px, $fw: 700, $lh: 32.4px);
   color: $black;
@@ -17,4 +21,10 @@ h3 {
 h4 {
   @include font($fs: 20px, $fw: 700, $lh: 24px);
   color: $black;
+}
+
+@media (max-width: 1180px) {
+  .title-arrow-cont {
+    align-items: flex-start;
+  }
 }

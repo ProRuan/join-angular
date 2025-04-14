@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 import { JoinService } from './join.service';
 import { DialogService } from './dialog.service';
 import { getLastIndex } from '../ts/global';
@@ -15,6 +16,34 @@ export class NavigationService {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
   dialogs: DialogService = inject(DialogService);
+
+  currentUrl: string = '';
+  previousUrl: string = '';
+
+  /**
+   * Creates a navigation service.
+   */
+  constructor() {
+    this.router.events
+      .pipe(filter((event: any) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => this.updateCachedUrls(event));
+  }
+
+  /**
+   * Updates cached urls.
+   * @param event - The event of the type NavigationEnd.
+   */
+  updateCachedUrls(event: NavigationEnd) {
+    this.previousUrl = this.currentUrl;
+    this.currentUrl = event.urlAfterRedirects;
+  }
+
+  /**
+   * Navigates back to the previous component.
+   */
+  navigateBack() {
+    this.router.navigateByUrl(this.previousUrl);
+  }
 
   /**
    * Updates a login state.
