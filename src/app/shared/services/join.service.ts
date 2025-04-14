@@ -38,6 +38,7 @@ export class JoinService {
   [key: string]: any;
   user: User = new User();
   users: User[] = [];
+  guest: User = new User(GUEST_DATA);
   introDone: boolean = false;
   greetingDone: boolean = false;
   loggedIn: boolean = false;
@@ -279,10 +280,12 @@ export class JoinService {
 
   /**
    * Verifies a guest account.
+   * @param id - The user id.
    * @returns A boolean value.
    */
-  isGuestAccount() {
-    return this.user.id === GUEST_DATA.id;
+  isGuestAccount(id?: string | null) {
+    const userId = id ?? this.user.id;
+    return userId === this.guest.id;
   }
 
   /**
@@ -292,6 +295,13 @@ export class JoinService {
     const id = this.user.id;
     const data = this.user.getObject();
     return this.updateUser(id, 'data', data);
+  }
+
+  /**
+   * Sets a guest.
+   */
+  setGuest() {
+    this.user.set(this.guest);
   }
 
   /**

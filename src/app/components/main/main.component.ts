@@ -74,7 +74,12 @@ export class MainComponent {
    */
   updateUser(params: ParamMap) {
     let id = params.get('id');
-    if (id) this.setUserById(id);
+    if (this.join.isGuestAccount(id)) {
+      this.join.setGuest();
+      this.join.loadedSubject.next(true);
+    } else if (id) {
+      this.setUserById(id);
+    }
   }
 
   /**

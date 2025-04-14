@@ -5,15 +5,14 @@ Guest Login
   - check submit on submit (not on click) ...
       --> check login and guest login (right login) ... !
 
-  - fix guest differences ... !
-  - fix guest reload ... !
-  - fix guest login form submission error ... !
   - add help go-back button ... !
   
 
 responsiveness
 --------------
   - summary, add-task, board, contacts (0/4) ...
+      --> check project with empty data ... !!!
+      --> set double form button types ... !!!
 
 contacts
 --------
@@ -74,9 +73,6 @@ summary
 legal-notice
 ------------
   - set exploring the board e-mail (from guest login) ...
-      --> prepare guest login ... !
-      --> prepare menu of guest login ... !
-  - user profile if logged in ... !
 
 responsiveness
 --------------
@@ -145,10 +141,6 @@ JoinService
   // ----------------------
   // input height: 50px ... ?
 
-LoginComponent
---------------
-  - onUserLogin() + onGuestLogin() ...
-
 JoinDialog (DialogFormController)
 ----------
   button component
@@ -159,11 +151,6 @@ JoinDialog (DialogFormController)
   add-task Component
   ------------------
     - height tranistion due to assigned-to, category and subtasks ... (0/3)
-
-  Guest Login
-  -----------
-    - set guest login ...
-    - create guest user (database) ...
 
 
 optional

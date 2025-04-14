@@ -22,7 +22,7 @@
                 (@greetingAnimation.done)="setDone()">
                 <div class="greeting-cont">
                     @if (join.isGuestAccount()) {
-                    <span class="greeting">{{ greeting }}</span>
+                    <span class="greeting">{{ greeting }}!</span>
                     } @else {
                     <span class="greeting">{{ greeting }},</span>
                     <span class="user">{{ join.user.name }}</span>
