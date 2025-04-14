@@ -37,7 +37,7 @@ export class FlipMenuComponent extends DialogFormController {
    * Gets the css class of a flip menu.
    * @returns The css class of the flip menu.
    */
-  getClass() {
+  getFlipMenuClass() {
     return this.isOpened() ? 'flip-out' : 'flip-in';
   }
 
@@ -47,6 +47,15 @@ export class FlipMenuComponent extends DialogFormController {
    */
   isDisplayed() {
     return this.join.isMobile();
+  }
+
+  /**
+   * Verifies the disabled state of a button.
+   * @param id - The link id.
+   * @returns A boolean value.
+   */
+  isDisabled(id: string) {
+    return this.join.isMobile() && this.router.url.endsWith(id);
   }
 
   /**

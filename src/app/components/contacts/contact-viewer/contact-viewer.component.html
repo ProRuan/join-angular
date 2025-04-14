@@ -5,7 +5,7 @@
 <div class="title-viewer-cont">
     <div class="mobile-button-cont">
         <app-join-title [title]="title" [subtitle]="subtitle" [mobile]="join.isMobile()"></app-join-title>
-        <button class="back-arrow mobile" (click)="onClose()"></button>
+        <button class="back-arrow-button mobile" (click)="onClose()"></button>
     </div>
 
     <div *ngIf="isOpened()" @contactViewerAnimation [@.disabled]="isMobile()" class="contact-viewer"

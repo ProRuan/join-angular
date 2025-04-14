@@ -26,7 +26,7 @@
   @include display-row($jc: space-between);
 }
 
-.back-arrow {
+.back-arrow-button {
   @include size($w: 32px, $h: 32px);
   @include round-border($b: none, $br: 3px);
   padding: 0;
