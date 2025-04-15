@@ -30,11 +30,43 @@ export class DateFormatterService {
 
   /**
    * Gets a calendar date.
-   * @param date - The date to format.
+   * @param date - The input date.
    * @returns The calendar date.
    */
   getCalendarDate(date: string) {
-    return date.split('/').reverse().join('-');
+    const calendarDate = this.getFormattedCalendarDate(date);
+    return this.isDateInvalid(calendarDate) ? '' : calendarDate;
+  }
+
+  /**
+   * Gets a formatted calendar date.
+   * @param date - The date to format.
+   * @returns The formatted calendar date.
+   */
+  private getFormattedCalendarDate(date: string) {
+    const [d, m, year] = date.split('/');
+    const day = this.getFormattedDatePart(d);
+    const month = this.getFormattedDatePart(m);
+    return `${year}-${month}-${day}`;
+  }
+
+  /**
+   * Gets a formatted date part.
+   * @param datePart - The date part to format.
+   * @returns The formatted date part.
+   */
+  private getFormattedDatePart(datePart: string) {
+    let num = Number(datePart);
+    return num < 10 ? `0${num}` : num.toString();
+  }
+
+  /**
+   * Verifies a date.
+   * @param date - The date to verify.
+   * @returns A boolean value.
+   */
+  isDateInvalid(date: string) {
+    return new Date(date).toDateString() === 'Invalid Date';
   }
 
   /**

@@ -206,7 +206,7 @@ export class SummaryService {
    * @returns The formatted month.
    */
   getFormattedMonth(month: string) {
-    let index = parseInt(month);
+    let index = Number(month);
     return getMonthName(index);
   }
 }

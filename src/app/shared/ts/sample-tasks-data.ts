@@ -224,7 +224,7 @@ export const sampleTasksData = SAMPLE_TASKS_DATA;
  * @returns The upcoming deadline.
  */
 export function getDeadline() {
-  let m = parseInt(month);
+  let m = Number(month);
   let monthName = getMonthName(m);
   return `${monthName} ${urgentDay}, ${year}`;
 }

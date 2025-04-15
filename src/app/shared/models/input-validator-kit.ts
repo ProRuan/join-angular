@@ -225,7 +225,7 @@ export class InputValidatorKit {
    * @returns A boolean value.
    */
   protected isDateInvalid(date: string) {
-    return new Date(date).toDateString() === 'Invalid Date';
+    return this.dateFormatter.isDateInvalid(date);
   }
 
   /**
