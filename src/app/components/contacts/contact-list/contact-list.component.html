@@ -21,7 +21,10 @@
             </div>
 
             <div class="name-email-cont">
-                <div class="h-24"><span class="name">{{ contact.name }}</span></div>
+                <div class="name h-24">
+                    <span>{{ contact.name }}</span>
+                    <span *ngIf="join.isUser(contact)"> (You)</span>
+                </div>
                 <div class="h-19"><span class="email">{{ contact.email }}</span></div>
             </div>
         </button>

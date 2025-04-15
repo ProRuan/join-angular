@@ -15,7 +15,10 @@
                 <span class="initials">{{ contact.initials }}</span>
             </div>
             <div class="column-8">
-                <span class="name">{{ contact.name }}</span>
+                <div class="name">
+                    <span>{{ contact.name }}</span>
+                    <span *ngIf="join.isUser(contact)"> (You)</span>
+                </div>
                 <div class="settings-button-group">
                     <app-button [button]="editBtn" (click)="onEdit()"></app-button>
                     <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>

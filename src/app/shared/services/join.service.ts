@@ -257,6 +257,15 @@ export class JoinService {
   }
 
   /**
+   * Verifies a user by contact id.
+   * @param contact - The contact.
+   * @returns A boolean value.
+   */
+  isUser(contact: Contact) {
+    return contact.id === this.user.id;
+  }
+
+  /**
    * Deletes a user.
    * @param id - The user id.
    */

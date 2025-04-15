@@ -29,7 +29,10 @@
                         <div class="profile" [ngClass]="contact.bgc">
                             <span class="initials">{{ contact.initials }}</span>
                         </div>
-                        <span class="name">{{ contact.name }}</span>
+                        <div class="name">
+                            <span>{{ contact.name }}</span>
+                            <span *ngIf="join.isUser(contact)"> (You)</span>
+                        </div>
                     </div>
                 </div>
             </div>
