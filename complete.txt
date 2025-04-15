@@ -1,3 +1,7 @@
+important errors
+----------------
+  - red error on console ... !!!
+
 responsiveness
 --------------
   - summary, add-task, board, contacts (0/4) ...
@@ -88,17 +92,10 @@ summary service / sign-up
 -------------------------
   // requiredValidator with this.rejected ...
 
-  // fix summary update after sign-up - check?
   // reset urgent summary task ...
-  // update deadline default: "No" ...
 
-  // ----------
-
-  // improve getMatchword() ...
-  // improve getDueDate() ...
   // improve resetAssignedTo()/resetAddTaskMenus() ...
-
-  // fix edit-task deadline minDate validator ...
+  
   // fix summary deadline (default, done) ... (0/2)
 
 summary service
@@ -114,11 +111,7 @@ summary service
 
   // review board service: 1 method ...
 
-  // give tasks to draggable task ...
-  //   --> onChanges: set id and update this draggable task ...
-
   // edit-task dialog: prio is reseted --> why ... ?
-  // test for past date after editing ... !
 
 join service
 ------------
