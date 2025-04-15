@@ -39,7 +39,7 @@ export class MainComponent {
   dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
 
-  subscription?: Subscription;
+  subscriptions = new Subscription();
 
   /**
    * Initializes a main component.
@@ -54,8 +54,8 @@ export class MainComponent {
    * Sets a logged in user.
    */
   setLoggedInUser() {
-    this.subscription = this.route.paramMap.subscribe((params) =>
-      this.updateContent(params)
+    this.subscriptions.add(
+      this.route.paramMap.subscribe((params) => this.updateContent(params))
     );
   }
 
@@ -89,6 +89,7 @@ export class MainComponent {
   setUserById(id: string) {
     this.join.getUserById(id).subscribe({
       next: (userSnap) => this.setUser(userSnap),
+      error: (error) => console.log('Error - Could not get user: ', error),
     });
   }
 
@@ -144,6 +145,6 @@ export class MainComponent {
    */
   ngOnDestroy() {
     this.join.user.set();
-    this.join.unsubscribe(this.subscription);
+    this.subscriptions.unsubscribe();
   }
 }

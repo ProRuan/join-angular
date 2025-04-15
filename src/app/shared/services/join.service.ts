@@ -338,13 +338,4 @@ export class JoinService {
   isMobile() {
     return this.windowWidth < 1180 + 1;
   }
-
-  /**
-   * Unsubscribes a subscription.
-   */
-  unsubscribe(sub?: Subscription) {
-    if (sub && !sub.closed) {
-      sub.unsubscribe();
-    }
-  }
 }

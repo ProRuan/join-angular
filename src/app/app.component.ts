@@ -22,24 +22,24 @@ export class AppComponent {
   join: JoinService = inject(JoinService);
 
   title = 'join';
-  subscription?: Subscription;
+  subscriptions = new Subscription();
 
   /**
    * Initializes an app component.
    */
   ngOnInit(): void {
-    this.subscription = this.getResizeSubscription();
+    this.updateSettings();
     this.updateBodyStyle();
   }
 
   /**
-   * Gets a resize subscription.
-   * @returns The resize subscription.
+   * Updates settings.
    */
-  getResizeSubscription() {
+  updateSettings() {
     let event = this.getResizeEvent();
     let value = this.getWindowWidth(event);
-    return this.getSubscription(value);
+    let sub = this.getSubscription(value);
+    this.subscriptions.add(sub);
   }
 
   /**
@@ -94,6 +94,6 @@ export class AppComponent {
    * Destroys an app component.
    */
   ngOnDestroy(): void {
-    this.join.unsubscribe(this.subscription);
+    this.subscriptions.unsubscribe();
   }
 }

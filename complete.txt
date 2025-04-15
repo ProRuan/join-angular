@@ -1,6 +1,6 @@
-important errors
-----------------
-  - red error on console ... !!!
+subscription
+------------
+  --> think about load$ + param and getUser$() + param (0/2) ...
 
 responsiveness
 --------------

@@ -60,8 +60,7 @@ export class LoginComponent extends FormController {
   password: AbstractControl | null = null;
   remembered: boolean = false;
   loggedIn: boolean = false;
-  loadSubscription?: Subscription;
-  routeSubscription?: Subscription;
+  subscriptions = new Subscription();
   error = 'Check your email and password. Please try again.';
 
   /**
@@ -95,9 +94,12 @@ export class LoginComponent extends FormController {
    * Sets a remembered user.
    */
   private setRememberedUser() {
-    this.loadSubscription = this.join.loaded$.subscribe({
-      next: (loaded) => this.rememberUserByCookie(loaded),
-    });
+    this.subscriptions.add(
+      this.join.loaded$.subscribe({
+        next: (loaded) => this.rememberUserByCookie(loaded),
+        error: (error) => console.log('Error - Could not load users: ', error),
+      })
+    );
   }
 
   /**
@@ -118,6 +120,7 @@ export class LoginComponent extends FormController {
   private updateLoginForm(token: string) {
     this.join.getUserById(token).subscribe({
       next: (userSnap) => this.setLoginForm(userSnap),
+      error: (error) => console.log('Error - Could not get user: ', error),
     });
   }
 
@@ -138,10 +141,12 @@ export class LoginComponent extends FormController {
    * Sets the login email of a registered user.
    */
   private setRegisteredEmail() {
-    this.routeSubscription = this.route.paramMap.subscribe((params) => {
-      let id = params.get('id');
-      if (id) this.updateEmailInput(id);
-    });
+    this.subscriptions.add(
+      this.route.paramMap.subscribe((params) => {
+        let id = params.get('id');
+        if (id) this.updateEmailInput(id);
+      })
+    );
   }
 
   /**
@@ -151,6 +156,7 @@ export class LoginComponent extends FormController {
   private updateEmailInput(id: string) {
     this.join.getUserById(id).subscribe({
       next: (userSnap) => this.setEmail(userSnap),
+      error: (error) => console.log('Error - Could not get user: ', error),
     });
   }
 
@@ -247,8 +253,7 @@ export class LoginComponent extends FormController {
    */
   ngOnDestroy() {
     this.validators.setRejected(false);
-    this.join.unsubscribe(this.loadSubscription);
-    this.join.unsubscribe(this.routeSubscription);
+    this.subscriptions.unsubscribe();
     this.join.unsubscribeUserCollection();
   }
 }

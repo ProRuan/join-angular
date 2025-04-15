@@ -37,7 +37,7 @@ export class PasswordInputComponent extends ReactiveInput {
   textStyle!: TextStyle;
   matchValueSubject = new BehaviorSubject<string>(this.value);
   matchValue$ = this.matchValueSubject.asObservable();
-  subscription?: Subscription;
+  subscriptions = new Subscription();
 
   @Input() override control: AbstractControl | null = null;
 
@@ -83,9 +83,12 @@ export class PasswordInputComponent extends ReactiveInput {
    * Updates a mask.
    */
   updateMask() {
-    this.subscription = this.control?.valueChanges.subscribe({
-      next: () => this.updateMaskedValue(),
-    });
+    this.subscriptions.add(
+      this.control?.valueChanges.subscribe({
+        next: () => this.updateMaskedValue(),
+        error: (error) => console.log('Error - Could not get changes: ', error),
+      })
+    );
   }
 
   /**
@@ -202,6 +205,6 @@ export class PasswordInputComponent extends ReactiveInput {
    * Destroys a password input component.
    */
   ngOnDestroy() {
-    this.join.unsubscribe(this.subscription);
+    this.subscriptions.unsubscribe();
   }
 }
