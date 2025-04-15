@@ -102,6 +102,13 @@ export class NewPasswordComponent extends FormController {
   }
 
   /**
+   * Processes a form on submit.
+   */
+  onSubmit() {
+    this.isControl('email') ? this.onContinue() : this.onUpdate();
+  }
+
+  /**
    * Continues a form on submit.
    */
   onContinue() {

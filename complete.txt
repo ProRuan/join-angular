@@ -1,8 +1,7 @@
-Guest Login
------------
-  - check submit on submit (not on click) ...
-      --> check login and guest login (right login) ... !
-
+errors
+------
+  - due-date input calendar error ... ?!
+  
   - route guard check ids ...
   
 

@@ -17,6 +17,7 @@ export class ButtonComponent {
   @Input() button = new JoinButton();
   @Input() disabled: boolean = false;
   @Input() selected: boolean = false;
+  @Input() type: string = 'button';
 
   /**
    * Gets the css class of a button background color.

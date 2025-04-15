@@ -191,18 +191,10 @@ export class ContactDialogComponent extends DialogFormController {
   }
 
   /**
-   * Opens a delete-contact dialog on click.
+   * Processes a form on submit.
    */
-  onDelete() {
-    this.dialogs.open('deleteContact');
-  }
-
-  /**
-   * Verifies the incompleteness of a form.
-   * @returns A boolean value.
-   */
-  isIncomplete() {
-    return this.form.invalid;
+  onSubmit() {
+    this.isEditContactDialog() ? this.onSave() : this.onCreate();
   }
 
   /**
@@ -314,5 +306,20 @@ export class ContactDialogComponent extends DialogFormController {
   manageBacklog() {
     setTimeout(() => this.dialogs.open('backlog'), 100);
     setTimeout(() => this.dialogs.close('backlog'), 1100);
+  }
+
+  /**
+   * Opens a delete-contact dialog on click.
+   */
+  onDelete() {
+    this.dialogs.open('deleteContact');
+  }
+
+  /**
+   * Verifies the incompleteness of a form.
+   * @returns A boolean value.
+   */
+  isIncomplete() {
+    return this.form.invalid;
   }
 }

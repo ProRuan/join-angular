@@ -3,7 +3,7 @@
 <section class="login">
     <app-header type="login"></app-header>
 
-    <form [formGroup]="form" class="form" (submit)="onLogin()">
+    <form [formGroup]="form" class="form" (ngSubmit)="onLogin()" novalidate>
         <app-title title="Log in"></app-title>
 
         <div class="input-checkbox-cont">
