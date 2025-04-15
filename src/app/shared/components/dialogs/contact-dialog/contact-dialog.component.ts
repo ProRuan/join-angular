@@ -14,6 +14,7 @@ import { NameFormatterService } from '../../../services/name-formatter.service';
 import { PhoneFormatterService } from '../../../services/phone-formatter.service';
 import { JoinButton } from '../../../models/join-button';
 import { Contact } from '../../../models/contact';
+import { User } from '../../../models/user';
 import { ContactData } from '../../../interfaces/contact-data';
 import { isDefaultString } from '../../../ts/global';
 
@@ -203,6 +204,7 @@ export class ContactDialogComponent extends DialogFormController {
   onSave() {
     if (this.form.valid) {
       this.updateContact();
+      this.updateUser();
       this.saveUserContacts(true);
     }
   }
@@ -210,8 +212,16 @@ export class ContactDialogComponent extends DialogFormController {
   /**
    * Updates a contact.
    */
-  updateContact() {
+  private updateContact() {
     let contact = this.viewer.contact;
+    this.updateContactData(contact);
+  }
+
+  /**
+   * Updates contact data.
+   * @param contact - The contact.
+   */
+  private updateContactData(contact: Contact | User) {
     contact.name = this.getFormattedName();
     contact.initials = this.getInitials(contact.name);
     contact.email = this.getEmail();
@@ -257,9 +267,26 @@ export class ContactDialogComponent extends DialogFormController {
   }
 
   /**
+   * Update a user.
+   */
+  private updateUser() {
+    if (this.isUser()) {
+      this.updateContactData(this.join.user);
+    }
+  }
+
+  /**
+   * Verifies a user by contact.
+   * @returns A boolean value.
+   */
+  private isUser() {
+    return this.join.isUser(this.viewer.contact);
+  }
+
+  /**
    * Saves user contacts.
    */
-  saveUserContacts(saved: boolean) {
+  private saveUserContacts(saved: boolean) {
     this.viewer.updateContacts();
     this.join.saveUser();
     this.closeDialogs(saved);
@@ -278,7 +305,7 @@ export class ContactDialogComponent extends DialogFormController {
   /**
    * Adds a contact.
    */
-  addContact() {
+  private addContact() {
     let contactData = this.getContactData();
     let contact = new Contact(contactData);
     this.join.addUserItem('contacts', contact);
@@ -291,7 +318,7 @@ export class ContactDialogComponent extends DialogFormController {
    * Gets contact data.
    * @returns The contact data.
    */
-  getContactData() {
+  private getContactData() {
     let contactData = this.form.value as ContactData;
     contactData.name = this.getFormattedName(contactData);
     contactData.initials = this.getInitials(contactData.name);
@@ -303,7 +330,7 @@ export class ContactDialogComponent extends DialogFormController {
   /**
    * Manages a backlog.
    */
-  manageBacklog() {
+  private manageBacklog() {
     setTimeout(() => this.dialogs.open('backlog'), 100);
     setTimeout(() => this.dialogs.close('backlog'), 1100);
   }

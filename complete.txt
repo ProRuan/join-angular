@@ -2,11 +2,10 @@ responsiveness
 --------------
   - summary, add-task, board, contacts (0/4) ...
       --> check project with empty data ... !!!
-      --> set double form button types ... !!!
 
 contacts
 --------
-  - edit user (name, email, phone) ...
+  - add contact: check also user email ... !
   - delete user (account) ...
 
 // new contacts task
