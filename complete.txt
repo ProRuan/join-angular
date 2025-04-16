@@ -3,14 +3,14 @@ responsiveness
   - summary, add-task, board, contacts (0/4) ...
       --> check project with empty data ... !!!
 
+services
+--------
+  - reset some/all of them on destroy ... !
+  - disable form buttons during submission ... !
+
 contacts
 --------
-  - add contact: check also user email ... !
   - delete user (account) ...
-
-// new contacts task
-// -----------------
-// prevent double contacts (add/edit) ... (0/2)
 
 styles
 ------

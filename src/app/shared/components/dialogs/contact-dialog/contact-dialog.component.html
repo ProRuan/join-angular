@@ -1,3 +1,7 @@
+<div class="backlog-cont" [ngClass]="dialogs.getFeedbackContClass()">
+    <app-backlog text="Contact already existing" class="backlog" [ngClass]="dialogs.getFeedbackClass()"></app-backlog>
+</div>
+
 <div *ngIf="isOpened()" @contactDialogAnimation class="dialog">
     <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
 
@@ -33,10 +37,10 @@
                         <div class="button-group">
                             @if(isEditContactDialog()) {
                             <app-button [button]="deleteBtn" (click)="onDelete()"></app-button>
-                            <app-button [button]="saveBtn" type="submit" [disabled]="isIncomplete()"></app-button>
+                            <app-button [button]="saveBtn" type="submit" [disabled]="isDisabled()"></app-button>
                             } @else {
                             <app-button [button]="cancelBtn" class="desktop" (click)="onClose()"></app-button>
-                            <app-button [button]="createBtn" type="submit" [disabled]="isIncomplete()"></app-button>
+                            <app-button [button]="createBtn" type="submit" [disabled]="isDisabled()"></app-button>
                             }
                         </div>
                     </form>

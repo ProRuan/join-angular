@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BacklogComponent } from '../../backlog/backlog.component';
 import { JoinTitleComponent } from '../../join-title/join-title.component';
 import { TextInputComponent } from '../../inputs/text-input/text-input.component';
 import { ButtonComponent } from '../../button/button.component';
@@ -25,6 +26,7 @@ import { isDefaultString } from '../../../ts/global';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    BacklogComponent,
     JoinTitleComponent,
     TextInputComponent,
     ButtonComponent,
@@ -55,6 +57,7 @@ export class ContactDialogComponent extends DialogFormController {
   createBtn = new JoinButton('createBtn');
   deleteBtn = new JoinButton('deleteContactBtn');
   saveBtn = new JoinButton('createBtn', 'Save');
+  submitted: boolean = false;
 
   defaultValue = { name: '', email: '', phone: '' };
 
@@ -195,18 +198,57 @@ export class ContactDialogComponent extends DialogFormController {
    * Processes a form on submit.
    */
   onSubmit() {
-    this.isEditContactDialog() ? this.onSave() : this.onCreate();
+    if (this.form.valid) {
+      this.setSubmitted(true);
+      this.isEditContactDialog() ? this.onSave() : this.onCreate();
+    }
+  }
+
+  /**
+   * Sets the submitted state of a form.
+   * @param value - The value to set.
+   */
+  setSubmitted(value: boolean) {
+    this.submitted = value;
   }
 
   /**
    * Saves a contact on click.
    */
   onSave() {
-    if (this.form.valid) {
-      this.updateContact();
-      this.updateUser();
-      this.saveUserContacts(true);
+    this.isContactExisting(true) ? this.manageFeedback() : this.updateContact();
+  }
+
+  /**
+   * Verifies an existing contact.
+   * @returns A boolean value.
+   */
+  isContactExisting(contactEdited: boolean) {
+    let email = this.getValue('email');
+    let existing = this.join.isContactExisting(email);
+    if (contactEdited) {
+      return existing && !this.isViewedContact(email);
+    } else {
+      return existing;
     }
+  }
+
+  /**
+   * Verifies a viewed contact.
+   * @param email - The contact email.
+   * @returns A boolean value.
+   */
+  isViewedContact(email: string) {
+    return email === this.viewer.contact.email;
+  }
+
+  /**
+   * Manages a user feedback.
+   */
+  manageFeedback() {
+    this.dialogs.open('contactFeedback');
+    setTimeout(() => this.dialogs.close('contactFeedback'), 900);
+    setTimeout(() => this.setSubmitted(false), 1000);
   }
 
   /**
@@ -215,6 +257,8 @@ export class ContactDialogComponent extends DialogFormController {
   private updateContact() {
     let contact = this.viewer.contact;
     this.updateContactData(contact);
+    this.updateUser();
+    this.saveUserContacts(true);
   }
 
   /**
@@ -296,10 +340,7 @@ export class ContactDialogComponent extends DialogFormController {
    * Creates a contact on click.
    */
   onCreate() {
-    if (this.form.valid) {
-      this.addContact();
-      this.saveUserContacts(true);
-    }
+    this.isContactExisting(false) ? this.manageFeedback() : this.addContact();
   }
 
   /**
@@ -312,6 +353,7 @@ export class ContactDialogComponent extends DialogFormController {
     this.viewer.setContact(contact);
     this.dialogs.open('viewContact');
     this.manageBacklog();
+    this.saveUserContacts(true);
   }
 
   /**
@@ -343,10 +385,10 @@ export class ContactDialogComponent extends DialogFormController {
   }
 
   /**
-   * Verifies the incompleteness of a form.
+   * Verifies the disabled state of a submit button.
    * @returns A boolean value.
    */
-  isIncomplete() {
-    return this.form.invalid;
+  isDisabled() {
+    return this.form.invalid || this.submitted;
   }
 }

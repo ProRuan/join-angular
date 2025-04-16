@@ -266,6 +266,15 @@ export class JoinService {
   }
 
   /**
+   * Verifies an existing contact by email.
+   * @param email - The contact email.
+   * @returns A boolean value.
+   */
+  isContactExisting(email: string) {
+    return !!this.getContacts().find((c) => c.email === email);
+  }
+
+  /**
    * Deletes a user.
    * @param id - The user id.
    */

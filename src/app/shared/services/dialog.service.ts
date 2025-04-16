@@ -25,6 +25,7 @@ export class DialogService {
     editContact: false,
     deleteContact: false,
     contactSettings: false,
+    contactFeedback: false,
   };
 
   search: AbstractControl | null = new FormControl('');
@@ -127,5 +128,29 @@ export class DialogService {
    */
   private setFadedOut(value: boolean) {
     this.fadedOut = value;
+  }
+
+  /**
+   * Gets the css class of a contact feedback container.
+   * @returns The css class of the contact feedback container.
+   */
+  getFeedbackContClass() {
+    return this.isFeedbackDisplayed() ? 'backlog-visible' : 'backlog-hidden';
+  }
+
+  /**
+   * Verifies the displayed state of a contact feedback.
+   * @returns A boolean value.
+   */
+  isFeedbackDisplayed() {
+    return this.isOpened('contactFeedback');
+  }
+
+  /**
+   * Gets the css class of a contact feedback.
+   * @returns The css class of a contact feedback.
+   */
+  getFeedbackClass() {
+    return this.isFeedbackDisplayed() ? 'o-1' : 'o-0';
   }
 }
