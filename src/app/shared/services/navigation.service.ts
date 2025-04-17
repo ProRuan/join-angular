@@ -57,9 +57,19 @@ export class NavigationService {
    * Opens a login session.
    * @param id - The user id.
    */
-  openLoginSession(id: string) {
+  openLoginSession(id?: string) {
+    const url = this.getLoginUrl(id);
     this.dialogs.open('backlog');
-    setTimeout(() => this.redirectToLogin(`login/${id}`), 1000);
+    setTimeout(() => this.redirectToLogin(url), 1000);
+  }
+
+  /**
+   * Gets a login url.
+   * @param id - The user id.
+   * @returns The login url.
+   */
+  getLoginUrl(id?: string) {
+    return id ? `login/${id}` : 'login';
   }
 
   /**

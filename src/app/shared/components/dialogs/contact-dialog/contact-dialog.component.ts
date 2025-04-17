@@ -378,10 +378,10 @@ export class ContactDialogComponent extends DialogFormController {
   }
 
   /**
-   * Opens a delete-contact dialog on click.
+   * Manages a contact deletion on click.
    */
   onDelete() {
-    this.dialogs.open('deleteContact');
+    this.viewer.manageDeletion();
   }
 
   /**

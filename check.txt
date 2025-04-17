@@ -49,7 +49,7 @@ app.routes.ts - check
 mixins.scss - check
 styles.scss - check
 
-Components (10/10) + (8/10)
+Components (11/11) + (9/11)
 ----------
   - LoginComponent - check + responsive *logInUser() and rememberUser()
   - SignUpComponent - check + responsive
@@ -69,6 +69,7 @@ Components (10/10) + (8/10)
   - HelpComponent - check + responsive
   - PrivacyPolicyComponent - check + responsive
   - LegalNoticeComponent - check + responsive
+  - SignOutComponent - check
 
 dialogs
 -------

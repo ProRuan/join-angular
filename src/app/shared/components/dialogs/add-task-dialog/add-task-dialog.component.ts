@@ -26,14 +26,6 @@ export class AddTaskDialogComponent extends DialogFormController {
   backlogImage: string = 'board_icon';
 
   /**
-   * Gets the css class of a backlog container.
-   * @returns The css class of the backlog container.
-   */
-  getBacklogContClass() {
-    return this.dialogs.getBacklogContClass();
-  }
-
-  /**
    * Gets the css class of a backlog.
    * @returns The css class of a backlog.
    */

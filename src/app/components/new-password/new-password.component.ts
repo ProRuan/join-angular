@@ -59,7 +59,6 @@ export class NewPasswordComponent extends FormController {
   matchword: AbstractControl | null = null;
   submitted: boolean = false;
   rejected: boolean = false;
-  error: string = 'Email unknown.';
   backlogText: string = 'Password updated successfully';
 
   /**
@@ -83,14 +82,6 @@ export class NewPasswordComponent extends FormController {
    */
   setControls() {
     this.email = this.get('email');
-  }
-
-  /**
-   * Gets the css class of a backlog container.
-   * @returns The css class of the backlog container.
-   */
-  getBacklogContClass() {
-    return this.dialogs.getBacklogContClass();
   }
 
   /**

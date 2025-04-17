@@ -3,14 +3,14 @@ responsiveness
   - summary, add-task, board, contacts (0/4) ...
       --> check project with empty data ... !!!
 
+contacts
+--------
+  - rename user delete to sign-out (0/3) ...
+
 services
 --------
   - reset some/all of them on destroy ... !
   - disable form buttons during submission ... !
-
-contacts
---------
-  - delete user (account) ...
 
 styles
 ------
@@ -74,11 +74,6 @@ responsiveness
   - fix focus-visible ... !
   - check app-checkbox style ...
 
-SignOutComponent
-----------------
-  --> see also: login, sign-up, new-password ...
-  - add to components.scss ...
-
 Responsiveness
 --------------
   - PasswordInputComponent: VisButton:hover && :active ...
@@ -108,10 +103,10 @@ summary service
 
   // edit-task dialog: prio is reseted --> why ... ?
 
-join service
-------------
-  // think about case "delete user" ...
-  //   --> subscribeUserDelete() ...
+Reload
+------
+  - session storage okay ... ?!
+      --> remember user by cookie ... ?
 
 JoinService
 -----------

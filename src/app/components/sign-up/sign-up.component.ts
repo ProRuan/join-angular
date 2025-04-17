@@ -119,6 +119,7 @@ export class SignUpComponent extends FormController {
     let items = getArrayCopy(data);
     return getCustomArray(items, Model);
   }
+
   /**
    * Sets a form.
    */
@@ -137,14 +138,6 @@ export class SignUpComponent extends FormController {
     this.email = this.get('email');
     this.password = this.get('password');
     this.matchword = this.get('matchword');
-  }
-
-  /**
-   * Gets the css class of a backlog container.
-   * @returns The css class of the backlog container.
-   */
-  getBacklogContClass() {
-    return this.dialogs.getBacklogContClass();
   }
 
   /**

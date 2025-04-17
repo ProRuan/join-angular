@@ -61,7 +61,6 @@ export class LoginComponent extends FormController {
   remembered: boolean = false;
   loggedIn: boolean = false;
   subscriptions = new Subscription();
-  error = 'Check your email and password. Please try again.';
 
   /**
    * Initializes a login component.

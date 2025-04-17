@@ -10,6 +10,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { HelpComponent } from './components/help/help.component';
 import { LegalNoticeComponent } from './components/legal-notice/legal-notice.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { SignOutComponent } from './components/sign-out/sign-out.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,8 +22,8 @@ export const routes: Routes = [
     path: 'main',
     component: MainComponent,
     children: [
-      { path: 'privacy-policy', component: PrivacyPolicyComponent },
       { path: 'legal-notice', component: LegalNoticeComponent },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
     ],
   },
   {
@@ -36,9 +37,8 @@ export const routes: Routes = [
       { path: 'help', component: HelpComponent },
       { path: 'legal-notice', component: LegalNoticeComponent },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
-      { path: ':id', redirectTo: ':id/summary', pathMatch: 'full' },
-      { path: '**', redirectTo: 'summary' },
     ],
   },
+  { path: 'sign-out/:id', component: SignOutComponent },
   { path: '**', redirectTo: 'login' },
 ];

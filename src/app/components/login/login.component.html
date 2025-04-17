@@ -13,7 +13,9 @@
                     <div class="input-error-cont">
                         <app-password-input [control]="password" [config]="config.loginWord"></app-password-input>
                         <div class="error-cont">
-                            <span *ngIf="validators.rejected" class="error">{{ error }}</span>
+                            <span *ngIf="validators.rejected" class="error">
+                                Check your email and password. Please try again.
+                            </span>
                         </div>
                     </div>
                 </div>

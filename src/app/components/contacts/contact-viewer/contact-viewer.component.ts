@@ -48,14 +48,6 @@ export class ContactViewerComponent extends DialogFormController {
   }
 
   /**
-   * Gets the css class of a backlog container.
-   * @returns The css class of the backlog container.
-   */
-  getBacklogContClass() {
-    return this.dialogs.getBacklogContClass();
-  }
-
-  /**
    * Gets the css class of a backlog.
    * @returns The css class of a backlog.
    */
@@ -100,10 +92,10 @@ export class ContactViewerComponent extends DialogFormController {
   }
 
   /**
-   * Opens a delete-contact dialog on click.
+   * Manages a contact deletion on click.
    */
   onDelete() {
-    this.dialogs.open('deleteContact');
+    this.viewer.manageDeletion();
   }
 
   /**

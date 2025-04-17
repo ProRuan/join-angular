@@ -12,7 +12,7 @@ import {
   Unsubscribe,
   updateDoc,
 } from '@angular/fire/firestore';
-import { BehaviorSubject, from, Subscription } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 import { DialogService } from './dialog.service';
 import { SummaryService } from './summary.service';
 import { User } from '../models/user';
@@ -279,7 +279,8 @@ export class JoinService {
    * @param id - The user id.
    */
   deleteUser(id: string) {
-    deleteDoc(doc(this.firestore, 'users', id));
+    const response = deleteDoc(doc(this.firestore, 'users', id));
+    return from(response);
   }
 
   /**

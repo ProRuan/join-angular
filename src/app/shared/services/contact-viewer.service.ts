@@ -1,5 +1,7 @@
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { JoinService } from './join.service';
+import { DialogService } from './dialog.service';
 import { Contact } from '../models/contact';
 
 @Injectable({
@@ -10,7 +12,9 @@ import { Contact } from '../models/contact';
  * Class representing a contact viewer service.
  */
 export class ContactViewerService {
+  router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  dialogs: DialogService = inject(DialogService);
 
   contact: Contact = new Contact();
   cachedContact: Contact = new Contact();
@@ -116,5 +120,24 @@ export class ContactViewerService {
     this.setContact();
     this.cachedContact.set();
     this.updateContacts();
+  }
+
+  /**
+   * Manages a contact deletion.
+   */
+  manageDeletion() {
+    if (this.isUser()) {
+      this.router.navigate(['sign-out', this.contact.id]);
+    } else {
+      this.dialogs.open('deleteContact');
+    }
+  }
+
+  /**
+   * Verifies a user by contact.
+   * @returns A boolean value.
+   */
+  private isUser() {
+    return this.join.isUser(this.contact);
   }
 }
