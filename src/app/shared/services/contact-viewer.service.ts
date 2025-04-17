@@ -16,9 +16,9 @@ export class ContactViewerService {
   join: JoinService = inject(JoinService);
   dialogs: DialogService = inject(DialogService);
 
-  contact: Contact = new Contact();
-  cachedContact: Contact = new Contact();
-  defaultContact: Contact = new Contact();
+  contact = new Contact();
+  cachedContact = new Contact();
+  defaultContact = new Contact();
 
   bgColors = [
     'orange',
@@ -137,7 +137,7 @@ export class ContactViewerService {
    * Verifies a user by contact.
    * @returns A boolean value.
    */
-  private isUser() {
+  isUser() {
     return this.join.isUser(this.contact);
   }
 }
