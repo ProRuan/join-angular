@@ -30,7 +30,7 @@ export class ButtonDataService {
   };
 
   addTaskBtn: ButtonData = {
-    buttonClass: 'create-btn slim',
+    buttonClass: 'create-btn add-task-btn',
     textClass: 'create-btn-text',
     text: 'Add task',
     imgClass: 'img-32',

@@ -17,7 +17,7 @@
   }
 
   &:disabled {
-    @include round-border($b: 1px solid $dark, $br: 10px);
+    border: 1px solid $dark;
     box-shadow: unset;
     opacity: 0.5;
   }
@@ -90,7 +90,7 @@
   @include size($w: 24px, $h: 24px);
 }
 
-.slim {
+.add-task-btn {
   padding: 8px 16px;
 }
 
@@ -199,6 +199,52 @@
 }
 
 @media (max-width: 1180px) {
+  .clear-btn {
+    &:hover {
+      border: 1px solid $dark;
+      box-shadow: unset;
+    }
+
+    &:active {
+      border: 1px solid $lightblue;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    &:disabled {
+      border: 1px solid $dark;
+      box-shadow: unset;
+      opacity: 0.5;
+    }
+  }
+
+  .clear-btn-text {
+    .clear-btn:hover & {
+      color: $dark;
+    }
+
+    .clear-btn:active & {
+      color: $lightblue;
+    }
+
+    .clear-btn:disabled & {
+      color: $dark;
+    }
+  }
+
+  .clear-btn-img {
+    .clear-btn:hover & {
+      content: url("/assets/img/add-task/cancel_button.png");
+    }
+
+    .clear-btn:active & {
+      content: url("/assets/img/add-task/cancel_button_hover.png");
+    }
+
+    .clear-btn:disabled & {
+      content: unset;
+    }
+  }
+
   .create-btn {
     &:hover {
       background-color: $dark;
@@ -214,6 +260,14 @@
       background-color: $dark;
       box-shadow: unset;
       opacity: 0.5;
+    }
+  }
+
+  .add-task-btn {
+    padding: 4px;
+
+    .create-btn-text {
+      display: none;
     }
   }
 

@@ -8,12 +8,11 @@
         <div class="title-cont">
             <div class="title-button-cont">
                 <app-join-title [title]="title"></app-join-title>
-                <button class="add-task-btn mobile" (click)="onAdd()"></button>
             </div>
 
             <div class="input-button-cont">
-                <app-search-input [(value)]="board.filter" class="search-input"></app-search-input>
-                <app-button [button]="addTaskBtn" class="desktop" (click)="onAdd()"></app-button>
+                <app-search-input [(value)]="board.filter" class="search-input desktop"></app-search-input>
+                <app-button [button]="addTaskBtn" (click)="onAdd()"></app-button>
             </div>
         </div>
 
