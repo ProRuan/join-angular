@@ -76,10 +76,6 @@ summary service / sign-up
 -------------------------
   // reset urgent summary task (does "done" count or not) ... ?!
 
-ViewTaskDialogComponent
------------------------
-  --> fix subtasks counter and max value ... !
-
 Reload
 ------
   - remember user by cookies or sesstion storage (summary, tasks, contacts) ... ?

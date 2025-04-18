@@ -1,7 +1,7 @@
 <app-task-settings-dialog *ngIf="dialogs.isOpened('taskSettings')"></app-task-settings-dialog>
 <app-add-task-dialog></app-add-task-dialog>
 <app-view-task-dialog [task]="board.task"></app-view-task-dialog>
-<app-edit-task-dialog [task]="board.task"></app-edit-task-dialog>
+<app-edit-task-dialog [task]="board.cachedTask"></app-edit-task-dialog>
 
 <section class="board" (dragleave)="onReset()">
     <div class="content">

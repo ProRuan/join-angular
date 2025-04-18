@@ -144,7 +144,7 @@ export class TaskSettingsDialogComponent extends DialogFormController {
    */
   closeDialog() {
     this.close();
-    this.board.setDefaultTask();
+    this.board.setDefaultTask('task');
   }
 
   /**

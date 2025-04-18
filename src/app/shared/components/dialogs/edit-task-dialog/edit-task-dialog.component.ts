@@ -93,7 +93,8 @@ export class EditTaskDialogComponent
    * @param task - The task to set.
    */
   updateForm(task: Task) {
-    this.form.patchValue(task);
+    let taskCopy = new Task(task);
+    this.form.patchValue(taskCopy);
   }
 
   /**
@@ -155,7 +156,8 @@ export class EditTaskDialogComponent
   onClose() {
     this.close();
     this.dialogs.close('viewTask');
-    this.board.setDefaultTask();
+    this.board.setDefaultTask('task');
+    this.board.setDefaultTask('cachedTask');
     this.resetAssistantControls();
   }
 
@@ -224,8 +226,9 @@ export class EditTaskDialogComponent
     this.dialogs.fadedOut = true;
     setTimeout(() => {
       this.dialogs.close(this.id);
-      this.dialogs.fadedOut = false;
       this.resetAssistantControls();
+      this.board.setDefaultTask('cachedTask');
+      this.dialogs.fadedOut = false;
     }, 0);
   }
 }

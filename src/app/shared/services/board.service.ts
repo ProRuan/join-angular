@@ -23,7 +23,9 @@ export class BoardService {
     'done',
   ];
 
-  task: Task = new Task();
+  [key: string]: any;
+  task = new Task();
+  cachedTask = new Task();
   defaultTask = new Task();
   heightFactor: number = 0;
   filter: string = '';
@@ -145,9 +147,9 @@ export class BoardService {
   }
 
   /**
-   * Sets a task to the default task.
+   * Sets a task to default.
    */
-  setDefaultTask() {
-    this.task = this.defaultTask;
+  setDefaultTask(key: string) {
+    this[key] = this.defaultTask;
   }
 }

@@ -158,6 +158,7 @@ export class ViewTaskDialogComponent
    * Opens an edit-task dialog on click.
    */
   onEdit() {
+    this.board.cachedTask = this.task;
     this.openEditTaskDialog();
   }
 
