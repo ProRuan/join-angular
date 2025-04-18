@@ -76,12 +76,9 @@ summary service / sign-up
 -------------------------
   // reset urgent summary task (does "done" count or not) ... ?!
 
-summary service
----------------
-  // ViewTaskDialogComponent
-  // -----------------------
-  // do not display empty properties or use default values ... ?!
-  //   --> check figma ... !
+ViewTaskDialogComponent
+-----------------------
+  --> fix subtasks counter and max value ... !
 
 Reload
 ------

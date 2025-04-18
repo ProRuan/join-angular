@@ -34,6 +34,11 @@
   color: $black;
 }
 
+.placeholder {
+  @include font($fs: 20px, $fw: 400, $lh: 24px);
+  color: $darkgray;
+}
+
 .property {
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include display-row($ai: center, $g: 25px);
@@ -130,6 +135,10 @@
   }
 
   .description {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+
+  .placeholder {
     @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   }
 

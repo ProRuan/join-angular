@@ -10,7 +10,11 @@
 
             <h2 class="title">{{ task.title }}</h2>
 
+            @if (task.description.length) {
             <span class="description">{{ task.description }}</span>
+            } @else {
+            <span class="placeholder">What´s this task about?</span>
+            }
 
             <div class="property">
                 <span class="property-head">Due date:</span>
@@ -25,6 +29,7 @@
             <div class="assigned-to-cont">
                 <span class="property-head">Assigned To:</span>
                 <div class="column-4">
+                    @if (task.assignedTo.length) {
                     <div *ngFor="let contact of task.assignedTo" class="contact">
                         <div class="profile" [ngClass]="contact.bgc">
                             <span class="initials">{{ contact.initials }}</span>
@@ -34,16 +39,23 @@
                             <span *ngIf="join.isUser(contact)"> (You)</span>
                         </div>
                     </div>
+                    } @else {
+                    <span class="placeholder">Who should work on this task?</span>
+                    }
                 </div>
             </div>
 
             <div class="column-8">
                 <span class="subtasks-head">Subtasks</span>
                 <div class="column-4">
+                    @if (task.subtasks.length) {
                     <div *ngFor="let subtask of task.subtasks" class="subtask" (click)="onCheck(subtask)">
                         <app-checkbox [checked]="subtask.done"></app-checkbox>
                         <span class="subtask-text">{{ subtask.text }}</span>
                     </div>
+                    } @else {
+                    <span class="placeholder">What needs to get done?</span>
+                    }
                 </div>
             </div>
 
