@@ -56,8 +56,8 @@ export class ButtonDataService {
     alt: 'edit',
   };
 
-  addBtn: ButtonData = {
-    buttonClass: 'create-btn add-new-contact-btn',
+  addContactBtn: ButtonData = {
+    buttonClass: 'create-btn add-contact-btn',
     textClass: 'create-btn-text',
     text: 'Add new contact',
     imgClass: 'img-32',

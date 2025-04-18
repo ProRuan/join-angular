@@ -41,7 +41,7 @@ export class ContactListComponent implements OnChanges {
   registerLetters: string[] = [];
   register: Register[] = [];
   dialogId: string = 'addContact';
-  addBtn = new JoinButton('addBtn');
+  addBtn = new JoinButton('addContactBtn');
 
   /**
    * Updates a contact list component on changes.

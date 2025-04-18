@@ -145,7 +145,7 @@
   }
 }
 
-.add-new-contact-btn {
+.add-contact-btn {
   @include display-row($jc: center, $ai: center, $g: 16px);
   padding: 12px;
   width: 352px;
@@ -341,6 +341,20 @@
 
   .ok-btn {
     padding: 18px 10px;
+  }
+
+  .delete-btn-img {
+    .clear-btn:hover & {
+      content: url("/assets/img/button/delete.png");
+    }
+
+    .clear-btn:active & {
+      content: url("/assets/img/button/delete_blue.png");
+    }
+
+    .clear-btn:disabled & {
+      content: unset;
+    }
   }
 }
 
