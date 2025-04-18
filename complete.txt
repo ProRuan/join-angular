@@ -8,11 +8,6 @@ services
   - reset some/all of them on destroy ... !
   - disable form buttons during submission ... !
 
-styles
-------
-  - review components.scss ...
-  - review and enable scrollbars.scss ...
-
 favicon
 -------
    - add favicon ...
@@ -20,70 +15,41 @@ favicon
 -------------------------------------------------
 -------------------------------------------------
 
+responsiveness
+--------------
+  - main: min/max/width/height ...
+  - width: 1440px or 1920px ...
+  - height: 900px (for all) ... ?
+
+  - summary: greetings (desktop) ...
+  - add-task: form-button gap + calender pos (0/2) ...
+  - board: board.ts, view-task and edit-task ... (0/3)
+
+
+
 box-shadows
 -----------
   - check all box-shadows due to app-containers ... !!!
-
-contacts
---------
-  - fix input height (globally) ... ?!
-
-content container
------------------
-  - main: max-height + min-height ... (0/2)
-  - min-height: full main container ...
-      --> summary, add-task, board, contacts ... (0/4)
-
-max-size
---------
-  - width: 1440 or 1920px ...
-  - height: 900px ...
-      --> set them for all components (0/10)
-
-add-task
---------
-  - set input hover/active ...
-  - check calendar position (left, center, right) ...
-  - fix z-indices (subtasks) ...
-  - fix add-task form-button gap ...
-
-summary
--------
-  - add one resp-step more ... ?
-  - set max-width for help, privaciy policy and legal notice ...
-  - think about close flip-menu logic (for all components) ...
 
 legal-notice
 ------------
   - set exploring the board e-mail (from guest login) ...
 
-responsiveness
---------------
-  - summary: min-height ...
-  - summary greetings (mobile + desktop as of 1280px) ... (0/2)
-  - board: board.ts, view-task and edit-task ... (0/3)
-  - join-header: help + profile (mobile) ... (0/2)
+routes
+------
   - scroll to top after router link (on small devices) ...
-  - rename header login and sign-up classes ...
-  - fix focus-visible ... !
-  - check app-checkbox style ...
 
-Responsiveness
---------------
-  - PasswordInputComponent: VisButton:hover && :active ...
 
-summary service / sign-up
--------------------------
-  // reset urgent summary task (does "done" count or not) ... ?!
-
-Reload
+reload
 ------
   - remember user by cookies or sesstion storage (summary, tasks, contacts) ... ?
 
-add-task component
-------------------
-  - height tranistion due to assigned-to, category and subtasks ... (0/3)
 
+
+pseudo-optional
+---------------
+  - add-task height transition (assigned-to, category, subtasks) (0/3) ...
+  
 
 optional
 --------
@@ -101,6 +67,7 @@ optional
   - buttons: fix transitions of (delete, edit, vis) ...
 
   - input: rejectedValidator() for permanent error ... 
+  - input: contact input height 50px ...
   - replace error with control?.errors ...
   - replace mixin display-flex with display-column or display-row ...
   - review value: Model = new Model() ...

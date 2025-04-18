@@ -66,12 +66,12 @@
   }
 
   .new-password-link {
-    &:hover,
-    &:focus-visible {
+    &:hover {
       text-decoration: none;
     }
 
-    &:active {
+    &:active,
+    &:focus-visible {
       text-decoration: underline;
     }
   }

@@ -7,7 +7,6 @@
 @import "./assets/styles/background-colors.scss";
 @import "./assets/styles/components.scss";
 @import "./assets/styles/dialogs.scss";
-@import "./assets/styles/scrollbars.scss";
 @import "./assets/styles/tags.scss";
 
 .backlog-cont {
@@ -78,7 +77,8 @@
   @include round-border($b: 1px solid $dark, $br: 8px);
   transition: all 100ms ease-in-out;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     color: $lightblue;
     border: 1px solid $lightblue;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
@@ -277,13 +277,13 @@
   }
 
   .prim-btn {
-    &:hover,
-    &:focus-visible {
+    &:hover {
       background-color: $dark;
       box-shadow: unset;
     }
 
-    &:active {
+    &:active,
+    &:focus-visible {
       background-color: $lightblue;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     }
@@ -302,7 +302,8 @@
       box-shadow: unset;
     }
 
-    &:active {
+    &:active,
+    &:focus-visible {
       color: $lightblue;
       border: 1px solid $lightblue;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);

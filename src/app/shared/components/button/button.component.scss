@@ -7,12 +7,14 @@
   background-color: transparent;
   transition: all 100ms ease-in-out;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     border: 1px solid $lightblue;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   }
 
-  &:active {
+  &:active,
+  &:focus-visible {
     border: 1px solid $darker;
   }
 
@@ -64,12 +66,14 @@
   background-color: $dark;
   transition: all 100ms ease-in-out;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-color: $lightblue;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   }
 
-  &:active {
+  &:active,
+  &:focus-visible {
     background: $darker;
   }
 
@@ -174,7 +178,8 @@
       box-shadow: unset;
     }
 
-    &:active {
+    &:active,
+    &:focus-visible {
       border: 1px solid $lightblue;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     }
@@ -220,7 +225,8 @@
       box-shadow: unset;
     }
 
-    &:active {
+    &:active,
+    &:focus-visible {
       background-color: $lightblue;
       box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     }
@@ -252,7 +258,8 @@
     background-color: transparent;
     flex-direction: row-reverse;
 
-    &:active {
+    &:active,
+    &:focus-visible {
       background-color: #eeeeee;
     }
   }

@@ -39,6 +39,19 @@ $lowWhite: "/assets/img/add-task/prio_low_white.png";
       background-image: url($a);
     }
   }
+
+  @media (max-width: 1180px) {
+    &:hover {
+      background-image: url($h);
+    }
+
+    @if $a {
+      &:active,
+      &:focus-visible {
+        background-image: url($a);
+      }
+    }
+  }
 }
 
 @mixin color-set($c, $bgc) {

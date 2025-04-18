@@ -23,4 +23,5 @@ app-delete-contact-dialog {
 
 app-checkbox {
   @include size($w: 24px, $h: 24px);
+  display: flex;
 }

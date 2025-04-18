@@ -34,13 +34,13 @@
   }
 
   .legal-link {
-    &:hover,
-    &:focus-visible {
+    &:hover {
       font-weight: 400;
       color: $darkgray;
     }
 
-    &:active {
+    &:active,
+    &:focus-visible {
       font-weight: 700;
       color: $lightblue;
     }

@@ -18,12 +18,12 @@
 
 @media (max-width: 1180px) {
   .button {
-    &:hover,
-    &:focus-visible {
+    &:hover {
       background-image: url("/assets/img/button/left_arrow.png");
     }
 
-    &:active {
+    &:active,
+    &:focus-visible {
       background-image: url("/assets/img/button/left_arrow_hover.png");
     }
   }
