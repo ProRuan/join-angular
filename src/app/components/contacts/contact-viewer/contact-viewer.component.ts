@@ -36,7 +36,6 @@ export class ContactViewerComponent extends DialogFormController {
   title: string = 'Contacts';
   subtitle: string = 'Better with a team';
   editBtn = new JoinButton('editBtn');
-  deleteBtn = new JoinButton('deleteBtn');
   backlogText: string = 'Contact successfully created';
 
   /**

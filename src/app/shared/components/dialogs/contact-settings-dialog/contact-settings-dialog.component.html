@@ -4,7 +4,7 @@
 
             <div class="settings-dialog" [ngClass]="getDialogClass()" (click)="onStop($event)">
                 <app-button [button]="editBtn" [selected]="isSelected('editContact')" (click)="onEdit()"></app-button>
-                <app-button [button]="deleteBtn" [selected]="isSelected('deleteContact')"
+                <app-button [button]="viewer.contactDeleteBtn" [selected]="isSelected('deleteContact')"
                     (click)="onDelete()"></app-button>
             </div>
 

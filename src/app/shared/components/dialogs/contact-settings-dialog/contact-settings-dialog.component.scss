@@ -11,11 +11,19 @@
   display: none;
 }
 
+.w-133 {
+  width: 133px;
+}
+
+.w-116 {
+  width: 116px;
+}
+
 @media (max-width: 1180px) {
   .settings-dialog {
+    @include box-padding($p: 10px);
     @include display-column();
     @include position($pos: absolute, $r: 8px, $b: 96px);
-    padding: 10px;
     background-color: $white;
     border-radius: 20px 20px 0 20px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);

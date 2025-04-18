@@ -55,7 +55,6 @@ export class ContactDialogComponent extends DialogFormController {
   subtitle: string = '';
   cancelBtn = new JoinButton('clearBtn');
   createBtn = new JoinButton('createBtn');
-  deleteBtn = new JoinButton('deleteContactBtn');
   saveBtn = new JoinButton('createBtn', 'Save');
   submitted: boolean = false;
 

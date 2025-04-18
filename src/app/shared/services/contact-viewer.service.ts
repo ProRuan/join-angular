@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { JoinService } from './join.service';
 import { DialogService } from './dialog.service';
 import { Contact } from '../models/contact';
+import { JoinButton } from '../models/join-button';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,9 @@ export class ContactViewerService {
   contact = new Contact();
   cachedContact = new Contact();
   defaultContact = new Contact();
+  deleteBtn = new JoinButton('deleteBtn');
+  deleteContactBtn = new JoinButton('deleteContactBtn');
+  contactDeleteBtn = new JoinButton('contactDeleteBtn');
 
   bgColors = [
     'orange',
@@ -120,6 +124,27 @@ export class ContactViewerService {
     this.setContact();
     this.cachedContact.set();
     this.updateContacts();
+  }
+
+  /**
+   * Sets delete buttons.
+   */
+  setDeleteButtons() {
+    if (this.isUser()) {
+      this.setDeleteButtonTexts('Sign out');
+    } else {
+      this.setDeleteButtonTexts('Delete');
+    }
+  }
+
+  /**
+   * Sets delete button texts.
+   * @param text - The text to set.
+   */
+  private setDeleteButtonTexts(text: string) {
+    this.deleteBtn.text = text;
+    this.deleteContactBtn.text = text;
+    this.contactDeleteBtn.text = text;
   }
 
   /**

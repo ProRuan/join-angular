@@ -3,10 +3,6 @@ responsiveness
   - summary, add-task, board, contacts (0/4) ...
       --> check project with empty data ... !!!
 
-contacts
---------
-  - rename user delete to sign-out (0/3) ...
-
 services
 --------
   - reset some/all of them on destroy ... !

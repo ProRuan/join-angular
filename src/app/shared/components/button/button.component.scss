@@ -167,37 +167,6 @@
   }
 }
 
-.mobile-settings-btn {
-  @include box-padding($p: 8px);
-  @include round-border($b: none, $br: 8px);
-  @include display-row($jc: flex-end, $ai: center, $g: 8px);
-  width: 96px;
-  background-color: transparent;
-  flex-direction: row-reverse;
-
-  &:active {
-    background-color: #eeeeee;
-  }
-}
-
-.bgc-gray {
-  background-color: #eeeeee;
-}
-
-.settings-btn-text-selected {
-  @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-  font-weight: 700;
-  color: $lightblue;
-}
-
-.edit-selected {
-  content: url("/assets/img/button/edit_blue.png");
-}
-
-.delete-selected {
-  content: url("/assets/img/button/delete_blue.png");
-}
-
 @media (max-width: 1180px) {
   .clear-btn {
     &:hover {
@@ -275,13 +244,32 @@
     @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   }
 
+  .contact-settings-btn {
+    @include box-padding($p: 8px);
+    @include round-border($b: none, $br: 8px);
+    @include display-row($jc: flex-end, $ai: center, $g: 8px);
+    width: 100%;
+    background-color: transparent;
+    flex-direction: row-reverse;
+
+    &:active {
+      background-color: #eeeeee;
+    }
+  }
+
+  .contact-settings-btn-selected {
+    background-color: #eeeeee;
+  }
+
   .settings-btn-text {
     .settings-btn:hover & {
       font-weight: 400;
       color: $dark;
     }
 
-    .settings-btn:active & {
+    .settings-btn:active &,
+    .contact-settings-btn:active &,
+    .contact-settings-btn-selected & {
       font-weight: 700;
       color: $lightblue;
     }
@@ -292,7 +280,9 @@
       content: url("/assets/img/button/edit.png");
     }
 
-    .settings-btn:active & {
+    .settings-btn:active &,
+    .contact-settings-btn:active &,
+    .contact-settings-btn-selected & {
       content: url("/assets/img/button/edit_blue.png");
     }
   }
@@ -302,39 +292,9 @@
       content: url("/assets/img/button/delete.png");
     }
 
-    .settings-btn:active & {
-      content: url("/assets/img/button/delete_blue.png");
-    }
-  }
-
-  .settings-btn-text {
-    .mobile-settings-btn:hover & {
-      font-weight: 400;
-      color: $dark;
-    }
-
-    .mobile-settings-btn:active & {
-      font-weight: 700;
-      color: $lightblue;
-    }
-  }
-
-  .edit {
-    .mobile-settings-btn:hover & {
-      content: url("/assets/img/button/edit.png");
-    }
-
-    .mobile-settings-btn:active & {
-      content: url("/assets/img/button/edit_blue.png");
-    }
-  }
-
-  .delete {
-    .mobile-settings-btn:hover & {
-      content: url("/assets/img/button/delete.png");
-    }
-
-    .mobile-settings-btn:active & {
+    .settings-btn:active &,
+    .contact-settings-btn:active &,
+    .contact-settings-btn-selected & {
       content: url("/assets/img/button/delete_blue.png");
     }
   }

@@ -24,24 +24,7 @@ export class ContactSettingsDialogComponent extends DialogFormController {
 
   override id: string = 'contactSettings';
 
-  editBtn = new JoinButton('editBtn');
-  deleteBtn = new JoinButton('deleteBtn');
-
-  /**
-   * Initializes a contact settings dialog component.
-   */
-  ngOnInit() {
-    this.setMobileButtons();
-  }
-
-  /**
-   * Sets mobile buttons.
-   */
-  setMobileButtons() {
-    let buttonClass = 'mobile-settings-btn';
-    this.editBtn.buttonClass = buttonClass;
-    this.deleteBtn.buttonClass = buttonClass;
-  }
+  editBtn = new JoinButton('contactEditBtn');
 
   /**
    * Closes a dialog on click.
@@ -63,7 +46,9 @@ export class ContactSettingsDialogComponent extends DialogFormController {
    * @returns The css class of the settings dialog.
    */
   getDialogClass() {
-    return this.dialogs.fadedOut ? '' : 'slide';
+    let widthClass = this.viewer.isUser() ? 'w-133' : 'w-116';
+    let slideClass = this.dialogs.fadedOut ? '' : 'slide';
+    return [widthClass, slideClass].filter(Boolean).join(' ');
   }
 
   /**

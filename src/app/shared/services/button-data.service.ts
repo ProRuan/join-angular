@@ -65,6 +65,24 @@ export class ButtonDataService {
     alt: 'add_new_contact',
   };
 
+  contactDeleteBtn: ButtonData = {
+    buttonClass: 'contact-settings-btn',
+    textClass: 'settings-btn-text',
+    text: 'Delete',
+    imgClass: 'img-24 delete',
+    src: '/assets/img/button/delete.png',
+    alt: 'delete',
+  };
+
+  contactEditBtn: ButtonData = {
+    buttonClass: 'contact-settings-btn',
+    textClass: 'settings-btn-text',
+    text: 'Edit',
+    imgClass: 'img-24 edit',
+    src: '/assets/img/button/edit.png',
+    alt: 'edit',
+  };
+
   deleteContactBtn: ButtonData = {
     buttonClass: 'clear-btn',
     textClass: 'clear-btn-text',
