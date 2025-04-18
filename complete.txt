@@ -26,9 +26,7 @@ box-shadows
 
 contacts
 --------
-  - fix dialog button sizes (height: 51px) ...
-  - fix input height ...
-      --> fix input height globally ... !
+  - fix input height (globally) ... ?!
 
 content container
 -----------------
@@ -76,13 +74,7 @@ Responsiveness
 
 summary service / sign-up
 -------------------------
-  // requiredValidator with this.rejected ...
-
-  // reset urgent summary task ...
-
-  // improve resetAssignedTo()/resetAddTaskMenus() ...
-  
-  // fix summary deadline (default, done) ... (0/2)
+  // reset urgent summary task (does "done" count or not) ... ?!
 
 summary service
 ---------------
@@ -91,35 +83,13 @@ summary service
   // do not display empty properties or use default values ... ?!
   //   --> check figma ... !
 
-  // review display-none component: ngOnChanges not necessary ... ?!
-  //   - ContactListComponent ...
-  //   - ContactDialogComponent: check ngIf (open/close dialog) ...
-
-  // review board service: 1 method ...
-
-  // edit-task dialog: prio is reseted --> why ... ?
-
 Reload
 ------
-  - session storage okay ... ?!
-      --> remember user by cookie ... ?
+  - remember user by cookies or sesstion storage (summary, tasks, contacts) ... ?
 
-JoinService
------------
-  // ContactDialogComponent
-  // ----------------------
-  // input height: 50px ... ?
-
-JoinDialog (DialogFormController)
-----------
-  button component
-  ----------------
-    - review button component ...
-    - global button styles ... ?
-
-  add-task Component
-  ------------------
-    - height tranistion due to assigned-to, category and subtasks ... (0/3)
+add-task component
+------------------
+  - height tranistion due to assigned-to, category and subtasks ... (0/3)
 
 
 optional
@@ -134,6 +104,10 @@ optional
   - enhance cookie service for different browsers ...
   
   - summary greetings with object and for loop ...
+
+  - buttons: fix transitions of (delete, edit, vis) ...
+
+  - input: rejectedValidator() for permanent error ... 
   - replace error with control?.errors ...
   - replace mixin display-flex with display-column or display-row ...
   - review value: Model = new Model() ...

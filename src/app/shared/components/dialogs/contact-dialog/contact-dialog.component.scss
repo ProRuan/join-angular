@@ -133,4 +133,9 @@
     justify-content: center;
     gap: 20px;
   }
+
+  app-button:not(.desktop) {
+    display: flex;
+    height: 51px;
+  }
 }
