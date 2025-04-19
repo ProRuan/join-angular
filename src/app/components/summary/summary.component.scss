@@ -34,6 +34,28 @@
   color: $lightblue;
 }
 
+@media (max-width: 1439px) {
+  .summary {
+    padding: 64px 48px;
+  }
+
+  .content {
+    gap: 48px;
+  }
+
+  .overview-greeting-cont {
+    gap: 48px;
+  }
+
+  .greeting {
+    @include font($fs: 36px, $fw: 400, $lh: 43.2px);
+  }
+
+  .user {
+    @include font($fs: 47px, $fw: 700, $lh: 56.4px);
+  }
+}
+
 @media (max-width: 1180px) {
   .greeting-animation {
     @include size($w: 100%, $h: 100%);
@@ -61,14 +83,6 @@
 
   .greeting-cont {
     align-items: center;
-  }
-
-  .greeting {
-    @include font($fs: 36px, $fw: 400, $lh: 43.2px);
-  }
-
-  .user {
-    @include font($fs: 47px, $fw: 700, $lh: 56.4px);
   }
 }
 
