@@ -11,6 +11,7 @@
   @include color-set($c: $black, $bgc: $white);
   @include round-border($b: 1px solid $gray, $br: 10px);
   @include display-row($g: 10px);
+  width: 100%;
   font-family: $inter;
   z-index: 4;
   transition: border 100ms ease-in-out;

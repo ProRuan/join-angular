@@ -1,5 +1,9 @@
 @import "../../../mixins.scss";
 
+.add-task {
+  min-height: 100%;
+}
+
 .padding-desktop {
   @include box-padding($p: 110px 96px);
 }
@@ -10,7 +14,7 @@
 
 .content {
   @include size($w: 977px, $h: 100%);
-  @include display-column($jc: space-between, $g: 48px);
+  @include display-column($g: 48px);
 }
 
 .column-desktop {
@@ -57,10 +61,6 @@
 }
 
 @media (max-width: 1439px) {
-  .add-task {
-    height: calc(100vh - 96px);
-  }
-
   .padding-desktop {
     padding: 64px 48px;
   }
@@ -89,7 +89,6 @@
   .add-task {
     @include display-column($ai: center);
     padding: 0;
-    height: fit-content;
   }
 
   .content {
@@ -108,16 +107,11 @@
     @include display-column($g: 16px);
   }
 
-  .left-fieldset {
-    width: 100%;
-  }
-
   .border {
     display: none;
   }
 
   .right-fieldset {
-    width: 100%;
     gap: 16px;
   }
 

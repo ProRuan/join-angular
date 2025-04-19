@@ -9,6 +9,7 @@
   @include box-padding($p: 11px 15px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include color-set($c: $black, $bgc: $white);
+  width: 100%;
   font-family: $inter;
   border-radius: 10px;
   transition: border 100ms ease-in-out;

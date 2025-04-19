@@ -2,6 +2,7 @@
 
 .input-hint-cont {
   @include display-column($g: 4px);
+  width: 100%;
   min-height: 64px;
 }
 
