@@ -8,22 +8,25 @@
         <div class="title-cont">
             <div class="title-button-cont">
                 <app-join-title [title]="title"></app-join-title>
+                <app-button *ngIf="join.isMobile()" [button]="addTaskBtn" (click)="onAdd()"></app-button>
             </div>
 
             <div class="input-button-cont">
-                <app-search-input [(value)]="board.filter" class="search-input desktop"></app-search-input>
-                <app-button [button]="addTaskBtn" (click)="onAdd()"></app-button>
+                <app-search-input [(value)]="board.filter"></app-search-input>
+                <app-button [button]="addTaskBtn" class="desktop" (click)="onAdd()"></app-button>
             </div>
         </div>
 
-        <div class="column-16">
-            <app-board-head *ngIf="!join.isMobile()"></app-board-head>
+        <div class="board-cont">
+            <app-board-head *ngIf="!join.isMobile()" class="board-head"></app-board-head>
 
-            <div class="column-group">
-                <app-column name="To do" [tasks]="getTasks('to-do')"></app-column>
-                <app-column name="In progress" [tasks]="getTasks('in-progress')"></app-column>
-                <app-column name="Await feedback" [tasks]="getTasks('await-feedback')"></app-column>
-                <app-column name="Done" [tasks]="getTasks('done')"></app-column>
+            <div class="board-body">
+                <div class="column-group">
+                    <app-column name="To do" [tasks]="getTasks('to-do')"></app-column>
+                    <app-column name="In progress" [tasks]="getTasks('in-progress')"></app-column>
+                    <app-column name="Await feedback" [tasks]="getTasks('await-feedback')"></app-column>
+                    <app-column name="Done" [tasks]="getTasks('done')"></app-column>
+                </div>
             </div>
         </div>
     </div>
