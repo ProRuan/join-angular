@@ -1,12 +1,8 @@
-responsiveness
---------------
-  - summary, add-task, board, contacts (0/4) ...
-      --> check project with empty data ... !!!
-
 services
 --------
   - reset some/all of them on destroy ... !
   - disable form buttons during submission ... !
+  - check project with empty data ... !
 
 favicon
 -------
@@ -17,15 +13,14 @@ favicon
 
 responsiveness
 --------------
+  - summary, add-task, board, contacts (0/4) ...
   - main: min/max/width/height ...
   - width: 1440px or 1920px ...
-  - height: 900px (for all) ... ?
+  - height: 720px oder 900px (for all) ... ?
 
   - summary: greetings (desktop) ...
   - add-task: form-button gap + calender pos (0/2) ...
   - board: board.ts, view-task and edit-task ... (0/3)
-
-
 
 box-shadows
 -----------
@@ -38,7 +33,6 @@ legal-notice
 routes
 ------
   - scroll to top after router link (on small devices) ...
-
 
 reload
 ------

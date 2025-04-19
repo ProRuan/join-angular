@@ -58,7 +58,6 @@ export class NewPasswordComponent extends FormController {
   password: AbstractControl | null = null;
   matchword: AbstractControl | null = null;
   submitted: boolean = false;
-  rejected: boolean = false;
   backlogText: string = 'Password updated successfully';
 
   /**
@@ -104,6 +103,7 @@ export class NewPasswordComponent extends FormController {
    */
   onContinue() {
     if (this.form.valid) {
+      this.validators.setRejected(false);
       this.submitted = true;
       let user = this.join.getRegisteredUser(this.email?.value);
       user ? this.continue(user) : this.reject();
@@ -143,7 +143,7 @@ export class NewPasswordComponent extends FormController {
    * Rejects a form.
    */
   reject() {
-    this.rejected = true;
+    this.validators.setRejected(true);
     this.submitted = false;
   }
 
