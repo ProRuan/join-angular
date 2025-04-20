@@ -34,6 +34,15 @@ export class CategoryInputComponent extends ReactiveInput {
   @Input() override control: AbstractControl | null = null;
 
   /**
+   * Gets the css class of a category input.
+   * @returns The css class of the category input.
+   */
+  getCategoryInputClass() {
+    if (this.dialogs.isOpened(this.dialogId)) return 'h-selection';
+    return 'h-default';
+  }
+
+  /**
    * Handles a dialog on click.
    * @param event - The event.
    */

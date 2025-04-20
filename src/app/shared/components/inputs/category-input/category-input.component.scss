@@ -1,7 +1,27 @@
 @import "../../../../../mixins.scss";
 
-.input-cont {
-  @include display-column($g: 4px);
+.category-input {
+  @include display-column($g: 8px);
+  overflow-y: hidden;
+  transition: all 100ms ease-in-out;
+}
+
+.h-default {
+  height: 80px;
+
+  .input-list-cont {
+    max-height: 48px;
+  }
+}
+
+.h-selection {
+  height: 176px;
+}
+
+.input-list-cont {
+  @include display-column();
+  background-color: $white;
+  border-radius: 10px;
   position: relative;
 }
 
@@ -41,13 +61,6 @@
 
 .list {
   @include display-column();
-  @include position($pos: absolute, $l: 0, $t: 0);
-  padding-top: 48px;
-  width: 100%;
-  background-color: $white;
-  border-radius: 10px;
-  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-  z-index: 3;
 }
 
 .item {
@@ -65,6 +78,18 @@
 }
 
 @media (max-width: 1180px) {
+  .h-default {
+    height: 74.4px;
+
+    .input-list-cont {
+      max-height: 47.2px;
+    }
+  }
+
+  .h-selection {
+    height: 160.8px;
+  }
+
   .input {
     @include font($fs: 16px, $fw: 400, $lh: 19.2px);
     padding: 13px 49px 13px 15px;
@@ -82,11 +107,21 @@
     }
   }
 
-  .item:hover {
-    background-color: unset;
+  .item {
+    &:hover {
+      background-color: unset;
+    }
+
+    &:active {
+      background-color: $dark;
+    }
   }
 
   .text {
     @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+
+    .item:active & {
+      color: $white;
+    }
   }
 }
