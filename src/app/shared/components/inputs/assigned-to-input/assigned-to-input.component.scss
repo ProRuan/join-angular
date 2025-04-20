@@ -1,7 +1,28 @@
 @import "../../../../../mixins.scss";
 
+.assigned-to-input {
+  @include display-column($g: 8px);
+  overflow-y: hidden;
+  transition: all 100ms ease-in-out;
+}
+
+.h-default {
+  height: 80px;
+}
+
+.h-list {
+  height: 368px;
+}
+
+.h-assigned {
+  height: 130px;
+}
+
 .input-list-cont {
-  @include display-column($g: 4px);
+  @include display-column();
+  background-color: $white;
+  border-radius: 10px;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
   position: relative;
 }
 
@@ -43,20 +64,10 @@
   cursor: pointer;
 }
 
-.assignable-contacts-list-cont {
-  @include position($pos: absolute, $l: 0, $t: 0);
-  padding-top: 48px;
-  width: 100%;
-  background-color: $white;
-  border-radius: 10px;
-  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-  z-index: 5;
-}
-
 .assignable-contacts-list {
   @include display-column($g: 2px);
   width: 100%;
-  max-height: 230px;
+  max-height: 288px;
   overflow-y: auto;
 }
 

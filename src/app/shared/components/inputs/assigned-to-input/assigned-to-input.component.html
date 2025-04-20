@@ -1,4 +1,4 @@
-<div class="column-8">
+<div class="assigned-to-input" [ngClass]="getAssignedToInputClass()">
     <app-label text="Assigned to"></app-label>
 
     <div class="input-list-cont" (click)="onHandle($event)">
@@ -6,29 +6,27 @@
             (input)="onInput($event)" (focus)="onOpen()">
         <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitch()">
 
-        <div class="assignable-contacts-list-cont" [ngClass]="getListClass()">
-            <div class="assignable-contacts-list">
-                @for (contact of assignableContacts; track contact; let i = $index) {
-                @if (isFiltered(contact.name)) {
-                <div class="assignable-contact" [ngClass]="getBgcClass(contact)" (click)="onAssign(i)">
-                    <div class="profile-name-cont">
-                        <div class="profile" [ngClass]="contact.bgc">
-                            <span class="initials">{{ contact.initials }}</span>
-                        </div>
-                        <div class="name">
-                            <span>{{ contact.name }}</span>
-                            <span *ngIf="join.isUser(contact)"> (You)</span>
-                        </div>
+        <div class="assignable-contacts-list" [ngClass]="getListClass()">
+            @for (contact of assignableContacts; track contact; let i = $index) {
+            @if (isFiltered(contact.name)) {
+            <div class="assignable-contact" [ngClass]="getBgcClass(contact)" (click)="onAssign(i)">
+                <div class="profile-name-cont">
+                    <div class="profile" [ngClass]="contact.bgc">
+                        <span class="initials">{{ contact.initials }}</span>
                     </div>
-                    <app-checkbox [checked]="isAssigned(contact)" [bright]="true"></app-checkbox>
+                    <div class="name">
+                        <span>{{ contact.name }}</span>
+                        <span *ngIf="join.isUser(contact)"> (You)</span>
+                    </div>
                 </div>
-                }
-                }
+                <app-checkbox [checked]="isAssigned(contact)" [bright]="true"></app-checkbox>
             </div>
+            }
+            }
         </div>
     </div>
 
-    <div *ngIf="isAnyContactAssigned()" class="assigned-contacts">
+    <div class="assigned-contacts">
         <div *ngFor="let contact of assignedContacts" class="profile" [ngClass]="contact.bgc">
             <span class="initials">{{ contact.initials }}</span>
         </div>

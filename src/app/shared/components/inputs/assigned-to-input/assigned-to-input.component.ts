@@ -108,6 +108,16 @@ export class AssignedToInputComponent
   }
 
   /**
+   * Gets the css class of an assigned-to input.
+   * @returns The css class of an assigned-to input.
+   */
+  getAssignedToInputClass() {
+    if (this.dialogs.isOpened(this.dialogId)) return 'h-list';
+    if (this.isAnyContactAssigned()) return 'h-assigned';
+    return 'h-default';
+  }
+
+  /**
    * Verifies the assigned state of a contact.
    * @param contact - The assignable contact.
    * @returns A boolean value.
