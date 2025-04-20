@@ -158,6 +158,11 @@
     }
   }
 
+  .item {
+    max-width: 130px;
+    overflow-x: hidden;
+  }
+
   .editor-button-bar {
     top: 12px;
   }

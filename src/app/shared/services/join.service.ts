@@ -329,7 +329,7 @@ export class JoinService {
    */
   updateJoinSettings(value: number) {
     this.setWindowWidth(value);
-    this.closeSettingsMenus();
+    this.closeResponsiveDialogs();
   }
 
   /**
@@ -341,14 +341,14 @@ export class JoinService {
   }
 
   /**
-   * Closes settings menus.
+   * Closes responsive dialogs.
    */
-  closeSettingsMenus() {
+  closeResponsiveDialogs() {
+    this.dialogs.close('taskSettings');
     if (!this.isMobile()) {
-      this.dialogs.close('taskSettings');
       this.dialogs.close('contactSettings');
     } else {
-      this.dialogs.close('addTask');
+      setTimeout(() => this.dialogs.close('addTask'), 0);
     }
   }
 

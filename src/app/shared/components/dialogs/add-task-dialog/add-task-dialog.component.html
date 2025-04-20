@@ -2,7 +2,7 @@
     <app-backlog [text]="backlogText" [img]="backlogImage" class="backlog" [ngClass]="getBacklogClass()"></app-backlog>
 </div>
 
-<div *ngIf="isOpened()" @dialogAnimation class="dialog">
+<div *ngIf="isOpened()" @dialogAnimation [@.disabled]="join.isMobile()" class="dialog">
     <div class="transit-cont" [ngClass]="getTransitClass()" (click)="onClose()">
 
         <section class="dialog-box pos-relative" (click)="onStop($event)">

@@ -50,7 +50,7 @@
 
 @media (max-width: 1180px) {
   .board {
-    padding: 48px 16px;
+    padding: 48px 32px;
     gap: 40px;
   }
 
@@ -84,5 +84,17 @@
     padding: unset;
     min-width: unset;
     height: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .board {
+    padding: 48px 24px;
+  }
+}
+
+@media (max-width: 568px) {
+  .board {
+    padding: 48px 16px;
   }
 }

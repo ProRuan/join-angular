@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AddTaskComponent } from '../../../../components/add-task/add-task.component';
 import { BacklogComponent } from '../../backlog/backlog.component';
 import { dialogAnimation } from '../../../animations/dialog.animation';
 import { DialogFormController } from '../../../models/dialog-form-controller';
+import { JoinService } from '../../../services/join.service';
 import { stopPropagation } from '../../../ts/global';
 
 @Component({
@@ -20,6 +21,7 @@ import { stopPropagation } from '../../../ts/global';
  * @extends DialogFormController
  */
 export class AddTaskDialogComponent extends DialogFormController {
+  join: JoinService = inject(JoinService);
   override id: string = 'addTask';
 
   backlogText: string = 'Task added to board';
