@@ -347,6 +347,8 @@ export class JoinService {
     if (!this.isMobile()) {
       this.dialogs.close('taskSettings');
       this.dialogs.close('contactSettings');
+    } else {
+      this.dialogs.close('addTask');
     }
   }
 
