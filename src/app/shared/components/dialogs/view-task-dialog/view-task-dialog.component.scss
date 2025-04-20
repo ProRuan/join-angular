@@ -24,6 +24,12 @@
   color: $white;
 }
 
+.content {
+  @include display-column($g: 24px);
+  max-height: calc(95vh - 203.59px);
+  overflow-y: auto;
+}
+
 .title {
   @include font($fs: 61px, $fw: 700, $lh: 73.2px);
   color: $black;
@@ -115,7 +121,6 @@
 
 @media (max-width: 1180px) {
   .dialog-box {
-    margin: 16px;
     padding: 32px 24px;
     width: 100%;
     max-width: 396px;
