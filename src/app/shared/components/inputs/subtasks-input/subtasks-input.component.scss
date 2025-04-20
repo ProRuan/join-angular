@@ -1,5 +1,10 @@
 @import "../../../../../mixins.scss";
 
+.subtasks-input {
+  @include display-column($g: 8px);
+  transition: all 100ms ease-out;
+}
+
 .form {
   @include display-column($g: 4px);
   position: relative;
@@ -67,8 +72,6 @@
   @include display-column($g: 8px);
   margin: 0;
   padding-inline-start: 0;
-  max-height: 152px;
-  overflow-y: auto;
 }
 
 .item-cont {

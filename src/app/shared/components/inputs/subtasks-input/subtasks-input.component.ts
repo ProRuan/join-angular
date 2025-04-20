@@ -8,6 +8,7 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
+import { JoinService } from '../../../services/join.service';
 import { DialogService } from '../../../services/dialog.service';
 import { Subtask } from '../../../models/subtask';
 import { getTime, stopPropagation } from '../../../ts/global';
@@ -30,6 +31,7 @@ import { IntervalId } from '../../../ts/type';
  * @extends ReactiveInput
  */
 export class SubtasksInputComponent extends ReactiveInput {
+  join: JoinService = inject(JoinService);
   dialogs: DialogService = inject(DialogService);
 
   dialogId: string = 'subtask';
@@ -61,6 +63,38 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   override onChange() {
     this.markAsDirty(this.taskControl);
+  }
+
+  /**
+   * Gets a subtasks input style.
+   * @returns The subtasks input style.
+   */
+  getSubtasksInputStyle() {
+    let value = this.getHeightValue();
+    return { height: `${value}px` };
+  }
+
+  /**
+   * Gets the height value of a subtasks input.
+   * @returns The height value of the subtasks input.
+   */
+  private getHeightValue() {
+    let amount = this.subtasks.length;
+    let [h, gap, min, max] = this.getStyleParameter();
+    let value = amount * h + (amount - 1) * gap + min + 8;
+    return amount ? (value < max ? value : max) : min;
+  }
+
+  /**
+   * Gets style parameters.
+   * @returns The style parameters.
+   */
+  private getStyleParameter() {
+    if (this.join.isMobile()) {
+      return [48, 4, 74.4, 234.4];
+    } else {
+      return [32, 8, 80, 240];
+    }
   }
 
   /**
@@ -130,6 +164,19 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   onStop(event: Event) {
     stopPropagation(event);
+  }
+
+  /**
+   * Gets a list style.
+   * @returns The list style.
+   */
+  getListStyle() {
+    let amount = this.subtasks.length;
+    if ((this.join.isMobile() && amount > 3) || amount > 4) {
+      return { maxHeight: '152px', overflowY: 'auto' };
+    } else {
+      return null;
+    }
   }
 
   /**

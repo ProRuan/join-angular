@@ -1,4 +1,4 @@
-<div class="column-8">
+<div [ngStyle]="getSubtasksInputStyle()" class="subtasks-input">
     <app-label text="Subtasks"></app-label>
 
     <form class="form" (submit)="onAdd()">
@@ -14,7 +14,7 @@
         </div>
     </form>
 
-    <ul *ngIf="isSubtasksFilled()" class="list">
+    <ul [ngStyle]="getListStyle()" class="list">
         <div *ngFor="let subtask of subtasks; index as i" (click)="onStop($event)">
             @if (!isOpened(i)) {
             <div class="item-cont pos-relative" (click)="onDoubleClick(i)">
