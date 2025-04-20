@@ -26,7 +26,7 @@
                 </div>
             </div>
             } @else {
-            <form class="pos-relative" (submit)="onSave(i)">
+            <form class="editor-form pos-relative" (submit)="onSave(i)">
                 <input [(ngModel)]="subtask.text" name="editor" class="editor" type="text">
                 <div class="editor-button-bar d-flex">
                     <button class="button delete" type="button" (click)="onDelete(i)"></button>
