@@ -84,6 +84,8 @@
 
 .name-email-cont {
   @include display-column($g: 5px);
+  width: calc(100% - 77px);
+  overflow-x: hidden;
 }
 
 .h-24 {
@@ -92,6 +94,7 @@
 
 .name {
   @include font($fs: 20px, $fw: 400, $lh: 24px);
+  text-wrap: nowrap;
   color: $black;
 
   .selected & {
@@ -146,6 +149,9 @@
   }
 
   .contact {
+    width: 100%;
+    max-width: 352px;
+
     &:hover {
       background: unset;
     }
@@ -171,5 +177,51 @@
 
   .add-btn {
     display: unset;
+  }
+}
+
+@media (max-width: 400px) {
+  .collector {
+    padding: 20px;
+  }
+
+  .contact {
+    padding: 10px 16px;
+    gap: 25px;
+  }
+
+  .name-email-cont {
+    width: calc(100% - 67px);
+  }
+}
+
+@media (max-width: 360px) {
+  .collector {
+    padding: 16px;
+  }
+
+  .contact {
+    gap: 15px;
+  }
+
+  .name-email-cont {
+    width: calc(100% - 57px);
+    justify-content: center;
+  }
+
+  .h-24 {
+    height: 19px;
+  }
+
+  .name {
+    @include font($fs: 16px, $fw: 400, $lh: 19.2px);
+  }
+
+  .h-19 {
+    height: 16px;
+  }
+
+  .email {
+    @include font($fs: 14px, $fw: 400, $lh: 16.8px);
   }
 }
