@@ -117,6 +117,39 @@
   display: none;
 }
 
+@media (max-width: 1400px) {
+  .head {
+    gap: 35px;
+  }
+
+  .name {
+    @include font($fs: 40px, $fw: 500, $lh: 48px);
+  }
+}
+
+@media (max-width: 1280px) {
+  .title-viewer-cont {
+    padding: 64px 48px;
+  }
+
+  .head {
+    gap: 20px;
+  }
+
+  .profile {
+    @include min-size($w: 80px, $h: 80px);
+    @include max-size($w: 80px, $h: 80px);
+  }
+
+  .initials {
+    @include font($fs: 27px, $fw: 400, $lh: 32.4px);
+  }
+
+  .name {
+    @include font($fs: 36px, $fw: 700, $lh: 43.2px);
+  }
+}
+
 @media (max-width: 1180px) {
   .contact-backlog {
     left: calc(50% - 163px);
@@ -136,23 +169,6 @@
     max-width: 428px;
     background-color: $lightgray;
     gap: 48px;
-  }
-
-  .head {
-    gap: 20px;
-  }
-
-  .profile {
-    @include min-size($w: 80px, $h: 80px);
-    @include max-size($w: 80px, $h: 80px);
-  }
-
-  .initials {
-    @include font($fs: 27px, $fw: 400, $lh: 32.4px);
-  }
-
-  .name {
-    @include font($fs: 36px, $fw: 700, $lh: 43.2px);
   }
 
   .settings-button-group {

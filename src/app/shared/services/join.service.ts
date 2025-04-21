@@ -354,9 +354,11 @@ export class JoinService {
 
   /**
    * Verifies a mobile device.
+   * @param maxWidth - The media max-width.
    * @returns A boolean value.
    */
-  isMobile() {
-    return this.windowWidth < 1180 + 1;
+  isMobile(maxWidth?: number) {
+    let mobileWidth = maxWidth ?? 1180;
+    return this.windowWidth < mobileWidth + 1;
   }
 }
