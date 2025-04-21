@@ -208,3 +208,18 @@
     }
   }
 }
+
+@media (max-width: 400px) {
+  .profile {
+    @include min-size($w: 64px, $h: 64px);
+    @include max-size($w: 64px, $h: 64px);
+  }
+
+  .initials {
+    @include font($fs: 22px, $fw: 400, $lh: 26.4px);
+  }
+
+  .name {
+    @include font($fs: 26px, $fw: 700, $lh: 31.2px);
+  }
+}
