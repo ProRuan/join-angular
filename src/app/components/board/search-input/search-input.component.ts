@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { getProvider } from '../../../shared/models/reactive-input';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { JoinService } from '../../../shared/services/join.service';
 
 @Component({
   selector: 'app-search-input',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './search-input.component.html',
   styleUrl: './search-input.component.scss',
   providers: [getProvider(NG_VALUE_ACCESSOR, SearchInputComponent)],
@@ -16,7 +18,10 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
  * @implements {ControlValueAccessor}
  */
 export class SearchInputComponent implements ControlValueAccessor {
+  join: JoinService = inject(JoinService);
+
   @Input() value: string = '';
+  @Input() noResult: boolean = false;
   @Output() valueChange = new EventEmitter<string>();
 
   /**
@@ -64,6 +69,14 @@ export class SearchInputComponent implements ControlValueAccessor {
     let input = event.target as HTMLInputElement;
     this.value = input.value;
     this.onChange(this.value);
+  }
+
+  /**
+   * Gets the css class of a search input.
+   * @returns The css class of the search input.
+   */
+  getClass() {
+    return this.join.isMobile() && this.noResult ? 'h-70' : 'h-48';
   }
 
   /**

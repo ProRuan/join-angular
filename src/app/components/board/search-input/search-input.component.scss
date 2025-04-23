@@ -1,6 +1,7 @@
 @import "../../../../mixins.scss";
 
 .input-cont {
+  @include display-column($g: 8px);
   width: 312px;
   position: relative;
 }
@@ -49,10 +50,15 @@
   }
 }
 
+.error-cont-pos {
+  @include position($pos: absolute, $l: 0, $t: 56px);
+}
+
 @media (max-width: 1180px) {
   .input-cont {
     width: 100%;
     max-width: 396px;
+    transition: all 100ms ease-in-out;
   }
 
   .button {
@@ -63,5 +69,9 @@
     &:active {
       background-image: url("/assets/img/board/search_active.png");
     }
+  }
+
+  .error-cont-pos {
+    @include position($pos: unset, $l: unset, $t: unset);
   }
 }

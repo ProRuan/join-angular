@@ -144,7 +144,7 @@ export class ColumnComponent {
    * @returns A boolean value.
    */
   isTaskFiltered(task: Task) {
-    this.board.isTaskFiltered(task);
+    return this.board.isTaskFiltered(task);
   }
 
   /**

@@ -12,12 +12,7 @@
             </div>
 
             <div class="input-button-cont">
-                <div class="pos-relative">
-                    <app-search-input [(value)]="board.filter"></app-search-input>
-                    <div class="error-cont error-cont-pos">
-                        <span *ngIf="isNoResult()" class="error">No results found</span>
-                    </div>
-                </div>
+                <app-search-input [(value)]="board.filter" [noResult]="isNoResult()"></app-search-input>
                 <app-button [button]="addTaskBtn" class="desktop" (click)="onAdd()"></app-button>
             </div>
         </div>

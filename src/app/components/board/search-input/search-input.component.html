@@ -1,6 +1,9 @@
-<div class="input-cont">
+<div class="input-cont" [ngClass]="getClass()">
     <input [value]="value" class="input" type="text" placeholder="Find Task" (input)="onInput($event)">
     <div class="button-cont">
         <button class="button" (click)="onUpdate()"></button>
+    </div>
+    <div class="error-cont error-cont-pos">
+        <span *ngIf="noResult" class="error">No results found</span>
     </div>
 </div>
