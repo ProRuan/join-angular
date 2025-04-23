@@ -1,7 +1,6 @@
 services
 --------
   - reset some/all of them on destroy ... !
-  - disable form buttons during submission ... !
   - check project with empty data ... !
 
 favicon
@@ -72,6 +71,8 @@ optional
 
   - review ngIf inside and outside of dialog components (0/10) ...
   - DeleteDialog for tasks and contacts ...
+
+  - disable standardly landscape mode on mobile devices ...
 
 
 auto-login

@@ -21,7 +21,8 @@
                 </div>
                 <div class="settings-button-group">
                     <app-button [button]="editBtn" (click)="onEdit()"></app-button>
-                    <app-button [button]="viewer.deleteBtn" (click)="onDelete()"></app-button>
+                    <app-button [button]="viewer.deleteBtn" [disabled]="isDisabled(contact)"
+                        (click)="onDelete()"></app-button>
                 </div>
             </div>
         </div>

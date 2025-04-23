@@ -167,13 +167,9 @@ export class ContactDialogComponent extends DialogFormController {
    * @returns The css class of the transit container.
    */
   override getTransitClass(): string {
-    if (this.isFadeClass()) {
-      return 'fade';
-    } else if (this.join.isMobile()) {
-      return 'slide-y';
-    } else {
-      return 'slide-x';
-    }
+    if (this.isFadeClass()) return 'fade';
+    if (this.join.isMobile()) return 'slide-y';
+    return 'slide-x';
   }
 
   /**
@@ -388,6 +384,7 @@ export class ContactDialogComponent extends DialogFormController {
    * @returns A boolean value.
    */
   isDisabled() {
-    return this.form.invalid || this.submitted;
+    let guestAccount = this.join.isGuestAccount(this.contact.id);
+    return this.form.invalid || this.submitted || guestAccount;
   }
 }

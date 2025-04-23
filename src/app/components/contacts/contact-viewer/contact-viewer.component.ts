@@ -8,6 +8,7 @@ import { DialogFormController } from '../../../shared/models/dialog-form-control
 import { JoinService } from '../../../shared/services/join.service';
 import { ContactViewerService } from '../../../shared/services/contact-viewer.service';
 import { JoinButton } from '../../../shared/models/join-button';
+import { Contact } from '../../../shared/models/contact';
 
 @Component({
   selector: 'app-contact-viewer',
@@ -88,6 +89,15 @@ export class ContactViewerComponent extends DialogFormController {
   onEdit() {
     this.viewer.cachedContact.set(this.contact);
     this.dialogs.open('editContact');
+  }
+
+  /**
+   * Verifies the disabled state of an sign-out button.
+   * @param contact - The contact.
+   * @returns A boolean value.
+   */
+  isDisabled(contact: Contact) {
+    return this.join.isGuestAccount(contact.id);
   }
 
   /**

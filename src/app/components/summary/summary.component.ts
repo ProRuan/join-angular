@@ -122,4 +122,12 @@ export class SummaryComponent {
   isDisabled() {
     return this.greetingDone || !this.join.isMobile();
   }
+
+  /**
+   * Verifies an anonymous greeting.
+   * @returns A boolean value.
+   */
+  isAnonymous() {
+    return this.join.isGuestAccount() || !this.join.user.name;
+  }
 }

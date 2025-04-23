@@ -21,7 +21,7 @@
             <div @greetingAnimation [ngStyle]="getStyle()" class="greeting-animation" [@.disabled]="isDisabled()"
                 (@greetingAnimation.done)="setDone()">
                 <div class="greeting-cont">
-                    @if (join.isGuestAccount()) {
+                    @if (this.isAnonymous()) {
                     <span class="greeting">{{ greeting }}!</span>
                     } @else {
                     <span class="greeting">{{ greeting }},</span>

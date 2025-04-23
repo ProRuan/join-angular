@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../../button/button.component';
 import { settingsMenuAnimation } from '../../../animations/settings-menu.animation';
 import { DialogFormController } from '../../../models/dialog-form-controller';
+import { JoinService } from '../../../services/join.service';
 import { ContactViewerService } from '../../../services/contact-viewer.service';
 import { JoinButton } from '../../../models/join-button';
 
@@ -20,6 +21,7 @@ import { JoinButton } from '../../../models/join-button';
  * @extends {DialogFormController}
  */
 export class ContactSettingsDialogComponent extends DialogFormController {
+  join: JoinService = inject(JoinService);
   viewer: ContactViewerService = inject(ContactViewerService);
 
   override id: string = 'contactSettings';
@@ -66,6 +68,14 @@ export class ContactSettingsDialogComponent extends DialogFormController {
   onEdit() {
     this.viewer.cachedContact.set(this.viewer.contact);
     this.dialogs.open('editContact');
+  }
+
+  /**
+   * Verifies the disabled state of a delete button.
+   * @returns A boolean value.
+   */
+  isDisabled() {
+    return this.join.isGuestAccount(this.viewer.contact.id);
   }
 
   /**

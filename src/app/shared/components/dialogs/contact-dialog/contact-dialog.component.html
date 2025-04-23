@@ -36,7 +36,8 @@
 
                         <div class="button-group">
                             @if(isEditContactDialog()) {
-                            <app-button [button]="viewer.deleteContactBtn" (click)="onDelete()"></app-button>
+                            <app-button [button]="viewer.deleteContactBtn" [disabled]="isDisabled()"
+                                (click)="onDelete()"></app-button>
                             <app-button [button]="saveBtn" type="submit" [disabled]="isDisabled()"></app-button>
                             } @else {
                             <app-button [button]="cancelBtn" class="desktop" (click)="onClose()"></app-button>
