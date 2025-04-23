@@ -71,6 +71,7 @@ export class AddTaskComponent extends FormController {
   columnClass: string = 'column-desktop';
   backlogText: string = 'Task added to board';
   backlogImage: string = 'board_icon';
+  loading: boolean = false;
 
   /**
    * Gets user contacts.
@@ -233,7 +234,7 @@ export class AddTaskComponent extends FormController {
    * @returns A boolean value.
    */
   isIncomplete() {
-    return this.form.invalid;
+    return this.form.invalid || this.loading;
   }
 
   /**
@@ -248,6 +249,7 @@ export class AddTaskComponent extends FormController {
    */
   createTask() {
     if (this.form.valid) {
+      this.loading = true;
       this.updateTasks();
       this.join.saveUser(() => this.leaveForm());
     }

@@ -66,6 +66,7 @@ export class EditTaskDialogComponent
   search: AbstractControl | null = null;
   subtask: AbstractControl | null = null;
   okBtn = new JoinButton('createBtn', 'Ok');
+  loading: boolean = false;
 
   override id: string = 'editTask';
 
@@ -185,7 +186,7 @@ export class EditTaskDialogComponent
    * @returns A boolean value.
    */
   isIncomplete() {
-    return this.form.invalid;
+    return this.form.invalid || this.loading;
   }
 
   /**
@@ -193,6 +194,7 @@ export class EditTaskDialogComponent
    */
   onUpdate() {
     if (this.form.valid) {
+      this.loading = true;
       this.updateTask();
       this.join.updateSummary();
       this.join.saveUser(() => this.fadeOutDialog());
@@ -229,6 +231,7 @@ export class EditTaskDialogComponent
       this.resetAssistantControls();
       this.board.setDefaultTask('cachedTask');
       this.dialogs.fadedOut = false;
+      this.loading = false;
     }, 0);
   }
 }
