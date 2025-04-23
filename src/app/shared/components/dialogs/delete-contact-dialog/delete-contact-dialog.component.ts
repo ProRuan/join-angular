@@ -6,6 +6,8 @@ import { DialogFormController } from '../../../models/dialog-form-controller';
 import { JoinService } from '../../../services/join.service';
 import { ContactViewerService } from '../../../services/contact-viewer.service';
 import { JoinButton } from '../../../models/join-button';
+import { Task } from '../../../models/task';
+import { Contact } from '../../../models/contact';
 
 @Component({
   selector: 'app-delete-contact-dialog',
@@ -68,9 +70,11 @@ export class DeleteContactDialogComponent extends DialogFormController {
    * @param index - The contact index.
    */
   deleteAndSave(index: number) {
+    const id = this.join.user.contacts[index].id;
     this.closeAllDialogs();
     this.join.deleteUserItem('contacts', index);
     this.viewer.reset();
+    this.updateTasks(id);
     this.join.saveUser();
   }
 
@@ -88,5 +92,50 @@ export class DeleteContactDialogComponent extends DialogFormController {
    */
   private getDialogIds() {
     return [this.id, 'editContact', 'contactSettings', 'viewContact'];
+  }
+
+  /**
+   * Updates user tasks.
+   * @param id - The contact id.
+   */
+  private updateTasks(id: string) {
+    this.join.user.tasks.forEach((task) => {
+      this.removeContact(task, id);
+      this.updateAssignedContacts(task);
+    });
+  }
+
+  /**
+   * Removes an assigned contact from a task.
+   * @param task - The task.
+   * @param id - The contact id.
+   */
+  private removeContact(task: Task, id: string) {
+    let index = task.assignedTo.findIndex((c) => c.id === id);
+    if (index > -1) {
+      task.assignedTo.splice(index, 1);
+    }
+  }
+
+  /**
+   * Updates assigned contacts of a task.
+   * @param task - The task.
+   */
+  private updateAssignedContacts(task: Task) {
+    task.assignedTo.forEach((assignedContact) => {
+      let contact = this.getContact(assignedContact);
+      if (contact) {
+        assignedContact.bgc = contact.bgc;
+      }
+    });
+  }
+
+  /**
+   * Gets a user contact.
+   * @param contact - The contact to be compared.
+   * @returns The user contact.
+   */
+  private getContact(contact: Contact) {
+    return this.join.user.contacts.find((c) => c.id === contact.id);
   }
 }
