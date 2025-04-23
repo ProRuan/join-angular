@@ -115,6 +115,19 @@ export class BoardComponent {
   }
 
   /**
+   * Verifies a search without any result.
+   * @returns A boolean value.
+   */
+  isNoResult() {
+    if (this.tasks.length) {
+      let result = this.tasks.map((t) => this.board.isTaskFiltered(t));
+      return !result.includes(true);
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * Opens an add-task form on click.
    */
   onAdd() {

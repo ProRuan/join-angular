@@ -47,7 +47,6 @@ export class SearchInputComponent implements ControlValueAccessor {
    * Updates an input value.
    */
   update(value: string) {
-    value = this.value.toLowerCase();
     this.valueChange.emit(value);
   }
 

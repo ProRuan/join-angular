@@ -28,6 +28,10 @@
   @include display-row($ai: center, $g: 32px);
 }
 
+.error-cont-pos {
+  @include position($pos: absolute, $l: 0, $t: 56px);
+}
+
 .board-cont {
   @include display-column($g: 16px);
   max-width: 1127px;

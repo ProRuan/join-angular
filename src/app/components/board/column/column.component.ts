@@ -144,18 +144,7 @@ export class ColumnComponent {
    * @returns A boolean value.
    */
   isTaskFiltered(task: Task) {
-    let titleFiltered = this.isFiltered(task.title);
-    let descriptionFiltered = this.isFiltered(task.description);
-    return titleFiltered || descriptionFiltered;
-  }
-
-  /**
-   * Verifies a match between filter and value.
-   * @param value - The value.
-   * @returns A boolean value.
-   */
-  private isFiltered(value: string) {
-    return value.toLowerCase().includes(this.board.filter);
+    this.board.isTaskFiltered(task);
   }
 
   /**

@@ -75,6 +75,26 @@ export class BoardService {
   }
 
   /**
+   * Verifies a task to be filtered.
+   * @param task - The task.
+   * @returns A boolean value.
+   */
+  isTaskFiltered(task: Task) {
+    let titleFiltered = this.isFilterMatch(task.title);
+    let descriptionFiltered = this.isFilterMatch(task.description);
+    return titleFiltered || descriptionFiltered;
+  }
+
+  /**
+   * Verifies a filter match.
+   * @param value - The value to be checked.
+   * @returns A boolean value.
+   */
+  private isFilterMatch(value: string) {
+    return value.toLowerCase().includes(this.filter.toLowerCase());
+  }
+
+  /**
    * Opens an add-task form on click.
    */
   onAdd() {
