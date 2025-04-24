@@ -46,22 +46,6 @@ export class BoardComponent {
   board: BoardService = inject(BoardService);
   dialogs: DialogService = inject(DialogService);
 
-  // edit-task dialog: think about height + overflow-y ...
-  //   --> fix from 360px til 320px: scrollbar in empty padding ...
-  // fix min-height ...
-
-  // view-task dialog: fix prio-btn-img for desktop and mobile ...
-  // fix min-height ...
-  // optional: think about view-task dialog padding: 32px 16px ...
-
-  // review onAdd() ...
-  // add isMobileWidth() to join service ...
-
-  // set content max-width:428px ...
-  // not selectable/touchable elements/text ... ?
-  // add responsiveness for board max-height ...
-  //   --> get height from top elements + bottom padding ... !
-
   title: string = 'Board';
   addTaskBtn = new JoinButton('addTaskBtn');
 
@@ -102,9 +86,13 @@ export class BoardComponent {
     }
   }
 
-  // new
+  /**
+   * Verifies the opened state of a dialog.
+   * @param id - The dialog id.
+   * @returns A boolean value;
+   */
   isOpened(id: string) {
-    this.dialogs.isOpened(id);
+    return this.dialogs.isOpened(id);
   }
 
   /**

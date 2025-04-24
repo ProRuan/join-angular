@@ -18,14 +18,6 @@ responsiveness
   - width: 1440px or 1920px ...
   - height: 720/900/1024px (7 times or 1 for all + desktop/mobile) ... ?
 
-  - board: board.ts
-  
-  - styles.scss ...
-
-box-shadows
------------
-  - check all box-shadows due to app-containers ... !!!
-
 routes
 ------
   - scroll to top after router link (on small devices) ...
@@ -34,6 +26,7 @@ routes
 
 pseudo-optional
 ---------------
+  - backlog: bgc only for sign-up and new password ... ?
   - reload blinking: use session storage ... ?
 
 
@@ -64,6 +57,8 @@ optional
   - DeleteDialog for tasks and contacts ...
 
   - disable standardly landscape mode on mobile devices ...
+
+  - board: fix draggable task box shadow ...
 
 
 auto-login

@@ -1,0 +1,27 @@
+.column-4 {
+  @include display-column($g: 4px);
+}
+
+.column-8 {
+  @include display-column($g: 8px);
+}
+
+.column-16 {
+  @include display-column($g: 16px);
+}
+
+.column-24 {
+  @include display-column($g: 24px);
+}
+
+.o-0 {
+  opacity: 0;
+}
+
+.o-1 {
+  opacity: 1;
+}
+
+.pos-relative {
+  position: relative;
+}

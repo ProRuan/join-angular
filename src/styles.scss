@@ -5,6 +5,7 @@
 @import "./mixins.scss";
 
 @import "./assets/styles/background-colors.scss";
+@import "./assets/styles/commons.scss";
 @import "./assets/styles/components.scss";
 @import "./assets/styles/dialogs.scss";
 @import "./assets/styles/tags.scss";
@@ -17,9 +18,8 @@
   transition: all 200ms ease-in-out;
 }
 
-// review!!!
 .backlog-visible {
-  background-color: rgba(0, 0, 0, 0.25); // only for sign-up and new-password?
+  background-color: rgba(0, 0, 0, 0.25);
   visibility: visible;
 }
 
@@ -114,34 +114,6 @@
   @include font($fs: 12px, $fw: 400, $lh: 14.4px);
   font-family: $poppins;
   color: $hint;
-}
-
-.column-4 {
-  @include display-column($g: 4px);
-}
-
-.column-8 {
-  @include display-column($g: 8px);
-}
-
-.column-16 {
-  @include display-column($g: 16px);
-}
-
-.column-24 {
-  @include display-column($g: 24px);
-}
-
-.o-0 {
-  opacity: 0;
-}
-
-.o-1 {
-  opacity: 1;
-}
-
-.pos-relative {
-  position: relative;
 }
 
 .sum-card {
