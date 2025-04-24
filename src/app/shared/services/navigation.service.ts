@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 import { JoinService } from './join.service';
 import { DialogService } from './dialog.service';
 import { getLastIndex } from '../ts/global';
@@ -19,6 +19,8 @@ export class NavigationService {
 
   currentUrl: string = '';
   previousUrl: string = '';
+  scrollSubject = new BehaviorSubject<number[]>([0, 0]);
+  scrollXY$ = this.scrollSubject.asObservable();
 
   /**
    * Creates a navigation service.
@@ -36,6 +38,7 @@ export class NavigationService {
   updateCachedUrls(event: NavigationEnd) {
     this.previousUrl = this.currentUrl;
     this.currentUrl = event.urlAfterRedirects;
+    this.scrollSubject.next([0, 0]);
   }
 
   /**

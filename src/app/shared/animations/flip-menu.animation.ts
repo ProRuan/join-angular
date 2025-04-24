@@ -4,12 +4,8 @@ import { getAnimation } from '../ts/animate';
 const defaultTimings = '100ms ease-in-out';
 const parentStartProperties = [{ backgroundColor: 'transparent' }];
 const parentEndProperties = [{ backgroundColor: 'rgba(0, 0, 0, 0)' }];
-const slideStartProperties = [
-  { transform: 'translateX(198px)', opacity: 0, visiblity: 'hidden' },
-];
-const slideEndProperties = [
-  { transform: 'translateX(0)', opacity: 1, visiblity: 'visible' },
-];
+const slideStartProperties = [{ transform: 'translateX(198px)', opacity: 0 }];
+const slideEndProperties = [{ transform: 'translateX(0)', opacity: 1 }];
 const optional = { optional: true };
 
 const NAME = 'flipMenuAnimation';

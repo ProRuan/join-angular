@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { ActivatedRoute, ParamMap, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
@@ -41,6 +41,8 @@ export class MainComponent {
 
   subscriptions = new Subscription();
 
+  @ViewChild('scrollContainer') scrollContainer?: ElementRef<HTMLDivElement>;
+
   /**
    * Initializes a main component.
    */
@@ -48,6 +50,25 @@ export class MainComponent {
     this.setLoggedInUser();
     this.setGreetingToDone();
     this.join.setIntroToDone();
+  }
+
+  /**
+   * Updates the content after initialization.
+   */
+  ngAfterViewInit() {
+    this.nav.scrollXY$.subscribe({
+      next: (values) => this.scrollToTop(values),
+      error: (error) => console.log('Error - Could not scroll to top: ', error),
+    });
+  }
+
+  /**
+   * Scrolls to the top.
+   * @param values - The scroll values.
+   */
+  private scrollToTop(values: number[]) {
+    let [x, y] = values;
+    this.scrollContainer?.nativeElement.scrollTo(x, y);
   }
 
   /**
