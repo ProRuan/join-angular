@@ -3,6 +3,7 @@
 .contact-list {
   @include box-padding($p: 0 0 0 28px);
   @include size($w: 456px, $h: calc(100vh - 96px));
+  min-height: 100%;
   background-color: $white;
   box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 0.08);
   overflow-y: auto;
@@ -112,27 +113,13 @@
 }
 
 .add-btn {
-  @include box-padding($p: 12px);
-  @include size($w: 56px, $h: 56px);
-  @include round-border($b: none, $br: 46px);
-  @include position($pos: sticky, $l: calc(100% - 16px), $b: 32px);
-  background-color: $dark;
-  background-image: url("/assets/img/contacts/add_new_contact.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px 32px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   display: none;
-  transition: all 100ms ease-in;
-
-  &:active {
-    background-color: $lightblue;
-  }
 }
 
 @media (max-width: 1180px) {
   .contact-list {
     @include size($w: 100%, $h: fit-content);
+    @include display-column($jc: space-between);
     padding: unset;
     max-width: 400px;
     background-color: unset;
@@ -176,7 +163,23 @@
   }
 
   .add-btn {
+    @include box-padding($p: 12px);
+    @include size($w: 56px, $h: 56px);
+    @include round-border($b: none, $br: 46px);
+    @include position($pos: sticky, $l: calc(100% - 16px), $b: 32px);
+    background-color: $dark;
+    background-image: url("/assets/img/contacts/add_new_contact.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     display: unset;
+    transform: translateX(-2px);
+    transition: all 100ms ease-in;
+
+    &:active {
+      background-color: $lightblue;
+    }
   }
 }
 
