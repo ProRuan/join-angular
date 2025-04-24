@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Firestore } from '@angular/fire/firestore';
 import { JoinService } from './shared/services/join.service';
+import { NavigationService } from './shared/services/navigation.service';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -20,6 +21,7 @@ import { map, startWith } from 'rxjs/operators';
 export class AppComponent {
   firestore: Firestore = inject(Firestore);
   join: JoinService = inject(JoinService);
+  nav: NavigationService = inject(NavigationService);
 
   title = 'join';
   subscriptions = new Subscription();
@@ -88,6 +90,25 @@ export class AppComponent {
    */
   setOverflowY(value: string) {
     document.body.style.overflowY = value;
+  }
+
+  /**
+   * Updates the content after initialization.
+   */
+  ngAfterViewInit() {
+    this.nav.scrollXY$.subscribe({
+      next: (values) => this.scrollToTop(values),
+      error: (error) => console.log('Error - Could not scroll to top: ', error),
+    });
+  }
+
+  /**
+   * Scrolls to the top.
+   * @param values - The scroll values.
+   */
+  private scrollToTop(values: number[]) {
+    let [x, y] = values;
+    window.scrollTo(x, y);
   }
 
   /**

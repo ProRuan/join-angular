@@ -1,28 +1,23 @@
 services
 --------
   - reset some/all of them on destroy ... !
-  - check project with empty data ... !
 
 favicon
 -------
    - add favicon ...
 
+add backlog ids (0/?) ...
+
 -------------------------------------------------
 -------------------------------------------------
 
-routes ...
-------
-  - scroll to top after router link (on small devices) (1/2) ...
-      - scroll container app (0/5) ...
-      - scroll container main (7/7) - check
-      --> fix moving elements ... !
-  
 
 
 pseudo-optional
 ---------------
   - backlog: bgc only for sign-up and new password ... ?
   - reload blinking: use session storage ... ?
+  - fix moving elements: add-task, board (0/2) ...
 
 
 
