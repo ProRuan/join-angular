@@ -6,7 +6,8 @@
 
 pseudo-optional
 ---------------
-  --> check favicon ... !
+  --> fix conctacts - check*
+  --> format favicon - check*
 
   - add backlog ids (0/?) ...
   

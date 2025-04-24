@@ -61,7 +61,7 @@ export class ContactListComponent implements OnChanges {
    * @returns A boolean value.
    */
   isContactList(contacts: Contact[]) {
-    return this.join.isUser(contacts[0]) || this.join.isGuestAccount();
+    return !!contacts.find((c) => c.id === this.join.user.id);
   }
 
   /**
