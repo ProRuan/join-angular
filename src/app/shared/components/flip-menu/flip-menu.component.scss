@@ -41,6 +41,13 @@
   color: #cdcdcd;
 }
 
+@media (min-width: 1921px) {
+  .dialog {
+    width: 1920px;
+    left: calc(50% - 960px);
+  }
+}
+
 @media (max-width: 1180px) {
   .flip-in {
     top: 80px;
