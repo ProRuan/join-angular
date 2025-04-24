@@ -80,16 +80,16 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   private getHeightValue() {
     let amount = this.subtasks.length;
-    let [h, gap, min, max] = this.getStyleParameter();
-    let value = amount * h + (amount - 1) * gap + min + 8;
-    return amount ? (value < max ? value : max) : min;
+    let [h, gap, minH, maxH] = this.getStyleParameters();
+    let value = amount * h + (amount - 1) * gap + minH + 8;
+    return amount ? (value < maxH ? value : maxH) : minH;
   }
 
   /**
-   * Gets style parameters.
-   * @returns The style parameters.
+   * Gets a style parameter array.
+   * @returns The style parameter array.
    */
-  private getStyleParameter() {
+  private getStyleParameters() {
     if (this.join.isMobile()) {
       return [48, 4, 74.4, 234.4];
     } else {

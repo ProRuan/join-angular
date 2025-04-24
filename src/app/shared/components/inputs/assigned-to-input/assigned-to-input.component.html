@@ -1,4 +1,4 @@
-<div class="assigned-to-input" [ngClass]="getAssignedToInputClass()">
+<div [ngStyle]="getAssignedToInputStyle()" class="assigned-to-input">
     <app-label text="Assigned to"></app-label>
 
     <div class="input-list-cont" (click)="onHandle($event)">

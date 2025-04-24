@@ -108,13 +108,51 @@ export class AssignedToInputComponent
   }
 
   /**
-   * Gets the css class of an assigned-to input.
-   * @returns The css class of an assigned-to input.
+   * Gets an assigned-to input style.
+   * @returns The assigned-to input style.
    */
-  getAssignedToInputClass() {
-    if (this.dialogs.isOpened(this.dialogId)) return 'h-list';
-    if (this.isAnyContactAssigned()) return 'h-assigned';
-    return 'h-default';
+  getAssignedToInputStyle() {
+    let value = this.getHeightValue();
+    return { height: `${value}px` };
+  }
+
+  /**
+   * Gets the height value of an assigned-to input.
+   * @returns The height value of the assigned-to input.
+   */
+  private getHeightValue() {
+    let [minH, maxH, finalH] = this.getStyleParameters();
+    if (this.dialogs.isOpened(this.dialogId)) {
+      return this.getListHeight(minH, maxH);
+    } else if (this.isAnyContactAssigned()) {
+      return finalH;
+    } else {
+      return minH;
+    }
+  }
+
+  /**
+   * Gets a style parameter array.
+   * @returns The style parameter array.
+   */
+  private getStyleParameters() {
+    if (this.join.isMobile()) {
+      return [74.4, 362.4, 124.4];
+    } else {
+      return [80, 368, 130];
+    }
+  }
+
+  /**
+   * Gets a list height.
+   * @param minH - The minimum height.
+   * @param maxH - The maximum height.
+   * @returns The list height.
+   */
+  private getListHeight(minH: number, maxH: number) {
+    let amount = this.assignableContacts.length;
+    let value = minH + amount * 56 + (amount - 1) * 2;
+    return value < maxH ? value : maxH;
   }
 
   /**
