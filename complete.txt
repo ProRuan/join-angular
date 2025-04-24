@@ -1,23 +1,22 @@
-services
---------
-  - reset some/all of them on destroy ... !
 
-favicon
--------
-   - add favicon ...
 
-add backlog ids (0/?) ...
 
 -------------------------------------------------
 -------------------------------------------------
-
-
 
 pseudo-optional
 ---------------
+  --> check favicon ... !
+
+  - add backlog ids (0/?) ...
+  
   - backlog: bgc only for sign-up and new password ... ?
   - reload blinking: use session storage ... ?
   - fix moving elements: add-task, board (0/2) ...
+
+  - optional: reset services on destroy ... ?
+
+  - bonus: add sign-out link on menus (0/3) ...
 
 
 
