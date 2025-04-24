@@ -49,8 +49,19 @@ export class ContactListComponent implements OnChanges {
    */
   ngOnChanges(changes: SimpleChanges): void {
     let contacts = getCurrentValue<Contact[]>(changes, 'contacts');
-    this.updateRegisterLetters(contacts);
-    this.updateRegister();
+    if (this.isContactList(contacts)) {
+      this.updateRegisterLetters(contacts);
+      this.updateRegister();
+    }
+  }
+
+  /**
+   * Verifies a contact list.
+   * @param contacts - The user contacts.
+   * @returns A boolean value.
+   */
+  isContactList(contacts: Contact[]) {
+    return this.join.isUser(contacts[0]) || this.join.isGuestAccount();
   }
 
   /**

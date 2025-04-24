@@ -18,8 +18,6 @@ responsiveness
   - width: 1440px or 1920px ...
   - height: 720/900/1024px (7 times or 1 for all + desktop/mobile) ... ?
 
-  - summary: greetings ...
-  - add-task: calender ...
   - board: board.ts
   
   - styles.scss ...
@@ -28,18 +26,15 @@ box-shadows
 -----------
   - check all box-shadows due to app-containers ... !!!
 
-legal-notice
-------------
-  - set exploring the board e-mail (from guest login) ...
-
 routes
 ------
   - scroll to top after router link (on small devices) ...
-
-reload
-------
-  - remember user by cookies or sesstion storage (summary, tasks, contacts) ... ?
   
+
+
+pseudo-optional
+---------------
+  - reload blinking: use session storage ... ?
 
 
 
