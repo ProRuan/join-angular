@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { flipMenuAnimation } from '../../animations/flip-menu.animation';
 import { DialogFormController } from '../../models/dialog-form-controller';
+import { ContactViewerService } from '../../services/contact-viewer.service';
 import { JoinService } from '../../services/join.service';
 import { NavigationService } from '../../services/navigation.service';
 
@@ -22,6 +23,7 @@ import { NavigationService } from '../../services/navigation.service';
 export class FlipMenuComponent extends DialogFormController {
   router: Router = inject(Router);
   join: JoinService = inject(JoinService);
+  viewer: ContactViewerService = inject(ContactViewerService);
   nav: NavigationService = inject(NavigationService);
 
   override id: string = 'flipMenu';
@@ -73,5 +75,15 @@ export class FlipMenuComponent extends DialogFormController {
   onLogOut() {
     this.router.navigateByUrl('login');
     this.close();
+    this.resetContactViewer();
+  }
+
+  /**
+   * Resets a contact viewer.
+   */
+  private resetContactViewer() {
+    this.dialogs.close('viewContact');
+    this.viewer.setContact();
+    this.viewer.cachedContact.set();
   }
 }
