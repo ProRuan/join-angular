@@ -231,8 +231,8 @@ export class AssignedToInputComponent
    */
   isFiltered(name: string) {
     if (name && this.value) {
-      name = name.toLowerCase();
-      let value = this.value.toLowerCase();
+      name = name.trim().toLowerCase();
+      let value = this.value.trim().toLowerCase();
       return name.includes(value);
     } else {
       return name;

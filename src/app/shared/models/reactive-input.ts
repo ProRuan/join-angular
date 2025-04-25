@@ -164,6 +164,29 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
   }
 
   /**
+   * Trims a control value on change.
+   */
+  onTrim() {
+    this.trimSpaces();
+  }
+
+  /**
+   * Trims the whitespaces of a control value.
+   */
+  trimSpaces() {
+    this.value = this.getTrimmedText(this.value);
+  }
+
+  /**
+   * Gets a trimmed text.
+   * @param text - The text to trim.
+   * @returns The trimmed text.
+   */
+  getTrimmedText(text: string) {
+    return text.trim().replace(/\s+/g, ' ');
+  }
+
+  /**
    * Gets the css class of the component.
    * @returns The css class of the component.
    */

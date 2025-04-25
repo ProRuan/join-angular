@@ -101,11 +101,20 @@ export class SubtasksInputComponent extends ReactiveInput {
    * Adds a subtask on click.
    */
   onAdd() {
-    if (this.isFilled()) {
+    if (this.isText(this.value)) {
       this.updateSubtasks();
       this.updateSubtaskIds();
       this.clear();
     }
+  }
+
+  /**
+   * Verifies a text.
+   * @param text - The text to verify.
+   * @returns A boolean value.
+   */
+  isText(text: string) {
+    return text.trim().length;
   }
 
   /**
@@ -122,7 +131,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    */
   getSubtask() {
     let subtask = new Subtask();
-    subtask.text = this.value;
+    subtask.text = this.getTrimmedText(this.value);
     return subtask;
   }
 
@@ -279,7 +288,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    * @returns A boolean value.
    */
   isTextContained(i: number) {
-    return this.subtasks[i].text.length > 0;
+    return this.isText(this.subtasks[i].text);
   }
 
   /**
@@ -287,7 +296,17 @@ export class SubtasksInputComponent extends ReactiveInput {
    * @param i - The subtask index.
    */
   save(i: number) {
+    this.subtasks[i].text = this.getSubtaskText(i);
     this.subtasks[i].focused = false;
     this.dialogs.close(this.dialogId);
+  }
+
+  /**
+   * Gets a subtask text.
+   * @param i - The subtask index.
+   * @returns The subtask text.
+   */
+  private getSubtaskText(i: number) {
+    return this.getTrimmedText(this.subtasks[i].text);
   }
 }

@@ -91,7 +91,7 @@ export class BoardService {
    * @returns A boolean value.
    */
   private isFilterMatch(value: string) {
-    return value.toLowerCase().includes(this.filter.toLowerCase());
+    return value.toLowerCase().includes(this.filter.trim().toLowerCase());
   }
 
   /**

@@ -43,7 +43,7 @@ export class InputValidatorKit {
    */
   protected getRequiredError(control: Control) {
     const error = this.requiredError;
-    return control.value ? null : error;
+    return control.value.trim() ? null : error;
   }
 
   /**
