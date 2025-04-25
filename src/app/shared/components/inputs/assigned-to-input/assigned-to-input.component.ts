@@ -211,6 +211,9 @@ export class AssignedToInputComponent
    */
   onSwitch() {
     this.dialogs.switch(this.dialogId);
+    if (!this.dialogs.isOpened(this.dialogId)) {
+      this.value = '';
+    }
   }
 
   /**
