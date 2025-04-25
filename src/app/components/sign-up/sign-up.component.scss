@@ -113,3 +113,9 @@
     display: unset;
   }
 }
+
+@media (max-width: 400px) {
+  .h-72 {
+    height: 88px;
+  }
+}

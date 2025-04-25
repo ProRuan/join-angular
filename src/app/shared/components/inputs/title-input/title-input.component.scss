@@ -1,9 +1,9 @@
 @import "../../../../../mixins.scss";
 
 .input-hint-cont {
-  @include display-column($g: 4px);
+  @include display-column($g: 8px);
   width: 100%;
-  min-height: 66px;
+  min-height: 72px;
 }
 
 .input {
@@ -33,7 +33,7 @@
 
 @media (max-width: 1180px) {
   .input-hint-cont {
-    min-height: 56px;
+    min-height: 63.2px;
   }
 
   .input {

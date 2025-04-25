@@ -192,7 +192,7 @@ export class ReactiveInput implements ControlValueAccessor, Validator {
    */
   getCompClass() {
     if (this.isError() && !this.valOff) {
-      return 'h-70';
+      return 'h-72';
     } else {
       return 'h-48';
     }

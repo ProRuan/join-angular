@@ -30,7 +30,7 @@
 
 .input-error-cont {
   @include display-column($g: 8px);
-  height: 70px;
+  height: 72px;
 }
 
 .checkbox-group {
@@ -102,16 +102,16 @@
   }
 }
 
-@media (max-width: 364px) {
+@media (max-width: 400px) {
   .input-error-cont {
-    height: 84px;
+    height: 88px;
   }
 
   .error-cont {
-    height: 28px;
+    height: 32px;
   }
 
   .error {
-    max-width: 200px;
+    max-width: 256px;
   }
 }

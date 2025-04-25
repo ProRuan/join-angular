@@ -221,4 +221,11 @@ export class SignOutComponent extends FormController {
   isChecked() {
     return this.confirmed && this.understood;
   }
+
+  /**
+   * Destroys a sign-out component.
+   */
+  ngOnDestroy() {
+    this.validators.setRejected(false);
+  }
 }

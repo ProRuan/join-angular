@@ -101,17 +101,17 @@
   height: 48px;
 }
 
-.h-70 {
-  height: 70px;
+.h-72 {
+  height: 72px;
 }
 
 .error-cont {
   @include display-row($ai: center);
-  height: 14px;
+  height: 16px;
 }
 
 .error {
-  @include font($fs: 12px, $fw: 400, $lh: 14.4px);
+  @include font($fs: 13px, $fw: 400, $lh: 15.6px);
   font-family: $poppins;
   color: $hint;
 }
@@ -296,14 +296,6 @@
       box-shadow: unset;
       opacity: 0.5;
     }
-  }
-
-  .h-70 {
-    height: 68px;
-  }
-
-  .error-cont {
-    height: 12px;
   }
 
   .sum-card {

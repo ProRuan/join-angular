@@ -190,7 +190,11 @@ export class NewPasswordComponent extends FormController {
     this.nav.openLoginSession(this.id);
   }
 
+  /**
+   * Destroys a new password component.
+   */
   ngOnDestroy() {
+    this.validators.setRejected(false);
     this.join.unsubscribeUserCollection();
   }
 }

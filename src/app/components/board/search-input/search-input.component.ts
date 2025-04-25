@@ -76,7 +76,7 @@ export class SearchInputComponent implements ControlValueAccessor {
    * @returns The css class of the search input.
    */
   getClass() {
-    return this.join.isMobile() && this.noResult ? 'h-70' : 'h-48';
+    return this.join.isMobile() && this.noResult ? 'h-72' : 'h-48';
   }
 
   /**
