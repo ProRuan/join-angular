@@ -221,6 +221,15 @@
   color: $black;
 }
 
+.other-title {
+  max-width: 1016px;
+}
+
+.other-content {
+  @include display-column($g: 24px);
+  max-width: 1016px;
+}
+
 .important-link {
   text-decoration: none;
   color: $lightblue;

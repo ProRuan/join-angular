@@ -1,7 +1,7 @@
 @import "../../../mixins.scss";
 
 .user-interface {
-  @include display-row($jc: center);
+  @include display-row();
 }
 
 .menu {
@@ -14,7 +14,16 @@
 
 .content {
   width: calc(100% - 232px);
-  max-width: 1688px;
+}
+
+.join-header {
+  @include box-padding($p: 20px 40px 20px 96px);
+  min-height: 96px;
+  background-color: $white;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  position: relative;
+  z-index: 1;
 }
 
 .main {
@@ -30,6 +39,17 @@
   display: none;
 }
 
+@media (min-width: 1921px) {
+  .menu {
+    padding-left: calc(50% - 960px);
+    width: calc(50% - 728px);
+  }
+
+  .content {
+    width: calc(50% + 728px);
+  }
+}
+
 @media (max-width: 1180px) {
   .menu {
     display: none;
@@ -37,6 +57,11 @@
 
   .content {
     width: 100%;
+  }
+
+  .join-header {
+    padding: 20px 32px;
+    min-height: 80px;
   }
 
   .main {
@@ -47,5 +72,17 @@
     height: 80px;
     background-color: $dark;
     display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .join-header {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 568px) {
+  .join-header {
+    padding: 20px 16px;
   }
 }

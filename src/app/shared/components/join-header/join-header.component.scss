@@ -1,13 +1,9 @@
 @import "../../../../mixins.scss";
 
 .header {
-  @include box-padding($p: 20px 40px 20px 96px);
   @include display-row($jc: space-between, $ai: center);
-  min-height: 96px;
-  background-color: $white;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
-  position: relative;
-  z-index: 1;
+  width: 100%;
+  max-width: 1552px;
 }
 
 .title {
@@ -58,11 +54,6 @@
 }
 
 @media (max-width: 1180px) {
-  .header {
-    padding: 20px 32px;
-    min-height: 80px;
-  }
-
   .title {
     display: none;
   }
@@ -84,17 +75,5 @@
   .initials {
     @include font($fs: 16px, $fw: 700, $lh: 19.2px);
     margin-top: 1px;
-  }
-}
-
-@media (max-width: 768px) {
-  .header {
-    padding: 20px 24px;
-  }
-}
-
-@media (max-width: 568px) {
-  .header {
-    padding: 20px 16px;
   }
 }
