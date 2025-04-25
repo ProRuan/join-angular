@@ -171,7 +171,6 @@ export class NewPasswordComponent extends FormController {
   updatePassword() {
     this.updateUser().subscribe({
       next: () => this.openLoginSession(),
-      error: (error) => console.log('Error - Could not update user: ', error),
     });
   }
 

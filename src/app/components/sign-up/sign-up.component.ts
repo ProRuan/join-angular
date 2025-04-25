@@ -185,7 +185,7 @@ export class SignUpComponent extends FormController {
     this.formatUser();
     const data = this.getUserData();
     const response = this.registerUser(data);
-    this.subscribeUserRegistration(response);
+    response.subscribe();
   }
 
   /**
@@ -242,24 +242,6 @@ export class SignUpComponent extends FormController {
     const id = userRef.id;
     const response = this.join.updateUser(id, 'data.id', id);
     return response.pipe(tap(() => this.openLoginSession(id)));
-  }
-
-  /**
-   * Subscribes a user registration.
-   * @param response - The firestore response.
-   */
-  private subscribeUserRegistration(response: Observable<void>) {
-    response.subscribe({
-      error: (error) => this.logRegistrationError(error),
-    });
-  }
-
-  /**
-   * Logs a registration error.
-   * @param error - The error.
-   */
-  private logRegistrationError(error: any) {
-    console.log('Error - Could not complete user registration: ', error);
   }
 
   /**

@@ -79,8 +79,6 @@ export class AppComponent {
   updateBodyStyle() {
     this.join.overflowY$.subscribe({
       next: (value) => this.setOverflowY(value),
-      error: (error) =>
-        console.log('Error - Could not update body style: ', error),
     });
   }
 
@@ -98,7 +96,6 @@ export class AppComponent {
   ngAfterViewInit() {
     this.nav.scrollXY$.subscribe({
       next: (values) => this.scrollToTop(values),
-      error: (error) => console.log('Error - Could not scroll to top: ', error),
     });
   }
 

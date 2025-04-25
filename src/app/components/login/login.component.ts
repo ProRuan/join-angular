@@ -96,7 +96,6 @@ export class LoginComponent extends FormController {
     this.subscriptions.add(
       this.join.loaded$.subscribe({
         next: (loaded) => this.rememberUserByCookie(loaded),
-        error: (error) => console.log('Error - Could not load users: ', error),
       })
     );
   }
@@ -119,7 +118,6 @@ export class LoginComponent extends FormController {
   private updateLoginForm(token: string) {
     this.join.getUserById(token).subscribe({
       next: (userSnap) => this.setLoginForm(userSnap),
-      error: (error) => console.log('Error - Could not get user: ', error),
     });
   }
 
@@ -155,7 +153,6 @@ export class LoginComponent extends FormController {
   private updateEmailInput(id: string) {
     this.join.getUserById(id).subscribe({
       next: (userSnap) => this.setEmail(userSnap),
-      error: (error) => console.log('Error - Could not get user: ', error),
     });
   }
 

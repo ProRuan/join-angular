@@ -94,8 +94,7 @@ export class JoinService {
     const text = 'Error - Could not get user collection';
     this.unsubscribeUserCollection = onSnapshot(
       collection(this.firestore, 'users'),
-      (snapshot) => this.getUserCollection(snapshot),
-      (error) => this.logError(text, error)
+      (snapshot) => this.getUserCollection(snapshot)
     );
   }
 
@@ -126,15 +125,6 @@ export class JoinService {
    */
   getUserData(userDoc: DocumentData) {
     return userDoc['data'] as UserData;
-  }
-
-  /**
-   * Logs an error.
-   * @param text - The error text.
-   * @param error - The error.
-   */
-  logError(text: string, error: unknown) {
-    console.error(`${text}: `, error);
   }
 
   /**
@@ -290,10 +280,7 @@ export class JoinService {
     if (this.isGuestAccount()) {
       fn();
     } else {
-      this.saveUserOnline().subscribe({
-        next: () => fn(),
-        error: (error) => console.log('Error - Could not save user: ', error),
-      });
+      this.saveUserOnline().subscribe({ next: () => fn() });
     }
   }
 

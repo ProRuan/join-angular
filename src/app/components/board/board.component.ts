@@ -71,7 +71,6 @@ export class BoardComponent {
   ngOnInit() {
     this.join.loaded$.subscribe({
       next: (value) => this.updateHeightFactor(value),
-      error: (error) => console.log('Error - Could not load user: ', error),
     });
   }
 

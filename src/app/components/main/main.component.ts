@@ -58,7 +58,6 @@ export class MainComponent {
   ngAfterViewInit() {
     this.nav.scrollXY$.subscribe({
       next: (values) => this.scrollToTop(values),
-      error: (error) => console.log('Error - Could not scroll to top: ', error),
     });
   }
 
@@ -110,7 +109,6 @@ export class MainComponent {
   setUserById(id: string) {
     this.join.getUserById(id).subscribe({
       next: (userSnap) => this.setUser(userSnap),
-      error: (error) => console.log('Error - Could not get user: ', error),
     });
   }
 

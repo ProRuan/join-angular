@@ -116,7 +116,6 @@ export class SignOutComponent extends FormController {
   setUserById(id: string) {
     this.join.getUserById(id).subscribe({
       next: (userSnap) => this.setUser(userSnap),
-      error: (error) => console.log('Error - Could not get user: ', error),
     });
   }
 
@@ -167,7 +166,6 @@ export class SignOutComponent extends FormController {
   private signOut() {
     this.join.deleteUser(this.join.user.id).subscribe({
       next: () => this.openLoginSession(),
-      error: (error) => console.log('Error - Could not delete user: ', error),
     });
   }
 

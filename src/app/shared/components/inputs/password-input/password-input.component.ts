@@ -86,7 +86,6 @@ export class PasswordInputComponent extends ReactiveInput {
     this.subscriptions.add(
       this.control?.valueChanges.subscribe({
         next: () => this.updateMaskedValue(),
-        error: (error) => console.log('Error - Could not get changes: ', error),
       })
     );
   }
@@ -107,7 +106,6 @@ export class PasswordInputComponent extends ReactiveInput {
   updateValidation() {
     this.matchValue$.subscribe({
       next: (value) => this.updateValidationState(value),
-      error: (error) => console.log('Error - Could not update value: ', error),
     });
   }
 
