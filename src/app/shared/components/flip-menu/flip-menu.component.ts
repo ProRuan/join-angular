@@ -75,15 +75,6 @@ export class FlipMenuComponent extends DialogFormController {
   onLogOut() {
     this.router.navigateByUrl('login');
     this.close();
-    this.resetContactViewer();
-  }
-
-  /**
-   * Resets a contact viewer.
-   */
-  private resetContactViewer() {
-    this.dialogs.close('viewContact');
-    this.viewer.setContact();
-    this.viewer.cachedContact.set();
+    this.viewer.resetContactService();
   }
 }

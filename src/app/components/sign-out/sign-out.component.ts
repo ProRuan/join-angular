@@ -175,18 +175,9 @@ export class SignOutComponent extends FormController {
    * Opens a login session.
    */
   private openLoginSession() {
-    this.resetContactViewer();
+    this.viewer.resetContactService();
     this.cookies.deleteCookie('token');
     this.nav.openLoginSession();
-  }
-
-  /**
-   * Resets a contact viewer.
-   */
-  private resetContactViewer() {
-    this.dialogs.close('viewContact');
-    this.viewer.setContact();
-    this.viewer.cachedContact.set();
   }
 
   /**

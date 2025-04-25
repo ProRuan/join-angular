@@ -165,4 +165,15 @@ export class ContactViewerService {
   isUser() {
     return this.join.isUser(this.contact);
   }
+
+  /**
+   * Resets a contact service.
+   */
+  resetContactService() {
+    this.dialogs.close('editContact');
+    this.dialogs.close('contactSettings');
+    this.dialogs.close('viewContact');
+    this.setContact();
+    this.cachedContact.set();
+  }
 }
