@@ -22,6 +22,7 @@ import { InputValidatorService } from '../../shared/services/input-validator.ser
 import { CookieService } from '../../shared/services/cookie.service';
 import { DialogService } from '../../shared/services/dialog.service';
 import { NavigationService } from '../../shared/services/navigation.service';
+import { ContactViewerService } from '../../shared/services/contact-viewer.service';
 import { FormController } from '../../shared/models/form-controller';
 import { User } from '../../shared/models/user';
 import { DocSnap } from '../../shared/ts/type';
@@ -60,6 +61,7 @@ export class SignOutComponent extends FormController {
   cookies: CookieService = inject(CookieService);
   dialogs: DialogService = inject(DialogService);
   nav: NavigationService = inject(NavigationService);
+  viewer: ContactViewerService = inject(ContactViewerService);
 
   user: User = new User();
   email: AbstractControl | null = null;
@@ -173,8 +175,18 @@ export class SignOutComponent extends FormController {
    * Opens a login session.
    */
   private openLoginSession() {
+    this.resetContactViewer();
     this.cookies.deleteCookie('token');
     this.nav.openLoginSession();
+  }
+
+  /**
+   * Resets a contact viewer.
+   */
+  private resetContactViewer() {
+    this.dialogs.close('viewContact');
+    this.viewer.setContact();
+    this.viewer.cachedContact.set();
   }
 
   /**

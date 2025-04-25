@@ -1,6 +1,6 @@
 <app-logo [animated]="false"></app-logo>
 
-<div *ngIf="signedOut" class="backlog-cont" [ngClass]="dialogs.getBacklogContClass()">
+<div *ngIf="isChecked()" class="backlog-cont" [ngClass]="dialogs.getBacklogContClass()">
     <app-backlog text="You signed out successfully" class="backlog" [ngClass]="dialogs.getBacklogClass()"></app-backlog>
 </div>
 
