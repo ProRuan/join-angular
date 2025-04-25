@@ -15,11 +15,6 @@
 .content {
   @include size($w: 977px, $h: 100%);
   @include display-column($g: 48px);
-
-  .padding-dialog & {
-    max-height: calc(95vh - 160px);
-    overflow-y: auto;
-  }
 }
 
 .column-desktop {
@@ -32,6 +27,12 @@
 
 .form {
   @include display-row($jc: space-between, $g: 48px);
+
+  .padding-dialog & {
+    padding-right: 15px;
+    max-height: calc(95vh - 340px);
+    overflow-y: auto;
+  }
 }
 
 .left-fieldset {

@@ -38,6 +38,15 @@ export class ButtonDataService {
     alt: 'add',
   };
 
+  prioBtn: ButtonData = {
+    buttonClass: 'prio-btn',
+    textClass: 'prio-btn-text',
+    text: 'Medium',
+    imgClass: 'img-32',
+    src: '/assets/img/board/prio_medium.png',
+    alt: 'prio_medium',
+  };
+
   deleteBtn: ButtonData = {
     buttonClass: 'settings-btn',
     textClass: 'settings-btn-text',

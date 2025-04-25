@@ -39,9 +39,16 @@ export class DraggableTaskComponent implements OnChanges {
   @ViewChild('settingsBtn') settingsBtnRef!: ElementRef<HTMLButtonElement>;
   @Input() task: Task = new Task();
 
-  descriptionPreview: string = '';
   tempText: string = '';
   rotated: boolean = false;
+
+  /**
+   * Gets a description preview.
+   * @returns The description preview.
+   */
+  get descriptionPreview() {
+    return this.getDescriptionPreview();
+  }
 
   /**
    * Gets an amount of done subtasks.
@@ -74,7 +81,6 @@ export class DraggableTaskComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     let changedTask = getCurrentValue<Task>(changes, 'task');
     this.updateTask(changedTask);
-    this.updateDescriptionPreview();
   }
 
   /**
@@ -97,18 +103,11 @@ export class DraggableTaskComponent implements OnChanges {
   }
 
   /**
-   * Updates a task description preview.
-   */
-  updateDescriptionPreview() {
-    this.tempText = '';
-    this.descriptionPreview = this.getDescriptionPreview();
-  }
-
-  /**
    * Gets a task description preview.
    * @returns The task description preview.
    */
   getDescriptionPreview() {
+    this.tempText = '';
     let text = this.task.description;
     if (text.length > 50) {
       let texts = text.split(' ');

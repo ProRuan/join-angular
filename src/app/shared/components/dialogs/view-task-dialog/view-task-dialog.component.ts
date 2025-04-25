@@ -48,7 +48,7 @@ export class ViewTaskDialogComponent
 
   @Input() task = new Task();
 
-  prioBtn = new JoinButton();
+  prioBtn = new JoinButton('prioBtn');
   deleteBtn = new JoinButton('deleteBtn');
   editBtn = new JoinButton('editBtn');
 
@@ -59,40 +59,8 @@ export class ViewTaskDialogComponent
    * @param changes - The changes.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    this.updateTask(changes);
-    this.updatePrioBtn();
-  }
-
-  /**
-   * Updates a task.
-   * @param changes - The changes.
-   */
-  updateTask(changes: SimpleChanges) {
-    let task = getCurrentValue<Task>(changes, 'task');
-    this.task.set(task);
-  }
-
-  /**
-   * Updates a prio button.
-   */
-  updatePrioBtn() {
-    let data = this.getPrioBtnData();
-    this.prioBtn.set(data);
-  }
-
-  /**
-   * Gets prio button data.
-   * @returns The prio button data.
-   */
-  getPrioBtnData() {
-    return {
-      buttonClass: 'prio-btn',
-      textClass: 'prio-btn-text',
-      text: this.getPrioText(),
-      imgClass: 'img-32',
-      src: this.getPrioSrc(),
-      alt: 'prio_medium',
-    };
+    let currentTask = getCurrentValue<Task>(changes, 'task');
+    this.task.set(currentTask);
   }
 
   /**
