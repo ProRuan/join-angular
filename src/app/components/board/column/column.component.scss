@@ -3,6 +3,7 @@
 .column {
   @include display-column($ai: center, $g: 16px);
   padding: 10px 0;
+  min-width: 252px;
 }
 
 .head {
