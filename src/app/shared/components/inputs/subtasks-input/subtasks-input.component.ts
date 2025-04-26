@@ -160,11 +160,25 @@ export class SubtasksInputComponent extends ReactiveInput {
   }
 
   /**
-   * Verifies the filled state of a subtasks array.
+   * Verifies the disabled state of a button.
+   * @param i - The subtask index.
    * @returns A boolean value.
    */
-  isSubtasksFilled() {
-    return this.subtasks.length > 0;
+  isDisabled(i?: number) {
+    if (i !== undefined) {
+      return !this.isTextContained(i);
+    } else {
+      return !this.isText(this.value);
+    }
+  }
+
+  /**
+   * Verifies a subtask containing text.
+   * @param i - The subtask index.
+   * @returns A boolean value.
+   */
+  isTextContained(i: number) {
+    return this.isText(this.subtasks[i].text);
   }
 
   /**
@@ -279,16 +293,7 @@ export class SubtasksInputComponent extends ReactiveInput {
    * Saves a subtask on click.
    */
   onSave(i: number) {
-    this.isTextContained(i) ? this.save(i) : this.delete(i);
-  }
-
-  /**
-   * Verifies a subtask containing text.
-   * @param i - The subtask index.
-   * @returns A boolean value.
-   */
-  isTextContained(i: number) {
-    return this.isText(this.subtasks[i].text);
+    this.save(i);
   }
 
   /**

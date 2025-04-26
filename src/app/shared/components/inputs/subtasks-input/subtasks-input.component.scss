@@ -11,7 +11,7 @@
 }
 
 .input {
-  @include box-padding($p: 11px 49px 11px 15px);
+  @include box-padding($p: 11px 81px 11px 15px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include color-set($c: $black, $bgc: $white);
   @include round-border($b: 1px solid $gray, $br: 10px);
@@ -45,9 +45,13 @@
   border: none;
   transition: all 100ms ease-out;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: #eeeeee;
     border-radius: 50px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 }
 
@@ -75,7 +79,7 @@
 }
 
 .item-cont {
-  @include box-padding($p: 6px 16px 6px 40px);
+  @include box-padding($p: 6px 82px 6px 40px);
   @include display-flex($jc: flex-start);
   min-height: 32px;
   cursor: pointer;
@@ -91,8 +95,9 @@
 
 .item {
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-  width: calc(100% - 66px);
+  width: 100%;
   color: $black;
+  overflow-wrap: anywhere;
 }
 
 .editor-button-bar {
@@ -116,29 +121,37 @@
 }
 
 .editor {
-  @include box-padding($p: 6px 16px 5px 16px);
-  @include size($w: calc(100% - 66px), $h: 31px);
+  @include box-padding($p: 6px 82px 5px 16px);
+  @include size($w: 100%, $h: 31px);
   @include font($fs: 16px, $fw: 400, $lh: 19.2px);
   @include color-set($c: $black, $bgc: $white);
   font-family: $inter;
   border: none;
 }
 
+.d-flex {
+  display: flex;
+}
+
 @media (max-width: 1180px) {
   .input {
     @include font($fs: 16px, $fw: 400, $lh: 19.2px);
-    padding: 13px 49px 13px 15px;
+    padding: 13px 81px 13px 15px;
   }
 
   .button {
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: transparent;
       border-radius: 0;
     }
 
-    &:active {
+    &:active:not(:disabled) {
       background-color: #eeeeee;
       border-radius: 50px;
+    }
+
+    &:disabled {
+      opacity: 0.5;
     }
   }
 
@@ -147,7 +160,7 @@
   }
 
   .item-cont {
-    padding: 14px 16px 14px 40px;
+    padding: 14px 82x 14px 40px;
     min-height: 48px;
 
     .editor-button-bar {
@@ -164,7 +177,7 @@
   }
 
   .editor {
-    padding: 14px 16px 13px 16px;
+    padding: 14px 82px 13px 16px;
     height: 48px;
   }
 }

@@ -45,7 +45,7 @@
   @include box-padding($p: 0 16px 0 16px);
   @include display-row($g: 24px);
   min-width: 1080px;
-  height: calc(100vh - 417px);
+  height: calc(100vh - 432px);
 }
 
 @media (max-width: 1180px) {
