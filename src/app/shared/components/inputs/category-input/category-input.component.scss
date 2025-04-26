@@ -2,26 +2,22 @@
 
 .category-input {
   @include display-column($g: 8px);
-  overflow-y: hidden;
   transition: all 100ms ease-out;
 }
 
-.h-default {
-  height: 80px;
-
-  .input-list-cont {
-    max-height: 48px;
-  }
-}
-
-.h-selection {
-  height: 176px;
+.selection {
+  min-height: 48px;
+  max-height: 48px;
+  position: relative;
+  z-index: 3;
 }
 
 .input-list-cont {
   @include display-column();
+  @include position($pos: absolute, $l: 0, $t: 0);
   background-color: $white;
   border-radius: 10px;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
   position: relative;
 }
 
@@ -63,6 +59,14 @@
   @include display-column();
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: flex;
+}
+
 .item {
   @include box-padding($p: 12px 16px);
   border-radius: 10px;
@@ -78,16 +82,9 @@
 }
 
 @media (max-width: 1180px) {
-  .h-default {
-    height: 74.4px;
-
-    .input-list-cont {
-      max-height: 47.2px;
-    }
-  }
-
-  .h-selection {
-    height: 160.8px;
+  .selection {
+    min-height: 47.2px;
+    max-height: 47.2px;
   }
 
   .input {

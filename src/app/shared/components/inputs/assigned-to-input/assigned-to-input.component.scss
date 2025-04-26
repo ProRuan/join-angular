@@ -2,16 +2,22 @@
 
 .assigned-to-input {
   @include display-column($g: 8px);
-  overflow-y: hidden;
   transition: all 100ms ease-out;
+}
+
+.selection {
+  min-height: 48px;
+  position: relative;
+  z-index: 5;
 }
 
 .input-list-cont {
   @include display-column();
+  @include position($pos: absolute, $l: 0, $t: 0);
+  width: 100%;
   background-color: $white;
   border-radius: 10px;
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.04);
-  position: relative;
 }
 
 .input {
@@ -118,6 +124,10 @@
 }
 
 @media (max-width: 1180px) {
+  .selection {
+    min-height: 47.2px;
+  }
+
   .input {
     @include font($fs: 16px, $fw: 400, $lh: 19.2px);
     padding: 13px 49px 13px 15px;
@@ -133,6 +143,10 @@
     &:active {
       border: 1px solid $darkgray;
     }
+  }
+
+  .assignable-contacts-list {
+    max-height: 230px;
   }
 
   .assignable-contact:hover {

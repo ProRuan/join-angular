@@ -108,6 +108,15 @@ export class AssignedToInputComponent
   }
 
   /**
+   * Verifies the assigned state of a contact.
+   * @param contact - The assignable contact.
+   * @returns A boolean value.
+   */
+  isAssigned(contact: Contact) {
+    return !!this.assignedContacts.find((c) => c.id === contact.id);
+  }
+
+  /**
    * Gets an assigned-to input style.
    * @returns The assigned-to input style.
    */
@@ -121,14 +130,8 @@ export class AssignedToInputComponent
    * @returns The height value of the assigned-to input.
    */
   private getHeightValue() {
-    let [minH, maxH, finalH] = this.getStyleParameters();
-    if (this.dialogs.isOpened(this.dialogId)) {
-      return this.getListHeight(minH, maxH);
-    } else if (this.isAnyContactAssigned()) {
-      return finalH;
-    } else {
-      return minH;
-    }
+    let [defaultHeight, finalHeight] = this.getStyleParameters();
+    return this.isAnyContactAssigned() ? finalHeight : defaultHeight;
   }
 
   /**
@@ -136,32 +139,7 @@ export class AssignedToInputComponent
    * @returns The style parameter array.
    */
   private getStyleParameters() {
-    if (this.join.isMobile()) {
-      return [74.4, 362.4, 124.4];
-    } else {
-      return [80, 368, 130];
-    }
-  }
-
-  /**
-   * Gets a list height.
-   * @param minH - The minimum height.
-   * @param maxH - The maximum height.
-   * @returns The list height.
-   */
-  private getListHeight(minH: number, maxH: number) {
-    let amount = this.assignableContacts.length;
-    let value = minH + amount * 56 + (amount - 1) * 2;
-    return value < maxH ? value : maxH;
-  }
-
-  /**
-   * Verifies the assigned state of a contact.
-   * @param contact - The assignable contact.
-   * @returns A boolean value.
-   */
-  isAssigned(contact: Contact) {
-    return !!this.assignedContacts.find((c) => c.id === contact.id);
+    return this.join.isMobile() ? [74.4, 124.4] : [80, 130];
   }
 
   /**

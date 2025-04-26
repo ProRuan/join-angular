@@ -1,17 +1,19 @@
-<div class="category-input" [ngClass]="getCategoryInputClass()">
+<div class="category-input">
     <app-label text="Category" [req]="true"></app-label>
 
-    <div class="input-list-cont" (click)="onHandle($event)">
-        <input [value]="value" class="input read-only" type="text" placeholder="Select task category" readonly
-            (input)="onInput($event)" (click)="onSwitch()">
-        <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitch()">
+    <div class="selection">
+        <div class="input-list-cont" (click)="onHandle($event)">
+            <input [value]="value" class="input read-only" type="text" placeholder="Select task category" readonly
+                (input)="onInput($event)" (click)="onSwitch()">
+            <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitch()">
 
-        <div class="list">
-            <div #technicalTask class="item" (click)="onSelect(technicalTask)">
-                <span class="text">Technical Task</span>
-            </div>
-            <div #userStory class="item" (click)="onSelect(userStory)">
-                <span class="text">User Story</span>
+            <div class="list" [ngClass]="getListClass()">
+                <div #technicalTask class="item" (click)="onSelect(technicalTask)">
+                    <span class="text">Technical Task</span>
+                </div>
+                <div #userStory class="item" (click)="onSelect(userStory)">
+                    <span class="text">User Story</span>
+                </div>
             </div>
         </div>
     </div>
