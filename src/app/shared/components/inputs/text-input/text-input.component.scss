@@ -9,18 +9,14 @@
   @include box-padding($p: 11px 54px 11px 20px);
   @include font($fs: 20px, $fw: 400, $lh: 24px);
   @include color-set($c: $black, $bgc: $white);
+  @include round-border($b: 1px solid $gray, $br: 10px);
   width: 100%;
   font-family: $inter;
-  border-radius: 10px;
   transition: border 100ms ease-in-out;
 
   &::placeholder {
     color: $gray;
   }
-}
-
-.default {
-  border: 1px solid $gray;
 
   &:focus {
     border: 1px solid $lightblue;
