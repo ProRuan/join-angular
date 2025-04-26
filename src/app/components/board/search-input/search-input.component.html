@@ -1,5 +1,5 @@
 <div class="input-cont" [ngClass]="getClass()">
-    <input [value]="value" class="input" type="text" placeholder="Find Task" (input)="onInput($event)">
+    <input id="search" [value]="value" class="input" type="text" placeholder="Find Task" (input)="onInput($event)">
     <div class="button-cont">
         <button class="button" (click)="onUpdate()"></button>
     </div>

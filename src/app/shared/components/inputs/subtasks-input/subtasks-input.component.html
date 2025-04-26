@@ -2,7 +2,8 @@
     <app-label text="Subtasks"></app-label>
 
     <form class="form" (ngSubmit)="onAdd()">
-        <input [value]="value" class="input" type="text" placeholder="Add new subtask" (input)="onInput($event)">
+        <input id="subtasks" [value]="value" class="input" type="text" placeholder="Add new subtask"
+            (input)="onInput($event)">
         <div class="button-bar">
             @if (isFilled()) {
             <button class="button cancel" type="button" (click)="onClear()"></button>
@@ -27,7 +28,7 @@
             </div>
             } @else {
             <form class="editor-form pos-relative" (ngSubmit)="onSave(i)">
-                <input [(ngModel)]="subtask.text" name="editor" class="editor" type="text">
+                <input id="editor" [(ngModel)]="subtask.text" class="editor" type="text">
                 <div class="editor-button-bar d-flex">
                     <button class="button delete" type="button" (click)="onDelete(i)"></button>
                     <div class="border"></div>

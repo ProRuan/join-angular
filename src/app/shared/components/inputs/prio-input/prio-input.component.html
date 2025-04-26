@@ -1,5 +1,5 @@
 <div class="column-8">
-    <app-label text="Prio"></app-label>
+    <app-label text="Prio" [dummy]="true"></app-label>
 
     <div class="button-group" [ngClass]="getHeightClass()">
         <button *ngFor="let button of buttons" class="button" [ngClass]="button.id" type="button"

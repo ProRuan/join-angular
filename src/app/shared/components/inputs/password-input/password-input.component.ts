@@ -187,7 +187,7 @@ export class PasswordInputComponent extends ReactiveInput {
    */
   isDisallowedKey(event: KeyboardEvent) {
     let ctrlKey = event.ctrlKey;
-    let key = event.key.toLowerCase();
+    let key = event.key?.toLowerCase();
     return ctrlKey && (key === 'f' || key === 'g');
   }
 
@@ -203,6 +203,8 @@ export class PasswordInputComponent extends ReactiveInput {
    * Destroys a password input component.
    */
   ngOnDestroy() {
+    this.matchValueSubject.next(this.value);
+    this.matchValueSubject.complete();
     this.subscriptions.unsubscribe();
   }
 }

@@ -3,7 +3,7 @@
 
     <div class="selection">
         <div class="input-list-cont" (click)="onHandle($event)">
-            <input [value]="value" class="input" [ngClass]="getFocusClass()" type="text"
+            <input id="assigned-to" [value]="value" class="input" [ngClass]="getFocusClass()" type="text"
                 [placeholder]="getPlaceholder()" (input)="onInput($event)" (focus)="onOpen()">
             <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitch()">
 

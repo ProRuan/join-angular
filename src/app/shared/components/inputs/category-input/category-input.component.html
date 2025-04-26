@@ -3,8 +3,8 @@
 
     <div class="selection">
         <div class="input-list-cont" (click)="onHandle($event)">
-            <input [value]="value" class="input read-only" type="text" placeholder="Select task category" readonly
-                (input)="onInput($event)" (click)="onSwitch()">
+            <input id="category" [value]="value" class="input read-only" type="text" placeholder="Select task category"
+                readonly (input)="onInput($event)" (click)="onSwitch()">
             <img class="drop-down-arrow" [src]="getArrowSrc()" alt="drop_down_arrow" (click)="onSwitch()">
 
             <div class="list" [ngClass]="getListClass()">

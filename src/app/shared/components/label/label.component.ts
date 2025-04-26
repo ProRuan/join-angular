@@ -15,6 +15,8 @@ import { Component, Input } from '@angular/core';
 export class LabelComponent {
   @Input() text: string = '';
   @Input() req: boolean = false;
+  @Input() dummy: boolean = false;
+
   target: string = '';
 
   /**

@@ -1,3 +1,9 @@
+@if(dummy) {
+<div class="label">
+    <span>{{ text }}</span><span *ngIf="req" class="star">*</span>
+</div>
+} @else {
 <label class="label" [for]="getInputName()">
     <span>{{ text }}</span><span *ngIf="req" class="star">*</span>
 </label>
+}

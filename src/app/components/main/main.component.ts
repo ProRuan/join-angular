@@ -165,5 +165,7 @@ export class MainComponent {
   ngOnDestroy() {
     this.join.user.set();
     this.subscriptions.unsubscribe();
+    this.nav.scrollSubject.next([0, 0]);
+    this.nav.scrollSubject.complete();
   }
 }

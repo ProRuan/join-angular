@@ -129,4 +129,12 @@ export class BoardComponent {
   getTasks(column: string) {
     return this.tasks.filter((t) => t.column === column);
   }
+
+  /**
+   * Destroys a board component.
+   */
+  ngOnDestroy() {
+    this.join.loadedSubject.next(false);
+    this.join.loadedSubject.complete();
+  }
 }
