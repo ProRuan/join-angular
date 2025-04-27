@@ -95,7 +95,7 @@
 
 .name {
   @include font($fs: 20px, $fw: 400, $lh: 24px);
-  text-wrap: nowrap;
+  white-space: nowrap;
   color: $black;
 
   .selected & {
