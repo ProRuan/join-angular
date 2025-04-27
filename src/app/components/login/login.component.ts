@@ -250,8 +250,6 @@ export class LoginComponent extends FormController {
   ngOnDestroy() {
     this.validators.setRejected(false);
     this.subscriptions.unsubscribe();
-    this.join.loadedSubject.next(false);
-    this.join.loadedSubject.complete();
     this.join.unsubscribeUserCollection();
   }
 }

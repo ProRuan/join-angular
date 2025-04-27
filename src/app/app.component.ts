@@ -113,9 +113,5 @@ export class AppComponent {
    */
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.join.overflowYSubject.next('auto');
-    this.join.overflowYSubject.complete();
-    this.nav.scrollSubject.next([0, 0]);
-    this.nav.scrollSubject.complete();
   }
 }

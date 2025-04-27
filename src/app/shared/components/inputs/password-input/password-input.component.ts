@@ -128,12 +128,4 @@ export class PasswordInputComponent extends ReactiveInput {
   onToggle() {
     this.masked = !this.masked;
   }
-
-  /**
-   * Destroys a password input component.
-   */
-  ngOnDestroy() {
-    this.matchValueSubject.next(this.value);
-    this.matchValueSubject.complete();
-  }
 }
