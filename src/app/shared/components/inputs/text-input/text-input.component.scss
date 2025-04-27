@@ -1,6 +1,6 @@
 @import "../../../../../mixins.scss";
 
-.input-component {
+.text-input {
   @include display-column($g: 8px);
   transition: height 100ms ease-out;
 }

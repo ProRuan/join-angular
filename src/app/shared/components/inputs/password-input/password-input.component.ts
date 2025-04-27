@@ -6,12 +6,9 @@ import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { JoinService } from '../../../services/join.service';
 import { InputConfig } from '../../../interfaces/input-config';
-import { stopPropagation } from '../../../ts/global';
-
-type TextStyle = { [key: string]: string };
 
 @Component({
   selector: 'app-password-input',
@@ -32,12 +29,9 @@ type TextStyle = { [key: string]: string };
 export class PasswordInputComponent extends ReactiveInput {
   join: JoinService = inject(JoinService);
 
-  maskedValue: string = '';
   masked: boolean = true;
-  textStyle!: TextStyle;
   matchValueSubject = new BehaviorSubject<string>(this.value);
   matchValue$ = this.matchValueSubject.asObservable();
-  subscriptions = new Subscription();
 
   @Input() override control: AbstractControl | null = null;
 
@@ -50,54 +44,10 @@ export class PasswordInputComponent extends ReactiveInput {
   }
 
   /**
-   * Sets matchword validators.
-   * @param value - The match value.
-   */
-  setValidators(value: string) {
-    let validators = this.validators.getMatchword(value);
-    this.control?.setValidators(validators);
-  }
-
-  /**
    * Initializes a password input component.
    */
   ngOnInit() {
-    this.textStyle = this.getAltTextStyle();
-    this.updateMask();
     this.updateValidation();
-  }
-
-  /**
-   * Gets an alternative text style.
-   * @returns The alternative text style.
-   */
-  getAltTextStyle() {
-    return {
-      color: 'white',
-      caretColor: 'black',
-      fontFamily: 'courier, monospace',
-    };
-  }
-
-  /**
-   * Updates a mask.
-   */
-  updateMask() {
-    this.subscriptions.add(
-      this.control?.valueChanges.subscribe({
-        next: () => this.updateMaskedValue(),
-      })
-    );
-  }
-
-  /**
-   * Updates a masked value.
-   */
-  updateMaskedValue() {
-    this.maskedValue = '';
-    for (let i = 0; i < this.value.length; i++) {
-      this.maskedValue += '\u25cf';
-    }
   }
 
   /**
@@ -122,27 +72,28 @@ export class PasswordInputComponent extends ReactiveInput {
   }
 
   /**
-   * Gets the css class of a selection.
-   * @returns The css class of the selection.
+   * Sets matchword validators.
+   * @param value - The match value.
    */
-  getSelectionClass() {
-    return this.masked ? 'selection' : '';
+  setValidators(value: string) {
+    let validators = this.validators.getMatchword(value);
+    this.control?.setValidators(validators);
   }
 
   /**
-   * Gets a text style.
-   * @returns The text style.
+   * Gets an input type.
+   * @returns The input type.
    */
-  getTextStyle() {
-    return this.isMaskedAndFilled() ? this.textStyle : null;
+  getType() {
+    return this.masked ? 'password' : 'text';
   }
 
   /**
-   * Verifies the masked and filled state of an input.
-   * @returns A boolean value.
+   * Prevents an event on copy or cut.
+   * @param event - The ClipboardEvent.
    */
-  isMaskedAndFilled() {
-    return this.masked && this.isFilled();
+  onPrevent(event: ClipboardEvent) {
+    event.preventDefault();
   }
 
   /**
@@ -151,8 +102,16 @@ export class PasswordInputComponent extends ReactiveInput {
    */
   getIconClass() {
     if (this.isMaskedAndFilled()) return 'vis-off';
-    else if (this.isFilled()) return 'vis-on';
-    else return 'lock';
+    if (this.isFilled()) return 'vis-on';
+    return 'lock';
+  }
+
+  /**
+   * Verifies the masked and filled state of an input.
+   * @returns A boolean value.
+   */
+  isMaskedAndFilled() {
+    return this.masked && this.isFilled();
   }
 
   /**
@@ -171,40 +130,10 @@ export class PasswordInputComponent extends ReactiveInput {
   }
 
   /**
-   * Disallows specified key combinations.
-   * @param event - The KeyboardEvent.
-   */
-  onDisallow(event: KeyboardEvent) {
-    if (this.isDisallowedKey(event)) {
-      stopPropagation(event);
-    }
-  }
-
-  /**
-   * Verifies a disallowed key.
-   * @param event - The KeyboardEvent.
-   * @returns A boolean value.
-   */
-  isDisallowedKey(event: KeyboardEvent) {
-    let ctrlKey = event.ctrlKey;
-    let key = event.key?.toLowerCase();
-    return ctrlKey && (key === 'f' || key === 'g');
-  }
-
-  /**
-   * Prevents an event on copy or cut.
-   * @param event - The ClipboardEvent.
-   */
-  onPrevent(event: ClipboardEvent) {
-    event.preventDefault();
-  }
-
-  /**
    * Destroys a password input component.
    */
   ngOnDestroy() {
     this.matchValueSubject.next(this.value);
     this.matchValueSubject.complete();
-    this.subscriptions.unsubscribe();
   }
 }
