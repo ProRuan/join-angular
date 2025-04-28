@@ -17,6 +17,11 @@ export class NameFormatterService {
    */
   constructor() {
     this.pattern = doubleNamePattern;
+
+    let testName = '   Rudolf   johaann j m   g  Sachslehner   ';
+    let result = testName.match(/[a-z]{2,}/g);
+    console.log('result: ', result);
+    
   }
 
   /**
