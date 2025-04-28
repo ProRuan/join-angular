@@ -103,7 +103,7 @@ export class PasswordInputComponent extends ReactiveInput {
   getIconClass() {
     if (this.isMaskedAndFilled()) return 'vis-off';
     if (this.isFilled()) return 'vis-on';
-    return 'lock';
+    return '';
   }
 
   /**

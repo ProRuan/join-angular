@@ -16,10 +16,10 @@
   @include display-column($g: 16px);
   background-color: $dark;
   border-radius: 30px 0 0 30px;
-}
 
-.g-32 {
-  gap: 32px;
+  &.g-32 {
+    gap: 32px;
+  }
 }
 
 .logo {

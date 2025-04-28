@@ -40,7 +40,7 @@ export class FlipMenuComponent extends DialogFormController {
    * @returns The css class of the flip menu.
    */
   getFlipMenuClass() {
-    return this.isOpened() ? 'flip-out' : 'flip-in';
+    return this.isOpened() ? 'flip-out' : '';
   }
 
   /**

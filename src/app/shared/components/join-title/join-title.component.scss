@@ -6,10 +6,10 @@
 
 .title-cont {
   @include display-row($ai: center, $g: 30px);
-}
 
-.mobile-title-cont {
-  @include display-column($g: 8px);
+  &.mobile-title-cont {
+    @include display-column($g: 8px);
+  }
 }
 
 .black {

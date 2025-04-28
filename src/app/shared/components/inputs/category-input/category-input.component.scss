@@ -57,14 +57,10 @@
 
 .list {
   @include display-column();
-}
 
-.hide {
-  display: none;
-}
-
-.show {
-  display: flex;
+  &.hide {
+    display: none;
+  }
 }
 
 .item {

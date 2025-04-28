@@ -23,7 +23,7 @@ export class HeaderComponent {
    * @returns The css class of the header.
    */
   getClass() {
-    return this.isType('sign-up') ? 'sign-up' : 'login';
+    return this.isType('sign-up') ? 'sign-up' : '';
   }
 
   /**

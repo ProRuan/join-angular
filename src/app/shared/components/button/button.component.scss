@@ -261,6 +261,7 @@
     width: 100%;
     background-color: transparent;
     flex-direction: row-reverse;
+    transition: all 100ms ease-out;
 
     &:active:not(.contact-settings-btn:disabled),
     &:focus-visible:not(.contact-settings-btn:disabled) {
@@ -270,10 +271,10 @@
     &:disabled {
       opacity: 0.5;
     }
-  }
 
-  .contact-settings-btn-selected {
-    background-color: #eeeeee;
+    &.contact-settings-btn-selected {
+      background-color: #eeeeee;
+    }
   }
 
   .settings-btn-text {

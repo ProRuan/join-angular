@@ -9,19 +9,16 @@
 
 .flip-menu {
   @include display-column();
+  @include position($pos: absolute, $t: 96px, $r: -158px);
   padding: 10px;
   background-color: $dark;
   border-radius: 20px 0 20px 20px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
   transition: all 100ms ease-in-out;
-}
 
-.flip-in {
-  @include position($pos: absolute, $t: 96px, $r: -158px);
-}
-
-.flip-out {
-  @include position($pos: absolute, $t: 96px, $r: 24px);
+  &.flip-out {
+    @include position($pos: absolute, $t: 96px, $r: 24px);
+  }
 }
 
 .button {
@@ -49,13 +46,13 @@
 }
 
 @media (max-width: 1180px) {
-  .flip-in {
+  .flip-menu {
     top: 80px;
-  }
 
-  .flip-out {
-    top: 80px;
-    right: 8px;
+    &.flip-out {
+      top: 80px;
+      right: 8px;
+    }
   }
 
   .button {

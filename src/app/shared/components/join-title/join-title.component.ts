@@ -32,8 +32,8 @@ export class JoinTitleComponent {
    */
   getColorClass() {
     if (this.dark) return 'white';
-    else if (this.mobile) return 'black';
-    else return '';
+    if (this.mobile) return 'black';
+    return '';
   }
 
   /**

@@ -199,7 +199,7 @@ export class AssignedToInputComponent
    * @returns The css class of the contact list.
    */
   getListClass() {
-    return this.dialogs.isOpened(this.dialogId) ? 'show' : 'hide';
+    return this.dialogs.isOpened(this.dialogId) ? '' : 'hide';
   }
 
   /**
