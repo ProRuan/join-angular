@@ -43,10 +43,10 @@
   min-height: 244px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
   transition: all 100ms ease-in-out;
-}
 
-.bgc {
-  background-color: rgba(0, 0, 0, 0.05);
+  &.bgc {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 }
 
 @media (max-width: 1180px) {

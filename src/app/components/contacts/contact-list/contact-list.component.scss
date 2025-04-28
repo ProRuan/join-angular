@@ -55,13 +55,13 @@
   &:hover {
     background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
   }
-}
 
-.selected {
-  background-color: $dark;
+  &.selected {
+    background-color: $dark;
 
-  &:hover {
-    background: $dark;
+    &:hover {
+      background: $dark;
+    }
   }
 }
 
@@ -146,13 +146,13 @@
     &:active {
       background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
     }
-  }
 
-  .selected {
-    background-color: unset;
+    &.selected {
+      background-color: unset;
 
-    &:hover {
-      background: unset;
+      &:hover {
+        background: unset;
+      }
     }
   }
 

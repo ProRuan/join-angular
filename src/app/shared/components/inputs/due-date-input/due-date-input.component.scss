@@ -12,19 +12,19 @@
   @include round-border($b: 1px solid $gray, $br: 10px);
   width: 100%;
   font-family: $inter;
-  transition: border 100ms ease-in-out;
+  transition: border-color 100ms ease-in-out;
 
   &::placeholder {
     color: $gray;
   }
-}
 
-.focus {
-  border: 1px solid $lightblue;
-}
+  &.focus {
+    border-color: $lightblue;
+  }
 
-.invalid {
-  border: 1px solid $error;
+  &.invalid {
+    border-color: $error;
+  }
 }
 
 .calender {

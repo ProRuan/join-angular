@@ -12,19 +12,19 @@
   @include color-set($c: $black, $bgc: $white);
   @include round-border($b: 1px solid $gray, $br: 10px);
   font-family: $inter;
-  transition: border 100ms ease-in-out;
+  transition: border-color 100ms ease-in-out;
 
   &::placeholder {
     color: $gray;
   }
 
   &:focus {
-    border: 1px solid $lightblue;
+    border-color: $lightblue;
   }
-}
 
-.invalid {
-  border: 1px solid $error;
+  &.invalid {
+    border-color: $error;
+  }
 }
 
 @media (max-width: 1180px) {

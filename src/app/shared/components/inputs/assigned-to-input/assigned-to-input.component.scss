@@ -42,13 +42,13 @@
   &::placeholder {
     color: $black;
   }
-}
 
-.focus {
-  border: 1px solid $lightblue;
+  &.focus {
+    border-color: $lightblue;
 
-  &:hover {
-    border: 1px solid $lightblue;
+    &:hover {
+      border-color: $lightblue;
+    }
   }
 }
 
