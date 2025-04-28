@@ -5,23 +5,25 @@
 }
 
 .padding-desktop {
-  @include box-padding($p: 110px 96px);
+  @include box-padding($p: 55px 48px 0 48px);
 }
 
 .padding-dialog {
-  @include box-padding($p: 64px 74px);
+  @include box-padding($p: 32px 37px 0 37px);
 }
 
 .content {
   @include size($w: 977px, $h: 100%);
-  @include display-column($g: 48px);
+  @include display-column($g: 24px);
 }
 
 .column-desktop {
+  @include box-padding($p: 55px 48px 0 48px);
   @include display-column($g: 48px);
 }
 
 .column-dialog {
+  @include box-padding($p: 32px 37px 0 37px);
   @include display-column($g: 32px);
 }
 
@@ -30,9 +32,10 @@
 
   .padding-dialog & {
     padding-right: 15px;
-    height: 530px;
+    height: 610px;
     max-height: calc(95vh - 340px);
     overflow-y: auto;
+    gap: 30px;
   }
 }
 
@@ -52,7 +55,15 @@
 }
 
 .hint-button-cont {
+  @include box-padding($p: 24px 48px 110px 48px);
   @include display-flex($jc: space-between, $ai: flex-end);
+  @include position($pos: sticky, $l: 0, $b: 0);
+  background-color: $lightgray;
+
+  .padding-dialog & {
+    @include box-padding($p: 24px 37px 64px 37px);
+    background-color: $white;
+  }
 }
 
 .hint-cont {
@@ -69,7 +80,7 @@
 
 @media (max-width: 1439px) {
   .padding-desktop {
-    padding: 64px 48px;
+    padding: 32px 24px 0 24px;
   }
 
   .content {
@@ -77,6 +88,10 @@
       width: 100%;
       max-width: 977px;
     }
+  }
+
+  .column-desktop {
+    @include box-padding($p: 32px 24px 0 24px);
   }
 
   .form {
@@ -91,6 +106,10 @@
   .right-fieldset {
     width: 100%;
     max-width: 440px;
+  }
+
+  .hint-button-cont {
+    @include box-padding($p: 24px 24px 64px 24px);
   }
 }
 
