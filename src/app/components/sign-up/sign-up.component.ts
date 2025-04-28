@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { concatMap, Observable, tap } from 'rxjs';
+import { concatMap, tap } from 'rxjs';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { BacklogComponent } from '../../shared/components/backlog/backlog.component';
 import { HeaderComponent } from '../../shared/components/header/header.component';
