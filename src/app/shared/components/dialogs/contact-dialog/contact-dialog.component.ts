@@ -346,6 +346,7 @@ export class ContactDialogComponent extends DialogFormController {
     let contact = new Contact(contactData);
     this.join.addUserItem('contacts', contact);
     this.viewer.setContact(contact);
+    this.viewer.setDeleteButtons();
     this.dialogs.open('viewContact');
     this.manageBacklog();
     this.saveUserContacts(true);
