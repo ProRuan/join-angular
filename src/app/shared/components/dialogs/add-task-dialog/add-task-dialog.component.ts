@@ -29,10 +29,10 @@ export class AddTaskDialogComponent extends DialogFormController {
 
   /**
    * Gets the css class of a backlog.
-   * @returns The css class of a backlog.
+   * @returns The css class of the backlog.
    */
   getBacklogClass() {
-    return this.dialogs.isLogged() ? 'o-1' : 'o-0';
+    return this.dialogs.isLogged() ? 'backlog-visible' : '';
   }
 
   /**

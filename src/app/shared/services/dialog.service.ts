@@ -71,7 +71,7 @@ export class DialogService {
    * @returns The css class of the backlog container.
    */
   getBacklogContClass() {
-    return this.isLogged() ? 'backlog-visible' : 'backlog-hidden';
+    return this.isLogged() ? 'backlog-cont-visible' : '';
   }
 
   /**
@@ -79,7 +79,7 @@ export class DialogService {
    * @returns The css class of a backlog.
    */
   getBacklogClass() {
-    return this.isLogged() ? 'backlog-in' : 'backlog-out';
+    return this.isLogged() ? 'backlog-in' : '';
   }
 
   /**
@@ -135,7 +135,7 @@ export class DialogService {
    * @returns The css class of the contact feedback container.
    */
   getFeedbackContClass() {
-    return this.isFeedbackDisplayed() ? 'backlog-visible' : 'backlog-hidden';
+    return this.isFeedbackDisplayed() ? 'backlog-cont-visible' : '';
   }
 
   /**
@@ -151,6 +151,6 @@ export class DialogService {
    * @returns The css class of a contact feedback.
    */
   getFeedbackClass() {
-    return this.isFeedbackDisplayed() ? 'o-1' : 'o-0';
+    return this.isFeedbackDisplayed() ? 'backlog-visible' : '';
   }
 }

@@ -1,14 +1,13 @@
 @import "../../../../mixins.scss";
 
 .contact-backlog {
-  position: absolute;
-  left: 743px;
-  bottom: 110px;
+  @include position($pos: absolute, $l: calc(100% + 55px), $b: 110px);
+  white-space: nowrap;
   z-index: 15;
   transition: all 200ms ease-in-out;
 
-  &.contact-backlog-out {
-    left: calc(100% + 55px);
+  &.contact-backlog-in {
+    left: 743px;
   }
 }
 
@@ -150,10 +149,11 @@
 @media (max-width: 1180px) {
   .contact-backlog {
     left: calc(50% - 163px);
-    bottom: 190px;
+    bottom: -90px;
 
-    &.contact-backlog-out {
-      bottom: -90px;
+    &.contact-backlog-in {
+      left: calc(50% - 163px);
+      bottom: 190px;
     }
   }
 

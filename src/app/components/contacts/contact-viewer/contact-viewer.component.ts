@@ -49,14 +49,10 @@ export class ContactViewerComponent extends DialogFormController {
 
   /**
    * Gets the css class of a backlog.
-   * @returns The css class of a backlog.
+   * @returns The css class of the backlog.
    */
   getBacklogClass() {
-    if (this.dialogs.isLogged()) {
-      return 'contact-backlog-in';
-    } else {
-      return 'contact-backlog-out';
-    }
+    return this.dialogs.isLogged() ? 'contact-backlog-in' : '';
   }
 
   /**

@@ -14,30 +14,33 @@
   @include size($w: 100%, $h: 100vh);
   @include display-flex();
   @include position($pos: fixed, $l: 0, $t: 0);
-  z-index: 15;
-  transition: all 200ms ease-in-out;
-}
-
-.backlog-visible {
-  background-color: rgba(0, 0, 0, 0.25);
-  visibility: visible;
-}
-
-.backlog-hidden {
   background-color: transparent;
   visibility: hidden;
+  z-index: 15;
+  transition: all 200ms ease-in-out;
+
+  &.backlog-cont-visible {
+    background-color: rgba(0, 0, 0, 0.25);
+    visibility: visible;
+  }
 }
 
 .backlog {
-  transition: all 200ms ease-in-out;
-}
-
-.backlog-in {
-  transform: translateY(0);
-}
-
-.backlog-out {
   transform: translateY(calc(50vh + 53px));
+  transition: transform 200ms ease-in-out;
+
+  &.backlog-in {
+    transform: translateY(0);
+  }
+}
+
+.fade-backlog {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+
+  &.backlog-visible {
+    opacity: 1;
+  }
 }
 
 .headline-2 {

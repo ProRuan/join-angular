@@ -1,5 +1,6 @@
 <div class="backlog-cont" [ngClass]="dialogs.getFeedbackContClass()">
-    <app-backlog text="Contact already existing" class="backlog" [ngClass]="dialogs.getFeedbackClass()"></app-backlog>
+    <app-backlog text="Contact already existing" class="fade-backlog"
+        [ngClass]="dialogs.getFeedbackClass()"></app-backlog>
 </div>
 
 <div *ngIf="isOpened()" @contactDialogAnimation class="dialog">

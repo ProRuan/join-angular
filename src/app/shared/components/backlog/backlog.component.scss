@@ -1,6 +1,6 @@
 @import "../../../../mixins.scss";
 
-.backlog {
+.backlog-component {
   @include display-row($jc: center, $ai: center, $g: 35px);
   padding: 25px;
   background-color: $dark;
@@ -21,7 +21,7 @@
 }
 
 @media (max-width: 360px) {
-  .backlog {
+  .backlog-component {
     padding: 20px;
   }
 
