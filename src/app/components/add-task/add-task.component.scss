@@ -15,6 +15,12 @@
 .content {
   @include size($w: 977px, $h: 100%);
   @include display-column($g: 24px);
+
+  .padding-desktop & {
+    height: calc(100vh - 151px);
+    max-height: 1002px;
+    justify-content: space-between;
+  }
 }
 
 .column-desktop {
@@ -59,6 +65,7 @@
   @include display-flex($jc: space-between, $ai: flex-end);
   @include position($pos: sticky, $l: 0, $b: 0);
   background-color: $lightgray;
+  z-index: 10;
 
   .padding-dialog & {
     @include box-padding($p: 24px 37px 64px 37px);
@@ -87,6 +94,8 @@
     .padding-desktop & {
       width: 100%;
       max-width: 977px;
+      height: calc(100vh - 128px);
+      max-height: 933px;
     }
   }
 
@@ -109,7 +118,7 @@
   }
 
   .hint-button-cont {
-    @include box-padding($p: 24px 24px 64px 24px);
+    padding: 24px 24px 64px 24px;
   }
 }
 
@@ -145,12 +154,8 @@
   }
 
   .hint-button-cont {
-    @include position($pos: sticky, $l: 0, $b: 0);
-    box-sizing: border-box;
     padding: 11px 16px 19px 16px;
     width: 100%;
-    background-color: $lightgray;
     justify-content: flex-end;
-    z-index: 10;
   }
 }
