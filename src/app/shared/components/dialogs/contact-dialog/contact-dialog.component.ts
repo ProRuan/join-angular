@@ -57,7 +57,6 @@ export class ContactDialogComponent extends DialogFormController {
   createBtn = new JoinButton('createBtn');
   saveBtn = new JoinButton('createBtn', 'Save');
   submitted: boolean = false;
-
   defaultValue = { name: '', email: '', phone: '' };
 
   /**
@@ -122,6 +121,15 @@ export class ContactDialogComponent extends DialogFormController {
   setButtonTexts() {
     this.cancelBtn.text = 'Cancel';
     this.createBtn.text = 'Create contact';
+  }
+
+  /**
+   * Updates the content logic.
+   */
+  ngAfterViewInit() {
+    this.cancelBtn.updateClass();
+    this.createBtn.updateClass();
+    this.saveBtn.updateClass();
   }
 
   /**

@@ -86,6 +86,13 @@ export class BoardComponent {
   }
 
   /**
+   * Updates the content logic.
+   */
+  ngAfterViewInit() {
+    this.addTaskBtn.updateClass();
+  }
+
+  /**
    * Verifies the opened state of a dialog.
    * @param id - The dialog id.
    * @returns A boolean value;

@@ -30,6 +30,14 @@ export class DeleteTaskDialogComponent extends DialogFormController {
   override id: string = 'deleteTask';
 
   /**
+   * Updates the content logic.
+   */
+  ngAfterViewInit() {
+    this.noBtn.updateClass();
+    this.yesBtn.updateClass();
+  }
+
+  /**
    * Closes a dialog on click.
    */
   onClose(event: Event) {

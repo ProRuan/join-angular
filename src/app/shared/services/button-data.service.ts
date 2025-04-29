@@ -12,7 +12,7 @@ export class ButtonDataService {
   [key: string]: any;
 
   clearBtn: ButtonData = {
-    buttonClass: 'clear-btn',
+    buttonClass: 'clear-btn loading',
     textClass: 'clear-btn-text',
     text: 'Clear',
     imgClass: 'clear-btn-img',
@@ -21,7 +21,7 @@ export class ButtonDataService {
   };
 
   createBtn: ButtonData = {
-    buttonClass: 'create-btn',
+    buttonClass: 'create-btn loading',
     textClass: 'create-btn-text',
     text: 'Create Task',
     imgClass: 'create-btn-img',
@@ -30,7 +30,7 @@ export class ButtonDataService {
   };
 
   addTaskBtn: ButtonData = {
-    buttonClass: 'create-btn add-task-btn',
+    buttonClass: 'create-btn add-task-btn loading',
     textClass: 'create-btn-text',
     text: 'Add task',
     imgClass: 'img-32',

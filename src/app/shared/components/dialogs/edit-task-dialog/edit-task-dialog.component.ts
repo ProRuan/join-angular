@@ -152,6 +152,13 @@ export class EditTaskDialogComponent
   }
 
   /**
+   * Updates the content logic.
+   */
+  ngAfterViewInit() {
+    this.okBtn.updateClass();
+  }
+
+  /**
    * Closes a dialog on close.
    */
   onClose() {

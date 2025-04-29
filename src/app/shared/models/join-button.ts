@@ -57,4 +57,23 @@ export class JoinButton {
       this.text = text;
     }
   }
+
+  /**
+   * Updates a button class.
+   */
+  updateClass() {
+    this.buttonClass = this.getAfterViewInitClass();
+  }
+
+  /**
+   * Gets a button class after view init.
+   * @returns The button class after view init.
+   */
+  private getAfterViewInitClass() {
+    return this.buttonClass
+      .split(' ')
+      .filter((className) => className !== 'loading')
+      .join(' ')
+      .trim();
+  }
 }

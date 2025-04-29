@@ -197,13 +197,11 @@ export class AddTaskComponent extends FormController {
   }
 
   /**
-   * Resets an add-task dialog.
+   * Updates the content logic.
    */
-  resetDialog() {
-    this.dialogs.close('backlog');
-    this.dialogs.close('addTask');
-    this.clearForm();
-    this.dialogs.submitted = false;
+  ngAfterViewInit() {
+    this.clearBtn.updateClass();
+    this.createBtn.updateClass();
   }
 
   /**
@@ -290,5 +288,15 @@ export class AddTaskComponent extends FormController {
     this.dialogs.submitted = true;
     this.dialogs.open('backlog');
     setTimeout(() => this.resetDialog(), 1000);
+  }
+
+  /**
+   * Resets an add-task dialog.
+   */
+  resetDialog() {
+    this.dialogs.close('backlog');
+    this.dialogs.close('addTask');
+    this.clearForm();
+    this.dialogs.submitted = false;
   }
 }
